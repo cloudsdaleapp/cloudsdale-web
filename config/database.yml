@@ -11,4 +11,4 @@ production:
   username: cloudsdale
   password: u3197uih034L83e02y4y1e1562n1Vp
   timeout: 5000
-  host: 50.57.125.171
+  host: 127.0.0.1
