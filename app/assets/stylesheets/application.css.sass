@@ -1,0 +1,169 @@
+//*= require_self
+
+@import "config/*"
+
+body
+  margin: 0
+  padding:  0
+  background: rgb(102,187,231) image-url("background.png") no-repeat top center
+  font-family: "Lucida Grande", Arial, Helvetica, sans-serif
+  color: $color-text
+  
+  input[type=text], input[type=password], textarea, select
+    font-size: 14px
+    @include rounded_corners(3px,3px,3px,3px)
+    @include box_shadow(#FFFFFF,0px)
+    border: 1px solid #999999
+    outline: none
+    
+    &:disabled
+      border: none
+      background: none
+      font-weight: bold
+    
+  input[type=text], input[type=password], textarea
+    padding: 3px
+  
+  a
+    color: $color-text
+    text-decoration: none
+    &:visited
+      color: $color-text
+      text-decoration: none
+  
+  #flash
+    font-weight: bold
+    font-size: 20px
+    font-family: "CelestiaMediumRedux"
+    position: absolute
+    top: 0px
+    left: 0px
+    color: $color-green
+    //text-shadow: $color-blue 0px 0px 10px
+    p, img
+      float: left
+    p
+      position: relative
+      padding: 5px 10px 8px 10px
+      margin: 40px 10px
+      @include rounded_corners(12px,12px,12px,12px)
+      background: #FFF
+      img#flash_bubble_cone
+        position: absolute
+        left: -30px
+    
+  
+  .error_field
+    input
+      color: red
+  
+  #wrapper
+    position: absolute
+    width: 1024px
+    margin-left: -512px
+    left: 50%
+    
+    #header
+      position: relative
+      float: left
+      width: 1024px
+      height: 100px
+      z-index: 4
+    
+    #navigation
+      position: relative
+      float: left
+      width: 1020px
+      height: 50px
+      border: #FFF solid 2px
+      margin-bottom: 18px
+      z-index: 5
+      @include gradient_background(#F0F6FF,#DEEBFF)
+      @include rounded_corners(3px,3px,3px,3px)
+      @include box_shadow(#FFF,100px)
+      border-bottom-color: #E4ECFF
+      
+      ul.nav
+        height: 50px
+        list-style: none inside
+        padding: 0
+        margin: 0
+        
+        &.right
+          float: right
+          &.auth
+          
+            li
+              margin: 10px 10px
+              &:last-child
+                margin-right: 20px
+              a
+                img
+                  width: 30px
+                  height: 30px
+          
+        &.left
+          float: left
+          
+        li
+          padding: 0
+          float: left
+          margin: 10px 20px
+          text-align: center
+          font-size: 22px
+          font-family: "CelestiaMediumRedux"
+          
+          a
+            color: $color-teal-dark
+          &:hover
+            a
+              color: $color-teal
+              text-shadow: 0px 0px 10px #FFF
+          
+          
+          &.home
+            a
+              color: $color-orange-dark
+            &:hover
+              a
+                color: $color-orange
+                text-shadow: 0px 0px 10px #FFF
+              
+          &.chat
+            a
+              color: $color-pink-dark
+            &:hover
+              a
+                color: $color-pink
+                text-shadow: 0px 0px 10px #FFF
+          
+          &.library
+            a
+              color: $color-yellow-dark
+            &:hover
+              a
+                color: $color-yellow
+                text-shadow: 0px 0px 10px #FFF
+          &.gallery
+            a
+              color: $color-lime-dark
+            &:hover
+              a
+                color: $color-lime
+                text-shadow: 0px 0px 10px #FFF
+    
+    #content
+      position: relative
+      float: left
+      width: 1020px
+      min-height: 500px
+      background-color: #D4EAFF
+      border: #FFF solid 2px
+      border-top:none
+      margin-bottom: 200px
+      z-index: 3
+      
+      @include rounded_corners(3px,3px,3px,3px)
+      @include box_shadow(#FFFFFF,100px)
+      
+
