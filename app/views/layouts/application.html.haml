@@ -11,12 +11,13 @@
 
   %body
     #wrapper
-      - if flash[:notice]
+      - if flash[:notice] or flash[:error]
         #flash
           = image_tag "rainbowdash-announcer.png", :id => "flash_announcer"
-          %p#flash_bubble
+          %p#flash_bubble{ :class => "#{ flash[:error] ? 'error' : 'notice' }"}
             = image_tag "details/flash_bubble_cone.png", :id => "flash_bubble_cone"
             = flash[:notice]
+            = flash[:error]
       #header
         = yield :header
       #navigation
@@ -31,19 +32,15 @@
           //  = link_to "Gallery", ""
         %ul.nav.right.auth
           - if current_user
-            %li.register= link_to "Log out", logout_path
-            %li or
-            %li.register= link_to "Make a Change", edit_user_path(current_user)
+            %li= link_to "Log out", logout_path
           - else
-            %li.register
-              = link_to "Sign in", login_path
             %li
-              or
-            %li.register
-              = link_to "Saddle up", new_user_path
-            %li you could also prove true friendship by connecting
-            %li= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
+              = link_to "Sign in", login_path
             %li or
+            %li
+              = link_to "Saddle up", new_user_path
+            %li maybe connect with
+            %li= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
             %li= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
             
       #content

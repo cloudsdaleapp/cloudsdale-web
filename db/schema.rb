@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110921031241) do
+ActiveRecord::Schema.define(:version => 20110922205259) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -22,8 +22,12 @@ ActiveRecord::Schema.define(:version => 20110921031241) do
   create_table "ponies", :force => true do |t|
     t.integer "user_id"
     t.string  "name"
-    t.string  "gender"
+    t.string  "group"
     t.integer "type"
+    t.string  "color_coat"
+    t.string  "color_mane"
+    t.string  "color_eyes"
+    t.string  "avatar"
   end
 
   create_table "users", :force => true do |t|
@@ -33,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20110921031241) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "auth_token"
+    t.integer  "pony_id"
   end
 
 end

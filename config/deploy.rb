@@ -1,3 +1,4 @@
+require 'capistrano_colors'
 require "bundler/capistrano"
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
@@ -9,6 +10,7 @@ set :application, "Cloudsdale"
 set :repository,  "git@github.com:Zeeraw/Cloudsdale.git"
 
 set :scm, :git
+default_run_options[:pty] = true
 
 set :user, 'root'
 set :password, 'CloudsdaleomU46Su5R'

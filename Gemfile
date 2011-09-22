@@ -18,6 +18,9 @@ gem 'haml-rails'
 gem 'omniauth'
 gem 'cancan'
 
+# Forms
+gem 'client_side_validations'
+
 # Assets
 gem 'sass'
 gem 'sass-rails'

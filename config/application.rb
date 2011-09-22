@@ -35,9 +35,6 @@ module Cloudsdale
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-    
-    # Error fields
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance| "<span class=error_field>#{html_tag}</span>".html_safe }
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

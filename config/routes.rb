@@ -10,5 +10,7 @@ Cloudsdale::Application.routes.draw do
   resources :authentications, :only => [:create]
   
   resources :users, :only => [:new,:create,:edit,:update], :path_names => { :new => :register }
+  
+  resources :ponies
 
 end

@@ -6,16 +6,18 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   accepts_nested_attributes_for :authentications, :allow_destroy => true
   
+  has_many :ponies
   
-  validates :email, uniqueness: true, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-  validates :password, :confirmation => true, :on => :create
-  validates :auth_token, :presence => true
+  validates_uniqueness_of :email
+  validates :email, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+  validates :password, confirmation: true
+  validates :auth_token, presence: true
   
   before_save :encrypt_password
   before_validation :generate_auth_token
   
   def self.authenticate(email, password)
-    user = find_by_email(email)
+    user = where("password_salt IS NOT NULL and password_hash IS NOT NULL and email = ?",email).first
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
       user
     else
@@ -37,6 +39,10 @@ class User < ActiveRecord::Base
   
   def generate_auth_token
     self.auth_token = SecureRandom.hex(16) unless auth_token.present?
+  end
+  
+  def primary_pony
+    ponies.find(self[:pony_id]) if self[:pony_id]
   end
   
 end

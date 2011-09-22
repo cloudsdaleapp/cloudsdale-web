@@ -1,0 +1,12 @@
+#auth_window
+  = form_tag :action => "create" do
+    = text_field_tag :email, "",:placeholder => "Email"
+    = password_field_tag :password, "",:placeholder => "Password..."
+    = submit_tag "Let me in!"
+    %h4 or connect with these:
+    = link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
+    = link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
+    %h4
+      = link_to "Register", "model_path(@model)"
+      or
+      = link_to "Restore Account", "asd"

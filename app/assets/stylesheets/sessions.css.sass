@@ -1,3 +1,44 @@
-// Place all the styles related to the sessions controller here.
-// They will automatically be included in application.css.
-// You can use Sass here: http://sass-lang.com/
+@import "config/*"
+
+body
+  #wrapper
+    #content
+      padding: 0
+      background: #B0ECE8 image-url("artwork/royal_guards.png") no-repeat center top
+      
+      #auth_window
+        position: absolute
+        top: 120px
+        left: 50%
+        margin-left: -120px
+        width: 240px
+        background: rgba(255,255,255,0.9)
+        @include rounded_corners(3px,3px,3px,3px)
+        @include box_shadow(#FFFFFF,20px)
+        
+        label
+          margin: 0px 15px 0 15px
+          width: 202
+        
+        input[type=text], input[type=password]
+          float: left
+          width: 202px
+          margin: 20px 15px 0 15px
+        
+        input[type=submit]
+          width:  100px
+          margin: 20px 70px 15px 70px
+          
+        h4
+          font-size: 16px
+          text-align: center
+          font-family: "CelestiaMediumRedux"
+          margin: 0 0 15px
+          
+          a
+            color: $color-teal-dark
+            font-weight: bold
+          
+        img
+          margin: 0px 28px 15px 28px
+          

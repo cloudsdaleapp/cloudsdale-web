@@ -23,7 +23,10 @@ body
     
   input[type=text], input[type=password], textarea
     padding: 3px
-  
+    
+  input[type=submit], button
+    
+    
   a
     color: $color-text
     text-decoration: none
@@ -38,7 +41,6 @@ body
     position: absolute
     top: 0px
     left: 0px
-    color: $color-green
     //text-shadow: $color-blue 0px 0px 10px
     p, img
       float: left
@@ -48,14 +50,28 @@ body
       margin: 40px 10px
       @include rounded_corners(12px,12px,12px,12px)
       background: #FFF
+      &.notice
+        color: $color-green
+      &.error
+        color: $color-red
+        
       img#flash_bubble_cone
         position: absolute
         left: -30px
     
   
   .error_field
+    width: 100%
+    position: static
     input
-      color: red
+      border-color: red
+    label
+      margin: 0
+      padding: 0
+      font-size: 12px
+      &.message
+        font-weight: bold
+        color: red
   
   #wrapper
     position: absolute

@@ -3,19 +3,19 @@
     = stylesheet_link_tag "users"
     
 #auth_window
-  = form_for @user do |f|
-
-    = f.text_field :email, :placeholder => "Email", :disabled => @user.email.present?
-    - if @user.email.present?
-      = f.hidden_field :email
-      
-    = f.password_field :password, :placeholder => "Choose password..."
-    = f.password_field :password_confirmation, :placeholder => "Confirm please..."
+  = form_for @user, :validate => true do |f|
+    = f.text_field :email, :placeholder => "Email"
+    - if @user.authentications.empty?
+      = f.password_field :password, :placeholder => "Choose password..."
+      = f.password_field :password_confirmation, :placeholder => "Confirm please..."
     = f.submit "Adventure!"
+    %h4 connecting with:
     = f.fields_for :authentications do |authentications_form|
       = image_tag "icons/cloud/#{authentications_form.object.provider.downcase}_cloud.png"
       = authentications_form.hidden_field :uid
       = authentications_form.hidden_field :provider
+    %h4
+      = link_to "Sign in", "model_path(@model)"
+      or
+      = link_to "Restore Account", "asd"
 
-      
-    
