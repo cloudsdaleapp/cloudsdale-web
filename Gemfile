@@ -31,3 +31,7 @@ group :development, :test do
   gem 'foreman'
 end
 
+
+
+
+gem 'capistrano'
