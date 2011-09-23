@@ -7,9 +7,11 @@ Cloudsdale::Application.routes.draw do
   match '/login' => 'sessions#new', :as => :login
   
   match 'auth/:provider/callback' => 'authentications#create'
-  resources :authentications, :only => [:create]
+  resources :authentications, :only => [:create,:destroy]
   
-  resources :users, :only => [:new,:create,:edit,:update], :path_names => { :new => :register }
+  resources :users, :path_names => { :new => :register } do
+    get :restore, on: :collection
+  end
   
   resources :ponies
 

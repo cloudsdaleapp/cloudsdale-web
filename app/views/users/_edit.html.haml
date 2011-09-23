@@ -1,0 +1,16 @@
+#user_form_wrapper
+  %h2 Edit Account information
+  = form_for user, :validate => true, :remote => true, :url => user_path(user), :method => :put do |f|
+    .left
+      .field
+        = f.text_field :email, :placeholder => "Email"
+      .field
+        = f.password_field :password, :placeholder => "New password..."
+      .field
+        = f.password_field :password_confirmation, :placeholder => "Confirm please..."
+      .field.tools
+        = f.submit "Save"
+    .right
+
+:javascript
+  $('form[data-validate]').validate();

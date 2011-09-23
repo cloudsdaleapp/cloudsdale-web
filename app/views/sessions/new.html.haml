@@ -7,6 +7,6 @@
     = link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
     = link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
     %h4
-      = link_to "Register", "model_path(@model)"
+      = link_to "Register", new_user_path
       or
-      = link_to "Restore Account", "asd"
+      = link_to "Restore Account", restore_users_path

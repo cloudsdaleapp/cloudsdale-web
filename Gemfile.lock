@@ -41,6 +41,8 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    carrierwave (0.5.7)
+      activesupport (~> 3.0)
     client_side_validations (3.1.0)
     coderay (0.9.8)
     coffee-script (2.2.0)
@@ -204,6 +206,7 @@ PLATFORMS
 DEPENDENCIES
   cancan
   capistrano
+  carrierwave
   client_side_validations
   coffee-script
   execjs

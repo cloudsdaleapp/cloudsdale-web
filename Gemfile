@@ -21,6 +21,9 @@ gem 'cancan'
 # Forms
 gem 'client_side_validations'
 
+# Images and Image manipulation
+gem 'carrierwave'
+
 # Assets
 gem 'sass'
 gem 'sass-rails'

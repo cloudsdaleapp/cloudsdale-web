@@ -1,20 +1,25 @@
 class User < ActiveRecord::Base
   
-  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes
+  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :ponies_attributes
   attr_accessor :password
   
   has_many :authentications, :dependent => :destroy
   accepts_nested_attributes_for :authentications, :allow_destroy => true
   
   has_many :ponies
+  accepts_nested_attributes_for :ponies
   
   validates_uniqueness_of :email
   validates :email, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   validates :password, confirmation: true
   validates :auth_token, presence: true
   
-  before_save :encrypt_password
+  
   before_validation :generate_auth_token
+  before_save do
+    encrypt_password
+    self[:pony_id] = ponies.first.id unless ponies.empty? && pony_id != nil
+  end
   
   def self.authenticate(email, password)
     user = where("password_salt IS NOT NULL and password_hash IS NOT NULL and email = ?",email).first

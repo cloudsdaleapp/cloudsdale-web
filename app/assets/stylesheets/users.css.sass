@@ -8,13 +8,76 @@ body
       
       #auth_window
         position: absolute
-        top: 120px
+        top: 60px
         left: 50%
-        margin-left: -120px
-        width: 240px
+        margin-left: -300px
+        width: 600px
         background: rgba(255,255,255,0.9)
         @include rounded_corners(3px,3px,3px,3px)
         @include box_shadow(#FFFFFF,20px)
+        
+        #user_credentials
+          float: left
+          width: 240px
+          border-right: 1px dotted #D3DCE2
+        
+        #pony_information
+          float: right
+          width: 359px
+          
+          .left
+            float: left
+            width: 240px
+            .field
+              float: left
+              width: 240px
+              h5
+                margin: 10px 15px 0px 15px
+              input
+                width: 210px
+                margin: 10px 15px 0px 15px !important
+                
+          .right
+            float: right
+            width: 119px
+            
+            select
+              width: 99px
+              margin: 10px 5px
+              
+          .bottom
+            float: left
+            width: 359px
+            margin-top: 20px
+            border-top: 1px dotted #D3DCE2
+            
+            #colorpicker
+              float: right
+              width: 195px
+              height: 195px
+              margin: 10px
+            
+            #color_fields
+              width: 144px
+              float: left
+              .field
+                margin: 5px 0
+                float: left
+                
+                label.message
+                  display: none
+                
+                label
+                  float: left
+                  margin: 5px 10px
+                input
+                  float: left
+                  width: 114px
+                  margin: 0 10px
+            
+            
+          h4
+            text-align: left
         
         label
           margin: 0px 15px 0 15px
@@ -33,12 +96,12 @@ body
           font-size: 16px
           text-align: center
           font-family: "CelestiaMediumRedux"
-          margin: 0 0 15px
+          margin: 5px 10px 10px 10px
 
           a
             color: $color-teal-dark
             font-weight: bold
         
         img
-          margin: 0px 90px 15px 90px
+          margin: 20px 90px 10px 90px
           

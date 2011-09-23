@@ -11,13 +11,12 @@
 
   %body
     #wrapper
-      - if flash[:notice] or flash[:error]
-        #flash
-          = image_tag "rainbowdash-announcer.png", :id => "flash_announcer"
-          %p#flash_bubble{ :class => "#{ flash[:error] ? 'error' : 'notice' }"}
-            = image_tag "details/flash_bubble_cone.png", :id => "flash_bubble_cone"
-            = flash[:notice]
-            = flash[:error]
+      #flash{ :class => "#{(flash[:notice] or flash[:error]) ? 'showme' : ''}"}
+        = image_tag "rainbowdash-announcer.png", :id => "flash_announcer"
+        = image_tag "details/flash_bubble_cone.png", :id => "flash_bubble_cone"
+        %p#flash_bubble{ :class => "#{ flash[:error] ? 'error' : 'notice' }"}
+          = flash[:notice]
+          = flash[:error]
       #header
         = yield :header
       #navigation

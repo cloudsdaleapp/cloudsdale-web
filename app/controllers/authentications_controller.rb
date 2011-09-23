@@ -15,9 +15,18 @@ class AuthenticationsController < ApplicationController
                       :notice => "#{omniauth['provider'].capitalize} authentication, successfully added." }
       else
         @user = User.new
+        @user.ponies.build
         @user.apply_omniauth(omniauth)
         format.html { render "users/new" }
       end
     end
   end
+  
+  def destroy
+    @authentication = current_user.authentications.find(params[:id])
+    @authentication.destroy
+    flash[:notice] = "Successfully disconnected you from #{@authentication.provider.capitalize}."
+    redirect_to root_url
+  end
+  
 end
