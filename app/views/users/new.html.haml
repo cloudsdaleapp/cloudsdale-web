@@ -29,7 +29,7 @@
             %h5 Choose an avatar:
             = pony_f.file_field :avatar
         .right
-          = pony_f.select :kind, pony_f.object.kinds.collect { |k| [k.capitalize, t] }, {}
+          = pony_f.select :kind, pony_f.object.kinds.collect { |k| [k.capitalize, g] }, {}
           = pony_f.select :group, pony_f.object.groups.collect { |g| [g.capitalize, g] }, {}
         .bottom
           #color_fields
