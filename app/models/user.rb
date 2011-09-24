@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   before_validation :generate_auth_token
   before_save do
     encrypt_password
-    self[:pony_id] = ponies.first.id unless ponies.empty? && pony_id != nil
   end
   
   def self.authenticate(email, password)

@@ -13,6 +13,13 @@ class Pony < ActiveRecord::Base
   validates_format_of :color_mane, :with => /^#[abcdef0-9]{6}$/i
   validates_format_of :color_eyes, :with => /^#[abcdef0-9]{6}$/i
   
+  after_save do
+    if user.pony_id == nil
+      user.pony_id = id
+      user.save
+    end
+  end
+  
   def groups
     GROUPS
   end
