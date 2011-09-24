@@ -15,7 +15,7 @@
     %ul
       - current_user.ponies.each do |pony|
         %li.pony{ :class => "#{pony == current_pony ? 'current' : ''}"}
-          %h3.name{ :style => "color:#{pony.color_coat};" }= pony.name
+          %h3.name= pony.name
           %img
           %h5.type= pony.kind.capitalize
           %h5.group= pony.group.capitalize
@@ -26,5 +26,4 @@
   #dashboard_navigation
     %h4.title My Dashboard
     %ul
-      %li.dashboard= link_to "Account", edit_user_path(current_user), :remote => true
-      %li.Ponies Ponies
+      %li= link_to "Account", edit_user_path(current_user), :remote => true

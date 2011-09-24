@@ -9,7 +9,7 @@
     = csrf_meta_tags
     = yield :head
 
-  %body
+  %body{ :class => "#{params[:controller]} #{params[:view]}"}
     #wrapper
       #flash{ :class => "#{(flash[:notice] or flash[:error]) ? 'showme' : ''}"}
         = image_tag "rainbowdash-announcer.png", :id => "flash_announcer"
