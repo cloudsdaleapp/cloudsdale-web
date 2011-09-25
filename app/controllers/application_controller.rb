@@ -20,7 +20,12 @@ class ApplicationController < ActionController::Base
     raise "No user to authenticate" if user.nil?
     raise "User has no Auth Token" if user.auth_token.nil?
     session[:user_id] = user.id
-    session[:pony_id] = user.primary_pony
+    unless user.primary_pony.nil?
+      session[:pony_id] = user.primary_pony
+    else
+      user.pony_id = user.ponies.first.id
+      user.save
+    end
     @current_user = user
   end
   
