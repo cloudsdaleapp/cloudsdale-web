@@ -15,10 +15,6 @@ module Cloudsdale
     @rails_config ||= YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
   end
   
-  def self.redis
-    @redis ||= Redis.new(:host => Cloudsdale.config['redis']['host'], :port => Cloudsdale.config['redis']['port'])
-  end
-  
   def self.faye_path
     @faye_path = URI.parse("#{Cloudsdale.config['url']}:#{Cloudsdale.config['faye_port']}/faye")
   end
