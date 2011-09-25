@@ -24,9 +24,6 @@ gem 'client_side_validations'
 # Images and Image manipulation
 gem 'carrierwave'
 
-# Chat
-gem 'faye'
-
 # Assets
 gem 'sass'
 gem 'sass-rails'
