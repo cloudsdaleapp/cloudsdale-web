@@ -5,12 +5,7 @@ config = YAML.load_file("./config/config.yml")['development']
 
 faye = Faye::RackAdapter.new(
           :mount => '/faye',
-          :timeout => 25,
-          :engine => {
-            :type       => 'redis',
-            :host       => config['redis']['host'],
-            :port       => config['redis']['port']
-          }
+          :timeout => 25
       )
       
 faye.listen(9191)

@@ -36,10 +36,11 @@ namespace :deploy do
   task :stop do ; end
   task :update do
     run "cd /opt/app;#{try_sudo} git pull"
+    run "cd /opt/app;#{try_sudo} bundle install"
     run "cd /opt/app;#{try_sudo} rake db:migrate RAILS_ENV=production"
     run "cd /opt/app;#{try_sudo} rake assets:precompile RAILS_ENV=production"
   end
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "cd /opt/app;#{try_sudo} touch tmp/restart.txt }"
+    run "cd /opt/app;#{try_sudo} touch tmp/restart.txt"
   end
 end
