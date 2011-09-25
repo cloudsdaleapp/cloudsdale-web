@@ -1,7 +1,5 @@
 Cloudsdale::Application.routes.draw do
   
-  mount Resque::Server.new, :at => "/resque"
-
   root to: 'main#index'
   
   resources :sessions, :only => [:new,:create,:destroy]
