@@ -9,7 +9,6 @@ gem 'execjs'
 # Database
 gem 'mysql2'
 gem 'sqlite3'
-gem 'redis'
 
 # Markup
 gem 'haml'
@@ -28,9 +27,6 @@ gem 'carrierwave'
 # Chat
 gem 'faye'
 
-# Workers
-gem 'resque', :require => "resque/server"
-
 # Assets
 gem 'sass'
 gem 'sass-rails'
@@ -43,8 +39,6 @@ group :development, :test do
   gem 'pry'
   gem 'foreman'
 end
-
-
 
 
 gem 'capistrano'
