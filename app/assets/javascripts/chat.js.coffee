@@ -1,7 +1,7 @@
 $ ->
   chat_frame = $("#chat_frame")
   
-  faye = new Faye.Client("http://localhost:9191/faye")
+  faye = new Faye.Client("http://www.cloudsdale.org:9191/faye")
   
   $("form#new_message").live 'ajax:complete', (a,b,c) ->
     $(this).find(":input").not(':button, :submit, :reset, :hidden')
