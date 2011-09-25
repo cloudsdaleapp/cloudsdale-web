@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def create
     user = User.authenticate(params[:email], params[:password]) if params[:email] && params[:password]
     if user
-      session[:user_id] = user.id
+      authenticate!(user)
       redirect_to root_path, :notice => "Signed in in 10 seconds flat, maybe..."
     else
       flash[:error] = "Wrong email and password combination"
