@@ -23,8 +23,9 @@
         %ul.nav.left
           %li.home
             = link_to "Home", root_path
-          //%li.chat
-          //  = link_to "Chat", ""
+          - if current_pony
+            %li.chat
+              = link_to "Chat", chat_path
           //%li.nav_item.library
           //  = link_to "Library", ""
           //%li.nav_item.gallery

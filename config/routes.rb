@@ -1,4 +1,6 @@
 Cloudsdale::Application.routes.draw do
+  
+  mount Resque::Server.new, :at => "/resque"
 
   root to: 'main#index'
   
@@ -15,4 +17,10 @@ Cloudsdale::Application.routes.draw do
   
   resources :ponies
 
+  namespace :chat do
+    resources :messages, :only => [:create]
+  end
+  
+  match '/chat' => "chat#index", as: 'chat'
+  
 end

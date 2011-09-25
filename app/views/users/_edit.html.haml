@@ -1,6 +1,6 @@
 #user_form_wrapper
   %h2 Edit Account information
-  = form_for user, :validate => true, :remote => true, :url => user_path(user), :method => :put do |f|
+  = form_for user, :validate => true, :remote => true, :url => user_path(user), :method => :put, :html => { :class => 'with_notifications' } do |f|
     .left
       .field
         = f.text_field :email, :placeholder => "Email"

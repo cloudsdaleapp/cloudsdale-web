@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    session[:pony_id] = nil
     redirect_to root_path, :notice => "Bye!"
   end
 

@@ -1,0 +1,62 @@
+@import "config/*"
+
+body
+  #wrapper
+    #content
+      padding: 0
+      background: #B0ECE8 image-url("artwork/pinkie_pie_talk.png") no-repeat center top
+      
+      #chat_ponies
+        float: right
+        width: 230px
+        margin: 10px
+        height: 480px
+        background: rgba(255,255,255,0.9)
+        @include rounded_corners(3px,3px,3px,3px)
+        @include box_shadow(#FFFFFF,20px)
+        
+      #chat_bar
+        float: left
+        width: 760px
+        margin: 10px 0px 0px 10px
+        height: 40px
+        background: rgba(255,255,255,0.9)
+        @include rounded_corners(3px,3px,3px,3px)
+        @include box_shadow(#FFFFFF,20px)
+        
+        input[type=text]
+          width: 650px
+          margin: 8px 0px 8px 8px
+        input[type=submit]
+          width: 75px
+          margin: 6px
+          float: right
+      
+      #chat_frame
+        float: left
+        width: 760px
+        margin: 10px 0px 0px 10px
+        height: 430px
+        overflow: auto
+        #deadzone
+          height: 430px
+        
+        .message
+          width: 760px
+          float: left
+          margin-bottom: 5px
+          
+          .sender
+            float: left
+            width: 150px
+            color: #FFF
+            font-weight: bold
+            padding: 3px 0px
+            
+          .content
+            float: left
+            background: #FFF
+            padding: 3px
+            @include rounded_corners(3px,3px,3px,3px)
+        
+        

@@ -9,6 +9,7 @@ gem 'execjs'
 # Database
 gem 'mysql2'
 gem 'sqlite3'
+gem 'redis'
 
 # Markup
 gem 'haml'
@@ -23,6 +24,12 @@ gem 'client_side_validations'
 
 # Images and Image manipulation
 gem 'carrierwave'
+
+# Chat
+gem 'faye'
+
+# Workers
+gem 'resque', :require => "resque/server"
 
 # Assets
 gem 'sass'

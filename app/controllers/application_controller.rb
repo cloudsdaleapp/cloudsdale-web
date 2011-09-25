@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_pony
-    @current_pony ||= current_user.primary_pony
+    @current_pony ||= Pony.find(session[:pony_id]) if session[:pony_id]
   end
   
   def authenticate!(user)
@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
     session[:pony_id] = user.primary_pony
     @current_user = user
+  end
+  
+  def chat_broadcast(channel,data)
+    message = { :channel => "/#{channel}", :data => data }
+    Net::HTTP.post_form(Cloudsdale.faye_path, :message => message.to_json )
   end
   
 end
