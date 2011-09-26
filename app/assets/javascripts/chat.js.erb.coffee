@@ -3,8 +3,6 @@ $ ->
   
   faye = new Faye.Client("<%= Cloudsdale.config['url'] %>:9191/faye")
   
-  background_ajax = true
-  
   broadcast_chat_presence = () ->
     $.get './chat/connect', (data) ->
       console.log "request made"
@@ -33,15 +31,12 @@ $ ->
     $.get './chat/disconnect', (data) ->
       console.log "disconnected from chat"
   
-  $("form#new_message").ajaxStart( () ->
-    if background_ajax == false
-      $("#new_message > #message").val('')
-    background_ajax = true
+  $("form#new_message").bind 'ajax:beforeSend', ->
+    $("#new_message > #message").val('')
     
-  ).submit( () ->
-    background_ajax = true
+  .submit( () ->
     chat_input_validation()
-  )
+  
   
   faye.subscribe "/chat", (data) ->
     scroll_is_at_bottom = (chat_frame[0].scrollHeight - chat_frame.scrollTop() == chat_frame.outerHeight())
