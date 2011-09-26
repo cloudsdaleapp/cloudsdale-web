@@ -1,4 +1,5 @@
 <%- broadcast "system" do %>
-  $("#<%= session[:chat][:token] %>").remove();
-  $("#chat_ponies").append("<div class='pony' id='<%= session[:chat][:token] %>'><h4><%= session[:chat][:display_name] %></h4></div>");
+  if ($("#<%= session[:chat][:token] %>").length < 1){
+    $("#chat_ponies").append("<div class='pony' id='<%= session[:chat][:token] %>'><h4><%= session[:chat][:display_name] %></h4></div>");
+  }
 <% end %>
