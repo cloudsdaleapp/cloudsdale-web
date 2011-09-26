@@ -5,11 +5,7 @@ $ ->
   
   chat_input_validation = () ->
     input = $("#new_message > #message")
-    if (input.attr('value').match(/^\s*$/) == null)
-      true
-    if (input.attr('value').length >= 1) == true
-      true
-    if (input.attr('value').match(/.*\S{100,}.*/) == null)
+    if (input.attr('value').match(/^\S*$/) != null) and (input.attr('value').length >= 1) == true
       true
     else
       input.attr('value','')
