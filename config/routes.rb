@@ -16,6 +16,9 @@ Cloudsdale::Application.routes.draw do
   resources :ponies
 
   namespace :chat do
+    get 'connect'
+    get 'disconnect'
+    get 'presence'
     resources :messages, :only => [:create]
   end
   

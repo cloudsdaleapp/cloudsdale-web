@@ -1,0 +1,3 @@
+<%- broadcast "system" do %>
+  $("#<%= session[:chat][:token] %>").remove();
+<% end %>
