@@ -34,7 +34,7 @@ $ ->
   $("form#new_message").bind 'ajax:beforeSend', ->
     $("#new_message > #message").val('')
     
-  .submit( () ->
+  .submit () ->
     chat_input_validation()
   
   
