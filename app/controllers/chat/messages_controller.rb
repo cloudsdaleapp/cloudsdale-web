@@ -1,7 +1,7 @@
 class Chat::MessagesController < ApplicationController
   
   def create
-    sender = params[:sender]
+    sender = session[:chat][:display_name]
     message = params[:message]
     channel = params[:channel]
     compiled_message = { :sender => sender, :message => message }
