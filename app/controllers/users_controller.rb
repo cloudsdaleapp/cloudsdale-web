@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         authenticate!(@user)
-        format.html { redirect_to root_path, :notice => 'Successfully created your account.' }
+        format.html { redirect_to root_path, :notice => 'Your account was successfully created, Welcome!.' }
       else
         format.html { render :action => :new, :errors => @user.errors }
       end
