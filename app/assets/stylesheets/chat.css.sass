@@ -49,18 +49,18 @@ body
           
           .sender
             float: left
-            width: 150px
             color: #FFF
             font-weight: bold
             padding: 0 0px
-            text-align: right
+            text-align: left
             font-size: 16px
             font-family: "CelestiaMediumRedux"
+            font-weight: bold
             
           .content
             float: right
-            width: 580px
-            padding-top: 2px
+            width: 740px
+            margin-top: 2px
             
             p
               font-size: 12px
@@ -68,5 +68,9 @@ body
               background-color: #FFF
               padding: 3px 4px
               margin: 0
+              min-width: 120px
               @include rounded_corners(3px,3px,3px,3px)
-        
+              
+              span.time
+                font-weight: bold
+                color: black

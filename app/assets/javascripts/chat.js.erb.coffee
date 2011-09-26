@@ -9,7 +9,7 @@ $ ->
       true
     if (input.attr('value').length >= 1) == true
       true
-    if (input.attr('value').match(/.*\S{35,}.*/) == null)
+    if (input.attr('value').match(/.*\S{100,}.*/) == null)
       true
     else
       input.attr('value','')
@@ -29,5 +29,5 @@ $ ->
   
   faye.subscribe "/chat", (data) ->
     scroll_is_at_bottom = (chat_frame[0].scrollHeight - chat_frame.scrollTop() == chat_frame.outerHeight())
-    chat_frame.append("<div class='message'><div class='sender'>#{data.sender}:</div><div class='content'><p>#{data.message}</p></div></div>")
+    chat_frame.append("<div timestamp='#{data.timestamp}'class='message'><div class='sender'>#{data.sender}</div><div class='content'><p><span class='time'>#{data.humanized_timestamp}</span> - #{data.message}</p></div></div>")
     chat_frame_scroll_manipulation(scroll_is_at_bottom)
