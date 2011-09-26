@@ -27,3 +27,4 @@ $ ->
     scroll_is_at_bottom = (chat_frame[0].scrollHeight - chat_frame.scrollTop() == chat_frame.outerHeight())
     chat_frame.append("<div timestamp='#{data.timestamp}'class='message'><div class='sender'>#{data.sender}</div><div class='content'><p><span class='time'>#{data.humanized_timestamp}</span> - #{data.message}</p></div></div>")
     chat_frame_scroll_manipulation(scroll_is_at_bottom)
+    
