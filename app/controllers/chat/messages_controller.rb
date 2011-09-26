@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Chat::MessagesController < ApplicationController
   
   def create
@@ -6,7 +7,7 @@ class Chat::MessagesController < ApplicationController
     channel = params[:channel]
     t = Time.now
     
-    message.gsub! /(<[^>]*>)|\n|\t/s, ""
+    message.gsub! /<\/?[^>]*>/, ""
     
     compiled_message = { :sender => sender, :message => message, :timestamp => t.to_js, :humanized_timestamp => t.strftime('%R')}
     chat_broadcast(channel,compiled_message)
