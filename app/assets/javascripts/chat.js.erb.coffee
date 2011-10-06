@@ -76,6 +76,7 @@ $ ->
       @subscription.cancel()
       @frame.remove()
       @room_link.remove()
+      @online_list.remove()
 
     broadcastPresence: () ->
       $.get "/chat/rooms/#{@token}/presence"
