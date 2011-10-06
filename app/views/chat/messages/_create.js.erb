@@ -1,0 +1,3 @@
+<%- broadcast channel do %>
+  this.addMessage("<%=timestamp%>","<%=humanized_timestamp%>","<%=sender%>","<%=message.html_safe%>")
+<% end %>

@@ -17,9 +17,12 @@ Cloudsdale::Application.routes.draw do
 
   namespace :chat do
     get 'connect'
-    get 'disconnect'
-    get 'presence'
     resources :messages, :only => [:create]
+    resources :rooms, :only => [] do
+      get 'connect', :on => :member
+      get 'disconnect', :on => :member
+      get 'presence', :on => :member
+    end
   end
   
   match '/chat' => "chat#index", as: 'chat'

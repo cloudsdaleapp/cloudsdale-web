@@ -2,7 +2,8 @@
 #= require jquery_ujs
 #= require rails.validations
 #= require farbtastic
-#
+
+
 
 $ ->
   $("#flash.showme").hide().delay(200).fadeIn(400).delay(3000).fadeOut(400)

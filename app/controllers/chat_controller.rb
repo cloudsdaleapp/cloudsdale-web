@@ -5,15 +5,17 @@ class ChatController < ApplicationController
   end
   
   def connect
-    render :partial => 'connect.js.erb'
+    respond_to do |format|
+      format.json { render :json => { :token => session[:chat][:token] } }
+    end
   end
   
-  def disconnect
-    render :partial => 'disconnect.js.erb'
-  end
+  #def disconnect
+  #  render :partial => 'disconnect.js.erb'
+  #end
   
-  def presence
-    render :partial => 'presence.js.erb'
-  end
+  #def presence
+  #  render :partial => 'presence.js.erb'
+  #end
   
 end

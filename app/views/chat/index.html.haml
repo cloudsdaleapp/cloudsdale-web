@@ -1,10 +1,11 @@
 = content_for :head do
   = javascript_include_tag "#{Cloudsdale.config['url']}:#{Cloudsdale.config['faye_port']}/faye.js"
 
+#chat_sidebar
+
+%ul#chat_menu
+
 #chat_frame
-  #deadzone
-   
-#chat_ponies
       
 #chat_bar
   = form_tag chat_messages_path, remote: true, id: 'new_message' do
