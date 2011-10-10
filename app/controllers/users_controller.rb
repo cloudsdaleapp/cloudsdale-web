@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   
   def new
     @user = User.new
-    @user.ponies.build
+    @user.build_character
   end
   
   def edit
