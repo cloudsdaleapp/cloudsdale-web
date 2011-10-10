@@ -30,7 +30,7 @@
           .field.options
             = c_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
             = c_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
-          .field.avatar
-            = c_f.file_field :avatar
+          //.field.avatar
+          //  = c_f.file_field :avatar
           
       
