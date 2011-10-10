@@ -1,9 +1,10 @@
 #= require jquery
 #= require jquery_ujs
+#= require jquery.cookie
+#= require date
 #= require rails.validations
 #= require farbtastic
-
-
+#= require dashboard
 
 $ ->
   $("#flash.showme").hide().delay(200).fadeIn(400).delay(3000).fadeOut(400)
@@ -20,3 +21,4 @@ $ ->
       type: "get"
     , options)
     false
+  

@@ -2,13 +2,13 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 
+# Database NO-SQL
+gem 'mongoid'
+gem 'bson_ext'
+
 # Production dependencies
 gem 'therubyracer'
 gem 'execjs'
-
-# Database
-gem 'mysql2'
-gem 'sqlite3'
 
 # Markup
 gem 'haml'

@@ -3,8 +3,3 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-  fb = $.farbtastic($('#colorpicker'))
-  
-  $('#color_fields input').focus( (e) ->
-    fb.linkTo(this)
-  )

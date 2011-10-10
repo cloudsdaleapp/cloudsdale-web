@@ -2,7 +2,7 @@ Cloudsdale::Application.routes.draw do
   
   root to: 'main#index'
   
-  resources :sessions, :only => [:new,:create,:destroy]
+  resources :sessions, :only => [:create]
   match '/logout' => 'sessions#destroy', :as => :logout
   match '/login' => 'sessions#new', :as => :login
   
@@ -13,18 +13,8 @@ Cloudsdale::Application.routes.draw do
     get :restore, on: :collection
   end
   
-  resources :ponies
-
   namespace :chat do
-    get 'connect'
-    resources :messages, :only => [:create]
-    resources :rooms, :only => [] do
-      get 'connect', :on => :member
-      get 'disconnect', :on => :member
-      get 'presence', :on => :member
-    end
+    resources :messages, :only => [:create,:index], :path_names => { :index => :log, :create => :send }
   end
-  
-  match '/chat' => "chat#index", as: 'chat'
   
 end

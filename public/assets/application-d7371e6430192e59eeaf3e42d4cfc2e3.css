@@ -1,0 +1,453 @@
+@font-face {
+  font-family: "CelestiaMediumRedux";
+  src: url(/assets/CelestiaMediumRedux.ttf) format("truetype");
+}
+
+/* line 2, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/buttons.css.sass */
+body button, body input[type=submit], body .button {
+  font-family: "CelestiaMediumRedux";
+  font-size: 16px;
+  background-color: #d7e5f5;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#d7e5f5), to(#cbe0f5));
+  /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, #d7e5f5, #cbe0f5);
+  background-image: -moz-linear-gradient(top, #d7e5f5, #cbe0f5);
+  background-image: -ms-linear-gradient(top, #d7e5f5, #cbe0f5);
+  background-image: -o-linear-gradient(top, #d7e5f5, #cbe0f5);
+  background-image: linear-gradient(top, #d7e5f5, #cbe0f5);
+  border-top: 1px solid #c5d8eb;
+  border-left: 1px solid #b8c8db;
+  border-bottom: 1px solid #b0c0d1;
+  border-right: 1px solid #b3c2d5;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  border-radius: 12px;
+  -webkit-box-shadow: inset 0 0 9px 2px white;
+  -moz-box-shadow: inset 0 0 9px 2px white;
+  -ms-box-shadow: inset 0 0 9px 2px white;
+  -o-box-shadow: inset 0 0 9px 2px white;
+  box-shadow: inset 0 0 9px 2px white;
+  color: #00aaff;
+  line-height: 1;
+  padding: 3px 10px 7px 10px;
+  text-align: center;
+  text-shadow: 0 1px 1px white;
+}
+/* line 32, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/buttons.css.sass */
+body button:hover, body input[type=submit]:hover, body .button:hover {
+  background-color: #b7c3d0;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#d1deee), to(#c2d7eb));
+  /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, #d1deee, #c2d7eb);
+  background-image: -moz-linear-gradient(top, #d1deee, #c2d7eb);
+  background-image: -ms-linear-gradient(top, #d1deee, #c2d7eb);
+  background-image: -o-linear-gradient(top, #d1deee, #c2d7eb);
+  background-image: linear-gradient(top, #d1deee, #c2d7eb);
+  border-top: 1px solid #a1afbf;
+  border-left: 1px solid #9caaba;
+  border-bottom: 1px solid #96a3b3;
+  border-right: 1px solid #9caaba;
+  color: #1a3e66;
+  cursor: pointer;
+}
+/* line 47, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/buttons.css.sass */
+body button:active, body input[type=submit]:active, body .button:active {
+  border: 1px solid #8c98a7;
+  -webkit-box-shadow: inset 0 0 4px 2px #e9e9e9, 0 0 1px 0 #eeeeee;
+  -moz-box-shadow: inset 0 0 4px 2px #e9e9e9, 0 0 1px 0 #eeeeee;
+  -ms-box-shadow: inset 0 0 4px 2px #e9e9e9, 0 0 1px 0 #eeeeee;
+  -o-box-shadow: inset 0 0 4px 2px #e9e9e9, 0 0 1px 0 #eeeeee;
+  box-shadow: inset 0 0 4px 2px #e9e9e9, 0 0 1px 0 #eeeeee;
+}
+
+/* line 1, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/forms.css.sass */
+input[type=text], input[type=password], textarea, select {
+  font-size: 14px;
+  border-radius: 3px 3px 3px 3px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  -webkit-box-shadow: white 0px 0px 0px;
+  box-shadow: 0 0 0px white;
+  -moz-box-shadow: 0 0 0px white;
+  border: 1px solid #999999;
+  outline: none;
+  width: auto;
+  margin: 0;
+}
+
+/* line 10, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/forms.css.sass */
+input[type=text], input[type=password], textarea {
+  padding: 3px;
+}
+
+/* line 13, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/forms.css.sass */
+label {
+  float: left;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* line 21, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/forms.css.sass */
+form .field {
+  width: auto;
+  float: left;
+  position: relative;
+  padding: 10px;
+}
+/* line 27, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/forms.css.sass */
+form .field input[type=text], form .field input[type=password] {
+  width: 192px;
+}
+/* line 30, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/forms.css.sass */
+form .error_field {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+/* line 34, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/forms.css.sass */
+form .error_field label.message {
+  float: left;
+  left: 3px;
+  top: 25px;
+  position: absolute;
+  font-size: 10px;
+  color: red;
+}
+/* line 41, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/global/forms.css.sass */
+form .error_field input {
+  border-color: red;
+}
+
+/* line 5, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body {
+  margin: 0;
+  padding: 0;
+  background: #66bbe7 url(/assets/background.png) no-repeat top center;
+  font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+  color: #252525;
+}
+/* line 12, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  font-family: "CelestiaMediumRedux";
+}
+/* line 15, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body a {
+  color: #252525;
+  text-decoration: none;
+}
+/* line 18, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body a:visited {
+  color: #252525;
+  text-decoration: none;
+}
+/* line 22, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #flash {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: "CelestiaMediumRedux";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: none;
+}
+/* line 31, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #flash.showme {
+  display: block;
+}
+/* line 34, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #flash p, body #flash img {
+  float: left;
+}
+/* line 37, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #flash img#flash_bubble_cone {
+  position: absolute;
+  left: 130px;
+  top: 42px;
+}
+/* line 41, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #flash p {
+  position: relative;
+  padding: 5px 10px 8px 10px;
+  margin: 40px 10px;
+  border-radius: 12px 12px 12px 12px;
+  -moz-border-radius: 12px 12px 12px 12px;
+  -webkit-border-radius: 12px 12px 12px 12px;
+  background: white;
+}
+/* line 47, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #flash p.notice {
+  color: #009900;
+}
+/* line 49, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #flash p.error {
+  color: red;
+}
+/* line 52, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper {
+  width: 1024px;
+  margin: 0 auto;
+}
+/* line 56, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #header {
+  position: relative;
+  float: left;
+  width: 1024px;
+  height: 140px;
+  z-index: 4;
+}
+/* line 63, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation {
+  position: relative;
+  float: left;
+  width: 1020px;
+  height: 50px;
+  border: white solid 2px;
+  z-index: 5;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f6ff), to(#deebff));
+  background: -moz-linear-gradient(top, #f0f6ff, #deebff);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f6ff', endColorstr='(#deebff'));
+  border-radius: 3px 3px 0px 0px;
+  -moz-border-radius: 3px 3px 0px 0px;
+  -webkit-border-radius: 3px 3px 0px 0px;
+  -webkit-box-shadow: white 0px 0px 100px;
+  box-shadow: 0 0 100px white;
+  -moz-box-shadow: 0 0 100px white;
+  border-bottom-color: #e4ecff;
+}
+/* line 75, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav {
+  height: 50px;
+  list-style: none inside;
+  padding: 0;
+  margin: 0;
+}
+/* line 81, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav.right {
+  float: right;
+}
+/* line 85, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav.right.auth li {
+  margin: 10px 10px;
+}
+/* line 87, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav.right.auth li:last-child {
+  margin-right: 20px;
+}
+/* line 90, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav.right.auth li a img {
+  width: 30px;
+  height: 30px;
+}
+/* line 94, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav.left {
+  float: left;
+}
+/* line 97, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li {
+  padding: 0;
+  float: left;
+  margin: 10px 20px;
+  text-align: center;
+  font-size: 22px;
+  font-family: "CelestiaMediumRedux";
+}
+/* line 105, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li a {
+  color: #00aaff;
+}
+/* line 108, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li:hover a {
+  color: #66ccff;
+  text-shadow: 0px 0px 10px white;
+}
+/* line 114, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li.home a {
+  color: #995c00;
+}
+/* line 117, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li.home:hover a {
+  color: #ff9900;
+  text-shadow: 0px 0px 10px white;
+}
+/* line 122, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li.chat a {
+  color: #cc0066;
+}
+/* line 125, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li.chat:hover a {
+  color: #ff3399;
+  text-shadow: 0px 0px 10px white;
+}
+/* line 130, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li.library a {
+  color: #4d0066;
+}
+/* line 133, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li.library:hover a {
+  color: #9900cc;
+  text-shadow: 0px 0px 10px white;
+}
+/* line 137, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li.gallery a {
+  color: #009900;
+}
+/* line 140, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #navigation ul.nav li.gallery:hover a {
+  color: lime;
+  text-shadow: 0px 0px 10px white;
+}
+/* line 144, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #content {
+  position: relative;
+  float: left;
+  width: 1020px;
+  height: 500px;
+  background-color: #d4eaff;
+  border: white solid 2px;
+  z-index: 3;
+  -webkit-box-shadow: white 0px 0px 100px;
+  box-shadow: 0 0 100px white;
+  -moz-box-shadow: 0 0 100px white;
+}
+/* line 155, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer {
+  position: relative;
+  float: left;
+  width: 1020px;
+  height: 50px;
+  border: white solid 2px;
+  border-top: none;
+  margin-bottom: 200px;
+  z-index: 4;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f6ff), to(#deebff));
+  background: -moz-linear-gradient(top, #f0f6ff, #deebff);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f6ff', endColorstr='(#deebff'));
+  border-radius: 0px 0px 0px 0px;
+  -moz-border-radius: 0px 0px 0px 0px;
+  -webkit-border-radius: 0px 0px 0px 0px;
+  -webkit-box-shadow: white 0px 0px 100px;
+  box-shadow: 0 0 100px white;
+  -moz-box-shadow: 0 0 100px white;
+}
+/* line 168, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul {
+  float: right;
+  list-style: none;
+  height: 50px;
+  width: auto;
+  padding: 0 10px;
+  margin: 0;
+}
+/* line 175, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li {
+  float: left;
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+  margin: 13px 10px;
+}
+/* line 182, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.settings {
+  background-image: url(/assets/icons/panel/gear_24.png);
+}
+/* line 184, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.settings:hover {
+  background-image: url(/assets/icons/panel/gear_24_active.png);
+}
+/* line 186, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.settings.active {
+  background-image: url(/assets/icons/panel/gear_24_active.png);
+}
+/* line 189, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.chat {
+  background-image: url(/assets/icons/panel/comment_24.png);
+}
+/* line 191, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.chat:hover {
+  background-image: url(/assets/icons/panel/comment_24_active.png);
+}
+/* line 193, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.chat.active {
+  background-image: url(/assets/icons/panel/comment_24_active.png);
+}
+/* line 195, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.feed {
+  background-image: url(/assets/icons/panel/globe_24.png);
+}
+/* line 197, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.feed:hover {
+  background-image: url(/assets/icons/panel/globe_24_active.png);
+}
+/* line 199, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.feed.active {
+  background-image: url(/assets/icons/panel/globe_24_active.png);
+}
+/* line 201, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.notifications {
+  background-image: url(/assets/icons/panel/alarm_on_24.png);
+}
+/* line 203, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.notifications:hover {
+  background-image: url(/assets/icons/panel/alarm_on_24_active.png);
+}
+/* line 205, /Users/philip/Projects/rails/cloudsdale/app/assets/stylesheets/application.css.sass */
+body #wrapper #footer ul li.notifications.active {
+  background-image: url(/assets/icons/panel/alarm_on_24_active.png);
+}
+/**
+ * Farbtastic Color Picker 1.2
+ * © 2008 Steven Wittens
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+ 
+.farbtastic {
+  position: relative;
+}
+.farbtastic * {
+  position: absolute;
+  cursor: crosshair;
+}
+.farbtastic, .farbtastic .wheel {
+  width: 195px;
+  height: 195px;
+}
+.farbtastic .color, .farbtastic .overlay {
+  top: 47px;
+  left: 47px;
+  width: 101px;
+  height: 101px;
+}
+.farbtastic .wheel {
+  background: url(wheel.png) no-repeat;
+  width: 195px;
+  height: 195px;
+}
+.farbtastic .overlay {
+  background: url(mask.png) no-repeat;
+}
+.farbtastic .marker {
+  width: 17px;
+  height: 17px;
+  margin: -8px 0 0 -8px;
+  overflow: hidden; 
+  background: url(marker.png) no-repeat;
+}
+

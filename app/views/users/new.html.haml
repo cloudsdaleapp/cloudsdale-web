@@ -10,40 +10,27 @@
         = image_tag "icons/cloud/#{authentications_form.object.provider.downcase}_cloud.png"
         = authentications_form.hidden_field :uid
         = authentications_form.hidden_field :provider
-      = f.text_field :email, :placeholder => "Email"
+      .field
+        = f.text_field :email, :placeholder => "Email..."
       - if @user.authentications.empty?
-        = f.password_field :password, :placeholder => "Choose password..."
-        = f.password_field :password_confirmation, :placeholder => "Confirm please..."
+        .field
+          = f.password_field :password, :placeholder => "Choose password..."
+        .field
+          = f.password_field :password_confirmation, :placeholder => "Confirm password..."
       = f.submit "Register"
       %h4
         = link_to "Sign in", login_path
         or
         = link_to "Restore Account", restore_users_path
     #pony_information
-      %h4 Create a pony
-      = f.fields_for :ponies do |pony_f|
+      = f.fields_for :character do |c_f|
         .left
-          .field
-            = pony_f.text_field :name, :placeholder => "Pony name..."
-            
-          //.field
-          //  %h5 Choose an avatar:
-          //  = pony_f.file_field :avatar
-        .right
-          = pony_f.select :kind, pony_f.object.kinds.collect { |k| [k.capitalize, k] }
-          = pony_f.select :group, pony_f.object.groups.collect { |g| [g.capitalize, g] }
-        .bottom
-          #color_fields
-            .field
-              = pony_f.label :color_mane, "Mane color"
-              = pony_f.text_field :color_mane, :placeholder => "Mane color...", :value => "#ffffff"
-            .field
-              = pony_f.label :color_eyes, "Eyes color"
-              = pony_f.text_field :color_eyes, :placeholder => "Eye color...", :value => "#ffffff"
-            .field
-              = pony_f.label :color_coat, "Coat color"
-              = pony_f.text_field :color_coat, :placeholder => "Coat color...", :value => "#ffffff"
-          #colorpicker
-        
-        
+          .field.name
+            = c_f.text_field :name, :placeholder => "Pony name..."
+          .field.options
+            = c_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
+            = c_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
+          .field.avatar
+            = c_f.file_field :avatar
+          
       

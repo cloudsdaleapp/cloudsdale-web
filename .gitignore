@@ -4,4 +4,6 @@ log/*.log
 tmp/
 .sass-cache/
 
+/db/data/*/**
+/public/assets/*/**
 /dump.rdb

@@ -1,3 +1,0 @@
-<%- broadcast session[:chat][:token] do %>
-   this.chat.findRoomByToken("<%= channel %>").addMessage("<%=timestamp%>","<%=humanized_timestamp%>","","<%=message%>")
-<% end %>

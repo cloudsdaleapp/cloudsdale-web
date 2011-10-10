@@ -1,8 +1,0 @@
-<%- broadcast session[:chat][:token] do %>
-  this.addMessage("<%=timestamp%>","<%=humanized_timestamp%>","<%=sender%>","<%=message_self%>");
-  this.chat.findRoomByToken("<%=params[:id]%>").disconnect();
-<% end %>
-
-<%- broadcast params[:id] do %>
-  this.addMessage("<%=timestamp%>","<%=humanized_timestamp%>","","<%=message_others%>");
-<% end %>

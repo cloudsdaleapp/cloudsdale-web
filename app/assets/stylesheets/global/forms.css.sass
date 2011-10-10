@@ -1,0 +1,42 @@
+input[type=text], input[type=password], textarea, select
+  font-size: 14px
+  @include rounded_corners(3px,3px,3px,3px)
+  @include box_shadow(#FFFFFF,0px)
+  border: 1px solid #999999
+  outline: none
+  width: auto
+  margin: 0
+  
+input[type=text], input[type=password], textarea
+  padding: 3px
+
+label
+  float: left
+  margin: 0
+  padding: 0
+  font-size: 12px
+  font-weight: bold
+  
+form
+  .field
+    width: auto
+    float: left
+    position: relative
+    padding: 10px
+    
+    input[type=text], input[type=password]
+      width: 200px - 8px
+    
+  .error_field
+    float: left
+    width: 100%
+    position: relative
+    label.message
+      float: left
+      left: 3px
+      top: 25px
+      position: absolute
+      font-size: 10px
+      color: red
+    input
+      border-color: red

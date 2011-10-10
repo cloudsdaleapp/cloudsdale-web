@@ -1,7 +1,0 @@
-<%- broadcast session[:chat][:token] do %>
-  this.addMessage("<%=timestamp%>","<%=humanized_timestamp%>","<%=sender%>","<%=message%>")
-<% end %>
-
-<%- broadcast params[:id] do %>
-  this.broadcastPresence();
-<% end %>

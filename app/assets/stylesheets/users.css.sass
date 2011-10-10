@@ -17,91 +17,56 @@ body
         @include box_shadow(#FFFFFF,20px)
         
         #user_credentials
+          position: relative
           float: left
           width: 240px
           border-right: 1px dotted #D3DCE2
+          padding: 10px 0
+          
+          .field
+            width: 200px
+            margin: 0 10px
+          
+          input[type=submit]
+            width: 100px
+            margin: 10px 70px
+          
+          img
+            margin: 20px 90px 10px 90px
+          
+          h4
+            font-size: 16px
+            text-align: center
+            font-family: "CelestiaMediumRedux"
+            margin: 5px 10px 10px 10px
+
+            a
+              color: $color-teal-dark
+              font-weight: bold
         
         #pony_information
           float: right
           width: 359px
+          padding: 10px 0
           
-          .left
-            float: left
-            width: 240px
-            .field
-              float: left
-              width: 240px
-              h5
-                margin: 10px 15px 0px 15px
-              input
-                width: 210px
-                margin: 10px 15px 0px 15px !important
-                
-          .right
-            float: right
-            width: 119px
+          .field.name, .field.options, .field.avatar
+            padding: 10px 79px
+          .field.avatar
+            padding: 10px 79px
+            
+          .field.options
             
             select
-              width: 99px
-              margin: 10px 5px
-              
-          .bottom
-            float: left
-            width: 359px
-            margin-top: 20px
-            border-top: 1px dotted #D3DCE2
-            
-            #colorpicker
-              float: right
-              width: 195px
-              height: 195px
-              margin: 10px
-            
-            #color_fields
-              width: 144px
-              float: left
-              .field
-                margin: 5px 0
+              width: 90px
+              font-size: 12px
+              &#user_ponies_attributes_0_kind
                 float: left
-                
-                label.message
-                  display: none
-                
-                label
-                  float: left
-                  margin: 5px 10px
-                input
-                  float: left
-                  width: 114px
-                  margin: 0 10px
+                margin-right: 10px
+              &#user_ponies_attributes_0_group
+                float: right
+                margin-left: 10px
             
             
           h4
             text-align: left
-        
-        label
-          margin: 0px 15px 0 15px
-          width: 202
-        
-        input[type=text], input[type=password]
-          float: left
-          width: 202px
-          margin: 20px 15px 0 15px
-        
-        input[type=submit]
-          width:  100px
-          margin: 20px 70px 15px 70px
-        
-        h4
-          font-size: 16px
-          text-align: center
-          font-family: "CelestiaMediumRedux"
-          margin: 5px 10px 10px 10px
-
-          a
-            color: $color-teal-dark
-            font-weight: bold
-        
-        img
-          margin: 20px 90px 10px 90px
           

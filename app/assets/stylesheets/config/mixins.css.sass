@@ -7,6 +7,7 @@
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#{$start}), to(#{$end}))
   background: -moz-linear-gradient(top, #{$start}, (#{$end}))
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='(#{$end}'))
+  background: -o-linear-gradient($start,$end)
 
 @mixin gradient_background_icon($start, $end, $url)
   background: $start no-repeat center

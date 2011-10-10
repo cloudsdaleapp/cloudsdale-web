@@ -2,47 +2,61 @@
 %html
   %head
     %title Cloudsdale
+    = javascript_include_tag "#{Cloudsdale.config['url']}:9191/faye.js"
     = stylesheet_link_tag "application"
     = stylesheet_link_tag params[:controller]
     = javascript_include_tag "application"
     = javascript_include_tag params[:controller]
     = csrf_meta_tags
+      
     = yield :head
 
   %body{ :class => "#{params[:controller]} #{params[:view]}"}
-    #wrapper
-      #flash{ :class => "#{(flash[:notice] or flash[:error]) ? 'showme' : ''}"}
-        = image_tag "rainbowdash-announcer.png", :id => "flash_announcer"
-        = image_tag "details/flash_bubble_cone.png", :id => "flash_bubble_cone"
-        %p#flash_bubble{ :class => "#{ flash[:error] ? 'error' : 'notice' }"}
-          = flash[:notice]
-          = flash[:error]
-      #header
-        = yield :header
-      #navigation
-        %ul.nav.left
-          %li.home
-            = link_to "Home", root_path
-          - if current_pony
-            %li.chat
-              = link_to "Chat", chat_path
-          //%li.nav_item.library
-          //  = link_to "Library", ""
-          //%li.nav_item.gallery
-          //  = link_to "Gallery", ""
-        %ul.nav.right.auth
-          - if current_user
-            %li= link_to "Log out", logout_path
-          - else
-            %li
-              = link_to "Sign in", login_path
-            %li or
-            %li
-              = link_to "Saddle up", new_user_path
-            %li maybe connect with
-            %li= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
-            %li= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
+    #flash{ :class => "#{(flash[:notice] or flash[:error]) ? 'showme' : ''}"}
+      = image_tag "rainbowdash-announcer.png", :id => "flash_announcer"
+      = image_tag "details/flash_bubble_cone.png", :id => "flash_bubble_cone"
+      %p#flash_bubble{ :class => "#{ flash[:error] ? 'error' : 'notice' }"}
+        = flash[:notice]
+        = flash[:error]
+    #outer-wrapper
+      #wrapper
+        #navigation
+          %ul.nav.left
+            %li.home
+              = link_to "Home", root_path
+            %li.nav_item.library
+              = link_to "Library", ""
+            %li.nav_item.gallery
+              = link_to "Gallery", ""
+          %ul.nav.right.auth
+            - if current_user
+              %li= link_to "Log out", logout_path
+            - else
+              %li
+                = link_to "Sign in", login_path
+              %li or
+              %li
+                = link_to "Saddle up", new_user_path
+              %li maybe connect with
+              %li= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
+              %li= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
             
-      #content
-        = yield
+        #content
+          - if current_user
+            = render :partial => '/layouts/chat_sidebar'
+            #settings_frame
+            #notifications_frame
+            #feed_frame
+          #inner_content
+            = yield
+      
+        #footer
+          %ul#copywrite
+            %li My Little Pony: Friendship is Magic is © Hasbro, all art/writing is © to their respective artists
+          - if current_user
+            %ul#dashboard
+              %li#settings_trigger
+              %li#chat_trigger
+              %li#notifications_trigger
+              %li#feed_trigger
 
