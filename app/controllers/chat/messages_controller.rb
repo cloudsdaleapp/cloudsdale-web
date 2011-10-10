@@ -3,7 +3,7 @@ class Chat::MessagesController < ApplicationController
   def controller;self;end;private(:controller)
   
   def index
-    @messages = Chat::Message.desc(:timestamp).limit(20).sort {|x,y|x.timestamp <=> y.timestamp}
+    @messages = Chat::Message.desc(:timestamp).limit(30)
     render json: @messages
   end
   
