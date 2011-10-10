@@ -8,7 +8,6 @@ class Sidebar
     
     @notification = @trigger.append("<div class='notifications'></div>").find("div.notifications")
     
-    
     if $.cookie "dashboard:active:#{@name}"
       @active = true
     else
@@ -63,6 +62,9 @@ class Sidebar
     
   hide: (speed) ->
     $.cookie "dashboard:active:#{@name}", null
+      expires: 365
+      path: "/"
+      
     @frame.css
       right: 0
     .animate(
@@ -143,7 +145,7 @@ class Chat extends Sidebar
       
   addMessage: (timestamp,sender,message) ->
     readyForCorrection = @isReadingHistory()
-    @chat_container.append("<div timestamp='#{timestamp}'class='message'><h5 class='sender'>#{sender}</h5><p class='content'>#{message}</p></div>")
+    @chat_container.prepend("<div timestamp='#{timestamp}'class='message'><h5 class='sender'>#{sender}</h5><p class='content'>#{message}</p></div>")
     @correctWindow(readyForCorrection)
     
   validateInput: () ->
