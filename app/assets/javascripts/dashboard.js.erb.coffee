@@ -130,7 +130,8 @@ class Chat extends Sidebar
     $.getJSON "/chat/messages", (data) =>
       i = data.length - 1
       $.each data, (key, val) =>
-        @addMessage(val.timestamp,val.sender,val.content)
+        @chat_container.prepend("<div timestamp='#{val.timestamp}'class='message'><h5 class='sender'>#{val.sender}</h5><p class='content'>#{val.content}</p></div>")
+        @correctWindow(true)
         if key == i
           window.setTimeout ( =>
             @correctWindow(true)
@@ -145,7 +146,7 @@ class Chat extends Sidebar
       
   addMessage: (timestamp,sender,message) ->
     readyForCorrection = @isReadingHistory()
-    @chat_container.prepend("<div timestamp='#{timestamp}'class='message'><h5 class='sender'>#{sender}</h5><p class='content'>#{message}</p></div>")
+    @chat_container.append("<div timestamp='#{timestamp}'class='message'><h5 class='sender'>#{sender}</h5><p class='content'>#{message}</p></div>")
     @correctWindow(readyForCorrection)
     
   validateInput: () ->
