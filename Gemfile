@@ -24,6 +24,9 @@ gem 'client_side_validations'
 # Images and Image manipulation
 gem 'carrierwave'
 
+# Others
+gem 'bcrypt-ruby', :require => 'bcrypt'
+
 # Assets
 gem 'sass'
 gem 'sass-rails'
