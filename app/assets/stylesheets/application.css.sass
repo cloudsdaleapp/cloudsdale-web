@@ -283,21 +283,29 @@ body
       
         #chat_frame
         
-          input
+          textarea
             position: absolute
             bottom: 0
             left: 0
             right: 0
-            width: 100%
+            max-width: 300px
+            min-width: 300px
             @include rounded_corners(0px,0px,0px,0px)
             border: none
             border-top: $border-color-dark 2px solid
             border-bottom: $border-color-dark 2px solid
             padding-left: 18px
-            background: #F0F6FF image-url("icons/comment.png") left center no-repeat !important
+            background: #F0F6FF image-url("icons/comment.png") 1px 1px no-repeat !important
+            font-size: 10px
+            min-height: 12px
+            max-height: 72px
+            height: 12px
+            resize: none
+            overflow: auto !important
+            
           .shader
             @include gradient_background(rgba(222,235,255,1),rgba(240,246,255,0))
-            width: 100%
+            width: 320px
             position: absolute
             height: 100px
             top: 0

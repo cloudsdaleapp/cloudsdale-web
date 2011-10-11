@@ -106,9 +106,18 @@ class Chat extends Sidebar
       @preSeed()
     
     @faye = new Faye.Client("<%= Cloudsdale.config['url'] %>:9191/faye")
-    
     @faye.subscribe "/chat", (data) =>
       eval data
+      
+    @chat_input.BetterGrow
+      initial_height: 12
+      do_not_enter: null
+    .keydown (e) =>
+      @resizeElements()
+      if e.which == 13 and e.shiftKey == false
+        @chat_form.submit()
+        return false
+      
     
     @chat_form.bind 'ajax:beforeSend', () =>
       @resetInput()
@@ -136,6 +145,15 @@ class Chat extends Sidebar
           window.setTimeout ( =>
             @correctWindow(true)
           ), 500
+  
+  resizeElements: () ->
+    window.setTimeout ( =>
+      s = @chat_input.outerHeight() - 2
+      @chat_container.css
+        bottom: s
+      @correctWindow(true)
+    ), 110
+    
       
   isReadingHistory: () ->
     (@chat_container[0].scrollHeight - @chat_container.scrollTop() == @chat_container.outerHeight())
@@ -150,10 +168,9 @@ class Chat extends Sidebar
     @correctWindow(readyForCorrection)
     
   validateInput: () ->
-    if (@chat_input.attr('value').match(/^\s*$/) == null) and (@chat_input.attr('value').length > 0)
+    if (@chat_input.attr('value').match(/^\s*$/) == null) and (@chat_input.val.length > 0)
       true
     else
-      @resetInput()
       false
 
   resetInput: () ->
