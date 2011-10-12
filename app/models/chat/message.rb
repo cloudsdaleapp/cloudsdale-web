@@ -15,7 +15,6 @@ class Chat::Message
     msg.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "<br/>"
     msg.gsub! /<br\/><br\/>/,"<br/>"
     msg.gsub! /^\s*$/, ""
-    msg.gsub! /\"/, '\\"'
     
     if (m = msg.match(/^(.*)/i))
       msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_]*)(\/?[a-z0-9\.\,\-\_\/\?\&\=\#]*)/i do
