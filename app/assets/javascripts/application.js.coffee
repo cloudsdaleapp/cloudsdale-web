@@ -2,6 +2,7 @@
 #= require jquery_ujs
 #= require jquery.cookie
 #= require jquery.BetterGrow
+#= require jquery.titlealert
 #= require date
 #= require rails.validations
 #= require farbtastic
