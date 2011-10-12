@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
     authorize! :update, @user
     respond_to do |format|
       format.html { render :partial => 'edit', locals: { :user => @user } }

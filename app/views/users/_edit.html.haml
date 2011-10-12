@@ -1,16 +1,23 @@
-#user_form_wrapper
-  %h2 Edit Account information
-  = form_for user, :validate => true, :remote => true, :url => user_path(user), :method => :put, :html => { :class => 'with_notifications' } do |f|
-    .left
-      .field
-        = f.text_field :email, :placeholder => "Email"
-      .field
-        = f.password_field :password, :placeholder => "New password..."
-      .field
-        = f.password_field :password_confirmation, :placeholder => "Confirm please..."
-      .field.tools
-        = f.submit "Save"
-    .right
+= form_for user, :validate => true, :remote => true, :url => user_path(user), :method => :put, :html => { :class => 'with_notifications' } do |f|
+  %h4 Account
+  .fieldset
+    .field
+      = f.text_field :email, :placeholder => "Email"
+    .field
+      = f.password_field :password, :placeholder => "New password..."
+    .field
+      = f.password_field :password_confirmation, :placeholder => "Confirm please..."
+    
+  %h4 Character
+  .fieldset
+    = f.fields_for :character do |char_f|
+      .field.name
+        = char_f.text_field :name, :placeholder => "Pony name..."
+      .field.options
+        = char_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
+        = char_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
+  .field.tools
+    = f.submit "Save"
 
 :javascript
   $('form[data-validate]').validate();
