@@ -102,7 +102,7 @@ form
 body
   margin: 0
   padding: 0
-  background: rgb(102,187,231) image-url("background.png") 50% 25% no-repeat
+  background: rgb(102,187,231) image-url("background.png") center top no-repeat
   font-family: "Lucida Grande", Helvetica, sans-serif
   color: $color-text
     
@@ -148,24 +148,25 @@ body
         color: $color-red
   
   #outer-wrapper
-    position: absolute
-    top: 50%
     overflow: visible
-    width: 100%
-    height: 1px
+    margin: 0 auto
+    width: 1104px
+    
+    #header
+      position: relative
+      float: left
+      width: 1024px
+      height: 120px
+      z-index: 4
+      margin: 0 40px
+      
     #wrapper
       position: relative
       width: 1024px
-      left: 50%
-      margin-left: -512px
-      margin-top: -303px
-    
-      #header
-        position: relative
-        float: left
-        width: 1024px
-        height: 140px
-        z-index: 4
+      float: left
+      margin: 0px 40px 100px 40px
+      @include box_shadow(#FFF,100px)
+      
     
       #navigation
         position: relative
@@ -357,6 +358,7 @@ body
                 margin: 0px
                 padding: 2px 5px
                 font-size: 10px
+                word-wrap: break-word
                 a
                   color: $color-teal
                   &:hover
