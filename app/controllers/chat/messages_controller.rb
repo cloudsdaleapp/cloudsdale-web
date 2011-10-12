@@ -14,7 +14,7 @@ class Chat::MessagesController < ApplicationController
       render :partial => 'create.js.erb',
       :locals => {
                     :sender => @message.sender,
-                    :content => @message.content.gsub!(/\"/,'\\"'),
+                    :content => @message.content.gsub(/\"/,'\\"'),
                     :timestamp => @message.timestamp.to_js
                   }
     else
