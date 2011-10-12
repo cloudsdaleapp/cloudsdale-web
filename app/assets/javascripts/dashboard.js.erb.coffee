@@ -5,16 +5,21 @@ class Sidebar
     @trigger = $(args.trigger)
     @faye = args.faye_client
     @name = args.name
+    @preseed_path = args.preseed_path
+    @seeded = false
     
     @notification = @trigger.append("<div class='notifications'></div>").find("div.notifications")
+      
+    unless $.cookie "dashboard:notifications:#{@name}" == null
+      @setNotifications(parseInt($.cookie "dashboard:notifications:#{@name}"))
+    else
+      @setNotifications(0)
     
     if $.cookie "dashboard:active:#{@name}"
       @active = true
     else
       @active = false
-      
-    @setup()
-    @bind()
+      @hide(0)
         
   setup: =>
     if @active
@@ -22,11 +27,6 @@ class Sidebar
     else
       @hide(0)
       
-    unless $.cookie "dashboard:notifications:#{@name}" == null
-      @notifications = $.cookie "dashboard:notifications:#{@name}"
-    else
-      @notifications = 0
-    
     @trigger.bind "click", =>
       $.event.trigger 'toggle.sidebar', @
       
@@ -45,6 +45,11 @@ class Sidebar
       @show(350)
       
   show: (speed) ->
+    @clearNotifications()
+    
+    unless @seeded
+      @preSeed(@preseed_path)
+    
     $.cookie "dashboard:active:#{@name}", true, 
       expires: 365
       path: "/"
@@ -57,10 +62,9 @@ class Sidebar
       
     @trigger.addClass('active')
     @active = true
-    @clearNotifications()
     
     
-  hide: (speed) ->
+  hide: (speed) =>
     $.cookie "dashboard:active:#{@name}", null
       expires: 365
       path: "/"
@@ -69,11 +73,15 @@ class Sidebar
       right: 0
     .animate(
       right: -320
-    , speed
+    , speed, =>
+      @frame.hide()
     )
     
     @trigger.removeClass('active')
     @active = false
+
+  preSeed: (path) ->
+    @seeded = true
     
   clearNotifications: =>
     $.cookie "dashboard:notifications:#{@name}", 0, 
@@ -83,7 +91,7 @@ class Sidebar
     @notification.html("")
     @notification.hide()
     
-  addNotification: =>
+  addNotification: (message) =>
     unless @active
       @notifications += 1
       $.cookie "dashboard:notifications:#{@name}", @notifications, 
@@ -91,7 +99,21 @@ class Sidebar
         path: "/"
       @notification.html(@notifications)
       @notification.show()
-
+      
+    $.titleAlert "#{message}",
+      requireBlur: true
+      stopOnFocus: true
+      duration: 0
+      interval: 1000
+      
+  setNotifications: (amount) =>
+    @notifications = amount
+    if @notifications > 0
+      @notification.html(@notifications)
+      @notification.show()
+    else
+      @notification.hide()
+      
 class Chat extends Sidebar
   
   constructor: (args) ->
@@ -101,23 +123,30 @@ class Chat extends Sidebar
     @chat_input = @frame.find(args.chat_input)
     @chat_form = @frame.find(args.chat_form)
     
-    @seeded = false
-    if $.cookie "dashboard:active:#{@name}"
-      @preSeed()
-    
     @faye = new Faye.Client("<%= Cloudsdale.config['url'] %>:9191/faye")
     @faye.subscribe "/chat", (data) =>
       eval data
       
+    @setup()
+    @bind()
+      
+  show: (speed) ->
+    super speed
+    if @chat_container
+      @correctWindow(true)
+      
+  bind: =>
+    super
+    
     @chat_input.BetterGrow
       initial_height: 12
       do_not_enter: null
+      
     .keydown (e) =>
       @resizeElements()
       if e.which == 13 and e.shiftKey == false
         @chat_form.submit()
         return false
-      
     
     @chat_form.bind 'ajax:beforeSend', () =>
       @resetInput()
@@ -125,26 +154,22 @@ class Chat extends Sidebar
     .submit () =>
       @validateInput()
       
-  show: (speed) ->
-    super speed
+  preSeed: (path) =>
+    super path
     if @chat_container
-      unless @seeded
-        @preSeed()
-        @seeded = true
-      @correctWindow(true)
-      
-  preSeed: =>
-    @seeded = true
-    @frame.append("<div class='shader' />")
-    $.getJSON "/chat/messages", (data) =>
-      i = data.length - 1
-      $.each data, (key, val) =>
-        @chat_container.prepend("<div timestamp='#{val.timestamp}'class='message'><h5 class='sender'>#{val.sender}</h5><p class='content'>#{val.content}</p></div>")
-        @correctWindow(true)
-        if key == i
-          window.setTimeout ( =>
-            @correctWindow(true)
-          ), 500
+      $.getJSON path, (data) =>
+        i = data.length - 1
+        $.each data, (key, val) =>
+          t = new Date(Date._parse(val.timestamp))
+          @chat_container.prepend(
+            "<div timestamp='#{val.timestamp}'class='message'>
+            <h5 class='sender'>#{val.sender}<span class='time'>#{t.toString('HH:mm:ss')}</span></h5>
+            <p class='content'>#{val.content}</p></div>")
+          @correctWindow(true)
+          if key == i
+            window.setTimeout ( =>
+              @correctWindow(true)
+            ), 500
   
   resizeElements: () ->
     window.setTimeout ( =>
@@ -162,10 +187,15 @@ class Chat extends Sidebar
     if readyForCorrection
       @chat_container.scrollTop(@chat_container[0].scrollHeight)      
       
-  addMessage: (timestamp,sender,message) ->
+  addMessage: (timestamp,sender,content) ->
     readyForCorrection = @isReadingHistory()
-    @chat_container.append("<div timestamp='#{timestamp}'class='message'><h5 class='sender'>#{sender}</h5><p class='content'>#{message}</p></div>")
+    t = new Date(Date._parse(timestamp))
+    @chat_container.append(
+      "<div timestamp='#{timestamp}'class='message'>
+      <h5 class='sender'>#{sender}<span class='time'>#{t.toString('HH:mm:ss')}</span></h5>
+      <p class='content'>#{content}</p></div>")
     @correctWindow(readyForCorrection)
+    @addNotification()
     
   validateInput: () ->
     if (@chat_input.attr('value').match(/^\s*$/) == null) and (@chat_input.val.length > 0)
@@ -175,22 +205,41 @@ class Chat extends Sidebar
 
   resetInput: () ->
     @chat_input.val('')
+    
+  addNotification: () =>
+    message = "NEW MESSAGE"
+    super message
+
+    
+class Settings extends Sidebar
+  
+  constructor: (args) ->
+    super args
+    @setup()
+    @bind()
+    
+  preSeed: (path) =>
+    super path
+    $.get path, (data) =>
+      @frame.append(data)
 
 $ ->
-  
+
   new Chat
     trigger: "#chat_trigger"
     frame: "#chat_frame"
-    preseed_path: "/chat/log"
+    preseed_path: "/chat/messages"
     chat_container: "#chat_container"
     chat_input: "#message"
     chat_form: "#chat_form"
     name: "chat"
     
-  new Sidebar
+  new Settings
     trigger: "#settings_trigger"
     frame: "#settings_frame"
+    preseed_path: "/users/current/edit"
     name: "settings"
+    
     
   new Sidebar
     trigger: "#notifications_trigger"
