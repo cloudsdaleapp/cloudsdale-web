@@ -26,10 +26,11 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = User.find(params[:id])
+    @user = current_user
     authorize! :update, @user
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        session[:display_name] = @user.character.name
         format.html { render :json => { :flash => { :type => 'notice', :message => "Successfully updated user."} } }
       else
         format.html { render :json => { :flash => { :type => 'error', :message => "Try again!" } } }

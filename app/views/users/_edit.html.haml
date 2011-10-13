@@ -12,10 +12,10 @@
   .fieldset
     = f.fields_for :character do |char_f|
       .field.name
-        = char_f.text_field :name, :placeholder => "Pony name..."
+        = char_f.text_field :name, :placeholder => "Pony name...", :original_value => char_f.object.name, :attribute_name => :name, :user_id => user.id
       .field.options
-        = char_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
-        = char_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
+        = char_f.select(:kind, options_for_select(Character::KINDS.collect{ |k| [k.capitalize, k] }, char_f.object.kind))
+        = char_f.select(:gender, options_for_select(Character::GENDERS.collect{ |g| [g.capitalize, g] }, char_f.object.gender))
   .field.tools
     = f.submit "Save"
 

@@ -5,6 +5,7 @@
 #= require jquery.titlealert
 #= require date
 #= require rails.validations
+#= require rails.validations.custom
 #= require farbtastic
 #= require dashboard
 

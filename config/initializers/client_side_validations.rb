@@ -17,3 +17,19 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     %{<span class="error_field">#{html_tag}</span>}.html_safe
   end
 end
+
+
+module ClientSideValidations::Middleware
+  
+  class UserGlobalUniqueness < Base
+    def response
+      if ::User.where("character.#{request.params[:attribute_name]}" => request.params[:value]).excludes("_id" => request.params[:user_id]).count == 0
+        self.status = 200
+      else
+        self.status = 404
+      end
+      super
+    end
+  end
+  
+end
