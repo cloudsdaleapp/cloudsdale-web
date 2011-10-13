@@ -7,6 +7,8 @@
     = stylesheet_link_tag params[:controller]
     = javascript_include_tag "application"
     = javascript_include_tag params[:controller]
+    - if current_user
+      = javascript_include_tag :dashboard
     = csrf_meta_tags
       
     = yield :head
