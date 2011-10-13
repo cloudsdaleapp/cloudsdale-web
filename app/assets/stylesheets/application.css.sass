@@ -373,6 +373,41 @@ body
             width: 300px
             margin: 10px 10px
             float: left
+          
+        
+          ul#connected_accounts
+            float: left
+            width: 100%
+            list-style: none inside
+            padding: 0
+            margin: 0
+            
+            li
+              &.twitter
+                float: right
+                margin: 20px 100px 5px 20px
+              &.facebook
+                float: left
+                margin: 20px 20px 5px 100px
+              &:hover
+                opacity: 0.6
+                -moz-opacity: 0.6
+                filter: alpha(opacity=60)
+            
+              &.not_connected
+                opacity: 0.3
+                -moz-opacity: 0.3
+                filter: alpha(opacity=30)
+            
+                &:hover
+                  opacity: 0.6
+                  -moz-opacity: 0.6
+                  filter: alpha(opacity=60)
+            
+              img
+                margin: 0
+                width: 40px
+                
           .fieldset
             float: left
             

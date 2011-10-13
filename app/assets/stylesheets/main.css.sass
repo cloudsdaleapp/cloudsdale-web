@@ -17,42 +17,6 @@ body
             margin: 5px
             font-size: 18px
             color: $color-teal-dark
-            
-        #connected_accounts
-          width: 180px
-          margin: 20px 20px 0 20px
-          float: left
-          background: rgba(255,255,255,0.9)
-          @include rounded_corners(3px,3px,3px,3px)
-          @include box_shadow(#FFFFFF,20px)
-          
-          ul
-            float: left
-            width: 100%
-            list-style: none inside
-            padding: 0
-            margin: 0
-            li
-              margin: 5px 0px 5px 32px 
-              float: left
-              &:hover
-                opacity: 0.6
-                -moz-opacity: 0.6
-                filter: alpha(opacity=60)
-                
-              &.not_connected
-                opacity: 0.3
-                -moz-opacity: 0.3
-                filter: alpha(opacity=30)
-                
-                &:hover
-                  opacity: 0.6
-                  -moz-opacity: 0.6
-                  filter: alpha(opacity=60)
-                
-              img
-                margin: 0
-                width: 40px
           
         #available_ponies
           width: 180px

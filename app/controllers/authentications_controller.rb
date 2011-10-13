@@ -25,7 +25,7 @@ class AuthenticationsController < ApplicationController
     @authentication = current_user.authentications.find(params[:id])
     @authentication.destroy
     flash[:notice] = "Successfully disconnected you from #{@authentication.provider.capitalize}."
-    redirect_to root_url
+    redirect_to :back
   end
   
 end
