@@ -9,6 +9,9 @@ class User
   field :auth_token,      type: String
   field :password_hash,   type: String
   field :password_salt,   type: String
+  
+  field :member_since,    type: Time
+  field :last_login,      type: Time
 
   attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes
   attr_accessor :password
@@ -22,7 +25,11 @@ class User
   validates :auth_token, presence: true, uniqueness: true
   
   before_validation :generate_auth_token
-  before_save :encrypt_password
+  
+  before_save do
+    encrypt_password
+    set_creation_date
+  end
   
   def self.authenticate(email, password)
     user = where(:email => email, :password_hash.exists => true, :password_salt.exists => true).first
@@ -47,6 +54,17 @@ class User
   
   def generate_auth_token
     self.auth_token = SecureRandom.hex(16) unless auth_token.present?
+  end
+  
+  def set_creation_date
+    unless member_since.present?
+      self[:member_since] = Time.now
+    end
+  end
+  
+  def login_and_save!
+    self[:last_login] = Time.now
+    save!
   end
 
   

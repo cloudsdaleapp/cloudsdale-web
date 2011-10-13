@@ -14,9 +14,9 @@ class ApplicationController < ActionController::Base
   
   def authenticate!(user)
     raise "No user to authenticate" if user.nil?
-    raise "User has no Auth Token" if user.auth_token.nil?
     session[:user_id] = user.id
     session[:display_name] = user.character.name
+    user.login_and_save!
     @current_user = user
   end
   
