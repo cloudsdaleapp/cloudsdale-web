@@ -22,7 +22,7 @@ class Character
   field :gender,  type: String
   field :age,     type: Integer
   
-  validates :name, presence: true, :user_global_uniqueness => { :message => "is not unique" }
+  validates :name, presence: true, :user_global_uniqueness => { :message => "is already taken, sorry" }
   validates_format_of :name, with: /^([a-z]*\s?){1,5}$/i, message: "must use a-z and max five words"
   validates_length_of :name, within: 3..30, message: "must be between 3 and 30 characters"
   
