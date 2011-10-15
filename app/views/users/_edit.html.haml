@@ -8,6 +8,7 @@
       %li.not_connected.facebook= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
     - unless auth_providers.include?("twitter")
       %li.not_connected.twitter= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
+      
   %h4 Account
   .fieldset
     .field

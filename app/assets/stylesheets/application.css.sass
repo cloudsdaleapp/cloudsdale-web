@@ -271,7 +271,7 @@ body
           z-index: 4
           //@include box_shadow_inset(#DEEBFF,100px)
       
-        #chat_frame, #notifications_frame, #feed_frame, #settings_frame
+        #chat_frame, #notifications_frame, #feed_frame, #settings_frame, #friends_frame
           position: absolute
           right: 0
           width: 320px
@@ -298,9 +298,9 @@ body
             padding-left: 18px
             background: #F0F6FF image-url("icons/comment.png") 1px 3px no-repeat !important
             font-size: 12px
-            min-height: 14px
+            min-height: 15px
             max-height: 72px
-            height: 14px
+            height: 15px
             resize: none
             overflow: auto !important
             
@@ -368,27 +368,26 @@ body
             
         #notification_frame
         #feed_frame
+        #friends_frame
         #settings_frame
           h4
-            width: 300px
-            margin: 10px 10px
+            width: auto
             float: left
+            padding: 5px 10px
+            margin: 5px
           
         
           ul#connected_accounts
             float: left
             width: 100%
-            list-style: none inside
             padding: 0
             margin: 0
+            list-style: none inside
             
             li
-              &.twitter
-                float: right
-                margin: 20px 100px 5px 20px
-              &.facebook
-                float: left
-                margin: 20px 20px 5px 100px
+              margin: 10px 0 10px 20px
+              float: left
+              
               &:hover
                 opacity: 0.6
                 -moz-opacity: 0.6
@@ -409,20 +408,18 @@ body
                 width: 40px
                 
           .fieldset
+            width: 100%
             float: left
             
             .field
-              width: 280px
-              margin: 0 20px
-              padding: 10px 0
-              
-              input
-                width: 270px
+              width: auto
+              padding: 0px 20px
+              margin: 10px 0
 
             .field.options
             
               select
-                width: 130px
+                width: 90px
                 font-size: 12px
                 &#user_character_attributes_kind
                   float: left
@@ -432,7 +429,6 @@ body
                   margin-left: 10px
           .field.tools
             input[type=submit]
-              margin: 10px 100px
               width: 100px
           
     
@@ -477,7 +473,7 @@ body
             height: 24px
             width: 24px
             margin: 13px 10px
-          
+            
             div.notifications
               position: absolute
               left: -5px
@@ -510,6 +506,13 @@ body
                 background-image: image-url("icons/panel/globe_24_active.png")
               &.active
                 background-image: image-url("icons/panel/globe_24_active.png")
+            
+            &#friends_trigger
+              background-image: image-url("icons/panel/man_24.png")
+              &:hover
+                background-image: image-url("icons/panel/man_24_active.png")
+              &.active
+                background-image: image-url("icons/panel/man_24_active.png")
               
             &#notifications_trigger
               background-image: image-url("icons/panel/alarm_on_24.png")

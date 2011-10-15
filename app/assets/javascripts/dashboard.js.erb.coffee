@@ -223,6 +223,39 @@ class Settings extends Sidebar
     $.get path, (data) =>
       @frame.append(data)
 
+class Feed extends Sidebar
+  
+  constructor: (args) ->
+    super args
+    @setup()
+    @bind()
+    
+  preSeed: (path) =>
+    $.get path, (data) =>
+      @frame.html(data)
+      
+class Notifications extends Sidebar
+
+  constructor: (args) ->
+    super args
+    @setup()
+    @bind()
+
+  preSeed: (path) =>
+    $.get path, (data) =>
+      @frame.html(data)
+      
+class Friends extends Sidebar
+
+  constructor: (args) ->
+    super args
+    @setup()
+    @bind()
+
+  preSeed: (path) =>
+    $.get path, (data) =>
+      @frame.html(data)
+
 $ ->
 
   new Chat
@@ -241,13 +274,19 @@ $ ->
     name: "settings"
     
     
-  new Sidebar
+  new Notifications
     trigger: "#notifications_trigger"
     frame: "#notifications_frame"
     name: "notifications"
+
     
-  new Sidebar
+  new Feed
     trigger: "#feed_trigger"
     frame: "#feed_frame"
     name: "feed"
+    
+  new Friends
+    trigger: "#friends_trigger"
+    frame: "#friends_frame"
+    name: "friends"
     
