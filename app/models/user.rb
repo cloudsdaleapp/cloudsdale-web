@@ -11,7 +11,11 @@ class User
   field :password_salt,   type: String
   
   field :member_since,    type: Time
-  field :last_login,      type: Time
+  field :last_activity,   type: Time
+  field :invisible,       type: Boolean, :default => false
+  
+  scope :online, -> { where(:last_activity.gt => 5.minutes.ago) }
+  scope :public, where(:invisible => false)
 
   attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes
   attr_accessor :password
@@ -29,6 +33,9 @@ class User
   before_save do
     encrypt_password
     set_creation_date
+  end
+  
+  def online
   end
   
   def self.authenticate(email, password)
@@ -62,8 +69,8 @@ class User
     end
   end
   
-  def login_and_save!
-    self[:last_login] = Time.now
+  def log_activity_and_save!
+    self[:last_activity] = Time.now
     save!
   end
 

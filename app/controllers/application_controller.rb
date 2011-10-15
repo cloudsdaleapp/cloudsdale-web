@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   
+  before_filter do
+    current_user.log_activity_and_save! if current_user
+  end
+  
   protect_from_forgery
   
   def authenticated?
@@ -16,7 +20,6 @@ class ApplicationController < ActionController::Base
     raise "No user to authenticate" if user.nil?
     session[:user_id] = user.id
     session[:display_name] = user.character.name
-    user.login_and_save!
     @current_user = user
   end
   

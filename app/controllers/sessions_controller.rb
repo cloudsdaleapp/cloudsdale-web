@@ -1,5 +1,17 @@
 class SessionsController < ApplicationController
   
+  def index
+    @users = User.online
+    render partial: 'index', :locales => { user: @user }
+  end
+  
+  def count
+    respond_to do |format|
+      format.json { render json: User.online.count }
+      format.js { render json: User.online.count }
+    end
+  end
+  
   def create
     user = User.authenticate(params[:email], params[:password]) if params[:email] && params[:password]
     if user
@@ -13,7 +25,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    session[:pony_id] = nil
     redirect_to root_path, :notice => "Bye!"
   end
 

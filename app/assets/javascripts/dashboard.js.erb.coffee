@@ -249,12 +249,16 @@ class Friends extends Sidebar
 
   constructor: (args) ->
     super args
+    
     @setup()
     @bind()
 
   preSeed: (path) =>
     $.get path, (data) =>
       @frame.html(data)
+      @refresh_trigger = @frame.find("a#freinds_refresh_trigger")
+      @refresh_trigger.bind 'click', =>
+        @preSeed(@preseed_path)
 
 $ ->
 
@@ -280,13 +284,14 @@ $ ->
     name: "notifications"
 
     
-  new Feed
-    trigger: "#feed_trigger"
-    frame: "#feed_frame"
-    name: "feed"
+  #new Feed
+  #  trigger: "#feed_trigger"
+  #  frame: "#feed_frame"
+  #  name: "feed"
     
   new Friends
     trigger: "#friends_trigger"
     frame: "#friends_frame"
     name: "friends"
+    preseed_path: "/sessions"
     

@@ -2,9 +2,12 @@ Cloudsdale::Application.routes.draw do
   
   root to: 'main#index'
   
-  resources :sessions, :only => [:create]
   match '/logout' => 'sessions#destroy', :as => :logout
   match '/login' => 'sessions#new', :as => :login
+  
+  resources :sessions, :only => [:create,:index] do
+    get :count, on: :collection
+  end
   
   match 'auth/:provider/callback' => 'authentications#create'
   resources :authentications, :only => [:create,:destroy]
