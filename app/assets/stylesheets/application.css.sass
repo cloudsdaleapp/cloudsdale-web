@@ -339,6 +339,8 @@ body
               
               &:hover
                 h5.sender
+                  a:hover
+                    color: $color-teal-dark
                   span.time
                     display: block
               
@@ -366,7 +368,49 @@ body
                     color: $color-teal
                   
             
-        #notification_frame
+        #notifications_frame
+        
+          a.notification
+            float: left
+            width: 100%
+            border-bottom: dotted 1px #C5C5C5
+            padding-bottom: 5px
+            cursor: pointer !important
+            
+            &:first-child
+              border-top: dotted 1px #C5C5C5
+              margin-top: 2px
+              cursor: pointer !important
+            &:hover
+              background-color: darken(#DEEBFF,10%) !important
+              cursor: pointer !important
+            
+            &.unread
+              background-color: darken(#DEEBFF,5%)
+              cursor: pointer !important
+            
+            img.type
+              cursor: inherit
+        
+            h5.actor
+              cursor: inherit
+              margin: 0px
+              padding: 2px 5px
+              font-size: 16px
+            
+            p.description
+              cursor: inherit
+              margin: 0px
+              padding: 2px 5px
+              font-size: 12px
+            p.time
+              cursor: inherit
+              margin: 0px
+              padding: 2px 5px
+              font-size: 12px
+              font-weight: bold
+              color: #6F6F6F
+              
         #feed_frame
         #friends_frame
           &:hover
@@ -399,6 +443,10 @@ body
               margin: 0px
               padding: 2px 5px
               font-size: 16px
+              a
+                color: $color-teal-dark
+                &:hover
+                  color: $color-teal
               
             p.activity
               margin: 0px
@@ -411,7 +459,7 @@ body
           h4
             width: auto
             float: left
-            padding: 5px 10px
+            padding: 5px 20px
             margin: 5px
           
         
@@ -451,7 +499,7 @@ body
             
             .field
               width: auto
-              padding: 0px 20px
+              padding: 0px 40px
               margin: 10px 0
 
             .field.options
@@ -466,6 +514,7 @@ body
                   float: right
                   margin-left: 10px
           .field.tools
+            padding: 10px 20px
             input[type=submit]
               width: 100px
           

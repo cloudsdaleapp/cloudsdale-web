@@ -1,5 +1,7 @@
 Cloudsdale::Application.routes.draw do
   
+  get "notifications/index"
+
   root to: 'main#index'
   
   match '/logout' => 'sessions#destroy', :as => :logout
@@ -12,9 +14,11 @@ Cloudsdale::Application.routes.draw do
   match 'auth/:provider/callback' => 'authentications#create'
   resources :authentications, :only => [:create,:destroy]
   
-  resources :users, :path_names => { :new => :register } do
+  resources :users, :except => [:index],:path_names => { :new => :register } do
     get :restore, on: :collection
   end
+  
+  resources :notifications, :only => [:index]
   
   namespace :chat do
     resources :messages, :only => [:create,:index], :path_names => { :index => :log, :create => :send }
