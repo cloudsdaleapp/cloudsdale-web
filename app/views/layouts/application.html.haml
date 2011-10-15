@@ -13,7 +13,7 @@
       
     = yield :head
 
-  %body{ :class => "#{params[:controller]} #{params[:view]}"}
+  %body{ :class => "#{params[:controller]} #{params[:action]}"}
     #flash{ :class => "#{(flash[:notice] or flash[:error]) ? 'showme' : ''}"}
       = image_tag "rainbowdash-announcer.png", :id => "flash_announcer"
       = image_tag "details/flash_bubble_cone.png", :id => "flash_bubble_cone"

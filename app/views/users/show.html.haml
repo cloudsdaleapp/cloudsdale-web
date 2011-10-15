@@ -1,2 +1,13 @@
-#character_specific
-  %h3= @user.character.name
+#show_character_information
+  #character_card
+    %img{ style: "background-color: #ACACAC"}
+    %h3= @user.character.name
+    %p
+      - if @user.is_online?
+        %span{ :class => "online"}= "Online"
+        %br
+        = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
+      - else
+        %span{ :class => "offline"}= "Offline"
+        %br
+        = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
