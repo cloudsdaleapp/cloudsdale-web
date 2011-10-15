@@ -5,6 +5,7 @@ gem 'rails', '3.1.0'
 # Database NO-SQL
 gem 'mongoid'
 gem 'bson_ext'
+gem "mongo_sessions", :require => "mongo_sessions/rails_mongo_store"
 
 # Production dependencies
 gem 'therubyracer'
