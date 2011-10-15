@@ -14,8 +14,8 @@ class User
   field :last_activity,   type: Time
   field :invisible,       type: Boolean, :default => false
   
-  scope :online, -> { where(:last_activity.gt => 5.minutes.ago) }
-  scope :public, where(:invisible => false)
+  scope :online, -> { where(:last_activity.gt => 10.minutes.ago) }
+  scope :visable, where(:invisible => false)
 
   attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes
   attr_accessor :password
@@ -35,7 +35,8 @@ class User
     set_creation_date
   end
   
-  def online
+  def is_online?
+    self.last_activity > 10.minutes.ago
   end
   
   def self.authenticate(email, password)
@@ -71,6 +72,11 @@ class User
   
   def log_activity_and_save!
     self[:last_activity] = Time.now
+    save!
+  end
+  
+  def logout_and_save!
+    self[:last_activity] = Time.now - 10.minutes
     save!
   end
 

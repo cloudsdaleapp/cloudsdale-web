@@ -5,10 +5,12 @@ class Chat::Message
   field :sender, type: String
   field :timestamp, type: Time
   field :content, type: String
+  field :user_path, type: String
   
   validates :timestamp, :presence => true
   validates :sender, :presence => true
   validates :content, :presence => true
+  validates :user_path, :presence => true
   
   def content=(msg)
     msg.gsub! /<\/?[^>]*>/, ""

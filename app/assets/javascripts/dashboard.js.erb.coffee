@@ -163,7 +163,7 @@ class Chat extends Sidebar
           t = new Date(Date._parse(val.timestamp))
           @chat_container.prepend(
             "<div timestamp='#{val.timestamp}'class='message'>
-            <h5 class='sender'>#{val.sender}<span class='time'>#{t.toString('HH:mm:ss')}</span></h5>
+            <h5 class='sender'><a href='#{val.user_path}'>#{val.sender}</a><span class='time'>#{t.toString('HH:mm:ss')}</span></h5>
             <p class='content'>#{val.content}</p></div>")
           @correctWindow(true)
           if key == i
@@ -187,12 +187,12 @@ class Chat extends Sidebar
     if readyForCorrection
       @chat_container.scrollTop(@chat_container[0].scrollHeight)      
       
-  addMessage: (timestamp,sender,content) ->
+  addMessage: (timestamp,sender,content,user_path) ->
     readyForCorrection = @isReadingHistory()
     t = new Date(Date._parse(timestamp))
     @chat_container.append(
       "<div timestamp='#{timestamp}'class='message'>
-      <h5 class='sender'>#{sender}<span class='time'>#{t.toString('HH:mm:ss')}</span></h5>
+      <h5 class='sender'><a href='#{user_path}'>#{sender}</a><span class='time'>#{t.toString('HH:mm:ss')}</span></h5>
       <p class='content'>#{content}</p></div>")
     @correctWindow(readyForCorrection)
     @addNotification()
@@ -281,6 +281,7 @@ $ ->
   new Notifications
     trigger: "#notifications_trigger"
     frame: "#notifications_frame"
+    preseed_path: "/notifications"
     name: "notifications"
 
     

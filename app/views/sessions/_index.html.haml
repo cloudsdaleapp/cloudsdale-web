@@ -2,7 +2,7 @@
 %h4#friend_count= "#{@users.count} little #{@users.count > 1 ? 'ponies' : 'pony'} Online"
 - @users.each do |user|
   .friend
-    %h5.name= user.character.name
+    %h5.name= link_to user.character.name, user_path(user)
     %p.activity
       Last active
       = time_ago_in_words(user.last_activity)

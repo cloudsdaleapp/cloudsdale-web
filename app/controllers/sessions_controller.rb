@@ -24,8 +24,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.logout_and_save!
     session[:user_id] = nil
-    redirect_to root_path, :notice => "Bye!"
+    redirect_to root_path, :notice => "See ya later!"
   end
 
 end
