@@ -10,7 +10,7 @@ class AuthenticationsController < ApplicationController
                       :notice => "Signed in successfully using #{omniauth['provider'].capitalize}" }
       elsif current_user
         current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
-        format.html { redirect_to root_path,
+        format.html { redirect_to :back,
                       :notice => "#{omniauth['provider'].capitalize} authentication, successfully added." }
       else
         @user = User.new

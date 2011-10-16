@@ -23,7 +23,13 @@ gem 'cancan'
 gem 'client_side_validations'
 
 # Images and Image manipulation
+gem 'fog'
+gem 'cloudfiles'
+gem 'mini_magick'
 gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+
+
 
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'

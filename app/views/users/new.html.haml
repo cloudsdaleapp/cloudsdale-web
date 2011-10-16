@@ -4,7 +4,7 @@
     = javascript_include_tag "users"
     
 #auth_window
-  = form_for @user, :validate => true, :multipart => true do |f|
+  = form_for @user, :multipart => true, :validate => true  do |f|
     #user_credentials
       = f.fields_for :authentications do |authentications_form|
         = image_tag "icons/cloud/#{authentications_form.object.provider.downcase}_cloud.png"
@@ -23,14 +23,14 @@
         or
         = link_to "Restore Account", restore_users_path
     #character_information
-      = f.fields_for :character do |c_f|
-        .left
+      .left
+        = f.fields_for :character do |c_f|
           .field.name
-            = c_f.text_field :name, :placeholder => "Pony name..."
+            = c_f.text_field :name, :placeholder => "Pony name...", :original_value => "", :attribute_name => :name, :user_id => ""
           .field.options
             = c_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
             = c_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
-          //.field.avatar
-          //  = c_f.file_field :avatar
-          
+        .field.avatar
+          = f.file_field :avatar
+        
       

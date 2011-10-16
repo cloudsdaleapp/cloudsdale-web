@@ -274,7 +274,7 @@ $ ->
   new Settings
     trigger: "#settings_trigger"
     frame: "#settings_frame"
-    preseed_path: "/users/current/edit"
+    preseed_path: "/users/current/settings"
     name: "settings"
     
     

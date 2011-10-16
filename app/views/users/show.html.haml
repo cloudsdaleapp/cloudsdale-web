@@ -1,6 +1,10 @@
 #show_character_information
   #character_card
-    %img{ style: "background-color: #ACACAC"}
+    - if @user.avatar
+      = image_tag @user.avatar, :title => @user.character.name
+    - else
+      = image_tag "other/unknown_pony.jpg", :title => @user.character.name
+      
     %h3= @user.character.name
     %p
       - if @user.is_online?

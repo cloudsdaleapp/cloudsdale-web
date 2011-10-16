@@ -3,7 +3,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   before_filter do
-    current_user.log_activity_and_save! if current_user
+    begin
+      current_user.log_activity_and_save! if current_user
+    rescue
+      session[:user_id] = nil
+    end
   end
   
   protect_from_forgery

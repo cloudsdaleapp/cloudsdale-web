@@ -12,6 +12,110 @@ body
       padding: 0
       background: #B0ECE8 image-url("artwork/royal_guards.png") no-repeat center top
       
+      #edit_character_information
+        float: left
+        width: 300px
+        background: #F0F6FF
+        @include rounded_corners(3px,3px,3px,3px)
+        border: $border-color-dark solid 1px
+        //@include box_shadow(#FFFFFF,20px)
+        margin: 20px
+        height: 456px
+        
+        .fieldset
+          .field
+            width: 280px
+          
+            input[type=text], input[type=password]
+              width: 220px
+              margin: 0 26px
+              
+            input[type=submit]
+              width: 100px
+              margin: 0 90px
+        
+        ul#connected_accounts
+          list-style: none
+          float: left
+          width: 300px
+          padding: 0
+          margin: 0
+          border-bottom: #C9C9C9 solid 1px
+          margin-bottom: 20px
+          li
+            position: relative
+            float: left
+            width: 149px
+            &:first-child
+              border-right: #C9C9C9 solid 1px
+            &:last-child
+              border-left: #C9C9C9 solid 1px
+            @include gradient_background(#DBE1E8,#CECECE)
+            &.not_connected
+              &:hover
+                a
+                  p
+                    color: $color-text
+                  img
+                    opacity: 1
+                    -moz-opacity: 1
+                    filter: alpha(opacity=100)
+              a
+                p
+                  color: #959595
+                img
+                  opacity: 0.6
+                  -moz-opacity: 0.6
+                  filter: alpha(opacity=60)
+                  
+            a
+              float: left
+              width: 149px
+              height: 34px
+              p
+                float: right
+                width: 111px
+                margin: 8px 0 0 0
+                padding: 0
+                vertical-align: middle
+                text-align: center
+                font-size: 14px
+                font-weight: bold
+              img
+                margin: 2px 4px
+                float: left
+                height: 30px
+                width: 30px
+        
+        #character_card
+          float: left
+          width: 300px
+          @include rounded_corners(3px,3px,0px,0px)
+          @include gradient_background(#E9EFF8,#DEDEDE)
+          border-bottom: #C9C9C9 solid 1px
+            
+          img
+            float: left
+            width: 100px
+            height: 100px
+            border: none
+            margin: 10px
+            
+          input[type=file]
+            float: right
+            width: 160px
+            margin: 5px 20px 0 0
+            
+          .field
+            float: right
+            width: 180px
+            padding: 10px 0px
+            input[type=text]
+              width: 160px
+            select
+              width: 80px
+              font-size: 12px
+        
       #show_character_information
         float: left
         width: 300px

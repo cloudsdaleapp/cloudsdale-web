@@ -8,8 +8,13 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     authorize! :update, @user
+  end
+  
+  def settings
+    @user = current_user
+    authorize! :update, @user
     respond_to do |format|
-      format.html { render :partial => 'edit', locals: { :user => @user } }
+      format.html { render :partial => 'settings', locals: { :user => @user } }
     end
   end
   
@@ -35,9 +40,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         session[:display_name] = @user.character.name
-        format.html { render :json => { :flash => { :type => 'notice', :message => "Successfully updated user."} } }
+        format.js { render :json => { :flash => { :type => 'notice', :message => "Successfully updated user."} } }
+        format.html { redirect_to edit_user_path(@user), :notice => "Successfully updated user." }
       else
-        format.html { render :json => { :flash => { :type => 'error', :message => "Try again!" } } }
+        format.js { render :json => { :flash => { :type => 'error', :message => "Try again!" } } }
       end
     end
   end

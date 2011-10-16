@@ -10,6 +10,11 @@ development:
   redis:
     host: 127.0.0.1
     port: 6379
+  rackspace_cloudfiles:
+    username: zeeraw
+    api_key: a807350d725e1ce3202aac3ff08a3ac1
+    fog_directory: cloudsdale_development_uploads
+    fog_host: http://c775851.r51.cf2.rackcdn.com
     
       
 production:
@@ -24,3 +29,8 @@ production:
   redis:
     host: 127.0.0.1
     port: 6379
+  rackspace_cloudfiles:
+    username: zeeraw
+    api_key: a807350d725e1ce3202aac3ff08a3ac1
+    fog_directory: cloudsdale_production_uploads
+    fog_host: http://c775850.r50.cf2.rackcdn.com

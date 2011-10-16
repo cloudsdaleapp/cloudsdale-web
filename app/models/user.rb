@@ -14,10 +14,12 @@ class User
   field :last_activity,   type: Time
   field :invisible,       type: Boolean, :default => false
   
+  mount_uploader :avatar, AvatarUploader
+  
   scope :online, -> { where(:last_activity.gt => 10.minutes.ago) }
   scope :visable, where(:invisible => false)
 
-  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes
+  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes, :avatar
   attr_accessor :password
   
   accepts_nested_attributes_for :character, :allow_destroy => true
@@ -33,6 +35,10 @@ class User
   before_save do
     encrypt_password
     set_creation_date
+  end
+  
+  before_save :on => :create do
+    self[:last_activity] = Time.now
   end
   
   def is_online?
@@ -78,6 +84,25 @@ class User
   def logout_and_save!
     self[:last_activity] = Time.now - 10.minutes
     save!
+  end
+  
+  # Override to silently ignore trying to remove missing
+  # previous avatar when destroying a User.
+  def remove_avatar!
+    begin
+      super
+    rescue Fog::Storage::Rackspace::NotFound
+    end
+  end
+
+  # Override to silently ignore trying to remove missing
+  # previous avatar when saving a new one.
+  def remove_previously_stored_avatar
+    begin
+      super
+    rescue Fog::Storage::Rackspace::NotFound
+      @previous_model_for_avatar = nil
+    end
   end
 
   

@@ -16,6 +16,7 @@ Cloudsdale::Application.routes.draw do
   
   resources :users, :except => [:index],:path_names => { :new => :register } do
     get :restore, on: :collection
+    get :settings, on: :member
   end
   
   resources :notifications, :only => [:index]

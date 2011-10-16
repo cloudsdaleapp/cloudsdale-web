@@ -1,0 +1,47 @@
+= form_for @user, :multipart => true, :validate => true, :remote => true, :url => user_path(@user), :method => :put, :html => { :class => 'with_notifications' } do |f|
+  #edit_character_information
+    #character_card
+      - if @user.avatar
+        = image_tag @user.avatar, :title => @user.character.name
+      - else
+        = image_tag "other/unknown_pony.jpg", :title => @user.character.name
+      = f.fields_for :character do |char_f|
+        .field.name
+          = char_f.text_field :name, :placeholder => "Pony name...", :original_value => char_f.object.name, :attribute_name => :name, :user_id => @user.id
+        .field.options
+          = char_f.select(:kind, options_for_select(Character::KINDS.collect{ |k| [k.capitalize, k] }, char_f.object.kind))
+          = char_f.select(:gender, options_for_select(Character::GENDERS.collect{ |g| [g.capitalize, g] }, char_f.object.gender))
+          
+      = f.file_field :avatar
+      
+    %ul#connected_accounts
+      - @user.authentications.each do |authentication|
+        %li{ :class => authentication.provider  }
+          = link_to authentication_path(authentication), :method => :delete do
+            = image_tag("icons/cloud/#{authentication.provider}_cloud.png")
+            %p Disconnect
+            
+      - auth_providers = @user.authentications.map {|a| a.provider }
+      - unless auth_providers.include?("facebook")
+        %li.not_connected.facebook
+          = link_to "/auth/facebook" do
+            = image_tag("icons/cloud/facebook_cloud.png")
+            %p Connect
+      - unless auth_providers.include?("twitter")
+        %li.not_connected.twitter
+          = link_to "/auth/twitter" do
+            = image_tag("icons/cloud/twitter_cloud.png")
+            %p Connect
+    .fieldset
+      .field
+        = f.text_field :email, :placeholder => "Email"
+      .field
+        = f.password_field :password, :placeholder => "New password..."
+      .field
+        = f.password_field :password_confirmation, :placeholder => "Confirm please..."
+
+      .field.tools
+        = f.submit "Save"
+
+:javascript
+  $('form[data-validate]').validate();
