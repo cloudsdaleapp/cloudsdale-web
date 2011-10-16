@@ -1,7 +1,7 @@
 = form_for @user, :multipart => true, :validate => true, :remote => true, :url => user_path(@user), :method => :put, :html => { :class => 'with_notifications' } do |f|
   #edit_character_information
     #character_card
-      - if @user.avatar
+      - if @user.avatar.url
         = image_tag @user.avatar, :title => @user.character.name
       - else
         = image_tag "other/unknown_pony.jpg", :title => @user.character.name

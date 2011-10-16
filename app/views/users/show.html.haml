@@ -1,6 +1,6 @@
 #show_character_information
   #character_card
-    - if @user.avatar
+    - if @user.avatar.url
       = image_tag @user.avatar, :title => @user.character.name
     - else
       = image_tag "other/unknown_pony.jpg", :title => @user.character.name
