@@ -15,6 +15,12 @@
   background-image: $url, -moz-linear-gradient(top, #{$start}, (#{$end}))
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='(#{$end}'))
 
+@mixin gradient_background_icon_offset($start, $end, $url, $xaxis, $yaxis)
+  background: $start no-repeat $xaxis $yaxis
+  background-image: $url, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#{$start}), to(#{$end}))
+  background-image: $url, -moz-linear-gradient(top, #{$start}, (#{$end}))
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='(#{$end}'))
+
 @mixin box_shadow($color, $width)
   -webkit-box-shadow: #{$color} 0px 0px #{$width}
   box-shadow: 0 0 #{$width} #{$color}

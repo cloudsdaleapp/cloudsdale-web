@@ -125,6 +125,81 @@ body
         //@include box_shadow(#FFFFFF,20px)
         margin: 20px
         height: 456px
+        
+        ul#recent_activity
+          list-style: none
+          float: left
+          width: 300px
+          padding: 0
+          margin: 0
+          height: 277px
+          overflow: hidden
+          lh
+            float: left
+            width: 290px
+            font-size: 12px
+            font-weight: bold
+            padding: 5px
+            border-bottom: #C9C9C9 solid 1px
+          li
+            width: 290px
+            float: left
+            padding: 5px
+            border-bottom: #C9C9C9 dotted 1px
+            a
+              width: 190px
+              float: left
+              font-size: 10px
+              font-weight: bold
+              color: $color-teal-dark
+              &:hover
+                color: $color-teal
+            span.time
+              width: 100px
+              float: right
+              font-size: 10px
+              font-weight: bold
+              text-align: right
+        
+        ul#user_actions
+          list-style: none
+          float: left
+          width: 300px
+          padding: 0
+          margin: 0
+          border-bottom: #C9C9C9 solid 1px
+          margin-bottom: 20px
+          li
+            position: relative
+            float: left
+            width: 149px
+            &:first-child
+              border-right: #C9C9C9 solid 1px
+            &:last-child
+              border-left: #C9C9C9 solid 1px
+            @include gradient_background(#DBE1E8,#CECECE)
+            
+            &.subscribe
+              a
+                background: rgba(0,0,0,0.0) image-url("icons/panel/star_24.png") left center no-repeat
+                &:hover
+                  background-image: image-url("icons/panel/star_24_color.png")
+            &.message
+              a
+                background: rgba(0,0,0,0.0) image-url("icons/panel/mail_24.png") left center no-repeat
+                &:hover
+                  background-image: image-url("icons/panel/mail_24_color.png")
+              
+            a
+              margin-left: 5px
+              float: left
+              width: 99px
+              font-size: 14px
+              font-weight: bold
+              padding: 10px 15px 10px 30px
+              text-align: center
+              
+        
         #character_card
           float: left
           width: 300px
