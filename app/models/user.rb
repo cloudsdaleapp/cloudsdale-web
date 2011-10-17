@@ -4,6 +4,7 @@ class User
   
   embeds_one :character
   embeds_many :authentications
+  embeds_many :activities
   
   field :email,           type: String
   field :auth_token,      type: String

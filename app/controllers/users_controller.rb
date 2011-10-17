@@ -36,6 +36,7 @@ class UsersController < ApplicationController
   
   def update
     @user = current_user
+    @user.activities.build(category: :profile, text: 'Updated profile', url: user_path(@user))
     authorize! :update, @user
     respond_to do |format|
       if @user.update_attributes(params[:user])

@@ -129,37 +129,42 @@ body
         ul#recent_activity
           list-style: none
           float: left
-          width: 300px
+          width: 100%
           padding: 0
           margin: 0
-          height: 277px
-          overflow: hidden
+          height: 297px
+          overflow-y: auto
+          overflow-x: hidden
           lh
             float: left
-            width: 290px
+            width: 100%
             font-size: 12px
             font-weight: bold
-            padding: 5px
             border-bottom: #C9C9C9 solid 1px
+            span
+              float: left
+              padding: 5px
           li
-            width: 290px
+            width: 100%
             float: left
-            padding: 5px
             border-bottom: #C9C9C9 dotted 1px
             a
-              width: 190px
+              padding: 5px 5px 0 5px
+              min-width: 51%
               float: left
               font-size: 10px
               font-weight: bold
               color: $color-teal-dark
               &:hover
                 color: $color-teal
+                
             span.time
-              width: 100px
-              float: right
+              padding: 5px
+              min-width: 51%
+              float: left
               font-size: 10px
               font-weight: bold
-              text-align: right
+              text-align: left
         
         ul#user_actions
           list-style: none
@@ -168,7 +173,6 @@ body
           padding: 0
           margin: 0
           border-bottom: #C9C9C9 solid 1px
-          margin-bottom: 20px
           li
             position: relative
             float: left
@@ -179,6 +183,16 @@ body
               border-left: #C9C9C9 solid 1px
             @include gradient_background(#DBE1E8,#CECECE)
             
+            &.profile
+              width: 300px !important
+              border: none !important
+              text-align: center
+              a
+                width: 250px
+                background: rgba(0,0,0,0.0) image-url("icons/panel/gear_24.png") left center no-repeat
+                &:hover
+                  background-image: image-url("icons/panel/gear_24_active.png")
+                  
             &.subscribe
               a
                 background: rgba(0,0,0,0.0) image-url("icons/panel/star_24.png") left center no-repeat

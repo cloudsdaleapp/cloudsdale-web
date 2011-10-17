@@ -15,18 +15,19 @@
         %span{ :class => "offline"}= "Offline"
         %br
         = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
-  %ul#user_actions
-    %li.subscribe= link_to "Subscribe", ""
-    %li.message= link_to "Message", ""
+  - if @user == current_user
+    %ul#user_actions
+      %li.profile= link_to "Edit Profile", edit_user_path(@user)
+      /%li.message= link_to "Message", ""
+  - else
+    %ul#user_actions
+      %li.subscribe= link_to "Subscribe", ""
+      %li.message= link_to "Message", ""
   
   %ul#recent_activity
-    %lh Recent activity:
-    %li
-      = link_to "Changed avatar", ""
-      %span.time= "#{time_ago_in_words(5.minutes.ago).capitalize} ago"
-    %li
-      = link_to "Made an update to fanfic: \"Cupcakes\"", ""
-      %span.time= "#{time_ago_in_words(8.hours.ago).capitalize} ago"
-    %li
-      = link_to "Uploaded fanfic: \"Cupcakes\"", ""
-      %span.time= "#{time_ago_in_words(2.days.ago).capitalize} ago"
+    %lh
+      %span= "Recent activity:"
+    - @user.activities.order(:timestamp => :desc).each do |activity|
+      %li
+        = link_to activity.text, activity.url
+        %span.time= "#{time_ago_in_words(activity.timestamp).capitalize} ago"
