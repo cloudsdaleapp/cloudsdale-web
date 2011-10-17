@@ -7,6 +7,7 @@
 #= require rails.validations
 #= require rails.validations.custom
 #= require farbtastic
+#= require faye
 
 $ ->
   $("#flash.showme").hide().delay(200).fadeIn(400).delay(3000).fadeOut(400)

@@ -2,7 +2,6 @@
 %html
   %head
     %title Cloudsdale
-    = javascript_include_tag "#{Cloudsdale.config['url']}:9191/faye.js"
     = stylesheet_link_tag "application"
     = stylesheet_link_tag params[:controller]
     = javascript_include_tag "application"
@@ -33,7 +32,7 @@
               = link_to "Gallery", ""
           %ul.nav.right.auth
             - if current_user
-              %li= link_to "Edit Profile", edit_user_path(current_user)
+              %li= link_to "Visit Profile", user_path(current_user)
               %li or
               %li= link_to "Log out", logout_path
             - else
