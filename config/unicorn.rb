@@ -7,7 +7,10 @@ worker_processes 4
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/tmp/cloudsdale.sock", :backlog => 256
+listen "/tmp/cloudsdale.socket", :backlog => 256
+
+# Preload app for more speed
+preload_app true
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
