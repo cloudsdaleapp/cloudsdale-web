@@ -17,7 +17,7 @@ if env == 'production'
   # Help ensure your application will always spawn in the symlinked
   # "current" directory that Capistrano sets up.
   working_directory "/opt/app/current" # available in 0.94.0+
-  user 'deploy', 'web'
+  #user 'deploy', 'web'
   
   shared_path = "/opt/app/shared"
 
