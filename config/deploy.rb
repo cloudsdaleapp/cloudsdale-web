@@ -110,7 +110,7 @@ namespace :deploy do
 
   desc "Zero-downtime restart of Unicorn"
   task :restart, :except => { :no_release => true } do
-    run "kill -s USR2 `cat /opt/pids/unicorn.pid`"
+    run "kill -s USR2 `cat #{shared_path}/pids/unicorn.pid`"
   end
 
   desc "Start unicorn"
@@ -120,7 +120,7 @@ namespace :deploy do
 
   desc "Stop unicorn"
   task :stop, :except => { :no_release => true } do
-    run "kill -s QUIT `cat /opt/pids/unicorn.pid`"
+    run "kill -s QUIT `cat #{shared_path}/pids/unicorn.pid`"
   end  
 
   namespace :rollback do

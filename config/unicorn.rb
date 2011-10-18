@@ -10,25 +10,22 @@ worker_processes 4
 listen "/tmp/.sock", :backlog => 64
 listen 80, :tcp_nopush => true
 
-# Since Unicorn is never exposed to outside clients, it does not need to
-# run on the standard HTTP port (80), there is no reason to start Unicorn
-# as root unless it's from system init scripts.
-# If running the master process as root and the workers as an unprivileged
-# user, do this to switch euid/egid in the workers (also chowns logs):
-# user "unprivileged_user", "unprivileged_group"
-
-# Help ensure your application will always spawn in the symlinked
-# "current" directory that Capistrano sets up.
-working_directory "/opt/app/current" # available in 0.94.0+
+# nuke workers after 30 seconds instead of 60 seconds (the default)
+timeout 30
 pid "/opt/pids/unicorn.pid"
+
+if env == 'production'
+  # Help ensure your application will always spawn in the symlinked
+  # "current" directory that Capistrano sets up.
+  working_directory "/opt/app/current" # available in 0.94.0+
+  user 'deploy', 'web'
+
+  stderr_path "#{shared_path}/log/unicorn.stderr.log"
+  stdout_path "#{shared_path}/log/unicorn.stdout.log"
+end
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-
-user 'deploy', 'web'
-
-# nuke workers after 30 seconds instead of 60 seconds (the default)
-timeout 30
 
 #stdeer_path "/opt/logs/unicorn.stderr.log"
 #stdout_path "/opt/logs/unicorn.stderr.log"
