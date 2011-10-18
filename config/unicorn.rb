@@ -19,6 +19,8 @@ if env == 'production'
   # "current" directory that Capistrano sets up.
   working_directory "/opt/app/current" # available in 0.94.0+
   user 'deploy', 'web'
+  
+  shared_path = "/opt/app/shared"
 
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
   stdout_path "#{shared_path}/log/unicorn.stdout.log"
