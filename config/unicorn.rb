@@ -35,8 +35,8 @@ timeout 30
 
 pid "/opt/pids/unicorn.pid"
 
-stdeer_path "/opt/logs/unicorn.stderr.log"
-stdout_path "/opt/logs/unicorn.stderr.log"
+#stdeer_path "/opt/logs/unicorn.stderr.log"
+#stdout_path "/opt/logs/unicorn.stderr.log"
 
 # combine REE with "preload_app true" for memory savings
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
