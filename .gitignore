@@ -7,3 +7,4 @@ tmp/
 /db/data/*/**
 /public/assets/*/**
 /dump.rdb
+/secret.txt

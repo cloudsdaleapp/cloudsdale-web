@@ -8,7 +8,7 @@ worker_processes 4
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
 listen "/tmp/.sock", :backlog => 64
-listen 80, :tcp_nopush => true
+listen 8080, :tcp_nopush => true
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
@@ -28,9 +28,6 @@ end
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-
-#stdeer_path "/opt/logs/unicorn.stderr.log"
-#stdout_path "/opt/logs/unicorn.stderr.log"
 
 # combine REE with "preload_app true" for memory savings
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
