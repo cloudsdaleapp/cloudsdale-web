@@ -18,7 +18,7 @@ set :use_sudo,        false
 
 role :web, "50.57.151.151"
 role :app, "50.57.151.151", :primary => true
-role :db,  "50.57.151.151", :primary => true
+role :db,  "50.57.151.186", :primary => true
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }
