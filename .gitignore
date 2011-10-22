@@ -4,7 +4,11 @@ log/*.log
 tmp/
 .sass-cache/
 
-/db/data/*/**
-/public/assets/*/**
+db/data/*/**
 /dump.rdb
-/secret.txt
+secret.txt
+public/assets
+tmp/cache
+tmp/pids
+tmp/sessions
+tmp/sockets
