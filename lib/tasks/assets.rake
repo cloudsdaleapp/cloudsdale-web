@@ -15,7 +15,7 @@ namespace :assets do
     shared_path = Pathname.new(ENV["SHARED_PATH"])
     assets_path = shared_path.join("assets")
     remote_files = container.objects
-    local_files = Dir.glob(assets_path.join('**', '*.*')).collect{ |file| file.slice!(assets_path.to_s + '/'); file }
+    local_files = Dir.glob(assets_path.join('**', '*.*')).collect{ |file| file.slice!(shared_path.to_s + '/'); file }
     
     if remote_files.sort == local_files.sort
       puts "Remote and local the same. Skipping..."
@@ -24,7 +24,7 @@ namespace :assets do
       # See if there are files existing localy but not remotely
       (local_files - remote_files).each do |file|
         object = container.create_object(file, false)
-        object.load_from_filename(assets_path.join(file))
+        object.load_from_filename(shared_path.join(file))
         puts "Uploaded #{file}"
       end
 
