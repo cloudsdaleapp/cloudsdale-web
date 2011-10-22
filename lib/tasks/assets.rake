@@ -10,15 +10,11 @@ namespace :assets do
   desc "Upload assets to rackspace"
   task :upload do
     
-    # Assets prefix on remote files
-    assets_prefix = "assets/"
-    assets_prefix_regex = /^assets\//i
-    
     # Set up CloudFiles and paths
     container = cf.container('cloudsdale_production_assets')
     shared_path = Pathname.new(ENV["SHARED_PATH"])
     assets_path = shared_path.join("assets")
-    remote_files = container.objects.each{|o|o.gsub!(assets_prefix_regex,"")}
+    remote_files = container.objects
     local_files = Dir.glob(assets_path.join('**', '*.*')).collect{ |file| file.slice!(assets_path.to_s + '/'); file }
     
     if remote_files.sort == local_files.sort
@@ -27,14 +23,14 @@ namespace :assets do
       puts "Starting remote sync..."
       # See if there are files existing localy but not remotely
       (local_files - remote_files).each do |file|
-        object = container.create_object(assets_prefix+file, false)
+        object = container.create_object(file, false)
         object.load_from_filename(assets_path.join(file))
         puts "Uploaded #{file}"
       end
 
       # See if there is any files that exists remotely but are removed localy
       (remote_files - local_files).each do |file|
-        container.delete_object(assets_prefix + file)
+        container.delete_object(file)
         puts "Removed #{file}"
       end
     end
