@@ -7,6 +7,9 @@ gem 'mongoid'
 gem 'bson_ext'
 gem "mongo_sessions", :require => "mongo_sessions/rails_mongo_store"
 
+# Push notifications
+gem 'faye'
+
 # Production dependencies
 gem 'therubyracer'
 gem 'execjs'
