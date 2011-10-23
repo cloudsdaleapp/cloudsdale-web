@@ -11,6 +11,7 @@ class Activity
   
   validates :category,  :presence => true
   validates :text,      :presence => true
+  validates :url,       :presence => true
   
   before_validation :on => :create do
     self[:timestamp] = Time.now unless self.timestamp.present?
