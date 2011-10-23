@@ -48,9 +48,7 @@
         #content
           - if current_user
             = render :partial => '/layouts/chat_sidebar'
-            #settings_frame
             #notifications_frame
-            //#feed_frame
             #friends_frame
           #inner_content
             = yield
@@ -60,9 +58,7 @@
             %li My Little Pony: Friendship is Magic is © Hasbro, all art/writing is © to their respective artists
           - if current_user
             %ul#dashboard
-              %li#settings_trigger
               %li#chat_trigger
               %li#notifications_trigger
-              //%li#feed_trigger
               %li#friends_trigger
 

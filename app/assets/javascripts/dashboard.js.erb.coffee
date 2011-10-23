@@ -209,30 +209,6 @@ class Chat extends Sidebar
   addNotification: () =>
     message = "NEW MESSAGE"
     super message
-
-    
-class Settings extends Sidebar
-  
-  constructor: (args) ->
-    super args
-    @setup()
-    @bind()
-    
-  preSeed: (path) =>
-    super path
-    $.get path, (data) =>
-      @frame.append(data)
-
-class Feed extends Sidebar
-  
-  constructor: (args) ->
-    super args
-    @setup()
-    @bind()
-    
-  preSeed: (path) =>
-    $.get path, (data) =>
-      @frame.html(data)
       
 class Notifications extends Sidebar
 
@@ -271,24 +247,11 @@ $ ->
     chat_form: "#chat_form"
     name: "chat"
     
-  new Settings
-    trigger: "#settings_trigger"
-    frame: "#settings_frame"
-    preseed_path: "/users/current/settings"
-    name: "settings"
-    
-    
   new Notifications
     trigger: "#notifications_trigger"
     frame: "#notifications_frame"
     preseed_path: "/notifications"
     name: "notifications"
-
-    
-  #new Feed
-  #  trigger: "#feed_trigger"
-  #  frame: "#feed_frame"
-  #  name: "feed"
     
   new Friends
     trigger: "#friends_trigger"
