@@ -19,7 +19,7 @@ Cloudsdale::Application.routes.draw do
     get :settings, on: :member
   end
   
-  resources :notifications, :only => [:index]
+  resources :notifications, :only => [:index,:show]
   
   namespace :chat do
     resources :messages, :only => [:create,:index], :path_names => { :index => :log, :create => :send }
