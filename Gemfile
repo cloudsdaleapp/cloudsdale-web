@@ -46,6 +46,7 @@ gem 'sprockets'
 group :development, :test do
   gem 'pry'
   gem 'foreman'
+  gem 'gist'
 end
 
 gem 'capistrano'
