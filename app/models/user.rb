@@ -7,6 +7,9 @@ class User
   embeds_many :activities
   embeds_many :notifications
   
+  has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
+  has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
+  
   field :email,           type: String
   field :auth_token,      type: String
   field :password_hash,   type: String
@@ -31,6 +34,8 @@ class User
   validates :email, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   validates :password, confirmation: true
   validates :auth_token, presence: true, uniqueness: true
+  
+  validates_exclusion_of :id, :in => lambda { |u| u.publisher_ids }, :message => "cannot subscribe to yourself"
   
   before_validation :generate_auth_token
   
