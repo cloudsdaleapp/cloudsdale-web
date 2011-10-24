@@ -21,7 +21,13 @@
       /%li.message= link_to "Message", ""
   - else
     %ul#user_actions
-      %li.subscribe= link_to "Subscribe", ""
+      - is_subscribed = @user.subscribers.include?(current_user)
+      %li.subscribe{ :class => "#{is_subscribed ? 'is_subscribed' : 'not_subscribed'}" }
+        - if is_subscribed
+          = link_to "Unsubscribe", user_subscriber_path(@user,current_user), method: :delete
+        - else
+          = link_to "Subscribe", user_subscribers_path(@user), method: :post
+					
       %li.message= link_to "Message", ""
   
   %ul#recent_activity

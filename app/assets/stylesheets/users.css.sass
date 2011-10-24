@@ -194,6 +194,12 @@ body
                   background-image: image-url("icons/panel/gear_24_active.png")
                   
             &.subscribe
+              &.is_subscribed
+                a
+                  background: rgba(0,0,0,0.0) image-url("icons/panel/star_24_color.png") left center no-repeat
+                  &:hover
+                    background-image: image-url("icons/panel/star_24.png")
+                    
               a
                 background: rgba(0,0,0,0.0) image-url("icons/panel/star_24.png") left center no-repeat
                 &:hover

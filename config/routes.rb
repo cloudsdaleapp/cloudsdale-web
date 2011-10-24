@@ -14,9 +14,10 @@ Cloudsdale::Application.routes.draw do
   match 'auth/:provider/callback' => 'authentications#create'
   resources :authentications, :only => [:create,:destroy]
   
-  resources :users, :except => [:index],:path_names => { :new => :register } do
+  resources :users, :except => [:index], :path_names => { :new => :register } do
     get :restore, on: :collection
     get :settings, on: :member
+    resources :subscribers, :only => [:create,:destroy], :controller => 'users/subscribers'
   end
   
   resources :notifications, :only => [:index,:show]
