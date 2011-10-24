@@ -44,7 +44,7 @@ class User
     set_creation_date
   end
   
-  before_save :on => :create do
+  before_create do
     self[:last_activity] = Time.now
   end
   
