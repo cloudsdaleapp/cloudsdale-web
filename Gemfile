@@ -18,6 +18,9 @@ gem 'execjs'
 gem 'haml'
 gem 'haml-rails'
 
+# Styling
+gem 'bootstrap-sass', '1.3.0'
+
 # Authentication & Authorization
 gem 'omniauth'
 gem 'cancan'

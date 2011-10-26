@@ -1,39 +1,85 @@
-#show_character_information
-  #character_card
-    - if @user.avatar.url
-      = image_tag @user.avatar, :title => @user.character.name
-    - else
-      = image_tag "other/unknown_pony.jpg", :title => @user.character.name
-      
-    %h3= @user.character.name
-    %p
+.page-header
+  %h1
+    = @user.character.name
+    %small
       - if @user.is_online?
         %span{ :class => "online"}= "Online"
-        %br
         = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
       - else
         %span{ :class => "offline"}= "Offline"
-        %br
         = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
-  - if @user == current_user
-    %ul#user_actions
-      %li.profile= link_to "Edit Profile", edit_user_path(@user)
-      /%li.message= link_to "Message", ""
-  - else
-    %ul#user_actions
-      - is_subscribed = @user.subscribers.include?(current_user)
-      %li.subscribe{ :class => "#{is_subscribed ? 'is_subscribed' : 'not_subscribed'}" }
-        - if is_subscribed
-          = link_to "Unsubscribe", user_subscriber_path(@user,current_user), method: :delete
+.row
+  .span5
+    .row.info
+      .span3
+        - if @user.avatar.url
+          = image_tag @user.avatar, :title => @user.character.name, :class => 'avatar'
         - else
-          = link_to "Subscribe", user_subscribers_path(@user), method: :post
-					
-      %li.message= link_to "Message", ""
+          = image_tag "other/unknown_pony.jpg", :title => @user.character.name, :class => 'avatar'
+      .span2
+        %h5.gender= @user.character.gender.capitalize
+        %h5.kind= @user.character.kind.capitalize
+    
+    .row.user_actions
+      .span5
+        - if @user == current_user
+          %ul
+            %li.profile
+              = link_to edit_user_path(@user) do
+                = image_tag "icons/tools/cog.png", :title => "edit profile", :class => 'link_icon'
+                = "Settings"
+        - else
+          %ul
+            - is_subscribed = @user.subscribers.include?(current_user)
+            %li.subscribe{ :class => "#{is_subscribed ? 'is_subscribed' : 'not_subscribed'}" }
+              - if is_subscribed
+                = link_to user_subscriber_path(@user,current_user), method: :delete do
+                  = image_tag "icons/tools/stop.png", :title => "unsubscribe", :class => 'link_icon'
+                  = "Unsubscribe"
+              - else
+                = link_to user_subscribers_path(@user), method: :post do
+                  = image_tag "icons/tools/star.png", :title => "subscribe", :class => 'link_icon'
+                  = "Subscribe"
+			
+            %li.message
+              = link_to "" do
+                = image_tag "icons/tools/email.png", :title => "message", :class => 'link_icon'
+                = "Message"
   
-  %ul#recent_activity
-    %lh
-      %span= "Recent activity:"
-    - @user.activities.order(:timestamp => :desc).each do |activity|
-      %li
-        = link_to activity.text, activity.url
-        %span.time= "#{time_ago_in_words(activity.timestamp).capitalize} ago"
+  .span11
+    %ul.tabs
+      %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
+        = link_to "Activity", user_path(@user)
+      %li{ :class => "#{ params[:tab] == 'fics' ? 'active' : '' }" }
+        = link_to "Fics", user_path(@user, tab: 'fics')
+        
+    - if params[:tab].nil?
+      - @user.activities.order(:timestamp => :desc).each do |activity|
+        %p{ :style => 'padding-left: 20px;'}
+          = link_to activity.text, activity.url
+          %span.time= "#{time_ago_in_words(activity.timestamp).capitalize} ago"
+          
+    - elsif params[:tab] == 'fics'
+      %ul.unstyled
+        %li
+          .row
+            .span2
+              %img{ :width => "50px", :height => "50px"}
+            .span4
+              %h4= link_to "Cupcakes"
+              %small= Time.now.strftime('%Y/%m/%d %R')
+            .span5
+              .btn.info Add to Readlist
+        %li
+          %h4= link_to "Cupcakes"
+          %small= Time.now.strftime('%Y/%m/%d %R')
+          .btn.info Add in Readlist
+          
+        %li
+          %h4= link_to "Cupcakes"
+          %small= Time.now.strftime('%Y/%m/%d %R')
+          .btn.info Add in Readlist
+          
+          
+          
+          

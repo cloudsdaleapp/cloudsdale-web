@@ -1,47 +1,44 @@
-= form_for @user, :multipart => true, :validate => true, :remote => true, :url => user_path(@user), :method => :put, :html => { :class => 'with_notifications' } do |f|
-  #edit_character_information
-    #character_card
-      - if @user.avatar.url
-        = image_tag @user.avatar, :title => @user.character.name
-      - else
-        = image_tag "other/unknown_pony.jpg", :title => @user.character.name
-      = f.fields_for :character do |char_f|
-        .field.name
-          = char_f.text_field :name, :placeholder => "Pony name...", :original_value => char_f.object.name, :attribute_name => :name, :user_id => @user.id
-        .field.options
-          = char_f.select(:kind, options_for_select(Character::KINDS.collect{ |k| [k.capitalize, k] }, char_f.object.kind))
-          = char_f.select(:gender, options_for_select(Character::GENDERS.collect{ |g| [g.capitalize, g] }, char_f.object.gender))
-          
-      = f.file_field :avatar
-      
-    %ul#connected_accounts
-      - @user.authentications.each do |authentication|
-        %li{ :class => authentication.provider  }
-          = link_to authentication_path(authentication), :method => :delete do
-            = image_tag("icons/cloud/#{authentication.provider}_cloud.png")
-            %p Disconnect
-            
-      - auth_providers = @user.authentications.map {|a| a.provider }
-      - unless auth_providers.include?("facebook")
-        %li.not_connected.facebook
-          = link_to "/auth/facebook" do
-            = image_tag("icons/cloud/facebook_cloud.png")
-            %p Connect
-      - unless auth_providers.include?("twitter")
-        %li.not_connected.twitter
-          = link_to "/auth/twitter" do
-            = image_tag("icons/cloud/twitter_cloud.png")
-            %p Connect
-    .fieldset
-      .field
-        = f.text_field :email, :placeholder => "Email"
-      .field
-        = f.password_field :password, :placeholder => "New password..."
-      .field
-        = f.password_field :password_confirmation, :placeholder => "Confirm please..."
+.page-header
+  %h1
+    = "Settings"
+    %small
+      %span= @user.email
 
-      .field.tools
-        = f.submit "Save"
+.row
+  .span5
+    .row.info
+      .span3
+        - if @user.avatar.url
+          = image_tag @user.avatar, :title => @user.character.name, :class => 'avatar'
+        - else
+          = image_tag "other/unknown_pony.jpg", :title => @user.character.name, :class => 'avatar'
+      .span2
+        %h5.gender= @user.character.gender.capitalize
+        %h5.kind= @user.character.kind.capitalize
 
-:javascript
-  $('form[data-validate]').validate();
+  .span11
+    %ul.tabs
+      %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
+        = link_to "Profile", edit_user_path(current_user)
+      %li{ :class => "#{ params[:tab] == 'account' ? 'active' : '' }" }
+        = link_to "Account", edit_user_path(current_user, tab: 'account')
+      %li{ :class => "#{ params[:tab] == 'security' ? 'active' : '' }" }
+        = link_to "Security", edit_user_path(current_user, tab: 'security')
+      %li{ :class => "#{ params[:tab] == 'chat' ? 'active' : '' }" }
+        = link_to "Chat", edit_user_path(current_user, tab: 'chat')
+
+    = form_for @user, :multipart => true, :validate => true, :url => user_path(@user), :method => :put, :html => { :class => 'with_notifications' } do |f|
+
+      - if params[:tab].nil?
+        = render :partial => 'edit_profile_tab', :locals => { f: f }
+      - elsif params[:tab] == 'account'
+        = render :partial => 'edit_account_tab', :locals => { f: f }
+      - elsif params[:tab] == 'security'
+        = render :partial => 'edit_security_tab', :locals => { f: f }
+      - elsif params[:tab] == 'chat'
+        = render :partial => 'edit_chat_tab', :locals => { f: f }
+
+        
+      %fieldset
+        .actions
+          = f.submit "Save", :class => 'btn primary'

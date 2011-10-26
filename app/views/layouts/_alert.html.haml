@@ -1,0 +1,16 @@
+- if flash[:notice]
+  - if flash[:notice].is_a?(Hash)
+    .alert-message{ :class => "#{flash[:notice]['category']}" }
+      = link_to "x","#", :class => 'close'
+      %p
+        %strong= flash[:notice]['title']
+        = flash[:notice]['message']
+        
+  - else
+    .alert-message.error
+      = link_to "x","#", :class => 'close'
+      %p
+        %strong= "The format of the flash notice: #{flash[:notice].inspect} is invalid"
+- else
+  .alert-message.hidden
+      

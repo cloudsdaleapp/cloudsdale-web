@@ -1,610 +1,101 @@
 //*= require_self
 //*= require farbtastic
+@import "bootstrap/reset"
+@import "bootstrap/variables"
 
-@import "config/*"
+// Links
+$linkColor:         #66CCFF
+$linkColorHover:    darken($linkColor, 10%)
 
-button, input[type=submit], .button
-  font-family: "CelestiaMediumRedux"
-  font-size: 16px
-  background-color: #d7e5f5
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#d7e5f5), to(#cbe0f5))
-  /* Saf4+, Chrome
-  background-image: -webkit-linear-gradient(top, #D7E5F5, #cbe0f5)
-  background-image: -moz-linear-gradient(top, #d7e5f5, #cbe0f5)
-  background-image: -ms-linear-gradient(top, #d7e5f5, #cbe0f5)
-  background-image: -o-linear-gradient(top, #d7e5f5, #cbe0f5)
-  background-image: linear-gradient(top, #d7e5f5, #cbe0f5)
-  border-top: 1px solid #C5D8EB
-  border-left: 1px solid #B8C8DB
-  border-bottom: 1px solid #B0C0D1
-  border-right: 1px solid #B3C2D5
-  -webkit-border-radius: 12px
-  -moz-border-radius: 12px
-  -ms-border-radius: 12px
-  -o-border-radius: 12px
-  border-radius: 12px
-  -webkit-box-shadow: inset 0 0 9px 2px white
-  -moz-box-shadow: inset 0 0 9px 2px white
-  -ms-box-shadow: inset 0 0 9px 2px white
-  -o-box-shadow: inset 0 0 9px 2px white
-  box-shadow: inset 0 0 9px 2px white
-  color: $color-teal-dark
-  line-height: 1
-  padding: 3px 10px 7px 10px
-  text-align: center
-  text-shadow: 0 1px 1px #fff
-  &:hover
-    background-color: #B7C3D0
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#D1DEEE), to(#C2D7EB))
-    /* Saf4+, Chrome
-    background-image: -webkit-linear-gradient(top, #D1DEEE, #C2D7EB)
-    background-image: -moz-linear-gradient(top, #D1DEEE, #C2D7EB)
-    background-image: -ms-linear-gradient(top, #D1DEEE, #C2D7EB)
-    background-image: -o-linear-gradient(top, #D1DEEE, #C2D7EB)
-    background-image: linear-gradient(top, #D1DEEE, #C2D7EB)
-    border-top: 1px solid #a1afbf
-    border-left: 1px solid #9caaba
-    border-bottom: 1px solid #96a3b3
-    border-right: 1px solid #9caaba
-    color: #1a3e66
-    cursor: pointer
-  &:active
-    border: 1px solid #8c98a7
-    -webkit-box-shadow: inset 0 0 4px 2px #E9E9E9, 0 0 1px 0 #eeeeee
-    -moz-box-shadow: inset 0 0 4px 2px #E9E9E9, 0 0 1px 0 #eeeeee
-    -ms-box-shadow: inset 0 0 4px 2px #E9E9E9, 0 0 1px 0 #eeeeee
-    -o-box-shadow: inset 0 0 4px 2px #E9E9E9, 0 0 1px 0 #eeeeee
-    box-shadow: inset 0 0 4px 2px #E9E9E9, 0 0 1px 0 #eeeeee
+// Colors
+$green: #009900
+$red: #FF0000
 
-input[type=text], input[type=password], textarea, select
-  font-size: 14px
-  @include rounded_corners(3px,3px,3px,3px)
-  @include box_shadow(#FFFFFF,0px)
-  border: 1px solid #999999
-  outline: none
-  width: auto
-  margin: 0
-  
-input[type=text], input[type=password], textarea
-  padding: 3px
+@import "bootstrap/mixins"
+@import "bootstrap/scaffolding"
+@import "bootstrap/type"
+@import "bootstrap/forms"
+@import "bootstrap/tables"
+@import "bootstrap/patterns"
 
-label
-  float: left
-  margin: 0
-  padding: 0
-  font-size: 12px
-  font-weight: bold
-  
-form
-  .field
-    width: auto
-    float: left
-    position: relative
-    padding: 10px
-    
-    input[type=text], input[type=password]
-      width: 200px - 8px
-    
-  .error_field
-    float: left
-    width: 100%
-    position: relative
-    label.message
-      float: left
-      left: 3px
-      top: 25px
-      position: absolute
-      font-size: 10px
-      color: red
-    input
-      border-color: red
-
+html
+  background: #72C3E8 image-url("background.png") center top no-repeat !important
 body
-  margin: 0
-  padding: 0
-  background: rgb(102,187,231) image-url("background.png") center top no-repeat
-  font-family: "Lucida Grande", Helvetica, sans-serif
-  color: $color-text
-    
-  h1,h2,h3,h4,h5,h6
-    font-family: "CelestiaMediumRedux"
-  
-  a
-    color: $color-text
-    text-decoration: none
-    &:visited
-      color: $color-text
-      text-decoration: none
-  
-  #flash
-    font-weight: bold
-    font-size: 20px
-    font-family: "CelestiaMediumRedux"
-    position: absolute
-    top: 0px
-    left: 0px
-    display: none
-    z-index: 99
-    //text-shadow: $color-blue 0px 0px 10px
-    &.showme
-      display: block
-    
-    p, img
-      float: left
-      
-    img#flash_bubble_cone
-      position: absolute
-      left: 130px
-      top: 42px
-    p
-      position: relative
-      padding: 5px 10px 8px 10px
-      margin: 40px 10px
-      @include rounded_corners(12px,12px,12px,12px)
-      background: #FFF
-      &.notice
-        color: $color-green
-      &.error
-        color: $color-red
-  
-  #outer-wrapper
-    overflow: visible
-    margin: 0 auto
-    width: 1104px
-    
-    #header
-      position: relative
-      float: left
-      width: 1024px
-      height: 120px
-      z-index: 4
-      margin: 0 40px
-      
-    #wrapper
-      position: relative
-      width: 1024px
-      float: left
-      margin: 0px 40px 100px 40px
-      @include box_shadow(#FFF,100px)
-      
-    
-      #navigation
-        position: relative
-        float: left
-        width: 1020px
-        height: 50px
-        border: $border-color-dark solid 2px
-        border-bottom: none
-        z-index: 5
-        @include gradient_background(#F0F6FF,#DEEBFF)
-        @include rounded_corners(3px,3px,0px,0px)
-        //@include box_shadow(#FFF,100px)
-      
-        ul.nav
-          height: 50px
-          list-style: none inside
-          padding: 0
-          margin: 0
-        
-          &.right
-            float: right
-            &.auth
-          
-              li
-                margin: 10px 10px
-                &:last-child
-                  margin-right: 20px
-                a
-                  img
-                    width: 30px
-                    height: 30px
-          
-          &.left
-            float: left
-          
-          li
-            padding: 0
-            float: left
-            margin: 10px 20px
-            text-align: center
-            font-size: 22px
-            font-family: "CelestiaMediumRedux"
-          
-            a
-              color: $color-teal-dark
-            &:hover
-              a
-                color: $color-teal
-                text-shadow: 0px 0px 10px #FFF
-          
-            &.home
-              a
-                color: $color-orange-dark
-              &:hover
-                a
-                  color: $color-orange
-                  text-shadow: 0px 0px 10px #FFF
-              
-            &.chat
-              a
-                color: $color-pink-dark
-              &:hover
-                a
-                  color: $color-pink
-                  text-shadow: 0px 0px 10px #FFF
-          
-            &.library
-              a
-                color: $color-purple-dark
-              &:hover
-                a
-                  color: $color-purple
-                  text-shadow: 0px 0px 10px #FFF
-            &.gallery
-              a
-                color: $color-lime-dark
-              &:hover
-                a
-                  color: $color-lime
-                  text-shadow: 0px 0px 10px #FFF
-    
-      #content
-        position: relative
-        float: left
-        width: 1020px
-        height: 500px
-        background-color: #D4EAFF
-        border: $border-color-dark solid 2px
-        border-top: none
-        border-bottom: none
-        z-index: 3
-        overflow: hidden
-        //@include box_shadow(#FFFFFF,100px)
-      
-        #inner_content
-          position: absolute
-          border: $border-color-dark solid 2px
-          border-left: none
-          border-right: none
-          width: 1020px
-          height: 496px
-          z-index: 4
-          //@include box_shadow_inset(#DEEBFF,100px)
-      
-        #chat_frame, #notifications_frame, #feed_frame, #settings_frame, #friends_frame
-          position: absolute
-          right: 0
-          width: 320px
-          height: 500px
-          background: #DEEBFF
-          border-left: $border-color-dark 2px solid
-          overflow-y: auto
-          overflow-x: hidden
-          z-index: 5
-      
-        #chat_frame
-        
-          textarea
-            position: absolute
-            bottom: 0
-            left: 0
-            right: 0
-            max-width: 300px
-            min-width: 300px
-            @include rounded_corners(0px,0px,0px,0px)
-            border: none
-            border-top: $border-color-dark 2px solid
-            border-bottom: $border-color-dark 2px solid
-            padding-left: 18px
-            background: #F0F6FF image-url("icons/comment.png") 1px 3px no-repeat !important
-            font-size: 12px
-            min-height: 15px
-            max-height: 72px
-            height: 15px
-            resize: none
-            overflow: auto !important
-            
-          .shader
-            @include gradient_background(rgba(222,235,255,1),rgba(240,246,255,0))
-            width: 320px
-            position: absolute
-            height: 100px
-            top: 0
-            left: 0
-            right: 0
-          
-        
-          #chat_container
-            position: absolute
-            left: 0
-            right: 0
-            top: 0
-            bottom: 26px
-            overflow-y: auto
-            overflow-x: hidden
-        
-            .deadzone
-              float: left
-              width: 100%
-              height: 474px
-            
-            .message
-              
-              float: left
-              width: 100%
-              margin-bottom: 5px
-              border-top: dotted 1px #C5C5C5
-              &:first-child
-                border-top: none
-              
-              &:hover
-                h5.sender
-                  a:hover
-                    color: $color-teal-dark
-                  span.time
-                    display: block
-              
-              h5.sender
-                margin: 0px
-                padding: 2px 5px
-                font-size: 14px
-                span.time
-                  padding: 2px
-                  float: right
-                  display: none
-                  font-family: "Lucida Grande", Helvetica, sans-serif
-                  font-size: 10px
-                  color: #6F6F6F
-                  
-                  
-              p.content
-                margin: 0px
-                padding: 2px 5px
-                font-size: 12px
-                word-wrap: break-word
-                a
-                  color: $color-teal-dark
-                  &:hover
-                    color: $color-teal
-                  
-            
-        #notifications_frame
-        
-          a.notification
-            float: left
-            width: 100%
-            border-bottom: dotted 1px #C5C5C5
-            padding-bottom: 5px
-            cursor: pointer !important
-            
-            &:first-child
-              border-top: dotted 1px #C5C5C5
-              margin-top: 2px
-              cursor: pointer !important
-            &:hover
-              background-color: darken(#DEEBFF,10%) !important
-              cursor: pointer !important
-            
-            &.unread
-              background-color: darken(#DEEBFF,5%)
-              cursor: pointer !important
-            
-            img.type
-              cursor: inherit
-        
-            h5.actor
-              cursor: inherit
-              margin: 0px
-              padding: 2px 5px
-              font-size: 16px
-            
-            p.description
-              cursor: inherit
-              margin: 0px
-              padding: 2px 5px
-              font-size: 12px
-            p.time
-              cursor: inherit
-              margin: 0px
-              padding: 2px 5px
-              font-size: 12px
-              font-weight: bold
-              color: #6F6F6F
-              
-        #feed_frame
-        #friends_frame
-          &:hover
-            a#freinds_refresh_trigger
-              display: block
-              
-          a#freinds_refresh_trigger
-            position: absolute
-            height: 24px
-            width: 24px
-            top: 10px
-            right: 10px
-            display: none
-            background-image: image-url("icons/panel/reload_24.png")
-            cursor: pointer
-            &:hover
-              background-image: image-url("icons/panel/reload_24_active.png")
-            
-          h4#friend_count
-            float: left
-            margin: 10px 5px
-            
-          .friend
-            float: left
-            width: 100%
-            margin-bottom: 5px
-            border-top: dotted 1px #C5C5C5
-          
-            h5.name
-              margin: 0px
-              padding: 2px 5px
-              font-size: 16px
-              a
-                color: $color-teal-dark
-                &:hover
-                  color: $color-teal
-              
-            p.activity
-              margin: 0px
-              padding: 2px 5px
-              font-size: 12px
-              font-weight: bold
-              color: #6F6F6F
-              
-        #settings_frame
-          h4
-            width: auto
-            float: left
-            padding: 5px 20px
-            margin: 5px
-          
-        
-          ul#connected_accounts
-            float: left
-            width: 100%
-            padding: 0
-            margin: 0
-            list-style: none inside
-            
-            li
-              margin: 10px 0 10px 40px
-              float: left
-              
-              &:hover
-                opacity: 0.6
-                -moz-opacity: 0.6
-                filter: alpha(opacity=60)
-            
-              &.not_connected
-                opacity: 0.3
-                -moz-opacity: 0.3
-                filter: alpha(opacity=30)
-            
-                &:hover
-                  opacity: 0.6
-                  -moz-opacity: 0.6
-                  filter: alpha(opacity=60)
-            
-              img
-                margin: 0
-                width: 40px
-                
-          .fieldset
-            width: 100%
-            float: left
-            
-            .field
-              width: auto
-              padding: 0px 40px
-              margin: 10px 0
+  background: none !important
+  padding-top: 40px !important
 
-            .field.options
-            
-              select
-                width: 90px
-                font-size: 12px
-                &#user_character_attributes_kind
-                  float: left
-                  margin-right: 10px
-                &#user_character_attributes_gender
-                  float: right
-                  margin-left: 10px
-          .field.tools
-            padding: 10px 20px
-            input[type=submit]
-              width: 100px
-          
+.topbar
+  .fill
+    .container
+      .secondary-nav
+        li.img
+          a
+            padding: 5px 5px
+            line-height: 0
+            img
+              max-width: 30px
+              max-height: 30px
+              margin: 0
+              padding: 0
+      a.brand
+        margin-left: 0px
+        &:hover
+          text-decoration: none
+          color: $linkColor
     
-      #footer
-        position: relative
-        float: left
-        width: 1020px
-        height: 50px
-        border: $border-color-dark solid 2px
-        border-top: none
-        z-index: 4
-        @include gradient_background(#DEEBFF,#F0F6FF)
-        @include rounded_corners(0px,0px,3px,3px)
-        //@include box_shadow(#FFF,100px)
-      
-        ul#copywrite
-          float: left
-          list-style: none
-          height: 50px
-          width: auto
-          padding: 0 10px
-          margin: 0
-        
-          li
-            float: left
-            font-size: 12px
-            margin: 19px 10px
-            color: #A6A6A6
-            font-weight: bold
-      
-        ul#dashboard
-          float: right
-          list-style: none
-          height: 50px
-          width: auto
-          padding: 0 10px
-          margin: 0
-          li
-            position: relative
-            float: right
-            cursor: pointer
-            height: 24px
-            width: 24px
-            margin: 13px 10px
-            
-            div.notifications
-              position: absolute
-              left: -5px
-              top: -5px
-              padding: 0px 2px
-              background-color: $color-teal-dark
-              border: 1px #FFF solid
-              font-size: 10px
-              font-weight: bold
-              color: #FFF
-              @include rounded_corners(4px,4px,4px,4px)
-          
-            &#settings_trigger
-              background-image: image-url("icons/panel/gear_24.png")
-              &:hover
-                background-image: image-url("icons/panel/gear_24_active.png")
-              &.active
-                background-image: image-url("icons/panel/gear_24_active.png")
-          
-            &#chat_trigger
-              background-image: image-url("icons/panel/comment_24.png")
-              &:hover
-                background-image: image-url("icons/panel/comment_24_active.png")
-              &.active
-                background-image: image-url("icons/panel/comment_24_active.png")
-              
-            &#feed_trigger
-              background-image: image-url("icons/panel/globe_24.png")
-              &:hover
-                background-image: image-url("icons/panel/globe_24_active.png")
-              &.active
-                background-image: image-url("icons/panel/globe_24_active.png")
-            
-            &#friends_trigger
-              background-image: image-url("icons/panel/pony_24.png")
-              &:hover
-                background-image: image-url("icons/panel/pony_24_active.png")
-              &.active
-                background-image: image-url("icons/panel/pony_24_active.png")
-              
-            &#notifications_trigger
-              background-image: image-url("icons/panel/alarm_on_24.png")
-              &:hover
-                background-image: image-url("icons/panel/alarm_on_24_active.png")
-              &.active
-                background-image: image-url("icons/panel/alarm_on_24_active.png")
-              
+.container
+  .alert-message
+    margin: 15px 0
+    
+    &.hidden
+      background: none
+      height: 20px
+      border: none
+      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
+      -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
+    
+  .page-header
+    -webkit-border-radius: 6px 6px 0 0
+    -moz-border-radius: 6px 6px 0 0
+    border-radius: 6px 6px 0 0
+    background: #F0F6FF
+    h1
+      padding: 20px 20px 10px 20px
+    
+  .content
+    padding-bottom: 20px
+    background: #fff
+    -webkit-border-radius: 6px 6px 6px 6px
+    -moz-border-radius: 6px 6px 6px 6px
+    border-radius: 6px 6px 6px 6px
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+.content
+  .span11
+    border-left: 1px solid #EEE
+    margin-left: 19px
+    ul.tabs
+      li:first-child
+        margin-left: 20px
+  .span5, .span11, .span6, .span12, .span16, .span14
+    min-height: 400px
+
+fieldset, ul
+  .span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10
+    min-height: 0 !important
+
+img.link_icon
+  float: left
+  margin-right: 10px
+
+footer
+  border-top: none !important
+  p
+    font-weight: bold
+    text-align: center
+    color: #525252
+
+@import "bottombar/main"
+@import "*"

@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:email], params[:password]) if params[:email] && params[:password]
     if user
       authenticate!(user)
-      redirect_to root_path, :notice => "Signed in in 10 seconds flat, maybe..."
+      redirect_to root_path, :notice => notify_with(:success,"Signed in!","in 10 seconds flat...")
     else
       flash[:error] = "Wrong email and password combination"
       render :new
@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
   def destroy
     current_user.logout_and_save!
     session[:user_id] = nil
-    redirect_to root_path, :notice => "See ya later!"
+    redirect_to root_path, :notice => notify_with(:success,"Signed out!","see ya later...")
   end
 
 end

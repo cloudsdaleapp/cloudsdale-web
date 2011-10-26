@@ -8,7 +8,7 @@ class Users::SubscribersController < ApplicationController
     @publisher.subscribers << current_user
     respond_to do |format|
       if @publisher.save
-        format.html { redirect_to :back }
+        format.html { redirect_to :back, :notice => notify_with(:success,"Subscribed to #{@publisher.character.name}","") }
       else
         format.html { raise @publisher.errors }
       end
@@ -19,7 +19,7 @@ class Users::SubscribersController < ApplicationController
     @publisher.subscribers.delete(current_user)
     respond_to do |format|
       if @publisher.save
-        format.html { redirect_to :back }
+        format.html { redirect_to :back, :notice => notify_with(:warning,"No longer subscribing to #{@publisher.character.name}","") }
       else
         format.html { raise @publisher.errors }
       end

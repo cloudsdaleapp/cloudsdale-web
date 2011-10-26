@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
     @current_user = user
   end
   
+  def notify_with(cat=:success,title="Sucessful",msg="")
+    { "category" => cat.to_s, "title" => title, "message" => msg }
+  end
+  
 end

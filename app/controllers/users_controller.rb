@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   
+  def index
+    @users = User.online.order([:last_activity,:desc]).limit(48)
+  end
+  
   def new
     @user = User.new
     @user.build_character
@@ -8,14 +12,6 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     authorize! :update, @user
-  end
-  
-  def settings
-    @user = current_user
-    authorize! :update, @user
-    respond_to do |format|
-      format.html { render :partial => 'settings', locals: { :user => @user } }
-    end
   end
   
   def show

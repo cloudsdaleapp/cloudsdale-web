@@ -3,62 +3,48 @@
   %head
     %title Cloudsdale
     = stylesheet_link_tag "application"
-    = stylesheet_link_tag params[:controller]
     = javascript_include_tag "application"
     = javascript_include_tag params[:controller]
-    - if current_user
-      = javascript_include_tag :dashboard
     = csrf_meta_tags
-      
     = yield :head
 
   %body{ :class => "#{params[:controller]} #{params[:action]}"}
-    #flash{ :class => "#{(flash[:notice] or flash[:error]) ? 'showme' : ''}"}
-      = image_tag "rainbowdash-announcer.png", :id => "flash_announcer"
-      = image_tag "details/flash_bubble_cone.png", :id => "flash_bubble_cone"
-      %p#flash_bubble{ :class => "#{ flash[:error] ? 'error' : 'notice' }"}
-        = flash[:notice]
-        = flash[:error]
-    #outer-wrapper
-      #header
-      #wrapper
-        #navigation
-          %ul.nav.left
-            %li.home
-              = link_to "Home", root_path
+    .topbar
+      .fill
+        .container
+          = link_to "Cloudsdale", root_path, :class => 'brand'
+          
+          %ul.nav
+            %li.nav_item.library
+              = link_to "Observatory", users_path
             %li.nav_item.library
               = link_to "Library", ""
             %li.nav_item.gallery
               = link_to "Gallery", ""
-          %ul.nav.right.auth
+              
+          %ul.nav.secondary-nav
             - if current_user
-              %li= link_to "Visit Profile", user_path(current_user)
-              %li or
-              %li= link_to "Log out", logout_path
+              %li.dropdown
+                = link_to current_user.character.name, "#", :class => 'dropdown-toggle'
+                %ul.dropdown-menu
+                  %li= link_to "Profile", user_path(current_user)
+                  %li= link_to "Settings", edit_user_path(current_user)
+                  %li.divider
+                  %li= link_to "Logout", logout_path
             - else
-              %li
-                = link_to "Sign in", login_path
-              %li or
-              %li
-                = link_to "Saddle up", new_user_path
-              %li maybe connect with
-              %li= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
-              %li= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
-            
-        #content
-          - if current_user
-            = render :partial => '/layouts/chat_sidebar'
-            #notifications_frame
-            #friends_frame
-          #inner_content
-            = yield
-      
-        #footer
-          %ul#copywrite
-            %li My Little Pony: Friendship is Magic is © Hasbro, all art/writing is © to their respective artists
-          - if current_user
-            %ul#dashboard
-              %li#chat_trigger
-              %li#notifications_trigger
-              %li#friends_trigger
+              %li= link_to "Login", login_path
+              %li= link_to "Register", new_user_path
+              %li.img= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
+              %li.img= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
+
+    .container
+      = render :partial => 'layouts/alert'
+      .content
+        = yield
+      %footer
+        %p My Little Pony: Friendship is Magic is © Hasbro, all art/writing is © to their respective artists
+    
+    .bottombar
+      = render :partial => 'layouts/bottombar'
+
 

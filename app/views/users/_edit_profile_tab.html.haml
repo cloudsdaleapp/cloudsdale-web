@@ -1,0 +1,20 @@
+= f.fields_for :character do |char_f|
+  %fieldset
+    .clearfix
+      = char_f.label :name, "Name"
+      .input= char_f.text_field :name, :placeholder => "Pony name...", :original_value => char_f.object.name, :attribute_name => :name, :user_id => @user.id, :class => 'span4'
+    .clearfix
+      = char_f.label :gender, "Gender"
+      .input= char_f.select(:gender, options_for_select(Character::GENDERS.collect{ |g| [g.capitalize, g] }, char_f.object.gender), {}, { :class => 'span4' })
+    .clearfix
+      = char_f.label :gender, "Kind"
+      .input= char_f.select(:kind, options_for_select(Character::KINDS.collect{ |k| [k.capitalize, k] }, char_f.object.kind), {}, { :class => 'span4' })
+
+%fieldset
+  .clearfix
+    = f.label :avatar, "Select an avatar"
+    .input
+      = f.file_field :avatar
+      .help-inline
+        %strong= "Note:"
+        = "You can upload any size of avatar though cloudsdale will scale it for you."

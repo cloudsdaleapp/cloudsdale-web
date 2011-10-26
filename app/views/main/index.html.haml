@@ -1,2 +1,3 @@
-- if current_user
-  = render :partial => 'user_dashboard'
+.row
+  .span16
+    = image_tag "artwork/rbd_sleep_on_cloud.png", :title => "Welcome to Cloudsdale!", :class => "splasher", :"data-content" => "This is the cloudsdale <span class='label notice'>alpha</span> <br/> We currently have #{User.count + 100} registered users. The site will launch <span class='label warning'>beta</span> in #{distance_of_time_in_words(Time.now, Time.parse('2011-11-23'))}"

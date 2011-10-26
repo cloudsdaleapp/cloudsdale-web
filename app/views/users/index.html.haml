@@ -1,0 +1,17 @@
+.page-header
+  %h1
+    Observatory
+    %small
+      %strong Find all the little ponies online
+        
+.row
+  .span16
+    
+    %ul.media-grid
+      - user = current_user
+      - @users.each do |user|
+        %li.span4
+          = link_to user_path(user) do
+            = image_tag user.avatar.thumb.url, :class => 'thumbnail'
+          %h4= user.character.name
+          
