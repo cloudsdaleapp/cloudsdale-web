@@ -31,4 +31,9 @@ class ApplicationController < ActionController::Base
     { "category" => cat.to_s, "title" => title, "message" => msg }
   end
   
+  def faye_broadcast(channel, data)
+    message = { :channel => channel, :data => data }
+    Net::HTTP.post_form(Cloudsdale.faye_path, :message => message.to_json)
+  end
+  
 end

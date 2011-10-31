@@ -9,6 +9,7 @@ class User
   
   has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
+  has_and_belongs_to_many :rooms, class_name: "Chat::Room", :inverse_of => :users, dependent: :nullify
   
   field :email,           type: String
   field :auth_token,      type: String
@@ -17,11 +18,14 @@ class User
   
   field :member_since,    type: Time
   field :last_activity,   type: Time
-  field :invisible,       type: Boolean, :default => false
+  field :invisible,       type: Boolean,    default: false
+  
+  field :subscribers_count,    type: Integer,    default: 0
   
   mount_uploader :avatar, AvatarUploader
   
   scope :online, -> { where(:last_activity.gt => 10.minutes.ago) }
+  scope :top_subscribed, -> { order_by([:subscribers_count,:desc]) }
   scope :visable, where(:invisible => false)
 
   attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes, :avatar
@@ -42,7 +46,9 @@ class User
   before_save do
     encrypt_password
     set_creation_date
+    update_statistics
   end
+
   
   before_create do
     self[:last_activity] = Time.now
@@ -81,6 +87,10 @@ class User
     unless member_since.present?
       self[:member_since] = Time.now
     end
+  end
+  
+  def update_statistics
+    self[:subscribers_count] = self.subscribers.count
   end
   
   def log_activity_and_save!

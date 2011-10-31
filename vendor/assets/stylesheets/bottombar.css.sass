@@ -1,0 +1,156 @@
+.bottombar
+  position: fixed
+  bottom: 0
+  width:  100%
+  height: 1px
+  z-index: 10000
+  overflow: visible
+  ul.dashboard, ul.chat-container
+    float: right
+    display: block
+    margin: 0 20px 0 0
+    position: relative
+    list-style: none
+    height: 0px
+    li
+      position: relative
+    
+    &.chat-container
+            
+      li.chat-room
+        float: right
+        width: 180px
+        height: 1px
+        margin-left: 10px
+        
+        .chat-room-wrapper
+          border: 1px solid #C7C7C7
+          border-bottom: none
+          position: absolute
+          width: 100%
+          bottom: 0
+          -webkit-border-radius: 5px 5px 0px 0px
+          -moz-border-radius: 5px 5px 0px 0px
+          border-radius: 5px 5px 0px 0px
+          -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+          -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+          box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+          background: #F0F6FF
+          
+          .chat-room-container
+            float: left
+            display: none
+            background: #FFF
+            position: relative
+            
+            textarea
+              font-size: 12px
+              position: absolute
+              bottom: 0
+              padding: 3px 5px 3px 20px
+              width: 265px
+              resize: none
+              border: none
+              border-top: 1px solid #C7C7C7
+              min-height: 18px
+              max-height: 72px
+              overflow-y: auto !important
+              overflow-x: hidden !important
+              height: 18px
+              color: #404040
+              -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .0)
+              -moz-box-shadow: 0 0 0 rgba(0, 0, 0, .0)
+              box-shadow: 0 0 0 rgba(0, 0, 0, .0)
+              resize: none
+              -webkit-border-radius: 0 0 0px 0px !important
+              -moz-border-radius: 0 0 0px 0px !important
+              border-radius: 0 0 0px 0px !important
+              background: #FFF image-url("icons/tools/comment.png") 2px 5px no-repeat !important
+            
+            .chat-messages-wrapper
+              position: absolute
+              top: 0
+              bottom: 26px
+              width: 100%
+              overflow-x: hidden
+              overflow-y: scroll
+              .chat-message
+                position: relative
+                border-bottom: 1px #eee solid
+                &:last-child
+                  border-bottom: none
+                  
+                .chat-message-head
+                  padding: 2px 5px
+                  span
+                    font-weight: bold
+                  span.sender
+                    a:hover
+                      text-decoration: none
+                  span.metadata
+                    display: none
+                    float: right
+                    font-size: 11px
+                    
+                p.chat-message-content
+                  padding: 2px 5px
+                  color: #404040
+                  word-wrap: break-word
+                &:hover
+                  .chat-message-head
+                    span.metadata
+                      display: block
+            
+          
+          .chat-room-handler
+            float: left
+            width: 180px
+            float: left
+            border-bottom: 1px solid #C7C7C7
+          
+            a.chat-room-trigger
+              font-weight: bold
+              color: #BFBFBF
+              float: left
+              width: 170px
+              padding: 3px 5px
+              &:hover
+                text-decoration: none !important
+                color: #404040
+            
+                
+        &.active
+          width: 290px
+          .chat-room-wrapper
+            .chat-room-handler
+              width: 290px
+              a.chat-room-trigger
+                color: #6CF
+                width: 280px
+                &:hover
+                  color: #3BF
+                  
+            .chat-room-container
+              min-height: 320px
+              width: 290px
+              display: block
+        
+    &.dashboard
+      li
+        height: 32px
+        width: 32px
+        margin: 4px
+        background: #F0F6FF
+        -webkit-border-radius: 3px 3px 3px 3px
+        -moz-border-radius: 3px 3px 3px 3px
+        border-radius: 3px 3px 3px 3px
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+        a
+          float: left
+          background: transparent image-url("icons/panel/globe_24.png") 50% 50% no-repeat
+          min-height: 32px
+          min-width: 32px
+          &:hover
+            background-image: image-url("icons/panel/globe_24_active.png")

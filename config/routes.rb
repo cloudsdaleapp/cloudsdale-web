@@ -22,7 +22,11 @@ Cloudsdale::Application.routes.draw do
   resources :notifications, :only => [:index,:show]
   
   namespace :chat do
-    resources :messages, :only => [:create,:index], :path_names => { :index => :log, :create => :send }
+    resources :rooms, :only => [:index] do
+      get :subscribed, on: :collection
+      get :form, on: :member
+      resources :messages, :only => [:create,:index], :controller => 'rooms/messages'
+    end
   end
   
 end

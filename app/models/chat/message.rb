@@ -2,15 +2,23 @@ class Chat::Message
   
   include Mongoid::Document
   
-  field :sender, type: String
-  field :timestamp, type: Time
-  field :content, type: String
-  field :user_path, type: String
+  embedded_in :room, class_name: "Chat::Room"
+  belongs_to :author, class_name: "User"
   
-  validates :timestamp, :presence => true
-  validates :sender, :presence => true
-  validates :content, :presence => true
-  validates :user_path, :presence => true
+  field :timestamp,   type: Time
+  field :content,     type: String
+  
+  # Meta attributes
+  field :user_name,   type: String
+  field :user_path,   type: String
+  
+  validates :timestamp,   :presence => true
+  validates :content,     :presence => true
+  
+  before_validation do
+    self[:timestamp] = Time.now
+    set_foreign_attributes!
+  end
   
   def content=(msg)
     msg.gsub! /<\/?[^>]*>/, ""
@@ -31,8 +39,13 @@ class Chat::Message
     self[:content] = msg
   end
   
-  before_validation do
-    self[:timestamp] = Time.now
+  def timestamp
+    self[:timestamp].to_js
+  end
+  
+  def set_foreign_attributes!
+    self[:user_name] = self.author.character.name
+    self[:user_path] = "/users/#{self.author_id}"
   end
   
 end

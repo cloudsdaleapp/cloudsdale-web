@@ -1,8 +1,7 @@
 module ApplicationHelper
   
-  def broadcast(channel, &block)
-    message = {:channel => "#{channel}", :data => capture(&block)}
-    Net::HTTP.post_form(Cloudsdale.faye_path, :message => message.to_json)
+  def current_tab(expected_tab=:default)
+    params[:tab] == expected_tab
   end
   
 end

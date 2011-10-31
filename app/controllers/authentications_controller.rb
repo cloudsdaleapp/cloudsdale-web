@@ -7,11 +7,11 @@ class AuthenticationsController < ApplicationController
       if found_user
         authenticate!(found_user)
         format.html { redirect_to root_path,
-                      :notice => "Signed in successfully using #{omniauth['provider'].capitalize}" }
+                      :notice => notify_with(:success,"Signed in successfully","using #{omniauth['provider'].capitalize}") }
       elsif current_user
         current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
         format.html { redirect_to :back,
-                      :notice => "#{omniauth['provider'].capitalize} authentication, successfully added." }
+                      :notice => notify_with(:success,"#{omniauth['provider'].capitalize}","authentication, successfully added.") }
       else
         @user = User.new
         @user.build_character
@@ -24,7 +24,7 @@ class AuthenticationsController < ApplicationController
   def destroy
     @authentication = current_user.authentications.find(params[:id])
     @authentication.destroy
-    flash[:notice] = "Successfully disconnected you from #{@authentication.provider.capitalize}."
+    flash[:notice] = notify_with(:success,"#{@authentication.provider.capitalize}","authentication, successfully disconnected from your account.")
     redirect_to :back
   end
   

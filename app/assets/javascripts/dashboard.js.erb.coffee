@@ -209,32 +209,6 @@ class Chat extends Sidebar
   addNotification: () =>
     message = "NEW MESSAGE"
     super message
-      
-class Notifications extends Sidebar
-
-  constructor: (args) ->
-    super args
-    @setup()
-    @bind()
-
-  preSeed: (path) =>
-    $.get path, (data) =>
-      @frame.html(data)
-      
-class Friends extends Sidebar
-
-  constructor: (args) ->
-    super args
-    
-    @setup()
-    @bind()
-
-  preSeed: (path) =>
-    $.get path, (data) =>
-      @frame.html(data)
-      @refresh_trigger = @frame.find("a#freinds_refresh_trigger")
-      @refresh_trigger.bind 'click', =>
-        @preSeed(@preseed_path)
 
 $ ->
 

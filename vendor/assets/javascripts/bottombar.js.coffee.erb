@@ -1,0 +1,187 @@
+window.ChatRoom = class ChatRoom
+  
+  constructor: (args) ->
+    @room_name = args.room_name
+    @room_id = args.room_id
+    @room_topic = args.room_topic
+    @parent_frame = args.parent_frame
+    
+    @client = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
+    @seeded = false
+    @active = false
+    
+    @config()
+    @render()
+    
+  config: =>
+    @conf_MaxMessages = 50
+    
+  render: =>
+    # Renders the base of the chat room frame to the view.
+    # The parent frame should be the "ul.chat-container" element.
+    $.get "/chat/rooms/#{@room_id}/form", (data) =>
+      @parent_frame.append(data)
+    .success =>
+      @setup()
+      @bind()
+      @finalize()
+      
+  setup: =>
+    # Sets up hooks to all the elements associated with chat room.
+    @frame = @parent_frame.find("li[data-chat-room-id=#{@room_id}]")
+    
+    @handler = @frame.find(".chat-room-handler")
+    @trigger = @handler.find(".chat-room-trigger")
+    
+    @container = @frame.find(".chat-room-container")
+    @wrapper = @container.find(".chat-messages-wrapper")
+    @form = @container.find("form")
+    @input = @form.find("textarea")
+
+  bind: =>
+    # Binds certain chat room frame interaction events
+    @trigger.bind "click", =>
+      $.event.trigger 'toggle.chatroom', @
+      false
+    
+    @trigger.bind "toggle.chatroom", (e,obj) =>
+      if obj == @
+        @toggle()
+      else
+        if @active
+          @hide()
+    
+    @input.BetterGrow
+      initial_height: 12
+      do_not_enter: null
+
+    .keydown (e) =>
+      @resizeElements()
+      if e.which == 13 and e.shiftKey == false
+        @form.submit()
+        false
+
+    @form.bind 'ajax:beforeSend', () =>
+      @resetInput()
+
+    .submit () =>
+      @validateInput()
+    
+    # Set up subscription to room's message broadcast channel
+    @client.subscribe "/chat/room/#{@room_id}", (data) =>
+      if @seeded
+        @appendMessage(data.timestamp,data.content,data.user_name,data.user_path)
+        @correctContainerScroll(true)
+  
+  finalize: =>
+    # Prepare the frames for interaction.
+    if $.cookie "chatroom:active:#{@room_id}"
+      @show()
+    else
+      @hide()
+  
+  toggle: ->
+    if @active
+      @hide()
+    else
+      @show()
+      
+  show: ->
+    # Takes the chat frame to maximized mode.
+    $.cookie "chatroom:active:#{@room_id}", true,
+      expires: 365
+      path: "/"
+      
+    @active = true
+    @frame.addClass('active')
+    @seed()
+    @correctContainerScroll(true)
+    
+  hide: ->
+    # Takes the chat frame into minimized mode.
+    $.cookie "chatroom:active:#{@room_id}", null,
+      expires: 365
+      path: "/"
+      
+    @active = false
+    @frame.removeClass('active')
+    
+  seed: ->
+    # Appends last 30 messages from designated chat room into the container.
+    unless @seeded
+      $.getJSON "/chat/rooms/#{@room_id}/messages", (data) =>
+        i = data.length - 1
+        $.each data, (key, val) =>
+          @appendMessage(val.timestamp,val.content,val.user_name,val.user_path)
+          @correctContainerScroll(true)
+          if key == i
+            window.setTimeout ( =>
+              @correctContainerScroll(true)
+            ), 500
+            
+        @seeded = true
+  
+  appendMessage: (timestamp,content,user_name,user_path) ->
+    # Appends a message to the bottom of the message container.
+    t = new Date(Date._parse(timestamp))
+    @wrapper.append(
+      "<div data-timestamp='#{timestamp} 'class='chat-message'>
+        <div class='chat-message-head'>
+          <span class='sender'><a href='#{user_path}'>#{user_name}</a></span>
+          <span class='metadata'>#{t.toString('HH:mm:ss')}</span>
+        </div>
+        <p class='chat-message-content'>#{content}</p>
+      </div>")
+      
+    @popLastMessages()
+    
+  popLastMessages: ->
+    if @wrapper.children('div.chat-message').size() > @conf_MaxMessages
+      @wrapper.find('div.chat-message:first').remove()
+    
+  isReadingHistory: ->
+    # Should return true if scroll frame is not at maximum scroll down.
+    (@container[0].scrollHeight - @container.scrollTop() == @container.outerHeight())
+
+  correctContainerScroll: (readyForCorrection) ->
+    # Scrolls chat container down to the bottom if readForCorrection is true.
+    if readyForCorrection
+      @wrapper.scrollTop(@wrapper[0].scrollHeight)
+  
+  resizeElements: ->
+    window.setTimeout ( =>
+      resizeHeight = @input.outerHeight()
+      @wrapper.css
+        bottom: resizeHeight
+      @correctContainerScroll(true)
+    ), 110
+  
+  validateInput: ->
+    # Validates the input client side to ease load on chat servers.
+    if (@input.attr('value').match(/^\s*$/) == null) and (@input.val.length > 0)
+      true
+    else
+      false
+
+  resetInput: ->
+    # Resets the chat input completly.
+    @input.val('')
+
+
+window.ChatNav = class ChatNav
+  
+  constructor: (args) ->
+    @container = $(".chat-container").html("")
+    @getRooms()
+    
+  getRooms: () ->
+    $.getJSON "/chat/rooms/", (data) =>
+      $.each data, (key, val) =>
+        new ChatRoom
+          room_id: val._id
+          room_name: val.name
+          room_topic: val.topic
+          parent_frame: @container
+
+$ ->
+  new ChatNav

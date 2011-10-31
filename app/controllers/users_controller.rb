@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   
   def index
-    @users = User.online.order([:last_activity,:desc]).limit(48)
+    if params[:tab].nil?
+      @users = User.online.order([:last_activity,:desc]).limit(48)
+    elsif params[:tab] == 'most_subscribed'
+      @users = User.top_subscribed.limit(48)
+    elsif params[:tab] == 'random'
+      @users = User.limit(48).shuffle
+    end
   end
   
   def new
@@ -23,9 +29,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         authenticate!(@user)
-        format.html { redirect_to root_path, :notice => 'Your account was successfully created, Welcome!.' }
+        format.html { redirect_to root_path, :notice => notify_with(:success,'','Your account was successfully created, Welcome!.') }
       else
-        format.html { render :action => :new, :errors => @user.errors }
+        format.html { render :action => :new }
       end
     end
   end
@@ -37,10 +43,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         session[:display_name] = @user.character.name
-        format.js { render :json => { :flash => { :type => 'notice', :message => "Successfully updated user."} } }
-        format.html { redirect_to edit_user_path(@user), :notice => "Successfully updated user." }
+        format.html { redirect_to edit_user_path(@user), :notice => notify_with(:success,'User',"successfully updated.") }
       else
-        format.js { render :json => { :flash => { :type => 'error', :message => "Try again!" } } }
+        format.html { redirect_to edit_user_path(@user), :notice => notify_with(:error,'User',"cloud not be updated, try again.") }
       end
     end
   end

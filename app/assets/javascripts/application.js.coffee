@@ -10,6 +10,7 @@
 #= require rails.validations.formbuilder
 #= require farbtastic
 #= require faye
+#= require bottombar
 
 
 $ ->

@@ -2,14 +2,21 @@ body.users
   .span11
     ul.unstyled
       li
+        padding-top: 10px
         padding-bottom: 10px
         border-bottom: 1px dotted #EEE
+        
+        .span2, .span6, .span3
+          height: 60px
+          
         .span2
           text-align: center
           img
             margin-top: 5px
-        .btn
-          float: right
+        .span3
+          .btn
+            margin: 15px
+            float: left
     
   .page-header
     h1
@@ -46,14 +53,50 @@ body.users
             margin-bottom: 3px
       
   &.index
+    ul.tabs
+      margin-bottom: 0px
+      border: none
+      li:first-child
+        margin-left: 10px
+        
     ul.media-grid
       li.span4
+        height: 80px
+        a
         h4
           line-height: 115%
           max-width: 130px
           padding-top: 6px
           padding-left: 10px
           float: left
+            
+          a
+            border: none
+            -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, .0)
+            -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, .0)
+            box-shadow: 0 0px 0px rgba(0, 0, 0, .0)
+            margin: 0
+            text-decoration: none
+            
+            span
+              float: left
+              line-height: 115%
+              font-size: 14px
+              color: #404040
+              margin-right: 4px
+              margin-left: 2px
+              margin-top: 1px
+              font-weight: bold
+              
+              &.gold
+                color: #FFB100
+              
+              &.silver
+                color: #CCCCCC
+                
+              &.bronze
+                color: #E49154
+              
     
   &.edit
     .input

@@ -2,16 +2,29 @@
   %h1
     Observatory
     %small
-      %strong Find all the little ponies online
-        
+      %strong Find all the little ponies
+  .row
+    .span16
+      %ul.tabs
+        %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
+          = link_to "Online", users_path
+        %li{ :class => "#{ params[:tab] == 'most_subscribed' ? 'active' : '' }" }
+          = link_to "Most Subscribed", users_path(tab: :most_subscribed)
+        %li{ :class => "#{ params[:tab] == 'random' ? 'active' : '' }" }
+          = link_to "Random", users_path(tab: :random)
+    
 .row
   .span16
-    
     %ul.media-grid
-      - user = current_user
-      - @users.each do |user|
+      - @users.each_with_index do |user,i|
         %li.span4
           = link_to user_path(user) do
-            = image_tag user.avatar.thumb.url, :class => 'thumbnail'
-          %h4= user.character.name
-          
+            - if user.avatar.thumb.url
+              = image_tag user.avatar.thumb.url, :title => user.character.name, :class => 'avatar'
+            - else
+              = image_tag "other/unknown_pony_thumb.jpg", :title => user.character.name, :class => 'avatar'
+          %h4
+            = link_to user_path(user) do
+              - if params[:tab] == 'most_subscribed'
+                %span{ :class => "#{[:gold,:silver,:bronze][i]}" }= "##{i+1}"
+              = user.character.name
