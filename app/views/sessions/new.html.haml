@@ -1,12 +1,26 @@
-#auth_window
-  = form_tag :action => "create" do
-    = text_field_tag :email, "",:placeholder => "Email"
-    = password_field_tag :password, "",:placeholder => "Password..."
-    = submit_tag "Let me in!"
-    %h4 or connect with these:
-    = link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
-    = link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
-    %h4
-      = link_to "Register", new_user_path
-      or
-      = link_to "Restore Account", restore_users_path
+.page-header
+  %h1
+    = "Login"
+    
+.row
+  .span8
+    = image_tag "artwork/props/bigkey.png", :title => "BigKey", :class => "bigkey"
+  .span5.offset1
+    = form_tag sessions_path, :method => :post, :class => 'form-stacked'  do
+      %fieldset
+        .clearfix
+          = label_tag :email, "Email:"
+          .input
+            = text_field_tag :email, "",:placeholder => "Email"
+        .clearfix
+          = label_tag :password, "Password:"
+          .input
+            = password_field_tag :password, "",:placeholder => "Password..."
+      %fieldset
+        .clearfix
+          = submit_tag "Login", :class => 'btn success'
+      
+        %fieldset
+          = link_to "Register", new_user_path
+          or
+          = link_to "Restore", restore_users_path

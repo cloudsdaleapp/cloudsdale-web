@@ -1,31 +1,71 @@
-#auth_window
-  = form_for @user, :multipart => true, :validate => true  do |f|
-    #user_credentials
-      = f.fields_for :authentications do |authentications_form|
-        = image_tag "icons/cloud/#{authentications_form.object.provider.downcase}_cloud.png"
-        = authentications_form.hidden_field :uid
-        = authentications_form.hidden_field :provider
-      .field
-        = f.text_field :email, :placeholder => "Email..."
-      - if @user.authentications.empty?
-        .field
-          = f.password_field :password, :placeholder => "Choose password..."
-        .field
-          = f.password_field :password_confirmation, :placeholder => "Confirm password..."
-      = f.submit "Register"
-      %h4
-        = link_to "Sign in", login_path
-        or
-        = link_to "Restore Account", restore_users_path
-    #character_information
-      .left
-        = f.fields_for :character do |c_f|
-          .field.name
-            = c_f.text_field :name, :placeholder => "Pony name...", :original_value => "", :attribute_name => :name, :user_id => ""
-          .field.options
-            = c_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
-            = c_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
-        .field.avatar
-          = f.file_field :avatar
+- content_for :head do
+  = javascript_include_tag "users"
+
+.page-header
+  %h1
+    - unless @user.authentications.empty?
+      = image_tag "icons/cloud/#{@user.authentications.first.provider.downcase}_cloud.png"
+    = "Register"
+    - unless @user.authentications.empty?
+      %small
+        = "using #{@user.authentications.first.provider.capitalize}"
+
+= form_for @user, :multipart => true, :validate => true  do |f|
+  .row.form_part.active
+    .span12.offset2
+      %fieldset
+        = f.fields_for :authentications do |authentications_form|
+          = authentications_form.hidden_field :uid
+          = authentications_form.hidden_field :provider
+      %fieldset
+        %legend Account
+        %br
+        .clearfix
+          = f.label :email, "Email *"
+          .input
+            = f.text_field :email
+        - if @user.authentications.empty?
+          .clearfix
+            = f.label :password, "Password *"
+            .input
+              = f.password_field :password
+          .clearfix
+            = f.label :password_confirmation, "Confirmation *"
+            .input
+              = f.password_field :password_confirmation
+        %fieldset
+          .clearfix
+            .well{:style => 'text-align: right;'}
+              = link_to "Next", "#", :class => 'btn info form_part_next'
+      
+  .row.form_part
+    .span12.offset2
+      = f.fields_for :character do |c_f|
+        %fieldset
+          %legend Character
+          %br
+          .clearfix
+            = c_f.label :name, "Name"
+            .input
+              = c_f.text_field :name, :original_value => "", :attribute_name => :name, :user_id => ""
+          .clearfix
+            = c_f.label :kind, "Kind"
+            .input
+              = c_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
+          .clearfix
+            = c_f.label :gender, "Gender"
+            .input
+              = c_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
+        %fieldset
+          .clearfix
+            = c_f.label :avatar, "Select Avatar"
+            .input
+              = f.file_field :avatar
+        %fieldset
+          .clearfix
+            .well{:style => 'text-align: right;'}
+              = link_to "Previous", "#", :class => 'btn info form_part_previous'
+              = f.submit "Register", :class => 'btn success'
+      
         
       
