@@ -5,7 +5,7 @@ class Chat::Message
   embedded_in :room, class_name: "Chat::Room"
   belongs_to :author, class_name: "User"
   
-  field :timestamp,   type: Time
+  field :timestamp,   type: Time,    default: -> { Time.now }
   field :content,     type: String
   
   # Meta attributes
@@ -16,7 +16,6 @@ class Chat::Message
   validates :content,     :presence => true
   
   before_validation do
-    self[:timestamp] = Time.now unless self.timestamp
     set_foreign_attributes!
   end
   
