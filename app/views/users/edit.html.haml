@@ -17,28 +17,27 @@
         %h5.kind= @user.character.kind.capitalize if @user.character.kind
 
   .span11
-    %ul.tabs
-      %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
-        = link_to "Profile", edit_user_path(current_user)
-      %li{ :class => "#{ params[:tab] == 'account' ? 'active' : '' }" }
-        = link_to "Account", edit_user_path(current_user, tab: 'account')
-      %li{ :class => "#{ params[:tab] == 'security' ? 'active' : '' }" }
-        = link_to "Security", edit_user_path(current_user, tab: 'security')
-      %li{ :class => "#{ params[:tab] == 'chat' ? 'active' : '' }" }
-        = link_to "Chat", edit_user_path(current_user, tab: 'chat')
-
     = form_for @user, :multipart => true, :validate => true, :url => user_path(@user), :method => :put, :html => { :class => 'with_notifications' } do |f|
+      %ul.tabs
+        %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
+          = link_to "Profile", edit_user_path(current_user)
+        %li{ :class => "#{ params[:tab] == 'account' ? 'active' : '' }" }
+          = link_to "Account", edit_user_path(current_user, tab: 'account')
+        %li{ :class => "#{ params[:tab] == 'security' ? 'active' : '' }" }
+          = link_to "Security", edit_user_path(current_user, tab: 'security')
+        %li{ :class => "#{ params[:tab] == 'chat' ? 'active' : '' }" }
+          = link_to "Chat", edit_user_path(current_user, tab: 'chat')
+      .row
+        - if params[:tab].nil?
+          = render :partial => 'edit_profile_tab', :locals => { f: f }
+        - elsif params[:tab] == 'account'
+          = render :partial => 'edit_account_tab', :locals => { f: f }
+        - elsif params[:tab] == 'security'
+          = render :partial => 'edit_security_tab', :locals => { f: f }
+        - elsif params[:tab] == 'chat'
+          = render :partial => 'edit_chat_tab', :locals => { f: f }
 
-      - if params[:tab].nil?
-        = render :partial => 'edit_profile_tab', :locals => { f: f }
-      - elsif params[:tab] == 'account'
-        = render :partial => 'edit_account_tab', :locals => { f: f }
-      - elsif params[:tab] == 'security'
-        = render :partial => 'edit_security_tab', :locals => { f: f }
-      - elsif params[:tab] == 'chat'
-        = render :partial => 'edit_chat_tab', :locals => { f: f }
-
-        
+      
       %fieldset
         .actions
           = f.submit "Save", :class => 'btn primary'
