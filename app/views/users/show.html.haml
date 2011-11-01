@@ -17,8 +17,8 @@
         - else
           = image_tag "other/unknown_pony.jpg", :title => @user.character.name, :class => 'avatar'
       .span2
-        %h5.gender= @user.character.gender.capitalize
-        %h5.kind= @user.character.kind.capitalize
+        %h5.gender= @user.character.gender.capitalize if @user.character.gender
+        %h5.kind= @user.character.kind.capitalize if @user.character.kind
     
     .row.user_actions
       .span5
