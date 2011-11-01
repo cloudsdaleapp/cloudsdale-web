@@ -17,6 +17,7 @@ gem 'execjs'
 # Markup
 gem 'haml'
 gem 'haml-rails'
+gem 'redcarpet'
 
 # Styling
 gem 'bootstrap-sass', '1.3.0'

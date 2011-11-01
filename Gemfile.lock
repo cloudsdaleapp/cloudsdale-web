@@ -223,6 +223,7 @@ GEM
     raindrops (0.8.0)
     rake (0.9.2)
     rdoc (3.9.4)
+    redcarpet (1.17.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ruby-hmac (0.4.0)
@@ -299,6 +300,7 @@ DEPENDENCIES
   omniauth
   pry
   rails (= 3.1.0)
+  redcarpet
   sass
   sass-rails
   sprockets

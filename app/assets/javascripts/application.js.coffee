@@ -11,6 +11,7 @@
 #= require farbtastic
 #= require faye
 #= require bottombar
+#= require showdown
 
 
 $ ->
