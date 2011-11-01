@@ -5,10 +5,12 @@ window.ChatRoom = class ChatRoom
     @room_id = args.room_id
     @room_topic = args.room_topic
     @parent_frame = args.parent_frame
+    @parent = args.parent
     
     @client = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
     @seeded = false
     @active = false
+    @title_notifications = 0
     
     @config()
     @render()
@@ -69,12 +71,14 @@ window.ChatRoom = class ChatRoom
     
     # Set up subscription to room's message broadcast channel
     @client.subscribe "/chat/room/#{@room_id}", (data) =>
+      @addNotification()
       if @seeded
         @appendMessage(data.timestamp,data.content,data.user_name,data.user_path)
         @correctContainerScroll(true)
   
   finalize: =>
     # Prepare the frames for interaction.
+    @setNotifications()
     if $.cookie "chatroom:active:#{@room_id}"
       @show()
     else
@@ -96,6 +100,7 @@ window.ChatRoom = class ChatRoom
     @frame.addClass('active')
     @seed()
     @correctContainerScroll(true)
+    @clearNotifications()
     
   hide: ->
     # Takes the chat frame into minimized mode.
@@ -166,11 +171,50 @@ window.ChatRoom = class ChatRoom
   resetInput: ->
     # Resets the chat input completly.
     @input.val('')
+  
+  refreshGraphics: ->
+    if @notifications > 0
+      notice = "<span class='notice'>#{@notifications}</span> - "
+    else
+      notice = ""
+      
+    @trigger.html("#{notice}#{@room_name}")
+
+  clearNotifications: ->
+    $.cookie "chatroom:notifications:#{@room_id}", 0, 
+      expires: 365
+      path: "/"
+    @notifications = 0
+    @parent.clearGlobalNotification()
+    @refreshGraphics()
+    
+  addNotification: ->
+    unless @active
+      @notifications += 1
+      $.cookie "chatroom:notifications:#{@room_id}", @notifications, 
+        expires: 365
+        path: "/"
+        
+    @parent.addGlobalNotification()
+    @refreshGraphics()
+      
+  setNotifications: ->
+    n = $.cookie "chatroom:notifications:#{@room_id}"
+    unless n == null or n == NaN
+      @notifications = parseInt($.cookie("chatroom:notifications:#{@room_id}"))
+    else
+      @notifications = 0
+      $.cookie "chatroom:notifications:#{@room_id}", @notifications, 
+        expires: 365
+        path: "/"
+        
+    @refreshGraphics()
 
 
 window.ChatNav = class ChatNav
   
   constructor: (args) ->
+    @n = 0
     @container = $(".chat-container").html("")
     @getRooms()
     
@@ -182,6 +226,18 @@ window.ChatNav = class ChatNav
           room_name: val.name
           room_topic: val.topic
           parent_frame: @container
+          parent: @
+  
+  clearGlobalNotification: ->
+    @n = 0
+    
+  addGlobalNotification: ->
+    @n += 1
+    $.titleAlert "(#{@n}) message(s)",
+      requireBlur: true
+      stopOnFocus: true
+      duration: 0
+      interval: 1500
 
 $ ->
   new ChatNav
