@@ -121,6 +121,5 @@ class User
       @previous_model_for_avatar = nil
     end
   end
-
   
 end
