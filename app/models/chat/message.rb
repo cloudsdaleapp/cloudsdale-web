@@ -16,7 +16,7 @@ class Chat::Message
   validates :content,     :presence => true
   
   before_validation do
-    self[:timestamp] = Time.now
+    self[:timestamp] = Time.now unless self.timestamp
     set_foreign_attributes!
   end
   
