@@ -26,12 +26,7 @@ $ ->
   $(".alert-message > .close").bind "click", (e) ->
     $(this).parent().replaceWith("<div class='alert-message hidden'></div>")
   
-  $("body").bind "click", (e) ->
-    $(".dropdown-toggle, .menu").parent("li").removeClass "open"
-
-  $(".dropdown-toggle, .menu").click (e) ->
-    $li = $(this).parent("li").toggleClass("open")
-    false
+  $('.topbar').dropdown()
 
   request = (options) ->
     $.ajax $.extend(
