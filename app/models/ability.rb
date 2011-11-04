@@ -38,6 +38,7 @@ class Ability
         
       if user.role >= 2  ## Moderator
         # Articles
+        can :promote, Article
       end
       
       if user.role >= 3  ## Placeholder
