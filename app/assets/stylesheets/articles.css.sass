@@ -1,0 +1,133 @@
+body.articles
+  &.edit, &.new, &.create, &.update
+    
+    .article-preview-body
+      min-height: 160px
+    
+    span.help-inline
+      position: static
+      float: none
+      width: 100%
+    textarea#article_preambel
+      height: 90px
+      resize: none
+      max-height: 90px
+      min-height: 90px
+      width: 330px
+    textarea#article_content
+      height: 210px
+      min-height: 210px
+      max-width: 330px
+      min-width: 330px
+    form
+      padding: 0
+    .actions
+      text-align: right
+    .span7
+      width: 360px
+      padding-left: 40px
+    .span9
+      width: 480px
+      padding: 20px
+      
+    .row:not(:last-child)
+      padding-bottom: 20px
+     
+      .span16
+        border-bottom: 1px #BFBFBF solid
+      .row
+        border: none
+      
+  &.show
+    .page-header
+      h1
+        span
+          float: right
+          text-align: right
+          font-size: 18px
+          margin-right: 20px
+        span.view_count
+          padding-left: 30px
+          background: transparent image-url("icons/iconic/gray_dark/eye_24x18.png") no-repeat 0px 9px
+          
+        span.comment_count
+          padding-left: 26px
+          background: transparent image-url("icons/iconic/gray_dark/comment_alt1_fill_16x16.png") no-repeat 0px 10px
+    
+    .banner
+      padding: 20px 0
+    
+    .span9
+      padding: 0 20px
+      width: 480px
+      .article-preambel
+        border-bottom: #EEE solid 1px
+        margin-bottom: 30px
+        p
+          padding: 15px 5px
+          font-size: 13px
+          font-weight: bold
+          
+      .well
+        a
+          font-weight: bold
+          margin: 0 3px
+      
+          
+    .span7
+      ul.tabs
+        margin-top: 20px
+        li:first-child
+          margin-left: 10px
+      .row
+        .span7
+          min-height: 0
+          h6
+            padding: 20px 30px 
+          .pagination
+            padding: 0px 20px
+          ul.unstyled.comments
+            padding-left: 20px
+            padding-right: 20px
+            li.comment
+              margin-bottom: 5px
+              h5.author
+                padding: 5px
+                line-height: 100%
+                span.metadata
+                  padding: 1px 0
+                  color: #BFBFBF
+                  display: none
+                  float: right
+                  font-size: 11px
+              .text
+                padding: 5px
+                word-wrap: break-word
+              &:hover
+                background: #F6F7FF
+                .author
+                  span.metadata
+                    display: block
+                    
+        form
+          padding-right: 20px
+          textarea
+            min-height: 16px
+            max-height: 72px
+            resize: none
+            width: 350px
+            
+          .clearfix.submit
+            display: none
+            text-align: right
+            span.help-inline
+              margin-right: 10px
+              font-weight: bold
+          &.active
+            .clearfix.submit
+              display: block
+          &.invalid
+            .clearfix.submit
+              span.help-inline
+                color: red
+        

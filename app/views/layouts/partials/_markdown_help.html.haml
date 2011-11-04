@@ -1,0 +1,58 @@
+%h4 Formatting guide - Markdown
+%dl
+  %dt Phrase Emphasis
+  %dd
+    %code *italic* _italic_
+  %dd
+    %code **bold** __bold__
+
+%dl
+  %dt Links
+  %dd
+    %code An [example](http://url.com/ "Title")
+    
+%dl
+  %dt Images
+  %dd
+    %code ![alt text](/path/img.jpg)
+    
+%dl
+  %dt Headers
+  %dd
+    %code # Header1
+  %dd
+    %code ## Header2
+  %dd
+    %code ### Header3
+    
+%dl
+  %dt Lists
+  %dd
+    %strong Ordered, without paragraphs:
+    %blockquote
+      %ul.unstyled
+        %li
+          %code 1.  Foo
+        %li
+          %code 2.  Bar
+
+  %dd
+    %strong Unordered, with paragraphs:
+    %blockquote
+      %ul.unstyled
+        %li
+          %code * A list item.
+        %li
+          %code * Another list item.
+
+%dl
+  %dt Blockquotes
+  %ul.unstyled
+    %li
+      %code > This is on the first level
+    %li
+      %code > > This is on a nested second level
+    %li
+      %code > * You can quote a list.
+    %li
+      %code > * Etc.

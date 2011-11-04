@@ -8,7 +8,7 @@
     = csrf_meta_tags
     = yield :head
 
-  %body{ :class => "#{params[:controller]} #{params[:action]}"}
+  %body{ :class => "#{params[:controller]} #{params[:action]} #{current_user ? 'body_online' : 'body_offline'}"}
     .topbar
       .fill
         .container
@@ -21,9 +21,16 @@
           %ul.nav.secondary-nav
             - if current_user
               %li.dropdown
+                = link_to "Dashboard","#", :class => 'dropdown-toggle'
+                %ul.dropdown-menu
+                  %li= link_to "Write Article", new_article_path
+                  
+              %li.dropdown
                 = link_to current_user.character.name, "#", :class => 'dropdown-toggle'
                 %ul.dropdown-menu
                   %li= link_to "Profile", user_path(current_user)
+                  %li= link_to "Articles", user_path(current_user,tab:'articles')
+                  %li.divider
                   %li= link_to "Settings", edit_user_path(current_user)
                   %li.divider
                   %li= link_to "Logout", logout_path
@@ -39,7 +46,7 @@
         = yield
       %footer
         %p My Little Pony: Friendship is Magic is © Hasbro, all art/writing is © to their respective artists
-    
+        
     .bottombar
       = render :partial => 'layouts/bottombar'
 

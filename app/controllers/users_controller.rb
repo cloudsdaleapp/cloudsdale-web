@@ -22,6 +22,10 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    if params[:tab].nil?
+    elsif params[:tab] == 'articles'
+      @articles = @user.articles.order_by([:created_at,:desc]).page(params[:articles_page]).per(10)
+    end
   end
   
   def create

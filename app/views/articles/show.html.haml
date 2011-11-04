@@ -1,0 +1,50 @@
+.page-header
+  %h1
+    = @article.title
+    %span.view_count= @article.views
+    - unless @article.uncommentable
+      %span.comment_count= @article.comments.count
+    
+
+.row
+  .span9
+    - if can? :update, @article
+      .alert-message.block-message
+        %p
+          = "This is #{@article.author == current_user ? 'your' : @article.author.character.name + '\'s'} article."
+          %br
+          = "You've been granted administrative rights over this article and you're able to choose from a variety of actions to interact with it."
+          
+        .alert-actions
+          - if can? :update, @article
+            = link_to "Edit", edit_article_path(@article), :class => 'btn'
+            
+          - unless @article.published? and can? :update, @article
+            = link_to "Publish", publish_article_path(@article), :class => 'btn success'
+            
+          - if !@article.is_promoted? and can? :promote, @article
+            = link_to "Promote", promote_article_path(@article), :class => 'btn info'
+            
+          - if can? :destroy, @article
+            = link_to "Delete", article_path(@article), :method => :delete, :class => 'btn error'
+            
+    - if @article.banner.url
+      .banner= image_tag @article.banner.url
+    .article-preambel
+      %p= @article.preambel
+    .article-content
+      = markdown(@article.content)
+    .well
+      %p
+        %strong Tags:
+      - @article.tags.each do |tag|
+        = link_to tag.name, "#"
+      
+  .span7
+    = render :partial => '/users/global/info_sheet', :locals => { :user => @article.author }
+      
+    %ul.tabs
+      %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Comments#{@article.uncommentable ? '' : " (#{@article.comments.count})"}", article_path(@article)
+    = render :partial => "show_tab_#{params[:tab] || "comments"}"
+
+

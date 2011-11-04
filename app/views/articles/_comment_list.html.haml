@@ -1,0 +1,13 @@
+- if can? :read, @comments.first
+  .row
+    .span7
+      = paginate @comments, :left => 0, :right => 0, :window => 1, :param_name => :comment_page
+      %ul.unstyled.comments
+        - @comments.each do |comment|
+          %li.comment
+            %h5.author
+              = link_to comment.author.character.name, user_path(comment.author)
+              %span.metadata= time_ago_in_words(comment.created_at) + " ago"
+            .text= simple_format(comment.content)
+          
+      = paginate @comments, :left => 0, :right => 0, :window => 1, :param_name => :comment_page

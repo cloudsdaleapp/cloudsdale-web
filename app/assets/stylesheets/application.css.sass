@@ -18,11 +18,14 @@ $red: #FF0000
 @import "bootstrap/tables"
 @import "bootstrap/patterns"
 
+@import "token-input-facebook"
+
 html
   background: #72C3E8 image-url("background.png") center top no-repeat !important
 body
   background: none !important
   padding-top: 40px !important
+  padding-bottom: 100px
 
 .topbar
   .fill
@@ -79,16 +82,6 @@ body
     ul.tabs
       li:first-child
         margin-left: 20px
-  .span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12, .span13, .span14, .span15, .span16
-    min-height: 400px
-
-  .page-header
-    .span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12, .span13, .span14, .span15, .span16
-      min-height: 0 !important
-    
-fieldset, ul, 
-  .span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12, .span13, .span14, .span15, .span16
-    min-height: 0 !important
 
 img.link_icon
   float: left
@@ -101,13 +94,43 @@ footer
     text-align: center
     color: #525252
 
-@import "dashboard"
+.online
+  color: $green
+.offline
+  color: $red
+
+.block-message.alert-message.markdown-guide
+  h5
+    padding-bottom: 10px
+    padding-top: 5px
+  p
+    strong
+      padding-left: 5px
+      padding-bottom: 5px
+  li
+    li
+      padding-left: 10px
+      
+a.btn.dashboard
+  margin: 0px
+  padding: 10px 20px 10px 10px
+  width: 168px
+  text-align: right
+  font-weight: bold
+  line-height: 40px
+  color: #6CF
+  text-shadow: 0 0 0.2em rgba(255, 255, 255, 0.7), 0 0 0.05em rgba(20, 20, 20, 0.7) !important
+  img
+    float: left
+    
+      
 @import "bottombar"
 
 @import "users"
 @import "main"
 @import "sessions"
 @import "authentications"
+@import "articles"
 
 
 

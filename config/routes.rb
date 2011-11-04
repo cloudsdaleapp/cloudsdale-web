@@ -19,7 +19,17 @@ Cloudsdale::Application.routes.draw do
     resources :subscribers, :only => [:create,:destroy], :controller => 'users/subscribers'
   end
   
+  resources :articles, :except => [:index] do
+    get :publish, on: :member
+    get :promote, on: :member
+    resources :comments, :controller => 'articles/comments', :only => [:create,:destroy], :path_names => { :new => :write }
+  end
+  
   resources :notifications, :only => [:index,:show]
+  
+  resources :tags, :only => [] do
+    post :search, on: :collection
+  end
   
   namespace :chat do
     resources :rooms, :only => [:index] do

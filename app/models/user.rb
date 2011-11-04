@@ -7,6 +7,8 @@ class User
   embeds_many :activities
   embeds_many :notifications
   
+  has_many :articles, as: :author
+  
   has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
   has_and_belongs_to_many :rooms, class_name: "Chat::Room", :inverse_of => :users, dependent: :nullify
@@ -15,7 +17,7 @@ class User
   field :auth_token,      type: String
   field :password_hash,   type: String
   field :password_salt,   type: String
-  
+  field :role,            type: Integer,    default: 0
   field :member_since,    type: Time
   field :last_activity,   type: Time
   field :invisible,       type: Boolean,    default: false
@@ -120,6 +122,14 @@ class User
     rescue Fog::Storage::Rackspace::NotFound
       @previous_model_for_avatar = nil
     end
+  end
+  
+  def name
+    self.character.name
+  end
+  
+  def status_in_words
+    is_online? ? 'online' : 'offline'
   end
   
 end

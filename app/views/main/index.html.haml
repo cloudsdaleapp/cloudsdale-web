@@ -1,3 +1,67 @@
-.row
-  .span16
-    = image_tag "artwork/rbd_sleep_on_cloud.png", :title => "Welcome to Cloudsdale!", :class => "splasher", :"data-content" => "This is the cloudsdale <span class='label notice'>alpha</span> <br/> We currently have #{User.count + 100} registered users. The site will launch <span class='label warning'>beta</span> in #{distance_of_time_in_words(Time.now, Time.parse('2011-11-23'))}"
+- unless current_user
+  .row
+    .span16
+      = image_tag "artwork/rbd_sleep_on_cloud.png", :title => "Welcome to Cloudsdale!", :class => "splasher", :"data-content" => "This is the cloudsdale <span class='label notice'>alpha</span> <br/> We currently have #{User.count + 100} registered users. The site will launch <span class='label warning'>beta</span> in #{distance_of_time_in_words(Time.now, Time.parse('2011-11-23'))}"
+- else
+  - if @featured_article
+    .row
+      .span16
+        .page-header
+          .row
+            .span9
+              .banner
+                = image_tag @featured_article.banner
+            .span7
+              %h2= "Featured Article"
+              %h1
+                = link_to "#{@featured_article.title}", article_path(@featured_article)
+              %h6= "by: #{@featured_article.author.name}"
+              %p= truncate(@featured_article.preambel, :length => 210, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(@featured_article))}").html_safe
+  .row
+    .span16
+      .row
+        .span12.left
+          .row
+            .span12.didyouknow
+              .alert-message.block-message.success
+                %p
+                  %strong Welcome to Cloudsdale, you have not yet explored our new article features or written your own article. Why don't you try it out?
+                .alert-actions
+                  = link_to "Write Article",new_article_path, :class => 'btn'
+          .row
+            .span6.recent
+              %h4= "Recent"
+              %ul.unstyled
+                - @recent_items.each do |item|
+                  %li
+                    %h6
+                      %strong= item.class.to_s
+                      %span.views
+                        = link_to "#", :rel => 'twipsy', 'data-original-title' => "Read #{item.views} times", 'data-placement' => 'above' do
+                          = image_tag("icons/iconic/gray_light/eye_12x9.png")
+                      - unless item.uncommentable
+                        %span.comments
+                          = link_to "#", :rel => 'twipsy', 'data-original-title' => "#{item.comments.count} comments", 'data-placement' => 'above' do
+                            = image_tag("icons/iconic/gray_light/comment_alt2_fill_9x12.png")
+                      %span.date
+                        = link_to "#", :rel => 'twipsy', 'data-original-title' => 'Published at 2011/11/15 - 15:35', 'data-placement' => 'above' do
+                          = image_tag("icons/iconic/gray_light/calendar_alt_fill_12x12.png")
+                    %h5= link_to item.title,article_path(item)
+                    %p= truncate(item.preambel, :length => 190, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(item))}").html_safe
+                    %h6.author= "- by #{item.author.name}"
+                  
+            .span6.popular
+              %h4= "Popular"
+              %h6= "Coming soon..."
+          .row
+            .span12.episode
+              %h4 Latest Episode
+              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "365", :src => "http://www.youtube.com/embed/9myh54Sot48?hd=1", :width => "660"}
+              
+        .span4.right
+          %h6= "Dashboard"
+          %ul.unstyled
+            %li
+              = link_to new_article_path, :class => 'btn large dashboard article' do
+                = image_tag "artwork/props/scroll.png", :title => "title", :class => "class"
+                Write Article

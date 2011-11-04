@@ -49,47 +49,43 @@
   .span11
     %ul.tabs
       %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
-        = link_to "Activity", user_path(@user)
-      %li{ :class => "#{ params[:tab] == 'fics' ? 'active' : '' }" }
-        = link_to "Fics", user_path(@user, tab: 'fics')
+        = link_to "Profile", user_path(@user)
+      %li{ :class => "#{ params[:tab] == 'articles' ? 'active' : '' }" }
+        = link_to "Articles", user_path(@user, tab: 'articles')
         
     - if params[:tab].nil?
       - @user.activities.order(:timestamp => :desc).each do |activity|
         %p{ :style => 'padding-left: 20px;'}
           = link_to activity.text, activity.url
           %span.time= "#{time_ago_in_words(activity.timestamp).capitalize} ago"
-          
-    - elsif params[:tab] == 'fics'
-      %ul.unstyled
-        %li
-          .row
-            .span2
-              %img{ :width => "50px", :height => "50px"}
-            .span6
-              %h4= link_to "Airshipping is Magic"
-              %small= Time.now.strftime('%Y/%m/%d %R')
-            .span3
-              .btn.info Add to Readlist
-              
-        %li
-          .row
-            .span2
-              %img{ :width => "50px", :height => "50px"}
-            .span6
-              %h4= link_to "Cupcakes"
-              %small= Time.now.strftime('%Y/%m/%d %R')
-            .span3
-              .btn.info Add to Readlist
-          
-        %li
-          .row
-            .span2
-              %img{ :width => "50px", :height => "50px"}
-            .span6
-              %h4= link_to "Duties"
-              %small= Time.now.strftime('%Y/%m/%d %R')
-            .span3
-              .btn.info Add to Readlist
+    - elsif params[:tab] == 'articles'
+      - if @articles
+        = paginate @articles, :left => 2, :right => 2, :window => 6, :param_name => :articles_page
+        %ul.unstyled.articles
+          - @articles.each do |article|
+            %li
+              .row
+                .span11
+                  %h3
+                    = link_to article.title, article_path(article)
+                    %span.view_count= article.views
+                    %span.comment_count= article.comments.count
+                  
+              .row
+                .span11
+                  .actions
+                    - if can? :manage, article
+                      = link_to "Edit", edit_article_path(article), :class => 'btn small'
+                      - unless article.published
+                        = link_to "Publish", publish_article_path(article), :class => 'btn success small'
+                      = link_to "Delete", article_path(article), :method => :delete, :class => 'btn error small'
+                    - else
+                      = link_to "Read", article_path(article), :class => 'btn small'
+                    %span.time
+                      = article.updated_at.strftime('%Y/%m/%d - %R')
+                  
+      - else
+        %h6 No articles...
           
           
           

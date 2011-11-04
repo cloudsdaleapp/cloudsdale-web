@@ -1,0 +1,69 @@
+= form_for @article, :validate => true, :html => { :class => 'form-stacked', :multipart => true } do |f|
+  .row
+    .span7
+      %fieldset
+        .clearfix
+          = f.label :title, "Title"
+          .input= f.text_field :title, :class => 'xlarge'
+        .clearfix
+          = f.label :banner, "Banner"
+          .input
+            = f.file_field :banner
+            .help-inline
+              %strong= "Note:"
+              = "Max size 480px * 200px, if it's any bigger, the picture will be resized automatically to fit the boundary."
+        .clearfix
+          = f.label :premabel, "Premabel"
+          .input
+            = f.text_area :preambel
+            
+            
+    .span7.offset1
+      %fieldset
+        .clearfix
+          = f.label :tag_tokens, "Tags"
+          .input
+            = f.text_area :tag_tokens, :class => 'span5', "data-pre" => @article.tags.map(&:token_inputs).to_json
+            
+      %fieldset
+        .clearfix
+          %label Options
+          .input
+            %ul.inputs-list
+              %li
+                %label
+                  = f.check_box :published
+                  %span= "Publish article after saving."
+              %li
+                %label
+                  = f.check_box :hidden
+                  %span= "Hide article in search results."
+              %li
+                %label
+                  = f.check_box :uncommentable
+                  %span= "Disable users from commenting on the article."
+      .actions
+        - unless @article.new_record?
+          = link_to "Remove", article_path(@article), :method => :delete, :class => 'btn error'
+        = f.submit "Save", :disable_with => 'Saving...', :class => 'btn primary'
+        
+  .row
+    .span16
+          
+  .row
+    .span7
+      %fieldset
+        .clearfix
+          = f.label :content, "Content"
+          .input
+            = f.text_area :content
+      .alert-message.block-message
+        = render partial: "layouts/partials/markdown_help"
+
+      
+    .span9
+      .article-preview-body
+        = markdown(@article.content) || "Message content formatted using Markdown..."
+
+      
+    

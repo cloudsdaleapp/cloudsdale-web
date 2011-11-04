@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
   def destroy
     current_user.logout_and_save!
     session[:user_id] = nil
-    redirect_to root_path, :notice => notify_with(:success,"Signed out!","see ya later...")
+    redirect_to root_path
   end
 
 end

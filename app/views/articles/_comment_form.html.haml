@@ -1,0 +1,15 @@
+.row
+  .span7
+    - if can? :create, @comment
+      = form_for [@article,@comment], :html=>{:class => 'form-stacked'} do |f|
+        %fieldset
+          .clearfix
+            = f.text_area :content, placeholder: 'Write a comment...'
+          .clearfix.submit
+            .input
+              %span.help-inline
+                %span.character-counter 0
+                = "/ 300 characters used"
+              = f.submit "Comment", :class => 'btn'
+    - else
+      %h6.help-inline Comments disabeled...

@@ -1,33 +1,10 @@
-body.users
-  .span11
-    ul.unstyled
-      li
-        padding-top: 10px
-        padding-bottom: 10px
-        border-bottom: 1px dotted #EEE
-        
-        .span2, .span6, .span3
-          height: 60px
-          
-        .span2
-          text-align: center
-          img
-            margin-top: 5px
-        .span3
-          .btn
-            margin: 15px
-            float: left
-    
+body.users    
   .page-header
     h1
       small
         span
           margin: 0 10px
           font-weight: bold
-          &.online
-            color: $green
-          &.offline
-            color: $red
           
   .span5
     .row.info
@@ -51,6 +28,51 @@ body.users
           padding-left: 5px
           li
             margin-bottom: 3px
+  
+  &.show
+    .span11
+      min-height: 400px
+      .span11
+        min-height: 0px !important
+    
+    h6
+      padding-left: 20px
+    .pagination
+      padding: 0 15px
+      padding-bottom: 50px
+    ul.articles
+      .span11
+        h3
+          padding-left: 15px
+          span
+            float: right
+            text-align: right
+            font-size: 18px
+            margin-right: 20px
+          
+          span.view_count
+            padding-left: 30px
+            background: transparent image-url("icons/iconic/gray_dark/eye_24x18.png") no-repeat 0px 9px
+          
+          span.comment_count
+            padding-left: 26px
+            background: transparent image-url("icons/iconic/gray_dark/comment_alt1_fill_16x16.png") no-repeat 0px 10px
+      
+      .actions
+        padding: 15px
+        text-align: right
+        margin: 10px 0
+        border-bottom: 1px solid #DDD
+        .btn
+          margin-left: 5px
+        span.time
+          background: transparent image-url("icons/iconic/gray_dark/calendar_alt_fill_24x24.png") no-repeat 0px 0px
+          padding: 3px 0px 3px 35px
+          font-size: 16px
+          font-weight: bold
+          float: left
+          
+      
       
   &.index
     ul.tabs
@@ -144,3 +166,32 @@ body.users
                   -moz-opacity: 0.4
                   -khtml-opacity: 0.4
                   opacity: 0.4
+                  
+// GLOBAL PARTIAL STYLES
+
+.row.user_info_sheet
+  .span3.avatar
+    text-align: center
+  .span4.info
+    ul
+      padding-top: 5px
+      margin-bottom: 10px
+      li
+        font-weight: bold
+        margin-bottom: 3px
+      li.name
+        font-size: 18px
+      li.status
+        font-size: 16px
+        margin-bottom: 15px
+      
+      li.subscriber_count, li.article_count
+        color: black
+  
+  
+  
+  
+  
+  
+
+

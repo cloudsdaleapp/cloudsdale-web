@@ -1,4 +1,4 @@
-body.main
+body.main.body_offline
   &.index
     .container
       .content
@@ -9,4 +9,86 @@ body.main
         
         .splasher
           margin: 160px 160px 50px 160px
+
+body.main.body_online
+  &.index
+    .content
+      padding-bottom: 0px
+      background: whiteSmoke
+    
+    .span12.didyouknow, .span12.episode
+      width: 660px
+      padding: 0 20px
+        
+    .span12.left
+      background: #fff
+      -webkit-border-radius: 0px 0px 0px 6px
+      -moz-border-radius: 0px 0px 0px 6px
+      border-radius: 0px 0px 0px 6px
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      padding-bottom: 20px
+      padding-top: 10px
+      .span6.recent, .span6.popular
+        padding: 0 20px
+        width: 300px
+        overflow: hidden
+        ul.unstyled
+          margin: 0
+          li
+            padding: 0 5px
+            border-bottom: #eee 1px dotted
+            margin-bottom: 5px
+            &:last-child
+              border-bottom: none
+            h5
+              font-size: 13px
+              line-height: 20px
+            h6
+              font-size: 12px
+              margin: 0
+              line-height: 18px
+              a
+                padding: 0
+                margin-left: 10px
+                text-decoration: none
+            h6.author
+              margin-bottom: 5px
+              font-size: 10px
+              font-style: italic
+            p
+              padding-left: 10px
+              border-left: 3px #EEE solid
+              margin: 3px 0
+              font-size: 11px
+              font-weight: bold
+      
+    .span4.right
+      width: 200px
+      padding-right: 20px
+      ul
+        li
+          a
+
+    .page-header
+      margin-bottom: 0
+      .row
+        .banner
+          margin: 19px
+          background: #FFF
+          border: 1px solid #DDD
+        h2
+          padding: 20px 20px 0px 0px
+        h1
+          padding: 10px 20px 0px 10px
+          margin: 0
+          a
+            padding: 0
+        h6
+          padding: 0px 20px 0px 15px
+        p
+          font-weight: bold
+          padding: 0px 20px 5px 20px
+
         

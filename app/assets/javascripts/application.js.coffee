@@ -3,6 +3,7 @@
 #= require jquery.cookie
 #= require jquery.BetterGrow
 #= require jquery.titlealert
+#= require jquery.tokeninput
 #= require bootstrap
 #= require date
 #= require rails.validations
@@ -27,6 +28,7 @@ $ ->
     $(this).parent().replaceWith("<div class='alert-message hidden'></div>")
   
   $('.topbar').dropdown()
+  $('[rel=twipsy]').twipsy()
 
   request = (options) ->
     $.ajax $.extend(

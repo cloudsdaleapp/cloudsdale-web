@@ -1,0 +1,22 @@
+.row.user_info_sheet
+  .span7
+    .row
+      .span3.avatar
+        - if user.avatar.url
+          = image_tag user.avatar, :title => user.character.name, :class => 'avatar'
+        - else
+          = image_tag "other/unknown_pony.jpg", :title => user.character.name, :class => 'avatar'
+      .span4.info
+        %ul.unstyled
+          %li.name= link_to user.character.name, user_path(user)
+          %li.status{ :class => user.status_in_words }=  user.status_in_words.capitalize
+          - subscriber_count = user.subscriber_ids.count
+          %li.subscriber_count= "#{subscriber_count} #{subscriber_count > 1 ? 'Subscribers' : 'Subscriber'}"
+        - unless user == current_user
+          - if user.subscribers.include?(current_user)
+            = link_to "Unsubscribe", user_subscriber_path(user,current_user), method: :delete, :class => 'btn small error'
+          - else
+            = link_to "Subscribe", user_subscribers_path(user), method: :post, :class => 'btn small success'
+        
+  
+  
