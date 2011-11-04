@@ -5,6 +5,7 @@ development:
   database: cloudsdale_development
   port: 52331
   use_utc: true
+  identity_map_enabled: true
 
 test:
   host: localhost
@@ -13,6 +14,7 @@ test:
   database: cloudsdale_test
   port: 52331
   use_utc: true
+  identity_map_enabled: true
   
 production:
   host: 50.57.151.186
@@ -21,3 +23,4 @@ production:
   database: cloudsdale
   port: 52331
   use_utc: true
+  identity_map_enabled: true

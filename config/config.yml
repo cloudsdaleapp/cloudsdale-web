@@ -7,6 +7,9 @@ development:
   facebook:
     app_key: 213007855430354
     app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
+  tire:
+    host: http://127.0.0.1
+    port: 9200
   redis:
     host: 127.0.0.1
     port: 6379
@@ -20,12 +23,16 @@ development:
 production:
   url: http://cloudsdale.org
   faye_port: 9191
+  tire_port: 9200
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA
     consumer_secret: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
   facebook:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
+  tire:
+    host: http://127.0.0.1
+    port: 9200
   redis:
     host: 127.0.0.1
     port: 6379

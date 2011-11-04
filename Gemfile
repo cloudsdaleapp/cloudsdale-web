@@ -5,7 +5,8 @@ gem 'rails', '3.1.0'
 # Database NO-SQL
 gem 'mongoid'
 gem 'bson_ext'
-gem "mongo_sessions", :require => "mongo_sessions/rails_mongo_store"
+gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
+gem 'tire'
 
 # Push notifications
 gem 'faye'
@@ -18,6 +19,7 @@ gem 'execjs'
 gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
+gem 'kaminari'
 
 # Styling
 gem 'bootstrap-sass', '1.3.0'
