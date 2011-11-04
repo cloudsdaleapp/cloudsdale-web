@@ -2,6 +2,49 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :manage, :all
+    if user
+      
+      ## Regular user
+      if user.role >= 0
+        
+        # User
+        
+        # Can only update own user
+        can :update, User, :id => user.id
+        
+        # Articles
+        
+        # Can only read published articles
+        can :read,  Article, :published => true
+        # Can manage article that belongs to USER
+        can :create, Article
+        can [:read,:update,:destroy], Article, :author_id => user.id
+        cannot :promote, Article
+        
+        # Comments
+        
+        # Can only read and create comments in published topic that is commentable
+        can [:read,:create], Comment, :topic => { :published => true, :uncommentable => false }
+        # Can always create comments on topics that belong to USER
+        can [:create,:destroy,:read], Comment, :topic => { :author => user }
+        # Can always destroy comments made by USER
+        can :destroy, Comment, :author_id => user.id
+        
+      end
+        
+      if user.role >= 1  ## Donor
+        # ...
+      end  
+        
+      if user.role >= 2  ## Moderator
+        # Articles
+      end
+      
+      if user.role >= 3  ## Placeholder
+      end
+      
+      if user.role >= 4  ## Admin
+      end
+    end
   end
 end
