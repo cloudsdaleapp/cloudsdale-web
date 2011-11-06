@@ -8,7 +8,7 @@ development:
     app_key: 213007855430354
     app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
   tire:
-    host: http://127.0.0.1
+    host: 127.0.0.1
     port: 9200
   redis:
     host: 127.0.0.1
@@ -31,7 +31,7 @@ production:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
   tire:
-    host: http://127.0.0.1
+    host: 50.57.151.151
     port: 9200
   redis:
     host: 127.0.0.1
