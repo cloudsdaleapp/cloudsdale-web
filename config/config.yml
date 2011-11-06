@@ -31,7 +31,7 @@ production:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
   tire:
-    host: http://127.0.0.1
+    host: http://www.cloudsdale.org
     port: 9200
   redis:
     host: 127.0.0.1
