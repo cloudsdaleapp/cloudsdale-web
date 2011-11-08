@@ -3,20 +3,20 @@
     .span16
       = image_tag "artwork/rbd_sleep_on_cloud.png", :title => "Welcome to Cloudsdale!", :class => "splasher", :"data-content" => "This is the cloudsdale <span class='label notice'>alpha</span> <br/> We currently have #{User.count + 100} registered users. The site will launch <span class='label warning'>beta</span> in #{distance_of_time_in_words(Time.now, Time.parse('2011-11-23'))}"
 - else
-  - if @featured_article
+  - if @feartued_entry
     .row
       .span16
         .page-header
           .row
             .span9
               .banner
-                = image_tag @featured_article.banner
+                = image_tag @feartued_entry.banner if @feartued_entry.banner?
             .span7
               %h2= "Featured Article"
               %h1
-                = link_to "#{@featured_article.title}", article_path(@featured_article)
-              %h6= "by: #{@featured_article.author.name}"
-              %p= truncate(@featured_article.preambel, :length => 210, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(@featured_article))}").html_safe
+                = link_to "#{@feartued_entry.title}", article_path(@feartued_entry)
+              %h6= "by: #{@feartued_entry.author.name}"
+              %p= truncate(@feartued_entry.preambel, :length => 210, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(@feartued_entry))}").html_safe
   .row
     .span16
       .row
@@ -32,23 +32,23 @@
             .span6.recent
               %h4= "Recent"
               %ul.unstyled
-                - @recent_items.each do |item|
+                - @recent_entries.each do |entity|
                   %li
                     %h6
-                      %strong= item.class.to_s
+                      %strong= entity.class.to_s
                       %span.views
-                        = link_to "#", :rel => 'twipsy', 'data-original-title' => "Read #{item.views} times", 'data-placement' => 'above' do
+                        = link_to "#", :rel => 'twipsy', 'data-original-title' => "Read #{entity.views} times", 'data-placement' => 'above' do
                           = image_tag("icons/iconic/gray_light/eye_12x9.png")
-                      - unless item.uncommentable
+                      - if entity.commentable
                         %span.comments
-                          = link_to "#", :rel => 'twipsy', 'data-original-title' => "#{item.comments.count} comments", 'data-placement' => 'above' do
+                          = link_to "#", :rel => 'twipsy', 'data-original-title' => "#{entity.comments.count} comments", 'data-placement' => 'above' do
                             = image_tag("icons/iconic/gray_light/comment_alt2_fill_9x12.png")
                       %span.date
-                        = link_to "#", :rel => 'twipsy', 'data-original-title' => 'Published at 2011/11/15 - 15:35', 'data-placement' => 'above' do
+                        = link_to "#", :rel => 'twipsy', 'data-original-title' => "Published at #{entity.updated_at.strftime('%y/%m/%d %R')}", 'data-placement' => 'above' do
                           = image_tag("icons/iconic/gray_light/calendar_alt_fill_12x12.png")
-                    %h5= link_to item.title,article_path(item)
-                    %p= truncate(item.preambel, :length => 190, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(item))}").html_safe
-                    %h6.author= "- by #{item.author.name}"
+                    %h5= link_to entity.title,article_path(entity)
+                    %p= truncate(entity.preambel, :length => 190, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(entity))}").html_safe
+                    %h6.author= "- by #{entity.author.name}"
                   
             .span6.popular
               %h4= "Popular"

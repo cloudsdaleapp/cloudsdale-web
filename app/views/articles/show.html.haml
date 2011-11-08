@@ -2,7 +2,7 @@
   %h1
     = @article.title
     %span.view_count= @article.views
-    - unless @article.uncommentable
+    - if @article.commentable?
       %span.comment_count= @article.comments.count
     
 
@@ -22,7 +22,7 @@
           - unless @article.published? and can? :update, @article
             = link_to "Publish", publish_article_path(@article), :class => 'btn success'
             
-          - if !@article.is_promoted? and can? :promote, @article
+          - if !@article.promoted? and can? :promote, @article
             = link_to "Promote", promote_article_path(@article), :class => 'btn info'
             
           - if can? :destroy, @article
@@ -44,7 +44,7 @@
     = render :partial => '/users/global/info_sheet', :locals => { :user => @article.author }
       
     %ul.tabs
-      %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Comments#{@article.uncommentable ? '' : " (#{@article.comments.count})"}", article_path(@article)
+      %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Comments#{@article.commentable ? " (#{@article.comments.count})" : ''}", article_path(@article)
     = render :partial => "show_tab_#{params[:tab] || "comments"}"
 
 

@@ -12,19 +12,19 @@ class Ability
         # Can only update own user
         can :update, User, :id => user.id
         
-        # Articles
+        # Entries
         
         # Can only read published articles
-        can :read,  Article, :published => true
+        can :read,  Entry, :published => true
         # Can manage article that belongs to USER
-        can :create, Article
-        can [:read,:update,:destroy], Article, :author_id => user.id
-        cannot :promote, Article
+        can :create, Entry
+        can [:read,:update,:destroy], Entry, :author_id => user.id
+        cannot :promote, Entry
         
         # Comments
         
         # Can only read and create comments in published topic that is commentable
-        can [:read,:create], Comment, :topic => { :published => true, :uncommentable => false }
+        can [:read,:create], Comment, :topic => { :published => true, :commentable => false }
         # Can always create comments on topics that belong to USER
         can [:create,:destroy,:read], Comment, :topic => { :author => user }
         # Can always destroy comments made by USER
@@ -38,7 +38,7 @@ class Ability
         
       if user.role >= 2  ## Moderator
         # Articles
-        can :promote, Article
+        can [:read,:update,:destroy,:promote], Entry
       end
       
       if user.role >= 3  ## Placeholder

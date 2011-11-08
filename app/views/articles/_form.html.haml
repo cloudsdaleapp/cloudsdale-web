@@ -40,8 +40,8 @@
                   %span= "Hide article in search results."
               %li
                 %label
-                  = f.check_box :uncommentable
-                  %span= "Disable users from commenting on the article."
+                  = f.check_box :commentable
+                  %span= "Enable users commenting on this Article."
       .actions
         - unless @article.new_record?
           = link_to "Remove", article_path(@article), :method => :delete, :class => 'btn error'

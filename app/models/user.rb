@@ -7,7 +7,7 @@ class User
   embeds_many :activities
   embeds_many :notifications
   
-  has_many :articles, as: :author
+  has_many :entries, as: :author
   
   has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify

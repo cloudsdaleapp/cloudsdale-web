@@ -4,7 +4,7 @@ class Tag
   include Tire::Model::Search
   include Tire::Model::Callbacks
   
-  has_and_belongs_to_many :articles, :inverse_of => :tags, dependent: :nullify
+  has_and_belongs_to_many :entries, :inverse_of => :tags, dependent: :nullify
   
   attr_accessible :name
   
@@ -30,12 +30,13 @@ class Tag
 
   # Tire, Mongoid requirements
   index_name 'mongo-tags'
+  
   def to_indexed_json
     self.to_json
   end
   
   def set_times_referred!
-    self[:times_referred] = self.article_ids.count
+    self[:times_referred] = self.entry_ids.count
   end
   
   def format_name!

@@ -21,7 +21,9 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    @article = @author.articles.build(params[:article])
+    
+    @article = Article.new(params[:article])
+    @author.entries << @article
     respond_to do |format|
       if @article.save
         format.html { redirect_to article_path(@article),
