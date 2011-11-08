@@ -24,9 +24,9 @@ class Ability
         # Comments
         
         # Can only read and create comments in published topic that is commentable
-        can [:read,:create], Comment, :topic => { :published => true, :commentable => false }
+        can [:read,:create], Comment, :topic => { :published => true, :commentable => true }
         # Can always create comments on topics that belong to USER
-        can [:create,:destroy,:read], Comment, :topic => { :author => user }
+        can [:destroy,:read], Comment, :topic => { :author => user }
         # Can always destroy comments made by USER
         can :destroy, Comment, :author_id => user.id
         
