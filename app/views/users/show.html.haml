@@ -27,12 +27,15 @@
     
 .row
   .span4.left
-    .btn Message
     - unless @user == current_user
       - if @user.subscribers.include?(current_user)
         = link_to "Unsubscribe", user_subscriber_path(@user,current_user), method: :delete, :class => 'btn error'
       - else
         = link_to "Subscribe", user_subscribers_path(@user), method: :post, :class => 'btn success'
+      .btn Message
+    - else
+      = link_to "Settings", edit_user_path(@user), class: 'btn'
+    
     
   .span12.right
         
