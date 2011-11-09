@@ -32,27 +32,15 @@
             .span6.recent
               %h4= "Recent"
               %ul.unstyled
-                - @recent_entries.each do |entity|
-                  %li
-                    %h6
-                      %strong= entity.class.to_s
-                      %span.views
-                        = link_to "#", :rel => 'twipsy', 'data-original-title' => "Read #{entity.views} times", 'data-placement' => 'above' do
-                          = image_tag("icons/iconic/gray_light/eye_12x9.png")
-                      - if entity.commentable
-                        %span.comments
-                          = link_to "#", :rel => 'twipsy', 'data-original-title' => "#{entity.comments.count} comments", 'data-placement' => 'above' do
-                            = image_tag("icons/iconic/gray_light/comment_alt2_fill_9x12.png")
-                      %span.date
-                        = link_to "#", :rel => 'twipsy', 'data-original-title' => "Published at #{entity.updated_at.strftime('%y/%m/%d %R')}", 'data-placement' => 'above' do
-                          = image_tag("icons/iconic/gray_light/calendar_alt_fill_12x12.png")
-                    %h5= link_to entity.title,article_path(entity)
-                    %p= truncate(entity.preambel, :length => 190, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(entity))}").html_safe
-                    %h6.author= "- by #{entity.author.name}"
+                - @recent_entries.each do |entry|
+                  = render :partial => 'entry', locals: { entry: entry }
+
                   
             .span6.popular
               %h4= "Popular"
-              %h6= "Coming soon..."
+              %ul.unstyled
+                - @popular_entries.each do |entry|
+                  = render :partial => 'entry', locals: { entry: entry }
           .row
             .span12.episode
               %h4 Latest Episode

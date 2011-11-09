@@ -1,0 +1,16 @@
+%li
+  %h6
+    %strong= entry.class.to_s
+    %span.views
+      = link_to "#", :rel => 'twipsy', 'data-original-title' => "Read #{entry.views} times", 'data-placement' => 'above' do
+        = image_tag("icons/iconic/gray_light/eye_12x9.png")
+    - if entry.commentable
+      %span.comments
+        = link_to "#", :rel => 'twipsy', 'data-original-title' => "#{entry.comments.count} comments", 'data-placement' => 'above' do
+          = image_tag("icons/iconic/gray_light/comment_alt2_fill_9x12.png")
+    %span.date
+      = link_to "#", :rel => 'twipsy', 'data-original-title' => "Published at #{entry.updated_at.strftime('%y/%m/%d %R')}", 'data-placement' => 'above' do
+        = image_tag("icons/iconic/gray_light/calendar_alt_fill_12x12.png")
+  %h5= link_to entry.title,article_path(entry)
+  %p= truncate(entry.preambel, :length => 190, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(entry))}").html_safe
+  %h6.author= "- by #{entry.author.name}"
