@@ -1,47 +1,59 @@
-body.users    
-  .page-header
-    h1
-      small
-        span
-          margin: 0 10px
-          font-weight: bold
-          
-  .span5
-    .row.info
-      .span3
-        min-height: 120px
-        img.avatar
-          margin-left: 30px
-      .span2
-        min-height: 120px
-        h5
-          line-height: 1.3em
-        h5.gender
-          margin-top: 10px
-        h5.kind
-          margin-top: 3px
-    .row.user_actions
-      .span5
-        min-height: 0
-        ul
-          list-style: none inside
-          padding-left: 5px
-          li
-            margin-bottom: 3px
-  
-  &.show
-    .span11
-      min-height: 400px
-      .span11
-        min-height: 0px !important
+body.users
+  .content
+    padding-bottom: 0px
+    background: whiteSmoke
     
-    h6
-      padding-left: 20px
-    .pagination
-      padding: 0 15px
-      padding-bottom: 50px
+  .page-header
+    margin-bottom: 0
+    .span3
+      padding: 20px 0
+      text-align: center
+    .span2
+      padding: 20px 0
+      h5
+        line-height: 20px
+        &.subscribers
+          margin-top: 10px
+      
+    .span11
+      h1
+        margin-bottom: 0px !important
+      h4
+        padding-left: 20px
+        margin-bottom: 5px
+        span
+          margin: 0 10px 0 0
+          font-weight: bold
+      ul.tabs
+        margin-top: 10px
+        margin-bottom: -1px
+        border-bottom: none
+        
+
+          
+  &.show
+    .span12.right
+      background: #fff
+      -webkit-border-radius: 0px 0px 6px 0px
+      -moz-border-radius: 0px 0px 6px 0px
+      border-radius: 0px 0px 6px 0px
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      padding-bottom: 20px
+      padding-top: 10px
+      min-height: 360px
+    
+    .span4
+      padding-bottom: 20px
+      max-height: 360px
+      .btn
+        width: 170px
+        margin: 10px 20px 0px 20px
+      
+      
     ul.articles
-      .span11
+      .span12
         h3
           padding-left: 15px
           span

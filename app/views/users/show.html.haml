@@ -1,57 +1,40 @@
 .page-header
-  %h1
-    = @user.character.name
-    %small
-      - if @user.is_online?
-        %span{ :class => "online"}= "Online"
-        = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
+  .row
+    .span3
+      - if @user.avatar.url
+        = image_tag @user.avatar, :title => @user.character.name, :class => 'avatar'
       - else
-        %span{ :class => "offline"}= "Offline"
-        = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
-.row
-  .span5
-    .row.info
-      .span3
-        - if @user.avatar.url
-          = image_tag @user.avatar, :title => @user.character.name, :class => 'avatar'
+        = image_tag "other/unknown_pony.jpg", :title => @user.character.name, :class => 'avatar'
+    .span2
+      %h5.gender= @user.character.gender.capitalize if @user.character.gender
+      %h5.kind= @user.character.kind.capitalize if @user.character.kind
+      %h5.subscribers= "#{@user.subscriber_ids.count} subscribers"
+    .span11
+      %h1
+        = @user.character.name
+      %h4
+        - if @user.is_online?
+          %span{ :class => "online"}= "Online"
+          = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
         - else
-          = image_tag "other/unknown_pony.jpg", :title => @user.character.name, :class => 'avatar'
-      .span2
-        %h5.gender= @user.character.gender.capitalize if @user.character.gender
-        %h5.kind= @user.character.kind.capitalize if @user.character.kind
+          %span{ :class => "offline"}= "Offline"
+          = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
+      %ul.tabs
+        %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
+          = link_to "Profile", user_path(@user)
+        %li{ :class => "#{ params[:tab] == 'articles' ? 'active' : '' }" }
+          = link_to "Articles", user_path(@user, tab: 'articles')
     
-    .row.user_actions
-      .span5
-        - if @user == current_user
-          %ul
-            %li.profile
-              = link_to edit_user_path(@user) do
-                = image_tag "icons/tools/cog.png", :title => "edit profile", :class => 'link_icon'
-                = "Settings"
-        - else
-          %ul
-            - is_subscribed = @user.subscribers.include?(current_user)
-            %li.subscribe{ :class => "#{is_subscribed ? 'is_subscribed' : 'not_subscribed'}" }
-              - if is_subscribed
-                = link_to user_subscriber_path(@user,current_user), method: :delete do
-                  = image_tag "icons/tools/stop.png", :title => "unsubscribe", :class => 'link_icon'
-                  = "Unsubscribe"
-              - else
-                = link_to user_subscribers_path(@user), method: :post do
-                  = image_tag "icons/tools/star.png", :title => "subscribe", :class => 'link_icon'
-                  = "Subscribe"
-			
-            %li.message
-              = link_to "" do
-                = image_tag "icons/tools/email.png", :title => "message", :class => 'link_icon'
-                = "Message"
-  
-  .span11
-    %ul.tabs
-      %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
-        = link_to "Profile", user_path(@user)
-      %li{ :class => "#{ params[:tab] == 'articles' ? 'active' : '' }" }
-        = link_to "Articles", user_path(@user, tab: 'articles')
+.row
+  .span4.left
+    .btn Message
+    - unless @user == current_user
+      - if @user.subscribers.include?(current_user)
+        = link_to "Unsubscribe", user_subscriber_path(@user,current_user), method: :delete, :class => 'btn error'
+      - else
+        = link_to "Subscribe", user_subscribers_path(@user), method: :post, :class => 'btn success'
+    
+  .span12.right
         
     - if params[:tab].nil?
       - @user.activities.order(:timestamp => :desc).each do |activity|
@@ -65,14 +48,14 @@
           - @articles.each do |article|
             %li
               .row
-                .span11
+                .span12
                   %h3
                     = link_to article.title, article_path(article)
                     %span.view_count= article.views
                     %span.comment_count= article.comments.count
                   
               .row
-                .span11
+                .span12
                   .actions
                     - if can? :manage, article
                       = link_to "Edit", edit_article_path(article), :class => 'btn small'
