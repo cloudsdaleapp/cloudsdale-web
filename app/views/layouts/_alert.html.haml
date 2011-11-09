@@ -1,6 +1,6 @@
 - if flash[:notice]
   - if flash[:notice].is_a?(Hash)
-    .alert-message{ :class => "#{flash[:notice]['category']}" }
+    .alert-message.primary{ :class => "#{flash[:notice]['category']}" }
       = link_to "x","#", :class => 'close'
       %p
         %strong= flash[:notice]['title']

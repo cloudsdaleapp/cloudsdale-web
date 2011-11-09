@@ -19,7 +19,7 @@ $ ->
   $(".alert-message > .close").bind "click", (e) ->
     hide_alert_message $(@).parent()
     
-  $(".alert-message").hide().fadeIn(500).delay(8000).fadeOut 500, ->
+  $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
     hide_alert_message @
   
   $('.topbar').dropdown()
