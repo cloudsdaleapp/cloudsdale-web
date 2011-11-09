@@ -15,21 +15,19 @@
 #= require showdown
 
 
-$ ->
-  $("#flash.showme").hide().delay(200).fadeIn(400).delay(3000).fadeOut(400)
-  
-  $("form.with_notifications").live('ajax:complete', (a,b) ->
-    r = $.parseJSON(b.responseText)
-    $("#flash").addClass('showme').hide().fadeIn(400).delay(3000).fadeOut(400)
-    $("p#flash_bubble").text("#{r.flash.message}").removeClass('notice').removeClass('error').addClass("#{r.flash.type}")
-  )
-  
+$ ->  
   $(".alert-message > .close").bind "click", (e) ->
-    $(this).parent().replaceWith("<div class='alert-message hidden'></div>")
+    hide_alert_message $(@).parent()
+    
+  $(".alert-message").hide().fadeIn(500).delay(8000).fadeOut 500, ->
+    hide_alert_message @
   
   $('.topbar').dropdown()
   $('[rel=twipsy]').twipsy()
 
+  hide_alert_message = (p) ->
+    $(p).replaceWith("<div class='alert-message hidden'></div>")
+    
   request = (options) ->
     $.ajax $.extend(
       url: options.url
