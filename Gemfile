@@ -14,6 +14,7 @@ gem 'faye'
 # Production dependencies
 gem 'therubyracer'
 gem 'execjs'
+gem 'scout'
 
 # Markup
 gem 'haml'
