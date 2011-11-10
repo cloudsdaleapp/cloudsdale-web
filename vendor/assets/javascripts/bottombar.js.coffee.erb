@@ -74,7 +74,7 @@ window.ChatRoom = class ChatRoom
       @addNotification()
       if @seeded
         @appendMessage(data.timestamp,data.content,data.user_name,data.user_path)
-        @correctContainerScroll(true)
+        @correctContainerScroll(isReadingHistory)
   
   finalize: =>
     # Prepare the frames for interaction.
