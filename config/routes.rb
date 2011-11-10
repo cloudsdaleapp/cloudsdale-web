@@ -6,6 +6,7 @@ Cloudsdale::Application.routes.draw do
   
   match '/logout' => 'sessions#destroy', :as => :logout
   match '/login' => 'sessions#new', :as => :login
+  match '/register' => 'users#new', :as => :register
   
   resources :sessions, :only => [:create,:index] do
     get :count, on: :collection

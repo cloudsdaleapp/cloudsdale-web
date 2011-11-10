@@ -16,7 +16,7 @@ class AuthenticationsController < ApplicationController
         @user = User.new
         @user.build_character
         @user.apply_omniauth(omniauth)
-        format.html { render "users/new" }
+        format.html { render "users/new", :layout => 'front' }
       end
     end
   end

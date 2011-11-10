@@ -1,5 +1,16 @@
 class SessionsController < ApplicationController
   
+  layout 'front'
+  
+  before_filter only: [:new] do
+    if current_user
+      redirect_to root_path
+    end
+  end
+  
+  def new
+  end
+  
   def index
     @users = User.online
     render partial: 'index', :locales => { user: @user }

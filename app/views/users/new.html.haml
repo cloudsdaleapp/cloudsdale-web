@@ -1,20 +1,11 @@
 - content_for :head do
   = javascript_include_tag "users"
 
-.page-header
-  %h1
-    - unless @user.authentications.empty?
-      = image_tag "icons/cloud/#{@user.authentications.first.provider.downcase}_cloud.png"
-    = "Register"
-    - unless @user.authentications.empty?
-      %small
-        = "using #{@user.authentications.first.provider.capitalize}"
-
 = form_for @user, :multipart => true, :validate => true  do |f|
   .row.form_part.active
     .span12.offset2
-      %fieldset
-        = f.fields_for :authentications do |authentications_form|
+      = f.fields_for :authentications do |authentications_form|
+        %fieldset
           = authentications_form.hidden_field :uid
           = authentications_form.hidden_field :provider
       %fieldset
@@ -33,6 +24,31 @@
             = f.label :password_confirmation, "Confirmation *"
             .input
               = f.password_field :password_confirmation
+        %fieldset
+          - @user.authentications.each do |authentication|
+            .clearfix
+              .input
+                = link_to "Disconnect", register_path, :class => 'btn error'
+                = image_tag("icons/cloud/#{authentication.provider}_cloud.png")
+                %span.help-inline
+                  %strong
+                    = "UID: "
+                    %span.label
+                      = authentication.uid
+
+          - auth_providers = @user.authentications.map {|a| a.provider }
+          - unless auth_providers.include?("facebook")
+            .clearfix
+              .input
+                = link_to "Connect", "/auth/facebook", :class => 'btn success'
+                = image_tag("icons/cloud/facebook_cloud.png")
+
+          - unless auth_providers.include?("twitter")
+            .clearfix
+              .input
+                = link_to "Connect", "/auth/twitter", :class => 'btn success'
+                = image_tag("icons/cloud/twitter_cloud.png")
+                
         %fieldset
           .clearfix
             .well{:style => 'text-align: right;'}

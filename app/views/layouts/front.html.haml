@@ -1,0 +1,18 @@
+!!! 5
+%html
+  %head
+    %title Cloudsdale
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = javascript_include_tag params[:controller]
+    = csrf_meta_tags
+    = yield :head
+
+  %body{ :class => "#{params[:controller]} #{params[:action]}"}
+    .container
+      = render :partial => 'layouts/alert'
+      .content
+        = yield
+      %footer
+        %p My Little Pony: Friendship is Magic is © Hasbro, all art/writing is © to their respective artists
+            
