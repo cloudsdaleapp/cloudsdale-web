@@ -38,4 +38,4 @@ $ ->
     h = $('html')
     max_height = h[0].scrollHeight
     current_height = $('body')[0].scrollTop
-    h.css("background-position","center #{(current_height*-1)}px")
+    h.css("background-position","center #{((current_height*-1)-70)}px")
