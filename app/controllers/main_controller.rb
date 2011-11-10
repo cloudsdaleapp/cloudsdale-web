@@ -9,7 +9,11 @@ class MainController < ApplicationController
   def index
     @feartued_entry = Entry.where(promoted: true).first
     @recent_entries = Entry.where(published: true, hidden: false, promoted: false).order_by(:published_at,:desc).limit(3)
+<<<<<<< HEAD
     @popular_entries = Entry.where(published: true, hidden: false, promoted: false, :published_at.gt => 3.days.ago).order_by([:views,:desc],[:comments,:desc],[:published_at,:desc]).limit(3)
+=======
+    @popular_entries = Entry.where(published: true, hidden: false, promoted: false, :updated_at.gt => 3.days.ago).order_by([:views,:desc],[:comments,:desc],[:published_at,:desc]).limit(3)
+>>>>>>> 1c65c826edb222187d93186e64bc171256352598
   end
 
 end
