@@ -74,7 +74,11 @@ window.ChatRoom = class ChatRoom
       @addNotification()
       if @seeded
         @appendMessage(data.timestamp,data.content,data.user_name,data.user_path)
-        @correctContainerScroll(isReadingHistory)
+        @correctContainerScroll(@isReadingHistory())
+    
+    $(window).bind 'focus', =>
+      if @active
+        @clearNotifications()
   
   finalize: =>
     # Prepare the frames for interaction.
@@ -181,16 +185,16 @@ window.ChatRoom = class ChatRoom
     @trigger.html("#{notice}#{@room_name}")
 
   clearNotifications: ->
+    @parent.subtractGlobalNotification(@notifications)
     $.cookie "chatroom:notifications:#{@room_id}", 0, 
       expires: 365
       path: "/"
     @notifications = 0
-    @parent.clearGlobalNotification()
     @refreshGraphics()
     
   addNotification: ->
+    @notifications += 1
     unless @active
-      @notifications += 1
       $.cookie "chatroom:notifications:#{@room_id}", @notifications, 
         expires: 365
         path: "/"
@@ -230,9 +234,18 @@ window.ChatNav = class ChatNav
   
   clearGlobalNotification: ->
     @n = 0
-    
+  
   addGlobalNotification: ->
     @n += 1
+    @setGlobalNotification()
+    
+  subtractGlobalNotification: (num) ->
+    @n -= num
+    if @n < 0
+      @clearGlobalNotification()
+    @setGlobalNotification()
+    
+  setGlobalNotification: ->
     $.titleAlert "(#{@n}) message(s)",
       requireBlur: true
       stopOnFocus: true
