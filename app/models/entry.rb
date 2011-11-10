@@ -31,10 +31,18 @@ class Entry
   field :hidden,        type: Boolean,    default: false
   field :promoted,      type: Boolean,    default: false
   
+  field :published_at,  type: Time,       default: nil
+  
   mount_uploader :banner, BannerUploader
   
   validates :title,       presence: true,   uniqueness: true,   length: { within: 5..46 }
   validates :preambel,    presence: true
+  
+  before_save do
+    if self.published_changed? and self.published?
+      self[:published_at] = Time.now
+    end
+  end
   
   def log_view_count_and_save!
     self[:views] += 1
