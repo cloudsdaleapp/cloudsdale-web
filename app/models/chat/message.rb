@@ -26,7 +26,7 @@ class Chat::Message
     msg.gsub! /^\s*$/, ""
     
     if (m = msg.match(/^(.*)/i))
-      msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_]*)(\/?[a-z0-9\.\,\-\_\/\?\&\=\#\%]*)/i do
+      msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_]*)(\/?[a-z0-9\.\,\-\_\/\?\&\=\#\%\+]*)/i do
         protocol = $1
         top_dom = $2
         path = $3
