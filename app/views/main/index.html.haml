@@ -1,55 +1,51 @@
-- unless current_user
+- if @feartued_entry
   .row
     .span16
-      = image_tag "artwork/rbd_sleep_on_cloud.png", :title => "Welcome to Cloudsdale!", :class => "splasher", :"data-content" => "This is the cloudsdale <span class='label notice'>alpha</span> <br/> We currently have #{User.count + 100} registered users. The site will launch <span class='label warning'>beta</span> in #{distance_of_time_in_words(Time.now, Time.parse('2011-11-23'))}"
-- else
-  - if @feartued_entry
+      .page-header
+        .row
+          .span9
+            .banner
+              = image_tag @feartued_entry.banner if @feartued_entry.banner?
+          .span7
+            %h2= "Featured Article"
+            %h1
+              = link_to "#{@feartued_entry.title}", article_path(@feartued_entry)
+            %h6= "by: #{@feartued_entry.author.name}"
+            %p= truncate(@feartued_entry.preambel, :length => 210, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(@feartued_entry))}").html_safe
+            
+.row
+  .span16
     .row
-      .span16
-        .page-header
-          .row
-            .span9
-              .banner
-                = image_tag @feartued_entry.banner if @feartued_entry.banner?
-            .span7
-              %h2= "Featured Article"
-              %h1
-                = link_to "#{@feartued_entry.title}", article_path(@feartued_entry)
-              %h6= "by: #{@feartued_entry.author.name}"
-              %p= truncate(@feartued_entry.preambel, :length => 210, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(@feartued_entry))}").html_safe
-  .row
-    .span16
-      .row
-        .span12.left
-          .row
-            .span12.didyouknow
-              .alert-message.block-message.success
-                %p
-                  %strong Welcome to Cloudsdale, you have not yet explored our new article features or written your own article. Why don't you try it out?
-                .alert-actions
-                  = link_to "Write Article",new_article_path, :class => 'btn'
-          .row
-            .span6.recent
-              %h4= "Recent"
-              %ul.unstyled
-                - @recent_entries.each do |entry|
-                  = render :partial => 'entry', locals: { entry: entry }
+      .span12.left
+        .row
+          .span12.didyouknow
+            .alert-message.block-message.success
+              %p
+                %strong Welcome to Cloudsdale, you have not yet explored our new article features or written your own article. Why don't you try it out?
+              .alert-actions
+                = link_to "Write Article",new_article_path, :class => 'btn'
+        .row
+          .span6.recent
+            %h4= "Recent"
+            %ul.unstyled
+              - @recent_entries.each do |entry|
+                = render :partial => 'entry', locals: { entry: entry }
 
-                  
-            .span6.popular
-              %h4= "Popular"
-              %ul.unstyled
-                - @popular_entries.each do |entry|
-                  = render :partial => 'entry', locals: { entry: entry }
-          .row
-            .span12.episode
-              %h4 Latest Episode
-              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "365", :src => "http://www.youtube.com/embed/Ok1rn5TP-Ws?hd=1", :width => "660"}
-              
-        .span4.right
-          %h6= "Dashboard"
-          %ul.unstyled
-            %li
-              = link_to new_article_path, :class => 'btn large dashboard article' do
-                = image_tag "artwork/props/scroll.png", :title => "title", :class => "class"
-                Write Article
+                
+          .span6.popular
+            %h4= "Popular"
+            %ul.unstyled
+              - @popular_entries.each do |entry|
+                = render :partial => 'entry', locals: { entry: entry }
+        .row
+          .span12.episode
+            %h4 Latest Episode
+            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "365", :src => "http://www.youtube.com/embed/Ok1rn5TP-Ws?hd=1", :width => "660"}
+            
+      .span4.right
+        %h6= "Dashboard"
+        %ul.unstyled
+          %li
+            = link_to new_article_path, :class => 'btn large dashboard article' do
+              = image_tag "artwork/props/scroll.png", :title => "title", :class => "class"
+              Write Article
