@@ -14,8 +14,7 @@
 #= require bottombar
 #= require showdown
 
-
-$ ->  
+$ ->
   $(".alert-message > .close").bind "click", (e) ->
     hide_alert_message $(@).parent()
     
@@ -35,3 +34,8 @@ $ ->
     , options)
     false
   
+  $(window).scroll (e) ->
+    h = $('html')
+    max_height = h[0].scrollHeight
+    current_height = $('body')[0].scrollTop
+    h.css("background-position","center #{(current_height*-1)}px")
