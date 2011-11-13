@@ -31,7 +31,7 @@ class Entry
   field :hidden,        type: Boolean,    default: false
   field :promoted,      type: Boolean,    default: false
   
-  field :published_at,  type: Time,       default: nil
+  field :published_at,  type: Time,       default: -> { Time.now }
   
   mount_uploader :banner, BannerUploader
   
@@ -39,7 +39,7 @@ class Entry
   validates :preambel,    presence: true
   
   before_save do
-    if self.published_changed? and self.published?
+    if self.published? and (self.published_changed? or self.new?)
       self[:published_at] = Time.now
     end
   end
