@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   before_filter do
     begin
-      current_user.log_activity_and_save! if current_user
+      current_user.log_activity! if current_user
     rescue
       session[:user_id] = nil
     end

@@ -95,7 +95,7 @@ class User
     self[:subscribers_count] = self.subscribers.count
   end
   
-  def log_activity_and_save!
+  def log_activity!
     self[:last_activity] = Time.now
     save!
   end
