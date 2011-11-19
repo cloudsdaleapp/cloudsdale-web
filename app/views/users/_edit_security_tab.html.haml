@@ -11,7 +11,7 @@
   - @user.authentications.each do |authentication|
     .clearfix
       .input
-        = link_to "Disconnect", authentication_path(authentication), :method => :delete, :class => 'btn error'
+        = link_to "Disconnect", authentication_path(authentication), :method => :delete, :class => 'btn error', 'data-skip-pjax' => true
         = image_tag("icons/cloud/#{authentication.provider}_cloud.png")
         %span.help-inline
           %strong
@@ -23,11 +23,11 @@
   - unless auth_providers.include?("facebook")
     .clearfix
       .input
-        = link_to "Connect", "/auth/facebook", :class => 'btn success'
+        = link_to "Connect", "/auth/facebook", :class => 'btn success', 'data-skip-pjax' => true
         = image_tag("icons/cloud/facebook_cloud.png")
 
   - unless auth_providers.include?("twitter")
     .clearfix
       .input
-        = link_to "Connect", "/auth/twitter", :class => 'btn success'
+        = link_to "Connect", "/auth/twitter", :class => 'btn success', 'data-skip-pjax' => true
         = image_tag("icons/cloud/twitter_cloud.png")

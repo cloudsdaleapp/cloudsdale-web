@@ -4,15 +4,14 @@
     %title Cloudsdale
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
-    = javascript_include_tag params[:controller]
     = csrf_meta_tags
-    = yield :head
 
-  %body{ :class => "#{params[:controller]} #{params[:action]}"}
+  %body{ :class => "#{params[:controller]} #{params[:action]}", :data => { :controller => params[:controller], :action => params[:action]} }
     .container
       = render :partial => 'layouts/alert'
-      .content
+      
+      .content{ :data => { 'pjax-container' => ''} }
         = yield
-      %footer
-        %p My Little Pony: Friendship is Magic is © Hasbro, all art/writing is © to their respective artists
+        
+      = render :partial => 'layouts/footer'
             

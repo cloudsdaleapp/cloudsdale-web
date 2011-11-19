@@ -3,12 +3,12 @@
     = image_tag "artwork/props/bigkey.png", :title => "BigKey", :class => "bigkey"
   .span4
     %p= "Hello and welcome to Cloudsdale! This is the cloudsdale <span class='label notice'>alpha</span> <br/><br/> We currently have #{User.count + 100} registered users. The site will launch <span class='label warning'>beta</span> in #{distance_of_time_in_words(Time.now, Time.parse('2011-11-23'))}".html_safe
-    
+  
   .span6.offset1
     = form_tag sessions_path, :method => :post, :class => 'form-stacked'  do
       %fieldset
-        = link_to image_tag("icons/cloud/facebook_cloud.png") + "Connect", "/auth/facebook", :class => 'btn connect'
-        = link_to image_tag("icons/cloud/twitter_cloud.png") + "Connect", "/auth/twitter", :class => 'btn connect'
+        = link_to image_tag("icons/cloud/facebook_cloud.png") + "Connect", "/auth/facebook", :class => 'btn connect', 'data-skip-pjax' => true
+        = link_to image_tag("icons/cloud/twitter_cloud.png") + "Connect", "/auth/twitter", :class => 'btn connect', 'data-skip-pjax' => true
       %fieldset
         .clearfix
           = label_tag :email, "Email:"
@@ -21,8 +21,9 @@
       %fieldset
         .clearfix
           = submit_tag "Login", :class => 'btn success'
-      
+    
         %fieldset
           = link_to "Register", register_path
           or
           = link_to "Restore", restore_users_path
+

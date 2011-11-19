@@ -1,6 +1,6 @@
 #= require helpers/comments
 
-$ ->
+$(document).bind 'articles.load', (e,obj) =>
   makePreview = (source,dest,args) ->
     if args == null or args == NaN
       args.markdown = false
@@ -17,7 +17,6 @@ $ ->
   makePreview $('#article_content'), $('.article-preview-body'),
     markdown: true
 
-  
   $('form#new_comment').commentForm()
   
   $('#article_content').BetterGrow()
