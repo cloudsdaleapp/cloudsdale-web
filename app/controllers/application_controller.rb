@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   before_filter do
+    response.headers["controller"], response.headers["action"] = controller_name, action_name
+    
     begin
       current_user.log_activity! if current_user
     rescue
@@ -11,6 +13,14 @@ class ApplicationController < ActionController::Base
   end
   
   protect_from_forgery
+  
+  def render(options = nil, extra_options = {}, &block)
+    if request.headers['X-PJAX'] == 'true'
+      options = {} if options.nil?
+      options[:layout] = false 
+    end
+    super(options, extra_options, &block)
+  end
   
   def authenticated?
     raise CanCan::AccessDenied.new unless current_user
@@ -32,8 +42,15 @@ class ApplicationController < ActionController::Base
   end
   
   def faye_broadcast(channel, data)
-    message = { :channel => channel, :data => data }
-    Net::HTTP.post_form(Cloudsdale.faye_path, :message => message.to_json)
+    message = { channel: channel, data: data, ext: { auth_token: FAYE_TOKEN } }
+    Net::HTTP.post_form(Cloudsdale.faye_path, message: message.to_json)
+  end
+  
+  private
+  
+  def render_and_act_as(controller,action,lo="application")
+    params[:controller], params[:action] = controller, action
+    render "#{controller.to_s}/#{action.to_s}", :layout => lo
   end
   
 end
