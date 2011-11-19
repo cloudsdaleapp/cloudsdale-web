@@ -14,14 +14,7 @@ class ServerAuth
   end
 end
 
-faye = Faye::RackAdapter.new(
-    mount: '/faye',
-    timeout: 25,
-    engine: { 
-      type:'redis',
-      host:config['faye']['redis']['host'],
-      port:config['faye']['redis']['port']
-    })
+faye = Faye::RackAdapter.new(mount: '/faye',timeout: 25)
     
 faye.add_extension(ServerAuth.new)  
 faye.listen(config['faye']['port'].to_i)
