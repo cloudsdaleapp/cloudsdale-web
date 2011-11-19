@@ -16,13 +16,6 @@ class SessionsController < ApplicationController
     render partial: 'index', :locales => { user: @user }
   end
   
-  def count
-    respond_to do |format|
-      format.json { render json: User.online.count }
-      format.js { render json: User.online.count }
-    end
-  end
-  
   def create
     user = User.authenticate(params[:email], params[:password]) if params[:email] && params[:password]
     if user

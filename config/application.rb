@@ -20,10 +20,13 @@ module Cloudsdale
   end
   
   def self.faye_path
-    @faye_path = URI.parse("#{Cloudsdale.config['url']}:#{Cloudsdale.config['faye_port']}/faye")
+    @faye_path = URI.parse("http://#{Cloudsdale.config['faye']['host']}:#{Cloudsdale.config['faye']['port']}/faye")
   end
   
   class Application < Rails::Application
+    
+    # config.middleware.use Rack::Pjax
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

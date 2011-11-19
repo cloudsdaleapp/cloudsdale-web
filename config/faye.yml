@@ -2,9 +2,9 @@ pid: /opt/pids/faye_thin.pid
 log: /opt/logs/faye_thin.log
 timeout: 30
 port: 9191
-max_conns: 1024
+max_conns: 2024
 rackup: /opt/app/faye.ru
-max_persistent_conns: 512
+max_persistent_conns: 1024
 environment: production
 address: 127.0.0.1
 servers: 1

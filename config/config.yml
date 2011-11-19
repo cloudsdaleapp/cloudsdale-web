@@ -18,6 +18,13 @@ development:
     api_key: a807350d725e1ce3202aac3ff08a3ac1
     fog_directory: cloudsdale_development_uploads
     fog_host: http://c775851.r51.cf2.rackcdn.com
+  faye:
+    host: 127.0.0.1
+    port: 9191
+    token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
+    redis: 
+      host: 127.0.0.1
+      port: 6379
     
       
 production:
@@ -41,3 +48,12 @@ production:
     api_key: a807350d725e1ce3202aac3ff08a3ac1
     fog_directory: cloudsdale_production_uploads
     fog_host: http://c775850.r50.cf2.rackcdn.com
+  faye:
+    host: 127.0.0.1
+    port: 9191
+    token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
+    redis: 
+      host: 127.0.0.1
+      port: 6379
+      password: b162cee3d5d2a1df34d356bb12249f52
+    
