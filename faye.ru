@@ -1,6 +1,5 @@
 require 'faye'
 require 'yaml'
-require 'pry'
 
 config = YAML.load_file("#{File.dirname(__FILE__)}/config/config.yml")[ENV['RACK_ENV']]
 
