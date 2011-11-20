@@ -37,6 +37,8 @@ $ ->
     $.event.trigger "application.load"
     $.event.trigger "#{controller}.load"
     $.event.trigger "#{action}.#{controller}.load"
+  
+  $('.topbar').dropdown()
     
   $(document).bind 'application.load', =>
     $(".alert-message > .close").bind "click", (e) ->
@@ -45,7 +47,6 @@ $ ->
     $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
       hide_alert_message @
 
-    $('.topbar').dropdown()
     $('[rel=twipsy]').twipsy()
     
   $(document).bind 'end.pjax', (a,b,c) ->
