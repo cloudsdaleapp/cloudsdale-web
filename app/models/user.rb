@@ -49,6 +49,7 @@ class User
     encrypt_password
     set_creation_date
     update_statistics
+    remove_duplicate_subscriptions
   end
 
   
@@ -93,6 +94,11 @@ class User
   
   def update_statistics
     self[:subscribers_count] = self.subscribers.count
+  end
+  
+  def remove_duplicate_subscriptions
+    self[:subscriber_ids].uniq!
+    self[:publisher_ids].uniq!
   end
   
   def log_activity!
