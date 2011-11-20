@@ -2,9 +2,14 @@
   .row
     .span7
       = paginate @comments, :left => 0, :right => 0, :window => 1, :param_name => :comment_page
-      %ul.unstyled.comments
-        - @comments.each do |comment|
-          %li.comment
+      - @comments.each do |comment|
+        .row
+          .span2
+            - if comment.author.avatar.url
+              = image_tag comment.author.avatar.thumb.url, :title => comment.author.character.name, :class => 'avatar'
+            - else
+              = image_tag "other/unknown_pony_thumb.jpg", :title => comment.author.character.name, :class => 'avatar'
+          .span5
             %h5.author
               = link_to comment.author.character.name, user_path(comment.author)
               %span.metadata= time_ago_in_words(comment.created_at) + " ago"

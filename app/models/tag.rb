@@ -11,7 +11,7 @@ class Tag
   field :name,            type: String
   field :times_referred,  type: Integer,    default: 0
   
-  validates :name, presence: true, uniqueness: true, format: { with: /^[a-z\s]*$/i }, length: { within: 2..16 }
+  validates :name, presence: true, uniqueness: true, format: { with: /^[a-z\s\d]*$/i }, length: { within: 2..16 }
   
   default_scope order_by(:times_referred,:desc)
   

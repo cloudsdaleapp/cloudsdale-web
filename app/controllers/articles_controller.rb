@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     @article.log_view_count_and_save!
-    @comments = Kaminari.paginate_array(@article.comments.page).page(params[:comment_page]).per(20)
+    @comments = Kaminari.paginate_array(@article.comments.page).page(params[:comment_page]).per(10)
     @comment = @article.comments.build
   end
   

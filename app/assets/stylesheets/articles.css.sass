@@ -40,6 +40,7 @@ body.articles
       
   &.show
     .page-header
+      margin-bottom: 0px
       h1
         span
           float: right
@@ -57,9 +58,23 @@ body.articles
     .banner
       padding: 20px 0
     
+    .content
+      padding-bottom: 0px
+      background: whiteSmoke
+    
     .span9
-      padding: 0 20px
+      padding: 0 30px 0 30px
       width: 480px
+      background: #fff
+      -webkit-border-radius: 0px 0px 3px 6px
+      -moz-border-radius: 0px 0px 3px 6px
+      border-radius: 0px 0px 3px 6px
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+      padding-bottom: 20px
+      padding-top: 10px
+      
       .article-preambel
         border-bottom: #EEE solid 1px
         margin-bottom: 30px
@@ -75,8 +90,23 @@ body.articles
       
           
     .span7
+      margin-left: 0
+      .span7
+        margin-left: 20px
+      .span7.comments
+        margin-left: 21px
+        background: #fff
+        padding-top: 20px
+        padding-bottom: 10px
+        width: 398px
+        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+        -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+        form
+          margin-bottom: 0px
       ul.tabs
         margin-top: 20px
+        margin-bottom: 0px
         li:first-child
           margin-left: 10px
       .row
@@ -85,12 +115,33 @@ body.articles
           h6
             padding: 20px 30px 
           .pagination
-            padding: 0px 20px
-          ul.unstyled.comments
-            padding-left: 20px
-            padding-right: 20px
-            li.comment
-              margin-bottom: 5px
+            padding: 0px 10px
+            a
+              background-color: #FFF
+              &:hover
+                background-color: #C7EEFE
+            .active
+              a
+                background-color: #C7EEFE
+          .row
+            margin-top: 10px
+            &:last-child
+              margin-bottom: 10px
+            .span2
+              width: 60px
+              text-align: right
+              img
+                margin-top: 3px
+            .span5
+              margin-left: 10px
+              width: 320px
+              background: #fff
+              -webkit-border-radius: 2px 2px 2px 2px
+              -moz-border-radius: 2px 2px 2px 2px
+              border-radius: 2px 2px 2px 2px
+              -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2)
+              -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2)
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2)
               h5.author
                 padding: 5px
                 line-height: 100%
@@ -103,11 +154,6 @@ body.articles
               .text
                 padding: 5px
                 word-wrap: break-word
-              &:hover
-                background: #F6F7FF
-                .author
-                  span.metadata
-                    display: block
                     
         form
           padding-right: 20px
