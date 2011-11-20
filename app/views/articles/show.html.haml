@@ -4,10 +4,25 @@
     %span.view_count= @article.views
     - if @article.commentable?
       %span.comment_count= @article.comments.count
+  .row
+    .span9
+      %h4
+        = "Authored by "
+        = link_to @article.author.name, user_path(@article.author), :class => 'user-page'
+        - unless @article.author == current_user
+          - if @article.author.subscribers.include?(current_user)
+            = link_to "Unsubscribe", user_subscriber_path(@article.author,current_user), method: :delete, :class => 'btn error'
+          - else
+            = link_to "Subscribe", user_subscribers_path(@article.author), method: :post, :class => 'btn success'
+            
+        
+    .span7
+      %ul.tabs
+        %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Comments#{@article.commentable ? " (#{@article.comments.count})" : ''}", article_path(@article)
     
 
 .row
-  .span9
+  .span9.article
     - if can? :update, @article
       .alert-message.block-message
         %p
@@ -41,10 +56,6 @@
         = link_to tag.name, "#"
       
   .span7
-    = render :partial => '/users/global/info_sheet', :locals => { :user => @article.author }
-      
-    %ul.tabs
-      %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Comments#{@article.commentable ? " (#{@article.comments.count})" : ''}", article_path(@article)
     = render :partial => "show_tab_#{params[:tab] || "comments"}"
 
 

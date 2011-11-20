@@ -10,7 +10,7 @@ do ($ = jQuery) ->
       @input_max_len = 300
     bind: =>
       @input.BetterGrow
-        initial_height: 16
+        initial_height: 12
         do_not_enter: false
       .bind 'keyup', (e) =>
         cur_len = @input.val().length
