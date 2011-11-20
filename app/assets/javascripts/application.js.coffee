@@ -22,17 +22,6 @@
 
 
 $ ->
-  
-  $(".alert-message > .close").bind "click", (e) ->
-    hide_alert_message $(@).parent()
-    
-  $(".alert")
-    
-  $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
-    hide_alert_message @
-  
-  $('.topbar').dropdown()
-  $('[rel=twipsy]').twipsy()
 
   hide_alert_message = (p) ->
     $(p).replaceWith("<div class='alert-message hidden'></div>")
@@ -45,8 +34,19 @@ $ ->
     false
   
   load_javascript = (controller,action) ->
+    $.event.trigger "application.load"
     $.event.trigger "#{controller}.load"
     $.event.trigger "#{action}.#{controller}.load"
+    
+  $(document).bind 'application.load', =>
+    $(".alert-message > .close").bind "click", (e) ->
+      hide_alert_message $(@).parent()
+
+    $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
+      hide_alert_message @
+
+    $('.topbar').dropdown()
+    $('[rel=twipsy]').twipsy()
     
   $(document).bind 'end.pjax', (a,b,c) ->
     load_javascript(b.getResponseHeader('controller'),b.getResponseHeader('action'))
