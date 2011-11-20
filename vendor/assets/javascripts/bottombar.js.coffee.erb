@@ -6,8 +6,9 @@ window.ChatRoom = class ChatRoom
     @room_topic = args.room_topic
     @parent_frame = args.parent_frame
     @parent = args.parent
+    @frame = $(args.frame)
     
-    @client = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
+    @client = args.client
     @seeded = false
     @active = false
     @title_notifications = 0
@@ -21,17 +22,15 @@ window.ChatRoom = class ChatRoom
   render: =>
     # Renders the base of the chat room frame to the view.
     # The parent frame should be the "ul.chat-container" element.
-    $.get "/chat/rooms/#{@room_id}/form", (data) =>
-      @parent_frame.append(data)
-    .success =>
-      @setup()
-      @bind()
-      @finalize()
+    #$.get "/chat/rooms/#{@room_id}/form", (data) =>
+    #  @parent_frame.append(data)
+    #.success =>
+    @setup()
+    @bind()
+    @finalize()
       
   setup: =>
-    # Sets up hooks to all the elements associated with chat room.
-    @frame = @parent_frame.find("li[data-chat-room-id=#{@room_id}]")
-    
+    # Sets up hooks to all the elements associated with chat room.    
     @handler = @frame.find(".chat-room-handler")
     @trigger = @handler.find(".chat-room-trigger")
     
@@ -220,18 +219,22 @@ window.ChatNav = class ChatNav
   
   constructor: (args) ->
     @n = 0
-    @container = $(".chat-container").html("")
+    @container = $(".chat-container")
+    @client = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
     @getRooms()
     
   getRooms: () ->
-    $.getJSON "/chat/rooms/", (data) =>
-      $.each data, (key, val) =>
-        new ChatRoom
-          room_id: val._id
-          room_name: val.name
-          room_topic: val.topic
-          parent_frame: @container
-          parent: @
+    console.log @container
+    $.each $(@container.children()), (key, val) =>
+      data = $(val).data()
+      new ChatRoom
+        room_id: data.roomId
+        room_name: data.roomName
+        room_topic: data.roomTopic
+        client: @client
+        frame: val
+        parent_frame: @container
+        parent: @
   
   clearGlobalNotification: ->
     @n = 0

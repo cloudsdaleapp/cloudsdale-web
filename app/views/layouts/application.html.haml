@@ -8,6 +8,10 @@
     = yield :head
 
   %body{ :class => "#{params[:controller]} #{params[:action]}", :data => { :controller => params[:controller], :action => params[:action]} }
+  
+    .bottombar
+      = render :partial => 'layouts/bottombar'
+      
     .topbar
       .fill
         .container
@@ -46,9 +50,5 @@
         = yield
         
       = render :partial => 'layouts/footer'
-
-      
-    .bottombar
-      = render :partial => 'layouts/bottombar'
 
 
