@@ -7,9 +7,15 @@ class MainController < ApplicationController
   end
   
   def index
-    @feartued_entry = Entry.where(promoted: true).first
-    @recent_entries = Entry.where(published: true, hidden: false, promoted: false).order_by(:published_at,:desc).limit(3)
-    @popular_entries = Entry.where(published: true, hidden: false, promoted: false, :published_at.gt => 4.days.ago).order_by([:views,:desc],[:comments,:desc],[:published_at,:desc]).limit(3)
+    @featured_entry = Entry.where(promoted: true).first
+    case params[:tab]
+      when nil
+        @entries = Entry.where(published: true, hidden: false, promoted: false).order_by(:published_at,:desc).limit(10)
+      when "subscriptions"
+        @entries = Entry.any_in(author_id:current_user.publisher_ids).order_by([:published_at,:desc]).limit(10)
+      when "popular"
+        @entries = Entry.where(published: true, hidden: false, promoted: false, :published_at.gt => 4.days.ago).order_by([:views,:desc],[:comments,:desc],[:published_at,:desc]).limit(10)
+    end
   end
 
 end
