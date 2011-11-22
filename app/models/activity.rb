@@ -17,4 +17,14 @@ class Activity
     self[:timestamp] = Time.now unless self.timestamp.present?
   end
   
+  after_save do
+    notify_subscribers! if [:article].include?(category.to_sym)
+  end
+  
+  def notify_subscribers!
+    user.subscribers.each do |subscriber|
+      subscriber.notifications.create timestamp: timestamp, actor: user.name, category: category, text: text, url: url, image: user.avatar.mini.url
+    end
+  end
+  
 end
