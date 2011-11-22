@@ -2,7 +2,7 @@
   .span5
     = image_tag "artwork/props/bigkey.png", :title => "BigKey", :class => "bigkey"
   .span4
-    %p= "Hello and welcome to Cloudsdale! This is the cloudsdale <span class='label notice'>alpha</span> <br/><br/> We currently have #{User.count + 100} registered users. The site will launch <span class='label warning'>beta</span> in #{distance_of_time_in_words(Time.now, Time.parse('2011-11-23'))}".html_safe
+    %p= "Hello and welcome to Cloudsdale! This is the cloudsdale <span class='label notice'>alpha</span> <br/><br/> We currently have #{User.count + 100} registered users. The site will launch <span class='label warning'>beta</span> in #{distance_of_time_in_words(Time.now, Time.parse('2011-11-22 23:00 GMT+1'))}".html_safe
   
   .span6.offset1
     = form_tag sessions_path, :method => :post, :class => 'form-stacked'  do
