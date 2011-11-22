@@ -224,7 +224,6 @@ window.ChatNav = class ChatNav
     @getRooms()
     
   getRooms: () ->
-    console.log @container
     $.each $(@container.children()), (key, val) =>
       data = $(val).data()
       new ChatRoom
