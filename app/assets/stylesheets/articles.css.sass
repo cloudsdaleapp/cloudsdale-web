@@ -1,34 +1,65 @@
 body.articles
   &.edit, &.new, &.create, &.update
-    
-    .article-preview-body
-      min-height: 160px
-    
-    span.help-inline
-      position: static
-      float: none
-      width: 100%
-    textarea#article_preambel
-      height: 90px
-      resize: none
-      max-height: 90px
-      min-height: 90px
-      width: 330px
-    textarea#article_content
-      height: 210px
-      min-height: 210px
-      max-width: 330px
-      min-width: 330px
+    .token-input-dropdown-facebook
+      width: 355px
+    .content
+      padding-bottom: 0px
+      background: whiteSmoke
+      
     form
       padding: 0
+    .page-header
+      margin-bottom: 0
+      .span9
+        ul.tabs
+          margin-bottom: 0
+          border-bottom: none
+          li:first-child
+            margin-left: 20px
+      .span7
+        text-align: right
+        
+    .row
+      .span7
+        padding-right: 20px
+        width: 380px
+        fieldset
+          .clearfix.error
+            padding-top: 0
+            padding-bottom: 0
+          input[type=text]#article_title
+            width: 370px
+          textarea#article_preambel
+            height: 90px
+            resize: none
+            max-height: 90px
+            min-height: 90px
+            width: 370px
+          ul
+            width: 376px
+      .span9.write
+        padding: 0 20px 0 20px
+        width: 480px
+        background: #fff
+        -webkit-border-radius: 0px 0px 0px 6px
+        -moz-border-radius: 0px 0px 0px 6px
+        border-radius: 0px 0px 0px 6px
+        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+        -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+        padding-bottom: 0px
+        padding-top: 10px
+        textarea#article_content
+          width: 470px
+          max-width: 470px
+          min-width: 470px
+          min-height: 500px
+            
+      .span8.offset1
+        //
+
     .actions
       text-align: right
-    .span7
-      width: 360px
-      padding-left: 40px
-    .span9
-      width: 480px
-      padding: 20px
       
     .row:not(:last-child)
       padding-bottom: 20px

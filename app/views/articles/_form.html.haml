@@ -1,10 +1,33 @@
 = form_for @article, :validate => true, :html => { :class => 'form-stacked', :multipart => true } do |f|
+  .page-header
+    %h1= "#{action_name}".capitalize + " Article"
+    .row
+      .span9
+        %ul.tabs
+          %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Write", "#"
+          %li= link_to "Preview", "#"
+          %li= link_to "Help?", "#"
+      .span7
+        - unless @article.new_record?
+          = link_to "Remove", article_path(@article), :method => :delete, :class => 'btn error'
+        = f.submit "Save", :disable_with => 'Saving...', :class => 'btn primary'
   .row
+    .span9.write
+      %fieldset
+        .clearfix
+          = f.label :content, "Content"
+          .input
+            = f.text_area :content
     .span7
       %fieldset
         .clearfix
           = f.label :title, "Title"
           .input= f.text_field :title, :class => 'xlarge'
+        .clearfix
+          = f.label :premabel, "Premabel"
+          .input
+            = f.text_area :preambel
+      %fieldset
         .clearfix
           = f.label :banner, "Banner"
           .input
@@ -12,18 +35,6 @@
             .help-inline
               %strong= "Note:"
               = "Max size 480px * 200px, if it's any bigger, the picture will be resized automatically to fit the boundary."
-        .clearfix
-          = f.label :premabel, "Premabel"
-          .input
-            = f.text_area :preambel
-            
-            
-    .span7.offset1
-      %fieldset
-        .clearfix
-          = f.label :tag_tokens, "Tags"
-          .input
-            = f.text_area :tag_tokens, :class => 'span5', "data-pre" => @article.tags.map(&:token_inputs).to_json
             
       %fieldset
         .clearfix
@@ -42,28 +53,10 @@
                 %label
                   = f.check_box :commentable
                   %span= "Enable users commenting on this Article."
-      .actions
-        - unless @article.new_record?
-          = link_to "Remove", article_path(@article), :method => :delete, :class => 'btn error'
-        = f.submit "Save", :disable_with => 'Saving...', :class => 'btn primary'
-        
-  .row
-    .span16
-          
-  .row
-    .span7
+
       %fieldset
         .clearfix
-          = f.label :content, "Content"
+          = f.label :tag_tokens, "Tags"
           .input
-            = f.text_area :content
-      .alert-message.block-message
-        = render partial: "layouts/partials/markdown_help"
-
-      
-    .span9
-      .article-preview-body
-        = markdown(@article.content) || "Message content formatted using Markdown..."
-
-      
-    
+            = f.text_area :tag_tokens, :class => 'span5', "data-pre" => @article.tags.map(&:token_inputs).to_json
+            
