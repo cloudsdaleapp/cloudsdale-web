@@ -17,6 +17,11 @@ class BannerUploader < CarrierWave::Uploader::Base
   process :resize_and_pad => [480,200,:transparent,'Center']
   process :convert => 'png'
 
+  version :thumb do
+    process :resize_and_pad => [240,100,:transparent,'Center']
+    process :convert => 'png'
+  end
+  
   # Create different versions of your uploaded files:
   
   # Add a white list of extensions which are allowed to be uploaded.
