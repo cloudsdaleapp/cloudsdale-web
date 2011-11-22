@@ -14,6 +14,7 @@
             = link_to "Unsubscribe", user_subscriber_path(@article.author,current_user), method: :delete, :class => 'btn error', 'data-skip-pjax' => true
           - else
             = link_to "Subscribe", user_subscribers_path(@article.author), method: :post, :class => 'btn success', 'data-skip-pjax' => true
+      %h6= "Published at #{@article.published_at.strftime('%Y/%m/%d %R')}"
             
         
     .span7
