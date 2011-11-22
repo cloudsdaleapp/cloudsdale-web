@@ -21,10 +21,11 @@ class AvatarUploader < CarrierWave::Uploader::Base
   
   version :mini do
     process :resize_to_limit => [24, 24]
+    process :convert => 'png'
   end
   
   version :thumb do
-     process :resize_to_limit => [50, 50]
+    process :resize_to_limit => [50, 50]
     process :convert => 'png'
   end
   
