@@ -1,51 +1,31 @@
-- if @feartued_entry
+- if @featured_entry
   .row
     .span16
       .page-header
-        .row
+        .row.featured
           .span9
             .banner
-              = image_tag @feartued_entry.banner if @feartued_entry.banner?
+              = image_tag @featured_entry.banner if @featured_entry.banner?
           .span7
             %h2= "Featured Article"
             %h1
-              = link_to "#{@feartued_entry.title}", article_path(@feartued_entry)
-            %h6= "by: #{@feartued_entry.author.name}"
-            %p= truncate(@feartued_entry.preambel, :length => 210, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(@feartued_entry))}").html_safe
+              = link_to "#{@featured_entry.title}", article_path(@featured_entry)
+            %h6= "by: #{@featured_entry.author.name}"
+            %p= truncate(@featured_entry.preambel, :length => 210, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(@featured_entry))}").html_safe
+        .row
+          .span12
+            %ul.tabs
+              %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }= link_to "Recent", root_path
+              %li{ :class => "#{ params[:tab] == 'popular' ? 'active' : '' }" }= link_to "Popular", root_path(tab: 'popular')
+              %li{ :class => "#{ params[:tab] == 'subscriptions' ? 'active' : '' }" }= link_to "Subscriptions", root_path(tab: 'subscriptions')
+              %li{ :class => "#{ params[:tab] == 'latest-episode' ? 'active' : '' }" }= link_to "Latest Episode", root_path(tab: 'latest-episode')
             
 .row
   .span16
     .row
       .span12.left
-        .row
-          .span12.didyouknow
-            .alert-message.block-message.success
-              %p
-                %strong Welcome to Cloudsdale, you have not yet explored our new article features or written your own article. Why don't you try it out?
-              .alert-actions
-                = link_to "Write Article",new_article_path, :class => 'btn'
-        .row
-          .span6.recent
-            %h4= "Recent"
-            %ul.unstyled
-              - @recent_entries.each do |entry|
-                = render :partial => 'entry', locals: { entry: entry }
-
-                
-          .span6.popular
-            %h4= "Popular"
-            %ul.unstyled
-              - @popular_entries.each do |entry|
-                = render :partial => 'entry', locals: { entry: entry }
-        .row
-          .span12.episode
-            %h4 Latest Episode
-            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "365", :src => "http://www.youtube.com/embed/k_cgBvq-Sy4?hd=1&wmode=opaque", :width => "660"}
+        = render :partial => 'note'
+        = render :partial => "index_tab_#{params[:tab] || "recent"}"
             
       .span4.right
-        %h6= "Dashboard"
-        %ul.unstyled
-          %li
-            = link_to new_article_path, :class => 'btn large dashboard article' do
-              = image_tag "artwork/props/scroll.png", :title => "title", :class => "class"
-              Write Article
+        .row

@@ -28,7 +28,7 @@ development:
     
       
 production:
-  url: http://cloudsdale.org
+  url: http://www.cloudsdale.org
   faye_port: 9191
   tire_port: 9200
   twitter:

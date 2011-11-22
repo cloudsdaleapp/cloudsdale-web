@@ -1,0 +1,5 @@
+.row.entries
+  .span12.popular
+    %ul.unstyled
+      - @entries.each do |entry|
+        = render :partial => 'entry', locals: { entry: entry }

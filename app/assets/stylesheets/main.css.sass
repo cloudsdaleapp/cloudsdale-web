@@ -4,9 +4,65 @@ body.main
       padding-bottom: 0px
       background: whiteSmoke
     
-    .span12.didyouknow, .span12.episode
-      width: 660px
-      padding: 0 20px
+    .row.note, .row.episode
+      .span12
+        padding: 0 20px
+        width: 660px
+    
+    .row.entries
+      .span12
+        ul.unstyled
+          margin: 0
+          li
+            padding: 5px 0
+            margin-bottom: 5px
+            
+            &:last-child
+              border-bottom: none
+              
+            .span6
+              width: 330px
+            .span5.left
+              padding-left: 20px
+              width: 260px
+              img
+                width: 240px
+                height: 100px
+                &.empty
+                  background: #E6E6E6 center center no-repeat
+                  background-image: image-url("icons/iconic/gray_light/denied_32x32.png")
+                  opacity: 0.5
+                  -moz-opacity: 0.5
+                  filter: alpha(opacity=50)
+                  
+            .span7.right
+              width: 380px
+              padding-right: 20px
+              h5
+                //font-size: 13px
+                line-height: 24px
+              h6.header
+                font-size: 12px
+                margin: 0
+                line-height: 18px
+                border-bottom: #B3B3B3 1px dotted
+                a
+                  padding: 0
+                  margin-left: 10px
+                  text-decoration: none
+                  
+              h6.author
+                margin-bottom: 5px
+                font-size: 10px
+                font-style: italic
+              p
+                padding-left: 10px
+                border-left: 3px #EEE solid
+                margin: 3px 0
+                font-size: 11px
+                font-weight: bold
+                color: #666666
+        
         
     .span12.left
       background: #fff
@@ -61,7 +117,7 @@ body.main
 
     .page-header
       margin-bottom: 0
-      .row
+      .row.featured
         .banner
           margin: 19px
           background: #FFF
@@ -78,5 +134,11 @@ body.main
         p
           font-weight: bold
           padding: 0px 20px 5px 20px
+      .row
+        ul.tabs
+          margin-bottom: 0px
+          border-bottom: none
+          li:first-child
+            margin-left: 30px
 
         
