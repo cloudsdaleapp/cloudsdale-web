@@ -41,6 +41,8 @@ $ ->
   $('.topbar').dropdown()
     
   $(document).bind 'application.load', =>
+    $("form[data-validate='true']").validate()
+    
     $(".alert-message > .close").bind "click", (e) ->
       hide_alert_message $(@).parent()
 
