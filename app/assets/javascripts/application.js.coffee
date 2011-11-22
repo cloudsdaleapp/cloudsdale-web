@@ -50,8 +50,11 @@ $ ->
     $('[rel=twipsy]').twipsy()
     
   $(document).bind 'end.pjax', (a,b,c) ->
-    load_javascript(b.getResponseHeader('controller'),b.getResponseHeader('action'))
-    $("body").attr('class', "#{b.getResponseHeader('controller')} #{b.getResponseHeader('action')}")
+    controller = b.getResponseHeader('controller')
+    action     = b.getResponseHeader('action')
+    if controller != null and action != null
+      load_javascript(b.getResponseHeader('controller'),b.getResponseHeader('action'))
+      $("body").attr('class', "#{b.getResponseHeader('controller')} #{b.getResponseHeader('action')}")
   
   $(document).ready ->
     load_javascript($("body").data('controller'),$("body").data('action'))
