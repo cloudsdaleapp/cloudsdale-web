@@ -29,9 +29,9 @@
   .span4.left
     - unless @user == current_user
       - if @user.subscribers.include?(current_user)
-        = link_to "Unsubscribe", user_subscriber_path(@user,current_user), method: :delete, :class => 'btn error'
+        = link_to "Unsubscribe", user_subscriber_path(@user,current_user), method: :delete, :class => 'btn error', 'data-skip-pjax' => true
       - else
-        = link_to "Subscribe", user_subscribers_path(@user), method: :post, :class => 'btn success'
+        = link_to "Subscribe", user_subscribers_path(@user), method: :post, :class => 'btn success', 'data-skip-pjax' => true
       .btn Message
     - else
       = link_to "Settings", edit_user_path(@user), class: 'btn'
