@@ -28,4 +28,11 @@
         = render :partial => "index_tab_#{params[:tab] || "recent"}"
             
       .span4.right
-        .row
+        %h6= "Popular Clouds"
+        %ul.unstyled
+          - @popular_clouds.each do |cloud|
+            %li
+              = link_to cloud_path(cloud), class: 'btn' do
+                %h5.name= cloud.name
+                %h5.metadata= cloud.member_count
+          

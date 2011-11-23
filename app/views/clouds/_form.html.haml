@@ -1,0 +1,23 @@
+= form_for @cloud, :validate => true do |f|
+  .page-header
+    %h1= "#{action_name}".capitalize + " Cloud"
+    .row
+      .span9
+        = ""
+      .span7
+      
+  .row
+    .span16
+      %fieldset
+        .clearfix
+          = f.label :name, "Name"
+          .input= f.text_field :name, :class => 'xlarge'
+        .clearfix
+          = f.label :description, "Description"
+          .input
+            = f.text_area :description
+      
+      .actions
+        - unless @cloud.new_record?
+          = link_to "Remove", cloud_path(@cloud), :method => :delete, :class => 'btn error'
+        = f.submit "Save", :disable_with => 'Saving...', :class => 'btn primary'

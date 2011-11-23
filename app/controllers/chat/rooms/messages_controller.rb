@@ -4,7 +4,8 @@ class Chat::Rooms::MessagesController < ApplicationController
   def controller;self;end;private(:controller)
   
   before_filter do
-    @room = Chat::Room.find(params[:room_id])
+    @cloud = Cloud.where('chat._id' => BSON::ObjectId(params[:room_id])).first
+    @room = @cloud.chat
   end
   
   def index

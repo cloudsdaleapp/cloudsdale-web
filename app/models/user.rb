@@ -8,10 +8,13 @@ class User
   embeds_many :notifications
   
   has_many :entries, as: :author
+  has_many :owned_clouds, class_name: "Cloud", as: :owner
+  
+  has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
   
   has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
-  has_and_belongs_to_many :rooms, class_name: "Chat::Room", :inverse_of => :users, dependent: :nullify
+  
   
   field :email,           type: String
   field :auth_token,      type: String

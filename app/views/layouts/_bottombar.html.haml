@@ -1,12 +1,12 @@
 %ul.chat-container
-  - @rooms = Chat::Room.all
-  - @rooms = [] unless current_user
-  - @rooms.each do |room|
-    %li.chat-room{ data: { 'room-id' => room.id, 'room-name' => room.name , 'room-topic' => room.topic } }
+  - @clouds = current_user.clouds
+  - @clouds.each do |cloud|
+    - room = cloud.chat
+    %li.chat-room{ data: { 'room-id' => room.id, 'room-name' => room.topic.name , 'room-topic' => room.topic.description } }
       .chat-room-wrapper
         .chat-room-handler
-          = link_to room.name, "#", :class => 'chat-room-trigger'
+          = link_to room.topic.name, "#", :class => 'chat-room-trigger'
         .chat-room-container
           .chat-messages-wrapper
-          = form_tag chat_room_messages_path(room), :remote => true, :class => "chat-room-form" do
+          = form_tag chat_room_messages_path(room.id), :remote => true, :class => "chat-room-form" do
             = text_area_tag :message

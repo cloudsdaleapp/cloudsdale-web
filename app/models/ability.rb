@@ -30,6 +30,11 @@ class Ability
         # Can always destroy comments made by USER
         can :destroy, Comment, :author_id => user.id
         
+        # Clouds
+        can :read, Cloud, :hidden => false
+        can :create, Cloud
+        can [:update,:destroy], Cloud, :owner_id => user.id
+        
       end
         
       if user.role >= 1  ## Donor
