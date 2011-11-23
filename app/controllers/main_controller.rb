@@ -8,7 +8,7 @@ class MainController < ApplicationController
   
   def index
     @featured_entry = Entry.where(promoted: true).first
-    @popular_clouds = Cloud.where(hidden: false).order_by([:member_count,:asc])
+    @popular_clouds = Cloud.where(hidden: false).order_by([:member_count,:desc]).limit(10)
     case params[:tab]
       when nil
         @entries = Entry.where(published: true, hidden: false, promoted: false).order_by(:published_at,:desc).limit(10)
