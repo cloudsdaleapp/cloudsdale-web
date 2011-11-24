@@ -1,29 +1,16 @@
-.row
-  .span5
-    = image_tag "artwork/props/bigkey.png", :title => "BigKey", :class => "bigkey"
-  .span4
-    %p= "Hello and welcome to Cloudsdale!<br/><br/> This is the <span class='label warning'>0.1 beta</span><br/><br/>We sincerely hope you enjoy your stay here at the greatest place in the sky.".html_safe
-  
-  .span6.offset1
-    = form_tag sessions_path, :method => :post, :class => 'form-stacked'  do
-      %fieldset
-        = link_to image_tag("icons/cloud/facebook_cloud.png") + "Connect", "/auth/facebook", :class => 'btn connect', 'data-skip-pjax' => true
-        = link_to image_tag("icons/cloud/twitter_cloud.png") + "Connect", "/auth/twitter", :class => 'btn connect', 'data-skip-pjax' => true
-      %fieldset
-        .clearfix
-          = label_tag :email, "Email:"
-          .input
-            = text_field_tag :email, "",:placeholder => "Email"
-        .clearfix
-          = label_tag :password, "Password:"
-          .input
-            = password_field_tag :password, "",:placeholder => "Password..."
-      %fieldset
-        .clearfix
-          = submit_tag "Login", :class => 'btn success'
-    
-        %fieldset
-          = link_to "Register", register_path
-          or
-          = link_to "Restore", restore_users_path
+%h1.logo= "Cloudsdale"
+%h5.slogan= "The best place in the sky"
 
+= form_tag sessions_path, :method => :post, :class => 'form-stacked'  do
+  %center
+    = render :partial => 'layouts/alert'
+  %fieldset
+    = text_field_tag :email, "",:placeholder => "Email"
+    = password_field_tag :password, "",:placeholder => "Password"
+    = submit_tag "Login\t»", :class => 'btn success'
+    
+%nav.options
+  = link_to "Saddle up", register_path
+  = link_to "Restore", login_path
+  = link_to "Help", login_path
+  

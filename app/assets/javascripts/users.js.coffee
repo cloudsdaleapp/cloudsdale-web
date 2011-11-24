@@ -4,22 +4,32 @@
 
 $(document).bind 'users.load', (e,obj) =>
   
-  $('body.users.new .container').hide().delay(300).fadeIn(600)
+
+$(document).bind 'users.new.load', (e,obj) =>
+  $("fieldset").not('.active').hide()
   
   $('.form_part_next').bind 'click', ->
     $(@).parent()
     valid = true
-    $(".row.form_part.active [data-validate]:input").each ->
+    $("fieldset.active [data-validate]:input").each (k,v) ->
       settings = window[@form.id]
       valid = false unless $(this).isValid(settings.validators)
     
     if valid
-      current = $('.row.form_part.active')
-      current.removeClass('active')
-      current.next().addClass('active')
+      current = $('fieldset.active')
+      current.removeClass('active').slideUp(300)
+      current.next().addClass('active').slideDown(300)
+      window.setTimeout ( =>
+        $("fieldset.active [data-validate]:input.error").twipsy('show')
+      ), 400
+      
+      
+      
   
   $('.form_part_previous').bind 'click', ->
-    current = $('.row.form_part.active')
-    current.prev().addClass('active')
-    current.removeClass('active')
+    $("fieldset.active [data-validate]:input").twipsy('hide')
+    current = $('fieldset.active')
+    current.prev().addClass('active').slideDown(300)
+    current.removeClass('active').slideUp(300)
+    
     

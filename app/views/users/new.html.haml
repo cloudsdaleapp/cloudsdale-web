@@ -1,84 +1,32 @@
+%h1.logo= "Cloudsdale"
+%h5.slogan= "The best place in the sky"
+
 = form_for @user, :multipart => true, :validate => true  do |f|
-  .row.form_part.active
-    .span12.offset2
-      = f.fields_for :authentications do |authentications_form|
-        %fieldset
-          = authentications_form.hidden_field :uid
-          = authentications_form.hidden_field :provider
-      %fieldset
-        %legend Account
-        %br
-        .clearfix
-          = f.label :email, "Email *"
-          .input
-            = f.text_field :email
-        - if @user.authentications.empty?
-          .clearfix
-            = f.label :password, "Password *"
-            .input
-              = f.password_field :password
-          .clearfix
-            = f.label :password_confirmation, "Confirmation *"
-            .input
-              = f.password_field :password_confirmation
-        %fieldset
-          - @user.authentications.each do |authentication|
-            .clearfix
-              .input
-                = link_to "Disconnect", register_path, :class => 'btn error', 'data-skip-pjax' => true
-                = image_tag("icons/cloud/#{authentication.provider}_cloud.png")
-                %span.help-inline
-                  %strong
-                    = "UID: "
-                    %span.label
-                      = authentication.uid
+  = f.fields_for :authentications do |authentications_form|
+    = authentications_form.hidden_field :uid
+    = authentications_form.hidden_field :provider
+  %center
+    = render :partial => 'layouts/alert'
+  %fieldset.active
+    - @user.authentications.each do |authentication|
+      %span.auth_cloud.twitter
+    = f.text_field :email, placeholder: "Email"
+    - if @user.authentications.empty?
+      = f.password_field :password, placeholder: "Password"
+      = f.password_field :password_confirmation, placeholder: "Confirm"
+    = link_to "#", :class => 'btn success form_part_next' do
+      = "Next\t»"
+  %fieldset
+    = f.fields_for :character do |c_f|
+      = link_to "«\tPrevious", "#", :class => 'btn info form_part_previous'
+      = c_f.text_field :name, :original_value => "", :attribute_name => :name, :user_id => "", :placeholder => "Display Name"
+      = c_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
+      = c_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
+      = f.submit "Register", :class => 'btn success'
 
-          - auth_providers = @user.authentications.map {|a| a.provider }
-          - unless auth_providers.include?("facebook")
-            .clearfix
-              .input
-                = link_to "Connect", "/auth/facebook", :class => 'btn success', 'data-skip-pjax' => true
-                = image_tag("icons/cloud/facebook_cloud.png")
+%nav.options
+  = link_to "Login", login_path
+  = link_to "Restore", register_path
+  = link_to "Help", register_path
 
-          - unless auth_providers.include?("twitter")
-            .clearfix
-              .input
-                = link_to "Connect", "/auth/twitter", :class => 'btn success', 'data-skip-pjax' => true
-                = image_tag("icons/cloud/twitter_cloud.png")
-                
-        %fieldset
-          .clearfix
-            .well{:style => 'text-align: right;'}
-              = link_to "Next", "#", :class => 'btn info form_part_next'
-      
-  .row.form_part
-    .span12.offset2
-      = f.fields_for :character do |c_f|
-        %fieldset
-          %legend Character
-          %br
-          .clearfix
-            = c_f.label :name, "Name"
-            .input
-              = c_f.text_field :name, :original_value => "", :attribute_name => :name, :user_id => ""
-          .clearfix
-            = c_f.label :kind, "Kind"
-            .input
-              = c_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
-          .clearfix
-            = c_f.label :gender, "Gender"
-            .input
-              = c_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
-        %fieldset
-          .clearfix
-            = c_f.label :avatar, "Select Avatar"
-            .input
-              = f.file_field :avatar
-        %fieldset
-          .clearfix
-            .well{:style => 'text-align: right;'}
-              = link_to "Previous", "#", :class => 'btn info form_part_previous'
-              = f.submit "Register", :class => 'btn success'
-      
-        
-      
+

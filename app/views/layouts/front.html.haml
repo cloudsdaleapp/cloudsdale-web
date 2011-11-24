@@ -2,17 +2,20 @@
 %html
   %head
     %title Cloudsdale
-    = stylesheet_link_tag "application"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag "front"
+    = javascript_include_tag "front"
     = favicon_link_tag "favicons/48by48.ico"
     = csrf_meta_tags
 
   %body{ :class => "#{params[:controller]} #{params[:action]}", :data => { :controller => params[:controller], :action => params[:action]} }
-    .container
-      = render :partial => 'layouts/alert'
-      
-      .content{ :data => { 'pjax-container' => ''} }
-        = yield
+    #body-wrapper
+      #content-wrapper
+        #content
+          .container{ :data => { 'pjax-container' => ''} }
+            = yield
+    %nav.social_connect
+      = link_to image_tag("icons/cloud/facebook_cloud.png") + "Connect", "/auth/facebook", :class => 'btn connect default', 'data-skip-pjax' => true
+      = link_to image_tag("icons/cloud/twitter_cloud.png") + "Connect", "/auth/twitter", :class => 'btn connect default', 'data-skip-pjax' => true
+    = render :partial => 'layouts/footer'
         
-      = render :partial => 'layouts/footer'
             
