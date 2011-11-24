@@ -36,7 +36,7 @@ $ ->
   load_javascript = (controller,action) ->
     $.event.trigger "application.load"
     $.event.trigger "#{controller}.load"
-    $.event.trigger "#{action}.#{controller}.load"
+    $.event.trigger "#{action}_#{controller}.load"
   
   $('.topbar').dropdown()
     

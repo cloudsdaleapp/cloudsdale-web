@@ -2,10 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$(document).bind 'users.load', (e,obj) =>
-  
-
-$(document).bind 'users.new.load', (e,obj) =>
+$(document).bind 'new_users.load', (e,obj) =>
   $("fieldset").not('.active').hide()
   
   $('.form_part_next').bind 'click', ->

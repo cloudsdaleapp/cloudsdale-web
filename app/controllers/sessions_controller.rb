@@ -22,8 +22,7 @@ class SessionsController < ApplicationController
       authenticate!(user)
       redirect_to root_path, :notice => notify_with(:success,"Signed in!","in 10 seconds flat...")
     else
-      flash[:notice] = notify_with :error, "Error:", "wrong email and password combination"
-      render :new
+      redirect_to '/login', :notice => notify_with(:error, "Error:", "wrong email and password combination")
     end
   end
 
