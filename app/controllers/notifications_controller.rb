@@ -12,8 +12,4 @@ class NotificationsController < ApplicationController
     redirect_to @notification.url
   end
   
-  def show_normal
-    render text: "Normal Request"
-  end
-
 end
