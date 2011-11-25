@@ -30,9 +30,9 @@ class Chat::Message
         protocol = $1
         top_dom = $2
         path = $3
-        pjax = (top_dom =~ /cloudsdale.org/i).nil? ? 'true' : 'false'
+        pjax_enabled = !(top_dom =~ /cloudsdale.org/i).nil?   
         url = protocol + top_dom + path
-        "<a class='chat-link' href='#{url}' #{!pjax ? "target='_blank'" : ''} data-skip-pjax='#{pjax}'>#{url}</a>"
+        "<a class='chat-link' href='#{url}' #{!pjax_enabled ? "target='_blank' data-skip-pjax='true'" : ''}>#{url}</a>"
       end
     end
     
