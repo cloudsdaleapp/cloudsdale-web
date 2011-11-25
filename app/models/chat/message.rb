@@ -26,12 +26,13 @@ class Chat::Message
     msg.gsub! /^\s*$/, ""
     
     if (m = msg.match(/^(.*)/i))
-      msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_]*)(\/?[a-z0-9\.\,\-\_\/\?\&\=\#\%\+\(\)]*)/i do
+      msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\.\,\-\_\/\?\&\=\#\%\+\(\)]*)/i do
         protocol = $1
         top_dom = $2
         path = $3
+        internal = !(top_dom =~ /cloudsdale.org/i).nil? ? 'true' : 'false'
         url = protocol + top_dom + path
-        "<a class='chat-link' href='#{url}' target='_blank'>#{url}</a>"
+        "<a class='chat-link' href='#{url}' target='_blank' data-skip-pjax='#{internal}'>#{url}</a>"
       end
     end
     
