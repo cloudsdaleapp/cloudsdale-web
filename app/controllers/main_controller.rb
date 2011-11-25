@@ -11,7 +11,8 @@ class MainController < ApplicationController
     authorize! :read, Entry
     
     @featured_entry = Entry.where(promoted: true).first
-    @popular_clouds = Cloud.where(hidden: false).order_by([:member_count,:desc]).limit(10)
+    @popular_clouds = Cloud.where(hidden: false).order_by([:member_count,:desc]).limit(6)
+    @recent_clouds = Cloud.where(hidden: false).order_by([:created_at,:desc]).limit(6)
     case params[:tab]
       when nil
         @entries = Entry.where(published: true, hidden: false, promoted: false).order_by(:published_at,:desc).limit(10)

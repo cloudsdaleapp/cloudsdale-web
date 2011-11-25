@@ -116,20 +116,29 @@ body.main
           margin-bottom: 5px
           a.btn
             margin: 0px
-            padding: 10px 20px 10px 10px
+            padding: 10px 13px 10px 10px
             width: 168px
             text-align: right
             font-weight: bold
-            color: #6CF
-            text-shadow: 0 0 0.2em rgba(255, 255, 255, 0.7), 0 0 0.05em rgba(20, 20, 20, 0.7) !important
+            &.default
+              h5.name
+                color: $linkColorHover
+                text-shadow: rgba(220,220,220,0.9) 0px 1px 3px
+                
+            &.info
+              h5.name
+                color: #FFF
+                text-shadow: rgba(0,0,0,0.4) 0px -1px 2px
+              
             h5
               font-size: 14px
               line-height: 16px
             h5.name
-              color: $linkColor
               font-weight: bold
             h5.metadata
+              color: #414342
               font-size: 12px
+              text-shadow: rgba(180,195,230,0.7) 0px 1px 2px
             img
               float: left
 

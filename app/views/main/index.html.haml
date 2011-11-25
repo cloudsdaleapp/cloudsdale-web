@@ -32,7 +32,14 @@
         %ul.unstyled
           - @popular_clouds.each do |cloud|
             %li
-              = link_to cloud_path(cloud), class: 'btn' do
+              = link_to cloud_path(cloud), class: "btn #{ cloud.users.include?(current_user) ? 'info' : 'default'}" do
                 %h5.name= cloud.name
                 %h5.metadata= "#{cloud.member_count} members"
-          
+                
+        %h6= "Most Recent Clouds"
+        %ul.unstyled
+          - @recent_clouds.each do |cloud|
+            %li
+              = link_to cloud_path(cloud), class: "btn #{ cloud.users.include?(current_user) ? 'info' : 'default' }" do
+                %h5.name= cloud.name
+                %h5.metadata= "#{cloud.member_count} members"
