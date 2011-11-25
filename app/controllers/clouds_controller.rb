@@ -15,6 +15,7 @@ class CloudsController < ApplicationController
   
   def show
     @cloud = Cloud.find(params[:id])
+    authorize! :read, @cloud
   end
   
   def create
@@ -35,6 +36,7 @@ class CloudsController < ApplicationController
   
   def update
     @cloud = Cloud.find(params[:id])
+    authorize! :update, @cloud
     respond_to do |format|
       if @cloud.update_attributes(params[:cloud])
         format.html { redirect_to cloud_path(@cloud),
@@ -48,6 +50,7 @@ class CloudsController < ApplicationController
   
   def destroy
     @cloud = Cloud.find(params[:id])
+    authorize! :destroy, @cloud
     respond_to do |format|
       if @cloud.destroy
         format.html { redirect_to root_path,

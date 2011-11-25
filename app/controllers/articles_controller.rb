@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
   
   def show
     @article = Article.find(params[:id])
+    authorize! :read, @article
     @article.log_view_count_and_save!
     @comments = Kaminari.paginate_array(@article.comments.page).page(params[:comment_page]).per(10)
     @comment = @article.comments.build
@@ -18,11 +19,12 @@ class ArticlesController < ApplicationController
   
   def edit
     @article = Article.find(params[:id])
+    authorize! :update, @article
   end
   
   def create
-    
     @article = Article.new(params[:article])
+    authorize! :create, @article
     @author.entries << @article
     respond_to do |format|
       if @article.save
@@ -37,6 +39,7 @@ class ArticlesController < ApplicationController
   
   def update
     @article = Article.find(params[:id])
+    authorize! :update, @article
     respond_to do |format|
       if @article.update_attributes(params[:article])
         format.html { redirect_to article_path(@article),
@@ -50,6 +53,7 @@ class ArticlesController < ApplicationController
   
   def destroy
     @article = Article.find(params[:id])
+    authorize! :destroy, @article
     respond_to do |format|
       if @article.destroy
         format.html { redirect_to root_path,
@@ -65,6 +69,7 @@ class ArticlesController < ApplicationController
   
   def publish
     @article = Article.find(params[:id])
+    authorize! :update, @article
     respond_to do |format|
       if @article.publish_and_save!
         format.html { redirect_to :back,
@@ -80,6 +85,7 @@ class ArticlesController < ApplicationController
   
   def promote
     @article = Article.find(params[:id])
+    authorize! :promote, @article
     respond_to do |format|
       if @article.promote_and_save!
         format.html { redirect_to :back,

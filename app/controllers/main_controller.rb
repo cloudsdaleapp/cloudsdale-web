@@ -7,6 +7,9 @@ class MainController < ApplicationController
   end
   
   def index
+    
+    authorize! :read, Entry
+    
     @featured_entry = Entry.where(promoted: true).first
     @popular_clouds = Cloud.where(hidden: false).order_by([:member_count,:desc]).limit(10)
     case params[:tab]

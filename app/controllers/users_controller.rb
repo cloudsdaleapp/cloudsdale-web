@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    authorize! :read, @user
     if params[:tab].nil?
     elsif params[:tab] == 'articles'
       @articles = @user.entries.order_by([:created_at,:desc]).page(params[:articles_page]).per(10)

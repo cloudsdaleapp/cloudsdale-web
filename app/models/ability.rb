@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     if user
-      
+
       ## Regular user
       if user.role >= 0
         
