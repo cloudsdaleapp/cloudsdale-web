@@ -8,9 +8,11 @@ class Ability
       if user.role >= 0
         
         # User
+        can :read, User, invisible: false
+        can :read, User, _id: user.id
         
         # Can only update own user
-        can :update, User, :id => user.id
+        can :update, User, _id: user.id
         
         # Entries
         
