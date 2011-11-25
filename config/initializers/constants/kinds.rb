@@ -1,0 +1,1 @@
+KINDS = [:pegasus,:unicorn,:pony,:draconequus,:dragon,:gryphon]

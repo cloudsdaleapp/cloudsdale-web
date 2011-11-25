@@ -10,9 +10,6 @@ class Character
   
   end
   
-  KINDS = [:pegasus,:unicorn,:pony,:draconequus,:dragon,:gryphon]
-  GENDERS = [:male,:female]
-  
   include Mongoid::Document
   
   embedded_in :user
