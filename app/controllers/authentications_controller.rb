@@ -6,11 +6,11 @@ class AuthenticationsController < ApplicationController
     respond_to do |format|
       if found_user
         authenticate!(found_user)
-        format.html { redirect_to root_path,
+        format.html { redirect_to unless_pending_request_go_to(root_path),
                       :notice => notify_with(:success,"Signed in successfully","using #{omniauth['provider'].capitalize}") }
       elsif current_user
         current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
-        format.html { redirect_to :back,
+        format.html { redirect_to unless_pending_request_go_to(:back),
                       :notice => notify_with(:success,"#{omniauth['provider'].capitalize}","authentication, successfully added.") }
       else
         @user = User.new

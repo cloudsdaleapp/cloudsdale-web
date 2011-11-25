@@ -2,9 +2,17 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   
+  rescue_from CanCan::AccessDenied do |exception|
+    if current_user
+      redirect_to root_path, notice: notify_with(:error,"Access denied","you're not authorized to perform this action. We've taken notice of this attempt")
+    else
+      session[:original_path] = request.path
+      redirect_to login_path, notice: notify_with(:warning,"You have to be signed in to do that")
+    end
+  end
+  
   before_filter do
     response.headers["controller"], response.headers["action"] = controller_name, action_name
-    
     begin
       current_user.log_activity! if current_user
     rescue
@@ -51,6 +59,16 @@ class ApplicationController < ActionController::Base
   def render_and_act_as(controller,action,lo="application")
     params[:controller], params[:action] = controller, action
     render "#{controller.to_s}/#{action.to_s}", :layout => lo
+  end
+  
+  def unless_pending_request_go_to(fallback_path)
+    pending_path = session[:original_path]
+    if pending_path
+      session[:original_path] = nil
+      pending_path
+    else
+      fallback_path
+    end
   end
   
 end
