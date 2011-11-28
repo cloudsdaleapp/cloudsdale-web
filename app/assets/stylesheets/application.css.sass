@@ -141,12 +141,46 @@ footer
     li
       padding-left: 10px
 
+select, textarea, input
+  &.disabled
+    background-color: whiteSmoke
+    border-color: #DDD
+    cursor: not-allowed
+
+input[type=file].disabled
+  background-color: transparent
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"
+  filter: alpha(opacity=50)
+  -moz-opacity: 0.5
+  -khtml-opacity: 0.5
+  opacity: 0.5
+
 form
   div.clearfix.error
     background: transparent
     padding: 10px 0 0 0
     margin-bottom: 18px
 
+.input-prepend, .input-append
+  .active
+    background: #66CCFF
+    border-color: #0080FF
+
+img.noavatar
+  background: #E6E6E6 center center no-repeat
+  background-image: image-url("other/unknown_pony_thumb.jpg")
+  img.thumb
+    background-image: image-url("other/unknown_pony_thumb.jpg")
+  img.chat
+    background-image: image-url("other/unknown_pony_chat.jpg")
+
+img.nocloudavatar
+  background: #E6E6E6 image-url("icons/iconic/gray_light/cloud_32x20.png") center center no-repeat
+  border: #E6E6E6 1px solid
+  &.borderless
+    border: none
+    outline: none
+  
 li.notifications
   &.open
     a.dropdown-toggle
