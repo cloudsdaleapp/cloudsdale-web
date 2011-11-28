@@ -50,8 +50,13 @@ $ ->
       hide_alert_message @
 
     $('[rel=twipsy]').twipsy()
+  
+  $(document).bind 'start.pjax', (a,b,c) ->
+    $("a.brand").addClass("loading")
     
   $(document).bind 'end.pjax', (a,b,c) ->
+    $("a.brand").removeClass("loading")
+    
     controller = b.getResponseHeader('controller')
     action     = b.getResponseHeader('action')
     if controller != null and action != null

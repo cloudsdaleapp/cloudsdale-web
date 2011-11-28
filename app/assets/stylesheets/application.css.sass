@@ -40,6 +40,7 @@ body
           font-size: 14px
           font-weight: bold
           color: rgb(171,173,175)
+          pointer-events: none
           &:after
             content: " »"
           
@@ -70,8 +71,14 @@ body
               max-height: 30px
               margin: 0
               padding: 0
+              
       a.brand
         margin-left: 0px
+        padding-left: 5px
+        padding-right: 40px
+        background: transparent right center no-repeat
+        &.loading
+          background-image: image-url("details/ajax-loader.gif")
         &:hover
           text-decoration: none
           color: $linkColor
