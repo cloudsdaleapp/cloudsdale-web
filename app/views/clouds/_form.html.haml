@@ -1,4 +1,4 @@
-= form_for @cloud, :validate => true do |f|
+= form_for @cloud, :validate => true, multipart: true do |f|
   .page-header
     %h1= "#{action_name}".capitalize + " Cloud"
     .row
@@ -16,6 +16,33 @@
           = f.label :description, "Description"
           .input
             = f.text_area :description
+      
+      %fieldset.avatarupload
+        %legend Avatar
+        .span8
+          .clearfix
+            = f.label :remote_avatar_url, "URL"
+            .input
+              .input-prepend
+                .add-on
+                  = radio_button_tag :avatar_from, "url", :selected => true
+                = f.text_field :remote_avatar_url
+          .clearfix
+            = f.label :avatar, "File"
+            .input
+              .input-prepend
+                .add-on
+                  = radio_button_tag :avatar_from, "file"
+                = f.file_field :avatar, :class => 'disabled'
+              .help-inline
+                %strong= "Note:"
+                = "You can upload any size of avatar though cloudsdale will scale it for you."
+                
+        .span2
+          - if !@cloud.avatar.preview.url.nil?
+            = image_tag @cloud.avatar.preview.url, class: 'preview'
+          - else
+            %img.preview.nocloudavatar
       
       .actions
         - unless @cloud.new_record?

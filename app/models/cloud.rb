@@ -12,6 +12,8 @@ class Cloud
   field :hidden,        type: Boolean,        default: false
   field :member_count,  type: Integer,        default: 0
   
+  mount_uploader :avatar, AvatarUploader
+  
   validates :name, presence: true, uniqueness: true, length: { within: 3..32 }
   validates :description, presence: true, length: { within: 5..50 }
   
@@ -27,5 +29,24 @@ class Cloud
     build_chat if chat.nil?
   end
   
+
+  # Override to silently ignore trying to remove missing
+  # previous avatar when destroying a User.
+  def remove_avatar!
+    begin
+      super
+    rescue Fog::Storage::Rackspace::NotFound
+    end
+  end
+
+  # Override to silently ignore trying to remove missing
+  # previous avatar when saving a new one.
+  def remove_previously_stored_avatar
+    begin
+      super
+    rescue Fog::Storage::Rackspace::NotFound
+      @previous_model_for_avatar = nil
+    end
+  end
   
 end
