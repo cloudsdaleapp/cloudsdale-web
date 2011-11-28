@@ -1,12 +1,15 @@
 window.ChatRoom = class ChatRoom
   
   constructor: (args) ->
+    
     @room_name = args.room_name
     @room_id = args.room_id
     @room_topic = args.room_topic
     @parent_frame = args.parent_frame
     @parent = args.parent
-    @frame = $(args.frame)
+    
+    @frame = $(".chat-room-container[data-room-id=#{@room_id}]")
+    @handler = $(".chat-room-trigger[data-room-id=#{@room_id}]")
     
     @client = args.client
     @seeded = false
@@ -30,18 +33,23 @@ window.ChatRoom = class ChatRoom
     @finalize()
       
   setup: =>
-    # Sets up hooks to all the elements associated with chat room.    
-    @handler = @frame.find(".chat-room-handler")
-    @trigger = @handler.find(".chat-room-trigger")
-    
-    @container = @frame.find(".chat-room-container")
-    @wrapper = @container.find(".chat-messages-wrapper")
-    @form = @container.find("form")
+    # Sets up hooks to all the elements associated with chat room.
+    @trigger = @handler.find("a")
+    @notification_plate = @handler.find("span.chat-room-notification")
+    @toolbar = @frame.find(".chat-room-toolbar")
+    @close_trigger = @toolbar.find("header a.closex")
+    @container = @frame
+    @wrapper = @frame.find(".chat-room-messages")
+    @form = @frame.find("form")
     @input = @form.find("textarea")
 
   bind: =>
     # Binds certain chat room frame interaction events
     @trigger.bind "click", =>
+      $.event.trigger 'toggle.chatroom', @
+      false
+    
+    @close_trigger.bind "click", =>
       $.event.trigger 'toggle.chatroom', @
       false
     
@@ -72,7 +80,7 @@ window.ChatRoom = class ChatRoom
     @client.subscribe "/chat/room/#{@room_id}", (data) =>
       @addNotification()
       if @seeded
-        @appendMessage(data.timestamp,data.content,data.user_name,data.user_path)
+        @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar)
         @correctContainerScroll(@isReadingHistory())
     
     $(window).bind 'focus', =>
@@ -101,6 +109,7 @@ window.ChatRoom = class ChatRoom
       
     @active = true
     @frame.addClass('active')
+    @handler.addClass('active')
     @seed()
     @correctContainerScroll(true)
     @clearNotifications()
@@ -113,6 +122,7 @@ window.ChatRoom = class ChatRoom
       
     @active = false
     @frame.removeClass('active')
+    @handler.removeClass('active')
     
   seed: ->
     # Appends last 30 messages from designated chat room into the container.
@@ -120,7 +130,7 @@ window.ChatRoom = class ChatRoom
       $.getJSON "/chat/rooms/#{@room_id}/messages", (data) =>
         i = data.length - 1
         $.each data, (key, val) =>
-          @appendMessage(val.timestamp,val.content,val.user_name,val.user_path)
+          @appendMessage(val.timestamp,val.content,val.user_name,val.user_path,val.user_avatar)
           @correctContainerScroll(true)
           if key == i
             window.setTimeout ( =>
@@ -129,15 +139,17 @@ window.ChatRoom = class ChatRoom
             
         @seeded = true
   
-  appendMessage: (timestamp,content,user_name,user_path) ->
+  appendMessage: (timestamp,content,user_name,user_path,user_avatar) ->
     # Appends a message to the bottom of the message container.
     t = new Date(Date._parse(timestamp))
+    image = if user_avatar then "src='#{user_avatar}'" else "class='noavatar'"
     @wrapper.append(
       "<div data-timestamp='#{timestamp} 'class='chat-message'>
-        <div class='chat-message-head'>
+        <a href='#{user_path}'><img #{image}/></a>
+        <header class='chat-message-head'>
           <span class='sender'><a href='#{user_path}'>#{user_name}</a></span>
           <span class='metadata'>#{t.toString('HH:mm:ss')}</span>
-        </div>
+        </header>
         <p class='chat-message-content'>#{content}</p>
       </div>")
       
@@ -177,11 +189,11 @@ window.ChatRoom = class ChatRoom
   
   refreshGraphics: ->
     if @notifications > 0
-      notice = "<span class='notice'>#{@notifications}</span> - "
+      @notification_plate.html("#{@notifications}")
+      @notification_plate.show()
     else
-      notice = ""
-      
-    @trigger.html("#{notice}#{@room_name}")
+      @notification_plate.html("")
+      @notification_plate.hide()
 
   clearNotifications: ->
     @parent.subtractGlobalNotification(@notifications)
@@ -219,7 +231,7 @@ window.ChatNav = class ChatNav
   
   constructor: (args) ->
     @n = 0
-    @container = $(".chat-container")
+    @container = $(".chat-room-list")
     @client = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
     @getRooms()
     
@@ -231,7 +243,6 @@ window.ChatNav = class ChatNav
         room_name: data.roomName
         room_topic: data.roomTopic
         client: @client
-        frame: val
         parent_frame: @container
         parent: @
   

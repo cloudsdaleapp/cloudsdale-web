@@ -2,159 +2,256 @@
   position: fixed
   bottom: 0
   width:  100%
-  height: 1px
-  z-index: 10000
+  z-index: 998
   overflow: visible
-  ul.dashboard, ul.chat-container
+  -webkit-box-shadow: inset 0 1px 7px rgba(0, 0, 0, .90)
+  -moz-box-shadow: inset 0 1px 7px rgba(0, 0, 0, .90)
+  box-shadow: inset 0 1px 7px rgba(0, 0, 0, .90)
+  background: #4C4C4C image-url("bg-noise.png") repeat
+  h6
+    float: left
+    padding: 0 20px
+    line-height: 60px
+  ul.chat-room-list
     float: right
     display: block
-    margin: 0 20px 0 0
+    margin: 0 0 0 0
     position: relative
     list-style: none
-    height: 0px
-    li
-      position: relative
+    height: 60px
+    padding-right: 45px
+    margin-right: 15px
+    background: transparent image-url("icons/iconic/gray_light/cloud_32x20.png") right center no-repeat
     
-    &.chat-container
-            
-      li.chat-room
-        float: right
-        width: 180px
-        height: 1px
-        margin-left: 10px
+    li.chat-room-trigger
+      position: relative
+      float: right
+      width: 48px
+      height: 48px
+      margin: 5px
+      overflow: visible
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .90)
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .90)
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .90)
+      -webkit-border-radius: 5px 5px 5px 5px
+      -moz-border-radius: 5px 5px 5px 5px
+      border-radius: 5px 5px 5px 5px
+      transition: all 0.15s ease-in-out
+      -webkit-transition: all 0.15s ease-in-out
+      -moz-transition: all 0.15s ease-in-out
+      border: 1px solid #333333
+      
+      img
+        background-color: #E6E6E6
+      
+      span.chat-room-notification
+        position: absolute
+        z-index: 2
+        font-weight: bold
+        -webkit-border-radius: 5px 5px 5px 5px
+        -moz-border-radius: 5px 5px 5px 5px
+        border-radius: 5px 5px 5px 5px
+        background: #D00000
+        border: 1px solid black
+        padding: 0 5px 1px 5px
+        font-size: 10px
+        line-height: 14px
+        position: absolute
+        top: -4px
+        right: -4px
+        color: white
+        pointer-events: none
         
-        .chat-room-wrapper
-          border: 1px solid #C7C7C7
-          border-bottom: none
-          position: absolute
-          width: 100%
-          bottom: 0
-          -webkit-border-radius: 5px 5px 0px 0px
-          -moz-border-radius: 5px 5px 0px 0px
-          border-radius: 5px 5px 0px 0px
-          -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-          -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-          box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-          background: #F0F6FF
+        
+      &.active
+        border-color: #fff
+        span
+          display: none
           
-          .chat-room-container
-            float: left
-            display: none
-            background: #FFF
-            position: relative
-            
-            textarea
-              font-size: 12px
-              position: absolute
-              bottom: 0
-              padding: 3px 5px 3px 20px
-              width: 265px
-              resize: none
-              border: none
-              border-top: 1px solid #C7C7C7
-              min-height: 18px
-              max-height: 72px
-              overflow-y: auto !important
-              overflow-x: hidden !important
-              height: 18px
-              color: #404040
-              -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .0)
-              -moz-box-shadow: 0 0 0 rgba(0, 0, 0, .0)
-              box-shadow: 0 0 0 rgba(0, 0, 0, .0)
-              resize: none
-              -webkit-border-radius: 0 0 0px 0px !important
-              -moz-border-radius: 0 0 0px 0px !important
-              border-radius: 0 0 0px 0px !important
-              background: #FFF image-url("icons/tools/comment.png") 2px 5px no-repeat !important
-            
-            .chat-messages-wrapper
-              position: absolute
-              top: 0
-              bottom: 26px
-              width: 100%
-              overflow-x: hidden
-              overflow-y: scroll
-              .chat-message
-                position: relative
-                border-bottom: 1px #eee solid
-                &:last-child
-                  border-bottom: none
-                  
-                .chat-message-head
-                  padding: 2px 5px
-                  span
-                    font-weight: bold
-                  span.sender
-                    a:hover
-                      text-decoration: none
-                  span.metadata
-                    display: none
-                    float: right
-                    font-size: 11px
-                    
-                p.chat-message-content
-                  padding: 2px 5px
-                  color: #404040
-                  word-wrap: break-word
-                &:hover
-                  .chat-message-head
-                    span.metadata
-                      display: block
-            
-          
-          .chat-room-handler
-            float: left
-            width: 180px
-            float: left
-            border-bottom: 1px solid #C7C7C7
-          
-            a.chat-room-trigger
-              font-weight: bold
-              color: #BFBFBF
-              float: left
-              width: 170px
-              padding: 3px 5px
-              span.notice
-                color: #FA1E1D
-                
-              &:hover
-                text-decoration: none !important
-                color: #404040
-                
-            
-                
+        img, .img-gloss
+          opacity: 1
+          -moz-opacity: 1
+          filter: alpha(opacity=99)
+        
+      &:hover
+        border-color: black
         &.active
-          width: 290px
-          .chat-room-wrapper
-            .chat-room-handler
-              width: 290px
-              a.chat-room-trigger
-                color: #6CF
-                width: 280px
-                &:hover
-                  color: #3BF
-                  
-            .chat-room-container
-              min-height: 320px
-              width: 290px
-              display: block
-        
-    &.dashboard
-      li
-        height: 32px
-        width: 32px
-        margin: 4px
-        background: #F0F6FF
-        -webkit-border-radius: 3px 3px 3px 3px
-        -moz-border-radius: 3px 3px 3px 3px
-        border-radius: 3px 3px 3px 3px
-        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-        box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+          border-color: #fff
         a
-          float: left
-          background: transparent image-url("icons/panel/globe_24.png") 50% 50% no-repeat
-          min-height: 32px
-          min-width: 32px
+          img, .img-gloss
+            opacity: 1
+            -moz-opacity: 1
+            filter: alpha(opacity=99)
+          .image-gloss
+            -webkit-box-shadow: inset 0 0 15px rgba(200, 200, 200, .90)
+            -moz-box-shadow: inset 0 0 15px rgba(200, 200, 200, .90)
+            box-shadow: inset 0 0 15px rgba(200, 200, 200, .90)
+      
+      &:active
+        img
+          padding-top: 1px
+      a
+        height: 48px
+        width: 48px
+        float: left
+        overflow: hidden
+        img, .image-gloss
+          -webkit-border-radius: 5px 5px 5px 5px
+          -moz-border-radius: 5px 5px 5px 5px
+          border-radius: 5px 5px 5px 5px
+          height: 48px
+          width: 48px
+          position: absolute
+          opacity: 0.7
+          -moz-opacity: 0.7
+          filter: alpha(opacity=70)
+        .image-gloss
+          z-index: 1
+            
+
+
+  .chat-wrapper
+    position: absolute
+    width: 380px
+    top: -421px
+    right: 20px
+    z-index: 999
+    background: #fff
+    .chat-room-container
+      border: 1px #666666 solid
+      border-bottom: none
+      position: relative
+      height: 420px
+      display: none
+      -webkit-border-radius: 5px 5px 0 0
+      -moz-border-radius: 5px 5px 0 0
+      border-radius: 5px 5px 0 0
+      
+      &.active
+        display: block
+      
+      form
+        margin: 0
+        padding: 0
+      
+      textarea.chat-input
+        font-size: 12px
+        position: absolute
+        bottom: 0
+        padding: 3px 3px 3px 20px
+        width: 355px
+        resize: none
+        border: none
+        border-top: 1px solid #666666
+        min-height: 18px
+        max-height: 72px
+        overflow-y: auto !important
+        overflow-x: hidden !important
+        height: 18px
+        color: #404040
+        -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .0)
+        -moz-box-shadow: 0 0 0 rgba(0, 0, 0, .0)
+        box-shadow: 0 0 0 rgba(0, 0, 0, .0)
+        resize: none
+        -webkit-border-radius: 0 0 0px 0px !important
+        -moz-border-radius: 0 0 0px 0px !important
+        border-radius: 0 0 0px 0px !important
+        background: #FFF image-url("icons/tools/comment.png") 2px 5px no-repeat !important
+
+      .chat-room-messages
+        position: absolute
+        top: 25px
+        bottom: 25px
+        width: 100%
+        overflow-x: hidden
+        overflow-y: scroll
+        background: #FFF
+
+        .chat-message
+          position: relative
+          padding: 0 7px
+            
+          img
+            width: 40px
+            height: 40px
+            float: left
+            margin-right: 7px
+            margin-top: 7px
+            background: #E6E6E6 image-url("other/unknown_pony_chat.jpg") center center no-repeat
+            border: none
+            box-shadow: none
+  
+          header.chat-message-head
+            border-top: 1px #E6E6E6 solid
+            padding-top: 4px
+            &:first-child 
+              border-top: none
+            span
+              font-weight: bold
+            span.sender
+              a:hover
+                text-decoration: none
+            span.metadata
+              display: none
+              float: right
+              font-size: 11px
+              color: #4C4C4C
+    
+          p.chat-message-content
+            padding: 2px 0 0 0
+            margin-bottom: 7px
+            color: #404040
+            line-height: 1.7em
+            word-wrap: break-word
           &:hover
-            background-image: image-url("icons/panel/globe_24_active.png")
+            .chat-message-head
+              span.metadata
+                display: block
+      
+      .chat-room-toolbar
+        height: 24px
+        position: absolute
+        border-bottom: 1px solid #666666
+        top: 0
+        width: 100%
+        background-color: #339BB9
+        background-repeat: repeat-x
+        background-image: -khtml-gradient(linear, left top, left bottom, from(#5BC0DE), to(#339BB9))
+        background-image: -moz-linear-gradient(top, #5BC0DE, #339BB9)
+        background-image: -ms-linear-gradient(top, #5BC0DE, #339BB9)
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5BC0DE), color-stop(100%, #339BB9))
+        background-image: -webkit-linear-gradient(top, #5BC0DE, #339BB9)
+        background-image: -o-linear-gradient(top, #5BC0DE, #339BB9)
+        background-image: linear-gradient(top, #5BC0DE, #339BB9)
+        -webkit-border-radius: 5px 5px 0 0
+        -moz-border-radius: 5px 5px 0 0
+        border-radius: 5px 5px 0 0
+        header
+          padding: 0 5px
+          font-size: 14px
+          line-height: 24px
+          color: #FFFFFF
+          text-shadow: rgba(0,0,0,0.4) 0px -1px 2px
+          cursor: default
+          
+          a
+            text-align: center
+            background: black
+            float: right
+            margin-left: 3px
+            width: 24px
+            height: 24px
+            background: transparent center center no-repeat
+            cursor: pointer
+            &:active
+              background-position: 50% 60%
+            &.closex
+              background-image: image-url("icons/iconic/gray_dark/denied_12x12.png")
+              &:hover
+                background-image: image-url("icons/iconic/red/denied_12x12.png")
+            &.cloud
+              background-image: image-url("icons/iconic/gray_dark/cloud_16x10.png")
+              &:hover
+                background-image: image-url("icons/iconic/white/cloud_16x10.png")
+        
+        

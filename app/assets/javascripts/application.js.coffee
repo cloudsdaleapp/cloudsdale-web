@@ -40,6 +40,10 @@ $ ->
     $.event.trigger "#{action}_#{controller}.load"
   
   $('.topbar').dropdown()
+  $('[rel=twipsy-chat-room]').twipsy
+    placement: 'above'
+    offset: '7'
+    template: '<div class="twipsy-arrow chatilo"></div><div class="twipsy-inner chatilu"></div>'
     
   $(document).bind 'application.load', =>
     $("form[data-validate='true']").validate()
