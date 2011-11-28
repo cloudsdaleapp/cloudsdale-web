@@ -11,6 +11,7 @@ class Chat::Message
   # Meta attributes
   field :user_name,   type: String
   field :user_path,   type: String
+  field :user_avatar, type: String
   
   validates :timestamp,   :presence => true
   validates :content,     :presence => true
@@ -46,6 +47,7 @@ class Chat::Message
   def set_foreign_attributes!
     self[:user_name] = self.author.character.name
     self[:user_path] = "/users/#{self.author_id}"
+    self[:user_avatar] = author.avatar.thumb.url
   end
   
 end

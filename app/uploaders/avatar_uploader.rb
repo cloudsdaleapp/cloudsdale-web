@@ -28,6 +28,11 @@ class AvatarUploader < CarrierWave::Uploader::Base
     process :resize_to_limit => [50, 50]
     process :convert => 'png'
   end
+
+  version :chat do
+    process :resize_to_limit => [40, 40]
+    process :convert => 'png'
+  end
   
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
