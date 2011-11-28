@@ -24,7 +24,7 @@
             = f.label :remote_avatar_url, "URL"
             .input
               .input-prepend
-                .add-on
+                .add-on.active
                   = radio_button_tag :avatar_from, "url", :selected => true
                 = f.text_field :remote_avatar_url
           .clearfix
