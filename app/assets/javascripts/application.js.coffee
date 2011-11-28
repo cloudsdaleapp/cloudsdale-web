@@ -19,6 +19,7 @@
 #= require articles
 #= require users
 #= require sessions
+#= require clouds
 
 
 $ ->
