@@ -6,6 +6,7 @@ do ($ = jQuery) ->
       @urlSrc =    if args.fileSrc     then @wrapper.find(args.fileSrc) else @wrapper.find('input[type=text]')
       @urlRadio =  if args.fileRadio   then @wrapper.find(args.fileRadio) else @wrapper.find("input[type='radio'][value='url']")
       @imgPreview = if args.imgPreview  then @wrapper.find(args.imgPreview) else @wrapper.find('img.preview')
+      @imgPreviewFallback = @imgPreview.attr('src')
       @bind()
     
     bind: () ->
@@ -30,8 +31,8 @@ do ($ = jQuery) ->
         @fileRadio.attr('checked','true')
         @enableFile()
         
-      @imgPreview.bind 'onerror', () =>
-        false
+      @imgPreview.bind 'error', () =>
+        @imgPreview.attr('src',@imgPreviewFallback)
   
     enableUrl: () =>
       @urlRadio.parent().addClass('active')
@@ -49,10 +50,8 @@ do ($ = jQuery) ->
       @fileSrc.removeClass('disabled')
     
     updatePreview: (src) =>
-      try
-        @imgPreview.attr('src',src)
-      catch error
-        console.log error
+      src = @imgPreviewFallback if src == ''
+      @imgPreview.attr('src',src)
         
   $.fn.avatarUpload = ->
     new AvatarUploadForm(@,arguments[0])

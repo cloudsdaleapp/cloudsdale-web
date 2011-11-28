@@ -42,7 +42,7 @@
           - if !@cloud.avatar.preview.url.nil?
             = image_tag @cloud.avatar.preview.url, class: 'preview'
           - else
-            %img.preview.nocloudavatar
+            = image_tag "other/transp.png", class: 'preview nocloudavatar', alt: ''
       
       .actions
         - unless @cloud.new_record?
