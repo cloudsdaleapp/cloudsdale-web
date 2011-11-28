@@ -5,7 +5,7 @@
         - if entry.banner.url
           = image_tag entry.banner.url
         - else
-          %img.empty
+          = image_tag "other/transp.png", class: 'empty'
     .span7.right
       %h6.header
         %strong= entry.class.to_s
