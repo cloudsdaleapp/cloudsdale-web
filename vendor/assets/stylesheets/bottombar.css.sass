@@ -8,19 +8,37 @@
   -moz-box-shadow: inset 0 1px 7px rgba(0, 0, 0, .90)
   box-shadow: inset 0 1px 7px rgba(0, 0, 0, .90)
   background: #4C4C4C image-url("bg-noise.png") repeat
+  
+  .clearfix
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+    display: inline-block
+
+  html[xmlns] .clearfix
+    display: block
+
+  * html .clearfix
+    height: 1%
+  
   h6
     float: left
     padding: 0 20px
     line-height: 60px
+    position: absolute
   ul.chat-room-list
     display: block
     margin: 0 0 0 0
     position: relative
     list-style: none
-    height: 60px
     padding-right: 45px
     margin-right: 15px
     background: transparent image-url("icons/iconic/gray_light/cloud_32x20.png") right center no-repeat
+    
     
     li.chat-room-trigger
       position: relative
@@ -169,7 +187,7 @@
         .chat-message
           position: relative
           padding: 0 7px
-            
+          
           img
             width: 40px
             height: 40px
@@ -198,7 +216,7 @@
     
           p.chat-message-content
             padding: 2px 0 0 0
-            margin-bottom: 7px
+            margin-bottom: 10px
             color: #404040
             line-height: 1.7em
             word-wrap: break-word

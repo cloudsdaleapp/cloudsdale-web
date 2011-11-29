@@ -15,7 +15,7 @@
         
 %h6.t= "Cloudschat 2.0"
 
-%ul.chat-room-list
+%ul.chat-room-list.clearfix
   - @clouds = current_user.clouds
   - @clouds.each do |cloud|
     - room = cloud.chat
