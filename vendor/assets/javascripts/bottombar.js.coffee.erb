@@ -81,7 +81,6 @@ window.ChatRoom = class ChatRoom
       @addNotification()
       if @seeded
         @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar)
-        @correctContainerScroll(@isReadingHistory())
     
     $(window).bind 'focus', =>
       if @active
@@ -152,8 +151,9 @@ window.ChatRoom = class ChatRoom
         </header>
         <p class='chat-message-content'>#{content}</p>
       </div>")
-      
+    
     @popLastMessages()
+    @correctContainerScroll(true)
     
   popLastMessages: ->
     if @wrapper.children('div.chat-message').size() > @conf_MaxMessages
