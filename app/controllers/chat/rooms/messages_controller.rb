@@ -16,6 +16,9 @@ class Chat::Rooms::MessagesController < ApplicationController
   end
   
   def create
+    # Das chat cleaner.
+    @room.messages.order_by(:timestamp,:desc).skip(50).each{|m|m.destroy}
+    
     @message = @room.messages.build(
       author: current_user,
       content: params[:message]
