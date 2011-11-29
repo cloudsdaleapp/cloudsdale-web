@@ -141,7 +141,7 @@ window.ChatRoom = class ChatRoom
   appendMessage: (timestamp,content,user_name,user_path,user_avatar) ->
     # Appends a message to the bottom of the message container.
     t = new Date(Date._parse(timestamp))
-    image = if user_avatar then "src='#{user_avatar}'" else "class='noavatar'"
+    image = if user_avatar then "src='#{user_avatar}'" else "src='#{@parent.default_avatar_src}'"
     @wrapper.append(
       "<div data-timestamp='#{timestamp} 'class='chat-message'>
         <a href='#{user_path}'><img #{image}/></a>
@@ -234,6 +234,8 @@ window.ChatNav = class ChatNav
     @container = $(".chat-room-list")
     @client = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
     @getRooms()
+    
+    @default_avatar_src = $("#img_unknown_pony_chat").attr('src')
     
   getRooms: () ->
     $.each $(@container.children()), (key, val) =>
