@@ -22,11 +22,18 @@
             %li.nav_item.menu_label= "Dashboard "
             %li.nav_item.icon.new_article= link_to "", new_article_path
             %li.nav_item.icon.new_cloud= link_to "", new_cloud_path
-              
+            
           %ul.nav.secondary-nav
             - if current_user
               %li.dropdown
-                = link_to current_user.character.name, "#", :class => 'dropdown-toggle'
+                
+                = link_to "#", :class => 'dropdown-toggle user-nav' do
+                  - if !current_user.avatar.mini.url.nil?
+                    = image_tag current_user.avatar.mini.url
+                  - else
+                    = image_tag "other/unknown_pony_chat.jpg"
+                  = current_user.character.name
+                  
                 %ul.dropdown-menu
                   %li= link_to "Profile", user_path(current_user)
                   %li= link_to "Articles", user_path(current_user, tab:'articles')
@@ -35,6 +42,7 @@
                   %li= link_to "Help", ""
                   %li.divider
                   %li= link_to "Logout", logout_path, 'data-skip-pjax' => true
+                  
               %li.dropdown.notifications
                 - notification_count = current_user.notifications.unread.count
                 = link_to "#", :class => 'dropdown-toggle' do
