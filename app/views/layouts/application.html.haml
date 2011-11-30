@@ -17,7 +17,8 @@
     .topbar
       .fill
         .container
-          = link_to "Cloudsdale", root_path, :class => 'brand'
+          = link_to  root_path, :class => 'brand' do
+            = image_tag "logo/cloudsdale-thin-bright-logo.png", :title => "Cloudsdale", :class => "logo"
           
           %ul.nav
             %li.nav_item.menu_label= "Dashboard "

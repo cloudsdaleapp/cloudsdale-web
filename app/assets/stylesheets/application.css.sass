@@ -39,6 +39,7 @@ body
   .fill
     .container
       ul.nav
+        padding: 0 30px 0 0px
         li.menu_label
           line-height: 40px
           padding: 0 10px
@@ -46,6 +47,7 @@ body
           font-weight: bold
           color: rgb(171,173,175)
           pointer-events: none
+          clear: none
           &:after
             content: " »"
           
@@ -55,6 +57,8 @@ body
             width: 40px
             padding: 0
             background: transparent center center no-repeat
+            margin-left: 0
+            
           &.new_cloud
             a
               background-image: image-url("icons/iconic/gray_light/cloud_24x15.png")
@@ -90,14 +94,29 @@ body
               
       a.brand
         margin-left: 0px
-        padding-left: 5px
-        padding-right: 40px
+        padding: 7px 40px 0px 5px
         background: transparent right center no-repeat
+        vertical-align: middle
+        height: 28px
+        width: 178px
+        text-align: center
+        vertical-align: middle
+        img
+          float: none
+          -webkit-transition: all 0.15s ease-in-out
+          -moz-transition: all 0.15s ease-in-out
+          -o-transition: all 0.15s ease-in-out
+          -ms-transition: all 0.15s ease-in-out
+          transition: all 0.15s ease-in-out
+          height: 26px
+          width: 165px
+      	
         &.loading
           background-image: image-url("details/ajax-loader.gif")
         &:hover
-          text-decoration: none
-          color: $linkColor
+          img
+            height: 28px
+            width: 178px
     
 .container
   .alert-message

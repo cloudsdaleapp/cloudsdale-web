@@ -1,5 +1,4 @@
-%h1.logo= "Cloudsdale"
-%h5.slogan= ["The greatest City in the sky","The best place in the skies"][rand(2)]
+= image_tag "logo/cloudsdale-logo-medium.png"
 
 = form_for @user, :multipart => true, :validate => true  do |f|
   = f.fields_for :authentications do |authentications_form|
