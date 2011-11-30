@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   
-  helper_method :current_user
+  helper_method :current_user, :markdown
   
   rescue_from CanCan::AccessDenied do |exception|
     if current_user
@@ -68,6 +68,13 @@ class ApplicationController < ActionController::Base
       pending_path
     else
       fallback_path
+    end
+  end
+  
+  def markdown(text)
+    if text
+      options = [:hard_wrap, :filter_html, :autolink, :no_intraemphasis, :fenced_code, :gh_blockcode]
+      Redcarpet.new(text, *options).to_html.html_safe
     end
   end
   

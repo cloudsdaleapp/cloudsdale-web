@@ -3,21 +3,29 @@
     %h1= "#{action_name}".capitalize + " Article"
     .row
       .span9
-        %ul.tabs
-          %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Write", "#"
-          %li= link_to "Preview", "#"
-          %li= link_to "Help?", "#"
+        %ul.tabs{ data: { tabs: :tabs } }
+          %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Write", "#modify"
+          %li= link_to "Preview", "#preview"
+          %li= link_to "Help?", "#help"
       .span7
         - unless @article.new_record?
           = link_to "Remove", article_path(@article), :method => :delete, :class => 'btn error'
         = f.submit "Save", :disable_with => 'Saving...', :class => 'btn primary'
-  .row
-    .span9.write
-      %fieldset
-        .clearfix
-          = f.label :content, "Content"
-          .input
-            = f.text_area :content
+  .row.lower
+    .span9
+      .tab-content#my-tab-content
+        .tab-pane#modify.active
+          %fieldset
+            .clearfix
+              = f.label :content, "Content"
+              .input
+                = f.text_area :content
+        .tab-pane#preview
+          %article
+          
+        .tab-pane#help
+          %article
+          
     .span7
       %fieldset
         .clearfix

@@ -23,6 +23,7 @@ Cloudsdale::Application.routes.draw do
   resources :articles, :except => [:index] do
     get :publish, on: :member
     get :promote, on: :member
+    post :parse, on: :collection
     resources :comments, :controller => 'articles/comments', :only => [:create,:destroy], :path_names => { :new => :write }
   end
   

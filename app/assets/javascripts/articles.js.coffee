@@ -1,21 +1,6 @@
 #= require helpers/comments
 
-$(document).bind 'articles.load', (e,obj) =>
-  makePreview = (source,dest,args) ->
-    if args == null or args == NaN
-      args.markdown = false
-      
-    if args.markdown
-      converter = new Showdown.converter()
-      
-    source.live 'keyup', (e) ->
-      if args.markdown
-        dest.html(converter.makeHtml(source.attr('value')))
-      else
-        dest.html(source.val())
-  
-  makePreview $('#article_content'), $('.article-preview-body'),
-    markdown: true
+$(document).bind 'new_articles.load edit_articles.load', (e,obj) =>
 
   $('form#new_comment').commentForm()
   
@@ -33,6 +18,24 @@ $(document).bind 'articles.load', (e,obj) =>
         span = if item.times_referred > 0 then "#{item.times_referred}" else "new"
         "<li>#{item.name}<span>#{span}</span></li>"
   
+  $('.tabs').tabs("asd")
+  $("#.tabs a").bind 'change', (e) ->
+    targetContent = $($(e.target).attr('href'))
+    if $("#preview")[0] == targetContent[0]
+      raw_markdown = $('#modify textarea').val()
+      preview = targetContent.find('article')
+      if raw_markdown.length > 0
+        preview.html("<h3>Loading...</h3>")
+        $.post "/articles/parse",
+          { markdown:raw_markdown },
+          (data) ->
+            preview.html(data)
+        .error ->
+          preview.html("<h3>Error...</h3>")
+      else
+        preview.html("<h3>Nothing to Render...</h3>")
+        
+    
   
   
 

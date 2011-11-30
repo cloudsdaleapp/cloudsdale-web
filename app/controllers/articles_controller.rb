@@ -99,4 +99,11 @@ class ArticlesController < ApplicationController
     end
   end
   
+  def parse
+    @parsed_markdown = markdown(params[:markdown])
+    respond_to do |format|
+      format.html { render text: @parsed_markdown.html_safe }
+    end
+  end
+  
 end

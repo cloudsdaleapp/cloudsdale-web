@@ -23,7 +23,7 @@
 
 
 $ ->
-
+  
   hide_alert_message = (p) ->
     $(p).replaceWith("<div class='alert-message hidden'></div>")
     
@@ -46,6 +46,7 @@ $ ->
     template: '<div class="twipsy-arrow chatilo"></div><div class="twipsy-inner chatilu"></div>'
     
   $(document).bind 'application.load', =>
+    
     $("form[data-validate='true']").validate()
     
     $(".alert-message > .close").bind "click", (e) ->

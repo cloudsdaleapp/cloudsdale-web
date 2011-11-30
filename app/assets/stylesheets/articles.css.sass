@@ -18,8 +18,10 @@ body.articles
             margin-left: 20px
       .span7
         text-align: right
+        width: 380px
+        padding-right: 20px
         
-    .row
+    .row.lower
       .span7
         padding-right: 20px
         width: 380px
@@ -37,7 +39,8 @@ body.articles
             width: 370px
           ul
             width: 376px
-      .span9.write
+            
+      .span9
         padding: 0 20px 0 20px
         width: 480px
         background: #fff
@@ -49,26 +52,20 @@ body.articles
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
         padding-bottom: 0px
         padding-top: 10px
-        textarea#article_content
-          width: 470px
-          max-width: 470px
-          min-width: 470px
-          min-height: 500px
-            
-      .span8.offset1
-        //
-
-    .actions
-      text-align: right
-      
-    .row:not(:last-child)
-      padding-bottom: 20px
-     
-      .span16
-        border-bottom: 1px #BFBFBF solid
-      .row
-        border: none
-      
+        .tab-pane#modify
+          textarea#article_content
+            width: 470px
+            max-width: 470px
+            min-width: 470px
+            min-height: 500px
+        .tab-pane#preview, .tab-pane#help
+          article
+            min-height: 500px
+            padding: 20px 0
+            margin-bottom: 20px
+        .tab-pane#preview
+        .tab-pane#help
+        
   &.show
     .page-header
       margin-bottom: 0px
