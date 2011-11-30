@@ -1,10 +1,11 @@
 #= require helpers/comments
 
-$(document).bind 'new_articles.load edit_articles.load', (e,obj) =>
-
-  $('form#new_comment').commentForm()
+$(document).bind 'show_articles.load', (e,obj) =>
   
+  $('form#new_comment').commentForm()
   $('#article_content').BetterGrow()
+
+$(document).bind 'new_articles.load edit_articles.load', (e,obj) =>
   
   $('#article_tag_tokens').tokenInput "/tags/search.json",
       crossDomain: false
