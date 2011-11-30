@@ -25,19 +25,23 @@
   * html .clearfix
     height: 1%
   
-  h6
-    float: left
-    padding: 0 20px
-    line-height: 60px
-    position: absolute
   ul.chat-room-list
     display: block
     margin: 0 0 0 0
     position: relative
     list-style: none
-    padding-right: 45px
     margin-right: 15px
-    background: transparent image-url("icons/iconic/gray_light/cloud_32x20.png") right center no-repeat
+    padding-right: 40px
+    background: transparent image-url("icons/iconic/gray_light/cloud_32x20.png") right 20px no-repeat
+    
+    &:before
+      content: "Cloudschat 2.0"
+      color: rgb(155,157,159)
+      font-weight: bold
+      font-size: 14px
+      padding-left: 15px
+      padding-right: 15px
+      line-height: 60px
     
     
     li.chat-room-trigger

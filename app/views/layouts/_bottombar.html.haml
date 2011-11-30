@@ -12,8 +12,6 @@
       .chat-room-messages
       = form_tag chat_room_messages_path(room.id), :remote => true, :class => "chat-room-form" do
         = text_area_tag :message, "", class: 'chat-input'
-        
-%h6.t= "Cloudschat 2.0"
 
 %ul.chat-room-list.clearfix
   - @clouds = current_user.clouds
