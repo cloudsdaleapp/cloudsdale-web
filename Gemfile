@@ -24,7 +24,7 @@ gem 'kaminari'
 gem 'pjax_rails'
 
 # Styling
-gem 'bootstrap-sass', '1.3.0'
+gem 'bootstrap-sass', '1.4.0'
 
 # Authentication & Authorization
 gem 'omniauth'
