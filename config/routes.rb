@@ -9,6 +9,7 @@ Cloudsdale::Application.routes.draw do
   match '/register' => 'users#new', :as => :register
   
   resources :sessions, :only => [:create,:index] do
+  resources :sessions, :only => [:create] do
     get :count, on: :collection
   end
   
@@ -17,6 +18,7 @@ Cloudsdale::Application.routes.draw do
   
   resources :users, :path_names => { :new => :register } do
     get :restore, on: :collection
+  resources :users, :path_names => { :new => :register }, :except => [:index] do
     resources :subscribers, :only => [:create,:destroy], :controller => 'users/subscribers'
   end
   
