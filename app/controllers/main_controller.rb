@@ -19,7 +19,7 @@ class MainController < ApplicationController
       when "subscriptions"
         @entries = Entry.any_in(author_id:current_user.publisher_ids).order_by([:published_at,:desc]).limit(10)
       when "popular"
-        @entries = Entry.where(published: true, hidden: false, promoted: false, :published_at.gt => 1.days.ago).order_by([:views,:desc],[:comments,:desc],[:published_at,:desc]).limit(10)
+        @entries = Entry.where(published: true, hidden: false, promoted: false, :published_at.gt => 7.days.ago).order_by([:views,:desc],[:comments,:desc],[:published_at,:desc]).limit(10)
     end
   end
 
