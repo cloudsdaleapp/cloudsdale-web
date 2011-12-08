@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
   
   before_filter do
-    response.headers["controller"], response.headers["action"] = controller_name, action_name
+    response.headers["controller"], response.headers["action"] = controller_name.parameterize, action_name.parameterize
     begin
       current_user.log_activity! if current_user
     rescue

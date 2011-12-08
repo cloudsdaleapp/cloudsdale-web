@@ -7,7 +7,7 @@
     = favicon_link_tag "favicons/48by48.ico"
     = csrf_meta_tags
 
-  %body{ :class => "#{params[:controller]} #{params[:action]}", :data => { :controller => params[:controller], :action => params[:action]} }
+  %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
     #body-wrapper
       #content-wrapper
         #content

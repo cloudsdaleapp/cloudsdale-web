@@ -8,7 +8,7 @@
     = csrf_meta_tags
     = yield :head
     
-  %body{ :class => "#{params[:controller]} #{params[:action]}", :data => { :controller => params[:controller], :action => params[:action]} }
+  %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
     #preload
       = image_tag "other/unknown_pony_chat.jpg", :id => "img_unknown_pony_chat"
     .bottombar
