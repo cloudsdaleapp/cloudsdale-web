@@ -1,0 +1,2 @@
+class ForcePasswordChange < StandardError
+end

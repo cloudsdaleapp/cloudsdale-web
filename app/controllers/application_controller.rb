@@ -7,9 +7,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, notice: notify_with(:error,"Access denied","you're not authorized to perform this action. We've taken notice of this attempt")
     else
       session[:original_path] = request.path
-      redirect_to login_path, notice: notify_with(:warning,"You have to be signed in to do that")
+      redirect_to login_path, notice: notify_with(:warning,"You have to be signed in to do that.")
     end
   end
+  
+  before_filter :force_password_change!
   
   before_filter do
     response.headers["controller"], response.headers["action"] = controller_name.parameterize, action_name.parameterize
@@ -19,6 +21,7 @@ class ApplicationController < ActionController::Base
       session[:user_id] = nil
     end
   end
+  
   
   protect_from_forgery
   
@@ -75,6 +78,14 @@ class ApplicationController < ActionController::Base
     if text
       options = [:hard_wrap, :filter_html, :autolink, :no_intraemphasis, :fenced_code, :gh_blockcode]
       Redcarpet.new(text, *options).to_html.html_safe
+    end
+  end
+  
+
+  # Forces the users to change their passwords if they are flagged to do so.
+  def force_password_change!
+    if current_user.try(:force_password_change?) == true
+      redirect_to change_password_user_path(current_user), notice: notify_with(:warning,"Please change your password before proceeding.")
     end
   end
   

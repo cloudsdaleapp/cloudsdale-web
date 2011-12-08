@@ -4,9 +4,10 @@ Cloudsdale::Application.routes.draw do
 
   root to: 'main#index'
   
-  match '/logout' => 'sessions#destroy', :as => :logout
-  match '/login' => 'sessions#new', :as => :login
-  match '/register' => 'users#new', :as => :register
+  match '/logout' => 'sessions#destroy', as: :logout
+  match '/login' => 'sessions#new', as: :login
+  match '/register' => 'users#new', as: :register
+  match '/restore' => "restorations#new", as: :restore
   
   resources :sessions, :only => [:create] do
     get :count, on: :collection
@@ -15,8 +16,13 @@ Cloudsdale::Application.routes.draw do
   match 'auth/:provider/callback' => 'authentications#create'
   resources :authentications, :only => [:create,:destroy]
   
+  resources :restorations, :only => [:new], :controller => 'restorations'
+  
   resources :users, :path_names => { :new => :register }, :except => [:index] do
+    get :change_password, on: :member
+    put :update_password, on: :member
     resources :subscribers, :only => [:create,:destroy], :controller => 'users/subscribers'
+    resources :restorations, :only => [:create,:show], :controller => 'users/restorations'
   end
   
   resources :articles, :except => [:index] do

@@ -1,15 +1,13 @@
 = image_tag "logo/cloudsdale-logo-medium.png"
 
-= form_tag sessions_path, :method => :post, :class => 'form-stacked'  do
+= form_tag user_restorations_path(0), :method => :post, :class => 'form-stacked'  do
   %center
     = render :partial => 'layouts/alert'
   %fieldset
     = text_field_tag :email, "",:placeholder => "Email"
-    = password_field_tag :password, "",:placeholder => "Password"
-    = submit_tag "Login\t»", :class => 'btn success'
+    = submit_tag "Restore\t»", :class => 'btn success'
     
 %nav.options
+  = link_to "Login", login_path
   = link_to "Saddle up", register_path
-  = link_to "Restore", restore_path
   = link_to "Help", "help"
-  

@@ -1,0 +1,11 @@
+%html
+  %body
+    #wrap{ style: 'width: 500px;' }
+      %header
+        %h2= "Hello #{@user.character.name}!"
+      %article
+        %h5= "There has been a request to restore your account."
+        %p= "If you're not the one who has made this request we encourage you to completely ignore this message. We also encourage you to go over your personal computer security as someone else has been trying to restore your account, using your email."
+        %p= "If, in fact it is you who has made the request to restore the account using \"#{@user.email}\" we ask you to follow this link below to complete the restoration steps."
+      %nav
+        %a{ href: @url, style: 'word-wrap: break-words' }= @url

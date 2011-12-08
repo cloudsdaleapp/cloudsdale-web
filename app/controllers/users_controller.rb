@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   
+  skip_before_filter :force_password_change!, only: [:change_password, :update_password]
+  
   def index
     if params[:tab].nil?
       @users = User.online.order([:last_activity,:desc]).limit(48)
@@ -56,7 +58,22 @@ class UsersController < ApplicationController
     end
   end
   
-  def restore
+  def change_password
+    @user = current_user
+    authorize! :update, @user
+    render layout: 'front'
+  end
+  
+  def update_password
+    @user = current_user
+    authorize! :update, @user
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to root_path, :notice => notify_with(:success,'Password',"successfully changed.") }
+      else
+        format.html { render change_password_user(@user), :notice => notify_with(:error,'Password',"cloud not be changed, try again.") }
+      end
+    end
   end
 
 end

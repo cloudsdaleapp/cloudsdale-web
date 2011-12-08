@@ -2,6 +2,8 @@ class SessionsController < ApplicationController
   
   layout 'front'
   
+  skip_before_filter :force_password_change!
+  
   before_filter only: [:new] do
     if current_user
       redirect_to root_path
@@ -9,11 +11,6 @@ class SessionsController < ApplicationController
   end
   
   def new
-  end
-  
-  def index
-    @users = User.online
-    render partial: 'index', :locales => { user: @user }
   end
   
   def create

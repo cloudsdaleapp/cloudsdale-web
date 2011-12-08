@@ -3,6 +3,7 @@ class User
   include Mongoid::Document
   
   embeds_one :character
+  embeds_one :restoration
   embeds_many :authentications
   embeds_many :activities
   embeds_many :notifications
@@ -16,16 +17,17 @@ class User
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
   
   
-  field :email,           type: String
-  field :auth_token,      type: String
-  field :password_hash,   type: String
-  field :password_salt,   type: String
-  field :role,            type: Integer,    default: 0
-  field :member_since,    type: Time
-  field :last_activity,   type: Time
-  field :invisible,       type: Boolean,    default: false
+  field :email,                 type: String
+  field :auth_token,            type: String
+  field :password_hash,         type: String
+  field :password_salt,         type: String
+  field :role,                  type: Integer,    default: 0
+  field :member_since,          type: Time
+  field :last_activity,         type: Time
+  field :invisible,             type: Boolean,    default: false
+  field :force_password_change, type: Boolean,    default: false
   
-  field :subscribers_count,    type: Integer,    default: 0
+  field :subscribers_count,     type: Integer,    default: 0
   
   mount_uploader :avatar, AvatarUploader
   
@@ -33,7 +35,7 @@ class User
   scope :top_subscribed, -> { order_by([:subscribers_count,:desc]) }
   scope :visable, where(:invisible => false)
 
-  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes, :avatar
+  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes, :avatar, :force_password_change
   attr_accessor :password
   
   accepts_nested_attributes_for :character, :allow_destroy => true
@@ -46,10 +48,10 @@ class User
   
   validates_exclusion_of :id, :in => lambda { |u| u.publisher_ids }, :message => "cannot subscribe to yourself"
   
-  before_validation :generate_auth_token
-  
   before_save do
+    self[:auth_token]     = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
     encrypt_password
+    enable_account_on_password_change
     set_creation_date
     update_statistics
     remove_duplicate_subscriptions
@@ -112,6 +114,12 @@ class User
   def logout_and_save!
     self[:last_activity] = Time.now - 10.minutes
     save!
+  end
+  
+  def enable_account_on_password_change
+    if password_hash_changed?
+      self[:force_password_change] = false if force_password_change?
+    end
   end
   
   # Override to silently ignore trying to remove missing
