@@ -1,27 +1,29 @@
 .chat-wrapper
-  - @clouds = current_user.clouds
-  - @clouds.each do |cloud|
-    - room = cloud.chat
-    .chat-room-container{ data: { 'room-id' => room.id } }
-      .chat-room-toolbar
-        %header
-          = room.topic.name
-          %a.closex
-          = link_to "", cloud_path(cloud), class: 'cloud'
+  - if current_user
+    - @clouds = current_user.clouds
+    - @clouds.each do |cloud|
+      - room = cloud.chat
+      .chat-room-container{ data: { 'room-id' => room.id } }
+        .chat-room-toolbar
+          %header
+            = room.topic.name
+            %a.closex
+            = link_to "", cloud_path(cloud), class: 'cloud'
             
-      .chat-room-messages
-      = form_tag chat_room_messages_path(room.id), :remote => true, :class => "chat-room-form" do
-        = text_area_tag :message, "", class: 'chat-input'
+        .chat-room-messages
+        = form_tag chat_room_messages_path(room.id), :remote => true, :class => "chat-room-form" do
+          = text_area_tag :message, "", class: 'chat-input'
 
 %ul.chat-room-list.clearfix
-  - @clouds = current_user.clouds
-  - @clouds.each do |cloud|
-    - room = cloud.chat
-    %li.chat-room-trigger{ data: { 'room-id' => room.id, 'room-name' => room.topic.name , 'room-topic' => room.topic.description } }
-      %span.chat-room-notification
-      = link_to "#", :rel => 'twipsy-chat-room', 'data-original-title' => room.topic.name do
-        .image-gloss
-        - if !cloud.avatar.thumb.url.nil?
-          = image_tag cloud.avatar.thumb.url
-        - else
-          %img.nocloudavatar.borderless
+  - if current_user
+    - @clouds = current_user.clouds
+    - @clouds.each do |cloud|
+      - room = cloud.chat
+      %li.chat-room-trigger{ data: { 'room-id' => room.id, 'room-name' => room.topic.name , 'room-topic' => room.topic.description } }
+        %span.chat-room-notification
+        = link_to "#", :rel => 'twipsy-chat-room', 'data-original-title' => room.topic.name do
+          .image-gloss
+          - if !cloud.avatar.thumb.url.nil?
+            = image_tag cloud.avatar.thumb.url
+          - else
+            %img.nocloudavatar.borderless
