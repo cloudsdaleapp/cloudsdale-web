@@ -44,7 +44,7 @@ class User
   validates_uniqueness_of :email
   validates :email, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   validates :password, confirmation: true
-  validates :auth_token, presence: true, uniqueness: true
+  validates :auth_token, uniqueness: true
   
   validates_exclusion_of :id, :in => lambda { |u| u.publisher_ids }, :message => "cannot subscribe to yourself"
   
