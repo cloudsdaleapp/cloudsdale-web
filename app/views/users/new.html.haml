@@ -1,6 +1,4 @@
 = image_tag "logo/cloudsdale-logo-medium.png"
-%p
-  %strong= "We are truly sorry for the registration issues. Now it should be all working again."
 
 = form_for @user, :multipart => true, :validate => true  do |f|
   = f.fields_for :authentications do |authentications_form|
