@@ -19,6 +19,8 @@
               %li{ :class => "#{ params[:tab] == 'popular' ? 'active' : '' }" }= link_to "Popular", root_path(tab: 'popular')
               %li{ :class => "#{ params[:tab] == 'subscriptions' ? 'active' : '' }" }= link_to "Subscriptions", root_path(tab: 'subscriptions')
               %li{ :class => "#{ params[:tab] == 'latest-episode' ? 'active' : '' }" }= link_to "Latest Episode", root_path(tab: 'latest-episode')
+              %li{ :class => "#{ params[:tab] == 'high-altitude-news' ? 'active' : '' }" }= link_to "High Altitude News", root_path(tab: 'high-altitude-news')
+
             
 .row
   .span16
