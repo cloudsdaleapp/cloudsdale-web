@@ -6,4 +6,4 @@
   .clearfix
     = f.label :time_zone, "Time zone"
     .input
-      = f.time_zone_select :time_zone, ActiveSupport::TimeZone.all, :default => Cloudsdale::Application.config.time_zone
+      = f.time_zone_select :time_zone, ActiveSupport::TimeZone.all, {:default => Cloudsdale::Application.config.time_zone}, { :class => 'span4' }
