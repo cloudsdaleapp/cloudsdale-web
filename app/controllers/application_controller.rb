@@ -20,6 +20,8 @@ class ApplicationController < ActionController::Base
     rescue
       session[:user_id] = nil
     end
+    
+    Time.zone = current_user.time_zone if current_user and current_user.time_zone
   end
   
   

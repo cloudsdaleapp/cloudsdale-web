@@ -40,8 +40,8 @@ class Chat::Message
     self[:content] = msg
   end
   
-  def timestamp
-    self[:timestamp].to_js
+  def formatted_timestamp
+    self.timestamp.strftime("%H:%M:%S")
   end
   
   def set_foreign_attributes!
