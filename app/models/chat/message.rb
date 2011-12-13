@@ -41,7 +41,7 @@ class Chat::Message
   end
   
   def formatted_timestamp
-    self.timestamp.strftime("%H:%M:%S")
+    self.timestamp.utc.strftime("%H:%M:%S")
   end
   
   def set_foreign_attributes!
