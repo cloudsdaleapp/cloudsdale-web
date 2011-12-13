@@ -9,7 +9,7 @@ class Chat::Rooms::MessagesController < ApplicationController
   end
   
   def index
-    @messages = @room.messages.order_by([:timestamp,:asc]).limit(50)
+    @messages = @room.messages.order_by([:timestamp,:desc]).limit(50).reverse
     respond_to do |format|
       format.json { render json: @messages.to_json(:methods => :formatted_timestamp) }
     end
