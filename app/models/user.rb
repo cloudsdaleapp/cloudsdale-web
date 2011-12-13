@@ -21,6 +21,7 @@ class User
   field :auth_token,            type: String
   field :password_hash,         type: String
   field :password_salt,         type: String
+  field :time_zone,             type: String
   field :role,                  type: Integer,    default: 0
   field :member_since,          type: Time
   field :last_activity,         type: Time
@@ -35,7 +36,7 @@ class User
   scope :top_subscribed, -> { order_by([:subscribers_count,:desc]) }
   scope :visable, where(:invisible => false)
 
-  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes, :avatar, :force_password_change
+  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes, :avatar, :force_password_change, :time_zone
   attr_accessor :password
   
   accepts_nested_attributes_for :character, :allow_destroy => true
