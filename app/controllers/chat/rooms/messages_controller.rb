@@ -11,7 +11,7 @@ class Chat::Rooms::MessagesController < ApplicationController
   def index
     @messages = @room.messages.order_by([:timestamp,:asc]).limit(50)
     respond_to do |format|
-      format.json { render json: @messages.to_json }
+      format.json { render json: @messages.to_json(:methods => :formatted_timestamp) }
     end
   end
   
@@ -25,7 +25,7 @@ class Chat::Rooms::MessagesController < ApplicationController
     )
       
     if @message.save
-      faye_broadcast "/chat/room/#{@room.id}", @message
+      faye_broadcast "/chat/room/#{@room.id}", { author: @message.author, content: @message.content, timestamp: @message.timestamp, formatted_timestamp: @message.formatted_timestamp, user_name: @message.user_name, user_path: @message.user_path, user_avatar: @message.user_avatar }
       render :json => :success
     else
       render :json => @message.errors

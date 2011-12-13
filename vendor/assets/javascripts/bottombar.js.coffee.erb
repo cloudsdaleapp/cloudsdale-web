@@ -80,7 +80,7 @@ window.ChatRoom = class ChatRoom
     @client.subscribe "/chat/room/#{@room_id}", (data) =>
       @addNotification()
       if @seeded
-        @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar)
+        @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar,data.formatted_timestamp)
     
     $(window).bind 'focus', =>
       if @active
@@ -129,7 +129,7 @@ window.ChatRoom = class ChatRoom
       $.getJSON "/chat/rooms/#{@room_id}/messages", (data) =>
         i = data.length - 1
         $.each data, (key, val) =>
-          @appendMessage(val.timestamp,val.content,val.user_name,val.user_path,val.user_avatar)
+          @appendMessage(val.timestamp,val.content,val.user_name,val.user_path,val.user_avatar,val.formatted_timestamp)
           @correctContainerScroll(true)
           if key == i
             window.setTimeout ( =>
@@ -138,16 +138,15 @@ window.ChatRoom = class ChatRoom
             
         @seeded = true
   
-  appendMessage: (timestamp,content,user_name,user_path,user_avatar) ->
+  appendMessage: (timestamp,content,user_name,user_path,user_avatar,formatted_timestamp) ->
     # Appends a message to the bottom of the message container.
-    t = new Date(timestamp)
     image = if user_avatar then "src='#{user_avatar}'" else "src='#{@parent.default_avatar_src}'"
     @wrapper.append(
       "<div data-timestamp='#{timestamp} 'class='chat-message'>
         <a href='#{user_path}'><img #{image}/></a>
         <header class='chat-message-head'>
           <span class='sender'><a href='#{user_path}'>#{user_name}</a></span>
-          <span class='metadata'>#{t.toString('HH:mm:ss')}</span>
+          <span class='metadata'>#{formatted_timestamp}</span>
         </header>
         <p class='chat-message-content'>#{content}</p>
       </div>")
