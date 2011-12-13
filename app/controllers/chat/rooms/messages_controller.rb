@@ -25,7 +25,7 @@ class Chat::Rooms::MessagesController < ApplicationController
     )
       
     if @message.save
-      faye_broadcast "/chat/room/#{@room.id}", { author: @message.author, content: @message.content, timestamp: @message.timestamp.utc, formatted_timestamp: @message.formatted_timestamp, user_name: @message.user_name, user_path: @message.user_path, user_avatar: @message.user_avatar }
+      faye_broadcast "/chat/room/#{@room.id}", { author: @message.author, content: @message.content, timestamp: @message.timestamp.utc, user_name: @message.user_name, user_path: @message.user_path, user_avatar: @message.user_avatar }
       render :json => :success
     else
       render :json => @message.errors

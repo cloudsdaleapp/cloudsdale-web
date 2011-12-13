@@ -40,10 +40,6 @@ class Chat::Message
     self[:content] = msg
   end
   
-  def formatted_timestamp
-    self.timestamp.utc.strftime("%H:%M:%S")
-  end
-  
   def set_foreign_attributes!
     self[:user_name] = self.author.character.name
     self[:user_path] = "/users/#{self.author_id}"
