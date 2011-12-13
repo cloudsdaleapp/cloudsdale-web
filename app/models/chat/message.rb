@@ -40,10 +40,6 @@ class Chat::Message
     self[:content] = msg
   end
   
-  def timestamp
-    self[:timestamp].to_js
-  end
-  
   def set_foreign_attributes!
     self[:user_name] = self.author.character.name
     self[:user_path] = "/users/#{self.author_id}"
