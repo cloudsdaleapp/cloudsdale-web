@@ -4,7 +4,7 @@ gem 'rails', '3.1.0'
 
 # Database NO-SQL
 gem 'mongoid'
-gem 'bson_ext'
+gem 'bson_ext', '1.5.1'
 gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
 gem 'tire'
 
@@ -55,6 +55,11 @@ group :development, :test do
   gem 'pry'
   gem 'foreman'
   gem 'gist'
+  gem 'rspec-rails'
+  gem 'rails3-generators'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 gem 'capistrano'
