@@ -1,4 +1,4 @@
-window.ChatRoom = class ChatRoom
+window.Cloud = class Cloud
   
   constructor: (args) ->
     
@@ -8,10 +8,10 @@ window.ChatRoom = class ChatRoom
     @parent_frame = args.parent_frame
     @parent = args.parent
     
-    @frame = $(".chat-room-container[data-room-id=#{@room_id}]")
-    @handler = $(".chat-room-trigger[data-room-id=#{@room_id}]")
+    @frame = $(".cloud-container[data-room-id=#{@room_id}]")
+    @handler = $(".cloud-trigger[data-room-id=#{@room_id}]")
     
-    @client = args.client
+    @faye = args.faye
     @seeded = false
     @active = false
     @title_notifications = 0
@@ -30,25 +30,26 @@ window.ChatRoom = class ChatRoom
   setup: =>
     # Sets up hooks to all the elements associated with chat room.
     @trigger = @handler.find("a")
-    @notification_plate = @handler.find("span.chat-room-notification")
-    @toolbar = @frame.find(".chat-room-toolbar")
+    @notification_plate = @handler.find("span.cloud-notification")
+    @toolbar = @frame.find(".cloud-toolbar")
     @close_trigger = @toolbar.find("header a.closex")
     @container = @frame
-    @wrapper = @frame.find(".chat-room-messages")
+    @wrapper = @frame.find(".cloud-chat-messages")
     @form = @frame.find("form")
     @input = @form.find("textarea")
+
 
   bind: =>
     # Binds certain chat room frame interaction events
     @trigger.bind "click", =>
-      $.event.trigger 'toggle.chatroom', @
+      $.event.trigger 'toggle.cloud', @
       false
     
     @close_trigger.bind "click", =>
-      $.event.trigger 'toggle.chatroom', @
+      $.event.trigger 'toggle.cloud', @
       false
     
-    @trigger.bind "toggle.chatroom", (e,obj) =>
+    @trigger.bind "toggle.cloud", (e,obj) =>
       if obj == @
         @toggle()
       else
@@ -66,16 +67,16 @@ window.ChatRoom = class ChatRoom
         false
 
     @form.bind 'ajax:beforeSend', () =>
-      @appendMessage(Date.now().toString(),@parseMessageContent(@input.val()),@parent.user_name,@parent.user_path,@parent.user_avatar)
+      @appendMessage(Date.now().toString(),@parseMessageContent(@input.val()),@parent.user_name,@parent.user_path,@parent.user_avatar,@parent.uid)
       @resetInput()
     .submit () =>
       @validateInput()
     
     # Set up subscription to room's message broadcast channel
-    @client.subscribe "/chat/room/#{@room_id}", (data) =>
+    @faye.subscribe "/chat/room/#{@room_id}", (data) =>
       @addNotification()
       if @seeded and @parent.uid != data.uid
-        @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar)
+        @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar,data.uid)
     
     $(window).bind 'focus', =>
       if @active
@@ -84,7 +85,7 @@ window.ChatRoom = class ChatRoom
   finalize: =>
     # Prepare the frames for interaction.
     @setNotifications()
-    if $.cookie "chatroom:active:#{@room_id}"
+    if $.cookie "cloud:active:#{@room_id}"
       @show()
     else
       @hide()
@@ -97,7 +98,7 @@ window.ChatRoom = class ChatRoom
       
   show: ->
     # Takes the chat frame to maximized mode.
-    $.cookie "chatroom:active:#{@room_id}", true,
+    $.cookie "cloud:active:#{@room_id}", true,
       expires: 365
       path: "/"
       
@@ -110,7 +111,7 @@ window.ChatRoom = class ChatRoom
     
   hide: ->
     # Takes the chat frame into minimized mode.
-    $.cookie "chatroom:active:#{@room_id}", null,
+    $.cookie "cloud:active:#{@room_id}", null,
       expires: 365
       path: "/"
       
@@ -124,7 +125,7 @@ window.ChatRoom = class ChatRoom
       $.getJSON "/chat/rooms/#{@room_id}/messages", (data) =>
         i = data.length - 1
         $.each data, (key, val) =>
-          @appendMessage(val.timestamp,val.content,val.user_name,val.user_path,val.user_avatar)
+          @appendMessage(val.timestamp,val.content,val.user_name,val.user_path,val.user_avatar,val.author_id)
           @correctContainerScroll(true)
           if key == i
             window.setTimeout ( =>
@@ -145,19 +146,24 @@ window.ChatRoom = class ChatRoom
       "<a class='chat-link' href='#{match}' #{pjax_data}>#{match}</a>"
     return c
     
-  appendMessage: (timestamp,content,user_name,user_path,user_avatar) ->
+  appendMessage: (timestamp,content,user_name,user_path,user_avatar,uid) ->
     # Appends a message to the bottom of the message container.
     t = new Date(timestamp)
     image = if user_avatar then "src='#{user_avatar}'" else "src='#{@parent.default_avatar_src}'"
-    @wrapper.append(
-      "<div data-timestamp='#{timestamp} 'class='chat-message'>
-        <a href='#{user_path}'><img #{image}/></a>
-        <header class='chat-message-head'>
-          <span class='sender'><a href='#{user_path}'>#{user_name}</a></span>
-          <span class='metadata'>#{t.toString('HH:mm:ss')}</span>
-        </header>
-        <p class='chat-message-content'>#{content}</p>
-      </div>")
+    if uid == @last_sender_uid
+      @last_message_frame.append("<p>#{content}</p>")
+    else
+      @last_message_frame = @wrapper.append("<div data-timestamp='#{timestamp} 'class='chat-message'>
+          <a href='#{user_path}'><img #{image}/></a>
+          <header class='chat-message-head'>
+            <span class='sender'><a href='#{user_path}'>#{user_name}</a></span>
+            <span class='metadata'>#{t.toString('HH:mm:ss')}</span>
+          </header>
+          <article class='chat-message-content'>
+            <p >#{content}</p>
+          </article>
+        </div>").find('div.chat-message article')
+      @last_sender_uid = uid
     
     @popLastMessages()
     @correctContainerScroll(true)
@@ -177,7 +183,7 @@ window.ChatRoom = class ChatRoom
   
   resizeElements: ->
     window.setTimeout ( =>
-      resizeHeight = @input.outerHeight()
+      resizeHeight = @input.outerHeight() + 9
       @wrapper.css
         bottom: resizeHeight
       @correctContainerScroll(true)
@@ -234,12 +240,12 @@ window.ChatRoom = class ChatRoom
     @refreshGraphics()
 
 
-window.ChatNav = class ChatNav
+window.BottomBar = class BottomBar
   
   constructor: (args) ->
     @n = 0
-    @container = $(".chat-room-list")
-    @client = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
+    @container = $(".cloud-list")
+    @faye = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
     @uid = @container.data('uid')
     @user_name = @container.data('user_name')
     @user_avatar = @container.data('user_avatar')
@@ -251,11 +257,11 @@ window.ChatNav = class ChatNav
   getRooms: () ->
     $.each $(@container.children()), (key, val) =>
       data = $(val).data()
-      new ChatRoom
+      new Cloud
         room_id: data.roomId
         room_name: data.roomName
         room_topic: data.roomTopic
-        client: @client
+        faye: @faye
         parent_frame: @container
         parent: @
   

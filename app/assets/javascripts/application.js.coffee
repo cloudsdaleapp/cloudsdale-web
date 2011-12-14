@@ -13,6 +13,7 @@
 #= require farbtastic
 #= require faye
 #= require bottombar
+#= require topbar
 #= require showdown
 
 #= require main
@@ -23,7 +24,9 @@
 
 
 $ ->
-  
+  new TopBar
+  new BottomBar
+
   hide_alert_message = (p) ->
     $(p).replaceWith("<div class='alert-message hidden'></div>")
     
@@ -38,7 +41,7 @@ $ ->
     $.event.trigger "application.load"
     $.event.trigger "#{controller}.load"
     $.event.trigger "#{action}_#{controller}.load"
-  
+    
   $('.topbar').dropdown()
   $('[rel=twipsy-chat-room]').twipsy
     placement: 'above'

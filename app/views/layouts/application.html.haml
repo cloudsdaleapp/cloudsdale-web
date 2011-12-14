@@ -11,20 +11,16 @@
   %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
     #preload
       = image_tag "other/unknown_pony_chat.jpg", :id => "img_unknown_pony_chat"
+      
     .bottombar
       = render :partial => 'layouts/bottombar'
-      
+
     .topbar
       .fill
         .container
           = link_to  root_path, :class => 'brand' do
             = image_tag "logo/cloudsdale-thin-bright-logo-small.png", :title => "Cloudsdale", :class => "logo"
           
-          %ul.nav
-            %li.nav_item.menu_label= "Dashboard "
-            %li.nav_item.icon.new_article= link_to "", new_article_path
-            %li.nav_item.icon.new_cloud= link_to "", new_cloud_path
-            
           %ul.nav.secondary-nav
             - if current_user
               %li.dropdown
@@ -76,7 +72,15 @@
               %li.img= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
     
     .container
-      = render :partial => 'layouts/alert'
+      %ul.dashboard
+        %li.new_article
+          = link_to new_article_path do
+            = image_tag "icons/iconic/white/pen_16x16.png"
+        %li.new_cloud
+          = link_to new_cloud_path do
+            = image_tag "icons/iconic/white/cloud_24x15.png"
+            
+      //= render :partial => 'layouts/alert'
       
       .content{ :data => { 'pjax-container' => ''} }
         = yield

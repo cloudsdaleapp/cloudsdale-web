@@ -1,27 +1,27 @@
 .container
-  .chat-wrapper
+  .cloud-wrapper
     - if current_user
       - @clouds = current_user.clouds
       - @clouds.each do |cloud|
         - room = cloud.chat
-        .chat-room-container{ data: { 'room-id' => room.id } }
-          .chat-room-toolbar
+        .cloud-container{ data: { 'room-id' => room.id } }
+          .cloud-toolbar
             %header
               = room.topic.name
               %a.closex
-              = link_to "", cloud_path(cloud), class: 'cloud'
-            
-          .chat-room-messages
-          = form_tag chat_room_messages_path(room.id), :remote => true, :class => "chat-room-form" do
-            = text_area_tag :message, "", class: 'chat-input'
+              = link_to "", cloud_path(cloud), class: 'cloud-close'
+          .cloud-chat-wrapper
+            .cloud-chat-messages
+            = form_tag chat_room_messages_path(room.id), :remote => true, :class => "cloud-chat-form" do
+              = text_area_tag :message, "", class: 'cloud-chat-input'
 
-  %ul.chat-room-list.clearfix{ data: { uid: current_user.id, user_name: current_user.name, user_avatar: current_user.avatar.thumb.url, user_path: user_path(current_user) } }
+  %ul.cloud-list.clearfix{ data: { uid: current_user.id, user_name: current_user.name, user_avatar: current_user.avatar.thumb.url, user_path: user_path(current_user) } }
     - if current_user
       - @clouds = current_user.clouds
       - @clouds.each do |cloud|
         - room = cloud.chat
-        %li.chat-room-trigger{ data: { 'room-id' => room.id, 'room-name' => room.topic.name , 'room-topic' => room.topic.description } }
-          %span.chat-room-notification
+        %li.cloud-trigger{ data: { 'room-id' => room.id, 'room-name' => room.topic.name , 'room-topic' => room.topic.description } }
+          %span.cloud-notification
           = link_to "#", :rel => 'twipsy-chat-room', 'data-original-title' => room.topic.name do
             .image-gloss
             - if !cloud.avatar.thumb.url.nil?
