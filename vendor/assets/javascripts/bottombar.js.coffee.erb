@@ -23,11 +23,6 @@ window.ChatRoom = class ChatRoom
     @conf_MaxMessages = 50
     
   render: =>
-    # Renders the base of the chat room frame to the view.
-    # The parent frame should be the "ul.chat-container" element.
-    #$.get "/chat/rooms/#{@room_id}/form", (data) =>
-    #  @parent_frame.append(data)
-    #.success =>
     @setup()
     @bind()
     @finalize()
@@ -71,15 +66,15 @@ window.ChatRoom = class ChatRoom
         false
 
     @form.bind 'ajax:beforeSend', () =>
+      @appendMessage(Date.now().toString(),@parseMessageContent(@input.val()),@parent.user_name,@parent.user_path,@parent.user_avatar)
       @resetInput()
-
     .submit () =>
       @validateInput()
     
     # Set up subscription to room's message broadcast channel
     @client.subscribe "/chat/room/#{@room_id}", (data) =>
       @addNotification()
-      if @seeded
+      if @seeded and @parent.uid != data.uid
         @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar)
     
     $(window).bind 'focus', =>
@@ -138,6 +133,18 @@ window.ChatRoom = class ChatRoom
             
         @seeded = true
   
+  parseMessageContent: (c) ->
+    c = c.replace(/<\/?[^>]*>/gi,"")
+    c = c.replace(/\n/gi,"<br />")
+    c = c.replace(/<br\/><br\/>/gi,"<br/>")
+    c = c.replace(/^\s*$/gi,"")
+    
+    c = c.replace /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/gi, (match,protocol,top_dom,path) ->
+      console.log 
+      pjax_data = if top_dom.match(/cloudsdale.org/i) == null then "target='_blank' data-skip-pjax='true'" else ""
+      "<a class='chat-link' href='#{match}' #{pjax_data}>#{match}</a>"
+    return c
+    
   appendMessage: (timestamp,content,user_name,user_path,user_avatar) ->
     # Appends a message to the bottom of the message container.
     t = new Date(timestamp)
@@ -233,6 +240,10 @@ window.ChatNav = class ChatNav
     @n = 0
     @container = $(".chat-room-list")
     @client = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
+    @uid = @container.data('uid')
+    @user_name = @container.data('user_name')
+    @user_avatar = @container.data('user_avatar')
+    @user_path = @container.data('user_path')
     @getRooms()
     
     @default_avatar_src = $("#img_unknown_pony_chat").attr('src')
@@ -267,6 +278,3 @@ window.ChatNav = class ChatNav
       stopOnFocus: true
       duration: 0
       interval: 1500
-
-$ ->
-  new ChatNav
