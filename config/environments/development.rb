@@ -28,6 +28,8 @@ Cloudsdale::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = false
   
+  config.log_level = :debug
+  
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => "local.cloudsdale.org:3000" }
