@@ -52,8 +52,11 @@
             h6
               color: $linkColor
               span.metadata
-                color: rgba(255,255,255,1)
+                +opacity(1)
               img
+                +opacity(1)
+            nav
+              a
                 +opacity(1)
           h6
             color: rgba(255,255,255,0.7)
@@ -67,10 +70,13 @@
               margin: 0 10px
             
             span.metadata
+              +transition(all 0.2s ease-in)
+              +opacity(0)
               float: right
               font-size: 10px
               text-transform: none
               color: rgba(255,255,255,0.8)
+              
           ul.results
             margin: 0
             float: none
@@ -106,6 +112,8 @@
             text-align: right
             a
               +border-radius(2px)
+              +transition(all 0.2s ease-in)
+              +opacity(0)
               padding: 3px 4px
               text-decoration: none
               color: rgba(255,255,255,0.5)
