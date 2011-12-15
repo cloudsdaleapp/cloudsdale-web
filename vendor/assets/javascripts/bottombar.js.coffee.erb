@@ -14,6 +14,7 @@ window.Cloud = class Cloud
     @faye = args.faye
     @seeded = false
     @active = false
+    @last_sender_uid = ""
     @title_notifications = 0
     
     @config()
@@ -146,14 +147,14 @@ window.Cloud = class Cloud
       "<a class='chat-link' href='#{match}' #{pjax_data}>#{match}</a>"
     return c
     
-  appendMessage: (timestamp,content,user_name,user_path,user_avatar,uid) ->
+  appendMessage: (timestamp,content,user_name,user_path,user_avatar,uid) =>
     # Appends a message to the bottom of the message container.
     t = new Date(timestamp)
     image = if user_avatar then "src='#{user_avatar}'" else "src='#{@parent.default_avatar_src}'"
     if uid == @last_sender_uid
       @last_message_frame.append("<p>#{content}</p>")
     else
-      @last_message_frame = @wrapper.append("<div data-timestamp='#{timestamp} 'class='chat-message'>
+      @last_message_frame = @wrapper.append("<div data-timestamp='#{timestamp}'class='chat-message'>
           <a href='#{user_path}'><img #{image}/></a>
           <header class='chat-message-head'>
             <span class='sender'><a href='#{user_path}'>#{user_name}</a></span>
@@ -162,7 +163,7 @@ window.Cloud = class Cloud
           <article class='chat-message-content'>
             <p >#{content}</p>
           </article>
-        </div>").find('div.chat-message article')
+        </div>").find('div.chat-message:last article')
       @last_sender_uid = uid
     
     @popLastMessages()
