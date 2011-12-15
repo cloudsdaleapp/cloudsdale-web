@@ -44,36 +44,30 @@
     .container.extras.search-wrapper{ data: { extrasContainer: 'search' } }
       .content
         .row
-          .span-one-third
+          .span-one-third{ data: { searchResultContainer: 'clouds' } }
             %h6
               = image_tag "icons/iconic/white/cloud_16x10.png"
               Clouds
-              %span.metadata= "1..3 ( 18 )"
+              %span.metadata= ""
             %ul.results
-              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Vanilla", user_path(current_user)
-              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Vanilla", user_path(current_user)
-              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Vanilla", user_path(current_user)
             %nav
               %a more »
-          .span-one-third
+          .span-one-third{ data: { searchResultContainer: 'entries' } }
             %h6
               = image_tag "icons/iconic/white/pen_12x12.png"
               Entries
-              %span.metadata= "1..3 ( 18 )"
+              %span.metadata= ""
             %ul.results
               %li.result= link_to image_tag(current_user.avatar.mini.url) + "Welcome to Cloudsdale", user_path(current_user)
               %li.result= link_to image_tag(current_user.avatar.mini.url) + "Welcome to Cloudsdale", user_path(current_user)
               %li.result= link_to image_tag(current_user.avatar.mini.url) + "Welcome to Cloudsdale", user_path(current_user)
             %nav
               %a more »
-          .span-one-third
+          .span-one-third{ data: { searchResultContainer: 'users' } }
             %h6
               = image_tag "icons/iconic/white/user_9x12.png"
               Users
-              %span.metadata= "1..3 ( 18 )"
+              %span.metadata= ""
             %ul.results
-              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Princess Celestia", user_path(current_user)
-              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Princess Celestia", user_path(current_user)
-              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Princess Celestia", user_path(current_user)
             %nav
               %a more »

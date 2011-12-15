@@ -29,7 +29,7 @@ class Tag
   end
 
   # Tire, Mongoid requirements
-  index_name 'mongo-tags'
+  index_name 'tags'
   
   def to_indexed_json
     self.to_json

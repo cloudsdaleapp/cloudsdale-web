@@ -7,6 +7,9 @@ class Ability
       ## Regular user
       if user.role >= 0
         
+        # Logged in
+        can :search, :database
+        
         # User
         can :read, User, invisible: false
         can :read, User, _id: user.id

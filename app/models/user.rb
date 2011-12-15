@@ -1,6 +1,8 @@
 class User
   
   include Mongoid::Document
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
   
   embeds_one :character
   embeds_one :restoration
@@ -61,6 +63,38 @@ class User
   
   before_create do
     self[:last_activity] = Time.now
+  end
+  
+  # Tire, Mongoid requirements
+  index_name 'users'
+  
+  tire.settings AutocompleteAnalyzer do
+    mapping {
+      indexes :id,            type: 'string',       index: :not_analyzed
+      indexes :type,          type: 'string',       index: :not_analyzed
+  
+      indexes :name,          type: 'multi_field',  fields: {
+        name: {
+          type: 'string',
+          boost: 100,
+          analyzer: 'autocomplete'
+        },
+        "name.exact" => { 
+          type: 'string', 
+          index: :not_analyzed
+        }
+      }
+      
+      indexes :_all,          analyzer: 'autocomplete'
+    }
+  end
+  
+  def to_indexed_json
+    self.to_json(:only => [ :_id,:last_activity,:subscribers_count], :methods => [:name,:avatar_versions])
+  end
+  
+  def avatar_versions
+    { normal: avatar.url, mini: avatar.mini.url, thumb: avatar.thumb.url, preview: avatar.preview.url }
   end
   
   def is_online?

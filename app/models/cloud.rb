@@ -2,7 +2,9 @@ class Cloud
   
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   embeds_one :chat, class_name: "Chat::Room", as: :topic
   
   attr_accessor :user_invite_tokens
@@ -13,7 +15,7 @@ class Cloud
   field :member_count,  type: Integer,        default: 0
   
   mount_uploader :avatar, AvatarUploader
-  
+
   validates :name, presence: true, uniqueness: true, length: { within: 3..32 }
   validates :description, presence: true, length: { within: 5..50 }
   
@@ -28,7 +30,38 @@ class Cloud
     self[:member_count] = self.user_ids.count
     build_chat if chat.nil?
   end
+
+  # Tire, Mongoid requirements
+  index_name 'clouds'
   
+  tire.settings AutocompleteAnalyzer do
+    mapping {
+      indexes :id,            type: 'string',       index: :not_analyzed
+      indexes :type,          type: 'string',       index: :not_analyzed
+  
+      indexes :name,          type: 'multi_field',  fields: {
+        name: {
+          type: 'string',
+          boost: 100,
+          analyzer: 'autocomplete'
+        },
+        "name.exact" => { 
+          type: 'string', 
+          index: :not_analyzed
+        }
+      }
+      
+      indexes :_all,          analyzer: 'autocomplete'
+    }
+  end
+  
+  def to_indexed_json
+    self.to_json(:only => [ :_id, :name, :description, :hidden, :member_count ], :methods => [:avatar_versions])
+  end
+
+  def avatar_versions
+    { normal: avatar.url, mini: avatar.mini.url, thumb: avatar.thumb.url, preview: avatar.preview.url }
+  end
 
   # Override to silently ignore trying to remove missing
   # previous avatar when destroying a User.
