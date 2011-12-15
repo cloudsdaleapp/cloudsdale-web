@@ -41,10 +41,9 @@ window.TopBar = class TopBar
         unless trigger.hasClass('active')
           $(".active[data-triggerfor]").removeClass('active')
           $(".active[data-extrascontainer]").removeClass('active')
-          trigger.addClass('active')
-          wrapper.addClass('active')
           $("[data-extrascontainer]:not(.active)").slideUp(300)
-          wrapper.slideDown(300)
+          trigger.addClass('active')
+          wrapper.slideDown(300).addClass('active')
         e.stopImmediatePropagation()
 
 
