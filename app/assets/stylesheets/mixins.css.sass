@@ -91,3 +91,11 @@ $useIEFilters: 0
   -o-transition: $value
   -webkit-transition: $value
   transition: $value
+
+=opacity($value)
+  $cent_value: $value*100
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$cent_value})"
+  filter: alpha(opacity=$cent_value)
+  -moz-opacity: $value
+  -khtml-opacity: $value
+  opacity: $value
