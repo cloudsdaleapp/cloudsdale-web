@@ -1,0 +1,79 @@
+.topbar
+  .fill
+    .container.main
+      = link_to  root_path, :class => 'brand' do
+        = image_tag "logo/cloudsdale-thin-bright-logo-small.png", :title => "Cloudsdale", :class => "logo"
+      
+      = form_tag search_index_path, remote: true, method: :post, class: 'pull-left', id: 'search-main', data: { triggerFor: 'search' } do
+        = text_field_tag :q, '', placeholder: 'Search...'
+       
+      %ul.nav.secondary-nav
+        - if current_user
+          %li.account-nav{ data: { triggerFor: 'account' } }
+            = link_to "#" do
+              - if !current_user.avatar.mini.url.nil?
+                = image_tag current_user.avatar.mini.url
+              - else
+                = image_tag "other/unknown_pony_chat.jpg"
+              = current_user.character.name
+              
+          %li.notification-nav{ data: { triggerFor: 'notifications' } }
+            - notification_count = current_user.notifications.unread.count
+            = link_to "#" do
+              = image_tag "icons/iconic/white/lightbulb_10x16.png"
+              %span= notification_count < 1 ? '' : notification_count
+                    
+                    
+        - else
+          %li= link_to "Login", login_path, 'data-skip-pjax' => true
+          %li= link_to "Register", register_path, 'data-skip-pjax' => true
+          %li.img= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
+          %li.img= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
+          
+    .container.extras.account-wrapper{ data: { extrasContainer: 'account' } }
+      .content
+        .row
+          .span12.offset2
+            %ul.media-grid.large
+              %li= link_to image_tag("icons/iconic/white/user_9x12.png") + "Profile", user_path(current_user)
+              %li= link_to image_tag("icons/iconic/white/cog_12x12.png") + "Settings", edit_user_path(current_user)
+              %li= link_to image_tag("icons/iconic/white/compass_12x12.png") + "Explore", "/"
+              %li= link_to image_tag("icons/iconic/white/question_mark_6x12.png") + "Help", "/"
+              %li= link_to image_tag("icons/iconic/white/denied_12x12.png") + "Logout", logout_path, 'data-skip-pjax' => true
+              
+    .container.extras.search-wrapper{ data: { extrasContainer: 'search' } }
+      .content
+        .row
+          .span-one-third
+            %h6
+              = image_tag "icons/iconic/white/cloud_16x10.png"
+              Clouds
+              %span.metadata= "1..3 ( 18 )"
+            %ul.results
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Vanilla", user_path(current_user)
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Vanilla", user_path(current_user)
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Vanilla", user_path(current_user)
+            %nav
+              %a more »
+          .span-one-third
+            %h6
+              = image_tag "icons/iconic/white/pen_12x12.png"
+              Entries
+              %span.metadata= "1..3 ( 18 )"
+            %ul.results
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Welcome to Cloudsdale", user_path(current_user)
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Welcome to Cloudsdale", user_path(current_user)
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Welcome to Cloudsdale", user_path(current_user)
+            %nav
+              %a more »
+          .span-one-third
+            %h6
+              = image_tag "icons/iconic/white/user_9x12.png"
+              Users
+              %span.metadata= "1..3 ( 18 )"
+            %ul.results
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Princess Celestia", user_path(current_user)
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Princess Celestia", user_path(current_user)
+              %li.result= link_to image_tag(current_user.avatar.mini.url) + "Princess Celestia", user_path(current_user)
+            %nav
+              %a more »

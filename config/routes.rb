@@ -50,4 +50,6 @@ Cloudsdale::Application.routes.draw do
     end
   end
   
+  resources :search, only: [:create]
+  
 end

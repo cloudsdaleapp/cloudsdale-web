@@ -11,80 +11,15 @@
   %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
     #preload
       = image_tag "other/unknown_pony_chat.jpg", :id => "img_unknown_pony_chat"
-      
-    .bottombar
-      = render :partial => 'layouts/bottombar'
-
-    .topbar
-      .fill
-        .container
-          = link_to  root_path, :class => 'brand' do
-            = image_tag "logo/cloudsdale-thin-bright-logo-small.png", :title => "Cloudsdale", :class => "logo"
-          
-          %ul.nav.secondary-nav
-            - if current_user
-              %li.dropdown
-                
-                = link_to "#", :class => 'dropdown-toggle user-nav' do
-                  - if !current_user.avatar.mini.url.nil?
-                    = image_tag current_user.avatar.mini.url
-                  - else
-                    = image_tag "other/unknown_pony_chat.jpg"
-                  = current_user.character.name
-                  
-                %ul.dropdown-menu
-                  %li= link_to "Profile", user_path(current_user)
-                  %li= link_to "Articles", user_path(current_user, tab:'articles')
-                  %li.divider
-                  %li= link_to "Settings", edit_user_path(current_user)
-                  %li= link_to "Help", ""
-                  %li.divider
-                  %li= link_to "Logout", logout_path, 'data-skip-pjax' => true
-                  
-              %li.dropdown.notifications
-                - notification_count = current_user.notifications.unread.count
-                = link_to "#", :class => 'dropdown-toggle' do
-                  %span= notification_count < 1 ? '' : notification_count
-                %ul.dropdown-menu.notifications-list
-                  - if notification_count > 0
-                    - current_user.notifications.unread.order_by([:timestamp,:desc]).limit(10).each do |notification|
-                      %li
-                        = link_to notification_path(notification), 'data-skip-pjax' => true do
-                          %div
-                            - if notification.image
-                              = image_tag notification.image
-                            - else
-                              %img
-                            %p
-                              %span.actor= notification.actor
-                              = notification.text
-                    - if notification_count > 10        
-                      %li.more
-                        = link_to "More...", ""
-                  - else
-                    %li.empty= "No new notifications..."
-                        
-                        
-            - else
-              %li= link_to "Login", login_path, 'data-skip-pjax' => true
-              %li= link_to "Register", register_path, 'data-skip-pjax' => true
-              %li.img= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
-              %li.img= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
-    
     .container
-      %ul.dashboard
-        %li.new_article
-          = link_to new_article_path do
-            = image_tag "icons/iconic/white/pen_16x16.png"
-        %li.new_cloud
-          = link_to new_cloud_path do
-            = image_tag "icons/iconic/white/cloud_24x15.png"
-            
-      //= render :partial => 'layouts/alert'
+      = render :partial => 'layouts/topbar'
       
       .content{ :data => { 'pjax-container' => ''} }
         = yield
         
       = render :partial => 'layouts/footer'
+      
+    = render :partial => 'layouts/bottombar'
+      
 
 

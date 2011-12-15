@@ -29,8 +29,6 @@ $color-cd-background-lightest: #FFFFFF
 @import "mixins"
 
 
-
-
 html
   background-color: $color-cd-background-light repeat
   background: image-url("bg-noise.png") right top repeat, $color-cd-background-light -moz-linear-gradient($color-cd-background-dark, $color-cd-background-light) no-repeat
@@ -42,7 +40,6 @@ html
     
 body
   background: transparent !important
-  padding-top: 80px !important
   padding-bottom: 100px
   min-height: 100%
 
@@ -50,171 +47,42 @@ body
   position: absolute
   overflow: hidden
   display: none
+    
+.alert-message
+  margin: 15px 0
 
-ul.dashboard
-  position: fixed
-  background-color: rgba(255, 255, 255, 0.2)
-  min-height: 50px
-  width: 50px
-  margin: 0 -521px 0 0
-  padding: 3px 0 0 0
-  top: 130px
-  right: 50%
-  list-style: none inside
-  -webkit-border-radius: 0 7px 7px 0
-  -moz-border-radius: 0 7px 7px 0
-  border-radius: 0 7px 7px 0
-  float: right
-  border-color: rgba(255, 255, 255, 0.3)
-  border-style: solid
-  border-width: 1px 1px 1px 1px
-  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2)
-  -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2)
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(0, 0, 0, 0.4)
-
-   
-  li
-    float: left
-    padding: 10px 0
-    width: 40px
-    margin: 5px
-    text-align: center
-    a
-      padding: 0
-      background: transparent center center no-repeat
-      margin-left: 0
-      text-align: center
-      width: 100%
-      
-      transition: all .3s ease-in
-      -moz-transition: all .3s ease-in
-      -webkit-transition: all .3s ease-in
-      -o-transition: all .3s ease-in
-      
-      opacity: .60
-      -ms-filter: “alpha(opacity=60)”
-      filter: alpha(opacity=60)
-      -khtml-opacity: .60
-      -moz-opacity: .60
-      &:hover
-        padding-left: 5px
-        opacity: .99
-        -ms-filter: “alpha(opacity=99)”
-        filter: alpha(opacity=99)
-        -khtml-opacity: .99
-        -moz-opacity: .99
-      img
-        float: none
-      
-
-.topbar
-  background: none !important
-  position: absolute
-  height: auto !important
-  z-index: 0 !important
-  
-  .fill
-    padding-top: 20px
-    -webkit-box-shadow: none
-    -moz-box-shadow: none
-    box-shadow: none
+  &.hidden
     background: none
-    .container
-      
-      form.pull-left
-        margin-left: 17px
-        span.glass
-          position: absolute
-          height: 28px
-          width: 28px
-          right: 0
-          top: 0
-          cursor: pointer
-        input
-          padding-right: 28px
-          width: 240px
-            
-          &:focus
-            border: #111 solid 1px
-            padding: 4px 28px 4px 9px
-            background-color: rgba(255, 255, 255, 0.6)
-            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.25)
-            -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.25)
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.25)
-              
-      ul.secondary-nav
-        padding: 0
-        a.user-nav
-          font-weight: bold
-          line-height: 20px
-          img
-            height: 20px
-            width: 20px
-            margin-right: 7px
-            padding: 0
-            float: left
-            
-        li.img
-          a
-            padding: 5px 5px
-            line-height: 0
-            img
-              max-width: 30px
-              max-height: 30px
-              margin: 0
-              padding: 0
-              
-      a.brand
-        margin-left: 0px
-        padding: 5px 40px 0px 5px
-        background: transparent right center no-repeat
-        vertical-align: middle
-        text-align: center
-        vertical-align: middle
-        img
-          float: none
-          height: 26px
-          width: 165px
-      	
-        &.loading
-          background-image: image-url("details/pjax-indicator.gif") 
-    
-.container
-  .alert-message
-    margin: 15px 0
-    
-    &.hidden
-      background: none
-      height: 20px
-      border: none
-      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
-      -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
-    
-  .page-header
-    -webkit-border-radius: 6px 6px 0 0
-    -moz-border-radius: 6px 6px 0 0
-    border-radius: 6px 6px 0 0
-    background: #F0F6FF
-    background-color: $color-cd-background-lightest repeat
-    background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-    background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-    background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-    background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-    -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
-    h1
-      padding: 20px 20px 10px 20px
-    
-  .content
-    padding-bottom: 20px
-    background: #fff
-    -webkit-border-radius: 6px 6px 6px 6px
-    -moz-border-radius: 6px 6px 6px 6px
-    border-radius: 6px 6px 6px 6px
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+    height: 20px
+    border: none
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
+
+.page-header
+  -webkit-border-radius: 6px 6px 0 0
+  -moz-border-radius: 6px 6px 0 0
+  border-radius: 6px 6px 0 0
+  background: #F0F6FF
+  background-color: $color-cd-background-lightest repeat
+  background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
+  background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
+  -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
+  h1
+    padding: 20px 20px 10px 20px
+
+.content
+  padding-bottom: 20px
+  background: #fff
+  -webkit-border-radius: 6px 6px 6px 6px
+  -moz-border-radius: 6px 6px 6px 6px
+  border-radius: 6px 6px 6px 6px
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
 
 a, button, a.btn
   &:focus
@@ -287,81 +155,8 @@ img.nocloudavatar
   &.borderless
     border: none
     outline: none
-  
-li.notifications
-  &.open
-    a.dropdown-toggle
-      background: rgba(255, 255, 255, 0.05) image-url("icons/iconic/cyan/lightbulb_10x16.png") center center no-repeat !important
-        
-  a.dropdown-toggle
-    background: transparent image-url("icons/iconic/gray_light/lightbulb_10x16.png") center center no-repeat
-    padding: 0
-    line-height: 40px
-    height: 40px
-    width: 40px
-    span
-      -webkit-border-radius: 6px 6px 6px 6px
-      -moz-border-radius: 6px 6px 6px 6px
-      border-radius: 6px 6px 6px 6px
-      border: 2px solid #333333
-      border-spacing: 40px
-      font-size: 10px
-      font-weight: bold
-      padding: 0 3px
-      color: black
-      background: rgb(0,173,238)
-      //background: rgb(185,185,185)
-      position: absolute
-      line-height: 12px
-      top: 7px
-      left: 4px
-      &:empty
-        display: none
-        
-    &:hover
-      background: rgba(255, 255, 255, 0.05) image-url("icons/iconic/white/lightbulb_10x16.png") center center no-repeat
-    &:after
-      content: none !important
-  
-  ul.dropdown-menu
-    min-width: 300px
-    max-width: 300px
-    li
-      &.empty
-        text-align: center
-      &.more
-        text-align: center
-        a
-          padding: 5px 0
-          font-weight: bold
-        
-      &:not(:last-child)
-        div
-          -webkit-box-shadow: 0 1px 1px rgba(255,255,255,0.2)
-          -moz-box-shadow: 0 1px 1px rgba(255,255,255,0.2)
-          box-shadow: 0 1px 1px rgba(255,255,255,0.2)
-          border-bottom: 1px solid rgba(0,0,0,0.4)
-      div
-        float: left
-      a
-        padding: 0
-        img
-          float: left
-          width: 24px
-          height: 24px
-          margin: 8px
-        p
-          line-height: 1.3em
-          float: right
-          padding: 5px
-          width: 250px
-          word-wrap: break-word
-          span.actor
-            font-weight: bold
-            color: #CCCCCC
-            &:after
-              content: " -"
-      
+
+@import "topbar"
 @import "bottombar"
 
 @import "users"

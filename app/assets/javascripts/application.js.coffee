@@ -42,7 +42,6 @@ $ ->
     $.event.trigger "#{controller}.load"
     $.event.trigger "#{action}_#{controller}.load"
     
-  $('.topbar').dropdown()
   $('[rel=twipsy-chat-room]').twipsy
     placement: 'above'
     offset: '7'
