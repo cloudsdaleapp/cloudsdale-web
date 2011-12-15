@@ -60,7 +60,6 @@ window.TopBar = class TopBar
     moreTrigger = wrapper.find("nav > a")
     resultInfo = wrapper.find("span.metadata")
     resultContainer = wrapper.find('ul.results')
-    console.log results[0]
     resultContainer.html("")
     $.each results, (k,v) =>
       resultContainer.append(
@@ -71,4 +70,4 @@ window.TopBar = class TopBar
           </a>
         </li>"
       )
-      return false if k = 2
+      return false if (k >= 2)
