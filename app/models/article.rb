@@ -14,8 +14,8 @@ class Article < Entry
   
   tire.settings AutocompleteAnalyzer do
     mapping {
-      indexes :_id,            type: 'string',       index: :not_analyzed
-      indexes :_type,          type: 'string',       index: :not_analyzed
+      indexes :id,            type: 'string',       index: :not_analyzed
+      indexes :type,          type: 'string',       index: :not_analyzed
   
       indexes :title,          type: 'multi_field',  fields: {
         title: {
@@ -44,7 +44,7 @@ class Article < Entry
   end
   
   def to_indexed_json
-    self.to_json(:only => [ :_id, :_type, :hidden, :title, :preambel ], :methods => [:name,:description])
+    self.to_json(:only => [ :_id, :hidden, :title, :preambel ], :methods => [:name,:description])
   end
   
   def name
