@@ -20,7 +20,7 @@ window.TopBar = class TopBar
     @bind()
       
   setup: =>
-    console.log "Set up"
+    @default_avatar_src = $("#img_unknown_pony_mini").attr('src')
     
   bind: =>
     @searchForm.bind 'ajax:complete', (e,response) =>
@@ -60,12 +60,15 @@ window.TopBar = class TopBar
     moreTrigger = wrapper.find("nav > a")
     resultInfo = wrapper.find("span.metadata")
     resultContainer = wrapper.find('ul.results')
+    
     resultContainer.html("")
     $.each results, (k,v) =>
+      imgSrc = if v.avatar_versions == undefined then "" else v.avatar_versions.mini
+      #imgSrc = if v.avatar_versions.mini == undefined then "" else v.avatar_versions.mini
       resultContainer.append(
         "<li class='result'>
           <a href='/#{v._index}/#{v.id}'>
-            <img src='#{v.avatar_versions.mini}'/>
+            <img src='#{imgSrc}'/>
             #{v.name}
           </a>
         </li>"
