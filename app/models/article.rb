@@ -9,6 +9,10 @@ class Article < Entry
   validates :content,     presence: true
   validates :preambel,    presence: true
   
+  before_save do
+    self._type = "Article"
+  end
+  
   # Tire, Mongoid requirements
   index_name 'articles'
   
