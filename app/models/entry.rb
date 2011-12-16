@@ -34,7 +34,7 @@ class Entry
   
   mount_uploader :banner, BannerUploader
   
-  validates :title,       presence: true,   uniqueness: true,   length: { within: 5..46 }
+  validates :title,       presence: true,   uniqueness: true,   length: { within: 5..32 }
   
   before_save do
     if self.published? and (self.published_changed? or self.new?)
