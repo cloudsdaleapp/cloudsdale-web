@@ -4,11 +4,20 @@
   width:  100%
   z-index: 998
   overflow: visible
-  background: transparent
+  background: #F0F6FF
+  background-color: $color-cd-background-lightest repeat
+  background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
+  background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
+  -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
+  -webkit-box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)
+  -moz-box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)  
+  
   .container
-    -webkit-box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)
-    -moz-box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)
+
     position: relative
 
   .clearfix
@@ -34,17 +43,7 @@
     list-style: none
     padding-bottom: 10px
     border-top: 1px #FFFFFF solid
-    -webkit-box-shadow: 0 -1px 1px rgba(0, 0, 0, .10)
-    -moz-box-shadow: 0 -1px 1px rgba(0, 0, 0, .10)
-    box-shadow: 0 -1px 1px rgba(0, 0, 0, .10)
-    background: #F0F6FF
-    background-color: $color-cd-background-lightest repeat
-    background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-    background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-    background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-    background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-    -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
+
     
     &:before
       color: rgb(155,157,159)
@@ -167,7 +166,7 @@
     width: 938px
     right: 0
     display: none
-    background: rgba(245, 245, 255, 0.95) image-url("bg-noise.png")
+    background: rgba(245, 245, 255, 0.95)
     -webkit-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
     -moz-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
     box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
@@ -274,9 +273,9 @@
             margin-top: 28px
             background: #E6E6E6
             border: none
-            -webkit-box-shadow: -1px 1px 2px rgba(0, 0, 0, .40)
-            -moz-box-shadow: -1px 1px 2px rgba(0, 0, 0, .40)
-            box-shadow: -1px 1px 2px rgba(0, 0, 0, .40)
+            -webkit-box-shadow: -1px 1px 3px rgba(0, 0, 0, .30)
+            -moz-box-shadow: -1px 1px 3px rgba(0, 0, 0, .30)
+            box-shadow: -1px 1px 3px rgba(0, 0, 0, .30)
             
 
           header.chat-message-head
@@ -346,16 +345,13 @@
           overflow-x: hidden !important
           height: 18px
           color: #404040
-          -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .0)
-          -moz-box-shadow: 0 0 0 rgba(0, 0, 0, .0)
-          box-shadow: 0 0 0 rgba(0, 0, 0, .0)
           resize: none
           -webkit-border-radius: 2px 2px 2px 2px !important
           -moz-border-radius: 2px 2px 2px 2px !important
           border-radius: 2px 2px 2px 2px !important
-          -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .1)
-          -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, .1)
-          box-shadow: inset 0 0 5px rgba(0, 0, 0, .1)
+          -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
+          -moz-box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
+          box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
           background: rgba(255,255,255,0.4) image-url("icons/tools/comment.png") 2px 5px no-repeat !important
           border: rgba(0,0,20,0.2) solid 1px
       
