@@ -22,7 +22,6 @@ class Entry
   end
   
   field :title,         type: String
-  field :preambel,      type: String
   
   field :views,         type: Integer,    default: 0
   
@@ -36,7 +35,6 @@ class Entry
   mount_uploader :banner, BannerUploader
   
   validates :title,       presence: true,   uniqueness: true,   length: { within: 5..46 }
-  validates :preambel,    presence: true
   
   before_save do
     if self.published? and (self.published_changed? or self.new?)
