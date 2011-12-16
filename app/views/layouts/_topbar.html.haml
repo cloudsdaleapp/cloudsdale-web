@@ -8,28 +8,14 @@
         = text_field_tag :q, '', placeholder: 'Search...'
        
       %ul.nav.secondary-nav
-        - if current_user
-          %li.account-nav{ data: { triggerFor: 'account' } }
-            = link_to "#" do
-              - if !current_user.avatar.mini.url.nil?
-                = image_tag current_user.avatar.mini.url
-              - else
-                = image_tag "other/unknown_pony_chat.jpg"
-              = current_user.character.name
-              
-          %li.notification-nav{ data: { triggerFor: 'notifications' } }
-            - notification_count = current_user.notifications.unread.count
-            = link_to "#" do
-              = image_tag "icons/iconic/white/lightbulb_10x16.png"
-              %span= notification_count < 1 ? '' : notification_count
-                    
-                    
-        - else
-          %li= link_to "Login", login_path, 'data-skip-pjax' => true
-          %li= link_to "Register", register_path, 'data-skip-pjax' => true
-          %li.img= link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter"
-          %li.img= link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook"
-          
+        %li.account-nav{ data: { triggerFor: 'account' } }
+          = link_to "#" do
+            - if !current_user.avatar.mini.url.nil?
+              = image_tag current_user.avatar.mini.url
+            - else
+              = image_tag "other/unknown_pony_chat.jpg"
+            = current_user.character.name
+      
     .container.extras.account-wrapper{ data: { extrasContainer: 'account' } }
       .content
         .row
