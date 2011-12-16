@@ -161,16 +161,30 @@
   
   .cloud-container
     border-bottom: none
-    position: relative
+    position: absolute
+    top: -421px
     height: 420px
+    width: 938px
+    right: 0
     display: none
     background: rgba(245, 245, 255, 0.95) image-url("bg-noise.png")
     -webkit-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
     -moz-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
     box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
+    border: #DDD 1px solid
+    border-bottom: 0
     
     &.active
       display: block
+    
+    &.contracted
+      width: 400px
+      .cloud-toolbar
+        header
+          a.contract
+            background-image: image-url("icons/iconic/gray_dark/first_12x12.png") !important
+      .cloud-extras-wrapper
+        display: none
     
     .cloud-toolbar
       height: 24px
@@ -210,6 +224,11 @@
           cursor: pointer
           &:active
             background-position: 50% 60%
+          &.contract
+            float: left
+            margin-right: 5px
+            margin-left: 0px
+            background-image: image-url("icons/iconic/gray_dark/last_12x12.png")
           &.closex
             background-image: image-url("icons/iconic/gray_dark/denied_12x12.png")
             &:hover
@@ -221,7 +240,7 @@
     
     .cloud-extras-wrapper
       position: absolute
-      width: 540px
+      width: 538px
       top: 26px
       bottom: 0
       left: 0

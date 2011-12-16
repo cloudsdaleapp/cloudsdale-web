@@ -17,6 +17,11 @@ window.Cloud = class Cloud
     @last_sender_uid = ""
     @title_notifications = 0
     
+    if $.cookie("cloud:#{@room_id}:contracted") == null
+      $.cookie "cloud:#{@room_id}:contracted", false,
+        expires: 365
+        path: "/"
+    
     @config()
     @render()
     
@@ -34,6 +39,7 @@ window.Cloud = class Cloud
     @notification_plate = @handler.find("span.cloud-notification")
     @toolbar = @frame.find(".cloud-toolbar")
     @close_trigger = @toolbar.find("header a.closex")
+    @contract_trigger = @toolbar.find("header a.contract")
     @container = @frame
     @wrapper = @frame.find(".cloud-chat-messages")
     @form = @frame.find("form")
@@ -56,6 +62,9 @@ window.Cloud = class Cloud
       else
         if @active
           @hide()
+    
+    @contract_trigger.bind 'click', (e) =>
+      @toggleContraction()
     
     @input.BetterGrow
       initial_height: 12
@@ -96,7 +105,19 @@ window.Cloud = class Cloud
       @hide()
     else
       @show()
-      
+  
+  toggleContraction: ->
+    if $.cookie("cloud:#{@room_id}:contracted") == "true"
+      @frame.addClass('contracted')
+      $.cookie "cloud:#{@room_id}:contracted", false,
+        expires: 365
+        path: "/"
+    else
+      @frame.removeClass('contracted')
+      $.cookie "cloud:#{@room_id}:contracted", true,
+        expires: 365
+        path: "/"
+        
   show: ->
     # Takes the chat frame to maximized mode.
     $.cookie "cloud:active:#{@room_id}", true,

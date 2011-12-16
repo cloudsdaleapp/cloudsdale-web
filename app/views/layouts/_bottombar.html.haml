@@ -5,10 +5,11 @@
         - @clouds = current_user.clouds
         - @clouds.each do |cloud|
           - room = cloud.chat
-          .cloud-container{ data: { 'room-id' => room.id } }
+          .cloud-container.contracted{ data: { 'room-id' => room.id } }
             .cloud-toolbar
               %header
                 = room.topic.name
+                %a.contract
                 %a.closex
                 = link_to "", cloud_path(cloud), class: 'cloud-close'
             .cloud-extras-wrapper
