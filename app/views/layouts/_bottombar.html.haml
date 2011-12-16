@@ -11,6 +11,8 @@
                 = room.topic.name
                 %a.closex
                 = link_to "", cloud_path(cloud), class: 'cloud-close'
+            .cloud-extras-wrapper
+              %h6= "Comming Soon: Rain Drop"
             .cloud-chat-wrapper
               .cloud-chat-messages
               = form_tag chat_room_messages_path(room.id), :remote => true, :class => "cloud-chat-form" do
