@@ -19,13 +19,14 @@
     .container.extras.account-wrapper{ data: { extrasContainer: 'account' } }
       .content
         .row
-          .span12.offset2
+          .span14.offset1
             %ul.media-grid.large
-              %li= link_to image_tag("icons/iconic/white/user_9x12.png") + "Profile", user_path(current_user)
-              %li= link_to image_tag("icons/iconic/white/cog_12x12.png") + "Settings", edit_user_path(current_user)
-              %li= link_to image_tag("icons/iconic/white/compass_12x12.png") + "Explore", "/"
-              %li= link_to image_tag("icons/iconic/white/question_mark_6x12.png") + "Help", "/"
-              %li= link_to image_tag("icons/iconic/white/denied_12x12.png") + "Logout", logout_path, 'data-skip-pjax' => true
+              %li= link_to image_tag("icons/iconic/white/pen_12x12.png") + "Write", "/articles/new", class: 'write'
+              %li= link_to image_tag("icons/iconic/white/user_9x12.png") + "Profile", user_path(current_user), class: 'profile'
+              %li= link_to image_tag("icons/iconic/white/compass_12x12.png") + "Explore", "/", class: 'explore'
+              %li= link_to image_tag("icons/iconic/white/cog_12x12.png") + "Settings", edit_user_path(current_user), class: 'settings'
+              %li= link_to image_tag("icons/iconic/white/question_mark_6x12.png") + "Help", "/", class: 'help'
+              %li= link_to image_tag("icons/iconic/white/denied_12x12.png") + "Sign out", logout_path, 'data-skip-pjax' => true, class: 'logout'
               
     .container.extras.search-wrapper{ data: { extrasContainer: 'search' } }
       .content
