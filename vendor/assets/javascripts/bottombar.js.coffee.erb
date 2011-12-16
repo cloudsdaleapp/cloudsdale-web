@@ -17,10 +17,14 @@ window.Cloud = class Cloud
     @last_sender_uid = ""
     @title_notifications = 0
     
-    if $.cookie("cloud:#{@room_id}:contracted") == null
-      $.cookie "cloud:#{@room_id}:contracted", false,
+    console.log  $.cookie("cloud:#{@room_id}:contracted")
+    if $.cookie("cloud:#{@room_id}:contracted") == null or $.cookie("cloud:#{@room_id}:contracted") == "true"
+      @frame.addClass('contracted')
+      $.cookie "cloud:#{@room_id}:contracted", true,
         expires: 365
         path: "/"
+    else
+      @frame.removeClass('contracted')
     
     @config()
     @render()
@@ -108,12 +112,12 @@ window.Cloud = class Cloud
   
   toggleContraction: ->
     if $.cookie("cloud:#{@room_id}:contracted") == "true"
-      @frame.addClass('contracted')
+      @frame.removeClass('contracted')
       $.cookie "cloud:#{@room_id}:contracted", false,
         expires: 365
         path: "/"
     else
-      @frame.removeClass('contracted')
+      @frame.addClass('contracted')
       $.cookie "cloud:#{@room_id}:contracted", true,
         expires: 365
         path: "/"
