@@ -20,7 +20,7 @@ window.TopBar = class TopBar
     @bind()
       
   setup: =>
-    @default_avatar_src = $("#img_unknown_pony_mini").attr('src')
+    @default_avatar_src = $("#img_unknown_pony_chat").attr('src')
     
   bind: =>
     @searchForm.bind 'ajax:complete', (e,response) =>
