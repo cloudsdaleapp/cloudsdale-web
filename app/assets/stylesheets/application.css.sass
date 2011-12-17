@@ -88,6 +88,12 @@ body
 a, button, a.btn
   &:focus
     outline: none
+    
+a.disabled-link
+  +opacity(0.5)
+  cursor: default
+  pointer-events: none
+  &:hover
 
 img.link_icon
   float: left
