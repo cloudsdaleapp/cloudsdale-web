@@ -6,6 +6,7 @@
     = javascript_include_tag "application"
     = favicon_link_tag "favicons/48by48.ico"
     = csrf_meta_tags
+    %meta{:content => "user-scalable=no width=device-width initial-scale=1.0 maximum-scale=1.0 minimum-scale=1.0", :name => "viewport", :id => "view"}
     = yield :head
     
   %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
