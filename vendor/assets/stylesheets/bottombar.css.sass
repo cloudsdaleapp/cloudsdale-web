@@ -52,7 +52,6 @@
       padding-right: 15px
       line-height: 60px
     
-    
     li.cloud-trigger
       position: relative
       float: right
@@ -169,8 +168,11 @@
     -webkit-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
     -moz-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
     box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
-    border: #DDD 1px solid
+    border: rgba(60,61,63,0.3) 1px solid
     border-bottom: 0
+    -webkit-box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
+    -moz-box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
+    box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
     
     &.active
       display: block
@@ -180,7 +182,7 @@
       .cloud-toolbar
         header
           a.contract
-            background-image: image-url("icons/iconic/gray_dark/first_12x12.png") !important
+            background-image: image-url("icons/iconic/gray_dark/first_8x8.png") !important
       .cloud-extras-wrapper
         display: none
     
@@ -189,7 +191,7 @@
       position: absolute
       top: 0
       width: 100%
-      border-bottom: 1px #F5F5F5 solid
+      border-bottom: 1px rgba(60,61,63,0.3) solid
       -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
       -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
       box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
@@ -226,15 +228,11 @@
             float: left
             margin-right: 5px
             margin-left: 0px
-            background-image: image-url("icons/iconic/gray_dark/last_12x12.png")
+            background-image: image-url("icons/iconic/gray_dark/last_8x8.png")
           &.closex
-            background-image: image-url("icons/iconic/gray_dark/denied_12x12.png")
-            &:hover
-              background-image: image-url("icons/iconic/red/denied_12x12.png")
+            background-image: image-url("icons/iconic/gray_dark/move_horizontal_alt2_12x12.png")
           &.cloud
             background-image: image-url("icons/iconic/gray_dark/cloud_16x10.png")
-            &:hover
-              background-image: image-url("icons/iconic/gray_light/cloud_16x10.png")
     
     .cloud-extras-wrapper
       position: absolute
