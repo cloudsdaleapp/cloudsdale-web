@@ -18,7 +18,6 @@ window.Cloud = class Cloud
     @last_sender_uid = ""
     @title_notifications = 0
     
-    console.log  $.cookie("cloud:#{@room_id}:contracted")
     if $.cookie("cloud:#{@room_id}:contracted") == null or $.cookie("cloud:#{@room_id}:contracted") == "true"
       @frame.addClass('contracted')
       $.cookie "cloud:#{@room_id}:contracted", true,
@@ -174,7 +173,6 @@ window.Cloud = class Cloud
     c = c.replace(/^\s*$/gi,"")
     
     c = c.replace /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/gi, (match,protocol,top_dom,path) ->
-      console.log 
       pjax_data = if top_dom.match(/cloudsdale.org/i) == null then "target='_blank' data-skip-pjax='true'" else ""
       "<a class='chat-link' href='#{match}' #{pjax_data}>#{match}</a>"
     return c
@@ -281,6 +279,7 @@ window.Cloud = class Cloud
       success: (result) =>
         @online_user_counter.html("#{result.length}")
         @userList.html("")
+        console.log "DEBUG: Updated user list on #{@room_name} - #{result.length} users present"
         if $.cookie("cloud:#{@room_id}:contracted") == "false"
           $.each result, (k,v) =>
             user = $.parseJSON(v)
