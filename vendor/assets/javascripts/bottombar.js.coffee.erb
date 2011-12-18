@@ -2,6 +2,7 @@ window.Cloud = class Cloud
   
   constructor: (args) ->
     
+    @cloud_id = args.cloud_id
     @room_name = args.room_name
     @room_id = args.room_id
     @room_topic = args.room_topic
@@ -25,6 +26,7 @@ window.Cloud = class Cloud
         path: "/"
     else
       @frame.removeClass('contracted')
+      @updateOnlineList()
     
     @config()
     @render()
@@ -44,6 +46,11 @@ window.Cloud = class Cloud
     @toolbar = @frame.find(".cloud-toolbar")
     @close_trigger = @toolbar.find("header a.closex")
     @contract_trigger = @toolbar.find("header a.contract")
+    @online_user_counter = @toolbar.find("header span.usercount")
+    
+    @extrasWrapper = @frame.find(".cloud-extras-wrapper")
+    @userList = @extrasWrapper.find("ul.cloud-users-list")
+    
     @container = @frame
     @wrapper = @frame.find(".cloud-chat-messages")
     @form = @frame.find("form")
@@ -264,6 +271,23 @@ window.Cloud = class Cloud
         path: "/"
         
     @refreshGraphics()
+  
+  updateOnlineList: =>
+    $.PeriodicalUpdater "/clouds/#{@cloud_id}/members",
+      method: "get"
+      dataType: "json"
+      minTimeout: 30000
+      maxTimeout: 60000
+      success: (result) =>
+        @online_user_counter.html("#{result.length}")
+        @userList.html("")
+        if $.cookie("cloud:#{@room_id}:contracted") == "false"
+          $.each result, (k,v) =>
+            user = $.parseJSON(v)
+            image = if user.avatar_versions then "src='#{user.avatar_versions.mini}'" else "src='#{@parent.default_avatar_src}'"
+            @userList.append("<li><a href='/users/#{user.id}'><img #{image}'></img>#{user.name}</a></li>")
+            
+            
 
 
 window.BottomBar = class BottomBar
@@ -284,6 +308,7 @@ window.BottomBar = class BottomBar
     $.each $(@container.children()), (key, val) =>
       data = $(val).data()
       new Cloud
+        cloud_id: data.cloudId
         room_id: data.roomId
         room_name: data.roomName
         room_topic: data.roomTopic

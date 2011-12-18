@@ -5,6 +5,8 @@
 #= require jquery.BetterGrow
 #= require jquery.titlealert
 #= require jquery.tokeninput
+#= require jquery.updater
+#= require jquery.periodicalupdater
 #= require bootstrap
 #= require date
 #= require rails.validations

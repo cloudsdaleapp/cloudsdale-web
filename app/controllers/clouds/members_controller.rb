@@ -4,6 +4,13 @@ class Clouds::MembersController < ApplicationController
     @cloud = Cloud.find(params[:cloud_id])
   end
   
+  def index
+    @users = @cloud.users.online
+    respond_to do |format|
+      format.json { render json: @users.map(&:to_indexed_json).to_json }
+    end
+  end
+  
   def create
     @cloud.users << current_user
     respond_to do |format|
