@@ -4,20 +4,20 @@
   width:  100%
   z-index: 998
   overflow: visible
-  background: #F0F6FF
-  background-color: $color-cd-background-lightest repeat
-  background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-  background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-  -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
-  -webkit-box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)
-  -moz-box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, .20)  
+  background: #333333 image-url("bg-noise.png") right top repeat
+  // background: #F0F6FF
+  // background-color: $color-cd-background-lightest repeat
+  // background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  // background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
+  // background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  // background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
+  // -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
+  -webkit-box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)
+  -moz-box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)  
   
   .container
-
     position: relative
 
   .clearfix
@@ -42,7 +42,6 @@
     position: relative
     list-style: none
     padding-bottom: 12px
-    border-top: 1px #FFFFFF solid
 
     
     &:before
@@ -52,7 +51,6 @@
       padding-left: 15px
       padding-right: 15px
       line-height: 60px
-    
     
     li.cloud-trigger
       position: relative
@@ -170,8 +168,11 @@
     -webkit-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
     -moz-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
     box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
-    border: #DDD 1px solid
+    border: rgba(60,61,63,0.3) 1px solid
     border-bottom: 0
+    -webkit-box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
+    -moz-box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
+    box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
     
     &.active
       display: block
@@ -181,7 +182,7 @@
       .cloud-toolbar
         header
           a.contract
-            background-image: image-url("icons/iconic/gray_dark/first_12x12.png") !important
+            background-image: image-url("icons/iconic/gray_dark/first_8x8.png") !important
       .cloud-extras-wrapper
         display: none
     
@@ -190,7 +191,7 @@
       position: absolute
       top: 0
       width: 100%
-      border-bottom: 1px #F5F5F5 solid
+      border-bottom: 1px rgba(60,61,63,0.3) solid
       -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
       -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
       box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
@@ -211,7 +212,15 @@
         text-shadow: rgba(255,255,255,0.4) 0px 1px 2px
         cursor: default
         font-weight: bold
-    
+          
+        span.usercount
+          font-weight: bold
+          margin-left: 15px
+          text-align: center
+          padding-left: 15px
+          font-size: 12px
+          background: image-url("icons/iconic/gray_dark/user_9x12.png") no-repeat 0px 1px
+      
         a
           text-align: center
           background: black
@@ -227,15 +236,11 @@
             float: left
             margin-right: 5px
             margin-left: 0px
-            background-image: image-url("icons/iconic/gray_dark/last_12x12.png")
+            background-image: image-url("icons/iconic/gray_dark/last_8x8.png")
           &.closex
-            background-image: image-url("icons/iconic/gray_dark/denied_12x12.png")
-            &:hover
-              background-image: image-url("icons/iconic/red/denied_12x12.png")
+            background-image: image-url("icons/iconic/gray_dark/move_horizontal_alt2_12x12.png")
           &.cloud
             background-image: image-url("icons/iconic/gray_dark/cloud_16x10.png")
-            &:hover
-              background-image: image-url("icons/iconic/gray_light/cloud_16x10.png")
     
     .cloud-extras-wrapper
       position: absolute
@@ -243,6 +248,24 @@
       top: 26px
       bottom: 0
       left: 0
+      ul.cloud-users-list
+        height: 376px
+        overflow: hidden
+        list-style: none inside
+        margin: 0
+        padding: 0 0 18px 18px
+        li
+          float: left
+          width: 250px
+          margin-right: 10px
+          margin-top: 5px
+          a
+            line-height: 24px
+            font-weight: bold
+            img 
+              float: left
+              margin-right: 5px
+              
       h6
         text-align: center
         line-height: 394px

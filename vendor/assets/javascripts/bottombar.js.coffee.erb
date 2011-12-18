@@ -2,6 +2,7 @@ window.Cloud = class Cloud
   
   constructor: (args) ->
     
+    @cloud_id = args.cloud_id
     @room_name = args.room_name
     @room_id = args.room_id
     @room_topic = args.room_topic
@@ -17,7 +18,6 @@ window.Cloud = class Cloud
     @last_sender_uid = ""
     @title_notifications = 0
     
-    console.log  $.cookie("cloud:#{@room_id}:contracted")
     if $.cookie("cloud:#{@room_id}:contracted") == null or $.cookie("cloud:#{@room_id}:contracted") == "true"
       @frame.addClass('contracted')
       $.cookie "cloud:#{@room_id}:contracted", true,
@@ -25,6 +25,7 @@ window.Cloud = class Cloud
         path: "/"
     else
       @frame.removeClass('contracted')
+      @updateOnlineList()
     
     @config()
     @render()
@@ -44,6 +45,11 @@ window.Cloud = class Cloud
     @toolbar = @frame.find(".cloud-toolbar")
     @close_trigger = @toolbar.find("header a.closex")
     @contract_trigger = @toolbar.find("header a.contract")
+    @online_user_counter = @toolbar.find("header span.usercount")
+    
+    @extrasWrapper = @frame.find(".cloud-extras-wrapper")
+    @userList = @extrasWrapper.find("ul.cloud-users-list")
+    
     @container = @frame
     @wrapper = @frame.find(".cloud-chat-messages")
     @form = @frame.find("form")
@@ -167,7 +173,6 @@ window.Cloud = class Cloud
     c = c.replace(/^\s*$/gi,"")
     
     c = c.replace /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/gi, (match,protocol,top_dom,path) ->
-      console.log 
       pjax_data = if top_dom.match(/cloudsdale.org/i) == null then "target='_blank' data-skip-pjax='true'" else ""
       "<a class='chat-link' href='#{match}' #{pjax_data}>#{match}</a>"
     return c
@@ -264,6 +269,24 @@ window.Cloud = class Cloud
         path: "/"
         
     @refreshGraphics()
+  
+  updateOnlineList: =>
+    $.PeriodicalUpdater "/clouds/#{@cloud_id}/members",
+      method: "get"
+      dataType: "json"
+      minTimeout: 30000
+      maxTimeout: 60000
+      success: (result) =>
+        @online_user_counter.html("#{result.length}")
+        @userList.html("")
+        console.log "DEBUG: Updated user list on #{@room_name} - #{result.length} users present"
+        if $.cookie("cloud:#{@room_id}:contracted") == "false"
+          $.each result, (k,v) =>
+            user = $.parseJSON(v)
+            image = if user.avatar_versions then "src='#{user.avatar_versions.mini}'" else "src='#{@parent.default_avatar_src}'"
+            @userList.append("<li><a href='/users/#{user.id}'><img #{image}'></img>#{user.name}</a></li>")
+            
+            
 
 
 window.BottomBar = class BottomBar
@@ -284,6 +307,7 @@ window.BottomBar = class BottomBar
     $.each $(@container.children()), (key, val) =>
       data = $(val).data()
       new Cloud
+        cloud_id: data.cloudId
         room_id: data.roomId
         room_name: data.roomName
         room_topic: data.roomTopic

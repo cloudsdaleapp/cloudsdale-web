@@ -33,7 +33,7 @@ Cloudsdale::Application.routes.draw do
   end
   
   resources :clouds, :except => [:index] do
-    resources :members, :controller => 'clouds/members', :only => [:create,:destroy]
+    resources :members, :controller => 'clouds/members', :only => [:create,:destroy,:index]
   end
   
   resources :notifications, :only => [:index,:show]
