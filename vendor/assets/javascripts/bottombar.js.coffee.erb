@@ -18,6 +18,8 @@ window.Cloud = class Cloud
     @last_sender_uid = ""
     @title_notifications = 0
     
+    @updateOnlineList()
+    
     if $.cookie("cloud:#{@room_id}:contracted") == null or $.cookie("cloud:#{@room_id}:contracted") == "true"
       @frame.addClass('contracted')
       $.cookie "cloud:#{@room_id}:contracted", true,
@@ -25,7 +27,6 @@ window.Cloud = class Cloud
         path: "/"
     else
       @frame.removeClass('contracted')
-      @updateOnlineList()
     
     @config()
     @render()
@@ -280,13 +281,11 @@ window.Cloud = class Cloud
       success: (result) =>
         @online_user_counter.html("#{result.length}")
         @userList.html("")
-        console.log "DEBUG: Updated user list on #{@room_name} - #{result.length} users present"
-        if $.cookie("cloud:#{@room_id}:contracted") == "false"
-          $.each result, (k,v) =>
-            user = $.parseJSON(v)
-            image = if user.avatar_versions then "src='#{user.avatar_versions.mini}'" else "src='#{@parent.default_avatar_src}'"
-            @userList.append("<li><a href='/users/#{user._id}'><img #{image}'></img>#{user.name}</a></li>")
-            
+        $.each result, (k,v) =>
+          user = $.parseJSON(v)
+          image = if user.avatar_versions then "src='#{user.avatar_versions.mini}'" else "src='#{@parent.default_avatar_src}'"
+          @userList.append("<li><a href='/users/#{user._id}'><img #{image}'></img>#{user.name}</a></li>")
+          
             
 
 
