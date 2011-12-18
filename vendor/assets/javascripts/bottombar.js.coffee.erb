@@ -274,6 +274,7 @@ window.Cloud = class Cloud
     $.PeriodicalUpdater "/clouds/#{@cloud_id}/members",
       method: "get"
       dataType: "json"
+      cache: false
       minTimeout: 30000
       maxTimeout: 60000
       success: (result) =>
@@ -284,7 +285,7 @@ window.Cloud = class Cloud
           $.each result, (k,v) =>
             user = $.parseJSON(v)
             image = if user.avatar_versions then "src='#{user.avatar_versions.mini}'" else "src='#{@parent.default_avatar_src}'"
-            @userList.append("<li><a href='/users/#{user.id}'><img #{image}'></img>#{user.name}</a></li>")
+            @userList.append("<li><a href='/users/#{user._id}'><img #{image}'></img>#{user.name}</a></li>")
             
             
 
