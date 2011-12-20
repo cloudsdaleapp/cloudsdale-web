@@ -19,8 +19,8 @@
                   - cloud.users.online.each do |user|
                     %li
                       = link_to user_path(user) do
-                        - unless user.try(:avatar).nil?
-                          = image_tag(user.avatar.mini.url)
+                        / - unless user.try(:avatar).nil?
+                        /   = image_tag(user.avatar.mini.url)
                         = user.name
                       
             .cloud-chat-wrapper
