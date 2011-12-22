@@ -15,9 +15,13 @@
                 = link_to "", cloud_path(cloud), class: 'cloud'
             .cloud-extras-wrapper
               %ul.cloud-users-list
-                - cloud.users.online.each do |user|
-                  %li
-                    = link_to image_tag(user.avatar.mini) + user.name, user_path(user)
+                - unless cloud.users.online.empty?
+                  - cloud.users.online.each do |user|
+                    %li
+                      = link_to user_path(user) do
+                        / - unless user.try(:avatar).nil?
+                        /   = image_tag(user.avatar.mini.url)
+                        = user.name
                       
             .cloud-chat-wrapper
               .cloud-chat-messages
