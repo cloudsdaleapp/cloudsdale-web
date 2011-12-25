@@ -51,10 +51,6 @@ $useIEFilters: 0
   -o-box-shadow: inset $x $y $offset $hex
   -webkit-box-shadow: inset $x $y $offset $hex
   box-shadow: inset $x $y $offset $hex
-  @if $ie == 1
-    $iecolor: "#" + red($hex) + green($hex) + blue($hex)
-    filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=#{$x}, OffY=#{$y}, Color='#{$iecolor}')
-    -ms-filter: quote(progid:DXImageTransform.Microsoft.dropshadow(OffX=#{$x}, OffY=#{$y}, Color='#{$iecolor}'))
 
 =linear-gradient($from, $to, $ie: $useIEFilters)
   @if $ie != 1

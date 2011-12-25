@@ -12,6 +12,12 @@ $linkColorHover:    darken($linkColor, 10%)
 $green: #009900
 $red: #FF0000
 
+$gridColumns:       16
+$gridColumnWidth:   35px
+$gridGutterWidth:   10px
+$extraSpace:        ($gridGutterWidth * 2)
+$siteWidth:         ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1))
+
 $color-cd-background-dark: #3F85B3
 $color-cd-background-light: #63A0D0
 
@@ -29,61 +35,61 @@ $color-cd-background-lightest: #FFFFFF
 
 @import "mixins"
 
+// Bootstrap Extentions
+@import "bootstrap-ytshadow"
+
 
 html
-  background-color: $color-cd-background-light repeat
-  background: image-url("bg-noise.png") right top repeat, $color-cd-background-light -moz-linear-gradient($color-cd-background-dark, $color-cd-background-light) no-repeat
-  background: image-url("bg-noise.png") right top repeat, $color-cd-background-light -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-dark),color-stop(1, $color-cd-background-light)) no-repeat
-  background: image-url("bg-noise.png") right top repeat, $color-cd-background-light -o-linear-gradient($color-cd-background-dark, $color-cd-background-light) no-repeat
-  background: image-url("bg-noise.png") right top repeat, $color-cd-background-light -webkit-linear-gradient($color-cd-background-dark, $color-cd-background-light) no-repeat
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-dark}', endColorstr='#{$color-cd-background-light}') no-repeat
-  -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-dark}', endColorstr='#{$color-cd-background-light}')) no-repeat
-    
+  background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px
 body
   background: transparent !important
-  padding-bottom: 100px
-  min-height: 100%
+  padding-bottom: 64px
+  padding-top: 62px
+  overflow: hidden !important
 
 #preload
   position: absolute
   overflow: hidden
   display: none
-    
-.alert-message
-  margin: 15px 0
 
-  &.hidden
-    background: none
-    height: 20px
-    border: none
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
+.container-fluid.body
+  margin: 0
+  padding: 0 20px
+  width: 750px
+  min-width: 750px
+  margin-left: auto
+  margin-right: auto
+  .content
+    width: 710px
+    margin: 0
 
+@media screen and (max-width: 1135px)
+  .container-fluid.body
+    border-left: rgba(255,255,255,0.9) solid 1px
+    border-right: rgba(255,255,255,0.9) solid 1px
+    +box-shadow(0,0,10px,rgba(0,0,0,0.1))
+
+@media screen and (min-width: 1136px)
+  .container-fluid.body
+    margin: 20px 0 20px 0
+    padding: 0 20px
+    min-width: 750px
+    .content
+      width: 710px
+      margin: 0
+  
 .page-header
-  -webkit-border-radius: 6px 6px 0 0
-  -moz-border-radius: 6px 6px 0 0
-  border-radius: 6px 6px 0 0
-  background: #F0F6FF
-  background-color: $color-cd-background-lightest repeat
-  background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-  background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-  -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
-  h1
+  // background: #F0F6FF
+  // background-color: $color-cd-background-lightest repeat
+  // background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  // background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
+  // background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  // background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
+  // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
+  // -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
+  h1, h2
     padding: 20px 20px 10px 20px
-
-.content
-  padding-bottom: 20px
-  background: #fff
-  -webkit-border-radius: 6px 6px 6px 6px
-  -moz-border-radius: 6px 6px 6px 6px
-  border-radius: 6px 6px 6px 6px
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.3)
 
 a, button, a.btn
   &:focus
@@ -110,6 +116,17 @@ footer
   color: $green
 .offline
   color: $red
+
+.dark-divider
+  position: absolute
+  bottom: 1px
+  left: 0
+  right: 0
+  +box-shadow(0px,1px,1px,rgba(255,255,255,0.4))
+  border-bottom: #525252 solid 1px
+
+.block-message.alert-message
+  margin: 0 20px
 
 .block-message.alert-message.markdown-guide
   h5

@@ -4,18 +4,10 @@
   width:  100%
   z-index: 998
   overflow: visible
-  background: #333333 image-url("bg-noise.png") right top repeat
-  // background: #F0F6FF
-  // background-color: $color-cd-background-lightest repeat
-  // background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-  // background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-  // -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
-  -webkit-box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)
-  -moz-box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)
-  box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)  
+  background: #F8F8F8 image-url("bg-noise.png") repeat
+  +box-shadow(0, -2px, 10px, rgba(0, 0, 0, .05))
+  border-top: 1px rgba(255,255,255,0.8) solid
+  //background: #4C4C4C image-url("bg-noise.png") right top repeat
   
   .container
     position: relative
@@ -38,10 +30,11 @@
   
   ul.cloud-list
     display: block
-    margin: 0 0 0 0
     position: relative
     list-style: none
-    padding-bottom: 12px
+    padding-bottom: 7px
+    min-width: 750px
+    margin: 0 10px
 
     
     &:before
@@ -57,7 +50,7 @@
       float: right
       width: 48px
       height: 48px
-      margin: 12px 12px 0 0
+      margin: 7px 7px 0 0
       overflow: visible
       -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .50)
       -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .50)
@@ -144,35 +137,117 @@
           -moz-opacity: .60
         .image-gloss
           z-index: 1
-            
 
+
+// CHAT WRAPPER
+           
+body
+
+  
+  @media screen and (min-width: 1136px)
+    .cloud-wrapper
+      top: 80px
+      right: 0px
+      bottom: 80px
+      left: 750px
+      background: rgb(248,248,248) /* Old browsers */
+      /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+      background: image-url("bg-noise.png") repeat, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2VlZWZlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOGY4ZjgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+      background: image-url("bg-noise.png") repeat, -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(238,239,238,1) 50%, rgba(248,248,248,1) 100%) /* FF3.6+ */
+      background: image-url("bg-noise.png") repeat, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,248,248,1)), color-stop(50%,rgba(238,239,238,1)), color-stop(100%,rgba(248,248,248,1))) /* Chrome,Safari4+ */
+      background: image-url("bg-noise.png") repeat, -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* Chrome10+,Safari5.1+ */
+      background: image-url("bg-noise.png") repeat, -o-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* Opera 11.10+ */
+      background: image-url("bg-noise.png") repeat, -ms-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* IE10+ */
+      background: image-url("bg-noise.png") repeat, linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f8f8f8',GradientType=0 ) /* IE6-8 */
+      border-left: rgba(255,255,255,0.9) solid 1px
+      overflow: hidden
+      .cloud-container
+        .cloud-toolbar
+          margin: 0 20px 0 20px
+          border-bottom: rgba(255,255,255,0.7) solid 1px
+        .cloud-extras-wrapper
+          margin: 0 20px 0 20px
+        .cloud-chat-wrapper
+          margin: 0 20px 0 20px
+          border-top: rgba(255,255,255,0.4) solid 1px
+              
+                
+  @media screen and (min-width: 0px) and (max-width: 1135px)
+    .cloud-wrapper
+      z-index: 997
+      top: 50%
+      right: 0
+      left: 0
+      bottom: 65px
+      .cloud-container
+        background: rgb(248,248,248) /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: image-url("bg-noise.png") repeat 0px 0px, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZWVmZWUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+        background: image-url("bg-noise.png") repeat 0px 0px, -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(238,239,238,1) 100%) /* FF3.6+ */
+        background: image-url("bg-noise.png") repeat 0px 0px, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,248,248,1)), color-stop(100%,rgba(238,239,238,1))) /* Chrome,Safari4+ */
+        background: image-url("bg-noise.png") repeat 0px 0px, -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 100%) /* Chrome10+,Safari5.1+ */
+        background: image-url("bg-noise.png") repeat 0px 0px, -o-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 100%) /* Opera 11.10+ */
+        background: image-url("bg-noise.png") repeat 0px 0px, -ms-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 100%) /* IE10+ */
+        background: image-url("bg-noise.png") repeat 0px 0px, linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 100%) /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#eeefee',GradientType=0 ) /* IE6-8 */
+        +box-shadow(0, -2px, 10px, rgba(0, 0, 0, .02))
+        .cloud-toolbar
+          border-bottom: rgba(255,255,255,0.6) solid 1px
+          border-top: rgba(255,255,255,0.6) solid 1px
+          +box-shadow(0,2px,5px,rgba(0,0,0,.05))
+          header
+            padding: 0 10px
+          .ytshadow
+            display: none
+        .cloud-extras-wrapper
+          right: 50%
+          left: 10px
+        .cloud-chat-wrapper
+          left: 50%
+          right: 10px
+          .ytshadow
+            display: none
+          
+  @media screen and (min-width: 1136px) and (max-width: 1379px)
+    .cloud-wrapper
+      .cloud-container
+        .cloud-toolbar
+          
+        .cloud-extras-wrapper
+          bottom: 50%
+          
+        .cloud-chat-wrapper
+        
+          top: 50%
+          bottom: 0
+          
+  @media screen and (min-width: 1380px)
+    .cloud-wrapper
+      .cloud-container
+        .cloud-extras-wrapper
+          right: 60%
+          left: 0
+        .cloud-chat-wrapper
+          .ytshadow
+            display: none
+          left: 40%
+          right: 0
 
 .cloud-wrapper
-  position: relative
-  width: 940px
-  z-index: 999
-  background: transparent
-  -webkit-border-radius: 6px 6px 0 0
-  -moz-border-radius: 6px 6px 0 0
-  border-radius: 6px 6px 0 0
+  position: fixed
+  pointer-events: none
   
   .cloud-container
+    pointer-events: all
     border-bottom: none
     position: absolute
-    top: -421px
-    height: 420px
-    width: 938px
-    right: 0
     display: none
-    background: rgba(245, 245, 255, 0.95)
-    -webkit-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
-    -moz-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
-    box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
-    border: rgba(60,61,63,0.3) 1px solid
-    border-bottom: 0
-    -webkit-box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
-    -moz-box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
-    box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    width: auto
     
     &.active
       display: block
@@ -190,22 +265,11 @@
       height: 24px
       position: absolute
       top: 0
-      width: 100%
-      border-bottom: 1px rgba(60,61,63,0.3) solid
-      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
-      -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
-      background: #F0F6FF
-      background-color: $color-cd-background-lightest repeat
-      background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-      background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-      background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-      background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-      -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
+      left: 0
+      right: 0
+      overflow: hidden
       
       header
-        padding: 0 5px
         font-size: 14px
         line-height: 24px
         color: #333333
@@ -244,13 +308,12 @@
     
     .cloud-extras-wrapper
       position: absolute
-      width: 538px
       top: 26px
       bottom: 0
       left: 0
+      right: 0
+
       ul.cloud-users-list
-        height: 376px
-        overflow: hidden
         list-style: none inside
         margin: 0
         padding: 0 0 18px 18px
@@ -272,11 +335,12 @@
     
     .cloud-chat-wrapper
       position: absolute
-      width: 400px
+      overflow: hidden
       top: 26px
-      bottom: 1px
+      bottom: 0
       right: 0
-              
+      left: 0
+      
       .cloud-chat-messages
         position: absolute
         top: 0px
@@ -284,6 +348,7 @@
         width: 100%
         overflow-x: hidden
         overflow-y: scroll
+          
         .chat-message
           position: relative
           padding: 0 7px
@@ -310,36 +375,39 @@
             span
               font-weight: bold
             span.sender
-              a:hover
-                text-decoration: none
+              a
+                color: #191919
+                text-shadow: 1px 1px 1px rgba(255,255,255,0.9)
+                &:hover
+                  text-decoration: none
+                  color: #6CF
+                  text-shadow: 1px 1px 1px rgba(255,255,255,0.9)
             span.metadata
               display: none
               float: right
               font-size: 11px
-              color: #4C4C4C
               margin-right: 12px
+              color: #191919
+              text-shadow: 1px 1px 2px rgba(255,255,255,0.3)
+              +opacity(0.9)
           article.chat-message-content
             min-height: 45px
             margin-left: 55px
             margin-right: 10px
             margin-bottom: 5px
             padding: 0 5px
-            -webkit-border-radius: 0 3px 3px 3px
-            -moz-border-radius: 0 3px 3px 3px
-            border-radius: 0 3px 3px 3px
-            background: rgba(255,255,255,0.5)
-            -webkit-box-shadow: -1px 1px 2px rgba(100, 100, 100, .05)
-            -moz-box-shadow: -1px 1px 2px rgba(100, 100, 100, .05)
-            box-shadow: -1px 1px 2px rgba(100, 100, 100, .05)
+            +border-radius(4px)
+            +box-shadow(-1px, 1px, 2px, rgba(0,0,0,0.05))
+            background: rgba(255,255,255,0.4)
             p
               font-size: 13px
               line-height: 15px
-              text-shadow: rgba(255,255,255,0.5) 0px 1px 1px
               padding: 2px 0 0 0
               margin-bottom: 10px
-              color: #1C1C1C
               line-height: 1.7em
               word-wrap: break-word
+              text-shadow: rgba(255,255,255,0.3) 0px 1px 1px
+              color: #191919
 
           &:hover
             .chat-message-head
@@ -350,34 +418,37 @@
         position: absolute
         margin: 0
         padding: 0
-        width: 400px
         bottom: 0
-  
-        textarea.cloud-chat-input
-          margin: 0 8px 8px 8px  
-          font-size: 12px
-          position: absolute
-          bottom: 0
-          padding: 3px 3px 3px 20px
-          width: 358px
-          resize: none
-          border: none
-          min-height: 18px
-          max-height: 72px
-          overflow-y: auto !important
-          overflow-x: hidden !important
-          height: 18px
-          color: #404040
-          resize: none
-          -webkit-border-radius: 2px 2px 2px 2px !important
-          -moz-border-radius: 2px 2px 2px 2px !important
-          border-radius: 2px 2px 2px 2px !important
-          -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
-          -moz-box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
-          box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
-          background: rgba(255,255,255,0.4) image-url("icons/tools/comment.png") 2px 5px no-repeat !important
-          border: rgba(0,0,20,0.2) solid 1px
-      
+        width: 100%
+        
+        .cloud-chat-input
+          position: relative
+          margin: 0 25px 9px 0px
+          float: none
+          textarea
+            width: 100%
+            padding: 3px 3px 3px 20px
+            font-size: 12px
+            resize: none
+            border: none
+            min-height: 18px
+            max-height: 72px
+            overflow-y: auto !important
+            overflow-x: hidden !important
+            height: 18px
+            color: #404040
+            resize: none
+            -webkit-border-radius: 3px 3px 3px 3px
+            -moz-border-radius: 3px 3px 3px 3px
+            border-radius: 3px 3px 3px 3px
+            background: rgba(0,0,0,0.05) image-url("icons/tools/comment.png") 2px 5px no-repeat
+            border: rgba(0,0,20,0.2) solid 1px
+            +transition(all 0.2s ease-in-out)
+            &:focus
+              background: rgba(255,255,255,0.05) image-url("icons/tools/comment.png") 2px 5px no-repeat
+              -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1)
+              -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1)
+              box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1)
       
       
       

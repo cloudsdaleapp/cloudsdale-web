@@ -1,12 +1,19 @@
 class TagsController < ApplicationController
   
   def search
+    
+    @search = Tire.search(['tags']) do |s|
+      s.query {|q| q.string params[:q]}
+    end
+    
+    @results = @search.results
+    
+    unless @results.results.map{|t|t[:name].downcase}.include?(params[:q].downcase)
+      @results.unshift Tag.new(name:params[:q]).to_indexed_json
+    end
+    
     respond_to do |format|
-      @tags = Tag.search("*#{params[:q]}*").results.map {|t|{id:t._id,name:t.name,times_referred: t.times_referred}}
-      unless @tags.map{|t|t[:name]}.include?(params[:q])
-        @tags.unshift Tag.new(name:params[:q]).token_inputs
-      end
-      format.json { render json: @tags }
+      format.json { render json: @results }
     end
   end
   

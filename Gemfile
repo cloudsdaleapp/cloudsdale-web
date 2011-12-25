@@ -60,6 +60,7 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'rails-dev-tweaks', '~> 0.5.2'
 end
 
 gem 'capistrano'

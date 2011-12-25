@@ -1,0 +1,51 @@
+.row > div[class*="span"]
+  position: relative
+  overflow: hidden
+  &.has-ytshadow
+  
+  
+div:hover
+  .ytshadow
+    &.interactive
+      &.top
+        top: -6px
+        +box-shadow(0px, 0px, 20px, rgba(0,0,0,1))
+      &.bottom
+      &.left
+      &.right
+      
+.ytshadow
+  position: absolute
+  +box-shadow(0px, 0px, 20px, rgba(0,0,0,0.7))
+  &.heavy
+    +box-shadow(0px, 0px, 20px, rgba(0,0,0,1))
+  &.bottom, &.top
+    height: 1px
+    left: 5px
+    right: 5px
+    &.heavy
+      left: 10px
+      right: 10px
+  &.left, &.right
+    width: 1px
+    top: 5px
+    bottom: 5px
+    &.heavy
+      top: 10px
+      bottom: 10px
+  &.top
+    top: -5px
+  &.bottom
+    bottom: -5px
+  &.left
+    left: -5px
+  &.right
+    right: -5px
+  
+  &.interactive
+    +transition(all 0.3s ease-in-out)
+    &:hover
+      &.bottom
+      &.top
+      &.left
+      &.right
