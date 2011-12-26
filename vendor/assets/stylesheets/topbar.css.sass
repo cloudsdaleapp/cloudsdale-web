@@ -1,10 +1,13 @@
 .topbar
   height: auto !important
-  background: #F8F8F8 image-url("bg-noise.png") repeat
-  +box-shadow(0, 2px, 10px, rgba(0, 0, 0, .05))
-  border-bottom: 1px rgba(255,255,255,0.8) solid
+  +linear-gradient($color-cd-background-light,$color-cd-background-dark)
+  -moz-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,1)
+  -o-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,1)
+  -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,1)
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,1)
+  border-bottom: 1px rgba(50,50,50,0.8) solid
   .fill
-    padding: 15px 0 0 0
+    padding: 5px 0 0 0
     -webkit-box-shadow: none
     -moz-box-shadow: none
     box-shadow: none
@@ -14,175 +17,11 @@
       min-width: 750px
       padding: 0
     .container-fluid.main
-      margin-bottom: 5px
-    .container-fluid.extras
-      background: rgba(255,255,255,0.1)
-      border-top: 1px rgba(255,255,255,0.8) solid
-      border-bottom: 1px rgba(255,255,255,1) solid
-      +border-radius(3px)
-      -webkit-box-shadow: -1px 1px 2px rgba(0,0,0,0.05), inset -0 1px 5px rgba(0,0,0,.1)
-      -moz-box-shadow: -1px 1px 2px rgba(0,0,0,0.05), inset -0 1px 5px rgba(0,0,0,.1)
-      -box-shadow: -1px 1px 2px rgba(0,0,0,0.05), inset -0 1px 5px rgba(0,0,0,.1)
-      
-      background: rgb(238,239,238) /* Old browsers */
-      /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-      background: image-url("bg-noise.png") repeat, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VlZWZlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=)
-      background: image-url("bg-noise.png") repeat, -moz-linear-gradient(top,  rgba(238,239,238,1) 0%, rgba(248,248,248,1) 99%) /* FF3.6+ */
-      background: image-url("bg-noise.png") repeat, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,239,238,1)), color-stop(99%,rgba(248,248,248,1))) /* Chrome,Safari4+ */
-      background: image-url("bg-noise.png") repeat, -webkit-linear-gradient(top,  rgba(238,239,238,1) 0%,rgba(248,248,248,1) 99%) /* Chrome10+,Safari5.1+ */
-      background: image-url("bg-noise.png") repeat, -o-linear-gradient(top,  rgba(238,239,238,1) 0%,rgba(248,248,248,1) 99%) /* Opera 11.10+ */
-      background: image-url("bg-noise.png") repeat, -ms-linear-gradient(top,  rgba(238,239,238,1) 0%,rgba(248,248,248,1) 99%) /* IE10+ */
-      background: image-url("bg-noise.png") repeat, linear-gradient(top,  rgba(238,239,238,1) 0%,rgba(248,248,248,1) 99%) /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeefee', endColorstr='#f8f8f8',GradientType=0 ) /* IE6-8 */
-      
-      .content
-        background: transparent
-        -webkit-box-shadow: 0 0 0 #000
-        -moz-box-shadow: 0 0 0 #000
-        -box-shadow: 0 0 0 #000
-      &.account-wrapper
-        position: relative
-        height: 80px
-        
-        ul.media-grid
-          padding-top: 18px
-          margin: 0 0 0 -375px
-          width: auto
-          float: none
-          position: absolute
-          display: block
-          text-align: center
-          width: 750px
-          left: 50%
-          li
-            float: left
-            a
-              background: #EEEFEE
-              +linear-gradient(#F5F5F5,#EEEFEE,1)
-              color: rgba(0,0,0,0.1)
-              width: 90px
-              text-align: left
-              font-weight: bold
-                  
-              img
-                margin-top: 3px
-                margin-right: 9px
-                float: left
-                +opacity(0.7)
-              &:hover
-                color: rgba(255,255,255,0.9)
-                text-shadow: -1px -1px 1px rgba(0,0,0,0.1), 1px 1px 1px rgba(255,255,255,0.9)
-                img
-                  +opacity(1)
-                
-                &.submit
-                  border-color: #BA9EFF
-                  color: #BA9EFF
-                &.profile
-                  border-color: #66CCFF
-                  color: #66CCFF
-                &.explore
-                  border-color: #90FF80
-                  color: #90FF80
-                &.settings
-                  border-color: #FEFF90
-                  color: #FEFF90
-                &.help
-                  border-color: #FD9A00
-                  color: #FD9A00
-                &.logout
-                  border-color: #F8696B
-                  color: #F8696B
-
-      
-      &.search-wrapper
-        .span-one-third
-          min-height: 100px
-          &:hover
-            h6
-              color: $linkColor
-              span.metadata
-                +opacity(1)
-              img
-                +opacity(1)
-            nav
-              a
-                +opacity(1)
-          h6
-            color: rgba(255,255,255,0.7)
-            text-shadow: 0 -1px 2px rgba(0,0,0,0.2)
-            pointer-events: none
-            +transition(all 0.2s ease-in)
-            padding: 0 10px
-            img
-              +transition(all 0.2s ease-in)
-              +opacity(0.7)
-              margin: 0 10px
-            
-            span.metadata
-              +transition(all 0.2s ease-in)
-              +opacity(0)
-              float: right
-              font-size: 10px
-              text-transform: none
-              color: rgba(255,255,255,0.8)
-              
-          ul.results
-            margin: 0
-            float: none
-            position: static
-            padding: 0 10px
-            margin-left: 5px
-            height: 96px
-            li.result
-              float: none
-              margin-bottom: 3px
-              a
-                +transition(all 0.2s ease-in)
-                padding: 0
-                margin: 0
-                line-height: 30px
-                font-size: 12px
-                background: transparent
-                color: rgba(255,255,255,0.8)
-                text-shadow: 0 -1px 2px rgba(0,0,0,0.2)
-                img
-                  +transition(all 0.2s ease-in)
-                  +opacity(0.8)
-                  margin: 3px 7px 3px 5px
-                  float: left
-                  
-                &:hover
-                  background: rgba(255,255,255,0.1)
-                  color: rgba(255,255,255,1)
-                  img
-                    +opacity(1)
-          nav
-            padding: 10px
-            text-align: right
-            a
-              +border-radius(2px)
-              +transition(all 0.2s ease-in)
-              +opacity(0)
-              padding: 3px 4px
-              text-decoration: none
-              color: rgba(255,255,255,0.5)
-              text-shadow: 0 -1px 2px rgba(0,0,0,0.2)
-              &:hover
-                cursor: pointer
-                background: rgba(255,255,255,0.1)
-                color: rgba(255,255,255,1)
-                text-decoration: none
-              
-        
-    .container-fluid.main
       height: 42px
+      margin-bottom: 5px
       form.pull-left
         padding: 7px 8px 7px 8px
         margin: 0
-        +border-radius(4px 4px 0 0)
-        &.active
-          background: rgba(255,255,255,0.1)
         span.glass
           position: absolute
           height: 28px
@@ -192,7 +31,7 @@
           cursor: pointer
         input
           padding-right: 28px
-          width: 240px
+          width: 160px
           +opacity(0.7)
           font-weight: bold
           text-shadow: 0px 1px 1px rgba(255,255,255,0.7)
@@ -210,44 +49,27 @@
       ul.secondary-nav
         padding: 0 15px 0 0
         li
+          margin-left: 5px
           a
-            color: #191919
-            text-shadow: 1px 1px 1px rgba(255,255,255,0.9)
-          img
-            +opacity(0.8)
-            
-          &:hover, &.active
-            a
-              text-decoration: none
-              color: #6CF
+            width: 20px
+            position: relative
+            text-align: center
+            line-height: 20px
+            &:hover
+              span
+                +opacity(1)
+            span
+              position: absolute
+              width: 100px
+              left: 50%
+              margin-left: -50px
+              bottom: -3px
+              font-weight: bold
+              pointer-events: none
+              +opacity(0)
+              +transition(all 0.2s ease-out)
             img
-              +opacity(1)
-          &.active
-            a
-              +border-radius(4px)
-              background: rgba(0,0,0,0.05) !important
-              //text-shadow: -1px -1px 1px rgba(0,0,0,0.3)
-
-            
-        li.account-nav
-          font-weight: bold
-          line-height: 20px
-          a
-            padding: 10px 16px
-            line-height: 22px
-            height: 22px
-            img
-              height: 20px
-              width: 20px
-              margin-right: 7px
-              padding: 0
-              float: left
-              
-        li.notification-nav
-          a
-            height: 16px
-            line-height: 16px
-            padding: 13px 16px
+              margin-top: 5px
               
       a.brand
         margin: 7px 10px 8px 0

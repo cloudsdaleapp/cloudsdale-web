@@ -13,7 +13,12 @@
     #preload
       = image_tag "other/unknown_pony_chat.jpg", :id => "img_unknown_pony_chat"
     = render :partial => 'layouts/topbar'
-     
+    .bg-container
+      .container
+        .sideshadow.left
+          .ytshadow.right
+        .sideshadow.right
+          .ytshadow.left
     .container-fluid.body
       .content{ :data => { 'pjax-container' => ''} }
         = yield

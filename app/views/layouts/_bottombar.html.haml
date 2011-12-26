@@ -20,7 +20,7 @@
                   %li
                     = link_to image_tag(user.avatar.try(:mini)) + user.name, user_path(user)
           .cloud-chat-wrapper
-            .ytshadow.top
+            .ytshadow.top.heavy
             .cloud-chat-messages
             = form_tag chat_room_messages_path(room.id), :remote => true, :class => "cloud-chat-form" do
               .cloud-chat-input
