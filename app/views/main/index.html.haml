@@ -1,8 +1,32 @@
-- if @featured_entry
-  .page-header
-    %h1= "Cloudsdale"
+.page-header
+  %h1
+    .avatar-container
+      = image_tag current_user.avatar.url
+    = "Your Waterfall"
+.row
+  .span16
+    = form_tag drops_path, method: :post, id: 'drop', class: 'form-stacked' do
+      .clearfix
+        .input
+          = text_field_tag :url, "", placeholder: 'Share a URL with the world...'
+          = submit_tag "Drop", class: 'btn'
             
 .row
   .span16
-    = render :partial => 'note'
-    = render :partial => "index_tab_#{params[:tab] || 'recent'}"
+    %ul.drop-list
+      - @drops.each_with_index do |drop,i|
+        %li{ class: i.even? ? 'favorite' : '' }
+          %details
+            - i2 = rand(3)
+            .ratings
+              %a.up{ href: "/", class: i2 == 0 ? 'selected' : '' }
+              %a.down{ href: "/", class: i2 == 1 ? 'selected' : '' }
+            %summary.main
+              .icon
+                = image_tag "icons/iconic/gray_dark/180_map_pin_fill_16x16.png", class: 'default'
+              = link_to drop.title, drop.url, target: '_blank', data: { 'skip-pjax' => true }
+            %summary.sub
+              .fav
+                = link_to "", "/", remote: true
+              %span= link_to drop.url, drop.url, target: '_blank', data: { 'skip-pjax' => true }
+      

@@ -33,8 +33,8 @@ module Cloudsdale
     
     config.generators do |g|
       config.sass.preferred_syntax = :sass
-      g.test_framework = nil
-      g.fixtures = nil
+      g.test_framework = :rspec
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
     # Custom directories with classes and modules you want to be autoloadable.

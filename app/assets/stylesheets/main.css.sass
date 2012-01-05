@@ -1,3 +1,210 @@
 body.main
   &.index
+    
+    .page-header
+      height: 100px
+      background: transparent
+      background: rgba(0,0,0,0.05)
+      +border-radius(25px 0 0 0)
+      margin: 50px 3px 0px 4px
+      border: none
+      h1
+        position: relative
+        padding: 10px
+        text-shadow: 1px 1px 1px rgba(255,255,255,0.9)
+        .avatar-container
+          line-height: 0em
+          padding: 7px
+          float: left
+          margin: -60px 25px 0 20px
+          +border-radius(3px)
+          +linear-gradient(#fff,#E8F1FF)
+          +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
+          border: 1px rgba(50, 50, 50, 0.3) solid
+          img
+            border: 1px rgba(50, 50, 50, 0.2) solid
+            margin: 0
+            padding: 0
+          
+    .row > .span16
+      overflow: visible !important
+    
+    ul.drop-list
+      list-style: none
+      margin: 0
+      li
+        position: relative
+        margin-bottom: 7px
+        +border-radius(3px)
+        &.favorite
+          details
+            summary
+              &.sub
+                .fav
+                  & > a
+                    display: block
+                    color: #FFBF00
+                    &:after
+                      content: "★"
+                    &:hover
+                      color: #FFBF00
+                      &:after
+                        content: "☆"
+                        
+        details
+          position: relative
+          padding: 10px
+          .ratings
+            position: absolute
+            right: 0
+            top: 0
+            bottom: 0
+            width: 36px
+            overflow: hidden
+            a
+              float: left
+              border: none
+              padding: 18px 18px
+              margin: 0
+              line-height: 0
+              background: transparent center center no-repeat
+              +opacity(0)
+              &.selected
+                +opacity(.5)
+              &.up
+                background-image: image-url("icons/iconic/white/arrow_up_16x16.png")
+                &.selected, &:hover
+                  background-image: image-url("icons/iconic/green/arrow_up_16x16.png")
+              &.down
+                background-image: image-url("icons/iconic/white/arrow_down_16x16.png")
+                &.selected, &:hover
+                  background-image: image-url("icons/iconic/red/arrow_down_16x16.png")     
+                
+              &:first-child
+                padding-bottom: 17px
+                border-bottom: 1px transparent solid
+              
+                
+          summary
+            line-height: 22px
+            .icon, .fav
+              float: left
+              width: 22px
+              height: 22px
+              margin-right: 4px
+              img
+                margin: 3px
+                max-width: 16px
+                max-height: 16px
+            &.main
+              img.default
+                margin: 3px 6px
+                  
+              a
+                line-height: 22px
+                font-size: 20px
+                font-weight: bold
+                color: #191919
+                text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9)
+            &.sub
+              .fav
+                & > a
+                  display: none
+                  float: left
+                  width: 16px
+                  height: 16px
+                  font-size: 16px
+                  line-height: 16px
+                  padding: 2px 3px
+                  color: $color-dark-gray
+                  text-shadow: 1px 1px 1px rgba(0,0,0,0.3)
+                  &:after
+                    content: "☆"
+                  &:hover
+                    text-decoration: none
+                    &:after
+                      content: "★"
+              a
+                color: lighten($color-dark-gray,30%)
+                  
+                
+            
+            
+        &:hover
+          background: rgba(0,0,0,0.3)
+          +box-shadow-inset(0,0,2px,rgba(0,0,0,0.3))
+          details
+            .ratings
+              border-left: 1px rgba(50,50,50,0.3) solid
+              background: rgba(255,255,255,0.3)
+              a
+                +opacity(.7)
+                &:first-child
+                  border-bottom: 1px rgba(50,50,50,0.3) solid
+                &:hover
+                  +opacity(1)
+                
+            summary
+              &.sub
+                .fav > a
+                  display: block
+                a
+                  color: lighten($color-dark-gray,60%)
+                  &:hover
+                    color: lighten($color-dark-gray,60%)
+              &.main
+                a
+                  color: #fff
+                  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.3)
+                  &:hover
+                    text-decoration: none
+                    color: #E8F1FF
+                    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.3)
+          
+          
+      
+    form#drop
+      padding: 10px
+      +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
+      -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      border: 1px rgba(50, 50, 50, 0.3) solid
+      +border-radius(5px)
+      .clearfix
+        margin: 0
+        input
+          float: left
+          border: 1px rgba(50, 50, 50, 0.3) solid
+          &[type=text]
+            +border-radius(0)
+            +box-shadow-inset(1px,0,1px,rgba(0,0,0,0.1))
+            border-right: none
+            width: 605px
+          &[type=submit]
+            padding-left: 30px !important
+            +border-radius(0)
+            background-color: #E6E6E6
+            background-repeat: no-repeat
+            background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(white), color-stop(25%, white), to(#E6E6E6))
+            background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -webkit-linear-gradient(white, white 25%, #E6E6E6)
+            background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -moz-linear-gradient(top, white, white 25%, #E6E6E6)
+            background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -ms-linear-gradient(white, white 25%, #E6E6E6)
+            background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -o-linear-gradient(white, white 25%, #E6E6E6)
+            background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, linear-gradient(white, white 25%, #E6E6E6)
+            padding: 5px 14px 6px
+            +transition(all 0.0 ease)
+            &:hover
+              background-color: #E6E6E6
+              background-repeat: no-repeat
+              background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(white), color-stop(25%, white), to(#E6E6E6))
+              background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -webkit-linear-gradient(white, white 25%, #E6E6E6)
+              background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -moz-linear-gradient(top, white, white 25%, #E6E6E6)
+              background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -ms-linear-gradient(white, white 25%, #E6E6E6)
+              background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -o-linear-gradient(white, white 25%, #E6E6E6)
+              background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, linear-gradient(white, white 25%, #E6E6E6)
+              color: #3BF
+              
+              
         

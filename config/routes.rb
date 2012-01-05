@@ -25,6 +25,8 @@ Cloudsdale::Application.routes.draw do
     resources :restorations, :only => [:create,:show], :controller => 'users/restorations'
   end
   
+  resources :drops, only: [:create]
+  
   resources :articles, :except => [:index] do
     get :publish, on: :member
     get :promote, on: :member

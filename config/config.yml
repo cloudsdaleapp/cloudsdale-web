@@ -25,6 +25,34 @@ development:
     redis: 
       host: 127.0.0.1
       port: 6379
+
+test:
+  url: http://127.0.0.1
+  faye_port: 9191
+  twitter:
+    consumer_key: J1FiSKDKD9ev4xAVO3cLOw
+    consumer_secret: djHBQOop2qIeUDb9xS0MPcwihSSHDWEhHoZ7aVCjOCs
+  facebook:
+    app_key: 213007855430354
+    app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
+  tire:
+    host: 127.0.0.1
+    port: 9200
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  rackspace_cloudfiles:
+    username: zeeraw
+    api_key: 8df411c5fe3d2a3580ab48e661d277ee
+    fog_directory: cloudsdale_development_uploads
+    fog_host: http://c775851.r51.cf2.rackcdn.com
+  faye:
+    host: 127.0.0.1
+    port: 9191
+    token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
+    redis: 
+      host: 127.0.0.1
+      port: 6379
     
       
 production:

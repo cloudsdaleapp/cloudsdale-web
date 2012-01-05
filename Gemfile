@@ -51,16 +51,29 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'sprockets'
 
+# Cloudsdale Specific
+gem 'urifetch'
+
 group :development, :test do
   gem 'pry'
-  gem 'foreman'
-  gem 'gist'
-  gem 'rspec-rails'
   gem 'rails3-generators'
+  gem 'rspec-rails'
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'guard-rspec'
+  gem 'guard-livereload'
+end
+
+group :development do
+  gem 'gist'
+  gem 'foreman'
+  gem 'rails-dev-tweaks', '~> 0.5.2'
+end
+
+group :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'rails-dev-tweaks', '~> 0.5.2'
+  gem 'factory_girl_rails'
 end
 
 gem 'capistrano'
