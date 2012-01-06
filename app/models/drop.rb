@@ -3,6 +3,8 @@ class Drop
   include Mongoid::Document
   include Mongoid::Timestamps
   
+  has_and_belongs_to_many :users, :inverse_of => :drops, dependent: :nullify
+  
   field :url,                 type: String
   field :match_id,            type: String
   field :status,              type: Array
