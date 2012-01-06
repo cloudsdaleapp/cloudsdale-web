@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/Zeeraw/Urifetch.git
+  revision: 855b368066019f08c1d67a0f535887f04dcd0713
+  specs:
+    urifetch (0.0.1.rc5)
+      addressable
+      hashie
+      nokogiri
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -349,10 +358,6 @@ GEM
       kgio (~> 2.4)
       rack
       raindrops (~> 0.6)
-    urifetch (0.0.1.rc5)
-      addressable
-      hashie
-      nokogiri
     uuid (2.3.4)
       macaddr (~> 1.0)
     xpath (0.1.4)
@@ -408,4 +413,4 @@ DEPENDENCIES
   tire
   uglifier
   unicorn
-  urifetch
+  urifetch!

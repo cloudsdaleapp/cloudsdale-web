@@ -52,7 +52,7 @@ gem 'jquery-rails'
 gem 'sprockets'
 
 # Cloudsdale Specific
-gem 'urifetch'
+gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
 
 group :development, :test do
   gem 'pry'
