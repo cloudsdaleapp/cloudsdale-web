@@ -16,7 +16,7 @@ body.main
           line-height: 0em
           padding: 7px
           float: left
-          margin: -60px 25px 0 20px
+          margin: -50px 25px 0 20px
           +border-radius(3px)
           +linear-gradient(#fff,#E8F1FF)
           +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
@@ -34,8 +34,9 @@ body.main
       margin: 0
       li
         position: relative
-        margin-bottom: 7px
+        margin-bottom: 20px
         +border-radius(3px)
+        
         &.favorite
           details
             summary
@@ -70,7 +71,7 @@ body.main
               background: transparent center center no-repeat
               +opacity(0)
               &.selected
-                +opacity(.5)
+                +opacity(.4)
               &.up
                 background-image: image-url("icons/iconic/white/arrow_up_16x16.png")
                 &.selected, &:hover
@@ -138,7 +139,7 @@ body.main
               border-left: 1px rgba(50,50,50,0.3) solid
               background: rgba(255,255,255,0.3)
               a
-                +opacity(.7)
+                +opacity(.4)
                 &:first-child
                   border-bottom: 1px rgba(50,50,50,0.3) solid
                 &:hover
