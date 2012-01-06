@@ -349,7 +349,7 @@ GEM
       kgio (~> 2.4)
       rack
       raindrops (~> 0.6)
-    urifetch (0.0.1.rc3)
+    urifetch (0.0.1.rc5)
       addressable
       hashie
       nokogiri
