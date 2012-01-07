@@ -7,6 +7,7 @@ gem 'mongoid'
 gem 'bson_ext', '1.5.1'
 gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
 gem 'tire'
+gem 'voteable_mongo'
 
 # Push notifications
 gem 'faye'

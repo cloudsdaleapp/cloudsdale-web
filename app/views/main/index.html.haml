@@ -17,10 +17,16 @@
       - @drops.each_with_index do |drop,i|
         %li{ class: i.even? ? 'favorite' : '' }
           %details
-            - i2 = rand(3)
             .ratings
-              %a.up{ href: "/", class: i2 == 0 ? 'selected' : '' }
-              %a.down{ href: "/", class: i2 == 1 ? 'selected' : '' }
+              - if current_user.vote_value(drop) == :up
+                = link_to "", drop_vote_path(drop), method: :delete, class: 'selected up'
+              - else
+                = link_to "", drop_votes_path(drop,:up), method: :put, class: 'up'
+                
+              - if current_user.vote_value(drop) == :down
+                = link_to "", drop_vote_path(drop), method: :delete, class: 'selected down'
+              - else
+                = link_to "", drop_votes_path(drop,:down), method: :put, class: 'down'
             %summary.main
               .icon
                 - favicon_src = !drop[:metadata]["favicon"].nil? ? drop[:metadata]["favicon"] : 'icons/iconic/gray_dark/180_map_pin_fill_16x16.png'

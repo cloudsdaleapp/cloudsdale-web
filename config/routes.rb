@@ -25,7 +25,10 @@ Cloudsdale::Application.routes.draw do
     resources :restorations, :only => [:create,:show], :controller => 'users/restorations'
   end
   
-  resources :drops, only: [:create]
+  resources :drops, only: [:create] do
+    put '/votes/:value' => 'drops/votes#create', as: :votes
+    delete '/vote' => 'drops/votes#destroy', as: :vote
+  end
   
   resources :articles, :except => [:index] do
     get :publish, on: :member
