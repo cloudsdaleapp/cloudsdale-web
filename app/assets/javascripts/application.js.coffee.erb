@@ -24,20 +24,10 @@
 #= require sessions
 #= require clouds
 
-
 $ ->
+  @faye = Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
   new TopBar
   new BottomBar
-
-  hide_alert_message = (p) ->
-    $(p).replaceWith("<div class='alert-message hidden'></div>")
-    
-  request = (options) ->
-    $.ajax $.extend(
-      url: options.url
-      type: "get"
-    , options)
-    false
   
   load_javascript = (controller,action) ->
     $.event.trigger "application.load"
