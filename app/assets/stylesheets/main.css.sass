@@ -70,19 +70,19 @@ body.main
               line-height: 0
               background: transparent center center no-repeat
               +opacity(0)
-              &.loading
-                background-image: image-url("details/spinner-small.gif") !important
-              &.selected
-                +opacity(.4)
+              
+              &.selected, &.loading
+                +opacity(.6)
               &.up
                 background-image: image-url("icons/iconic/white/arrow_up_16x16.png")
-                &.selected, &:hover
+                &.selected
                   background-image: image-url("icons/iconic/green/arrow_up_16x16.png")
               &.down
                 background-image: image-url("icons/iconic/white/arrow_down_16x16.png")
-                &.selected, &:hover
+                &.selected
                   background-image: image-url("icons/iconic/red/arrow_down_16x16.png")     
-                
+              &.loading, &.down.loading, &.up.loading
+                background-image: image-url("details/spinner-small-dark.gif")
               &:first-child
                 padding-bottom: 17px
                 border-bottom: 1px transparent solid
@@ -141,7 +141,9 @@ body.main
               border-left: 1px rgba(50,50,50,0.3) solid
               background: rgba(255,255,255,0.3)
               a
-                +opacity(.4)
+                +opacity(.6)
+                &.loading, &.down.loading, &.up.loading
+                  background-image: image-url("details/spinner-small.gif")
                 &:first-child
                   border-bottom: 1px rgba(50,50,50,0.3) solid
                 &:hover
