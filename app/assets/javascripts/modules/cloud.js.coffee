@@ -1,4 +1,4 @@
-#= require helpers/cloud/chat
+#= require modules/chat
 
 do ($ = jQuery) ->
   

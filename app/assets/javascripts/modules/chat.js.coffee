@@ -1,7 +1,8 @@
 do ($ = jQuery) ->
   
-  class ChatContainer
+  class Chat
     constructor: (@frame,args) ->
+      # Setup elements
       @messagesWrapper = @frame.find(".cloud-chat-messages")
       @messageform = @frame.find("form")
       @messageInput = @form.find("textarea")
@@ -117,5 +118,5 @@ do ($ = jQuery) ->
     #     if @seeded and @parent.uid != data.uid
     #       @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar,data.uid)
       
-  $.fn.container = ->
-    new ChatContainer(@,arguments[0])
+  $.fn.chat = ->
+    new Chat(@,arguments[0])
