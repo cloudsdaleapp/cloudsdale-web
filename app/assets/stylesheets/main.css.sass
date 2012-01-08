@@ -70,6 +70,8 @@ body.main
               line-height: 0
               background: transparent center center no-repeat
               +opacity(0)
+              &.loading
+                background-image: image-url("details/spinner-small.gif") !important
               &.selected
                 +opacity(.4)
               &.up
