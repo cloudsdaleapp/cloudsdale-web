@@ -28,6 +28,7 @@ $ ->
   @faye = Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
   new TopBar
   new BottomBar
+  @userData = $('#user').data()
   
   load_javascript = (controller,action) ->
     $.event.trigger "application.load"

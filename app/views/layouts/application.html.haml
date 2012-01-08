@@ -10,6 +10,7 @@
     = yield :head
     
   %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
+    = render :partial => 'layouts/user_data'
     = render :partial => 'layouts/preload'
     = render :partial => 'layouts/topbar'
     .bg-container
