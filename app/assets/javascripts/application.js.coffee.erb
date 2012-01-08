@@ -26,15 +26,15 @@
 
 $ ->
   @faye = Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
-  new TopBar
   new BottomBar
   @userData = $('#user').data()
   
+  $('.topbar').topBar()
   load_javascript = (controller,action) ->
     $.event.trigger "application.load"
     $.event.trigger "#{controller}.load"
     $.event.trigger "#{action}_#{controller}.load"
-    
+
   $('[rel=twipsy-chat-room]').twipsy
     placement: 'above'
     offset: '7'

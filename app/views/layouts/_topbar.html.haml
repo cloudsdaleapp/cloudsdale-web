@@ -32,34 +32,3 @@
           = link_to logout_path, 'data-skip-pjax' => true, class: 'logout' do
             = image_tag("icons/iconic/white/denied_12x12.png")
             %span Sign Out
-      
-    .container-fluid.extras.account-wrapper{ data: { extrasContainer: 'account' } }
-      %ul.media-grid.large
-        
-          
-    .container-fluid.extras.search-wrapper{ data: { extrasContainer: 'search' } }
-      .row
-        .span-one-third{ data: { searchResultContainer: 'clouds' } }
-          %h6
-            = image_tag "icons/iconic/white/cloud_16x10.png"
-            Clouds
-            %span.metadata= ""
-          %ul.results
-          %nav
-            %a more »
-        .span-one-third{ data: { searchResultContainer: 'entries' } }
-          %h6
-            = image_tag "icons/iconic/white/pen_12x12.png"
-            Entries
-            %span.metadata= ""
-          %ul.results
-          %nav
-            %a more »
-        .span-one-third{ data: { searchResultContainer: 'users' } }
-          %h6
-            = image_tag "icons/iconic/white/user_9x12.png"
-            Users
-            %span.metadata= ""
-          %ul.results
-          %nav
-            %a more »
