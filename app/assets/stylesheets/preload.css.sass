@@ -1,0 +1,24 @@
+$img-spinner: image-url("details/spinner-small.gif")
+$img-spinner-dark: image-url("details/spinner-small.gif")
+$img-arrow-up: image-url("icons/iconic/white/arrow_up_16x16.png")
+$img-arrow-up-color: image-url("icons/iconic/green/arrow_up_16x16.png")
+$img-arrow-down: image-url("icons/iconic/white/arrow_down_16x16.png")
+$img-arrow-down-color: image-url("icons/iconic/red/arrow_down_16x16.png")
+#preload
+  position: fixed
+  width: 0px
+  height: 0px
+  left: 0
+  top: 0
+  &.spinner
+    background: $img-spinner no-repeat -9999px -9999px
+  &.spinner-dark
+    background: $img-spinner-dark no-repeat -9999px -9999px
+  &.arrow-up
+    background: $img-arrow-up no-repeat -9999px -9999px
+  &.arrow-up-color
+    background: $img-arrow-up-color no-repeat -9999px -9999px
+  &.arrow-down
+    background: $img-arrow-down no-repeat -9999px -9999px
+  &.arrow-down-color
+    background: $img-arrow-down-color no-repeat -9999px -9999px

@@ -10,8 +10,7 @@
     = yield :head
     
   %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
-    #preload
-      = image_tag "other/unknown_pony_chat.jpg", :id => "img_unknown_pony_chat"
+    = render :partial => 'layouts/preload'
     = render :partial => 'layouts/topbar'
     .bg-container
       .container

@@ -32,6 +32,7 @@ body.main
     ul.drop-list
       list-style: none
       margin: 0
+      
       li
         position: relative
         margin-bottom: 20px
@@ -74,15 +75,15 @@ body.main
               &.selected, &.loading
                 +opacity(.6)
               &.up
-                background-image: image-url("icons/iconic/white/arrow_up_16x16.png")
+                background-image: $img-arrow-up
                 &.selected
-                  background-image: image-url("icons/iconic/green/arrow_up_16x16.png")
+                  background-image: $img-arrow-up-color
               &.down
-                background-image: image-url("icons/iconic/white/arrow_down_16x16.png")
+                background-image: $img-arrow-down
                 &.selected
-                  background-image: image-url("icons/iconic/red/arrow_down_16x16.png")     
+                  background-image: $img-arrow-down-color 
               &.loading, &.down.loading, &.up.loading
-                background-image: image-url("details/spinner-small-dark.gif")
+                background-image: $img-spinner-dark
               &:first-child
                 padding-bottom: 17px
                 border-bottom: 1px transparent solid
@@ -143,7 +144,7 @@ body.main
               a
                 +opacity(.6)
                 &.loading, &.down.loading, &.up.loading
-                  background-image: image-url("details/spinner-small.gif")
+                  background-image: $img-spinner
                 &:first-child
                   border-bottom: 1px rgba(50,50,50,0.3) solid
                 &:hover
