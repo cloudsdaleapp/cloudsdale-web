@@ -1,8 +1,4 @@
-<<<<<<< HEAD:app/assets/javascripts/modules/cloud.js.coffee
 #= require modules/chat
-=======
-#= require modules/cloud/chat
->>>>>>> 8d4c389ed490d262fc1715581a58f98c8d5b6be8:app/assets/javascripts/modules/cloud.js.coffee
 
 do ($ = jQuery) ->
   
