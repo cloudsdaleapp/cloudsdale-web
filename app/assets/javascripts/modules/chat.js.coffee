@@ -26,7 +26,7 @@ do ($ = jQuery) ->
       
       @bind()
     
-    bind: ->
+    bind: =>
       @input.BetterGrow
         initial_height: 12
         do_not_enter: null
