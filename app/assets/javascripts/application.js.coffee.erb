@@ -25,7 +25,7 @@
 #= require clouds
 
 $ ->
-  @faye = Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
+  @faye = new Faye.Client("<%=Cloudsdale.config['url']%>:9191/faye")
   @userData = $('#user').data()
   
   $('.topbar').topBar()

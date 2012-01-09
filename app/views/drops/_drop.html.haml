@@ -1,0 +1,13 @@
+%li
+  .details
+    .ratings
+      = render partial: 'drops/votes/vote_links', locals: { drop: drop }
+    .summary.main
+      .icon
+        - favicon_src = !drop[:metadata]["favicon"].nil? ? drop[:metadata]["favicon"] : 'icons/iconic/gray_dark/180_map_pin_fill_16x16.png'
+        = image_tag favicon_src, class: drop[:metadata]["favicon"].nil? ? 'default' : ''
+      = link_to drop.title, drop.url, target: '_blank', data: { 'skip-pjax' => true }
+    .summary.sub
+      .fav
+        = link_to "", "/", remote: true
+      %span= link_to drop.url, drop.url, target: '_blank', data: { 'skip-pjax' => true }

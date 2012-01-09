@@ -21,7 +21,7 @@
           .cloud-chat-wrapper
             .ytshadow.top.heavy
             .chat-messages
-            = form_tag chat_room_messages_path(cloud.id), :remote => true, :class => "chat-form" do
+            = form_tag cloud_messages_path(cloud), :remote => true, :class => "chat-form" do
               .chat-input
                 = text_area_tag :message, ""
 

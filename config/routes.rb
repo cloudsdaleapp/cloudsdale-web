@@ -39,20 +39,13 @@ Cloudsdale::Application.routes.draw do
   
   resources :clouds, :except => [:index] do
     resources :members, :controller => 'clouds/members', :only => [:create,:destroy,:index]
+    resources :messages, only: [:create,:index], :controller => 'clouds/messages'
   end
   
   resources :notifications, :only => [:index,:show]
   
   resources :tags, :only => [] do
     post :search, on: :collection
-  end
-  
-  namespace :chat do
-    resources :rooms, :only => [:index] do
-      get :subscribed, on: :collection
-      get :form, on: :member
-      resources :messages, :only => [:create,:index], :controller => 'rooms/messages'
-    end
   end
   
   resources :search, only: [:create]

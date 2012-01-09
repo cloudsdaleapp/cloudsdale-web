@@ -1,8 +1,8 @@
-class Chat::Message
+class Message
   
   include Mongoid::Document
   
-  embedded_in :room, class_name: "Chat::Room"
+  embedded_in :chat
   belongs_to :author, class_name: "User"
   
   field :timestamp,   type: Time,    default: -> { Time.now }

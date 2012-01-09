@@ -5,7 +5,7 @@ class Cloud
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
-  embeds_one :chat, class_name: "Chat::Room", as: :topic
+  embeds_one :chat, as: :topic
   
   attr_accessor :user_invite_tokens
   

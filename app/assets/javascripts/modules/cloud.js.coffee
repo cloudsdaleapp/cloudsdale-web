@@ -19,6 +19,14 @@ do ($ = jQuery) ->
       @handlerTrigger = @handler.find("a")
       @handlerNotificationPlate = @handler.find("span.cloud-notification")
       
+      # Set up Chat Room if present
+      @chatWrapper = @container.find('.cloud-chat-wrapper')
+      if @chatWrapper.length == 1
+        @chat = @chatWrapper.chat
+          topic: @
+          topicId: @cloudId
+          topicType: 'cloud'
+      
       # Default cloud specific variable values
       @notifications = 0
       @active = false
@@ -59,6 +67,8 @@ do ($ = jQuery) ->
       @active = true
       @container.addClass('active')
       @handler.addClass('active')
+      if @chat
+        unless @chat.seeded then @chat.seed()
     
     # Takes the chat frame into minimized mode.
     hide: ->
