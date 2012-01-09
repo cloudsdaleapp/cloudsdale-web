@@ -69,6 +69,7 @@ do ($ = jQuery) ->
       # Appends a message to the bottom of the message container.
       t = new Date(timestamp)
       image = if user_avatar then "src='#{user_avatar}'" else "src='#{@parent.default_avatar_src}'"
+      readyForScroll = @isNotReadingHistory()
       if uid == @lastSenderUid
         @lastMessageFrame.append("<p>#{content}</p>")
       else
@@ -85,13 +86,13 @@ do ($ = jQuery) ->
         @lastSenderUid = uid
           
       @popLastMessages()
-      @correctContainerScroll(true)
+      @correctContainerScroll(readyForScroll)
     
     popLastMessages: ->
       if @messagesWrapper.children('div.chat-message').size() > 30
         @messagesWrapper.find('div.chat-message:first').remove()
     
-    isReadingHistory: ->
+    isNotReadingHistory: ->
       # Should return true if scroll frame is not at maximum scroll down.
       (@messagesWrapper[0].scrollHeight - @messagesWrapper.scrollTop() == @messagesWrapper.outerHeight())
     
