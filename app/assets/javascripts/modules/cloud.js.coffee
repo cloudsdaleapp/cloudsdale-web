@@ -34,6 +34,7 @@ do ($ = jQuery) ->
       # General setup
       @bind()
       @render()
+      @setNotifications()
     
     # Binds elements to do things on interaction
     bind: =>
@@ -67,6 +68,7 @@ do ($ = jQuery) ->
       @active = true
       @container.addClass('active')
       @handler.addClass('active')
+      @clearNotifications()
       if @chat
         unless @chat.seeded then @chat.seed()
         @chat.correctContainerScroll(true)

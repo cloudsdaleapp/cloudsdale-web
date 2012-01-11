@@ -46,6 +46,7 @@ do ($ = jQuery) ->
       # Set up subscription to room's message broadcast channel
       @faye.subscribe "/#{@topicType}/#{@topicId}/chat", (data) =>
         if @userData.client_id != data.client_id
+          @topic.addNotification()
           if @seeded
             @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar,data.uid)
           
