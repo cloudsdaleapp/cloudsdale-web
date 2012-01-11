@@ -7,7 +7,7 @@ class MainController < ApplicationController
   end
   
   def index
-    @drops = Drop.order_by(:updated_at,:desc).limit(20)
+    @drops = current_user.deposits.order_by(:updated_at,:desc).limit(20)
   end
 
 end

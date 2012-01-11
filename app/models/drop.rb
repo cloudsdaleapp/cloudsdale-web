@@ -7,6 +7,7 @@ class Drop
   voteable self, :up => +1, :down => -1
   
   has_and_belongs_to_many :users, :inverse_of => :drops, dependent: :nullify
+  has_many :deposits, dependent: :delete
   
   field :url,                 type: String
   field :match_id,            type: String

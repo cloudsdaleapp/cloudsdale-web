@@ -11,9 +11,10 @@
           = text_field_tag :url, "", placeholder: 'Share a URL with the world...'
           = submit_tag "Drop", class: 'btn'
             
-.row
-  .span16
-    %ul.drop-list
-      - @drops.each do |drop,i|
-        = render :partial => 'drops/drop', locals: { drop: drop }
+  .row
+    .span16
+      %ul.drop-list
+        - @drops.each do |drop|
+          - drop = drop.drop
+          = render :partial => 'drops/drop', locals: { drop: drop }
       
