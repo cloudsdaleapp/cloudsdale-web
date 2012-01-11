@@ -10,10 +10,51 @@ do ($ = jQuery) ->
       @userAvatar = args.userAvatar
       @userPath = args.userPath
       
-      @clouds = @frame.find('.cloud-list')
-      $.each $(@clouds.children()), (key, val) =>
+      @scrollerDown = @frame.find('a.scroll.down')
+      @scrollerUp = @frame.find('a.scroll.up')
+      @scrollers = @frame.find('a.scroll')
+      
+      @cloudsHolder = @frame.find('.cloud-list')
+      $.each $(@cloudsHolder.children()), (key, val) =>
         $(val).cloud
           parent: @
+      
+      @bind()
+      @arrangeScroll()
+      @cloudsHolder.scrollTop(0)
+      
+    bind: () =>
+      @scrollerDown.bind 'click', =>
+        @cloudsHolder.scrollTop(@cloudsHolder.scrollTop()+52) unless @scrollerDown.hasClass('disabled')
+        @arrangeScroll()
+        
+      @scrollerUp.bind 'click', =>
+        @cloudsHolder.scrollTop(@cloudsHolder.scrollTop()-52) unless @scrollerUp.hasClass('disabled')
+        @arrangeScroll()
+      
+      $(window).bind 'resize', =>
+        @arrangeScroll()
+          
+    arrangeScroll: () =>
+      if (@cloudsHolder.outerHeight() > (@cloudsHolder[0].scrollHeight - @cloudsHolder.outerHeight()))
+        @cloudsHolder.removeClass('scrollable')
+        @scrollers.hide()
+        @cloudsHolder.scrollTop(0)
+      else
+        @cloudsHolder.addClass('scrollable')
+        @scrollers.show()
+      
+      if @cloudsHolder.outerHeight() >= (@cloudsHolder[0].scrollHeight - @cloudsHolder.scrollTop() - @cloudsHolder.outerHeight())
+        @scrollerDown.addClass('disabled')
+      else
+        @scrollerDown.removeClass('disabled')
+      
+      if @cloudsHolder.scrollTop() == 0
+        @scrollerUp.addClass('disabled')
+      else
+        @scrollerUp.removeClass('disabled')
+      
+      
         
   $.fn.bottomBar = ->
     new BottomBar(@,arguments[0])

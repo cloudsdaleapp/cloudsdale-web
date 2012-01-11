@@ -24,16 +24,16 @@
             = form_tag cloud_messages_path(cloud), :remote => true, :class => "chat-form" do
               .chat-input
                 = text_area_tag :message, ""
-
+                
+  = link_to "","#", class: 'scroll up'
+  = link_to "","#", class: 'scroll down'
+  
   %ul.cloud-list.clearfix
     - if current_user
       - @clouds = current_user.clouds
       - @clouds.each do |cloud|
         %li.cloud-trigger{ data: { 'cloud-id' => cloud.id, 'cloud-name' => cloud.name } }
-          %span.cloud-notification
-          = link_to "#", :rel => 'twipsy-chat-room', 'data-original-title' => cloud.name do
-            .image-gloss
-            - if !cloud.avatar.thumb.url.nil?
-              = image_tag cloud.avatar.thumb.url
-            - else
-              %img.nocloudavatar.borderless
+          .bg-image{ style: "background-image: url(#{cloud.avatar.url})" }
+          = link_to "#" do
+            %span.cloud-notification
+            %h6.cloud-name= cloud.name
