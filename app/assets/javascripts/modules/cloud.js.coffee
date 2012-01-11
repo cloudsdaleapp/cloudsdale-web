@@ -69,6 +69,7 @@ do ($ = jQuery) ->
       @handler.addClass('active')
       if @chat
         unless @chat.seeded then @chat.seed()
+        @chat.correctContainerScroll(true)
     
     # Takes the chat frame into minimized mode.
     hide: ->
