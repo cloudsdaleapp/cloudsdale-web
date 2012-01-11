@@ -2,14 +2,16 @@
   %h1
     .avatar-container
       = image_tag current_user.avatar.url
-    = "Your Waterfall"
-.row
-  .span16
-    = form_tag drops_path, method: :post, id: 'drop', class: 'form-stacked' do
-      .clearfix
-        .input
-          = text_field_tag :url, "", placeholder: 'Share a URL with the world...'
-          = submit_tag "Drop", class: 'btn'
+    = "Your Dropzone" 
+.dropzone
+  .row
+    .span16
+      = form_tag drops_path, remote: true, method: :post, id: 'drop', class: 'form-stacked' do
+        .clearfix
+          .input
+            = text_field_tag :url, "", placeholder: 'Share a URL with the world...'
+            = hidden_field_tag :pending_id, ""
+            = submit_tag "Drop", disable_with: "Drop", class: 'btn'
             
   .row
     .span16
