@@ -13,7 +13,7 @@ do ($ = jQuery) ->
     bind: =>
       @expandTrigger.bind 'click', =>
         @frame.toggleClass('expanded')
-        if @frame.hasClass('expanded') then @expandTrigger.text("less") else @expandTrigger.text("more")
+        if @frame.hasClass('expanded') then @expandTrigger.find('span').text("less") else @expandTrigger.find('span').text("more")
       
       
   $.fn.cloudExtras = ->

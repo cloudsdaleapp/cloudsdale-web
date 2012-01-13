@@ -320,6 +320,9 @@ body
         min-height: 200px
         ul.cloud-users-list
           display: block
+        a.expand-trigger
+          &::after
+            content: "▲"
       
       a.expand-trigger
         left: 1px
@@ -333,6 +336,8 @@ body
         font-weight: bold
         +transition(color .3s)
         bottom: 0
+        &::after
+          content: "▼"
         &:hover
           text-decoration: none
             
