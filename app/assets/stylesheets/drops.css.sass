@@ -38,33 +38,39 @@ ul.drop-list
         right: 0
         top: 0
         bottom: 0
-        width: 36px
-        overflow: hidden
+        width: auto
         a
-          float: left
+          position: absolute
           border: none
-          padding: 18px 18px
-          margin: 0
-          line-height: 0
-          background: transparent center center no-repeat
+          right: 0
+          margin: 0 10px 0 0
+          padding: 7px 24px 7px 7px
+          background: transparent right center no-repeat
           +opacity(0)
+          text-align: right
+          font-weight: bold
+          span
+            +opacity(0)
           
           &.selected, &.loading
             +opacity(.6)
           &.up
+            top: 0
             background-image: $img-arrow-up
+            color: rgb(121,186,37)
             &.selected
               background-image: $img-arrow-up-color
           &.down
+            bottom: 0
             background-image: $img-arrow-down
+            color: rgb(250,16,0)
             &.selected
               background-image: $img-arrow-down-color 
           &.loading, &.down.loading, &.up.loading
             background-image: $img-spinner-dark
-          &:first-child
-            padding-bottom: 17px
-            border-bottom: 1px transparent solid
           
+          &:hover
+            text-decoration: none
             
       .summary
         line-height: 22px
@@ -87,6 +93,7 @@ ul.drop-list
             font-weight: bold
             color: #191919
             text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9)
+            
         &.sub
           .fav
             & > a
@@ -107,23 +114,20 @@ ul.drop-list
                   content: "★"
           a
             color: lighten($color-dark-gray,30%)
-              
             
         
         
     &:hover
-      background: rgba(0,0,0,0.3)
+      background: rgba(0,0,0,0.15)
       +box-shadow-inset(0,0,2px,rgba(0,0,0,0.3))
       .details
         .ratings
-          border-left: 1px rgba(50,50,50,0.3) solid
-          background: rgba(255,255,255,0.3)
           a
+            span
+              +opacity(1)
             +opacity(.6)
             &.loading, &.down.loading, &.up.loading
               background-image: $img-spinner
-            &:first-child
-              border-bottom: 1px rgba(50,50,50,0.3) solid
             &:hover
               +opacity(1)
             
@@ -132,14 +136,23 @@ ul.drop-list
             .fav > a
               display: block
             a
-              color: lighten($color-dark-gray,60%)
+              color: lighten($color-dark-gray,90%)
               &:hover
-                color: lighten($color-dark-gray,60%)
+                color: lighten($color-dark-gray,90%)
+            span
+              &.votes
+                +opacity(1)
+                color: rgba(255,255,255,1)
+                &.up
+                  background: transparent $img-arrow-up-small left center no-repeat
+                &.down
+                  background: transparent $img-arrow-down-small left center no-repeat
+                
           &.main
             a
               color: #fff
-              text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.3)
+              text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.2)
               &:hover
                 text-decoration: none
-                color: #E8F1FF
+                color: #F8F8F8
                 text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.3)

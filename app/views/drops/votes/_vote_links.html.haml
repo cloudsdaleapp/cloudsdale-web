@@ -1,9 +1,14 @@
 - if current_user.vote_value(drop) == :up
-  = link_to "", drop_vote_path(drop), method: :delete, remote: true, class: 'selected up'
+  = link_to drop_vote_path(drop), method: :delete, remote: true, class: 'selected up' do
+    %span= "#{drop.votes['up_count']}"
 - else
-  = link_to "", drop_votes_path(drop,:up), method: :put, remote: true, class: 'up'
+  = link_to drop_votes_path(drop,:up), method: :put, remote: true, class: 'up' do
+    %span= "#{drop.votes['up_count']}"
   
 - if current_user.vote_value(drop) == :down
-  = link_to "", drop_vote_path(drop), method: :delete, remote: true, class: 'selected down'
+  = link_to drop_vote_path(drop), method: :delete, remote: true, class: 'selected down' do
+    %span= "#{drop.votes['down_count']}"
 - else
-  = link_to "", drop_votes_path(drop,:down), method: :put, remote: true, class: 'down'
+  = link_to drop_votes_path(drop,:down), method: :put, remote: true, class: 'down' do
+    %span= "#{drop.votes['down_count']}"
+  
