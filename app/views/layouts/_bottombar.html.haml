@@ -16,7 +16,7 @@
               - unless cloud.users.online.empty?
                 - cloud.users.online.each do |user|
                   %li
-                    = link_to image_tag(user.avatar.try(:mini)) + user.name, user_path(user)
+                    = link_to image_tag(user.avatar.try(:chat)), user_path(user), data: { 'placement' => "left", 'offset' => -2 }, rel: 'twipsy', title: user.name
           .cloud-chat-wrapper
             .chat-messages
             = form_tag cloud_messages_path(cloud), :remote => true, :class => "chat-form" do
