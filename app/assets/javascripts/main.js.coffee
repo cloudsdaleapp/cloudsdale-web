@@ -28,6 +28,7 @@ do ($ = jQuery) ->
         id = newDrop.attr("id")
         @list.find("li##{id}").remove()
         @pendingDrop.replaceWith(newDrop)
+        newDrop.rainDrop()
     
     generatePendingDrop: ->
       pendingId = @secureRandom(17)
