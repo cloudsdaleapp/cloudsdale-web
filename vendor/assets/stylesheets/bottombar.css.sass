@@ -226,8 +226,10 @@ body
       bottom: 63px
       .cloud-container
         .cloud-toolbar
-          margin: 0 20px 0 20px
+          margin: 0
           background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
+          header
+            margin: 0 10px
         .cloud-extras-wrapper
           margin: 0
           background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
@@ -316,6 +318,8 @@ body
       
       &.expanded
         min-height: 200px
+        ul.cloud-users-list
+          display: block
       
       a.expand-trigger
         left: 1px
@@ -331,23 +335,27 @@ body
         bottom: 0
         &:hover
           text-decoration: none
+            
 
       ul.cloud-users-list
         display: none
+        position: absolute
+        bottom: 24px
+        top: 0
+        left: 0
+        right: 0
         list-style: none inside
         margin: 0
-        padding: 0 0 18px 18px
+        overflow: auto
         li
           float: left
           width: 250px
-          margin-right: 10px
-          margin-top: 5px
+          margin-left: 10px
+          margin-bottom: 10px
           a
-            line-height: 24px
-            font-weight: bold
-            img 
+            float: left
+            img
               float: left
-              margin-right: 5px
               
       h6
         text-align: center
