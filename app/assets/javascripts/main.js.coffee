@@ -18,9 +18,9 @@ do ($ = jQuery) ->
     
     bind: =>
       @form.bind 'submit', =>
-        @generatePendingDrop()
-        true
+        @validateInput()
       .bind 'ajax:beforeSend', =>
+        @generatePendingDrop()
         @pendingIdField.val('')
         @input.val('')
       .bind 'ajax:complete', (request,response) =>
@@ -29,6 +29,12 @@ do ($ = jQuery) ->
         @list.find("li##{id}").remove()
         @pendingDrop.replaceWith(newDrop)
         newDrop.rainDrop()
+      
+      @input.bind 'keyup', =>
+        @transformInputValue()
+        @validateInput()
+        if @input.val().length <= 0
+          @form.removeClass('error')
     
     generatePendingDrop: ->
       pendingId = @secureRandom(17)
@@ -46,7 +52,26 @@ do ($ = jQuery) ->
         r = Math.floor(Math.random() * 256).toString(16).substr(Math.floor(Math.random() * 2), 1) or String.fromCharCode(65 + (Math.floor(Math.random() * 8)))
         str.push r
       str.join ""
-
+    
+    transformInputValue: ->
+      c = @input.val()
+      c = c.replace(/<\/?[^>]*>/gi,"")
+      c = c.replace(/^\s*$/gi,"")
+      c = c.replace(/^www$/gi,"http://www")
+      @input.val(c)
+    
+    validateInput: ->
+      # Validates the input client side to ease load on chat servers.
+      if (@input.attr('value').match(/^\s*$/) == null) and (@input.val().length > 0) and @validateUrl(@input.val())
+        @form.removeClass('error')
+        true
+      else
+        @form.addClass('error')
+        false
+    
+    validateUrl: (url) ->
+      /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test(url)
+      
   $.fn.dropZone = ->
     new DropZone(@,arguments[0])
   
