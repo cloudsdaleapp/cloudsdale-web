@@ -49,6 +49,7 @@ class Ability
       if user.role >= 2  ## Moderator
         # Articles
         can [:read,:update,:destroy,:promote], Entry
+        can :update, User
       end
       
       if user.role >= 3  ## Placeholder

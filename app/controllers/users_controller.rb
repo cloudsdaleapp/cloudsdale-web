@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   
   skip_before_filter :force_password_change!, only: [:change_password, :update_password]
   
+  before_filter only: [:show,:edit,:update] do
+    @user = User.find(params[:id])
+  end
+  
   def index
     if params[:tab].nil?
       @users = User.online.order([:last_activity,:desc]).limit(48)
@@ -19,12 +23,10 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = current_user
     authorize! :update, @user
   end
   
   def show
-    @user = User.find(params[:id])
     authorize! :read, @user
     @drops = Drop.where("deposits.depositable_id" => @user.id).desc("deposits.#{@user.id}_updated_at").limit(20)
   end
@@ -42,7 +44,6 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = current_user
     @user.activities.build(category: :profile, text: 'Updated profile', url: user_path(@user))
     authorize! :update, @user
     respond_to do |format|
