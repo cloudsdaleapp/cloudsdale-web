@@ -16,7 +16,7 @@ body.users.new, body.authentications.create, body.restorations.new, body.users.c
         box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
         
   fieldset
-    padding: 00px 0 60px 0
+    padding: 0px 0 60px 0
     
     span.auth_cloud
       visibility: visible
@@ -63,205 +63,75 @@ body.users.new, body.authentications.create, body.restorations.new, body.users.c
     padding-left: 0
         
 body.users
-  .content
-    padding-bottom: 0px
-    
-  .page-header
-    margin-bottom: 0
-    .span3
-      padding: 20px 0
-      text-align: center
-    .span2
-      padding: 20px 0
-      h5
-        line-height: 20px
-        &.subscribers
-          margin-top: 10px
-      
-    .span11
-      h1
-        margin-bottom: 0px !important
-      h4
-        padding-left: 20px
-        margin-bottom: 5px
-        span
-          margin: 0 10px 0 0
-          font-weight: bold
-      ul.tabs
-        margin-top: 10px
-        margin-bottom: 0px
-        border-bottom: none
-        
-  .span12.right
-    background: #fff
-    -webkit-border-radius: 0px 0px 6px 0px
-    -moz-border-radius: 0px 0px 6px 0px
-    border-radius: 0px 0px 6px 0px
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
-    padding-bottom: 20px
-    padding-top: 10px
-    min-height: 360px
-    
-  .span4.left
-    padding: 20px 0
-    max-height: 360px
-    .btn
-      width: 170px
-      margin: 0 0 10px 20px
-        
-
-          
-  &.show
-    ul.articles
-      .span12
-        h3
-          padding-left: 15px
-          span
-            float: right
-            text-align: right
-            font-size: 18px
-            margin-right: 20px
-          
-          span.view_count
-            padding-left: 30px
-            background: transparent image-url("icons/iconic/gray_dark/eye_24x18.png") no-repeat 0px 9px
-          
-          span.comment_count
-            padding-left: 26px
-            background: transparent image-url("icons/iconic/gray_dark/comment_alt1_fill_16x16.png") no-repeat 0px 10px
-      
-      .actions
-        padding: 15px
-        text-align: right
-        margin: 10px 0
-        border-bottom: 1px solid #DDD
-        .btn
-          margin-left: 5px
-        span.time
-          background: transparent image-url("icons/iconic/gray_dark/calendar_alt_fill_24x24.png") no-repeat 0px 0px
-          padding: 3px 0px 3px 35px
-          font-size: 16px
-          font-weight: bold
-          float: left
-          
-      
-      
-  &.index
-    ul.tabs
-      margin-bottom: 0px
-      border: none
-      li:first-child
-        margin-left: 10px
-        
-    ul.media-grid
-      li.span4
-        height: 80px
-        a
-        h4
-          line-height: 115%
-          max-width: 130px
-          padding-top: 6px
-          padding-left: 10px
-          float: left
-            
-          a
-            border: none
-            -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, .0)
-            -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, .0)
-            box-shadow: 0 0px 0px rgba(0, 0, 0, .0)
-            margin: 0
-            text-decoration: none
-            
-            span
-              float: left
-              line-height: 115%
-              font-size: 14px
-              color: #404040
-              margin-right: 4px
-              margin-left: 2px
-              margin-top: 1px
-              font-weight: bold
-              
-              &.gold
-                color: #FFB100
-              
-              &.silver
-                color: #CCCCCC
-                
-              &.bronze
-                color: #E49154
-              
-  
-  &.new
-    .span12
-      min-height: 0px
-      padding-top: 30px
-      padding-bottom: 30px
-    .page-header
-      h1
-        img
-          height: 34px
-          float: left
-          margin: 0 10px 0 0
-    .row.form_part
-      display: none
-      &.active
-        display: block
-  
-  &.edit
-    .input
-      img
-        float: left
-        max-height: 28px
-        max-width: 28px
-        margin-right: 10px
-        
-    .span14
-      ul.tabs
-        li:first-child
-          margin-left:  10px
-      .row
-        .span4.avatar
-          text-align: center
-          img
-            margin: 20px 0
-        .span4
-          ul
-            list-style: none outside
-            li
-              padding-top: 14px
-              text-align: center
-              &.not_connected
-                img
-                  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"
-                  filter: alpha(opacity=40)
-                  -moz-opacity: 0.4
-                  -khtml-opacity: 0.4
-                  opacity: 0.4
                   
 // GLOBAL PARTIAL STYLES
 
-.row.user_info_sheet
-  padding-top: 20px
-  .span3.avatar
-    text-align: center
-  .span4.info
-    ul
-      padding-top: 5px
-      margin-bottom: 10px
-      li
-        font-weight: bold
-        margin-bottom: 3px
-      li.name
-        font-size: 18px
-      li.status
-        font-size: 16px
-        margin-bottom: 15px
+.page-header.user
+  height: 100px
+  background: transparent
+  //background: rgba(0,0,0,0.05)
+  //+border-radius(25px 0 0 0)
+  margin: 50px 3px 0px 4px
+  border: none
+  nav
+    margin-bottom: 20px
+    a
+      margin-right: 10px
+      font-weight: bold
+      color: $color-dark-gray
+      &:hover
+        color: $color-dark-gray
+        text-decoration: none
+      span
+        &.settings
+          &:before
+            content: "✐ "
+          &:hover
+            &:before
+              color: #66CCFF
+              content: "✏ "
+          
+        &.subscribe
+          &:before
+            content: "☆ "
+          &:hover
+            &:before
+              color: #FFB800
+              content: "★ "
+        &.unsubscribe
+          &:before
+            color: #FFB800
+            content: "★ "
+          &:hover
+            &:before
+              content: "☆ "
+  h1
+    position: relative
+    padding: 10px
+    margin: 0
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.9)
+    .avatar-container
+      line-height: 0em
+      padding: 7px
+      float: left
+      margin: -50px 25px 0 20px
+      +border-radius(3px)
+      +linear-gradient(#fff,#E8F1FF)
+      +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
+      border: 1px rgba(50, 50, 50, 0.3) solid
+      img
+        border: 1px rgba(50, 50, 50, 0.2) solid
+        margin: 0
+        padding: 0
+    span.subscribers
+      float: right
+      font-size: 14px
+      line-height: 36px
+      &:after
+        content: " ★"
       
-      li.subscriber_count, li.article_count
-        color: black
+.row > .span16
+  overflow: visible !important
   
   
   
