@@ -7,7 +7,8 @@ class MainController < ApplicationController
   end
   
   def index
-    @drops = current_user.deposits.order_by(:updated_at,:desc).limit(20)
+    @ids = (current_user.subscriber_ids + [current_user.id]).uniq + current_user.cloud_ids
+    @drops = Drop.any_of(:"deposits.depositable_id".in => @ids).order_by(:updated_at,:desc).limit(20)
   end
 
 end
