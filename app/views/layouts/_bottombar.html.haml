@@ -1,6 +1,5 @@
 .bottombar
   .cloud-wrapper
-    .ytshadow.left
     - if current_user
       - @clouds = current_user.clouds
       - @clouds.each do |cloud|
@@ -8,18 +7,17 @@
           .cloud-toolbar
             %header
               = cloud.name
-              %span.usercount= cloud.users.online.count
               %a.closex
               = link_to "", cloud_path(cloud), class: 'cloud'
-              .ytshadow.bottom
           .cloud-extras-wrapper
+            = link_to "#", class: 'cloud expand-trigger' do
+              %span more
             %ul.cloud-users-list
               - unless cloud.users.online.empty?
                 - cloud.users.online.each do |user|
                   %li
                     = link_to image_tag(user.avatar.try(:mini)) + user.name, user_path(user)
           .cloud-chat-wrapper
-            .ytshadow.top.heavy
             .chat-messages
             = form_tag cloud_messages_path(cloud), :remote => true, :class => "chat-form" do
               .chat-input
