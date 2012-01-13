@@ -1,4 +1,5 @@
 #= require modules/chat
+#= require modules/cloud/extras
 
 do ($ = jQuery) ->
   
@@ -20,6 +21,11 @@ do ($ = jQuery) ->
       @handlerNotificationPlate = @handler.find("span.cloud-notification")
       
       # Set up Chat Room if present
+      @extrasWrapper = @container.find('.cloud-extras-wrapper')
+      if @extrasWrapper.length == 1
+        @extras = @extrasWrapper.cloudExtras
+          cloud: @
+      
       @chatWrapper = @container.find('.cloud-chat-wrapper')
       if @chatWrapper.length == 1
         @chat = @chatWrapper.chat
