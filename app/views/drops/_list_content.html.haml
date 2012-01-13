@@ -1,0 +1,3 @@
+- @drops.each do |drop|
+  - drop = drop.drop if drop.is_a?(Deposit)
+  = render :partial => 'drops/drop', locals: { drop: drop }
