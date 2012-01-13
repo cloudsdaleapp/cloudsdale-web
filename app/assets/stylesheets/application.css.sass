@@ -69,44 +69,55 @@ body
   padding: 0 20px
   width: 710px
   min-width: 710px
-  margin-left: auto
-  margin-right: auto
   .content
     width: 710px
     margin: 0
 
-@media screen and (max-width: 1135px)
-  .bg-container
-    display: block
-    background: rgb(248,248,248) /* Old browsers */
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: image-url("bg-noise.png") repeat 0px 0px fixed, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2VlZWZlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOGY4ZjgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
-    background: image-url("bg-noise.png") repeat 0px 0px fixed, -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(238,239,238,1) 50%, rgba(248,248,248,1) 100%) /* FF3.6+ */
-    background: image-url("bg-noise.png") repeat 0px 0px fixed, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,248,248,1)), color-stop(50%,rgba(238,239,238,1)), color-stop(100%,rgba(248,248,248,1))) /* Chrome,Safari4+ */
-    background: image-url("bg-noise.png") repeat 0px 0px fixed, -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* Chrome10+,Safari5.1+ */
-    background: image-url("bg-noise.png") repeat 0px 0px fixed, -o-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* Opera 11.10+ */
-    background: image-url("bg-noise.png") repeat 0px 0px fixed, -ms-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* IE10+ */
-    background: image-url("bg-noise.png") repeat 0px 0px fixed, linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f8f8f8',GradientType=0 ) /* IE6-8 */
-    .container
-      position: relative
-      width: 752px
-      height: 100%
-      background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
-      .sideshadow
-        position: absolute
-        display: block
-        width: 40px
-        top: 25px
-        bottom: 25px
-        overflow: hidden
-        &.left
-          border-right: rgba(255,255,255,0.8) solid 1px
-          left: -40px
-        &.right
-          border-left: rgba(255,255,255,0.8) solid 1px
-          right: -40px
-        
+.bg-container
+  display: block
+  background: rgb(248,248,248) /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: image-url("bg-noise.png") repeat 0px 0px fixed, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2VlZWZlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOGY4ZjgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+  background: image-url("bg-noise.png") repeat 0px 0px fixed, -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(238,239,238,1) 50%, rgba(248,248,248,1) 100%) /* FF3.6+ */
+  background: image-url("bg-noise.png") repeat 0px 0px fixed, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,248,248,1)), color-stop(50%,rgba(238,239,238,1)), color-stop(100%,rgba(248,248,248,1))) /* Chrome,Safari4+ */
+  background: image-url("bg-noise.png") repeat 0px 0px fixed, -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* Chrome10+,Safari5.1+ */
+  background: image-url("bg-noise.png") repeat 0px 0px fixed, -o-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* Opera 11.10+ */
+  background: image-url("bg-noise.png") repeat 0px 0px fixed, -ms-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* IE10+ */
+  background: image-url("bg-noise.png") repeat 0px 0px fixed, linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f8f8f8',GradientType=0 ) /* IE6-8 */
+  .container
+    position: relative
+    width: 752px
+    height: 100%
+    background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
+    margin: 0
+    .sideborder
+      position: absolute
+      display: block
+      width: 1px
+      top: 25px
+      bottom: 25px
+      overflow: hidden
+      &.left
+        border-right: rgba(255,255,255,1) solid 1px
+        left: -1px
+      &.right
+        border-left: rgba(255,255,255,1) solid 1px
+        right: -1px
+    .sideshadow
+      position: absolute
+      display: block
+      width: 40px
+      top: 25px
+      bottom: 25px
+      overflow: hidden
+      &.left
+        border-right: rgba(0,0,0,.1) solid 1px
+        left: -41px
+      &.right
+        border-left: rgba(0,0,0,.1) solid 1px
+        right: -41px
+    
   .container-fluid.body
     position: relative
       
@@ -118,14 +129,6 @@ body
     margin: 20px 0
   
 .page-header
-  // background: #F0F6FF
-  // background-color: $color-cd-background-lightest repeat
-  // background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-  // background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-  // -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
   h1, h2
     padding: 20px 20px 10px 20px
     text-shadow: 1px 1px 2px rgba(255,255,255,0.3)
