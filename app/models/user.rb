@@ -11,14 +11,10 @@ class User
   embeds_many :activities
   embeds_many :notifications
   
-  has_many :deposits, as: :dropable, dependent: :delete
-  
   has_many :entries, as: :author
   has_many :owned_clouds, class_name: "Cloud", as: :owner
   
   has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
-  has_and_belongs_to_many :drops, :inverse_of => :users, dependent: :nullify
-  
   has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
   
