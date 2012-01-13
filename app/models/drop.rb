@@ -47,7 +47,7 @@ class Drop
   end
   
   def set_data(response)
-    self[:title]      = response.data.title[0..62]
+    self[:title]      = response.data.title
     self[:metadata]   = {}.merge(response.data)
     self[:status]     = response.status
     self[:strategy]   = response.strategy.layout_key
