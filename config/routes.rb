@@ -23,6 +23,7 @@ Cloudsdale::Application.routes.draw do
     put :update_password, on: :member
     resources :subscribers, :only => [:create,:destroy], :controller => 'users/subscribers'
     resources :restorations, :only => [:create,:show], :controller => 'users/restorations'
+    resources :drops, only: [:create], :controller => 'users/drops'
   end
   
   resources :drops, only: [:create] do
