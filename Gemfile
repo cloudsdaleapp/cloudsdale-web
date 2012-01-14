@@ -8,6 +8,8 @@ gem 'bson_ext', '1.5.1'
 gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
 gem 'tire'
 gem 'voteable_mongo'
+gem "hiredis"
+gem "redis", ">= 2.2.0", :require => ["redis", "redis/connection/hiredis"]
 
 # Push notifications
 gem 'faye'

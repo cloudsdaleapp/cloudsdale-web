@@ -19,6 +19,8 @@ development:
     fog_directory: cloudsdale_development_uploads
     fog_host: http://c775851.r51.cf2.rackcdn.com
   faye:
+    path: faye
+    schema: http
     host: 127.0.0.1
     port: 9191
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
