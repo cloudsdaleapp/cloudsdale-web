@@ -2,9 +2,9 @@
   %h1
     .avatar-container
       - if @user.avatar.url
-        = image_tag @user.avatar, :title => @user.character.name, :class => 'avatar'
+        = image_tag @user.avatar, :title => @user.name, :class => 'avatar'
       - else
-        = image_tag "other/unknown_pony.jpg", :title => @user.character.name, :class => 'avatar'
+        = image_tag "other/unknown_pony.jpg", :title => @user.name, :class => 'avatar'
     = @user.name
     %span.subscribers= @user.subscriber_ids.count
   %nav
