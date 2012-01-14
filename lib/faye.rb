@@ -5,7 +5,6 @@ require 'yaml'
 require 'mongo'
 require 'net/http'
 require 'redis'
-require 'pry'
 
 $LOAD_PATH << File.dirname(__FILE__)
 
