@@ -50,14 +50,27 @@
       bottom: 0
       background: transparent image-url("icons/iconic/gray_dark/unshift.png") center center no-repeat
       
+  a.new-cloud
+    position: absolute
+    left: 2px
+    min-height: 52px
+    min-width: 62px
+    border-right: 1px rgba(50,50,50,0.8) solid
+    background: transparent image-url("icons/iconic/gray_dark/plus_alt_12x12.png") 38px 30px no-repeat
+    z-index: 1
+    &:hover
+      background-color: rgba(0,0,0,.1)
+    
   
   ul.cloud-list
     display: block
     position: relative
     list-style: none
     margin: 0 10px 0 0
+    padding-left: 58px
     max-height: 52px
     overflow: hidden
+    background: image-url("icons/iconic/gray_dark/cloud_32x20.png") no-repeat 14px center
     &.scrollable
       margin-right: 40px
 

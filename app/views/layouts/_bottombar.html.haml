@@ -23,8 +23,7 @@
               .chat-input
                 = text_area_tag :message, ""
                 
-  = link_to "","#", class: 'scroll up'
-  = link_to "","#", class: 'scroll down'
+  = link_to "", new_cloud_path, class: 'new-cloud'
   
   %ul.cloud-list.clearfix
     - if current_user
@@ -35,3 +34,6 @@
           = link_to "#" do
             %span.cloud-notification
             %h6.cloud-name= cloud.name
+            
+  = link_to "","#", class: 'scroll up'
+  = link_to "","#", class: 'scroll down'
