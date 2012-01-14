@@ -1,45 +1,27 @@
-.page-header
-  .row
-    .span3
+.page-header.user
+  %h1
+    .avatar-container
       - if @user.avatar.url
         = image_tag @user.avatar, :title => @user.character.name, :class => 'avatar'
       - else
         = image_tag "other/unknown_pony.jpg", :title => @user.character.name, :class => 'avatar'
-    .span2
-      %h5.gender= @user.character.gender.capitalize if @user.character.gender
-      %h5.kind= @user.character.kind.capitalize if @user.character.kind
-      %h5.subscribers= "#{@user.subscriber_ids.count} subscribers"
-    .span11
-      %h1
-        = @user.character.name
-      %h4
-        - if @user.is_online?
-          %span{ :class => "online"}= "Online"
-          = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
-        - else
-          %span{ :class => "offline"}= "Offline"
-          = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
-      %ul.tabs
-        %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
-          = link_to "Profile", edit_user_path(current_user)
-        %li{ :class => "#{ params[:tab] == 'account' ? 'active' : '' }" }
-          = link_to "Account", edit_user_path(current_user, tab: 'account')
-        %li{ :class => "#{ params[:tab] == 'security' ? 'active' : '' }" }
-          = link_to "Security", edit_user_path(current_user, tab: 'security')
+    = "#{@user.name}'s Settings"
+  
+  %ul.tabs{ data: { tabs: :tabs } }
+    %li.active= link_to "Profile", "#profile"
+    %li= link_to "Avatar", "#avatar"
+    %li= link_to "Account", "#account"
+    %li= link_to "Security", "#security"
           
 .row
-  .span4.left
-  .span12.right
+  .span16
     = form_for @user, :multipart => true, :validate => true, :url => user_path(@user), :method => :put, :html => { :class => 'with_notifications' } do |f|
-      .row
-        - if params[:tab].nil?
-          = render :partial => 'edit_profile_tab', :locals => { f: f }
-        - elsif params[:tab] == 'account'
-          = render :partial => 'edit_account_tab', :locals => { f: f }
-        - elsif params[:tab] == 'security'
-          = render :partial => 'edit_security_tab', :locals => { f: f }
-
+      .tab-content#my-tab-content
+        .tab-pane#profile.active= render :partial => 'edit_profile_tab', :locals => { f: f }
+        .tab-pane#avatar= render :partial => 'edit_avatar_tab', :locals => { f: f }
+        .tab-pane#account= render :partial => 'edit_account_tab', :locals => { f: f }
+        .tab-pane#security= render :partial => 'edit_security_tab', :locals => { f: f }
       
-      %fieldset
-        .actions
-          = f.submit "Save", :class => 'btn primary'
+        %fieldset
+          .actions
+            = f.submit "Save", :class => 'btn primary'

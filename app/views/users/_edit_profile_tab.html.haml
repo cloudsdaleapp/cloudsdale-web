@@ -9,12 +9,3 @@
     .clearfix
       = char_f.label :gender, "Kind"
       .input= char_f.select(:kind, options_for_select(Character::KINDS.collect{ |k| [k.capitalize, k] }, char_f.object.kind), {}, { :class => 'span4' })
-
-%fieldset
-  .clearfix
-    = f.label :avatar, "Select an avatar"
-    .input
-      = f.file_field :avatar
-      .help-inline
-        %strong= "Note:"
-        = "You can upload any size of avatar though cloudsdale will scale it for you."

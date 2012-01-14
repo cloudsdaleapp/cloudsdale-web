@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+$(document).bind 'edit_users.load', (e,obj) =>
+  $('ul.tabs').tabs()
+
 $(document).bind 'show_users.load', (e,obj) =>
   $('.dropzone').dropZone()
   $('li.drop').rainDrop()
