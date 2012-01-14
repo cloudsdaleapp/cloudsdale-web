@@ -5,6 +5,8 @@ class User
   include Tire::Model::Search
   include Tire::Model::Callbacks
   
+  include Droppable
+  
   embeds_one :character
   embeds_one :restoration
   embeds_many :authentications

@@ -5,6 +5,8 @@ class Cloud
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
+  include Droppable
+  
   embeds_one :chat, as: :topic
   
   attr_accessor :user_invite_tokens
