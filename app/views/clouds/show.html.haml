@@ -18,3 +18,13 @@
     - if can? :update, @cloud
       = link_to edit_cloud_path(@cloud) do
         %span.settings= "Settings"
+
+.dropzone
+  .row
+    .span16
+      = render partial: 'drops/form', locals: { with_path: cloud_drops_path(@cloud) }
+            
+  .row
+    .span16
+      %ul.drop-list
+        = render partial: 'drops/list_content'

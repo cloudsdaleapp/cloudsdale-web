@@ -16,6 +16,7 @@ class CloudsController < ApplicationController
   def show
     @cloud = Cloud.find(params[:id])
     authorize! :read, @cloud
+    @drops = Drop.where("deposits.depositable_id" => @cloud.id).desc("deposits.#{@cloud.id}_updated_at").limit(20)
   end
   
   def create

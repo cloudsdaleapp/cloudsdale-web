@@ -41,6 +41,7 @@ Cloudsdale::Application.routes.draw do
   resources :clouds, :except => [:index] do
     resources :members, :controller => 'clouds/members', :only => [:create,:destroy,:index]
     resources :messages, only: [:create,:index], :controller => 'clouds/messages'
+    resources :drops, only: [:create], :controller => 'clouds/drops'
   end
   
   resources :notifications, :only => [:index,:show]
