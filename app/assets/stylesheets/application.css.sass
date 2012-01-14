@@ -188,13 +188,10 @@ select, textarea, input
     border-color: #DDD
     cursor: not-allowed
 
-input[type=file].disabled
+input[type=file]
   background-color: transparent
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"
-  filter: alpha(opacity=50)
-  -moz-opacity: 0.5
-  -khtml-opacity: 0.5
-  opacity: 0.5
+  &.disabled
+    +opacity(0.5)
 
 form
   div.clearfix.error
