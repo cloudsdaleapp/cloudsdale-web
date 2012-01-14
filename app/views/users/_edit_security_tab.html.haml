@@ -10,9 +10,9 @@
 %fieldset
   - @user.authentications.each do |authentication|
     .clearfix
+      %label.with-image= image_tag("icons/cloud/#{authentication.provider}_cloud.png")
       .input
         = link_to "Disconnect", authentication_path(authentication), :method => :delete, :class => 'btn error', 'data-skip-pjax' => true
-        = image_tag("icons/cloud/#{authentication.provider}_cloud.png")
         %span.help-inline
           %strong
             = "UID: "
@@ -22,12 +22,14 @@
   - auth_providers = @user.authentications.map {|a| a.provider }
   - unless auth_providers.include?("facebook")
     .clearfix
+      %label.with-image= image_tag("icons/cloud/facebook_cloud.png")
       .input
         = link_to "Connect", "/auth/facebook", :class => 'btn success', 'data-skip-pjax' => true
-        = image_tag("icons/cloud/facebook_cloud.png")
+        
 
   - unless auth_providers.include?("twitter")
     .clearfix
+      %label.with-image= image_tag("icons/cloud/twitter_cloud.png")
       .input
         = link_to "Connect", "/auth/twitter", :class => 'btn success', 'data-skip-pjax' => true
-        = image_tag("icons/cloud/twitter_cloud.png")
+        
