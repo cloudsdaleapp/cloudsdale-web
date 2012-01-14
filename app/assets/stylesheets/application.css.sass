@@ -219,6 +219,22 @@ img.nocloudavatar
     border: none
     outline: none
 
+ul.tabs
+  margin-bottom: 0
+  li
+    margin-bottom: -2px
+    a
+      font-weight: bold
+      &:hover
+        background: rgba(0,0,0,.05)
+        border-bottom: none
+    &.active
+      a
+        margin-bottom: -20px
+        background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
+        &:hover
+          background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
+
 @import "topbar"
 @import "bottombar"
 
