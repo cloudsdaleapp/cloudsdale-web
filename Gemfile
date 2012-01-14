@@ -62,7 +62,6 @@ group :development, :test do
   gem 'rails3-generators'
   gem 'rspec-rails'
   gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
   gem 'guard-livereload'
 end
