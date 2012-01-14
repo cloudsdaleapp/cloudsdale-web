@@ -71,67 +71,6 @@ body.users
         max-width: 28px
                   
 // GLOBAL PARTIAL STYLES
-
-.page-header.user
-  min-height: 80px
-  background: transparent
-  margin: 40px 3px 0px 4px
-  nav
-    padding-bottom: 30px
-    a
-      margin-right: 10px
-      font-weight: bold
-      color: $color-dark-gray
-      &:hover
-        color: $color-dark-gray
-        text-decoration: none
-      span
-        &.settings
-          &:before
-            content: "✐ "
-          &:hover
-            &:before
-              color: #66CCFF
-              content: "✏ "
-          
-        &.subscribe
-          &:before
-            content: "☆ "
-          &:hover
-            &:before
-              color: #FFB800
-              content: "★ "
-        &.unsubscribe
-          &:before
-            color: #FFB800
-            content: "★ "
-          &:hover
-            &:before
-              content: "☆ "
-  h1
-    position: relative
-    padding: 10px
-    margin: 0
-    text-shadow: 1px 1px 1px rgba(255,255,255,0.9)
-    .avatar-container
-      line-height: 0em
-      padding: 7px
-      float: left
-      margin: -45px 25px 0 20px
-      +border-radius(3px)
-      +linear-gradient(#fff,#E8F1FF)
-      +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
-      border: 1px rgba(50, 50, 50, 0.3) solid
-      img
-        border: 1px rgba(50, 50, 50, 0.2) solid
-        margin: 0
-        padding: 0
-    span.subscribers
-      float: right
-      font-size: 14px
-      line-height: 36px
-      &:after
-        content: " ★"
       
 .row > .span16
   overflow: visible !important
