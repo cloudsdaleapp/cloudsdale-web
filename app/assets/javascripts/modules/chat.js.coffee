@@ -69,7 +69,7 @@ do ($ = jQuery) ->
     appendMessage: (timestamp,content,user_name,user_path,user_avatar,uid) ->
       # Appends a message to the bottom of the message container.
       t = new Date(timestamp)
-      image = if user_avatar then "src='#{user_avatar}'" else "src='#{@parent.default_avatar_src}'"
+      image = if user_avatar then "src='#{user_avatar}'"
       readyForScroll = @isNotReadingHistory()
       if uid == @lastSenderUid
         @lastMessageFrame.append("<p>#{content}</p>")

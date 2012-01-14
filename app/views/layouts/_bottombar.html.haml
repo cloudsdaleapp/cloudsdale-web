@@ -15,7 +15,7 @@
             %ul.cloud-users-list
               - unless cloud.users.online.empty?
                 - cloud.users.online.each do |user|
-                  %li
+                  %li{ class: "#{user.id}"}
                     = link_to image_tag(user.avatar.try(:chat)), user_path(user), data: { 'placement' => "left", 'offset' => -2 }, rel: 'twipsy', title: user.name
           .cloud-chat-wrapper
             .chat-messages
