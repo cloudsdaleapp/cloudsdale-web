@@ -16,7 +16,6 @@ test:
   database: cloudsdale_test
   port: 52331
   use_utc: true
-  use_utc: false 
   use_activesupport_time_zone: true
   identity_map_enabled: true
   
@@ -34,6 +33,5 @@ production:
   database: cloudsdale
   port: 52331
   use_utc: true
-  use_utc: false 
   use_activesupport_time_zone: true
   identity_map_enabled: true
