@@ -30,9 +30,8 @@ development:
     inhouse_host: 127.0.0.1
 
 
-      
 production:
-  url: http://beta.cloudsdale.org
+  url: http://www.cloudsdale.org
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA
     consumer_secret: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
