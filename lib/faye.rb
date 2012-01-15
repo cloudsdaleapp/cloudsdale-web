@@ -15,7 +15,11 @@ db_config = YAML.load_file("#{File.dirname(__FILE__)}/../config/mongoid.yml")[EN
 
 FAYE_TOKEN = config['faye']['token']
 
-db = Mongo::Connection.new(db_config["host"],db_config["port"].to_i).db(db_config["database"])
+if ENVIRONMENT == 'production'
+  db = Mongo::ReplSetConnection.new(db_config["hosts"], read: :secondary, refresh_mode: :sync).db(db_config["database"])
+else
+  db = Mongo::Connection.new(db_config["host"],db_config["port"].to_i).db(db_config["database"])
+end
 db.authenticate(db_config["username"],db_config["password"])
 
 redis = Redis.new(host: config['redis']['host'], port: config['redis']['port'].to_i)
