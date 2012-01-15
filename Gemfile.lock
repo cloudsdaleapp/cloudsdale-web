@@ -98,6 +98,8 @@ GEM
     erubis (2.7.0)
     escape_utils (0.2.4)
     eventmachine (0.12.10)
+    exception_notification (2.5.2)
+      actionmailer (>= 3.0.4)
     excon (0.6.6)
     execjs (1.2.9)
       multi_json (~> 1.0)
@@ -383,6 +385,7 @@ DEPENDENCIES
   cloudfiles
   coffee-script
   database_cleaner
+  exception_notification
   execjs
   factory_girl_rails
   faye
