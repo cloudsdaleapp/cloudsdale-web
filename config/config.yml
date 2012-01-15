@@ -48,7 +48,7 @@ production:
   faye:
     path: faye
     schema: http
-    host: 127.0.0.1
-    port: 9191
+    host: 50.57.95.81
+    port: 80
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
     
