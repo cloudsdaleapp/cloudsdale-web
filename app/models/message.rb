@@ -12,6 +12,7 @@ class Message
   field :user_name,   type: String
   field :user_path,   type: String
   field :user_avatar, type: String
+  field :urls,        type: Array,    default: []
   
   validates :timestamp,   :presence => true
   validates :content,     :presence => true
@@ -31,8 +32,10 @@ class Message
         protocol = $1
         top_dom = $2
         path = $3
-        pjax_enabled = !(top_dom =~ /cloudsdale.org/i).nil?   
+        pjax_enabled = !(top_dom =~ /cloudsdale.org/i).nil?
         url = protocol + top_dom + path
+        self[:urls] ||= []
+        self[:urls] << url
         "<a class='chat-link' href='#{url}' #{!pjax_enabled ? "target='_blank' data-skip-pjax='true'" : ''}>#{url}</a>"
       end
     end
