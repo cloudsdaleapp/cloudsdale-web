@@ -35,10 +35,10 @@ production:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
   tire:
-    host: pinkie.misc.cloudsdale.org
+    host: pinkie.snet.misc.cloudsdale.org
     port: 9200
   redis:
-    host: pinkie.misc.cloudsdale.org
+    host: pinkie.snet.misc.cloudsdale.org
     port: 6379
   rackspace_cloudfiles:
     username: zeeraw
