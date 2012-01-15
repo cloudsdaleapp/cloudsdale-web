@@ -16,7 +16,8 @@ db_config = YAML.load_file("#{File.dirname(__FILE__)}/../config/mongoid.yml")[EN
 FAYE_TOKEN = config['faye']['token']
 
 if ENVIRONMENT == 'production'
-  db = Mongo::ReplSetConnection.new(db_config["hosts"], read: :secondary, refresh_mode: :sync).db(db_config["database"])
+  hosts = db_config["hosts"]
+  db = Mongo::ReplSetConnection.new(hosts.pop, hosts.pop, hosts.pop, read: :secondary, refresh_mode: :sync).db(db_config["database"])
 else
   db = Mongo::Connection.new(db_config["host"],db_config["port"].to_i).db(db_config["database"])
 end
