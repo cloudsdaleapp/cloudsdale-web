@@ -22,7 +22,7 @@ else
 end
 db.authenticate(db_config["username"],db_config["password"])
 
-redis = Redis.new(host: config['redis']['chat']['host'], port: config['redis']['port']['port'].to_i)
+redis = Redis.new(host: config['redis']['chat']['host'], port: config['redis']['chat']['port'].to_i)
 
 autoload :ServerAuth, "faye/server_auth"
 autoload :ClientAuth, "faye/client_auth"
