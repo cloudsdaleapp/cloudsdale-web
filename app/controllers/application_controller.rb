@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   end
   
   before_filter :force_password_change!
+  before_filter :set_time_zone_for_user!
   
   before_filter do
     response.headers["controller"], response.headers["action"] = controller_name.parameterize, action_name.parameterize
@@ -20,11 +21,8 @@ class ApplicationController < ActionController::Base
     rescue
       session[:user_id] = nil
     end
-    
-    Time.zone = current_user.time_zone if current_user and current_user.time_zone
   end
-  
-  
+
   protect_from_forgery
   
   def render(options = nil, extra_options = {}, &block)
@@ -91,4 +89,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def set_time_zone_for_user!
+    Time.zone = current_user.time_zone if current_user and current_user.time_zone
+  end
 end
