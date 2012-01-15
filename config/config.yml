@@ -24,6 +24,8 @@ development:
     host: 127.0.0.1
     port: 9191
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
+    inhouse_host: 127.0.0.1
+
 
       
 production:
@@ -48,7 +50,8 @@ production:
   faye:
     path: faye
     schema: http
-    host: 50.57.95.81
+    host: celestia.chat.cloudsdale.org
     port: 80
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
+    inhouse_host: celestia.snet.chat.cloudsdale.org
     
