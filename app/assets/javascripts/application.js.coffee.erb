@@ -37,7 +37,7 @@ $ ->
       message.ext.user_path = @userData.path
     callback message
   
-  faye_path = "<%=Cloudsdale.config['faye']['schema'] + '://' + Cloudsdale.config['faye']['host'] + ':' + Cloudsdale.config['faye']['port'].to_s + '/' + Cloudsdale.config['faye']['path']%>"
+  faye_path = "<%=Cloudsdale.faye_path(:client)%>"
   @faye = new Faye.Client(faye_path)
   @faye.addExtension(clientAuth)
   

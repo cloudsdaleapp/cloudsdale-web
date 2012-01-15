@@ -13,6 +13,9 @@ development:
   redis:
     host: 127.0.0.1
     port: 6379
+    chat:
+      host: 127.0.0.1
+      port: 6379
   rackspace_cloudfiles:
     username: zeeraw
     api_key: 8df411c5fe3d2a3580ab48e661d277ee
@@ -24,10 +27,11 @@ development:
     host: 127.0.0.1
     port: 9191
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
+    inhouse_host: 127.0.0.1
 
-      
+
 production:
-  url: http://beta.cloudsdale.org
+  url: http://www.cloudsdale.org
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA
     consumer_secret: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
@@ -40,6 +44,9 @@ production:
   redis:
     host: twilight.snet.misc.cloudsdale.org
     port: 6379
+    chat:
+      host: 127.0.0.1
+      port: 6379
   rackspace_cloudfiles:
     username: zeeraw
     api_key: 8df411c5fe3d2a3580ab48e661d277ee
@@ -51,4 +58,5 @@ production:
     host: celestia.chat.cloudsdale.org
     port: 80
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
+    inhouse_host: celestia.snet.chat.cloudsdale.org
     

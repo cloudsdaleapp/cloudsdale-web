@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   
   def faye_broadcast(channel, data)
     message = { channel: channel, data: data, ext: { auth_token: FAYE_TOKEN } }
-    Net::HTTP.post_form(Cloudsdale.faye_path, message: message.to_json)
+    Net::HTTP.post_form(Cloudsdale.faye_path(:inhouse), message: message.to_json)
   end
   
   private
