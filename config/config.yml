@@ -38,7 +38,7 @@ production:
     host: pinkie.snet.misc.cloudsdale.org
     port: 9200
   redis:
-    host: pinkie.snet.misc.cloudsdale.org
+    host: twilight.snet.misc.cloudsdale.org
     port: 6379
   rackspace_cloudfiles:
     username: zeeraw
@@ -48,7 +48,7 @@ production:
   faye:
     path: faye
     schema: http
-    host: 50.57.95.81
+    host: celestia.chat.cloudsdale.org
     port: 80
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
     
