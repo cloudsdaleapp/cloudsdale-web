@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  before_filter :redirect_on_maintenance!
   before_filter :force_password_change!
+  before_filter :set_time_zone_for_user!
   
   before_filter do
     response.headers["controller"], response.headers["action"] = controller_name.parameterize, action_name.parameterize
@@ -20,11 +22,8 @@ class ApplicationController < ActionController::Base
     rescue
       session[:user_id] = nil
     end
-    
-    Time.zone = current_user.time_zone if current_user and current_user.time_zone
   end
-  
-  
+
   protect_from_forgery
   
   def render(options = nil, extra_options = {}, &block)
@@ -89,6 +88,18 @@ class ApplicationController < ActionController::Base
     if current_user.try(:force_password_change?) == true
       redirect_to change_password_user_path(current_user), notice: notify_with(:warning,"Please change your password before proceeding.")
     end
+  end
+  
+  def redirect_on_maintenance!
+    if MAINTENANCE
+      unless current_user and current_user.role >= 4
+        redirect_to maintenance_path
+      end
+    end
+  end
+  
+  def set_time_zone_for_user!
+    Time.zone = current_user.time_zone if current_user and current_user.time_zone
   end
   
 end
