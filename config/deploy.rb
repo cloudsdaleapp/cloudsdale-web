@@ -18,6 +18,7 @@ set :use_sudo,        false
 role :web, "50.57.94.218"
 role :app, "50.57.94.218", :primary => true
 role :db,  "50.57.94.218", :primary => true
+role :faye, "50.57.95.81"
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }
@@ -108,17 +109,17 @@ namespace :deploy do
   end
 
   desc "Zero-downtime restart of Unicorn"
-  task :restart, :except => { :no_release => true } do
+  task :restart, :roles => :web, :except => { :no_release => true } do
     run "kill -s USR2 `cat /opt/pids/unicorn.pid`"
   end
 
   desc "Start unicorn"
-  task :start, :except => { :no_release => true } do
+  task :start, :roles => :web, :except => { :no_release => true } do
     run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E production -D"
   end
 
   desc "Stop unicorn"
-  task :stop, :except => { :no_release => true } do
+  task :stop, :roles => :web, :except => { :no_release => true } do
     run "kill -s QUIT `cat /opt/pids/unicorn.pid`"
   end  
 
@@ -140,6 +141,7 @@ namespace :deploy do
       rollback.cleanup
     end
   end
+  
 end
 
 def run_rake(cmd)
