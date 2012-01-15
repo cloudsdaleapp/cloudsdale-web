@@ -13,6 +13,9 @@ development:
   redis:
     host: 127.0.0.1
     port: 6379
+    chat:
+      host: 127.0.0.1
+      port: 6379
   rackspace_cloudfiles:
     username: zeeraw
     api_key: 8df411c5fe3d2a3580ab48e661d277ee
@@ -42,6 +45,9 @@ production:
   redis:
     host: pinkie.snet.misc.cloudsdale.org
     port: 6379
+    chat:
+      host: 127.0.0.1
+      port: 6379
   rackspace_cloudfiles:
     username: zeeraw
     api_key: 8df411c5fe3d2a3580ab48e661d277ee
