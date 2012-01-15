@@ -1,5 +1,6 @@
 = image_tag "logo/cloudsdale-logo-medium.png"
-
+- if MAINTENANCE
+  %h5= MAINTENANCE_MESSAGE
 = form_tag sessions_path, :method => :post, :class => 'form-stacked'  do
   %center
     = render :partial => 'layouts/alert'

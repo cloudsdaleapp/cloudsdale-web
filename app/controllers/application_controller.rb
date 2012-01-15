@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  before_filter :redirect_on_maintenance!
   before_filter :force_password_change!
   before_filter :set_time_zone_for_user!
   
@@ -89,7 +90,16 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def redirect_on_maintenance!
+    if MAINTENANCE
+      unless current_user and current_user.role >= 4
+        redirect_to maintenance_path
+      end
+    end
+  end
+  
   def set_time_zone_for_user!
     Time.zone = current_user.time_zone if current_user and current_user.time_zone
   end
+  
 end

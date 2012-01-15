@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   
   layout 'front'
   
+  skip_before_filter :redirect_on_maintenance!
   skip_before_filter :force_password_change!
   
   before_filter only: [:new] do
@@ -24,9 +25,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.logout_and_save!
+    current_user.logout_and_save! if current_user
     session[:user_id] = nil
-    redirect_to root_path
+    redirect_to login_path
   end
 
 end

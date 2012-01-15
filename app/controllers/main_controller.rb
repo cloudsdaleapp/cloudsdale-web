@@ -1,5 +1,7 @@
 class MainController < ApplicationController
   
+  skip_before_filter :redirect_on_maintenance!, only: [:maintenance]
+  
   before_filter only: [:index] do
     unless current_user
       redirect_to login_path
