@@ -2,7 +2,7 @@ Cloudsdale::Application.routes.draw do
   
   get "notifications/index"
 
-  root to: 'main#index'
+  root to: 'main#maintenance'
   
   match '/logout' => 'sessions#destroy', as: :logout
   match '/login' => 'sessions#new', as: :login
