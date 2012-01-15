@@ -42,7 +42,7 @@ production:
     host: pinkie.snet.misc.cloudsdale.org
     port: 9200
   redis:
-    host: pinkie.snet.misc.cloudsdale.org
+    host: twilight.snet.misc.cloudsdale.org
     port: 6379
     chat:
       host: 127.0.0.1
