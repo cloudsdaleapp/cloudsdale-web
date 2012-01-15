@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_on_maintenance!
   before_filter :force_password_change!
   before_filter :set_time_zone_for_user!
+  before_filter :log_additional_exception_data
   
   before_filter do
     response.headers["controller"], response.headers["action"] = controller_name.parameterize, action_name.parameterize
@@ -82,6 +83,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  protected
 
   # Forces the users to change their passwords if they are flagged to do so.
   def force_password_change!
@@ -100,6 +102,12 @@ class ApplicationController < ActionController::Base
   
   def set_time_zone_for_user!
     Time.zone = current_user.time_zone if current_user and current_user.time_zone
+  end
+  
+  def log_additional_exception_data
+    request.env["exception_notifier.exception_data"] = {
+      :user => @current_user
+    }
   end
   
 end
