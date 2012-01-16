@@ -5,6 +5,6 @@
       = image_tag favicon_src, class: drop[:metadata]["favicon"].nil? ? 'default' : ''
     = link_to drop.title, drop.url, target: '_blank', data: { 'skip-pjax' => true }
   %nav
-    = link_to drop.url, drop.url, class: 'raw-url'
+    = link_to drop.url, drop.url, target: '_blank', class: 'raw-url'
     = render partial: 'drops/votes/vote_links', locals: { drop: drop }
     
