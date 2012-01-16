@@ -1,14 +1,15 @@
 class RainDrop
   
   constructor: (@frame,args) ->
-    @rateTrigger = @frame.find('.ratings > a')
+    @votesContainer = @frame.find('nav > span.votes')
+    @voteTrigger = @votesContainer.find('a')
     @bind()
   
   bind: =>
-    @rateTrigger.live 'ajax:beforeSend', ->
+    @voteTrigger.live 'ajax:beforeSend', ->
       $(@).addClass('loading')
     .live 'ajax:complete', (request,response) ->
-      $(@).parent().html(response.responseText)
+      $(@).parent().replaceWith(response.responseText)
     
     
 $.fn.rainDrop = ->
