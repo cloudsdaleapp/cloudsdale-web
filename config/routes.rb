@@ -30,12 +30,12 @@ Cloudsdale::Application.routes.draw do
     delete '/vote' => 'drops/votes#destroy', as: :vote
   end
   
-  resources :articles, :except => [:index] do
-    get :publish, on: :member
-    get :promote, on: :member
-    post :parse, on: :collection
-    resources :comments, :controller => 'articles/comments', :only => [:create,:destroy], :path_names => { :new => :write }
-  end
+  # resources :articles, :except => [:index] do
+  #   get :publish, on: :member
+  #   get :promote, on: :member
+  #   post :parse, on: :collection
+  #   resources :comments, :controller => 'articles/comments', :only => [:create,:destroy], :path_names => { :new => :write }
+  # end
   
   resources :clouds, :except => [:index] do
     resources :members, :controller => 'clouds/members', :only => [:create,:destroy,:index]

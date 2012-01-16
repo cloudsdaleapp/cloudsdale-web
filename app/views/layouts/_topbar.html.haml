@@ -8,10 +8,10 @@
         = text_field_tag :q, '', placeholder: 'Search...'
        
       %ul.nav.secondary-nav
-        %li
-          = link_to "/articles/new", class: 'submit' do
-            = image_tag("icons/iconic/white/pen_12x12.png")
-            %span Submit
+        / %li
+        /   = link_to "/articles/new", class: 'submit' do
+        /     = image_tag("icons/iconic/white/pen_12x12.png")
+        /     %span Submit
         %li
           = link_to user_path(current_user), class: 'profile' do
             = image_tag("icons/iconic/white/user_9x12.png")
