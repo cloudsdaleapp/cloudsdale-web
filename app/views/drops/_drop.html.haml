@@ -1,10 +1,10 @@
 %li.drop{ id: drop.id }
-  .details
-    .summary.main
-      .ratings
-        = render partial: 'drops/votes/vote_links', locals: { drop: drop }
-      .icon
-        - favicon_src = !drop[:metadata]["favicon"].nil? ? drop[:metadata]["favicon"] : 'icons/iconic/gray_dark/180_map_pin_fill_16x16.png'
-        = image_tag favicon_src, class: drop[:metadata]["favicon"].nil? ? 'default' : ''
-      = link_to drop.title, drop.url, target: '_blank', data: { 'skip-pjax' => true }
-      
+  %header
+    .icon
+      - favicon_src = !drop[:metadata]["favicon"].nil? ? drop[:metadata]["favicon"] : 'icons/iconic/gray_dark/180_map_pin_fill_16x16.png'
+      = image_tag favicon_src, class: drop[:metadata]["favicon"].nil? ? 'default' : ''
+    = link_to drop.title, drop.url, target: '_blank', data: { 'skip-pjax' => true }
+  %nav
+    = link_to drop.url, drop.url, class: 'raw-url'
+    = render partial: 'drops/votes/vote_links', locals: { drop: drop }
+    

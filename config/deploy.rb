@@ -109,17 +109,17 @@ namespace :deploy do
   end
 
   desc "Zero-downtime restart of Unicorn"
-  task :restart, :except => { :no_release => true } do
+  task :restart, :roles => :web, :except => { :no_release => true } do
     run "kill -s USR2 `cat /opt/pids/unicorn.pid`"
   end
 
   desc "Start unicorn"
-  task :start, :except => { :no_release => true } do
+  task :start, :roles => :web, :except => { :no_release => true } do
     run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E production -D"
   end
 
   desc "Stop unicorn"
-  task :stop, :except => { :no_release => true } do
+  task :stop, :roles => :web, :except => { :no_release => true } do
     run "kill -s QUIT `cat /opt/pids/unicorn.pid`"
   end  
 
@@ -141,6 +141,7 @@ namespace :deploy do
       rollback.cleanup
     end
   end
+  
 end
 
 def run_rake(cmd)
