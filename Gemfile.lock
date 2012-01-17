@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/Zeeraw/Urifetch.git
-  revision: ad79b12e54a682c9fbfbe1f02ddceaf97d61bffb
+  revision: 57c88d1517ca888d54665e251071b4f4ec54f2ee
   specs:
-    urifetch (0.0.1.rc7)
+    urifetch (0.0.1.rc8)
       addressable
       hashie
       nokogiri
