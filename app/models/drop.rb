@@ -32,17 +32,15 @@ class Drop
     response  = Urifetch.fetch_from(url)
     match_id  = response.data.match_id || response.strategy.match_data.to_s
     
-    drop = Drop.find_or_initialize_by(match_id: match_id)
-    if drop
-      if drop.visitable?
-        drop.set_data(response)
-        drop
-      else
-        drop.destroy
-        nil
-      end
+    if response.status[0].to_s == "200"
+      drop = Drop.find_or_initialize_by(match_id: match_id)
+      drop.set_data(response)
+      drop
+    else
       nil
     end
+    
+
   end
   
   def visitable?
