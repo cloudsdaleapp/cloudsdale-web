@@ -20,21 +20,21 @@ do ($ = jQuery) ->
         @userRefresh(data.users) if data.status == 'join'
         @userPurge(data) if data.status == 'leave'
     
-    userRefresh: (users) ->
-      $.each users, (index,data) =>
-        userInList = @usersList.find("li.#{data.user_id}")
+    userRefresh: (users) =>
+      $.each users, (index,d) =>
+        userInList = @usersList.find("li.#{d.user_id}")
         if userInList[0] == undefined
-          image_src = data.user_avatar
-          newItem = @usersList.append("<li class='#{data.user_id}'>
-            <a rel='twipsy' data-original-title='#{data.user_name}' data-placement='left' data-offset='-2' href='#{data.user_path}'>
-              <img src='#{image_src}' alt='#{data.user_name}' />
+          image_src = d.user_avatar
+          newItem = @usersList.append("<li class='#{d.user_id}'>
+            <a rel='twipsy' data-original-title='#{d.user_name}' data-placement='left' data-offset='-2' href='#{d.user_path}'>
+              <img src='#{image_src}' alt='#{d.user_name}' />
             </a>
-          </li>").find("li.#{data.user_id}")
+          </li>").find("li.#{d.user_id}")
           newItem.find('a').twipsy()
         else
           userInList.removeClass('dropped')
     
-    userPurge: (data) ->
+    userPurge: (data) =>
       userInList = @usersList.find("li.#{data.user_id}")
       userInList.addClass('dropped')
       window.setTimeout ( =>
