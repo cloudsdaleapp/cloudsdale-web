@@ -25,6 +25,12 @@
 #= require clouds
 
 $ ->
+
+  document.window_focus = true
+  $(window).focus ->
+    document.window_focus = true
+  .blur ->
+    document.window_focus = false
   
   @userData = $('#user').data()
   

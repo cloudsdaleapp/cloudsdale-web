@@ -59,6 +59,10 @@ do ($ = jQuery) ->
           @show()
         else if @active
           @hide()
+      
+      $(window).focus =>
+        if @active
+          @clearNotifications()
     
     # Prepare the frames for interaction.    
     render: =>
@@ -87,20 +91,31 @@ do ($ = jQuery) ->
     
     # Clears Cloud of all notifications and refreshes the notification plate
     clearNotifications: ->
+      @parent.subtractGlobalNotification(@notifications)
       @notifications = 0
       $.cookie "cloud:#{@cloudId}:notifications", @notifications, 
         expires: 365
         path: "/"
       @refreshGraphics()
+      
     
     # Appends a notification and refreshes the notification plate unless the Cloud is currently active
     addNotification: ->
       unless @active
         @notifications += 1
+        @parent.addGlobalNotification(1)
         $.cookie "cloud:#{@cloudId}:notifications", @notifications, 
           expires: 365
           path: "/"
           @refreshGraphics()
+      else
+        if (document.window_focus == false)
+          @notifications += 1
+          @parent.addGlobalNotification(1)
+          $.cookie "cloud:#{@cloudId}:notifications", @notifications, 
+            expires: 365
+            path: "/"
+            @refreshGraphics()
 
     # Fetches the notifications stored in client cookies
     # The purpose is to preserve notifications even though page reloads
@@ -112,6 +127,7 @@ do ($ = jQuery) ->
         $.cookie "cloud:#{@cloudId}:notifications", @notifications, 
           expires: 365
           path: "/"
+      @parent.addGlobalNotification(@notifications)
       @refreshGraphics()
     
     # Sets the notification plate to the current notification value if it is above 0

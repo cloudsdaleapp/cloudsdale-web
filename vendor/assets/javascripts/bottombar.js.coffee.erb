@@ -14,6 +14,8 @@ do ($ = jQuery) ->
       @scrollerUp = @frame.find('a.scroll.up')
       @scrollers = @frame.find('a.scroll')
       
+      @globalNotifications = 0
+      
       @cloudsHolder = @frame.find('.cloud-list')
       $.each $(@cloudsHolder.children()), (key, val) =>
         $(val).cloud
@@ -53,7 +55,27 @@ do ($ = jQuery) ->
         @scrollerUp.addClass('disabled')
       else
         @scrollerUp.removeClass('disabled')
-      
+  
+  
+    clearGlobalNotification: ->
+      @globalNotifications = 0
+    
+    addGlobalNotification: (num) ->
+      @globalNotifications += num
+      @setGlobalNotification()
+    
+    subtractGlobalNotification: (num) ->
+      @globalNotifications -= num
+      if @globalNotifications < 0
+        @clearGlobalNotification()
+      @setGlobalNotification()
+    
+    setGlobalNotification: ->
+      $.titleAlert "(#{@globalNotifications}) message(s)",
+        requireBlur: true
+        stopOnFocus: true
+        duration: 0
+        interval: 1500
       
         
   $.fn.bottomBar = ->
