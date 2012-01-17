@@ -38,7 +38,7 @@ do ($ = jQuery) ->
       userInList = @usersList.find("li.#{data.user_id}")
       userInList.addClass('dropped')
       window.setTimeout ( =>
-        console.log @usersList.find("li.#{data.user_id}.dropped").remove()
+        @usersList.find("li.#{data.user_id}.dropped").remove()
       ), 10000
       
   $.fn.cloudExtras = ->
