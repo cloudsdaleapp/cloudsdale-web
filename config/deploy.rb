@@ -19,6 +19,7 @@ role :web, "rarity.web.cloudsdale.org", "applejack.web.cloudsdale.org", "flutter
 role :app, "rarity.web.cloudsdale.org", :primary => true
 role :app, "applejack.web.cloudsdale.org", "fluttershy.web.cloudsdale.org"
 role :db,  "rarity.web.cloudsdale.org", :primary => true
+role :faye, "celestia.chat.cloudsdale.org"
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }
