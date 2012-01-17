@@ -24,6 +24,7 @@ do ($ = jQuery) ->
       $.each users, (index,data) =>
         userInList = @usersList.find("li.#{data.user_id}")
         if userInList.length < 1
+          console.log "debug"
           image_src = data.user_avatar
           newItem = @usersList.append("<li class='#{data.user_id}'>
             <a rel='twipsy' data-original-title='#{data.user_name}' data-placement='left' data-offset='-2' href='#{data.user_path}'>
