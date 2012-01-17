@@ -9,8 +9,18 @@ class MainController < ApplicationController
   end
   
   def index
-    @ids = (current_user.publisher_ids + [current_user.id]).uniq + current_user.cloud_ids
-    @drops = Drop.any_of(:"deposits.depositable_id".in => @ids).order_by(:updated_at,:desc).limit(20)
+    @depositable_ids = (current_user.publisher_ids + [current_user.id]).uniq + current_user.cloud_ids
+    
+    case params[:sort]
+    when 'top_rated'
+      sort = ['votes.point',:desc]
+    when 'most_viwed'
+      sort = [:total_views,:desc]
+    else
+      sort = [:updated_at, :desc]
+    end
+    
+    @drops = Drop.any_of(:"deposits.depositable_id".in => @depositable_ids).order_by(sort).limit(20)
   end
   
   def maintenance

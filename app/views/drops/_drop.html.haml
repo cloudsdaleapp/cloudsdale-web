@@ -1,10 +1,17 @@
 %li.drop{ id: drop.id }
+  %menu
+    - if depositable
+      = render partial: 'drops/depositers', locals: { drop: drop, deposits: deposits, depositable: depositable }
+    - else
+      = render partial: 'drops/depositable', locals: { drop: drop, deposits: deposits }
+      
   %header
-    .icon
+    %span.icon
       - favicon_src = !drop[:metadata]["favicon"].nil? ? drop[:metadata]["favicon"] : 'icons/iconic/gray_dark/180_map_pin_fill_16x16.png'
       = image_tag favicon_src, class: drop[:metadata]["favicon"].nil? ? 'default' : ''
     = link_to truncate(drop.title, :length => 98, :separator => ' '), drop.url, target: '_blank', data: { 'skip-pjax' => true }
   %nav
-    = link_to truncate(drop.url, :length => 36, :separator => ' '), drop.url, target: '_blank', class: 'raw-url'
+    //= link_to truncate(drop.url, :length => 36, :separator => ' '), drop.url, target: '_blank', class: 'raw-url'
+    = render partial: 'drops/visits', locals: { drop: drop }
     = render partial: 'drops/votes/vote_links', locals: { drop: drop }
     

@@ -25,7 +25,13 @@
       = render partial: 'drops/form', locals: { with_path: user_drops_path(@user) }
             
   .row
-    .span16
+    .span4
+      %ul.drop-facet-list
+        %li.list-head= "Dropzone"
+        %li= link_to "Most Recent", user_path(@user), class: 'most-recent'
+        %li= link_to "Top Rated", user_path(@user,sort:'top_rated'), class: 'top-rated'
+        %li= link_to "Most Visited", user_path(@user,sort:'most_visited'), class: 'most-visited'
+    .span12
       %ul.drop-list
-        = render partial: 'drops/list_content'
+        = render partial: 'drops/list_content', locals: { depositable: @user }
           

@@ -28,7 +28,17 @@ class UsersController < ApplicationController
   
   def show
     authorize! :read, @user
-    @drops = Drop.where("deposits.depositable_id" => @user.id).desc("deposits.#{@user.id}_updated_at").limit(20)
+    
+    case params[:sort]
+    when 'top_rated'
+      sort = ['votes.point',:desc]
+    when 'most_viwed'
+      sort = [:total_views,:desc]
+    else
+      sort = ["deposits.#{@user.id}_updated_at", :desc]
+    end
+    
+    @drops = Drop.where("deposits.depositable_id" => @user.id).order_by(sort).limit(20)
   end
   
   def create

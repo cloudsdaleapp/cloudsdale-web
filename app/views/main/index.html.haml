@@ -4,7 +4,16 @@
       = render partial: 'drops/form', locals: { with_path: drops_path }
             
   .row
-    .span16
+    .span4
+      %ul.drop-facet-list
+        %li.list-head= "My Subscriptions"
+        %li= link_to "Most Recent", root_path, class: 'most-recent'
+        %li= link_to "Top Rated", root_path(sort:'top_rated'), class: 'top-rated'
+        %li= link_to "Most Visited", root_path(sort:'most_visited'), class: 'most-visited'
+        
+    .span12
       %ul.drop-list
         = render partial: 'drops/list_content'
+        
+    
       

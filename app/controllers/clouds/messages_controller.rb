@@ -26,11 +26,12 @@ class Clouds::MessagesController < ApplicationController
     end
     
     if @message.save
-      faye_broadcast "/cloud/#{@cloud.id}/chat", { uid: @message.author_id ,content: @message.content, timestamp: @message.timestamp.utc, user_name: @message.user_name, user_path: @message.user_path, user_avatar: @message.user_avatar, client_id: params[:client_id] }
+      faye_broadcast "/cloud/#{@cloud.id}/chat", { uid: @message.author_id ,content: @message.content, timestamp: @message.timestamp.utc, user_name: @message.user_name, user_path: @message.user_path, user_avatar: @message.user_avatar, client_id: params[:client_id], drops: @drops }
       render :json => :success
     else
       render :json => @message.errors
     end
+    
   end
   
 end
