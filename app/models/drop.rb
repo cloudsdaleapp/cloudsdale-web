@@ -53,7 +53,7 @@ class Drop
     self[:status]     = response.status
     self[:strategy]   = response.strategy.layout_key
     self[:last_load]  = -> { DateTime.current }.call
-    self[:url]        = response.strategy.match_data.to_s || match_id
+    self[:url]        = response.strategy.match_data.to_s || self[:match_id]
   end
   
 end
