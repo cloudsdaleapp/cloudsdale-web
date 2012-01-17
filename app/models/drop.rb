@@ -7,6 +7,7 @@ class Drop
   voteable self, :up => +1, :down => -1
   
   embeds_many :deposits
+  embeds_many :visits
   
   field :url,                 type: String
   field :match_id,            type: String
@@ -17,6 +18,8 @@ class Drop
   
   field :metadata,            type: Hash
   field :last_load,           type: DateTime
+  
+  field :total_visits,        type: Integer,      default: 0
     
   validates :url, presence: true, format: /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i
   validates :match_id, presence: true
@@ -66,4 +69,10 @@ class Drop
     self[:url]        = response.strategy.match_data.to_s || self[:match_id]
   end
   
+  private
+  
+  def update_statistics
+    self[:total_visits] = visit_ids.count
+  end
+
 end
