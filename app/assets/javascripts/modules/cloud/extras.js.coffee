@@ -17,7 +17,6 @@ do ($ = jQuery) ->
         if @frame.hasClass('expanded') then @expandTrigger.find('span').text("less") else @expandTrigger.find('span').text("more")
       
       @faye.subscribe "/cloud/#{@cloud.cloudId}/presence", (data) =>
-        console.log data
         @userRefresh(data.users) if data.status == 'join'
         @userPurge(data) if data.status == 'leave'
     
