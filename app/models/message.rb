@@ -43,9 +43,11 @@ class Message
     self[:content] = msg
   end
   
+  private
+  
   def set_foreign_attributes!
-    self[:user_name] = self.author.character.name
-    self[:user_path] = "/users/#{self.author_id}"
+    self[:user_name] = self.author.name
+    self[:user_path] = "/users/#{author._id.to_s}"
     self[:user_avatar] = author.avatar.thumb.url
   end
   
