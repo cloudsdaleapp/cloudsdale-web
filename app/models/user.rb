@@ -53,6 +53,10 @@ class User
   
   validates_exclusion_of :id, :in => lambda { |u| u.publisher_ids }, :message => "cannot subscribe to yourself"
   
+  before_validation do
+    self[:cloud_ids].uniq!
+  end
+  
   before_save do
     self[:auth_token]     = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
     encrypt_password

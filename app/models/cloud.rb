@@ -18,7 +18,7 @@ class Cloud
   
   mount_uploader :avatar, AvatarUploader
 
-  validates :name, presence: true, uniqueness: true, length: { within: 3..12 }
+  validates :name, presence: true, uniqueness: true, length: { within: 3..24 }
   validates :description, presence: true, length: { within: 5..50 }
   
   belongs_to :owner, polymorphic: true
@@ -26,6 +26,8 @@ class Cloud
   
   before_validation do
     self.owner = self.users.first if owner.nil? and !users.empty?
+    self[:name] = self[:name].slice(0..23) if name
+    self[:user_ids].uniq!
   end
   
   before_save do
