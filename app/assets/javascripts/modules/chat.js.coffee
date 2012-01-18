@@ -49,6 +49,10 @@ do ($ = jQuery) ->
           @topic.addNotification()
           if @seeded
             @appendMessage(data.timestamp,data.content,data.user_name,data.user_path,data.user_avatar,data.uid)
+      
+      @messagesWrapper.bind "mousewheel", (e, d) =>
+        w = @messagesWrapper
+        e.preventDefault() if (w.scrollTop() is (w[0].scrollHeight - w.height()) and d < 0) or (w.scrollTop() is 0 and d > 0)
           
       
     seed: ->
