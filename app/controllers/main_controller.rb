@@ -21,6 +21,7 @@ class MainController < ApplicationController
     end
     
     @drops = Drop.any_of(:"deposits.depositable_id".in => @depositable_ids).order_by(sort).limit(20)
+    @recommended_clouds = Cloud.where(hidden: false, :user_ids.nin => [current_user.id]).order_by(:member_count,:desc).limit(3)
   end
   
   def maintenance

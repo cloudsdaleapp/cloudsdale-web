@@ -2,3 +2,30 @@ body.main
   &.index
     .span12, .span4
       overflow: visible
+    
+    ul.cloud-facet-list
+      list-style: none
+      margin: 0
+      padding: 10px
+      li
+        padding: 0
+        line-height: 20px
+        font-weight: bold
+        &.list-head
+          font-size: 14px
+          line-height: 24px
+          margin-bottom: 3px
+        &:not(.list-head)
+          margin-left: 5px
+          margin-bottom: 20px
+        a
+          background: transparent left center no-repeat
+          color: $color-dark-gray
+          +transition(margin .2s ease-in-out)
+          img
+            max-height: 16px
+            max-width: 16px
+          &:hover
+            margin-left: 3px
+            text-decoration: none
+        

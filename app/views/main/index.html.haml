@@ -10,7 +10,20 @@
         %li= link_to "Most Recent", root_path, class: 'most-recent'
         %li= link_to "Top Rated", root_path(sort:'top_rated'), class: 'top-rated'
         %li= link_to "Most Visited", root_path(sort:'most_visited'), class: 'most-visited'
-        
+      
+      - if @recommended_clouds
+        %ul.cloud-facet-list
+          %li.list-head= "Interesting Clouds"
+          - @recommended_clouds.each do |cloud|
+            %li
+              = link_to cloud_path(cloud) do
+                - if cloud.avatar.mini.url
+                  = image_tag cloud.avatar.mini.url
+                - else
+                  = image_tag "icons/iconic/gray_dark/cloud16x10.png"
+                = cloud.name
+              %p.member-count= "#{cloud.member_count} member#{(cloud.member_count > 1) ? 's' : '' }"
+            
     .span12
       %ul.drop-list
         = render partial: 'drops/list_content'
