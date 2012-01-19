@@ -42,6 +42,7 @@ gem 'cloudfiles'
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'imagesize'
 
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'

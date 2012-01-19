@@ -245,4 +245,27 @@ ul.drop-list
         //     background-size: 10px 10px
       menu
         display: block
-            
+
+ul.drop-list > li.drop.image
+  header
+    display: inline-block
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+    img
+      max-width: 120px
+      max-height: 90px
+    a
+      float: left
+      margin: 5px 0 0 10px
+    span.sizes
+      font-size: 10px
+      font-weight: bold
+      margin: 5px 0 0 10px
+    
+      
+      
