@@ -33,7 +33,7 @@ class Drop
   
   def self.find_or_initialize_from_matched_url(url)
     response  = Urifetch.fetch_from(url)
-    match_id  = response.data.match_id || response.strategy.match_data.to_s
+    match_id  = response.data.match_id || response.strategy.uri.to_s
     
     if response.status[0].to_s == "200"
       drop = Drop.find_or_initialize_by(match_id: match_id)
@@ -66,7 +66,7 @@ class Drop
     self[:status]     = response.status
     self[:strategy]   = response.strategy.layout_key
     self[:last_load]  = -> { DateTime.current }.call
-    self[:url]        = response.strategy.match_data.to_s || self[:match_id]
+    self[:url]        = response.strategy.uri.to_s || self[:match_id]
   end
   
   private
