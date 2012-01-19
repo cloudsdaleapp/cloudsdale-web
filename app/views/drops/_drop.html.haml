@@ -1,9 +1,9 @@
 %li.drop{ id: drop.id }
   %menu
-    - if depositable
-      = render partial: 'drops/depositers', locals: { drop: drop, deposits: deposits, depositable: depositable }
-    - else
-      = render partial: 'drops/depositable', locals: { drop: drop, deposits: deposits }
+    - depositable ||= User.new
+    = render partial: 'drops/shares', locals: { drop: drop, deposits: deposits, depositable: depositable }
+    %span.square-separator= "•"
+    = render partial: 'drops/timestamp', locals: { drop: drop, deposits: deposits, depositable: depositable }
       
   %header
     %span.icon
@@ -14,4 +14,3 @@
     //= link_to truncate(drop.url, :length => 36, :separator => ' '), drop.url, target: '_blank', class: 'raw-url'
     = render partial: 'drops/visits', locals: { drop: drop }
     = render partial: 'drops/votes/vote_links', locals: { drop: drop }
-    
