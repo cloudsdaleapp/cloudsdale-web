@@ -26,7 +26,7 @@
 #= require clouds
 
 $ ->
-
+  
   document.window_focus = true
   $(window).focus ->
     document.window_focus = true
@@ -35,68 +35,63 @@ $ ->
   
   @userData = $('#user').data()
   
-  clientAuth = outgoing: (message, callback) =>
-    if /\/meta\/.*/i.test(message['channel'])
-      message.ext = {} unless message.ext
-      message.ext.user_id = @userData.id
-      message.ext.user_avatar = @userData.avatar
-      message.ext.user_name = @userData.name
-      message.ext.user_path = @userData.path
-    callback message
+  document.fayeCli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", { timeout: 500 })
+  subscription = document.fayeCli.subscribe('/')
   
-  faye_path = "<%=Cloudsdale.faye_path(:client)%>"
-  @faye = new Faye.Client(faye_path)
-  @faye.addExtension(clientAuth)
+  subscription.callback =>
+    if document.fayeCli.getState() == 'CONNECTED'
+      $.event.trigger "faye.connected"
   
-  @userSubscription = @faye.subscribe "/users/#{@userData.id}", (data) =>
-    console.log data
+  subscription.errback =>
+    if document.fayeCli.getState() == 'CONNECTED'
+      $.event.trigger "faye.connected"
   
-  @userSubscription.callback =>
-    
+  
+  $(document).bind 'faye.connected', =>
     $('.topbar').topBar()
     $('.bottombar').bottomBar
-      faye: @faye
+      userData: @userData
       userId: @userData.id
       userName: @userData.name
       userAvatar: @userData.avatar
       userPath: @userData.path
 
-    load_javascript = (controller,action) ->
-      $.event.trigger "application.load"
-      $.event.trigger "#{controller}.load"
-      $.event.trigger "#{action}_#{controller}.load"
+  load_javascript = (controller,action) ->
+    $.event.trigger "application.load"
+    $.event.trigger "#{controller}.load"
+    $.event.trigger "#{action}_#{controller}.load"
 
-    $('[rel=twipsy-chat-room]').twipsy
-      placement: 'above'
-      offset: '7'
-      template: '<div class="twipsy-arrow chatilo"></div><div class="twipsy-inner chatilu"></div>'
-  
-    $(document).bind 'application.load', =>
-  
-      $("form[data-validate='true']").validate()
-  
-      $(".alert-message > .close").bind "click", (e) ->
-        hide_alert_message $(@).parent()
+  $('[rel=twipsy-chat-room]').twipsy
+    placement: 'above'
+    offset: '7'
+    template: '<div class="twipsy-arrow chatilo"></div><div class="twipsy-inner chatilu"></div>'
 
-      $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
-        hide_alert_message @
+  $(document).bind 'application.load', =>
 
-      $('[rel=twipsy]').twipsy()
+    $("form[data-validate='true']").validate()
 
-    $(document).bind 'start.pjax', (a,b,c) ->
-      $("a.brand").addClass("loading")
-  
-    $(document).bind 'end.pjax', (a,b,c) ->
-      $("a.brand").removeClass("loading")
-  
-      controller = b.getResponseHeader('controller')
-      action     = b.getResponseHeader('action')
-      if controller != null and action != null
-        load_javascript(b.getResponseHeader('controller'),b.getResponseHeader('action'))
-        $("body").attr('class', "#{b.getResponseHeader('controller')} #{b.getResponseHeader('action')}")
+    $(".alert-message > .close").bind "click", (e) ->
+      hide_alert_message $(@).parent()
 
-    $(document).ready ->
-      load_javascript($("body").data('controller'),$("body").data('action'))
+    $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
+      hide_alert_message @
+
+    $('[rel=twipsy]').twipsy()
+
+  $(document).bind 'start.pjax', (a,b,c) ->
+    $("a.brand").addClass("loading")
+
+  $(document).bind 'end.pjax', (a,b,c) ->
+    $("a.brand").removeClass("loading")
+
+    controller = b.getResponseHeader('controller')
+    action     = b.getResponseHeader('action')
+    if controller != null and action != null
+      load_javascript(b.getResponseHeader('controller'),b.getResponseHeader('action'))
+      $("body").attr('class', "#{b.getResponseHeader('controller')} #{b.getResponseHeader('action')}")
+
+  $(document).ready ->
+    load_javascript($("body").data('controller'),$("body").data('action'))
 
 
 

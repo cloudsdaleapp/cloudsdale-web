@@ -9,8 +9,6 @@ do ($ = jQuery) ->
       @cloudId = if args.cloudId then args.cloudId else @handler.data('cloudId')
       @cloudName = if args.roomName then args.roomName else @handler.data('cloudName')
       
-      @faye = if args.faye then args.faye else @parent.faye
-      
       # Setup Container
       @container = if args.frame then args.frame else $(".cloud-container##{@cloudId}")
       @containerToolbar = @container.find(".cloud-toolbar")

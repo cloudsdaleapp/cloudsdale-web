@@ -14,7 +14,6 @@ do ($ = jQuery) ->
       @topicType = args.topicType
       
       @userData = document.userData
-      @faye = if args.faye then args.faye else @topic.faye
       
       # Add client field
       @form.append("<input name='client_id' type='hidden' value='#{@userData.client_id}'/>")
@@ -44,7 +43,7 @@ do ($ = jQuery) ->
         @validateInput()
   
       # Set up subscription to room's message broadcast channel
-      @faye.subscribe "/#{@topicType}/#{@topicId}/chat", (data) =>
+      @subscription = document.fayeCli.subscribe "/#{@topicType}/#{@topicId}/chat", (data) =>
         if @userData.client_id != data.client_id
           @topic.addNotification()
           if @seeded

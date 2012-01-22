@@ -7,44 +7,56 @@ do ($ = jQuery) ->
       # Setup elements
       @expandTrigger = @frame.find('a.expand-trigger')
       @usersList = @frame.find('ul.cloud-users-list')
-      @faye = if args.faye then args.faye else @cloud.faye
       
       @bind()
+      @announcePresence()
+      @userPurge()
     
     bind: =>
       @expandTrigger.bind 'click', =>
         @frame.toggleClass('expanded')
         if @frame.hasClass('expanded') then @expandTrigger.find('span').text("less") else @expandTrigger.find('span').text("more")
       
-      @faye.subscribe "/cloud/#{@cloud.cloudId}/presence", (data) =>
-        @userRefresh(data.users) if data.status == 'join'
-        @userPurge(data) if data.status == 'leave'
+      @subscription = document.fayeCli.subscribe "/cloud/#{@cloud.cloudId}/presence", (data) =>
+        @refreshPresence(data)
+      
     
-    userRefresh: (users) =>
-      $.each(users, (index,d) =>
-        userInList = @usersList.find("li.#{d.user_id}")
-        if userInList[0] == undefined
-          if image_src != null
-            image_src = d.user_avatar
-          else
-            image_src = ""
-            
-          newItem = @usersList.append("<li class='#{d.user_id}'>
-            <a rel='twipsy' data-original-title='#{d.user_name}' data-placement='left' data-offset='-2' href='#{d.user_path}'>
-              <img src='#{image_src}' alt='#{d.user_name}' />
-            </a>
-          </li>").find("li.#{d.user_id}")
-          newItem.find('a').twipsy()
+    refreshPresence: (user) =>
+      userInList = @usersList.find("li.#{user.id}")
+      timestamp = new Date().getTime()
+      if userInList[0] == undefined
+        if image_src != null
+          image_src = user.avatar
         else
-          userInList.removeClass('dropped')
-      )
+          image_src = ""
+        
+        newItem = @usersList.append("<li class='#{user.id}' data-last-seen= '#{timestamp}'>
+          <a rel='twipsy' data-original-title='#{user.name}' data-placement='left' data-offset='-2' href='#{user.path}'>
+            <img src='#{image_src}' alt='#{user.name}' />
+          </a>
+        </li>").find("li.#{user.id}")
+        newItem.find('a').twipsy()
+      else
+        userInList.attr('data-last-seen',timestamp)
     
-    userPurge: (data) =>
-      userInList = @usersList.find("li.#{data.user_id}")
-      userInList.addClass('dropped')
+    userPurge: () =>
       window.setTimeout ( =>
-        @usersList.find("li.#{data.user_id}.dropped").remove()
-      ), 10000
+        inactiveUsers = @usersList.find("li").filter ->
+          $(@).attr('data-last-seen') < new Date().getTime() - 35000
+        inactiveUsers.remove()
+        window.setTimeout ( =>
+          @userPurge()
+        ), 25000
+      ), 5000
+    
+    announcePresence: (initial) ->
+      window.setTimeout ( =>
+        document.fayeCli.publish "/cloud/#{@cloud.cloudId}/presence", @cloud.parent.userData
+        window.setTimeout ( =>
+          @announcePresence()
+        ), 27000
+      ), 3000
+      
       
   $.fn.cloudExtras = ->
     new CloudExtras(@,arguments[0])
