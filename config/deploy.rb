@@ -38,7 +38,7 @@ default_environment["RUBY_VERSION"] = "ruby-1.9.2-p290"
 
 default_run_options[:shell] = 'bash'
 
-after 'deploy:assets:precompile', 'deploy:assets:upload'
+after 'deploy:assets:precompile', 'deploy:assets:upload', 'deploy:permissions:update'
 
 namespace :deploy do
   desc "Deploy your application"
@@ -54,8 +54,8 @@ namespace :deploy do
     end
   end
   
-  namespace :permission do
-    task :reload, :roles => :app, :except => { :no_release => true } do
+  namespace :permissions do
+    task :update, :roles => :app, :except => { :no_release => true } do
       run "#{try_sudo} chown -R deploy:deploy /opt/app"
     end
   end
