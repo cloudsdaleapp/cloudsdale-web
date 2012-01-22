@@ -1,6 +1,6 @@
 CarrierWave.configure do |config|
   config.root = Rails.root.join('tmp')
-  config.delete_tmp_file_after_storage = false
+  config.delete_tmp_file_after_storage = true
   config.fog_credentials = {
     :provider           => 'Rackspace',
     :rackspace_username => Cloudsdale.config['rackspace_cloudfiles']['username'],
