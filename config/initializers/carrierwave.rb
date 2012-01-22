@@ -1,4 +1,5 @@
 CarrierWave.configure do |config|
+  config.root = Rails.root.join('tmp')
   config.fog_credentials = {
     :provider           => 'Rackspace',
     :rackspace_username => Cloudsdale.config['rackspace_cloudfiles']['username'],
