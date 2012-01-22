@@ -1,5 +1,7 @@
 class AuthenticationsController < ApplicationController
   
+  skip_before_filter :redirect_on_maintenance!
+  
   def create
     omniauth = request.env["omniauth.auth"]
     found_user = User.where("authentications.provider" => omniauth['provider'], "authentications.uid" => omniauth['uid']).first

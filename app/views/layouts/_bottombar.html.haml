@@ -1,43 +1,36 @@
 .bottombar
-  .container
-    .cloud-wrapper
-      - if current_user
-        - @clouds = current_user.clouds
-        - @clouds.each do |cloud|
-          - room = cloud.chat
-          .cloud-container.contracted{ data: { 'room-id' => room.id } }
-            .cloud-toolbar
-              %header
-                = room.topic.name
-                %span.usercount= cloud.users.online.count
-                %a.contract
-                %a.closex
-                = link_to "", cloud_path(cloud), class: 'cloud'
-            .cloud-extras-wrapper
-              %ul.cloud-users-list
-                - unless cloud.users.online.empty?
-                  - cloud.users.online.each do |user|
-                    %li
-                      = link_to user_path(user) do
-                        / - unless user.try(:avatar).nil?
-                        /   = image_tag(user.avatar.mini.url)
-                        = user.name
-                      
-            .cloud-chat-wrapper
-              .cloud-chat-messages
-              = form_tag chat_room_messages_path(room.id), :remote => true, :class => "cloud-chat-form" do
-                = text_area_tag :message, "", class: 'cloud-chat-input'
-
-    %ul.cloud-list.clearfix{ data: { uid: current_user.id, user_name: current_user.name, user_avatar: current_user.avatar.thumb.url, user_path: user_path(current_user) } }
-      - if current_user
-        - @clouds = current_user.clouds
-        - @clouds.each do |cloud|
-          - room = cloud.chat
-          %li.cloud-trigger{ data: { 'cloud-id' => cloud.id, 'room-id' => room.id, 'room-name' => room.topic.name , 'room-topic' => room.topic.description } }
+  .cloud-wrapper
+    - if current_user
+      - @clouds = current_user.clouds
+      - @clouds.each do |cloud|
+        .cloud-container{ id: cloud.id }
+          .cloud-toolbar
+            %header
+              = cloud.name
+              %a.closex
+              = link_to "", cloud_path(cloud), class: 'cloud'
+          .cloud-extras-wrapper
+            = link_to "#", class: 'cloud expand-trigger' do
+              %span more
+            %ul.cloud-users-list
+            
+          .cloud-chat-wrapper
+            .chat-messages
+            = form_tag cloud_messages_path(cloud), :remote => true, :class => "chat-form" do
+              .chat-input
+                = text_area_tag :message, ""
+                
+  = link_to "", new_cloud_path, class: 'new-cloud'
+  
+  %ul.cloud-list.clearfix
+    - if current_user
+      - @clouds = current_user.clouds
+      - @clouds.each do |cloud|
+        %li.cloud-trigger{ data: { 'cloud-id' => cloud.id, 'cloud-name' => cloud.name } }
+          .bg-image{ style: "background-image: url(#{cloud.avatar.url})" }
+          = link_to "#" do
             %span.cloud-notification
-            = link_to "#", :rel => 'twipsy-chat-room', 'data-original-title' => room.topic.name do
-              .image-gloss
-              - if !cloud.avatar.thumb.url.nil?
-                = image_tag cloud.avatar.thumb.url
-              - else
-                %img.nocloudavatar.borderless
+            %h6.cloud-name= cloud.name
+            
+  = link_to "","#", class: 'scroll up'
+  = link_to "","#", class: 'scroll down'

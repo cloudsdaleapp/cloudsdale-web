@@ -2,7 +2,7 @@ require 'cloudfiles'
 cf = CloudFiles::Connection.new(
   :username => Cloudsdale.config['rackspace_cloudfiles']['username'],
   :api_key => Cloudsdale.config['rackspace_cloudfiles']['api_key'],
-  :snet => true
+  :snet => false
 )
 
 namespace :assets do

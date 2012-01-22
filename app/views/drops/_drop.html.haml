@@ -1,0 +1,14 @@
+%li.drop{ id: drop.id, class: drop.strategy }
+  %menu
+    - depositable ||= User.new
+    = render partial: 'drops/shares', locals: { drop: drop, deposits: deposits, depositable: depositable }
+    %span.square-separator= "•"
+    = render partial: 'drops/timestamp', locals: { drop: drop, deposits: deposits, depositable: depositable }
+      
+  %header
+    = render :partial => "drops/strategies/#{drop.strategy}", locals: { drop: drop }
+
+  %nav
+    //= link_to truncate(drop.url, :length => 36, :separator => ' '), drop.url, target: '_blank', class: 'raw-url'
+    = render partial: 'drops/visits', locals: { drop: drop }
+    = render partial: 'drops/votes/vote_links', locals: { drop: drop }

@@ -13,24 +13,25 @@ development:
   redis:
     host: 127.0.0.1
     port: 6379
+    chat:
+      host: 127.0.0.1
+      port: 6379
   rackspace_cloudfiles:
     username: zeeraw
     api_key: 8df411c5fe3d2a3580ab48e661d277ee
     fog_directory: cloudsdale_development_uploads
     fog_host: http://c775851.r51.cf2.rackcdn.com
   faye:
+    path: faye
+    schema: http
     host: 127.0.0.1
     port: 9191
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
-    redis: 
-      host: 127.0.0.1
-      port: 6379
-    
-      
+    inhouse_host: 127.0.0.1
+
+
 production:
   url: http://www.cloudsdale.org
-  faye_port: 9191
-  tire_port: 9200
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA
     consumer_secret: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
@@ -38,22 +39,24 @@ production:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
   tire:
-    host: 50.57.151.151
+    host: pinkie.snet.misc.cloudsdale.org
     port: 9200
   redis:
-    host: 127.0.0.1
+    host: twilight.snet.misc.cloudsdale.org
     port: 6379
+    chat:
+      host: 127.0.0.1
+      port: 6379
   rackspace_cloudfiles:
     username: zeeraw
     api_key: 8df411c5fe3d2a3580ab48e661d277ee
     fog_directory: cloudsdale_production_uploads
     fog_host: http://c775850.r50.cf2.rackcdn.com
   faye:
-    host: 127.0.0.1
-    port: 9191
+    path: faye
+    schema: http
+    host: celestia.chat.cloudsdale.org
+    port: 80
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
-    redis: 
-      host: 127.0.0.1
-      port: 6379
-      password: b162cee3d5d2a1df34d356bb12249f52
+    inhouse_host: celestia.snet.chat.cloudsdale.org
     

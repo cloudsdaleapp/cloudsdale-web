@@ -1,6 +1,6 @@
 .topbar
   .fill
-    .container.main
+    .container-fluid.main
       = link_to  root_path, :class => 'brand' do
         = image_tag "logo/cloudsdale-thin-bright-logo-small.png", :title => "Cloudsdale", :class => "logo"
       
@@ -8,50 +8,27 @@
         = text_field_tag :q, '', placeholder: 'Search...'
        
       %ul.nav.secondary-nav
-        %li.account-nav{ data: { triggerFor: 'account' } }
-          = link_to "#" do
-            - if !current_user.avatar.mini.url.nil?
-              = image_tag current_user.avatar.mini.url
-            - else
-              = image_tag "other/unknown_pony_chat.jpg"
-            = current_user.character.name
-      
-    .container.extras.account-wrapper{ data: { extrasContainer: 'account' } }
-      .content
-        .row
-          .span14.offset1
-            %ul.media-grid.large
-              %li= link_to image_tag("icons/iconic/white/pen_12x12.png") + "Submit", "/articles/new", class: 'submit'
-              %li= link_to image_tag("icons/iconic/white/user_9x12.png") + "Profile", user_path(current_user), class: 'profile'
-              %li= link_to image_tag("icons/iconic/white/compass_12x12.png") + "Explore", "/", class: 'explore disabled-link'
-              %li= link_to image_tag("icons/iconic/white/cog_12x12.png") + "Settings", edit_user_path(current_user), class: 'settings'
-              %li= link_to image_tag("icons/iconic/white/question_mark_6x12.png") + "Help", "/", class: 'help disabled-link'
-              %li= link_to image_tag("icons/iconic/white/denied_12x12.png") + "Sign out", logout_path, 'data-skip-pjax' => true, class: 'logout'
-              
-    .container.extras.search-wrapper{ data: { extrasContainer: 'search' } }
-      .content
-        .row
-          .span-one-third{ data: { searchResultContainer: 'clouds' } }
-            %h6
-              = image_tag "icons/iconic/white/cloud_16x10.png"
-              Clouds
-              %span.metadata= ""
-            %ul.results
-            %nav
-              %a more »
-          .span-one-third{ data: { searchResultContainer: 'entries' } }
-            %h6
-              = image_tag "icons/iconic/white/pen_12x12.png"
-              Entries
-              %span.metadata= ""
-            %ul.results
-            %nav
-              %a more »
-          .span-one-third{ data: { searchResultContainer: 'users' } }
-            %h6
-              = image_tag "icons/iconic/white/user_9x12.png"
-              Users
-              %span.metadata= ""
-            %ul.results
-            %nav
-              %a more »
+        / %li
+        /   = link_to "/articles/new", class: 'submit' do
+        /     = image_tag("icons/iconic/white/pen_12x12.png")
+        /     %span Submit
+        %li
+          = link_to user_path(current_user), class: 'profile' do
+            = image_tag("icons/iconic/white/user_9x12.png")
+            %span Profile
+        %li
+          = link_to "/", class: 'explore disabled-link' do
+            = image_tag("icons/iconic/white/compass_12x12.png")
+            %span Explore
+        %li
+          = link_to edit_user_path(current_user), class: 'settings' do
+            = image_tag("icons/iconic/white/cog_12x12.png")
+            %span Settings
+        %li
+          = link_to "/", class: 'help disabled-link' do
+            = image_tag("icons/iconic/white/question_mark_6x12.png")
+            %span Help
+        %li
+          = link_to logout_path, 'data-skip-pjax' => true, class: 'logout' do
+            = image_tag("icons/iconic/white/denied_12x12.png")
+            %span Sign Out

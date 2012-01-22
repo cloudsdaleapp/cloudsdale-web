@@ -1,21 +1,18 @@
 .bottombar
   position: fixed
   bottom: 0
-  width:  100%
+  left: -2px
+  right: -2px
+  padding: 0 2px
   z-index: 998
   overflow: visible
-  background: #333333 image-url("bg-noise.png") right top repeat
-  // background: #F0F6FF
-  // background-color: $color-cd-background-lightest repeat
-  // background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-  // background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-  // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-  // -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
-  -webkit-box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)
-  -moz-box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)
-  box-shadow: inset 0 2px 3px rgba(0, 0, 0, .30)  
+  +linear-gradient(#F5F5F5,#B3B3B3)
+  min-width: 750px
+  -moz-box-shadow: 0 -2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+  -o-box-shadow: 0 -2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+  -webkit-box-shadow: 0 -2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+  border-top: 1px rgba(50,50,50,0.8) solid
   
   .container
     position: relative
@@ -36,42 +33,58 @@
   * html .clearfix
     height: 1%
   
+  a.scroll
+    position: absolute
+    min-width: 40px
+    min-height: 26px
+    right: 2px
+    
+    &.disabled
+      +opacity(.4)
+      pointer-events: none
+      
+    &.up
+      top: 0
+      background: transparent image-url("icons/iconic/gray_dark/shift.png") center center no-repeat
+    &.down
+      bottom: 0
+      background: transparent image-url("icons/iconic/gray_dark/unshift.png") center center no-repeat
+      
+  a.new-cloud
+    position: absolute
+    left: 2px
+    min-height: 52px
+    min-width: 62px
+    border-right: 1px rgba(50,50,50,0.8) solid
+    background: transparent image-url("icons/iconic/gray_dark/plus_alt_12x12.png") 38px 30px no-repeat
+    z-index: 1
+    &:hover
+      background-color: rgba(0,0,0,.1)
+    
+  
   ul.cloud-list
     display: block
-    margin: 0 0 0 0
     position: relative
     list-style: none
-    padding-bottom: 12px
+    margin: 0 10px 0 0
+    padding-left: 58px
+    max-height: 52px
+    overflow: hidden
+    background: image-url("icons/iconic/gray_dark/cloud_32x20.png") no-repeat 14px center
+    &.scrollable
+      margin-right: 40px
 
-    
-    &:before
-      color: rgb(155,157,159)
-      font-weight: bold
-      font-size: 14px
-      padding-left: 15px
-      padding-right: 15px
-      line-height: 60px
-    
     li.cloud-trigger
       position: relative
       float: right
-      width: 48px
-      height: 48px
-      margin: 12px 12px 0 0
+      width: 80px
+      height: 52px
       overflow: visible
-      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .50)
-      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .50)
-      box-shadow: 0 1px 3px rgba(0, 0, 0, .50)
-      -webkit-border-radius: 5px 5px 5px 5px
-      -moz-border-radius: 5px 5px 5px 5px
-      border-radius: 5px 5px 5px 5px
-      transition: all 0.15s ease-in-out
-      -webkit-transition: all 0.15s ease-in-out
-      -moz-transition: all 0.15s ease-in-out
-      border: 1px solid #797979
-      
-      img
-        background-color: #E6E6E6
+      +transition(all 0.15s ease-in-out)
+      border-right: 1px rgba(50,50,50,0.8) solid
+      border-left: 1px rgba(50,50,50,0.8) solid
+      background-position: center center
+      margin-left: 10px
       
       span.cloud-notification
         position: absolute
@@ -86,126 +99,197 @@
         font-size: 10px
         line-height: 14px
         position: absolute
-        top: -4px
-        right: -4px
+        top: 2px
+        right: 2px
         color: white
         pointer-events: none
         
         
       &.active
-        border-color: #3891FF
-        span
-          display: none
-          
-        img, .img-gloss
-          opacity: .99
-          -ms-filter: “alpha(opacity=99)”
-          filter: alpha(opacity=99)
-          -khtml-opacity: .99
-          -moz-opacity: .99
+        //border-color: rgba(150,150,150,1)
+        .bg-image, &:hover > .bg-image
+          +opacity(.9)
+        a
+          span.cloud-notification
+            display: none
         
       &:hover
-        border-color: #262626
-        &.active
-          border-color: #3891FF
+        .bg-image
+          +opacity(.7)
         a
-          img, .img-gloss
-            opacity: .99
-            -ms-filter: “alpha(opacity=99)”
-            filter: alpha(opacity=99)
-            -khtml-opacity: .99
-            -moz-opacity: .99
-          .image-gloss
-            -webkit-box-shadow: inset 0 0 15px rgba(200, 200, 200, .90)
-            -moz-box-shadow: inset 0 0 15px rgba(200, 200, 200, .90)
-            box-shadow: inset 0 0 15px rgba(200, 200, 200, .90)
+          img
+            +opacity(1)
       
-      &:active
-        img
-          width: 46px
-          height: 46px
-          margin: 1px
+      .bg-image
+        +opacity(.3)
+        +transition(all 0.15s ease-in-out)
+        position: absolute
+        top: 0
+        bottom: 0
+        width: 100%
+        background-position: center center
+        background-color: #4C4C4C !important
+        z-index: -1
+      
       a
-        height: 48px
-        width: 48px
+        width: 80px
+        height: 52px
         float: left
         overflow: hidden
-        img, .image-gloss
-          -webkit-border-radius: 5px 5px 5px 5px
-          -moz-border-radius: 5px 5px 5px 5px
-          border-radius: 5px 5px 5px 5px
-          height: 48px
-          width: 48px
+        &:hover
+          text-decoration: none
+          
+        h6.cloud-name
           position: absolute
-          opacity: .60
-          -ms-filter: “alpha(opacity=60)”
-          filter: alpha(opacity=60)
-          -khtml-opacity: .60
-          -moz-opacity: .60
-        .image-gloss
-          z-index: 1
+          bottom: 0
+          left: 0
+          right: 0
+          background: rgba(0,0,0,0.7)
+          color: white
+          padding: 0 4px
+          font-size: 10px
+          line-height: 12px
+          text-decoration: none
+          text-transform: none
+          word-wrap: break-word
+          max-height: 10px
+          padding-bottom: 3px
+          overflow: hidden
+
+
+// CHAT WRAPPER
+           
+body
+                
+  @media screen and (min-width: 0px) and (max-width: 1135px)
+    .cloud-wrapper
+      z-index: 997
+      width: 386px
+      right: 0
+      left: auto
+      overflow: visible
+      .cloud-container
+        background: #4C4C4C image-url("bg-noise.png") right top repeat
+        overflow: hidden
+        +box-shadow(-2px,0,5px,rgba(0,0,0,.4))
+        border-left: 1px solid rgba(50,50,50,.7)
+        .cloud-toolbar
+          margin: 0
+          background: #4C4C4C image-url("bg-noise.png") right top repeat
+          header
+            margin: 0 10px
+            color: #CCCCCC
+            text-shadow: -1px -1px 1px rgba(0,0,0,.5)
+            a
+              &.closex
+                background-image: image-url("icons/iconic/gray_light/move_horizontal_alt2_12x12.png")
+              &.cloud
+                background-image: image-url("icons/iconic/gray_light/cloud_16x10.png")
+          .ytshadow
+            display: none
+        .cloud-extras-wrapper
+          background: #4C4C4C image-url("bg-noise.png") right top repeat
+          margin: 0
+          top: 22px
+          border-bottom: rgba(255,255,255,.3) solid 1px
+          +box-shadow(0,2px,3px,rgba(0,0,0,.2))
+          a.expand-trigger
+            color: rgba(255,255,255,.3)
+            &:hover
+              color: rgba(255,255,255,.6)
+        .cloud-chat-wrapper
+          margin: 0 10px
+          .ytshadow
+            display: none
+          .chat-messages
+            .chat-message
+              position: relative
+              padding: 0 7px
+
+              header.chat-message-head
+                span.sender
+                  a
+                    color: #CCCCCC
+                    text-shadow: -1px -1px 1px rgba(0,0,0,.5)
+                    &:hover
+                      color: #6CF
+                      text-shadow: -1px -1px 1px rgba(0,0,0,.5)
+                span.metadata
+                  color: #CCCCCC
+                  text-shadow: -1px -1px 1px rgba(0,0,0,.5)
+                  
+              article.chat-message-content
+                background: transparent
+                +box-shadow(0,0,0,#000)
+                p
+                  color: #B3B3B3
+                  text-shadow: -1px -1px 1px rgba(0,0,0,.3)
             
+          form.chat-form
+            .chat-input
+              textarea
+                color: #CCCCCC
+                //background-color: rgba(255,255,255,.5)
+          
+          
+  @media screen and (min-width: 1136px)
+    .cloud-wrapper
+      top: 63px
+      right: 0px
+      bottom: 63px
+      .cloud-container
+        .cloud-toolbar
+          margin: 0
+          background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
+          header
+            margin: 0 10px
+        .cloud-extras-wrapper
+          margin: 0
+          background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
+          border-bottom: rgba(255,255,255,.9) solid 1px
+          +box-shadow(0,2px,3px,rgba(0,0,0,.2))
+          a.expand-trigger
+            color: rgba(0,0,0,.3)
+            &:hover
+              color: rgba(0,0,0,.6)
+        .cloud-chat-wrapper
+          top: 50px
+          margin: 0 20px 0 20px
 
 
 .cloud-wrapper
-  position: relative
-  width: 940px
-  z-index: 999
-  background: transparent
-  -webkit-border-radius: 6px 6px 0 0
-  -moz-border-radius: 6px 6px 0 0
-  border-radius: 6px 6px 0 0
+  top: 53px
+  right: 0px
+  bottom: 53px
+  left: 753px
+  overflow: hidden
+  position: fixed
+  pointer-events: none
   
   .cloud-container
+    pointer-events: all
     border-bottom: none
     position: absolute
-    top: -421px
-    height: 420px
-    width: 938px
-    right: 0
     display: none
-    background: rgba(245, 245, 255, 0.95)
-    -webkit-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
-    -moz-box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
-    box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .1)
-    border: rgba(60,61,63,0.3) 1px solid
-    border-bottom: 0
-    -webkit-box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
-    -moz-box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
-    box-shadow: 0 0px 8px rgba(0, 0, 0, .25)
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    width: auto
     
     &.active
       display: block
-    
-    &.contracted
-      width: 400px
-      .cloud-toolbar
-        header
-          a.contract
-            background-image: image-url("icons/iconic/gray_dark/first_8x8.png") !important
-      .cloud-extras-wrapper
-        display: none
     
     .cloud-toolbar
       height: 24px
       position: absolute
       top: 0
-      width: 100%
-      border-bottom: 1px rgba(60,61,63,0.3) solid
-      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
-      -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .10)
-      background: #F0F6FF
-      background-color: $color-cd-background-lightest repeat
-      background: $color-cd-background-lighter -moz-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-      background: $color-cd-background-lighter -webkit-gradient(linear,left top,left bottom,color-stop(0, $color-cd-background-lightest),color-stop(1, $color-cd-background-lighter)) no-repeat
-      background: $color-cd-background-lighter -o-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-      background: $color-cd-background-lighter -webkit-linear-gradient($color-cd-background-lightest, $color-cd-background-lighter) no-repeat
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}') no-repeat
-      -ms-filter: quote(progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-cd-background-lightest}', endColorstr='#{$color-cd-background-lighter}')) no-repeat
+      left: 0
+      right: 0
+      overflow: hidden
+      z-index: 100
       
       header
-        padding: 0 5px
         font-size: 14px
         line-height: 24px
         color: #333333
@@ -232,11 +316,6 @@
           cursor: pointer
           &:active
             background-position: 50% 60%
-          &.contract
-            float: left
-            margin-right: 5px
-            margin-left: 0px
-            background-image: image-url("icons/iconic/gray_dark/last_8x8.png")
           &.closex
             background-image: image-url("icons/iconic/gray_dark/move_horizontal_alt2_12x12.png")
           &.cloud
@@ -244,27 +323,64 @@
     
     .cloud-extras-wrapper
       position: absolute
-      width: 538px
-      top: 26px
-      bottom: 0
+      top: 24px
+      height: 24px
       left: 0
+      right: 0
+      z-index: 99
+      
+      &.expanded
+        min-height: 200px
+        ul.cloud-users-list
+          display: block
+        a.expand-trigger
+          &::after
+            content: "▲"
+      
+      a.expand-trigger
+        left: 1px
+        right: 1px
+        position: absolute
+        height: 24px
+        line-height: 24px
+        font-size: 12px
+        text-align: center
+        letter-spacing: .2em
+        font-weight: bold
+        +transition(color .3s)
+        bottom: 0
+        &::after
+          content: "▼"
+        &:hover
+          text-decoration: none
+            
+
       ul.cloud-users-list
-        height: 376px
-        overflow: hidden
+        display: none
+        position: absolute
+        bottom: 24px
+        top: 0
+        left: 0
+        right: 0
         list-style: none inside
         margin: 0
-        padding: 0 0 18px 18px
+        overflow: auto
+        padding-top: 10px
         li
           float: left
-          width: 250px
-          margin-right: 10px
-          margin-top: 5px
+          margin-left: 10px
+          margin-bottom: 10px
+          width: auto
           a
-            line-height: 24px
-            font-weight: bold
-            img 
+            float: left
+            margin: 0
+            padding: 0
+            img
+              margin: 0
+              padding: 0
+              max-height: 40px
+              max-width: 40px
               float: left
-              margin-right: 5px
               
       h6
         text-align: center
@@ -272,18 +388,20 @@
     
     .cloud-chat-wrapper
       position: absolute
-      width: 400px
-      top: 26px
-      bottom: 1px
+      overflow: hidden
+      top: 48px
+      bottom: 0
       right: 0
-              
-      .cloud-chat-messages
+      left: 0
+      
+      .chat-messages
         position: absolute
         top: 0px
         bottom: 35px
         width: 100%
         overflow-x: hidden
         overflow-y: scroll
+          
         .chat-message
           position: relative
           padding: 0 7px
@@ -310,74 +428,76 @@
             span
               font-weight: bold
             span.sender
-              a:hover
-                text-decoration: none
+              a
+                color: #191919
+                text-shadow: 1px 1px 1px rgba(255,255,255,0.9)
+                &:hover
+                  text-decoration: none
+                  color: #6CF
+                  text-shadow: 1px 1px 1px rgba(255,255,255,0.9)
             span.metadata
               display: none
               float: right
               font-size: 11px
-              color: #4C4C4C
               margin-right: 12px
+              color: #191919
+              text-shadow: 1px 1px 2px rgba(255,255,255,0.3)
+              +opacity(0.9)
           article.chat-message-content
             min-height: 45px
             margin-left: 55px
             margin-right: 10px
             margin-bottom: 5px
             padding: 0 5px
-            -webkit-border-radius: 0 3px 3px 3px
-            -moz-border-radius: 0 3px 3px 3px
-            border-radius: 0 3px 3px 3px
-            background: rgba(255,255,255,0.5)
-            -webkit-box-shadow: -1px 1px 2px rgba(100, 100, 100, .05)
-            -moz-box-shadow: -1px 1px 2px rgba(100, 100, 100, .05)
-            box-shadow: -1px 1px 2px rgba(100, 100, 100, .05)
             p
               font-size: 13px
               line-height: 15px
-              text-shadow: rgba(255,255,255,0.5) 0px 1px 1px
               padding: 2px 0 0 0
               margin-bottom: 10px
-              color: #1C1C1C
               line-height: 1.7em
               word-wrap: break-word
+              text-shadow: rgba(255,255,255,0.3) 0px 1px 1px
+              color: #191919
 
           &:hover
             .chat-message-head
               span.metadata
                 display: block
     
-      form.cloud-chat-form
+      form.chat-form
         position: absolute
         margin: 0
         padding: 0
-        width: 400px
         bottom: 0
-  
-        textarea.cloud-chat-input
-          margin: 0 8px 8px 8px  
-          font-size: 12px
-          position: absolute
-          bottom: 0
-          padding: 3px 3px 3px 20px
-          width: 358px
-          resize: none
-          border: none
-          min-height: 18px
-          max-height: 72px
-          overflow-y: auto !important
-          overflow-x: hidden !important
-          height: 18px
-          color: #404040
-          resize: none
-          -webkit-border-radius: 2px 2px 2px 2px !important
-          -moz-border-radius: 2px 2px 2px 2px !important
-          border-radius: 2px 2px 2px 2px !important
-          -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
-          -moz-box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
-          box-shadow: inset 0 0 5px rgba(0, 0, 200, .05)
-          background: rgba(255,255,255,0.4) image-url("icons/tools/comment.png") 2px 5px no-repeat !important
-          border: rgba(0,0,20,0.2) solid 1px
-      
+        width: 100%
+        
+        .chat-input
+          position: relative
+          margin: 0 25px 9px 0px
+          float: none
+          textarea
+            width: 100%
+            padding: 3px 3px 3px 20px
+            font-size: 12px
+            resize: none
+            border: none
+            min-height: 18px
+            max-height: 72px
+            overflow-y: auto !important
+            overflow-x: hidden !important
+            height: 18px
+            color: #404040
+            resize: none
+            -webkit-border-radius: 3px 3px 3px 3px
+            -moz-border-radius: 3px 3px 3px 3px
+            border-radius: 3px 3px 3px 3px
+            background: rgba(0,0,0,0.05) image-url("icons/tools/comment.png") 2px 5px no-repeat
+            border: rgba(0,0,20,0.2) solid 1px
+            &:focus
+              background: rgba(255,255,255,0.05) image-url("icons/tools/comment.png") 2px 5px no-repeat
+              -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1)
+              -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1)
+              box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1)
       
       
       

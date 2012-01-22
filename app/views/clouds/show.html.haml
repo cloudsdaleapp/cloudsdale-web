@@ -1,21 +1,36 @@
-.page-header
+.page-header.profile
   %h1
+    .avatar-container
+      - if @cloud.avatar.url
+        = image_tag @cloud.avatar, :title => @cloud.name, :class => 'avatar'
+      - else
+        = image_tag "other/unknown_pony.jpg", :title => @cloud.name, :class => 'avatar'
     = @cloud.name
-    %small= @cloud.description
-  .row
-    .span12.offset4
-      %ul.tabs
-        %li.active= link_to "Feed", cloud_path(@cloud)
-        %li= link_to "Members", cloud_path(@cloud, tab: 'members')
-
-.row.show_cloud
-  .span4.left
+    %span.members= @cloud.user_ids.count
+  %nav
     - unless @cloud.owner == current_user
       - if @cloud.users.include?(current_user)
-        = link_to "Leave", cloud_member_path(@cloud,current_user), method: :delete, :class => 'btn error', 'data-skip-pjax' => true
+        = link_to cloud_member_path(@cloud,current_user), method: :delete, 'data-skip-pjax' => true do
+          %span.leave= "Leave"
       - else
-        = link_to "Join", cloud_members_path(@cloud), method: :post, :class => 'btn success', 'data-skip-pjax' => true
-    - else
-      = link_to "Settings", edit_cloud_path(@cloud), class: 'btn'
-  .span12.right
-    %h6= "To be added..."
+        = link_to cloud_members_path(@cloud), method: :post, 'data-skip-pjax' => true do
+          %span.join= "Join"
+    - if can? :update, @cloud
+      = link_to edit_cloud_path(@cloud) do
+        %span.settings= "Settings"
+
+.dropzone
+  .row
+    .span16
+      = render partial: 'drops/form', locals: { with_path: cloud_drops_path(@cloud) }
+            
+  .row
+    .span4
+      %ul.drop-facet-list
+        %li.list-head= "Dropzone"
+        %li= link_to "Most Recent", cloud_path(@cloud), class: 'most-recent'
+        %li= link_to "Top Rated", cloud_path(@cloud,sort:'top_rated'), class: 'top-rated'
+        %li= link_to "Most Visited", cloud_path(@cloud,sort:'most_visited'), class: 'most-visited'
+    .span12
+      %ul.drop-list
+        = render partial: 'drops/list_content', locals: { depositable: @cloud }

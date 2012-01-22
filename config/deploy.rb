@@ -12,13 +12,14 @@ set :deploy_to,       "/opt/app"
 set :normalize_asset_timestamps, false
 
 set :user,            "deploy"
-set :group,           "web"
-set :password,        "2bb780e839bcd43b152ad5c614f7820befcd2847976e9771f73472865ca70963"
+set :group,           "deploy"
 set :use_sudo,        false
 
-role :web, "50.57.151.151"
-role :app, "50.57.151.151", :primary => true
-role :db,  "50.57.151.151", :primary => true
+role :web, "rarity.web.cloudsdale.org", "applejack.web.cloudsdale.org", "fluttershy.web.cloudsdale.org"
+role :app, "rarity.web.cloudsdale.org", :primary => true
+role :app, "applejack.web.cloudsdale.org", "fluttershy.web.cloudsdale.org"
+role :db,  "rarity.web.cloudsdale.org", :primary => true
+role :faye, "celestia.chat.cloudsdale.org"
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }
@@ -109,17 +110,17 @@ namespace :deploy do
   end
 
   desc "Zero-downtime restart of Unicorn"
-  task :restart, :except => { :no_release => true } do
+  task :restart, :roles => :web, :except => { :no_release => true } do
     run "kill -s USR2 `cat /opt/pids/unicorn.pid`"
   end
 
   desc "Start unicorn"
-  task :start, :except => { :no_release => true } do
+  task :start, :roles => :web, :except => { :no_release => true } do
     run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E production -D"
   end
 
   desc "Stop unicorn"
-  task :stop, :except => { :no_release => true } do
+  task :stop, :roles => :web, :except => { :no_release => true } do
     run "kill -s QUIT `cat /opt/pids/unicorn.pid`"
   end  
 
@@ -141,6 +142,7 @@ namespace :deploy do
       rollback.cleanup
     end
   end
+  
 end
 
 def run_rake(cmd)

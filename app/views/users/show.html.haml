@@ -1,77 +1,37 @@
-.page-header
-  .row
-    .span3
+.page-header.profile
+  %h1
+    .avatar-container
       - if @user.avatar.url
-        = image_tag @user.avatar, :title => @user.character.name, :class => 'avatar'
+        = image_tag @user.avatar, :title => @user.name, :class => 'avatar'
       - else
-        = image_tag "other/unknown_pony.jpg", :title => @user.character.name, :class => 'avatar'
-    .span2
-      %h5.gender= @user.character.gender.capitalize if @user.character.gender
-      %h5.kind= @user.character.kind.capitalize if @user.character.kind
-      %h5.subscribers= "#{@user.subscriber_ids.count} subscribers"
-    .span11
-      %h1
-        = @user.character.name
-      %h4
-        - if @user.is_online?
-          %span{ :class => "online"}= "Online"
-          = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
-        - else
-          %span{ :class => "offline"}= "Offline"
-          = "Last activity #{time_ago_in_words(@user.last_activity)} ago"
-      %ul.tabs
-        %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }
-          = link_to "Profile", user_path(@user)
-        %li{ :class => "#{ params[:tab] == 'articles' ? 'active' : '' }" }
-          = link_to "Articles", user_path(@user, tab: 'articles')
-    
-.row
-  .span4.left
+        = image_tag "other/unknown_pony.jpg", :title => @user.name, :class => 'avatar'
+    = @user.name
+    %span.subscribers= @user.subscriber_ids.count
+  %nav
     - unless @user == current_user
       - if @user.subscribers.include?(current_user)
-        = link_to "Unsubscribe", user_subscriber_path(@user,current_user), method: :delete, :class => 'btn error', 'data-skip-pjax' => true
+        = link_to user_subscriber_path(@user,current_user), method: :delete, 'data-skip-pjax' => true do
+          %span.unsubscribe= "Unsubscribe"
       - else
-        = link_to "Subscribe", user_subscribers_path(@user), method: :post, :class => 'btn success', 'data-skip-pjax' => true
-    - else
-      = link_to "Settings", edit_user_path(@user), class: 'btn'
+        = link_to user_subscribers_path(@user), method: :post, 'data-skip-pjax' => true do
+          %span.subscribe= "Subscribe"
+    - if can? :update, @user
+      = link_to edit_user_path(@user) do
+        %span.settings= "Settings"
     
-    
-  .span12.right
-        
-    - if params[:tab].nil?
-      - @user.activities.order(:timestamp => :desc).each do |activity|
-        %p{ :style => 'padding-left: 20px;'}
-          = link_to activity.text, activity.url
-          %span.time= "#{time_ago_in_words(activity.timestamp).capitalize} ago"
-    - elsif params[:tab] == 'articles'
-      - if @articles
-        = paginate @articles, :left => 2, :right => 2, :window => 6, :param_name => :articles_page
-        %ul.unstyled.articles
-          - @articles.each do |article|
-            %li
-              .row
-                .span12
-                  %h3
-                    = link_to article.title, article_path(article)
-                    %span.view_count= article.views
-                    %span.comment_count= article.comments.count
-                  
-              .row
-                .span12
-                  .actions
-                    - if can? :manage, article
-                      = link_to "Edit", edit_article_path(article), :class => 'btn small'
-                      - unless article.published
-                        = link_to "Publish", publish_article_path(article), :class => 'btn success small'
-                      = link_to "Delete", article_path(article), :method => :delete, :class => 'btn error small'
-                    - else
-                      = link_to "Read", article_path(article), :class => 'btn small'
-                    %span.time
-                      = article.updated_at.strftime('%Y/%m/%d - %R')
-                  
-      - else
-        %h6 No articles...
-          
-          
-          
+.dropzone
+  .row
+    .span16
+      = render partial: 'drops/form', locals: { with_path: user_drops_path(@user) }
+            
+  .row
+    .span4
+      %ul.drop-facet-list
+        %li.list-head= "Dropzone"
+        %li= link_to "Most Recent", user_path(@user), class: 'most-recent'
+        %li= link_to "Top Rated", user_path(@user,sort:'top_rated'), class: 'top-rated'
+        %li= link_to "Most Visited", user_path(@user,sort:'most_visited'), class: 'most-visited'
+    .span12
+      %ul.drop-list
+        = render partial: 'drops/list_content', locals: { depositable: @user }
           

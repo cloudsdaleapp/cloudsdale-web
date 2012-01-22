@@ -1,0 +1,7 @@
+%span.timestamp
+  - unless depositable.nil?
+    = time_ago_in_words(deposits.order_by("#{depositable.id.to_s}_updated_at",:desc).last.updated_at)
+  - else
+    = time_ago_in_words(drop.updated_at)
+  
+  = " ago"

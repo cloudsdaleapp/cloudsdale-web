@@ -4,20 +4,13 @@ class Clouds::MembersController < ApplicationController
     @cloud = Cloud.find(params[:cloud_id])
   end
   
-  def index
-    @users = @cloud.users.online
-    respond_to do |format|
-      format.json { render json: @users.map(&:to_indexed_json).to_json }
-    end
-  end
-  
   def create
     @cloud.users << current_user
     respond_to do |format|
       if @cloud.save
         format.html { redirect_to :back, :notice => notify_with(:success,"Jumped on #{@cloud.name}","") }
       else
-        format.html { raise @cloud.errors }
+        format.html { raise "#{@cloud.errors.first.to_s}" }
       end
     end
   end
@@ -28,7 +21,7 @@ class Clouds::MembersController < ApplicationController
       if @cloud.save
         format.html { redirect_to :back, :notice => notify_with(:warning,"Jumped off #{@cloud.name}","") }
       else
-        format.html { raise @cloud.errors }
+        format.html { raise "#{@cloud.errors.first.to_s}" }
       end
     end
   end

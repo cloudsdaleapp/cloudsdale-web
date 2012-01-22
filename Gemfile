@@ -7,9 +7,12 @@ gem 'mongoid'
 gem 'bson_ext', '1.5.1'
 gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
 gem 'tire'
+gem 'voteable_mongo'
+# gem "hiredis"
+# gem "redis", ">= 2.2.0", :require => ["redis", "redis/connection/hiredis"]
 
 # Push notifications
-gem 'faye'
+gem 'faye', '0.7.1'
 
 # Production dependencies
 gem 'therubyracer'
@@ -39,6 +42,7 @@ gem 'cloudfiles'
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'imagesize'
 
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'
@@ -51,15 +55,32 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'sprockets'
 
+# Cloudsdale Specific
+gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
+
 group :development, :test do
   gem 'pry'
-  gem 'foreman'
-  gem 'gist'
-  gem 'rspec-rails'
   gem 'rails3-generators'
+  gem 'rspec-rails'
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'guard-rspec'
+  gem 'guard-livereload'
+end
+
+group :development do
+  gem 'gist'
+  gem 'foreman'
+  gem 'rails-dev-tweaks', '~> 0.5.2'
+end
+
+group :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'factory_girl_rails'
+end
+
+group :production do
+  gem 'exception_notification'
 end
 
 gem 'capistrano'

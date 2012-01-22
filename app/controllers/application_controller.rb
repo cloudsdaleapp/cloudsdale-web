@@ -11,7 +11,10 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  before_filter :redirect_on_maintenance!
   before_filter :force_password_change!
+  before_filter :set_time_zone_for_user!
+  before_filter :log_additional_exception_data
   
   before_filter do
     response.headers["controller"], response.headers["action"] = controller_name.parameterize, action_name.parameterize
@@ -20,11 +23,8 @@ class ApplicationController < ActionController::Base
     rescue
       session[:user_id] = nil
     end
-    
-    Time.zone = current_user.time_zone if current_user and current_user.time_zone
   end
-  
-  
+
   protect_from_forgery
   
   def render(options = nil, extra_options = {}, &block)
@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   
   def faye_broadcast(channel, data)
     message = { channel: channel, data: data, ext: { auth_token: FAYE_TOKEN } }
-    Net::HTTP.post_form(Cloudsdale.faye_path, message: message.to_json)
+    Net::HTTP.post_form(Cloudsdale.faye_path(:inhouse), message: message.to_json)
   end
   
   private
@@ -83,12 +83,31 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  protected
 
   # Forces the users to change their passwords if they are flagged to do so.
   def force_password_change!
     if current_user.try(:force_password_change?) == true
       redirect_to change_password_user_path(current_user), notice: notify_with(:warning,"Please change your password before proceeding.")
     end
+  end
+  
+  def redirect_on_maintenance!
+    if MAINTENANCE
+      unless current_user and current_user.role >= 4
+        redirect_to maintenance_path
+      end
+    end
+  end
+  
+  def set_time_zone_for_user!
+    Time.zone = current_user.time_zone if current_user and current_user.time_zone
+  end
+  
+  def log_additional_exception_data
+    request.env["exception_notifier.exception_data"] = {
+      :user => @current_user
+    }
   end
   
 end

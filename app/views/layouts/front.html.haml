@@ -7,7 +7,7 @@
     = favicon_link_tag "favicons/48by48.ico"
     = csrf_meta_tags
     %meta{:content => "user-scalable=no", :name => "viewport", :id => "view"}
-  %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
+  %body{ :class => "#{params[:controller].to_s.parameterize} #{params[:action].to_s.parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
     #body-wrapper
       #content-wrapper
         #content
@@ -17,5 +17,3 @@
       = link_to image_tag("icons/cloud/facebook_cloud.png") + "Connect", "/auth/facebook", :class => 'btn connect default', 'data-skip-pjax' => true
       = link_to image_tag("icons/cloud/twitter_cloud.png") + "Connect", "/auth/twitter", :class => 'btn connect default', 'data-skip-pjax' => true
     = render :partial => 'layouts/footer'
-        
-            

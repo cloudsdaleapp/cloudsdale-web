@@ -9,15 +9,21 @@
     %meta{:content => "user-scalable=no", :name => "viewport", :id => "view"}
     = yield :head
     
-  %body{ :class => "#{params[:controller].parameterize} #{params[:action].parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
-    #preload
-      = image_tag "other/unknown_pony_chat.jpg", :id => "img_unknown_pony_chat"
-    .container
-      = render :partial => 'layouts/topbar'
-      
+  %body{ :class => "#{params[:controller].to_s.parameterize} #{params[:action].to_s.parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
+    = render :partial => 'layouts/user_data'
+    = render :partial => 'layouts/preload'
+    = render :partial => 'layouts/topbar'
+    .bg-container
+      .container
+        .sideborder.left
+        .sideshadow.left
+          .ytshadow.right
+        .sideborder.right
+        .sideshadow.right
+          .ytshadow.left
+    .container-fluid.body
       .content{ :data => { 'pjax-container' => ''} }
         = yield
         
-      = render :partial => 'layouts/footer'
-      
     = render :partial => 'layouts/bottombar'
+

@@ -1,8 +1,11 @@
 class User
   
   include Mongoid::Document
+  include Mongo::Voter
   include Tire::Model::Search
   include Tire::Model::Callbacks
+  
+  include Droppable
   
   embeds_one :character
   embeds_one :restoration
@@ -14,7 +17,6 @@ class User
   has_many :owned_clouds, class_name: "Cloud", as: :owner
   
   has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
-  
   has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
   
@@ -46,10 +48,14 @@ class User
   
   validates_uniqueness_of :email
   validates :email, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-  validates :password, confirmation: true
+  validates :password, confirmation: true, length: { within: 6..56 }, :allow_blank => true
   validates :auth_token, uniqueness: true
   
   validates_exclusion_of :id, :in => lambda { |u| u.publisher_ids }, :message => "cannot subscribe to yourself"
+  
+  before_validation do
+    self[:cloud_ids].uniq!
+  end
   
   before_save do
     self[:auth_token]     = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?

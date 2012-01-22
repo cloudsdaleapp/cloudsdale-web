@@ -16,6 +16,17 @@ class CloudsController < ApplicationController
   def show
     @cloud = Cloud.find(params[:id])
     authorize! :read, @cloud
+    
+    case params[:sort]
+    when 'top_rated'
+      sort = ['votes.point',:desc]
+    when 'most_viwed'
+      sort = [:total_views,:desc]
+    else
+      sort = ["deposits.#{@cloud.id}_updated_at", :desc]
+    end
+    
+    @drops = Drop.where("deposits.depositable_id" => @cloud.id).order_by(sort).limit(20)
   end
   
   def create

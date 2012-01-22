@@ -1,172 +1,31 @@
 body.main
   &.index
-    .content
-      padding-bottom: 0px
-      background: #E9EEF5 image-url("bg-noise.png") repeat
-
+    .span12, .span4
+      overflow: visible
     
-    .row.note, .row.episode
-      .span12
-        padding: 0 20px
-        width: 660px
-    
-    .row.entries
-      .span12
-        ul.unstyled
-          margin: 0
-          li
-            padding: 5px 0
-            margin-bottom: 5px
-            
-            &:last-child
-              border-bottom: none
-              
-            .span6
-              width: 330px
-            .span5.left
-              padding-left: 20px
-              width: 260px
-              img
-                width: 240px
-                height: 100px
-                &.empty
-                  background: #E6E6E6 center center no-repeat
-                  background-image: image-url("icons/iconic/gray_light/denied_32x32.png")
-                  opacity: 0.5
-                  -moz-opacity: 0.5
-                  filter: alpha(opacity=50)
-                  
-            .span7.right
-              width: 380px
-              padding-right: 20px
-              h5
-                //font-size: 13px
-                line-height: 24px
-              h6.header
-                font-size: 12px
-                margin: 0
-                line-height: 18px
-                border-bottom: #B3B3B3 1px dotted
-                a
-                  padding: 0
-                  margin-left: 10px
-                  text-decoration: none
-                  
-              h6.author
-                margin-bottom: 5px
-                font-size: 10px
-                font-style: italic
-              p
-                padding-left: 10px
-                border-left: 3px #EEE solid
-                margin: 3px 0
-                font-size: 11px
-                font-weight: bold
-                color: #666666
-        
-        
-    .span12.left
-      background: #fff
-      -webkit-border-radius: 0px 0px 0px 6px
-      -moz-border-radius: 0px 0px 0px 6px
-      border-radius: 0px 0px 0px 6px
-      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
-      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
-      padding-bottom: 20px
-      padding-top: 10px
-      .span6.recent, .span6.popular
-        padding: 0 20px
-        width: 300px
-        overflow: hidden
-        ul.unstyled
-          margin: 0
-          li
-            padding: 0 5px
-            border-bottom: #eee 1px dotted
-            margin-bottom: 5px
-            &:last-child
-              border-bottom: none
-            h5
-              font-size: 13px
-              line-height: 20px
-            h6
-              font-size: 12px
-              margin: 0
-              line-height: 18px
-              a
-                padding: 0
-                margin-left: 10px
-                text-decoration: none
-            h6.author
-              margin-bottom: 5px
-              font-size: 10px
-              font-style: italic
-            p
-              padding-left: 10px
-              border-left: 3px #EEE solid
-              margin: 3px 0
-              font-size: 11px
-              font-weight: bold
-      
-    .span4.right
-      width: 200px
-      padding-right: 20px
-      ul
-        li
-          margin-bottom: 5px
-          a.btn
-            margin: 0px
-            padding: 10px 13px 10px 10px
-            width: 168px
-            text-align: right
-            font-weight: bold
-            &.default
-              h5.name
-                color: $linkColorHover
-                text-shadow: rgba(220,220,220,0.9) 0px 1px 3px
-                
-            &.info
-              h5.name
-                color: #FFF
-                text-shadow: rgba(0,0,0,0.4) 0px -1px 2px
-              
-            h5
-              font-size: 14px
-              line-height: 16px
-            h5.name
-              font-weight: bold
-            h5.metadata
-              color: #414342
-              font-size: 12px
-              text-shadow: rgba(180,195,230,0.7) 0px 1px 2px
-            img
-              float: left
-
-    .page-header
-      margin-bottom: 0
-      .row.featured
-        .banner
-          margin: 19px
-          background: #FFF
-          border: 1px solid #DDD
-        h2
-          padding: 20px 20px 0px 0px
-        h1
-          padding: 10px 20px 0px 10px
-          margin: 0
-          a
-            padding: 0
-        h6
-          padding: 0px 20px 0px 15px
-        p
-          font-weight: bold
-          padding: 0px 20px 5px 20px
-      .row
-        ul.tabs
-          margin-bottom: 0px
-          border-bottom: none
-          li:first-child
-            margin-left: 30px
-
+    ul.cloud-facet-list
+      list-style: none
+      margin: 0
+      padding: 10px
+      li
+        padding: 0
+        line-height: 20px
+        font-weight: bold
+        &.list-head
+          font-size: 14px
+          line-height: 24px
+          margin-bottom: 3px
+        &:not(.list-head)
+          margin-left: 5px
+          margin-bottom: 20px
+        a
+          background: transparent left center no-repeat
+          color: $color-dark-gray
+          +transition(margin .2s ease-in-out)
+          img
+            max-height: 16px
+            max-width: 16px
+          &:hover
+            margin-left: 3px
+            text-decoration: none
         

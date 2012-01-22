@@ -1,47 +1,32 @@
-- if @featured_entry
+.dropzone
   .row
     .span16
-      .page-header
-        .row.featured
-          .span9
-            .banner
-              = image_tag @featured_entry.banner if @featured_entry.banner?
-          .span7
-            %h2= "Featured Article"
-            %h1
-              = link_to "#{@featured_entry.title}", article_path(@featured_entry)
-            %h6= "by: #{@featured_entry.author.name}"
-            %p= truncate(@featured_entry.preambel, :length => 210, :separator => ' ', :omission => "#{link_to(" ... read more", article_path(@featured_entry))}").html_safe
-        .row
-          .span12
-            %ul.tabs
-              %li{ :class => "#{ params[:tab].nil? ? 'active' : '' }" }= link_to "Recent", root_path
-              %li{ :class => "#{ params[:tab] == 'popular' ? 'active' : '' }" }= link_to "Popular", root_path(tab: 'popular')
-              %li{ :class => "#{ params[:tab] == 'subscriptions' ? 'active' : '' }" }= link_to "Subscriptions", root_path(tab: 'subscriptions')
-              %li{ :class => "#{ params[:tab] == 'latest-episode' ? 'active' : '' }" }= link_to "Latest Episode", root_path(tab: 'latest-episode')
-              %li{ :class => "#{ params[:tab] == 'high-altitude-news' ? 'active' : '' }" }= link_to "High Altitude News", root_path(tab: 'high-altitude-news')
-
+      = render partial: 'drops/form', locals: { with_path: drops_path }
             
-.row
-  .span16
-    .row
-      .span12.left
-        = render :partial => 'note'
-        = render :partial => "index_tab_#{params[:tab] || "recent"}"
+  .row
+    .span4
+      %ul.drop-facet-list
+        %li.list-head= "My Subscriptions"
+        %li= link_to "Most Recent", root_path, class: 'most-recent'
+        %li= link_to "Top Rated", root_path(sort:'top_rated'), class: 'top-rated'
+        %li= link_to "Most Visited", root_path(sort:'most_visited'), class: 'most-visited'
+      
+      - if @recommended_clouds
+        %ul.cloud-facet-list
+          %li.list-head= "Interesting Clouds"
+          - @recommended_clouds.each do |cloud|
+            %li
+              = link_to cloud_path(cloud) do
+                - if cloud.avatar.mini.url
+                  = image_tag cloud.avatar.mini.url
+                - else
+                  = image_tag "icons/iconic/gray_dark/cloud_16x10.png"
+                = cloud.name
+              %p.member-count= "#{cloud.member_count} member#{(cloud.member_count > 1) ? 's' : '' }"
             
-      .span4.right
-        %h6= "Popular Clouds"
-        %ul.unstyled
-          - @popular_clouds.each do |cloud|
-            %li
-              = link_to cloud_path(cloud), class: "btn #{ cloud.users.include?(current_user) ? 'info' : 'default'}" do
-                %h5.name= cloud.name
-                %h5.metadata= "#{cloud.member_count} members"
-                
-        %h6= "Most Recent Clouds"
-        %ul.unstyled
-          - @recent_clouds.each do |cloud|
-            %li
-              = link_to cloud_path(cloud), class: "btn #{ cloud.users.include?(current_user) ? 'info' : 'default' }" do
-                %h5.name= cloud.name
-                %h5.metadata= "#{cloud.member_count} members"
+    .span12
+      %ul.drop-list
+        = render partial: 'drops/list_content'
+        
+    
+      

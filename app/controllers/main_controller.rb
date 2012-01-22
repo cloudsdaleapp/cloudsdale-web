@@ -1,5 +1,7 @@
 class MainController < ApplicationController
   
+  skip_before_filter :redirect_on_maintenance!, only: [:maintenance]
+  
   before_filter only: [:index] do
     unless current_user
       redirect_to login_path
@@ -7,22 +9,23 @@ class MainController < ApplicationController
   end
   
   def index
+    @depositable_ids = (current_user.publisher_ids + [current_user.id]).uniq + current_user.cloud_ids
     
-    authorize! :read, Entry
-    
-    @featured_entry = Entry.where(promoted: true).first
-    @popular_clouds = Cloud.where(hidden: false).order_by([:member_count,:desc]).limit(6)
-    @recent_clouds = Cloud.where(hidden: false).order_by([:created_at,:desc]).limit(6)
-
-    case params[:tab]
-      when nil
-        @entries = Entry.where(published: true, hidden: false, promoted: false).order_by(:published_at,:desc).limit(10)
-      when "subscriptions"
-        @entries = Entry.any_in(author_id: current_user.publisher_ids).order_by([:published_at,:desc]).limit(10)
-      when "popular"
-        @entries = Entry.where(published: true, hidden: false, promoted: false, :published_at.gt => 7.days.ago).order_by([:views,:desc],[:comments,:desc],[:published_at,:desc]).limit(10)
+    case params[:sort]
+    when 'top_rated'
+      sort = ['votes.point',:desc]
+    when 'most_viwed'
+      sort = [:total_views,:desc]
+    else
+      sort = [:updated_at, :desc]
     end
-
+    
+    @drops = Drop.any_of(:"deposits.depositable_id".in => @depositable_ids).order_by(sort).limit(20)
+    @recommended_clouds = Cloud.where(hidden: false, :user_ids.nin => [current_user.id]).order_by(:member_count,:desc).limit(3)
+  end
+  
+  def maintenance
+    render layout: false
   end
 
 end

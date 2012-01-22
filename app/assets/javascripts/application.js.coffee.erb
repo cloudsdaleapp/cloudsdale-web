@@ -1,0 +1,100 @@
+#= require jquery
+#= require jquery_ujs
+#= require pjax
+#= require jquery.cookie
+#= require jquery.BetterGrow
+#= require jquery.titlealert
+#= require jquery.tokeninput
+#= require jquery.updater
+#= require jquery.periodicalupdater
+#= require jquery.mousewheel
+#= require bootstrap
+#= require date
+#= require rails.validations
+#= require rails.validations.custom
+#= require rails.validations.formbuilder
+#= require farbtastic
+#= require faye
+#= require bottombar
+#= require topbar
+#= require showdown
+
+#= require main
+#= require articles
+#= require users
+#= require sessions
+#= require clouds
+
+$ ->
+  
+  document.window_focus = true
+  $(window).focus ->
+    document.window_focus = true
+  .blur ->
+    document.window_focus = false
+  
+  @userData = $('#user').data()
+  
+  document.fayeCli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", { timeout: 500 })
+  subscription = document.fayeCli.subscribe('/')
+  
+  subscription.callback =>
+    if document.fayeCli.getState() == 'CONNECTED'
+      $.event.trigger "faye.connected"
+  
+  subscription.errback =>
+    if document.fayeCli.getState() == 'CONNECTED'
+      $.event.trigger "faye.connected"
+  
+  
+  $(document).bind 'faye.connected', =>
+    $('.topbar').topBar()
+    $('.bottombar').bottomBar
+      userData: @userData
+      userId: @userData.id
+      userName: @userData.name
+      userAvatar: @userData.avatar
+      userPath: @userData.path
+
+  load_javascript = (controller,action) ->
+    $.event.trigger "application.load"
+    $.event.trigger "#{controller}.load"
+    $.event.trigger "#{action}_#{controller}.load"
+
+  $('[rel=twipsy-chat-room]').twipsy
+    placement: 'above'
+    offset: '7'
+    template: '<div class="twipsy-arrow chatilo"></div><div class="twipsy-inner chatilu"></div>'
+
+  $(document).bind 'application.load', =>
+
+    $("form[data-validate='true']").validate()
+
+    $(".alert-message > .close").bind "click", (e) ->
+      hide_alert_message $(@).parent()
+
+    $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
+      hide_alert_message @
+
+    $('[rel=twipsy]').twipsy()
+
+  $(document).bind 'start.pjax', (a,b,c) ->
+    $("a.brand").addClass("loading")
+
+  $(document).bind 'end.pjax', (a,b,c) ->
+    $("a.brand").removeClass("loading")
+
+    controller = b.getResponseHeader('controller')
+    action     = b.getResponseHeader('action')
+    if controller != null and action != null
+      load_javascript(b.getResponseHeader('controller'),b.getResponseHeader('action'))
+      $("body").attr('class', "#{b.getResponseHeader('controller')} #{b.getResponseHeader('action')}")
+
+  $(document).ready ->
+    load_javascript($("body").data('controller'),$("body").data('action'))
+
+
+
+
+
+

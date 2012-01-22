@@ -1,0 +1,8 @@
+%fieldset
+  .clearfix
+    = f.label :avatar, "Select an avatar"
+    .input
+      = f.file_field :avatar
+      .help-inline
+        %strong= "Note:"
+        = "You can upload any size of avatar though cloudsdale will scale it for you."

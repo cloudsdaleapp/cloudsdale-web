@@ -19,8 +19,9 @@ module Cloudsdale
     @rails_config ||= YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
   end
   
-  def self.faye_path
-    @faye_path = URI.parse("http://#{Cloudsdale.config['faye']['host']}:#{Cloudsdale.config['faye']['port']}/faye")
+  def self.faye_path(connection=nil)
+    host = (connection == :inhouse) ? config['faye']['inhouse_host'] : config['faye']['host']
+    @faye_path = URI.parse("#{config['faye']['schema']}://#{host}:#{config['faye']['port']}/#{config['faye']['path']}")
   end
   
   class Application < Rails::Application
@@ -33,8 +34,8 @@ module Cloudsdale
     
     config.generators do |g|
       config.sass.preferred_syntax = :sass
-      g.test_framework = nil
-      g.fixtures = nil
+      g.test_framework = :rspec
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
     # Custom directories with classes and modules you want to be autoloadable.
