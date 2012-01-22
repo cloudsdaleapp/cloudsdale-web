@@ -4,6 +4,8 @@ class Drop
   include Mongoid::Timestamps
   include Mongo::Voteable
   
+  mount_uploader :preview, PreviewUploader
+  
   voteable self, :up => +1, :down => -1
   
   embeds_many :deposits
@@ -67,12 +69,18 @@ class Drop
     self[:strategy]   = response.strategy.layout_key
     self[:last_load]  = -> { DateTime.current }.call
     self[:url]        = response.strategy.uri.to_s || self[:match_id]
+    
+    set_preview_image(self[:metadata]['preview_image'])
   end
   
   private
   
   def update_statistics
     self[:total_visits] = visit_ids.count
+  end
+  
+  def set_preview_image(path=nil)
+    self.remote_preview_url = path unless path.nil?
   end
 
 end
