@@ -53,6 +53,19 @@ namespace :deploy do
       run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} assets:upload"
     end
   end
+  
+  namespace :permission do
+    task :reload, :roles => :app, :except => { :no_release => true } do
+      run "#{try_sudo} chown -R deploy:deploy /opt/app"
+    end
+  end
+  
+  namespace :drops do
+    desc "Reloads the preview image files"
+    task :reload, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
+      run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} drops:images:reload"
+    end
+  end
 
   desc "Setup your git-based deployment app"
   task :setup, :except => { :no_release => true } do
