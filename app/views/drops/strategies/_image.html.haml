@@ -1,5 +1,9 @@
-= link_to drop.url, target: '_blank', data: { 'skip-pjax' => true } do
-  = image_tag drop.url, :title => drop.title
-= link_to drop.title, drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
-- unless drop[:metadata]['image_size'] == [nil,nil]
-  %span.sizes= "#{drop[:metadata]['image_size'][0]} × #{drop[:metadata]['image_size'][1]}"
+%header
+  .floatleft
+    = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
+      = image_tag drop.url, :title => drop.title
+  %h5= link_to truncate(drop.title, :length => 40), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
+
+  .info
+    - unless drop[:metadata]['image_size'] == [nil,nil]
+      %span.sizes= "#{drop[:metadata]['image_size'][0]} × #{drop[:metadata]['image_size'][1]}"

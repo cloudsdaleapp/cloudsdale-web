@@ -246,9 +246,11 @@ ul.drop-list
       menu
         display: block
 
+
+// IMAGE DROP
 ul.drop-list > li.drop.image
   header
-    display: inline-block
+    // display: inline-block
     &:after
       content: "."
       display: block
@@ -256,16 +258,27 @@ ul.drop-list > li.drop.image
       visibility: hidden
       line-height: 0
       height: 0
-    img
-      max-width: 120px
-      max-height: 90px
-    a
+    h5
+      margin-top: 10px
+      a.title
+        font-size: 14px
+        font-weight: bold
+        line-height: 18px
+      
+    .floatleft
       float: left
-      margin: 5px 0 0 10px
-    span.sizes
-      font-size: 10px
-      font-weight: bold
-      margin: 5px 0 0 10px
-    
+      vertical-align: top
+      a.preview
+        img
+          max-width: 120px
+          max-height: 90px
+          vertical-align: top
+          vertical-align: text-top
+          margin: 0 15px 5px 0
+      
+    .info
+      span.sizes
+        font-size: 10px
+        font-weight: bold    
       
       
