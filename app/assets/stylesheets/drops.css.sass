@@ -281,5 +281,38 @@ ul.drop-list > li.drop.image, li.drop.pdf_document
       font-size: 10px
       span
         font-weight: bold
+
+ul.drop-list > li.drop.youtube_video
+  header
+    padding: 5px
+    line-height: 22px
+  .yt-description
+  
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+    p
+      +opacity(.95)
+    .info
+      font-size: 11px
+      letter-spacing: .13em
+      margin-bottom: 3px
+      span
+        font-weight: bold
+    .floatleft
+      float: left
+      vertical-align: top
+      a.preview
+        float: left
+        img
+          max-width: 120px
+          max-height: 90px
+          vertical-align: top
+          vertical-align: text-top
+          margin: 0 15px 5px 5px
       
       

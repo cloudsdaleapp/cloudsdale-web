@@ -1,0 +1,18 @@
+%header
+  = link_to truncate(drop.title, :length => 50), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
+.yt-description
+  .floatleft
+    = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
+      - if image_tag drop.preview.url
+        = image_tag drop.preview.url, :title => drop.title
+  
+  .info
+    - unless drop[:metadata]['upload_date'].nil?
+      = "Uploaded "
+      %span= drop[:metadata]['upload_date']
+    - unless drop[:metadata]['author'].nil?
+      = " by "
+      %span= drop[:metadata]['author']
+
+  - unless drop[:metadata]['description'].nil?
+    %p= truncate(drop[:metadata]['description'], :length => 150)
