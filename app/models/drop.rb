@@ -69,7 +69,7 @@ class Drop
     self[:status]     = response.status
     self[:strategy]   = response.strategy.layout_key
     self[:last_load]  = -> { DateTime.current }.call
-    self[:url]        = response.strategy.uri.to_s || self[:match_id]
+    self[:url]        = self[:match_id] || response.strategy.uri.to_s
     
     set_preview_image(self[:metadata]['preview_image'],self[:metadata]['preview_image_is_local']) if self[:metadata]['preview_image']
   end
