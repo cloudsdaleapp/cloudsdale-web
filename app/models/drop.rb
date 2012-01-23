@@ -71,7 +71,7 @@ class Drop
     self[:last_load]  = -> { DateTime.current }.call
     self[:url]        = response.strategy.uri.to_s || self[:match_id]
     
-    set_preview_image(self[:metadata]['preview_image'],self[:metadata]['preview_image_is_local'])
+    set_preview_image(self[:metadata]['preview_image'],self[:metadata]['preview_image_is_local']) if self[:metadata]['preview_image']
   end
   
   private
@@ -80,8 +80,8 @@ class Drop
     self[:total_visits] = visit_ids.count
   end
   
-  def set_preview_image(file,local)
-    unless file.nil? and remote.nil?
+  def set_preview_image(file,local=false)
+    unless file.nil? and local.nil?
       if (local == false) or local.nil?
         # Triggers if file is Remote
         self.remote_preview_url = file
