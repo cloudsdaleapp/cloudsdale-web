@@ -40,9 +40,12 @@ gem 'client_side_validations'
 gem 'fog'
 gem 'cloudfiles'
 gem 'mini_magick'
+gem 'rmagick'
+#gem 'quick_magick'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'imagesize'
+gem 'pdf-reader'
 
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'

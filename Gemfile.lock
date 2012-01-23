@@ -11,6 +11,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    Ascii85 (1.0.1)
     XMLCanonicalizer (1.0.1)
       log4r (>= 1.0.4)
     actionmailer (3.1.0)
@@ -178,8 +179,8 @@ GEM
     method_source (0.6.5)
       ruby_parser (>= 2.0.5)
     mime-types (1.17.2)
-    mini_magick (3.3)
-      subexec (~> 0.1.0)
+    mini_magick (3.4)
+      subexec (~> 0.2.1)
     mongo (1.5.1)
       bson (= 1.5.1)
     mongo_sessions (0.3.4)
@@ -238,6 +239,9 @@ GEM
       oa-more (= 0.3.0)
       oa-oauth (= 0.3.0)
       oa-openid (= 0.3.0)
+    pdf-reader (1.0.0)
+      Ascii85 (~> 1.0.0)
+      ruby-rc4
     pjax_rails (0.1.10)
       jquery-rails
     polyglot (0.3.2)
@@ -285,6 +289,7 @@ GEM
     redcarpet (1.17.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rmagick (2.13.1)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
       rspec-expectations (~> 2.7.0)
@@ -310,6 +315,7 @@ GEM
     ruby-openid (2.1.8)
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)
+    ruby-rc4 (0.1.3)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     ruby_parser (2.3.1)
@@ -336,7 +342,7 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    subexec (0.1.0)
+    subexec (0.2.1)
     systemu (2.2.0)
     term-ansicolor (1.0.6)
     therubyracer (0.9.4)
@@ -404,12 +410,14 @@ DEPENDENCIES
   mongo_sessions
   mongoid
   omniauth
+  pdf-reader
   pjax_rails
   pry
   rails (= 3.1.0)
   rails-dev-tweaks (~> 0.5.2)
   rails3-generators
   redcarpet
+  rmagick
   rspec-rails
   ruby-debug19
   sass
