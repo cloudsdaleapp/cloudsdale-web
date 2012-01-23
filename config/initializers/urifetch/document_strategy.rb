@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'pdf-reader'
-require 'rmagick'
+require 'RMagick'
 
 Urifetch.register do
   match /\.(PDF)$/i, :pdf_document
