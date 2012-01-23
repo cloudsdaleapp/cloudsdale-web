@@ -23,11 +23,12 @@ Urifetch::Strategy.layout(:pdf_document) do
     
     # Preview Image
     preview_file = Magick::ImageList.new(request.path).first
-    preview_file.write("#{Rails.root.join('tmp/urifetch/').to_s + File.basename(request.base_uri.to_s, '.*')}.png")
+    #f = Tempfile.new("#{Rails.root.join('tmp/urifetch/').to_s + File.basename(request.base_uri.to_s, '.*')}")
+    f = Tempfile.new('')
+    preview_file.write('png:' + f.path)
     
     data.preview_image = preview_file.filename
     data.preview_image_is_local = true
-    
     
     # Fetch PDF metadata
     pdf = PDF::Reader.new(request)
