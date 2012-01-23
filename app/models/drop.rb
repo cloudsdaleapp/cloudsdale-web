@@ -31,6 +31,7 @@ class Drop
   
   before_save do
     reload if last_load.nil? or last_load < 1.week.ago
+    self[:metadata] = {}.deep_merge(self[:metadata].to_hash)
   end
   
   def self.find_or_initialize_from_matched_url(url)
@@ -64,13 +65,13 @@ class Drop
   
   def set_data(response)
     self[:title]      = response.data.title
-    self[:metadata]   = {}.merge(response.data)
+    self[:metadata]   = {}.deep_merge(response.data.to_hash)
     self[:status]     = response.status
     self[:strategy]   = response.strategy.layout_key
     self[:last_load]  = -> { DateTime.current }.call
     self[:url]        = response.strategy.uri.to_s || self[:match_id]
     
-    set_preview_image(self[:metadata]['preview_image'])
+    set_preview_image(self[:metadata]['preview_image'],self[:metadata]['preview_image_is_local'])
   end
   
   private
@@ -79,8 +80,16 @@ class Drop
     self[:total_visits] = visit_ids.count
   end
   
-  def set_preview_image(path=nil)
-    self.remote_preview_url = path unless path.nil?
+  def set_preview_image(file,local)
+    unless file.nil? and remote.nil?
+      if (local == false) or local.nil?
+        # Triggers if file is Remote
+        self.remote_preview_url = file
+      elsif (local == true)
+        # Triggers if file is a File or Tempfile
+        self.preview = open(file)
+      end
+    end
   end
 
 end
