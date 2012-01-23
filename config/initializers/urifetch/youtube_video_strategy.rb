@@ -1,16 +1,16 @@
 # encoding: utf-8
 
 Urifetch.register do
-  match /youtube.com\/watch\?v=([A-Za-z0-9\_\-]{9,11})\&?(.*)?$/i, :youtube_video
+  match /youtube.com\/watch\?.*(v=([A-Za-z0-9\_\-]{9,11}))(.*)?$/i, :youtube_video
 end
 
 Urifetch::Strategy.layout(:youtube_video) do
 
   before_request do
-    data.preview_image = "http://img.youtube.com/vi/#{match_data[1]}/0.jpg"
-    data.video_id = match_data[1]
-    data.title = match_data[1]
-    data.match_id = "http://www.youtube.com/watch?v=#{match_data[1]}"
+    data.preview_image = "http://img.youtube.com/vi/#{match_data[2]}/0.jpg"
+    data.video_id = match_data[2]
+    data.title = match_data[2]
+    data.match_id = "http://www.youtube.com/watch?v=#{match_data[2]}"
   end
   
   after_success do |request|
