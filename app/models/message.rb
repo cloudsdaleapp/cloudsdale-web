@@ -16,9 +16,10 @@ class Message
   
   validates :timestamp,   :presence => true
   validates :content,     :presence => true
+  validates :author,      :presence => true
   
   before_validation do
-    set_foreign_attributes!
+    set_foreign_attributes! if author
   end
   
   def content=(msg)
