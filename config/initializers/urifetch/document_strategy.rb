@@ -2,7 +2,6 @@
 
 require 'pdf-reader'
 require 'rmagick'
-require 'tempfile'
 
 Urifetch.register do
   match /\.(PDF)$/i, :pdf_document
