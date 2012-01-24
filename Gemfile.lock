@@ -337,6 +337,7 @@ GEM
       multi_json (~> 1.0.4)
       rubyzip
     sexp_processor (3.0.7)
+    simple_oauth (0.1.5)
     slop (2.1.0)
     sprockets (2.0.3)
       hike (~> 1.2)
@@ -374,6 +375,16 @@ GEM
     voteable_mongo (0.9.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
+    youtube_it (2.1.1)
+      builder
+      builder
+      faraday
+      faraday (>= 0.7.3)
+      nokogiri
+      oauth
+      oauth (>= 0.4.4)
+      simple_oauth
+      simple_oauth (>= 0.1.5)
 
 PLATFORMS
   ruby
@@ -430,3 +441,4 @@ DEPENDENCIES
   unicorn
   urifetch!
   voteable_mongo
+  youtube_it

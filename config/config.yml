@@ -1,6 +1,8 @@
 development:
   url: http://local.cloudsdale.org
   faye_port: 9191
+  youtube:
+    dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
   twitter:
     consumer_key: J1FiSKDKD9ev4xAVO3cLOw
     consumer_secret: djHBQOop2qIeUDb9xS0MPcwihSSHDWEhHoZ7aVCjOCs
@@ -32,6 +34,8 @@ development:
 
 production:
   url: http://www.cloudsdale.org
+  youtube:
+    dev_key: AI39si590ysEufJeWyXHddgMBcScjYxCuW6jJSyQ55EX9unRb633eX_oegvagIuCUjpZ6wDmP08NaVW6ugcdsSCZQDBSHd6RXA
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA
     consumer_secret: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8

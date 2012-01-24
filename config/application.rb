@@ -19,6 +19,10 @@ module Cloudsdale
     @rails_config ||= YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
   end
   
+  def self.ytClient
+    @ytClient = YouTubeIt::Client.new(:dev_key => config['youtube']['dev_key'])
+  end
+  
   def self.faye_path(connection=nil)
     host = (connection == :inhouse) ? config['faye']['inhouse_host'] : config['faye']['host']
     @faye_path = URI.parse("#{config['faye']['schema']}://#{host}:#{config['faye']['port']}/#{config['faye']['path']}")

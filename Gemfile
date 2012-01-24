@@ -45,6 +45,7 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'imagesize'
 gem 'pdf-reader'
+gem 'youtube_it'
 
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'
