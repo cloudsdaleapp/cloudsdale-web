@@ -8,6 +8,7 @@ gem 'bson_ext', '1.5.1'
 gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
 gem 'tire'
 gem 'voteable_mongo'
+gem 'will_paginate'
 # gem "hiredis"
 # gem "redis", ">= 2.2.0", :require => ["redis", "redis/connection/hiredis"]
 
@@ -23,7 +24,6 @@ gem 'scout'
 gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
-gem 'kaminari'
 gem 'pjax_rails'
 
 # Styling

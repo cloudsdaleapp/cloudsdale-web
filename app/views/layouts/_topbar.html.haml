@@ -4,7 +4,7 @@
       = link_to  root_path, :class => 'brand' do
         = image_tag "logo/cloudsdale-thin-bright-logo-small.png", :title => "Cloudsdale", :class => "logo"
       
-      = form_tag search_index_path, remote: true, method: :post, class: 'pull-left', id: 'search-main', data: { triggerFor: 'search' } do
+      = form_tag search_drops_path, remote: true, method: :get, class: 'pull-left', id: 'search-main' do
         = text_field_tag :q, '', placeholder: 'Search...'
        
       %ul.nav.secondary-nav

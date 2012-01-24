@@ -1,3 +1,25 @@
+body.drops
+  &.search
+    .page-header
+      padding: 10px
+      +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
+      -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      border: 1px rgba(50, 50, 50, 0.3) solid
+      +border-radius(5px)
+      
+      h2
+        padding: 5px 10px
+        span
+          float: right
+          font-size: 60%
+          margin-left: 10px
+    .row > .span4
+      overflow: visible
+      
+
 form#drop
   padding: 10px
   +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
@@ -66,47 +88,66 @@ form#drop
 ul.drop-facet-list
   list-style: none
   margin: 0
-  padding: 10px
-  //+linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-  //+box-shadow(0, 2px, 5px, rgba(0, 0, 0, .1))
-  //border: 1px rgba(50, 50, 50, 0.3) solid
-  //+border-radius(5px)
+  padding: 5px 10px
+  +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  border: 1px rgba(50, 50, 50, 0.3) solid
+  +border-radius(5px)
   
+  lh
+    font-size: 14px
+    line-height: 26px
+    font-weight: bold
+      
   li
     padding: 0
     line-height: 20px
     font-weight: bold
-    &.list-head
-      font-size: 14px
-      line-height: 24px
-      margin-bottom: 3px
+    text-align: right
     &:not(.list-head)
-      margin-left: 5px
-    a
+      margin-right: 0px
       background: transparent left center no-repeat
+    
+    &.recent
+      background-image: image-url("icons/iconic/gray_dark/clock_12x12.png")
+      &.active
+        background-image: image-url("icons/iconic/blue/clock_12x12.png")
+    &.rating
+      background-image: image-url("icons/iconic/gray_dark/arrow_up_alt1_12x12.png")
+      &.active
+        background-image: image-url("icons/iconic/green/arrow_up_alt1_12x12.png")
+    &.visits
+      background-image: image-url("icons/iconic/gray_dark/eye_12x9.png")
+      &.active
+        background-image: image-url("icons/iconic/orange/eye_12x9.png")
+    &.relevance
+      background-image: image-url("icons/iconic/gray_dark/target_12x12.png")
+      &.active
+        background-image: image-url("icons/iconic/red/target_12x12.png")
+    &.active
+      a
+        margin-right: 0px
+        &:after
+          +opacity(1)
+    a
       color: $color-dark-gray
-      +transition(margin .2s ease-in-out)
-      padding-left: 16px
+      font-weight: bold
       &:after
         content: " »"
         +opacity(0)
-        +transition(opacity .2s ease-in-out)
       &:hover
-        margin-left: 3px
         text-decoration: none
         &:after
           +opacity(1)
       
-      &.most-recent
-        background-image: image-url("icons/iconic/gray_dark/clock_12x12.png")
-      &.top-rated
-        background-image: image-url("icons/iconic/gray_dark/arrow_up_alt1_12x12.png")
-      &.most-visited
-        background-image: image-url("icons/iconic/gray_dark/eye_12x9.png")
       &.loading
         background-image: $img-spinner-dark
         background-size: 12px 12px
-        margin-left: 0
+      
+      
         
     
 
@@ -124,8 +165,7 @@ ul.drop-list
     
   li.drop
     position: relative
-    margin-top: 10px
-    margin-bottom: 10px
+    margin-bottom: 15px
     padding: 5px
     background: rgba(255,255,255,.5)
     +box-shadow(0,0,1px,rgba(0,0,0,.1))
