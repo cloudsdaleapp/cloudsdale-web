@@ -2,8 +2,7 @@
   = link_to drop.title, drop.url
   .floatleft
     = link_to drop.url, class: 'preview' do
-      - unless drop[:metadata]['avatar'].nil?
-        = image_tag drop[:metadata]['avatar'], :title => drop.title
+      = image_tag user_avatar_path(drop[:metadata]['avatar'],:preview), :title => drop.title
   .info
     - unless drop[:metadata]['subscriber_count'].nil?
       %span.subscriber-count= drop[:metadata]['subscriber_count']
