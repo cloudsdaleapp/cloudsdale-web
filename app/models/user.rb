@@ -13,6 +13,8 @@ class User
   embeds_many :activities
   embeds_many :notifications
   
+  belongs_to :drop, autosave: true
+  
   has_many :entries, as: :author
   has_many :owned_clouds, class_name: "Cloud", as: :owner
   
@@ -65,7 +67,13 @@ class User
     update_statistics
     remove_duplicate_subscriptions
   end
-
+  
+  after_save do
+    if drop.nil?
+      drop = Drop.find_or_initialize_from_matched_url("#{Cloudsdale.config['url']}/users/#{self._id.to_s}")
+      drop.save
+    end
+  end
   
   before_create do
     self[:last_activity] = Time.now

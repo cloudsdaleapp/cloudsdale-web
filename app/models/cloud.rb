@@ -22,6 +22,8 @@ class Cloud
   validates :name, presence: true, uniqueness: true, length: { within: 3..24 }
   validates :description, presence: true, length: { within: 5..50 }
   
+  belongs_to :drop, autosave: true
+  
   belongs_to :owner, polymorphic: true
   has_and_belongs_to_many :users, :inverse_of => :clouds, dependent: :nullify
   
@@ -36,6 +38,13 @@ class Cloud
   before_save do
     self[:member_count] = self.user_ids.count
     build_chat if chat.nil?
+  end
+  
+  after_save do
+    if drop.nil?
+      drop = Drop.find_or_initialize_from_matched_url("#{Cloudsdale.config['url']}/clouds/#{self._id.to_s}")
+      drop.save
+    end
   end
 
   # Tire, Mongoid requirements

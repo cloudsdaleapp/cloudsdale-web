@@ -10,7 +10,7 @@ class Drop
   
   embeds_many :deposits
   embeds_many :visits
-  
+    
   field :url,                 type: String
   field :match_id,            type: String
   field :status,              type: Array
