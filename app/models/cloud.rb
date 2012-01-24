@@ -37,6 +37,7 @@ class Cloud
   
   before_save do
     self[:member_count] = self.user_ids.count
+    self[:_type] = "Cloud"
     build_chat if chat.nil?
   end
   
