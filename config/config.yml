@@ -35,7 +35,7 @@ development:
 production:
   url: http://www.cloudsdale.org
   youtube:
-    dev_key: AI39si590ysEufJeWyXHddgMBcScjYxCuW6jJSyQ55EX9unRb633eX_oegvagIuCUjpZ6wDmP08NaVW6ugcdsSCZQDBSHd6RXA
+    dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA
     consumer_secret: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
