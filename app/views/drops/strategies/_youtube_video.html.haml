@@ -9,7 +9,10 @@
   .info
     - unless drop[:metadata]['upload_date'].nil?
       = "Uploaded "
-      %span= drop[:metadata]['upload_date']
+      - if drop[:metadata]['upload_date'].is_a? String
+        %span= drop[:metadata]['upload_date']
+      - else
+        %span= drop[:metadata]['upload_date'].strftime("%e %b %Y")
     - unless drop[:metadata]['author'].nil?
       = " by "
       %span= drop[:metadata]['author']

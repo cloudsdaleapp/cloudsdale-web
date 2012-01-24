@@ -19,7 +19,7 @@ Urifetch::Strategy.layout(:youtube_video) do
     data.title = video.title
     
     # Upload Date
-    data.upload_date = video.updated_at
+    data.upload_date = video.published_at
     
     # Author
     data.author = video.author.name
