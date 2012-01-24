@@ -40,25 +40,6 @@ class Entry
     if self.published? and (self.published_changed? or self.new?)
       self[:published_at] = Time.now
     end
-    
-    if changed? and !views_changed?
-      if self.new_record?
-        create_author_activity!('published')
-      else
-        create_author_activity!('updated')
-      end
-    end
-  end
-  
-  def create_author_activity!(action,custom_url=nil)
-    if published? and !hidden?
-      activity_category = _type.downcase.to_sym
-      url = custom_url ? custom_url : "/#{activity_category.to_s.pluralize}/#{_id.to_s}"
-      author.activities.create(category: activity_category, text: "#{action} #{activity_category.to_s} \"#{title}\"", url: url)
-      true
-    else
-      false
-    end
   end
   
   def log_view_count_and_save!
