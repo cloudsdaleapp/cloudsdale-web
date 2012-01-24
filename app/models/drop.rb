@@ -3,6 +3,8 @@ class Drop
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongo::Voteable
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
   
   mount_uploader :preview, PreviewUploader
   
@@ -34,6 +36,39 @@ class Drop
     self[:metadata] = {}.deep_merge(self[:metadata].to_hash)
   end
   
+  # Tire, Mongoid requirements
+  index_name 'mongo-drops'
+  
+  tire.settings  :number_of_shards => 1,
+            :analysis => {
+               :analyzer => {
+                 :drop_analyzer => {
+                   "type"         => "custom",
+                   "tokenizer"    => "standard",
+                   "filter"       => ["stop","lowercase","drop_ngram"]
+                 }
+               },
+               :filter => {
+                 :drop_ngram  => {
+                   "type"     => "nGram",
+                   "min_gram" => 1,
+                   "max_gram" => 20 }
+                }
+  } do mapping {             
+      indexes :id,            :type => 'string',       :index => :not_analyzed
+      indexes :type,          :type => 'string',       :index => :not_analyzed
+      indexes :title,         :type => 'string',       :index_analyzer => 'drop_analyzer', :search_analyzer => 'standard',     :boost => 10
+    }
+  end
+  
+  def to_indexed_json
+    self.to_json(:only => [ :_id,:_type,:title,:total_visits,:strategy,:metadata,:votes,:created_at,:updated_at], :methods => [:preview_versions])
+  end
+
+  def preview_versions
+    { default: self.preview.url }
+  end
+    
   def self.find_or_initialize_from_matched_url(url)
     response  = Urifetch.fetch_from(url)
     match_id  = response.data.match_id || response.strategy.uri.to_s
@@ -88,6 +123,25 @@ class Drop
         # Triggers if file is a File or Tempfile
         self.preview = open(file)
       end
+    end
+  end
+
+  # Override to silently ignore trying to remove missing
+  # previous avatar when destroying a User.
+  def remove_avatar!
+    begin
+      super
+    rescue Fog::Storage::Rackspace::NotFound
+    end
+  end
+
+  # Override to silently ignore trying to remove missing
+  # previous avatar when saving a new one.
+  def remove_previously_stored_avatar
+    begin
+      super
+    rescue Fog::Storage::Rackspace::NotFound
+      @previous_model_for_avatar = nil
     end
   end
 

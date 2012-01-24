@@ -26,6 +26,7 @@ Cloudsdale::Application.routes.draw do
   end
   
   resources :drops, only: [:create] do
+    get :search, on: :collection
     put '/votes/:value' => 'drops/votes#create', as: :votes
     delete '/vote' => 'drops/votes#destroy', as: :vote
   end
