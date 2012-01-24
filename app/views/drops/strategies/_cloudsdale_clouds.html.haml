@@ -1,0 +1,12 @@
+%header
+  = link_to drop.title, drop.url
+  .floatleft
+    = link_to drop.url, class: 'preview' do
+      - unless drop[:metadata]['avatar'].nil?
+        = image_tag drop[:metadata]['avatar'], :title => drop.title
+  .info
+    - unless drop[:metadata]['member_count'].nil?
+      %span.member-count= drop[:metadata]['member_count']
+      = " Members"
+    / - unless drop[:metadata]['created_at'].nil?
+    /   %span.created-at= drop[:metadata]['created_at']
