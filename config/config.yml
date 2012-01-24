@@ -1,5 +1,5 @@
 development:
-  url: http://127.0.0.1
+  url: http://local.cloudsdale.org
   faye_port: 9191
   twitter:
     consumer_key: J1FiSKDKD9ev4xAVO3cLOw
