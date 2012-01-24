@@ -27,7 +27,7 @@
       - @clouds = current_user.clouds
       - @clouds.each do |cloud|
         %li.cloud-trigger{ data: { 'cloud-id' => cloud.id, 'cloud-name' => cloud.name } }
-          .bg-image{ style: "background-image: url(#{cloud.avatar.url})" }
+          .bg-image{ style: "background-image: url(#{cloud_avatar_path(cloud.avatar.url)})" }
           = link_to "#" do
             %span.cloud-notification
             %h6.cloud-name= cloud.name

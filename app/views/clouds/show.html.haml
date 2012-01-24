@@ -1,10 +1,6 @@
 .page-header.profile
   %h1
-    .avatar-container
-      - if @cloud.avatar.url
-        = image_tag @cloud.avatar, :title => @cloud.name, :class => 'avatar'
-      - else
-        = image_tag "other/unknown_pony.jpg", :title => @cloud.name, :class => 'avatar'
+    .avatar-container= image_tag cloud_avatar_path(@cloud.avatar.url), :title => @cloud.name, :class => 'avatar'
     = @cloud.name
     %span.members= @cloud.user_ids.count
   %nav
