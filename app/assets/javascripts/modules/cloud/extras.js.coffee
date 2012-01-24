@@ -26,7 +26,7 @@ do ($ = jQuery) ->
       timestamp = new Date().getTime()
       if userInList[0] == undefined
         if image_src != null
-          image_src = user.avatar
+          image_src = if user.avatar then user.avatar else $('.preload.avatar-user-chat').css('background-image').replace(/url\(|\)|"|'/g,"")
         else
           image_src = ""
         
