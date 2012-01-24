@@ -10,7 +10,6 @@ class User
   embeds_one :character
   embeds_one :restoration
   embeds_many :authentications
-  embeds_many :activities
   embeds_many :notifications
   
   belongs_to :drop, autosave: false
@@ -30,7 +29,6 @@ class User
   field :time_zone,             type: String
   field :role,                  type: Integer,    default: 0
   field :member_since,          type: Time
-  field :last_activity,         type: Time
   field :invisible,             type: Boolean,    default: false
   field :force_password_change, type: Boolean,    default: false
   
@@ -38,7 +36,6 @@ class User
   
   mount_uploader :avatar, AvatarUploader
   
-  scope :online, -> { where(:last_activity.gt => 10.minutes.ago) }
   scope :top_subscribed, -> { order_by([:subscribers_count,:desc]) }
   scope :visable, where(:invisible => false)
 
@@ -75,10 +72,6 @@ class User
     end
   end
   
-  before_create do
-    self[:last_activity] = Time.now
-  end
-  
   # Tire, Mongoid requirements
   index_name 'users'
   
@@ -104,15 +97,11 @@ class User
   end
   
   def to_indexed_json
-    self.to_json(:only => [ :_id,:last_activity,:subscribers_count], :methods => [:name,:avatar_versions])
+    self.to_json(:only => [ :_id,:subscribers_count], :methods => [:name,:avatar_versions])
   end
   
   def avatar_versions
     { normal: avatar.url, mini: avatar.mini.url, thumb: avatar.thumb.url, preview: avatar.preview.url }
-  end
-  
-  def is_online?
-    self.last_activity > 10.minutes.ago
   end
   
   def self.authenticate(email, password)
@@ -155,13 +144,7 @@ class User
     self[:publisher_ids].uniq!
   end
   
-  def log_activity!
-    self[:last_activity] = Time.now
-    save!
-  end
-  
   def logout_and_save!
-    self[:last_activity] = Time.now - 10.minutes
     save!
   end
   
