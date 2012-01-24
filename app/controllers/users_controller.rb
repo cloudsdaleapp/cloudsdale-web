@@ -6,16 +6,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
-  def index
-    if params[:tab].nil?
-      @users = User.online.order([:last_activity,:desc]).limit(48)
-    elsif params[:tab] == 'most_subscribed'
-      @users = User.top_subscribed.limit(48)
-    elsif params[:tab] == 'random'
-      @users = User.limit(48).shuffle
-    end
-  end
-  
   def new
     @user = User.new
     @user.build_character
