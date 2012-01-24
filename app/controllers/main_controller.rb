@@ -10,17 +10,7 @@ class MainController < ApplicationController
   
   def index
     @depositable_ids = (current_user.publisher_ids + [current_user.id]).uniq + current_user.cloud_ids
-    
-    case params[:sort]
-    when 'top_rated'
-      sort = ['votes.point',:desc]
-    when 'most_viwed'
-      sort = [:total_views,:desc]
-    else
-      sort = [:updated_at, :desc]
-    end
-    
-    @drops = Drop.any_of(:"deposits.depositable_id".in => @depositable_ids).order_by(sort).limit(20)
+    @drops = Drop.any_of(:"deposits.depositable_id".in => @depositable_ids).order_by('deposits.updated_at',:desc).limit(20)
     @recommended_clouds = Cloud.where(hidden: false, :user_ids.nin => [current_user.id]).order_by(:member_count,:desc).limit(3)
   end
   
