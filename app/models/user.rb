@@ -69,9 +69,9 @@ class User
   end
   
   after_save do
-    if drop.nil?
-      drop = Drop.find_or_initialize_from_matched_url("#{Cloudsdale.config['url']}/users/#{self._id.to_s}")
-      drop.save
+    if self.drop.nil?
+      self.drop = Drop.find_or_initialize_from_matched_url("#{Cloudsdale.config['url']}/users/#{self._id.to_s}")
+      self.drop.save
     end
   end
   
