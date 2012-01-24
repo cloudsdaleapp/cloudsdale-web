@@ -13,7 +13,7 @@ class User
   embeds_many :activities
   embeds_many :notifications
   
-  belongs_to :drop
+  belongs_to :drop, autosave: false
   
   has_many :entries, as: :author
   has_many :owned_clouds, class_name: "Cloud", as: :owner

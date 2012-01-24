@@ -22,7 +22,7 @@ class Cloud
   validates :name, presence: true, uniqueness: true, length: { within: 3..24 }
   validates :description, presence: true, length: { within: 5..50 }
   
-  belongs_to :drop
+  belongs_to :drop, autosave: false
   
   belongs_to :owner, polymorphic: true
   has_and_belongs_to_many :users, :inverse_of => :clouds, dependent: :nullify
