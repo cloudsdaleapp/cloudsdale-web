@@ -35,6 +35,38 @@ class ServerAuth
   
 end
 
+module Faye
+  class WebSocket
+    module API
+      def close(code = nil, reason = nil, ack = true)
+        return if [CLOSING, CLOSED].include?(ready_state)
+        
+        @ready_state = CLOSING
+        
+        close = lambda do
+          @ready_state = CLOSED
+          @stream.close_connection_after_writing unless @stream.nil?
+          event = Event.new('close', :code => code || 1000, :reason => reason || '')
+          event.init_event('close', false, false)
+          dispatch_event(event)
+        end
+        
+        if ack
+          if @parser.respond_to?(:close)
+            @parser.close(code, reason, &close)
+          else
+            close.call
+          end
+        else
+          @parser.close(code, reason) if @parser.respond_to?(:close)
+          close.call
+        end
+      end
+    end
+  end
+end
+
+
 server = Faye::RackAdapter.new(mount: '/faye',timeout: 25)
 server.add_extension(ServerAuth.new)
 
