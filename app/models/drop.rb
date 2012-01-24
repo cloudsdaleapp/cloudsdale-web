@@ -45,7 +45,6 @@ class Drop
     else
       nil
     end
-    
 
   end
   
