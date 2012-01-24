@@ -124,11 +124,12 @@ ul.drop-list
     
   li.drop
     position: relative
-    margin-top: 20px
-    margin-bottom: 30px
+    margin-top: 10px
+    margin-bottom: 10px
     padding: 5px
-    //+border-radius(3px)
-    border-left: 3px transparent solid
+    background: rgba(255,255,255,.5)
+    +box-shadow(0,0,1px,rgba(0,0,0,.1))
+    +border-radius(1px)
     
     menu
       margin: 0
@@ -234,9 +235,9 @@ ul.drop-list
   
   
     &:hover
-      +box-shadow-inset(0,0,1px,rgba(0,0,0,0.2))
       background: rgba(0,0,0,.03)
-      border-color: rgba(50, 50, 50, .3)
+      +box-shadow-inset(0,0,1px,rgba(0,0,0,0.2))
+      //border-color: rgba(50, 50, 50, .3)
       nav
         +opacity(1)
         // span.votes > a
@@ -296,7 +297,7 @@ ul.drop-list > li.drop.youtube_video
       line-height: 0
       height: 0
     p
-      +opacity(.95)
+      //pointer-events: none
     .info
       font-size: 11px
       letter-spacing: .13em
@@ -304,7 +305,8 @@ ul.drop-list > li.drop.youtube_video
       span
         font-weight: bold
     .floatleft
-      z-index: 2
+      position: relative
+      z-index: 5
       float: left
       vertical-align: top
       a.preview
