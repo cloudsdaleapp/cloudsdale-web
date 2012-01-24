@@ -4,6 +4,7 @@
     %ul.tabs{ data: { tabs: :tabs } }
       %li.active= link_to "General", "#general"
       %li= link_to "Avatar", "#avatar"
+      %li= link_to "Security", "#security"
       
   .row
     .span16
@@ -37,6 +38,29 @@
                 .help-inline
                   %strong= "Note:"
                   = "You can upload any size of avatar though cloudsdale will scale it for you."
+                  
+        .tab-pane#security
+          %fieldset.security
+            .clearfix
+              .input
+                %ul.inputs-list
+                  %li
+                    %label{ for: :cloud_locked }
+                      = f.check_box :locked
+                
+                      %span
+                        %strong Lock -
+                        and requires people to request permission to join or be personally invited.
+                  
+                  %li
+                    %label{ for: :cloud_hidden }
+                      = f.check_box :hidden
+                      %span
+                        %strong Hide -
+                        cloud will not listed and can only be made visible through personal invite.
+                      
+            .clearfix
+                  
       %fieldset
         .actions
           - unless @cloud.new_record?

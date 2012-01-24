@@ -14,6 +14,7 @@ class Cloud
   field :name,          type: String
   field :description,   type: String
   field :hidden,        type: Boolean,        default: false
+  field :locked,        type: Boolean,        default: false
   field :member_count,  type: Integer,        default: 0
   
   mount_uploader :avatar, AvatarUploader
@@ -23,6 +24,8 @@ class Cloud
   
   belongs_to :owner, polymorphic: true
   has_and_belongs_to_many :users, :inverse_of => :clouds, dependent: :nullify
+  
+  default_scope where(hidden: false)
   
   before_validation do
     self.owner = self.users.first if owner.nil? and !users.empty?
