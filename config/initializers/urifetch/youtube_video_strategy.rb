@@ -7,31 +7,33 @@ end
 Urifetch::Strategy.layout(:youtube_video) do
 
   before_request do
+    @skip_request = true
+    
     data.preview_image = "http://img.youtube.com/vi/#{match_data[2]}/0.jpg"
     data.video_id = match_data[2]
-    data.title = match_data[2]
     data.match_id = "http://www.youtube.com/watch?v=#{match_data[2]}"
+    
+    video = Cloudsdale.ytClient.video_by(match_data[2])
+    
+    # Title
+    data.title = video.title
+    
+    # Upload Date
+    data.upload_date = video.updated_at
+    
+    # Author
+    data.author = video.author.name
+    
+    # Description
+    data.description = video.description || ""
+    
+    # Duration
+    data.duration = video.duration || 0
+    
   end
   
   after_success do |request|
-    doc = Nokogiri::HTML(request)
-
-    # Title
-    title = doc.css("span#eow-title").first
-    data.title = title.content.strip unless title.nil?
-    
-    # Upload Date
-    upload_date = doc.css("span#eow-date").first
-    data.upload_date = upload_date.content.strip unless upload_date.nil?
-    
-    # Author
-    author = doc.css("p#watch-uploader-info a[rel=author]").first
-    data.author = author.content.strip unless author.nil?
-    
-    # Description
-    description = doc.css("p#eow-description").first
-    data.description = description.content.strip unless description.nil?
-    
+    #doc = Nokogiri::HTML(request)
   end
   
   after_failure do |error|
