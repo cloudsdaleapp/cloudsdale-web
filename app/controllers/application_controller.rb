@@ -18,11 +18,6 @@ class ApplicationController < ActionController::Base
   
   before_filter do
     response.headers["controller"], response.headers["action"] = controller_name.parameterize, action_name.parameterize
-    begin
-      current_user.log_activity! if current_user
-    rescue
-      session[:user_id] = nil
-    end
   end
 
   protect_from_forgery
