@@ -66,6 +66,13 @@ namespace :deploy do
       run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} drops:images:reload"
     end
   end
+  
+  namespace :users do
+    desc "Reload the user avatars"
+    task :recreate_avatars, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
+      run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} users:reload_avatars"
+    end
+  end
 
   desc "Setup your git-based deployment app"
   task :setup, :except => { :no_release => true } do
