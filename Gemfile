@@ -15,7 +15,7 @@ gem 'voteable_mongo'
 # gem "redis", ">= 2.2.0", :require => ["redis", "redis/connection/hiredis"]
 
 # Push notifications
-gem 'faye', '0.7.1'
+gem 'faye', git: 'git://github.com/faye/faye.git', branch: '0.8.x'
 
 # Production dependencies
 gem 'therubyracer'
@@ -91,3 +91,4 @@ end
 gem 'capistrano'
 gem 'capistrano_colors', :require => nil
 gem 'unicorn'
+gem 'thin'

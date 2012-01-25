@@ -167,8 +167,8 @@ ul.drop-list
     position: relative
     margin-bottom: 15px
     padding: 5px
-    background: rgba(255,255,255,.5)
-    +box-shadow(0,0,1px,rgba(0,0,0,.1))
+    //background: rgba(255,255,255,.5)
+    //+box-shadow(0,0,1px,rgba(0,0,0,.1))
     +border-radius(1px)
     
     menu
@@ -309,12 +309,14 @@ ul.drop-list > li.drop.image, li.drop.pdf_document
     .floatleft
       float: left
       vertical-align: top
+      min-height: 90px
       a.preview
+        vertical-align: middle
+        line-height: 90px
         img
           max-width: 120px
           max-height: 90px
-          vertical-align: top
-          vertical-align: text-top
+        
           margin: 0 15px 5px 5px
       
     .info
