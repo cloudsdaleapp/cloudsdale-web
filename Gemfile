@@ -6,6 +6,7 @@ gem 'rails', '3.1.0'
 gem 'mongoid'
 gem 'bson_ext', '1.5.1'
 gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
+gem 'mongoid_rails_migrations'
 
 gem 'tire',     git: 'git://github.com/karmi/tire.git'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari.git'

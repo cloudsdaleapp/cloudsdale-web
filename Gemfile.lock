@@ -211,6 +211,11 @@ GEM
       activemodel (~> 3.1)
       mongo (~> 1.3)
       tzinfo (~> 0.3.22)
+    mongoid_rails_migrations (0.0.14)
+      activesupport (>= 3.0.0)
+      bundler (>= 1.0.0)
+      rails (>= 3.0.0)
+      railties (>= 3.0.0)
     multi_json (1.0.4)
     multi_xml (0.4.0)
     multipart-post (1.1.3)
@@ -438,6 +443,7 @@ DEPENDENCIES
   mini_magick
   mongo_sessions
   mongoid
+  mongoid_rails_migrations
   omniauth
   pdf-reader
   pjax_rails
