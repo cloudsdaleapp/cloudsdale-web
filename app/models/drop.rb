@@ -6,6 +6,7 @@ class Drop
   include Tire::Model::Search
   include Tire::Model::Callbacks
   
+  
   mount_uploader :preview, PreviewUploader
   
   voteable self, :up => +1, :down => -1
@@ -64,9 +65,9 @@ class Drop
   def to_indexed_json
     self.to_json(:only => [ :_id,:_type,:title,:total_visits,:strategy,:metadata,:votes,:created_at,:updated_at], :methods => [:preview_versions])
   end
-
-  def preview_versions
-    { default: self.preview.url }
+  
+  def self.paginate(options = {})
+     page(options[:page]).per(options[:per_page])
   end
     
   def self.find_or_initialize_from_matched_url(url)
@@ -109,6 +110,10 @@ class Drop
   end
   
   private
+  
+  def preview_versions
+    { default: self.preview.url }
+  end
   
   def update_statistics
     self[:total_visits] = visit_ids.count
