@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       sort = ["deposits.#{@user.id}_updated_at", :desc]
     end
     
-    @drops = Drop.where("deposits.depositable_id" => @user.id).order_by(sort).limit(20)
+    @drops = Drop.where("deposits.depositable_id" => @user.id).order_by(sort).page(params[:page] || 1).per(10)
   end
   
   def create

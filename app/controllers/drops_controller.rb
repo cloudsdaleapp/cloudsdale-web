@@ -25,7 +25,7 @@ class DropsController < ApplicationController
     
     @q = !params[:q].empty? ? params[:q] : current_user.name
     unless @q.empty? or @q.nil?
-      @search = Drop.tire.search :page => (params[:page].to_i || 2), :load => true do |s|
+      @search = Drop.tire.search :load => true, :page => (params[:page].to_i || 1), per_page: 10 do |s|
         s.query { |q| q.string "title:#{@q}" }
         unless sort.empty?
           s.sort  { by sort[0], sort[1] }
@@ -36,8 +36,6 @@ class DropsController < ApplicationController
     
     @depositable_ids = (current_user.publisher_ids + [current_user.id]).uniq + current_user.cloud_ids
     @drops = @search.results
-    
-    
     
     respond_to do |format|
       format.html { }
