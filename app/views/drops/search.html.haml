@@ -1,17 +1,19 @@
 .page-header
   %h2
-    = "Search: \"#{truncate(@q, length: 10)}\""
+    = "Search: \"#{truncate(@q, length: 24)}\""
     %span.pages= "#{@search.total_count} total hits"
     %span.results= ""
 .dropzone
   .row
     .span4
       %ul.drop-facet-list
-        %lh= "Order"
-        %li.relevance{ class: params[:sort].nil? ? 'active' : '' }= link_to "Relevance", search_drops_path(q: @q)
-        %li.recent{ class: params[:sort]=='recent' ? 'active' : ''}= link_to "Recent", search_drops_path(q: @q, sort: 'recent')
-        %li.rating{ class: params[:sort]=='rating' ? 'active' : ''}= link_to "Rating", search_drops_path(q: @q, sort: 'rating')
-        %li.visits{ class: params[:sort]=='visits' ? 'active' : ''}= link_to "Visits", search_drops_path(q: @q, sort: 'visits')
+        %lh= "Order Results"
+        %li.relevance{class: params[:sort].nil? ? 'active' : ''}= link_to "Relevance", search_drops_path(utf8:'✓',q: @q)
+        %li.recent{class: params[:sort]=='recent' ? 'active' : ''}= link_to "Recent", search_drops_path(utf8:'✓',q: @q, sort: 'recent')
+        %li.rating{class: params[:sort]=='rating' ? 'active' : ''}= link_to "Rating", search_drops_path(utf8:'✓',q: @q, sort: 'rating')
+        %li.visits{class: params[:sort]=='visits' ? 'active' : ''}= link_to "Visits", search_drops_path(utf8:'✓',q: @q, sort: 'visits')
     .span12
       %ul.drop-list
         = render partial: 'drops/list_content'
+      
+      = paginate @search
