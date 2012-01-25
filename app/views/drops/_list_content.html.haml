@@ -5,4 +5,5 @@
     - options = { deposits: drop.deposits.where(:depositable_id => depositable.id), depositable: depositable }
   = render :partial => 'drops/drop', locals: { drop: drop }.merge(options)
 
-= paginate @drops
+- unless @drops.last_page?
+  = paginate @drops
