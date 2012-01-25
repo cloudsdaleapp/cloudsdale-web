@@ -9,8 +9,10 @@ do ($ = jQuery) ->
       @input = @form.find('input#url')
       @pendingIdField = @form.find('input#pending_id')
       @list = @frame.find('ul.drop-list')
+      @setupPaginationElements()
       
       @pendingDrop = null
+      @currentlyFetching = false
       
       @bind()
     
@@ -33,6 +35,31 @@ do ($ = jQuery) ->
         @validateInput()
         if @input.val().length <= 0
           @form.removeClass('error')
+      
+      $(window).scroll =>
+        if @extendUrl && $(window).scrollTop() > $(document).height() - $(window).height() - 50
+          if @pagination.length
+            @fetchMore() unless @currentlyFetching == true
+        
+      $(window).scroll()
+    
+    setupPaginationElements: () ->
+      @pagination = @frame.find('.pagination')
+      @extendUrl = @pagination.find('a[rel=next]').attr('href')
+    
+    fetchMore: ->
+      @pagination.html("<h6>Fetching more rain drops...</h6>") 
+      @currentlyFetching = true
+      $.ajax
+        url: @extendUrl
+        dataType: "script"
+        context: @
+        complete: (r) =>
+          if r.status == 200
+            @pagination.replaceWith(r.responseText)
+            @setupPaginationElements()
+          @currentlyFetching = false
+        
     
     generatePendingDrop: ->
       pendingId = @secureRandom(17)
