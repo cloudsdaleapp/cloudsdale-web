@@ -9,6 +9,19 @@ GIT
       nokogiri
 
 GIT
+  remote: git://github.com/faye/faye.git
+  revision: b5cefce5fa9586a78e5d9dd216f4025b97697678
+  branch: 0.8.x
+  specs:
+    faye (0.8.0)
+      cookiejar (>= 0.3.0)
+      em-http-request (~> 0.3.0)
+      eventmachine (>= 0.12.0)
+      faye-websocket (>= 0.3.0)
+      json (>= 1.0.0)
+      rack (>= 1.0.0)
+
+GIT
   remote: git://github.com/karmi/tire.git
   revision: 1d6b2678be47accecef5bc1c0efbb19f041daced
   specs:
@@ -108,8 +121,6 @@ GEM
     database_cleaner (0.7.0)
     diff-lcs (1.1.3)
     elif (0.1.0)
-    em-hiredis (0.1.0)
-      hiredis (~> 0.3.0)
     em-http-request (0.3.0)
       addressable (>= 2.0.0)
       escape_utils
@@ -134,14 +145,8 @@ GEM
       addressable (~> 2.2.6)
       multipart-post (~> 1.1.0)
       rack (>= 1.1.0, < 2)
-    faye (0.7.1)
-      cookiejar (>= 0.3.0)
-      em-hiredis (>= 0.0.1)
-      em-http-request (~> 0.3)
-      eventmachine (~> 0.12.0)
-      json (>= 1.0)
-      rack (>= 1.0)
-      thin (~> 1.2)
+    faye-websocket (0.3.0)
+      eventmachine (>= 0.12.0)
     ffi (1.0.11)
     fog (0.9.0)
       builder
@@ -177,7 +182,6 @@ GEM
     hashr (0.0.19)
     highline (1.6.2)
     hike (1.2.1)
-    hiredis (0.3.2)
     i18n (0.6.0)
     imagesize (0.1.1)
     jquery-rails (1.0.14)
@@ -420,7 +424,7 @@ DEPENDENCIES
   exception_notification
   execjs
   factory_girl_rails
-  faye (= 0.7.1)
+  faye!
   fog
   foreman
   gist
@@ -450,6 +454,7 @@ DEPENDENCIES
   scout
   sprockets
   therubyracer
+  thin
   tire!
   uglifier
   unicorn

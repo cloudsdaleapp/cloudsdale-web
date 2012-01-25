@@ -1,10 +1,13 @@
 require 'rubygems'
 require 'faye'
 require 'yaml'
+require 'thin'
 
 ENVIRONMENT = ARGV[0]
 
 config = YAML.load_file("#{File.dirname(__FILE__)}/../../config/config.yml")[ENVIRONMENT.to_s]
+engine = 'thin'
+
 
 if ENVIRONMENT == 'development'
   require 'pry'
@@ -35,42 +38,12 @@ class ServerAuth
   
 end
 
-module Faye
-  class WebSocket
-    module API
-      def close(code = nil, reason = nil, ack = true)
-        return if [CLOSING, CLOSED].include?(ready_state)
-        
-        @ready_state = CLOSING
-        
-        close = lambda do
-          @ready_state = CLOSED
-          @stream.close_connection_after_writing unless @stream.nil?
-          event = Event.new('close', :code => code || 1000, :reason => reason || '')
-          event.init_event('close', false, false)
-          dispatch_event(event)
-        end
-        
-        if ack
-          if @parser.respond_to?(:close)
-            @parser.close(code, reason, &close)
-          else
-            close.call
-          end
-        else
-          @parser.close(code, reason) if @parser.respond_to?(:close)
-          close.call
-        end
-      end
-    end
-  end
-end
-
+Faye::WebSocket.load_adapter(engine)
 
 server = Faye::RackAdapter.new(mount: '/faye',timeout: 25)
 server.add_extension(ServerAuth.new)
 
 EM.run do
-  thin = Rack::Handler.get('thin')
+  thin = Rack::Handler.get(engine)
   thin.run(server, :Port => config['faye']['port'].to_i)
 end
