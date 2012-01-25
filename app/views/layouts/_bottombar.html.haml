@@ -1,7 +1,7 @@
 .bottombar
   .cloud-wrapper
     - if current_user
-      - @clouds = current_user.unscoped.clouds
+      - @clouds = current_user.clouds.unscoped
       - @clouds.each do |cloud|
         .cloud-container{ id: cloud.id }
           .cloud-toolbar
