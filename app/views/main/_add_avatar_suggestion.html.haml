@@ -1,0 +1,6 @@
+.alert-message.block-message.info.add_avatar_suggestion
+      .avatar= image_tag "other/unknown_pony.jpg"
+      %h4= "Did you know you can have an avatar?"
+      %p= "Make it easier for other people on the site to recognize you by uploading your special avatar. "
+      %nav
+        = link_to "Upload Avatar", edit_user_path(current_user,tab:'avatar'), class: 'btn small'

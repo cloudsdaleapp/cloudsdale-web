@@ -77,6 +77,10 @@ $ ->
       hide_alert_message @
 
     $('[rel=twipsy]').twipsy()
+    $(".alert-message").alert()
+    
+    $("a.special_close").bind 'ajax:success', (request,response) ->
+      $(@).parent().remove()
 
   $(document).bind 'start.pjax', (a,b,c) ->
     $("a.brand").addClass("loading")

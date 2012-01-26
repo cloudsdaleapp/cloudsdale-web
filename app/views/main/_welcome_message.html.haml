@@ -1,0 +1,9 @@
+.alert-message.block-message.info.welcome_message
+  = link_to "×",user_checklist_read_welcome_message_path(current_user), remote: true, method: :put, class: 'special_close'
+  .float-left
+    = image_tag "logo/cloudsdale-logo-small.png"
+  %h4
+    = "Welcome to Cloudsdale - You can start by reading this"
+  
+  %p= "This is cloudsdale, a ponytastic platform for communicating and sharing various types of web content easily. We at Cloudsdale wish you have a wonderful time exploring the site, it's content and all the amazing ponies using it."
+  %br

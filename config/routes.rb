@@ -23,6 +23,8 @@ Cloudsdale::Application.routes.draw do
     resources :subscribers, :only => [:create,:destroy], :controller => 'users/subscribers'
     resources :restorations, :only => [:create,:show], :controller => 'users/restorations'
     resources :drops, only: [:create], :controller => 'users/drops'
+    
+    match 'checklist/read_welcome_message' => 'users/checklist#read_welcome_message', via: :put
   end
   
   resources :drops, only: [:create] do

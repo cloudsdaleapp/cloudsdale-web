@@ -9,6 +9,7 @@ class User
   
   embeds_one :character
   embeds_one :restoration
+  embeds_one :checklist
   embeds_many :authentications
   embeds_many :notifications
   
@@ -71,6 +72,10 @@ class User
       self.drop = Drop.find_or_initialize_from_matched_url("#{Cloudsdale.config['url']}/users/#{self._id.to_s}")
       self.drop.save
     end
+  end
+  
+  before_create do
+    build_checklist
   end
   
   # Tire, Mongoid requirements

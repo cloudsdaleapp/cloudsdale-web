@@ -13,9 +13,8 @@ class Ability
         # User
         can :read, User, invisible: false
         can :read, User, _id: user.id
-        
-        # Can only update own user
-        can :update, User, _id: user.id
+        can :update, User, _id: user.id # Can only update own user
+        can :checklist, User, _id: user.id # Can only access own checklist
         
         # Entries
         
@@ -39,6 +38,7 @@ class Ability
         can :read, Cloud, :hidden => false
         can :create, Cloud
         can [:update,:destroy], Cloud, :owner_id => user.id
+        
         
       end
         

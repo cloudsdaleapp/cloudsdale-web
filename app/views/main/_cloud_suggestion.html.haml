@@ -1,0 +1,19 @@
+.alert-message.block-message.info.cloud_suggestion
+  %h5
+    = "Hey, stop what you're doing! I see you're not a member of any clouds..."
+  %p= "Why don't you join one of our most active clouds and start connecting with other bronies?"
+  - @clouds = Cloud.order_by(:member_count,:desc).limit(3)
+  .clouds
+    - @clouds.each do |cloud|
+      .cloud
+        .avatar
+          = link_to cloud_path(cloud) do
+            = image_tag cloud.avatar.thumb.url
+        %h5
+          = link_to cloud.name, cloud_path(cloud)
+        %nav
+          - if cloud.users.include?(current_user)
+            = link_to "Leave", cloud_member_path(cloud,current_user), method: :delete, 'data-skip-pjax' => true, class: 'btn small'
+          - else
+            = link_to "Join", cloud_members_path(cloud), method: :post, 'data-skip-pjax' => true, class: 'btn small'
+          %span= "#{cloud.member_count} members"
