@@ -1,0 +1,19 @@
+.alert-message.block-message.info.cloud_suggestion
+  %h5
+    = "Is there a reason you have yet to subscribe to anypony?"
+  %p= "Here are some of our most subscribed bronies. Why don't you check out their profiles?"
+  - @users = User.where(:_id.ne => current_user.id).order_by(:subscribers_count,:desc).limit(3)
+  .clouds
+    - @users.each do |user|
+      .cloud
+        .avatar
+          = link_to user_path(user) do
+            = image_tag user_avatar_path(user.avatar.thumb.url,:thumb)
+        %h5
+          = link_to user.name, user_path(user)
+        %nav
+          - if user.subscribers.include?(current_user)
+            = link_to "Unsub", user_subscriber_path(user,current_user), method: :delete, 'data-skip-pjax' => true, class: 'btn small'
+          - else
+            = link_to "Sub", user_subscribers_path(user), method: :post, 'data-skip-pjax' => true, class: 'btn small'
+          %span= "#{user.subscribers_count} subscribers"
