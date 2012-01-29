@@ -37,7 +37,7 @@ do ($ = jQuery) ->
           @form.removeClass('error')
       
       $(window).scroll =>
-        if @extendUrl && $(window).scrollTop() > $(document).height() - $(window).height() - 50
+        if @extendUrl && $(window).scrollTop() > $(document).height() - $(window).height() - 100
           if @pagination.length
             @fetchMore() unless @currentlyFetching == true
         
