@@ -46,7 +46,7 @@ class FaqsController < ApplicationController
       Faq.where(_id: figure['id']).update_all(position: figure['position'])
     end
     respond_to do |format|
-      format.json { render :nothing }
+      format.json { render :nothing => true }
     end
   end
 

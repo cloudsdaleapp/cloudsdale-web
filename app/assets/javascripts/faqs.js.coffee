@@ -6,7 +6,7 @@ $(document).bind 'index_faqs.load', (e,obj) =>
       pos = (i+1)
       $(@).find('span.position').text(pos)
       $(@).attr('data-position',pos)
-      figures.push $(@).data()
+      figures.push {'position':$(@).data('position'),'id':$(@).data('id')}
     
     $.ajax
       type: 'POST'
