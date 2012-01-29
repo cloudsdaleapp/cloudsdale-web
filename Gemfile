@@ -28,6 +28,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
 gem 'pjax_rails'
+gem 'best_in_place'
 
 # Styling
 gem 'bootstrap-sass', '1.4.0'

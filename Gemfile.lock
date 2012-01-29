@@ -80,6 +80,9 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
+    best_in_place (1.0.6)
+      jquery-rails
+      rails (~> 3.1)
     bootstrap-sass (1.4.0)
       sass-rails (~> 3.1.0)
     bson (1.5.1)
@@ -414,6 +417,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby
+  best_in_place
   bootstrap-sass (= 1.4.0)
   bson_ext (= 1.5.1)
   cancan
