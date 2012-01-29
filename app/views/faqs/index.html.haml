@@ -1,0 +1,24 @@
+.page-header
+  %h1 FAQ
+
+.row
+  .span16
+    %ul.faqs.unstyled{ class: can?(:update, Faq) ? 'enable_sort' : ''}
+      - @faqs.each do |faq|
+        = render :partial => 'faq', locals: { faq: faq }
+
+- if can? :create, @faq
+  .row
+    .span16
+      = form_for @faq, remote: true, validate: true, html: { class: 'form-stacked' } do |f|
+        %fieldset
+          .clearfix
+            = f.label :question, "Question"
+            .input
+              = f.text_field :question, class: 'xxlarge'
+          .clearfix
+            = f.label :answer, "Answer"
+            .input
+              = f.text_area :answer, class: 'xxlarge'
+          .actions
+            = f.submit "Save", :disable_with => 'Saving...', class: 'btn primary'

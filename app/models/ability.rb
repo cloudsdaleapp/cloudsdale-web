@@ -39,6 +39,9 @@ class Ability
         can :create, Cloud
         can [:update,:destroy], Cloud, :owner_id => user.id
         
+        # FAQ
+        can :read, Faq
+        
         
       end
         
@@ -50,6 +53,7 @@ class Ability
         # Articles
         can [:read,:update,:destroy,:promote], Entry
         can :update, User
+        can [:update,:destroy,:create], Faq
       end
       
       if user.role >= 3  ## Placeholder

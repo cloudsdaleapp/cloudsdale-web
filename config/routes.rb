@@ -33,6 +33,10 @@ Cloudsdale::Application.routes.draw do
     delete '/vote' => 'drops/votes#destroy', as: :vote
   end
   
+  resources :faqs, only: [:index,:create,:destroy,:update] do
+    post :sort_figures, on: :collection
+  end
+  
   # resources :articles, :except => [:index] do
   #   get :publish, on: :member
   #   get :promote, on: :member
