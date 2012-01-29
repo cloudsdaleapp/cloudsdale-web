@@ -2,32 +2,84 @@ body.main
   &.index
     .span12, .span4
       overflow: visible
-    
-    ul.cloud-facet-list
-      list-style: none
-      margin: 0
-      padding: 10px
-      li
-        padding: 0
-        line-height: 20px
+      
+    .nav-wrapper
+      span.nav-head
         font-weight: bold
-        &.list-head
-          font-size: 14px
-          line-height: 24px
-          margin-bottom: 3px
-        &:not(.list-head)
-          margin-left: 5px
-          margin-bottom: 20px
-        a
-          background: transparent left center no-repeat
-          color: $color-dark-gray
-          +transition(margin .2s ease-in-out)
-          img
-            max-height: 16px
-            max-width: 16px
+        color: #333333
+    
+    nav.side-list
+      margin: 0 0 15px 0
+      padding: 5px 0
+      +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
+      -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+      border: 1px rgba(50, 50, 50, 0.3) solid
+      +border-radius(5px)
+      &:first-child
+        margin-top: 5px
+      &:after
+        content: "."
+        display: block
+        clear: both
+        visibility: hidden
+        line-height: 0
+        height: 0
+      
+      &.expanded
+        a.main-item
+          display: block
+      
+      a
+        &.main-item
+          color: #808080
+          font-weight: bold
+          padding: 4px
+          +transition(background .1s ease-out)
+          +transition(border .1s ease-out)
+          border: 1px solid transparent
+          display: none
+          &:nth-child(-n+5)
+            display: block
           &:hover
-            margin-left: 3px
             text-decoration: none
+            border-top-color: rgba(50, 50, 50, .1)
+            border-bottom-color: rgba(50, 50, 50, .1)
+            background: rgba(10,90,190,.05)
+        
+        &.more, &.all
+          padding: 4px
+          display: block
+          font-weight: bold
+          color: #808080
+          +opacity(.8)
+          &:hover
+            text-decoration: none
+            color: #4C4C4C
+            
+        &.all
+          float: right
+          margin-right: 3px
+          
+        &.more
+          float: left
+          margin-left: 3px
+          &:after
+            content: "more"
+          &.expanded
+            &:after
+              content: "less"
+          
+        img
+          float: left
+          vertical-align: middle
+          height: 16px
+          width: 16px
+          margin-right: 5px
+            
+            
 
 .get-started
   .alert-message.block-message

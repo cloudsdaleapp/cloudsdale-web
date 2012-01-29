@@ -14,16 +14,68 @@
       = render partial: 'drops/form', locals: { with_path: drops_path }
             
   .row
-    .span4      
-      - if @recommended_clouds
-        %ul.cloud-facet-list
-          %li.list-head= "Interesting Clouds"
-          - @recommended_clouds.each do |cloud|
-            %li
-              = link_to cloud_path(cloud) do
-                = image_tag cloud_avatar_path(cloud.avatar.mini.url,:mini)
+    .span4
+      .nav-wrapper
+        %nav.side-list
+          = link_to "/", class: 'main-item' do
+            = image_tag "icons/iconic/gray_dark/star_16x16.png", :title => "title", :class => "class"
+            = "Subscriptions"
+        - unless current_user.clouds.empty?
+          %span.nav-head Clouds
+          %nav.side-list
+            - current_user.clouds.each do |cloud|
+              = link_to cloud_path(cloud), class: 'main-item' do
+                = image_tag cloud_avatar_path(cloud.avatar.mini.url,:mini), onerror: "this.onerror = null; this.src='#{cloud_avatar_path(nil,:mini)}'"
                 = cloud.name
-              %p.member-count= "#{cloud.member_count} member#{(cloud.member_count > 1) ? 's' : '' }"
+              
+            / - if current_user.clouds.count > 5
+            /   = link_to "see all »","#", class: 'all'
+            
+            - if current_user.clouds.count > 5
+              = link_to " ","#", class: 'more'
+            
+        - unless current_user.publishers.empty?
+          %span.nav-head Subscriptions
+          %nav.side-list
+            - current_user.publishers.each do |user|
+              = link_to user_path(user), class: 'main-item' do
+                = image_tag user_avatar_path(user.avatar.mini.url,:mini), onerror: "this.onerror = null; this.src='#{user_avatar_path(nil,:mini)}'"
+                = user.name
+              
+            / - if current_user.publishers.count > 5
+            /   = link_to "all","#", class: 'all'
+            
+            - if current_user.publishers.count > 5
+              = link_to " ","#", class: 'more'
+              
+        - unless @suggested_clouds.empty?
+          %span.nav-head Suggested Clouds
+          %nav.side-list
+            - @suggested_clouds.each do |cloud|
+              = link_to cloud_path(cloud), class: 'main-item' do
+                = image_tag cloud_avatar_path(cloud.avatar.mini.url,:mini), onerror: "this.onerror = null; this.src='#{cloud_avatar_path(nil,:mini)}'"
+                = cloud.name
+              
+            / - if current_user.clouds.count > 5
+            /   = link_to "see all »","#", class: 'all'
+            
+            - if @suggested_clouds.count > 5
+              = link_to " ","#", class: 'more'
+        
+          - unless @popular_users.empty?
+            %span.nav-head Popular Users
+            %nav.side-list
+              - @popular_users.each do |user|
+                = link_to user_path(user), class: 'main-item' do
+                  = image_tag user_avatar_path(user.avatar.mini.url,:mini), onerror: "this.onerror = null; this.src='#{user_avatar_path(nil,:mini)}'"
+                  = user.name
+
+              / - if current_user.publishers.count > 5
+              /   = link_to "all","#", class: 'all'
+
+              - if @popular_users.count > 5
+                = link_to " ","#", class: 'more'
+            
             
     .span12
       %ul.drop-list

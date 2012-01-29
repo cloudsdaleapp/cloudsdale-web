@@ -10,6 +10,7 @@ do ($ = jQuery) ->
       @pendingIdField = @form.find('input#pending_id')
       @list = @frame.find('ul.drop-list')
       @setupPaginationElements()
+      @sideLists = @frame.find('nav.side-list')
       
       @pendingDrop = null
       @currentlyFetching = false
@@ -17,6 +18,12 @@ do ($ = jQuery) ->
       @bind()
     
     bind: =>
+      
+      @sideLists.find('a.more').bind 'click', ->
+        $(@).parent().toggleClass('expanded')
+        $(@).toggleClass('expanded')
+        false
+      
       @form.bind 'submit', =>
         @validateInput()
       .bind 'ajax:beforeSend', =>
@@ -42,6 +49,7 @@ do ($ = jQuery) ->
             @fetchMore() unless @currentlyFetching == true
         
       $(window).scroll()
+      
     
     setupPaginationElements: () ->
       @pagination = @frame.find('.pagination')
