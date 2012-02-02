@@ -32,6 +32,7 @@ class Drop
   validates :title, presence: true
   
   scope :expired, -> { where( :last_load.gt => 1.week.ago ) }
+  scope :only_visable, where(hidden: false)
   
   before_save do
     reload if last_load.nil? or last_load < 1.week.ago
