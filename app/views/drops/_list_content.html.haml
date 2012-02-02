@@ -1,9 +1,10 @@
 - @drops.each do |drop|
-  - if @depositable_ids
-    - options = { deposits: drop.deposits.any_of(:depositable_id.in => @depositable_ids), depositable: nil }
-  - else
-    - options = { deposits: drop.deposits.where(:depositable_id => depositable.id), depositable: depositable }
-  = render :partial => 'drops/drop', locals: { drop: drop }.merge(options)
+  - unless drop.nil?
+    - if @depositable_ids
+      - options = { deposits: drop.deposits.any_of(:depositable_id.in => @depositable_ids), depositable: nil }
+    - else
+      - options = { deposits: drop.deposits.where(:depositable_id => depositable.id), depositable: depositable }
+    = render :partial => 'drops/drop', locals: { drop: drop }.merge(options)
 
 - pagination_list = @search || @drops
 - if @search
