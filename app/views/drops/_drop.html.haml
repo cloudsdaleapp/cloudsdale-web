@@ -3,7 +3,7 @@
     - depositable ||= User.new
     = render partial: 'drops/shares', locals: { drop: drop, deposits: deposits, depositable: depositable }
     %span.square-separator= "•"
-    = render partial: 'drops/timestamp', locals: { drop: drop, deposits: deposits, depositable: depositable }
+    = drop_timestamp(drop,deposits,depositable)
     
   = render :partial => "drops/strategies/#{drop.strategy}", locals: { drop: drop }
 
