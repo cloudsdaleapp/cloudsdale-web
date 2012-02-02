@@ -29,7 +29,7 @@ class CloudsController < ApplicationController
     @drops = Drop.only_visable.where("deposits.depositable_id" => @cloud.id).order_by(sort).page(params[:page] || 1).per(10)
     respond_to do |format|
       format.html {  }
-      format.js { render partial: 'drops/list_content' }
+      format.js { render partial: 'drops/list_content', locals: { depositable: @cloud } }
     end
   end
   
