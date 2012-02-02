@@ -26,10 +26,19 @@ class DropsController < ApplicationController
     @q = !params[:q].empty? ? params[:q] : current_user.name
     unless @q.empty? or @q.nil?
       @search = Drop.tire.search :load => true, :page => (params[:page].to_i || 1), per_page: 10 do |s|
-        s.query { |q| q.string "title:#{@q}" }
+        
+        s.query do |q|
+          
+          q.string "title:#{@q}"
+          
+        end
+        
+        s.filter :term, :hidden => "false"
+        
         unless sort.empty?
           s.sort  { by sort[0], sort[1] }
         end
+        
       end
     else
     end

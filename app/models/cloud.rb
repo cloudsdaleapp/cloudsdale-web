@@ -42,6 +42,7 @@ class Cloud
   after_save do
     if self.drop.nil?
       self.drop = Drop.find_or_initialize_from_matched_url("#{Cloudsdale.config['url']}/clouds/#{self._id.to_s}")
+      self.drop.hidden = self.hidden.to_s
       self.drop.save
     end
   end
@@ -71,7 +72,7 @@ class Cloud
   end
   
   def to_indexed_json
-    self.to_json(:only => [ :_id, :name, :description, :hidden, :member_count ], :methods => [:avatar_versions])
+    self.to_json(:only => [ :_id, :name, :description, :hidden, :member_count, :hidden], :methods => [:avatar_versions])
   end
 
   def avatar_versions

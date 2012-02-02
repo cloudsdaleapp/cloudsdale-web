@@ -23,6 +23,7 @@ class Drop
   
   field :metadata,            type: Hash
   field :last_load,           type: DateTime
+  field :hidden,              type: String,       default: "false"
   
   field :total_visits,        type: Integer,      default: 0
     
@@ -59,11 +60,12 @@ class Drop
       indexes :id,            :type => 'string',       :index => :not_analyzed
       indexes :type,          :type => 'string',       :index => :not_analyzed
       indexes :title,         :type => 'string',       :index_analyzer => 'drop_analyzer', :search_analyzer => 'standard',     :boost => 10
+      indexes :hidden,        :type => 'string'
     }
   end
   
   def to_indexed_json
-    self.to_json(:only => [ :_id,:_type,:title,:total_visits,:strategy,:metadata,:votes,:created_at,:updated_at], :methods => [:preview_versions])
+    self.to_json(:only => [ :_id,:_type,:title,:total_visits,:strategy,:metadata,:votes,:created_at,:updated_at,:hidden], :methods => [:preview_versions])
   end
   
   def self.paginate(options = {})
@@ -110,6 +112,11 @@ class Drop
   end
   
   private
+  
+  def hidden_as_string
+    val = self[:hidden] || "false"
+    { hidden: val.to_s }
+  end
   
   def preview_versions
     { default: self.preview.url }
