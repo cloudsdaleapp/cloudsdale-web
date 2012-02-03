@@ -18,4 +18,16 @@ class Users::ChecklistController < ApplicationController
     end
   end
   
+  def read_recruiting_message
+    @checklist.read_recruiting_message = true
+    respond_to do |format|
+      if @checklist.save
+        format.html { redirect_to :back }
+        format.js { render json: ["200","ok"] }
+      else
+        raise "error"
+      end
+    end
+  end
+  
 end

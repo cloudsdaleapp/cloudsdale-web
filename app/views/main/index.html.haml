@@ -7,6 +7,8 @@
     = render :partial => 'add_avatar_suggestion'
   - elsif current_user.publisher_ids.count < 1
     = render :partial => 'user_suggestion'
+  - elsif !current_user.checklist.read_recruiting_message
+    = render :partial => 'recruiting_message'
     
 .dropzone
   .row
