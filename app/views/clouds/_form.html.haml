@@ -64,5 +64,6 @@
       %fieldset
         .actions
           - unless @cloud.new_record?
-            = link_to "Remove", cloud_path(@cloud), :method => :delete, :class => 'btn error'
+            - if can? :destroy, @cloud
+              = link_to "Remove", cloud_path(@cloud), :method => :delete, :class => 'btn error'
           = f.submit "Save", :disable_with => 'Saving...', :class => 'btn primary'

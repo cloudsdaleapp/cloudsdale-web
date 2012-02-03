@@ -36,10 +36,11 @@ class Ability
         
         # Clouds
         can :read, Cloud, :hidden => false
-        can :create, Cloud
         can :read, Cloud do |cloud|
           cloud.user_ids.include?(user.id)
         end
+        
+        can :create, Cloud
         can [:update,:destroy], Cloud, :owner_id => user.id
         
         # FAQ
@@ -56,6 +57,7 @@ class Ability
         # Articles
         can [:read,:update,:destroy,:promote], Entry
         can :update, User
+        can [:destroy,:update], Cloud
         can [:update,:destroy,:create], Faq
       end
       
