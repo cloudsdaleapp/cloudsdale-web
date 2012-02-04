@@ -60,6 +60,7 @@ class User
   before_save do
     self[:auth_token]     = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
     self[:_type] = "User"
+    email.downcase! if email.present?
     encrypt_password
     enable_account_on_password_change
     set_creation_date
@@ -111,7 +112,7 @@ class User
   end
   
   def self.authenticate(email, password)
-    user = where(:email => email, :password_hash.exists => true, :password_salt.exists => true).first
+    user = where(:email => email.downcase, :password_hash.exists => true, :password_salt.exists => true).first
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
       user
     else
