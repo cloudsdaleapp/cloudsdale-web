@@ -46,6 +46,10 @@ class Cloud
       self.drop.save
     end
   end
+  
+  before_destroy do
+    self.drop.destroy
+  end
 
   # Tire, Mongoid requirements
   index_name 'clouds'
