@@ -48,7 +48,7 @@ class Cloud
   end
   
   before_destroy do
-    self.drop.destroy
+    drop.destroy if drop.present?
   end
 
   # Tire, Mongoid requirements
