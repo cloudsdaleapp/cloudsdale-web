@@ -35,11 +35,12 @@ class Ability
         can :destroy, Comment, :author_id => user.id
         
         # Clouds
-        can :read, Cloud, :hidden => false
-        can :read, Cloud do |cloud|
-          cloud.user_ids.include?(user.id)
-        end
+        # can :read, Cloud, :hidden => false
+        # can :read, Cloud do |cloud|
+        #   cloud.user_ids.include?(user.id)
+        # end
         
+        can :read, Cloud
         can :create, Cloud
         can [:update,:destroy], Cloud, :owner_id => user.id
         
