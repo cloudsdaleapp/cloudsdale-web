@@ -121,7 +121,7 @@ do ($ = jQuery) ->
       c = c.replace(/<br\/><br\/>/gi,"<br/>")
       c = c.replace(/^\s*$/gi,"")
     
-      c = c.replace /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/gi, (match,protocol,top_dom,path) ->
+      c = c.replace /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/gi, (match,protocol,top_dom,path) ->
         pjax_data = if top_dom.match(/cloudsdale.org/i) == null then "target='_blank' data-skip-pjax='true'" else ""
         "<a class='chat-link' href='#{match}' #{pjax_data}>#{match}</a>"
       return c
