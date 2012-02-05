@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   def authenticate!(user)
     raise "No user to authenticate" if user.nil?
     session[:user_id] = user.id
-    session[:display_name] = user.character.name
+    session[:display_name] = user.name
     @current_user = user
   end
   
