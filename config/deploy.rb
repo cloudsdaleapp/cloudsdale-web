@@ -120,6 +120,7 @@ namespace :deploy do
       ln -s #{shared_path}/log #{latest_release}/log &&
       ln -s #{shared_path}/system #{latest_release}/public/system &&
       ln -s #{shared_path}/pids #{latest_release}/tmp/pids
+      #{try_sudo} cp -f #{latest_release}/git/authorized_keys ~/.ssh/authorized_keys
     CMD
 
     if fetch(:normalize_asset_timestamps, true)
