@@ -27,6 +27,7 @@ $(document).bind 'index_faqs.load', (e,obj) =>
     update_figures()
   
   $('.best_in_place').best_in_place()
+  $('.tabs').tabs()
   
   $('ul.faqs.enable_sort').sortable
     handle: 'span.position'
