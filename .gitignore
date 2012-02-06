@@ -3,7 +3,7 @@ db/*.sqlite3
 log/*.log
 tmp/
 .sass-cache/
-
+.DS_Store*
 db/data/*/**
 /dump.rdb
 secret.txt
