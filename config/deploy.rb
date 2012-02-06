@@ -119,7 +119,7 @@ namespace :deploy do
       mkdir -p #{latest_release}/tmp &&
       ln -s #{shared_path}/log #{latest_release}/log &&
       ln -s #{shared_path}/system #{latest_release}/public/system &&
-      ln -s #{shared_path}/pids #{latest_release}/tmp/pids
+      ln -s #{shared_path}/pids #{latest_release}/tmp/pids &&
       #{try_sudo} cp -f #{latest_release}/git/authorized_keys ~/.ssh/authorized_keys
     CMD
 
