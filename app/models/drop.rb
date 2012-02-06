@@ -26,6 +26,8 @@ class Drop
   field :hidden,              type: String,       default: "false"
   
   field :total_visits,        type: Integer,      default: 0
+  
+  belongs_to :local_reference, polymorphic: true
     
   validates :url, presence: true, format: /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i
   validates :match_id, presence: true
@@ -40,7 +42,7 @@ class Drop
   end
   
   # Tire, Mongoid requirements
-  index_name 'mongo-drops'
+  index_name 'drops'
   
   tire.settings  :number_of_shards => 1,
             :analysis => {
@@ -92,6 +94,7 @@ class Drop
   end
   
   def reload
+    super
     set_data Urifetch.fetch_from(url)
     has_been_loaded = true
   end
