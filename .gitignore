@@ -13,3 +13,5 @@ tmp/pids
 tmp/sessions
 tmp/sockets
 .DS_Store
+
+db/data/mongodb/mongod.lock
