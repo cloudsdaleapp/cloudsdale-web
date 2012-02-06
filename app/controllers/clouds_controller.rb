@@ -34,10 +34,10 @@ class CloudsController < ApplicationController
   end
   
   def create
-    u = User.find(current_user.id)
     @cloud = Cloud.new(params[:cloud])
-    u.clouds << @cloud
     authorize! :create, @cloud
+    @cloud.users << current_user
+    @cloud.owner = current_user
     respond_to do |format|
       if @cloud.save
         format.html { redirect_to cloud_path(@cloud),

@@ -17,11 +17,11 @@ Urifetch::Strategy.layout(:cloudsdale_users) do
     # Fetches data from user
     user = User.find(match_data[4])
     if user
-      data.title            = user.name
-      data.avatar           = user.avatar.preview.url
-      data.subscriber_count = user.subscriber_ids.count
-      data.member_since     = user.member_since.utc
-      data.reference_id     = user._id.to_s
+      data.title              = user.name
+      data.avatar             = user.avatar.preview.url
+      data.subscribers_count  = user.subscribers_count
+      data.member_since       = user.member_since.utc
+      data.reference_id       = user._id.to_s
       
       # Sets Status
       status = ["200","OK"]

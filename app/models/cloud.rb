@@ -2,8 +2,6 @@ class Cloud
   
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
 
   include Droppable
   
@@ -22,9 +20,9 @@ class Cloud
   validates :name, presence: true, uniqueness: true, length: { within: 3..24 }
   validates :description, presence: true, length: { within: 5..50 }
   
-  belongs_to :drop, autosave: false
-  
+  has_one :drop, as: :local_reference, dependent: :delete, autosave: true
   belongs_to :owner, polymorphic: true
+  
   has_and_belongs_to_many :users, :inverse_of => :clouds, dependent: :nullify
   
   before_validation do
@@ -37,42 +35,25 @@ class Cloud
     self[:member_count] = self.user_ids.count
     self[:_type] = "Cloud"
     build_chat if chat.nil?
-  end
-  
-  after_save do
-    if self.drop.nil?
-      self.drop = Drop.find_or_initialize_from_matched_url("#{Cloudsdale.config['url']}/clouds/#{self._id.to_s}")
-      self.drop.hidden = self.hidden.to_s
+    
+    if drop.nil?
+      self.build_drop
     end
-    self.drop.save
-  end
+    
+    self.drop.url       = "#{Cloudsdale.config['url']}/clouds/#{self._id.to_s}"
+    self.drop.match_id  = self.drop.url
+    self.drop.title     = self.name
+    self.drop.status    = ["200","OK"]
+    self.drop.strategy  = :cloudsdale_clouds
+    self.drop.hidden    = self.hidden.to_s
+    self.drop.last_load = Time.now
   
-  before_destroy do
-    drop.destroy if drop.present?
-  end
-
-  # Tire, Mongoid requirements
-  index_name 'clouds'
+    self.drop['metadata'] ||= {}
   
-  tire.settings AutocompleteAnalyzer do
-    mapping {
-      indexes :id,            type: 'string',       index: :not_analyzed
-      indexes :type,          type: 'string',       index: :not_analyzed
-  
-      indexes :name,          type: 'multi_field',  fields: {
-        name: {
-          type: 'string',
-          boost: 100,
-          analyzer: 'autocomplete'
-        },
-        "name.exact" => { 
-          type: 'string', 
-          index: :not_analyzed
-        }
-      }
-      
-      indexes :_all,          analyzer: 'autocomplete'
-    }
+    self.drop['metadata']['avatar']           = self.avatar.preview.url
+    self.drop['metadata']['member_count']     = self.member_count
+    self.drop['metadata']['created_at']       = Time.now
+    self.drop['metadata']['reference_id']     = self._id.to_s
   end
   
   def to_indexed_json

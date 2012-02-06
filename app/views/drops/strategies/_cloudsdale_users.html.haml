@@ -4,8 +4,8 @@
     = link_to drop.url, class: 'preview' do
       = image_tag user_avatar_path(drop[:metadata]['avatar'],:preview), :title => drop.title, onerror: "this.onerror = null; this.src='#{user_avatar_path(nil,:preview)}'"
   .info
-    - unless drop[:metadata]['subscriber_count'].nil?
-      %span.subscriber-count= drop[:metadata]['subscriber_count']
+    - unless drop[:metadata]['subscribers_count'].nil?
+      %span.subscriber-count= drop[:metadata]['subscribers_count']
       = " Subscribers"
     / - unless drop[:metadata]['member_since'].nil?
     /   %span.member-since= drop[:metadata]['member_since']

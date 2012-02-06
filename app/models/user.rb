@@ -2,9 +2,7 @@ class User
   
   include Mongoid::Document
   include Mongo::Voter
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-  
+
   include Droppable
   
   embeds_one :character
@@ -13,7 +11,7 @@ class User
   embeds_many :authentications
   embeds_many :notifications
   
-  belongs_to :drop, autosave: false
+  has_one :drop, as: :local_reference, dependent: :delete, autosave: true
   
   has_many :entries, as: :author
   has_many :owned_clouds, class_name: "Cloud", as: :owner
@@ -66,41 +64,30 @@ class User
     set_creation_date
     update_statistics
     remove_duplicate_subscriptions
-  end
-  
-  after_save do
-    if self.drop.nil?
-      self.drop = Drop.find_or_initialize_from_matched_url("#{Cloudsdale.config['url']}/users/#{self._id.to_s}")
-      self.drop.save
+    
+    if drop.nil?
+      self.build_drop
     end
+    
+    self.drop.url       = "#{Cloudsdale.config['url']}/users/#{self._id.to_s}"
+    self.drop.match_id  = self.drop.url
+    self.drop.title     = self.name
+    self.drop.status    = ["200","OK"]
+    self.drop.strategy  = :cloudsdale_users
+    self.drop.hidden    = self.invisible.to_s
+    self.drop.last_load = Time.now
+  
+    self.drop['metadata'] ||= {}
+  
+    self.drop['metadata']['avatar']             = self.avatar.preview.url
+    self.drop['metadata']['subscribers_count']  = self.subscribers_count
+    self.drop['metadata']['member_since']       = Time.now
+    self.drop['metadata']['reference_id']       = self._id.to_s
+    
   end
   
   before_create do
     build_checklist
-  end
-  
-  # Tire, Mongoid requirements
-  index_name 'users'
-  
-  tire.settings AutocompleteAnalyzer do
-    mapping {
-      indexes :id,            type: 'string',       index: :not_analyzed
-      indexes :type,          type: 'string',       index: :not_analyzed
-  
-      indexes :name,          type: 'multi_field',  fields: {
-        name: {
-          type: 'string',
-          boost: 100,
-          analyzer: 'autocomplete'
-        },
-        "name.exact" => { 
-          type: 'string', 
-          index: :not_analyzed
-        }
-      }
-      
-      indexes :_all,          analyzer: 'autocomplete'
-    }
   end
   
   def to_indexed_json
