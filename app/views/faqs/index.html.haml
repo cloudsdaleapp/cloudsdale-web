@@ -1,28 +1,15 @@
 .page-header
   %h1 FAQ
   %p
-    = "If you got any other questions, want to request features that you'd see fit on Cloudsdale or just show some appreciation. Send an email to: "
-    = mail_to("zeeraw@cloudsdale.org")
-    = " where I will try to answer your questions individually."
+    = "If you got any other questions, want to request features that you'd like to see on Cloudsdale or just show some appreciation, send an email to: "
+    = mail_to("ask@cloudsdale.org")
+    = " where we will try to answer your questions individually."
 
 .row
   .span16
-    %ul.faqs.unstyled{ class: can?(:update, Faq) ? 'enable_sort' : ''}
-      - @faqs.each do |faq|
-        = render :partial => 'faq', locals: { faq: faq }
-
-- if can? :create, @faq
-  .row
-    .span16
-      = form_for @faq, remote: true, validate: true, html: { class: 'form-stacked' } do |f|
-        %fieldset
-          .clearfix
-            = f.label :question, "Question"
-            .input
-              = f.text_field :question, class: 'xxlarge'
-          .clearfix
-            = f.label :answer, "Answer"
-            .input
-              = f.text_area :answer, class: 'xxlarge'
-          .actions
-            = f.submit "Save", :disable_with => 'Saving...', class: 'btn primary'
+    = form_for @faq, :multipart => true, :validate => true, :url => user_path(@faq), :method => :put, :html => { :class => 'with_notifications' } do |f|
+      .tab-content#my-tab-content
+      .tab-pane#faq= render :partial => '_faq_tab', :locals => { f: f }
+      .tab-pane#tnc= render :partial => '_tnc_tab', :locals => { f: f }
+      .tab-pane#privacy= render :partial => '_privacy_policy_tab', :locals => { f: f }
+      .tab-pane#contributors= render :partial => '_contributers_tab', :locals => { f: f }
