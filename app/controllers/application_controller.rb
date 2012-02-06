@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate!(user)
-    raise "No user to authenticate" if user.nil?
+    raise CanCan::AccessDenied if user.nil?
     session[:user_id] = user.id
     session[:display_name] = user.name
     @current_user = user
