@@ -4,7 +4,7 @@ log/*.log
 tmp/
 .sass-cache/
 .DS_Store*
-db/data/*/**
+db/data/mongodb/*/**
 /dump.rdb
 secret.txt
 public/assets
