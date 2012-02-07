@@ -26,6 +26,7 @@ Cloudsdale::Application.routes.draw do
     
     match 'checklist/read_welcome_message' => 'users/checklist#read_welcome_message', via: :put
     match 'checklist/read_recruiting_message' => 'users/checklist#read_recruiting_message', via: :put
+    match 'checklist/read_terms_message' => 'users/checklist#read_terms_message', via: :put
   end
   
   resources :drops, only: [:create] do
