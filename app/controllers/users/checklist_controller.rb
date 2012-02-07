@@ -30,4 +30,16 @@ class Users::ChecklistController < ApplicationController
     end
   end
   
+def read_terms_message
+    @checklist.read_terms_message = true
+    respond_to do |format|
+      if @checklist.save
+        format.html { redirect_to :back }
+        format.js { render json: ["200","ok"] }
+      else
+        raise "error"
+      end
+    end
+  end
+
 end

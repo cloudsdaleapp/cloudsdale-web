@@ -6,6 +6,7 @@ class Checklist
   
   field   :read_welcome_message,          type: Boolean,          default: false
   field   :read_recruiting_message,        type: Boolean,          default: false
+  field   :read_terms_message,          type: Boolean,          default: false
   
   def completed?
     return false unless read_welcome_message
