@@ -22,7 +22,9 @@ class Clouds::MessagesController < ApplicationController
     @drops = []
     @message.urls.each do |url|
       drop = @cloud.create_drop_deposit_from_url_by_user(url,current_user)
-      @drops << drop unless drop.nil?
+      unless drop.nil?
+        @drops << drop
+      end
     end
     
     if @message.save
