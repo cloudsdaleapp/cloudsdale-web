@@ -1,0 +1,8 @@
+.alert-message.block-message.info.read_terms_suggestion
+	= link_to "×",user_checklist_read_terms_message_path(current_user), remote: true, method: :put, class: 'special_close'
+	.float-left
+		= image_tag "logo/cloudsdale-logo-small.png"
+	%h4= "Know your rights!"
+	%p= "You should check out our rules, otherwise we'll be sad :("
+	%br
+	%nav= link_to "Terms & Conditions", faqs_path, class: 'btn small'
