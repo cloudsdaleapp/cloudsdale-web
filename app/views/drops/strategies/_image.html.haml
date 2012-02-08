@@ -1,10 +1,13 @@
 %header
-  .floatleft
+  = link_to truncate(drop.title, :length => 65), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
+
+.drop-content
+  .float-left
     = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
       - if image_tag drop.preview.url
         = image_tag drop.preview.url, :title => drop.title
-  %h5= link_to truncate(drop.title, :length => 40), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
-
   .info
+    - unless drop[:metadata]['mime_type'].nil?
+      %span.mimetype= drop[:metadata]['mime_type'].sub(/^image\//,"").upcase
     - unless drop[:metadata]['image_size'] == [nil,nil]
       %span.sizes= "#{drop[:metadata]['image_size'][0]} × #{drop[:metadata]['image_size'][1]}"

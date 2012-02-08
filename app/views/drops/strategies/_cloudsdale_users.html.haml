@@ -1,11 +1,11 @@
 %header
   = link_to drop.title, drop.url
-  .floatleft
+.drop-content
+  .float-left
     = link_to drop.url, class: 'preview' do
       = image_tag user_avatar_path(drop[:metadata]['avatar'],:preview), :title => drop.title, onerror: "this.onerror = null; this.src='#{user_avatar_path(nil,:preview)}'"
   .info
     - unless drop[:metadata]['subscribers_count'].nil?
-      %span.subscriber-count= drop[:metadata]['subscribers_count']
-      = " Subscribers"
-    / - unless drop[:metadata]['member_since'].nil?
-    /   %span.member-since= drop[:metadata]['member_since']
+      %span.subscriber-count= "#{drop[:metadata]['subscribers_count']} Subscribers"
+    - unless drop[:metadata]['member_since'].nil?
+      %span.member-since= "Joined on #{drop[:metadata]['member_since'].strftime("%e %b %Y")}"

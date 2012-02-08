@@ -1,17 +1,15 @@
-%header
-  .floatleft
+%header  
+  = link_to truncate(drop.title, :length => 40), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
+.drop-content
+  .float-left
     = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
       - if image_tag drop.preview.url
         = image_tag drop.preview.url, :title => drop.title
-  %h5= link_to truncate(drop.title, :length => 40), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
 
-  - unless drop[:metadata]['page_count'].nil?
-    .info    
-      %span= "Pages:"
-      = drop[:metadata]['page_count']
+  .info
+    - unless drop[:metadata]['page_count'].nil?
+      %span.pages= "#{drop[:metadata]['page_count']} pages"
+    - unless drop[:metadata]['pdf_version'].nil?
+      %span.version= "PDF Version: #{drop[:metadata]['pdf_version']}"
       
-  - unless drop[:metadata]['pdf_version'].nil?
-    .info
-      %span= "PDF Version:"
-      = drop[:metadata]['pdf_version']
     

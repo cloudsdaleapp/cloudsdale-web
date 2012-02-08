@@ -1,7 +1,7 @@
 class RainDrop
   
   constructor: (@frame,args) ->
-    @votesContainer = @frame.find('nav > span.votes')
+    @votesContainer = @frame.find('nav .nav-votes')
     @voteTrigger = @votesContainer.find('a')
     @bind()
   

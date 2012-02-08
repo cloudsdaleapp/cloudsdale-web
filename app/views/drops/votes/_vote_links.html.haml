@@ -1,4 +1,4 @@
-%span.votes
+.nav-votes
   - if current_user.vote_value(drop) == :up
     = link_to "#{drop.votes['up_count']}", drop_vote_path(drop), method: :delete, remote: true, class: 'selected up'
   - else

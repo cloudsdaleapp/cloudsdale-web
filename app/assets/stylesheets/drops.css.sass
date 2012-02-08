@@ -172,87 +172,92 @@ ul.drop-list
   li.drop
     position: relative
     margin-bottom: 15px
-    padding: 5px 6px
-    background: rgba(0,0,0,.03)
-    +border-radius(1px)
+    padding: 0
+    +border-radius(3px)
+    //border: $color-dark-gray 1px solid
     
-    menu
-      margin: 0
-      padding: 0
-      //display: none
-      &:before
-        padding-left: 6px
-        font-size: 11px
-        content: "⌐ "
-      span.shares, span.timestamp
-        font-weight: bold
-        font-size: 11px
-        
-      span.shares
-        a:hover
-          text-decoration: none
-      
-      span.timestamp
-        
-      
-      span.square-separator
-        font-size: 9px
-        margin: 0 3px
-  
     header
-      position: relative
-      padding: 5px 0
-      line-height: 22px
-      word-wrap: break-word
-      span.icon
+      margin: 0
+      padding: 2px 5px
+      +border-radius(2px 2px 0 0)
+      +linear-gradient(#FFFFFF,#F5F5F5)
+      +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.9))
+      border: rgba(50,50,50,0.8) 1px solid
+      img
         float: left
-        width: 20px
-        height: 20px
-        margin: 0 5px 0 0
-        text-align: left
-        img
-          margin: 2px 0
-          max-width: 16px
-          max-height: 16px
-          &.default
-            margin-left: 4px
-      
+        max-height: 16px
+        max-width: 16px
+        margin: 2px 6px 2px 2px
       a
-        line-height: 22px
-        font-size: 18px
+        color: $color-dark-gray
         font-weight: bold
-        color: #191919
-        text-shadow: 1px 1px 1px rgba(255, 255, 255, .7)
-        text-decoration: none
-        word-wrap: break-word
+        font-size: 16px
+        text-shadow: 1px 1px 1px rgba(255,255,255,1)
         &:hover
           text-decoration: none
-          color: #409CE8
+          color: lighten($color-dark-gray,20%)
+  
+    .drop-content
+      position: relative
+      padding: 0
+      word-wrap: break-word
+      background: #FFFFFF image-url("bg-noise.png") repeat 0px 0px fixed
+      border: rgba(50,50,50,0.8) 1px solid
+      border-top: none
+      border-bottom-color: #999999
+      &:after
+        content: "."
+        display: block
+        clear: both
+        visibility: hidden
+        line-height: 0
+        height: 0
+            
+      .float-left
+        float: left
+        a
+          float: left
+          display: block
+          line-height: 0
 
     nav
-      margin-top: 5px
-      text-align: right
+      margin: 0
+      padding: 0 3px
+      +border-radius(0 0 2px 2px)
+      border: rgba(50,50,50,0.8) 1px solid
+      border-top: none
+      background: #CCCCCC
       word-wrap: break-word
-      +opacity(0)
-      
-      span.visits, span.votes
-        font-weight: bold
-        margin: 0
-        color: rgba(255,255,255,.9)
-        +border-radius(3px)
-        background: rgba(0,0,0,.15)
-        padding: 0 15px
-      span.visits
-        background: rgba(0,0,0,.15) image-url("icons/iconic/white/eye_12x9.png") 8px center no-repeat
-        padding: 0 10px 0 28px
+      &:after
+        content: "."
+        display: block
+        clear: both
+        visibility: hidden
+        line-height: 0
+        height: 0
+      .left-nav,.right-nav,.nav-votes
+        position: relative
+        a, span
+          line-height: 25px
+          padding: 0 5px
+          background: transparent left center no-repeat
+          display: block
+          float: left
+
+      .right-nav
+        float: right
+      .left-nav
         float: left
-      
-      span.votes
+      .nav-votes
+        float: right
+        
+      .nav-votes
         a
-          padding-right: 13px
-          background: transparent right center no-repeat
+          text-align: right
           color: rgba(255,255,255,.9)
-          min-width: 21px
+          min-width: 20px
+          background-position: 5px center
+          font-weight: bold
           
           &.up
             margin-left: 0
@@ -276,117 +281,95 @@ ul.drop-list
     
           &:hover
             text-decoration: none
-  
-  
-    &:hover
-      nav
-        +opacity(1)
 
 
 // IMAGE DROP
-ul.drop-list > li.drop.image, li.drop.pdf_document
-  header
-    // display: inline-block
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
-    h5
-      margin-top: 10px
-      line-height: 32px
-      a.title
-        font-size: 14px
-        font-weight: bold
-        line-height: 18px
-      
-    .floatleft
-      float: left
-      vertical-align: top
-      min-height: 90px
-      margin: 0 15px 5px 5px
-      a.preview
-        line-height: 90px
-        img
-          vertical-align: middle
-          max-width: 120px
-          max-height: 90px
-      
+
+ul.drop-list > li.drop.default
+  .drop-content
+    padding: 5px
+
+ul.drop-list > li.drop.image
+  .drop-content
     .info
-      font-size: 10px
+      padding: 10px
       span
+        font-size: 120%
         font-weight: bold
+        display: block
+        margin-bottom: 3px
+    .float-left
+      img
+        border-right: rgba(50,50,50,0.8) 1px solid
+        margin-right: 10px
+
+ul.drop-list > li.drop.pdf_document
+  .drop-content
+    .info
+      padding: 10px
+      span
+        font-size: 120%
+        font-weight: bold
+        display: block
+        margin-bottom: 3px
+    .float-left
+      img
+        margin-right: 10px
+        margin-left: 10px
 
 ul.drop-list > li.drop.youtube_video
   header
-    padding: 5px
-    line-height: 22px
-  .yt-description
+    +linear-gradient(rgb(62,62,62),rgb(40,40,40))
+    +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.3))
+    border-bottom-color: #191919
+    a
+      color: #F5F5F5
+      text-shadow: -1px -1px 1px rgba(0,0,0,.4)
+      &:hover
+        color: darken(#F5F5F5,15%)
+    
+  .drop-content
+    background: #4C4C4C image-url("bg-noise.png") repeat 0px 0px
+    border-bottom-style: dashed
+    border-bottom-color: rgba(50,50,50,0.8)
+    .float-left
+      margin: 5px 15px 5px 5px
+    .info
+      padding-top: 5px
+      margin-bottom: 3px
+      color: #B3B3B3
+      font-weight: bold
+      
   
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
-    p
-      //pointer-events: none
-    .info
-      font-size: 11px
-      letter-spacing: .13em
-      margin-bottom: 2px
-      span
-        font-weight: bold
-    .floatleft
-      position: relative
-      z-index: 5
-      float: left
-      vertical-align: top
-      a.preview
-        float: left
-        img
-          max-width: 120px
-          max-height: 90px
-          vertical-align: top
-          vertical-align: text-top
-          margin: 0 15px 5px 5px
-
-ul.drop-list > li.drop.cloudsdale_users, li.drop.cloudsdale_clouds
+  nav
+    background: #4C4C4C image-url("bg-noise.png") repeat 0px 0px
+    background-color: #4C4C4C
+    border-top-color: #191919
+  
+ul.drop-list > li.drop.cloudsdale_users, ul.drop-list > li.drop.cloudsdale_clouds
   header
+    +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.7))
+    +linear-gradient($color-cd-background-light,$color-cd-background-dark)
+    a
+      color: #F5F5F5
+      text-shadow: -1px -1px 1px rgba(0,0,0,.3)
+      &:hover
+        color: darken(#F5F5F5,10%)
+  .float-left
+    +border-radius(3px)
+    +linear-gradient(#fff,#E8F1FF)
+    +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
     padding: 5px
-    line-height: 22px
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
-    h5
-      margin-top: 10px
-      line-height: 32px
-      a.title
-        font-size: 14px
-        font-weight: bold
-        line-height: 18px
-      
-    .floatleft
-      float: left
-      vertical-align: top
-      a.preview
-        img
-          max-width: 120px
-          max-height: 90px
-          vertical-align: top
-          vertical-align: text-top
-          margin: 0 15px 5px 5px
-      
+    margin: 10px
+    border: 1px rgba(50, 50, 50, 0.3) solid
+    img
+      border: 1px rgba(50, 50, 50, 0.2) solid
+  .drop-content      
     .info
-      font-size: 10px
+      padding: 10px
       span
         font-weight: bold
+        display: block
+        margin-bottom: 3px
       
       

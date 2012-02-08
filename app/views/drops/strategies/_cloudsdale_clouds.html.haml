@@ -1,11 +1,11 @@
 %header
   = link_to drop.title, drop.url
-  .floatleft
+.drop-content
+  .float-left
     = link_to drop.url, class: 'preview' do
       = image_tag cloud_avatar_path(drop[:metadata]['avatar'],:preview), :title => drop.title, onerror: "this.onerror = null; this.src='#{cloud_avatar_path(nil,:preview)}'"
   .info
     - unless drop[:metadata]['member_count'].nil?
-      %span.member-count= drop[:metadata]['member_count']
-      = " Members"
-    / - unless drop[:metadata]['created_at'].nil?
-    /   %span.created-at= drop[:metadata]['created_at']
+      %span.member-count= "#{drop[:metadata]['member_count']} Members"
+    - unless drop[:metadata]['created_at'].nil?
+      %span.created-at= "Created on #{drop[:metadata]['created_at'].strftime("%e %b %Y")}"
