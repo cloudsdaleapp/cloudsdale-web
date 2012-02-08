@@ -9,9 +9,9 @@
         - unless deposits_through.first == deposit
           = ", "
         = link_to deposit.depositable.name, depositable_path(deposit)
-      - elsif index == 2
-        = "and"
-        = link_to " #{deposits.size - 1} more ", "#", class: 'more-dropped-through'
+      / - elsif index == 2
+      /   = "and"
+      /   = link_to " #{deposits.size - 1} more ", "#", class: 'more-dropped-through'
   
   - depositers = deposits.map(&:depositers).flatten.uniq
   - unless depositers.empty?
@@ -24,6 +24,6 @@
           = dynamic_user_name(depositer)
         - else
           = link_to dynamic_user_name(depositer), user_path(depositer)
-      - elsif index == 3
-        = " and"
-        = link_to "#{deposits.size - 2} more", "#", class: 'more-dropped-by'
+      / - elsif index == 3
+      /   = " and"
+      /   = link_to "#{deposits.size - 2} more", "#", class: 'more-dropped-by'
