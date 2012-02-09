@@ -2,6 +2,7 @@
 
 Urifetch.register do
   match /youtube.com\/watch\?.*(v=([A-Za-z0-9\_\-]{9,11}))(.*)?$/i, :youtube_video
+  match /(youtu.be)\/([A-Za-z0-9\_\-]{9,11})(.*)?$/i, :youtube_video
 end
 
 Urifetch::Strategy.layout(:youtube_video) do
