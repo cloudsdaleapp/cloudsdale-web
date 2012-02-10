@@ -1,0 +1,18 @@
+%header
+	= link_to drop.title, drop.url
+	.drop-content
+		.float-left
+			= link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
+				- if image_tag drop.preview_image
+					= image_tage drop.preview_image, :title => drop.title
+		.info
+			- unless drop[:metadata]['author'].nil?
+				= "by "
+				%span= drop[:metadata]['author']
+			- unless drop[:metadata]['genre'].nil?
+				= "Genre: "
+				%span= drop[:metadata]['genre']
+			- unless drop[:metadata]['description'].nil?
+				= "Description: "
+				%p= truncate(drop[:metadata]['description'], :length => 150)
+			

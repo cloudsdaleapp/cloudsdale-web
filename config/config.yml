@@ -30,6 +30,9 @@ development:
     port: 9191
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
     inhouse_host: 127.0.0.1
+  soundcoud:
+    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
+    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
 
 
 production:
@@ -63,4 +66,7 @@ production:
     port: 80
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
     inhouse_host: celestia.snet.chat.cloudsdale.org
+  soundcoud:
+    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
+    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
     

@@ -22,6 +22,10 @@ module Cloudsdale
   def self.ytClient
     @ytClient = YouTubeIt::Client.new(:dev_key => config['youtube']['dev_key'])
   end
+
+  def self.soundcloud
+    @soundcloud = Soundcloud.new(:client_id => config['soundcloud']['client_id'])
+  end
   
   def self.faye_path(connection=nil)
     host = (connection == :inhouse) ? config['faye']['inhouse_host'] : config['faye']['host']
