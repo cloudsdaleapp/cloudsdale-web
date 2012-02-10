@@ -51,6 +51,9 @@ gem 'imagesize'
 gem 'pdf-reader'
 gem 'youtube_it'
 
+# Music
+gem 'soundcloud'
+
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
