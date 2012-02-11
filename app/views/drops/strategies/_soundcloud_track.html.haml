@@ -1,4 +1,5 @@
 %header
+  = image_tag "icons/remote_fav/soundcloud.ico"
   = link_to drop.title, drop.url
 .drop-content
   .float-left
@@ -7,12 +8,10 @@
         = image_tag drop.preview.url, :title => drop.title
   .info
     - unless drop[:metadata]['author'].nil?
-      = "by "
+      = "By "
       %span= drop[:metadata]['author']
     - unless drop[:metadata]['genre'].nil?
-      = "Genre: "
-      %span= drop[:metadata]['genre']
-    - unless drop[:metadata]['description'].nil?
-      = "Description: "
-      %p= truncate(drop[:metadata]['description'], :length => 150)
-		
+      %span.genre= "#{drop[:metadata]['genre']}"
+  - unless drop[:metadata]['description'].nil?
+    %p= truncate(drop[:metadata]['description'], :length => 150)
+	
