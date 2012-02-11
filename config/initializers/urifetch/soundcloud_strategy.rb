@@ -1,10 +1,7 @@
 # encoding: utf-8
 
 Urifetch.register do 
-	match /(soundcloud.com)\/([a-z]+)\/([a-z0-9\-]+)\/?/i, :soundcloud_track do
-	  match /(soundcloud.com)\/([a-z]+)\/([a-z0-9\-]+)\/?/i, :soundcloud_track
-	  match /(soundcloud.com)\/([a-z]+)\/?/i, :soundcloud_user
-	end
+	match /(soundcloud.com)\/([a-z]+)\/([a-z0-9\-]+)\/?$/i, :soundcloud_track
 end
 
 Urifetch::Strategy.layout(:soundcloud_track) do
@@ -12,8 +9,9 @@ Urifetch::Strategy.layout(:soundcloud_track) do
 	before_request do
 		@skip_request = true
 
-		track = Cloudsdale.soundcloud.get('/resolve', :url => match_data[0])
+		track = Cloudsdale.soundcloud.get('/resolve', :url => "http://www.#{match_data[0]}")
 		if track
+		  data.match_id       = match_data[0]
 			data.title					= track.title
 			data.author 				= track.user.username
 			data.preview_image 	= track.artwork_url
