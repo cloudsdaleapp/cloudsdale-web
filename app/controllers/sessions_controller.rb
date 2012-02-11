@@ -25,9 +25,13 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.logout_and_save! if current_user
-    session[:user_id] = nil
-    redirect_to login_path
+    if request.env['HTTP_REFERER'].nil? or !request.env['HTTP_REFERER'].match(/^http:\/\/(local|www)\.cloudsdale.org/i).nil?
+      current_user.logout_and_save! if current_user
+      session[:user_id] = nil
+      redirect_to login_path
+    else
+      redirect_to root_path
+    end
   end
 
 end

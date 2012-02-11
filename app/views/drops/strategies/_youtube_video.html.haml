@@ -1,6 +1,6 @@
 %header
   = image_tag "icons/remote_fav/youtube.ico", :title => "title", :class => "class"
-  = link_to truncate(drop.title, :length => 65), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
+  = link_to truncate(drop.title, :length => 60), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
 .drop-content
   .float-left
     = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
@@ -19,4 +19,4 @@
       %span= drop[:metadata]['author']
 
   - unless drop[:metadata]['description'].nil?
-    %p= truncate(drop[:metadata]['description'], :length => 150)
+    %p= truncate(drop[:metadata]['description'], :length => 126)
