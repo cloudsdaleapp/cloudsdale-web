@@ -1,7 +1,10 @@
 # encoding: utf-8
 
 Urifetch.register do 
-	match /(soundcloud.com)\/([a-z]+)\/([a-z0-9\-]+)\/?/i, :soundcloud_track
+	match /(soundcloud.com)\/([a-z]+)\/([a-z0-9\-]+)\/?/i, :soundcloud_track do
+	  match /(soundcloud.com)\/([a-z]+)\/([a-z0-9\-]+)\/?/i, :soundcloud_track
+	  match /(soundcloud.com)\/([a-z]+)\/?/i, :soundcloud_user
+	end
 end
 
 Urifetch::Strategy.layout(:soundcloud_track) do
