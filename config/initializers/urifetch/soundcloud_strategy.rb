@@ -8,10 +8,17 @@ Urifetch::Strategy.layout(:soundcloud_track) do
 
 	before_request do
 		@skip_request = true
-
-		track = Cloudsdale.soundcloud.get('/resolve', :url => "http://www.#{match_data[0]}")
+    @uri = Addressable::URI.heuristic_parse(match_data.string)
+    
+		begin
+		  track = Cloudsdale.soundcloud.get('/resolve', :url => @uri.to_s)
+		rescue Soundcloud::ResponseError => e
+		  track = nil
+		  status = ["404","Not Found"]
+		end
+		
 		if track
-		  data.match_id       = match_data[0]
+		  data.match_id       = @uri.to_s
 			data.title					= track.title
 			data.author 				= track.user.username
 			data.preview_image 	= track.artwork_url
@@ -23,11 +30,6 @@ Urifetch::Strategy.layout(:soundcloud_track) do
 		end
 	end
 
-	after_success do |request|
-	end
-
-	after_failure do |error|
-	end
 end
 
 Urifetch::Strategy.layout(:soundcloud_user) do
