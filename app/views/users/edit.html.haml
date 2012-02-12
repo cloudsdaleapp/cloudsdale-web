@@ -4,11 +4,11 @@
       = image_tag user_avatar_path(@user.avatar.url), :title => @user.name, :class => 'avatar'
     = "#{@user.name}'s Settings"
   
-  %ul.tabs{ data: { tabs: :tabs } }
-    %li{ class: params[:tab].nil? ? 'active' : '' }= link_to "Profile", "#profile"
-    %li{ class: params[:tab]=='avatar' ? 'active' : '' }= link_to "Avatar", "#avatar"
-    %li= link_to "Account", "#account"
-    %li= link_to "Security", "#security"
+  %ul.nav.nav-tabs{ data: { tabs: :tabs } }
+    %li{ class: params[:tab].nil? ? 'active' : '' }= link_to "Profile", "#profile", data: { toggle: "tab" }
+    %li{ class: params[:tab]=='avatar' ? 'active' : '' }= link_to "Avatar", "#avatar", data: { toggle: "tab" }
+    %li= link_to "Account", "#account", data: { toggle: "tab" }
+    %li= link_to "Security", "#security", data: { toggle: "tab" }
           
 .row
   .span16

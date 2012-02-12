@@ -4,11 +4,11 @@
     = "If you have any other questions, want to request features that you'd like to see on Cloudsdale or just show some appreciation, send an email to: "
     = mail_to("ask@cloudsdale.org")
     = " where we will try to answer your questions individually."
-  %ul.tabs
-    %li.active= link_to "FAQ", "#faq"
-    %li= link_to "Terms & Conditions", "#tnc"
-    %li= link_to "Privacy", "#privacy"
-    %li= link_to "Contributors", "#contributors"
+  %ul.nav.nav-tabs
+    %li.active= link_to "FAQ", "#faq", data: { toggle: "tab" }
+    %li= link_to "Terms & Conditions", "#tnc", data: { toggle: "tab" }
+    %li= link_to "Privacy", "#privacy", data: { toggle: "tab" }
+    %li= link_to "Contributors", "#contributors", data: { toggle: "tab" }
     
 .row
   .span16

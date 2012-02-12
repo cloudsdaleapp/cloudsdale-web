@@ -1,23 +1,14 @@
 @charset "UTF-8"
 //*= require_self
 //*= require farbtastic
-@import "bootstrap/reset"
-@import "bootstrap/variables"
 
-// Links
-$linkColor:         #66CCFF
-$linkColorHover:    darken($linkColor, 10%)
-$color-dark-gray: rgb(77,78,80)
+@import "bootstrap"
 
 // Colors
+$color-dark-gray: rgb(77,78,80)
+
 $green: #009900
 $red: #FF0000
-
-$gridColumns:       16
-$gridColumnWidth:   35px
-$gridGutterWidth:   10px
-$extraSpace:        ($gridGutterWidth * 2)
-$siteWidth:         ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1))
 
 $color-cd-background-dark: #3F85B3
 $color-cd-background-light: #63A0D0
@@ -25,20 +16,13 @@ $color-cd-background-light: #63A0D0
 $color-cd-background-lighter: #E8F1FF
 $color-cd-background-lightest: #FFFFFF
 
-@import "bootstrap/mixins"
-@import "bootstrap/scaffolding"
-@import "bootstrap/type"
-@import "bootstrap/forms"
-@import "bootstrap/tables"
-@import "bootstrap/patterns"
-
 @import "token-input-facebook"
 
 @import "mixins"
 @import "preload"
 
 // Bootstrap Extentions
-@import "bootstrap-ytshadow"
+//@import "bootstrap-ytshadow"
 
 
 html
@@ -46,9 +30,10 @@ html
   overflow-x: hidden
 body
   background: transparent
-  margin-bottom: 64px
-  margin-top: 52px
   overflow: hidden !important
+  display: block !important
+  margin-bottom: 52px
+  margin-top: 52px
 
 #preload
   position: absolute
@@ -74,6 +59,7 @@ body
     margin: 0
 
 .bg-container
+  z-index: -1
   display: block
   background: rgb(248,248,248) /* Old browsers */
   /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -131,6 +117,7 @@ body
 .page-header
   border-bottom: 1px solid rgba(255,255,255,.9)
   +box-shadow(0,0,0,#000)
+  padding-bottom: 0
   h1, h2
     padding: 20px 20px 10px 20px
     text-shadow: 1px 1px 2px rgba(255,255,255,0.3)
@@ -156,18 +143,16 @@ footer
     text-align: center
     color: #525252
 
+[class^="icon-"]
+  background-image: image-url("glyphicons-halflings.png")
+  
+.icon-white
+  background-image: image-url("glyphicons-halflings-white.png")
+
 .online
   color: $green
 .offline
   color: $red
-
-.dark-divider
-  position: absolute
-  bottom: 1px
-  left: 0
-  right: 0
-  +box-shadow(0px,1px,1px,rgba(255,255,255,0.4))
-  border-bottom: #525252 solid 1px
 
 .block-message.alert-message
   margin: 0 20px
@@ -319,7 +304,7 @@ img.nocloudavatar
     border: none
     outline: none
 
-ul.tabs
+ul.nav.nav-tabs
   margin-bottom: 0
   margin-top: 15px
   li
@@ -333,7 +318,7 @@ ul.tabs
       a
         background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
         &:hover
-          background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
+          border-bottom: 1px transparent solid
 
 .alert-message.block-message
   h1,h2,h3,h4,h5,h6
@@ -367,6 +352,7 @@ ul.tabs
 @import "clouds"
 @import "drops"
 @import "faqs"
+@import "admin"
 
 
 

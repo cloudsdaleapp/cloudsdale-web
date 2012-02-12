@@ -27,6 +27,7 @@ Cloudsdale::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = false
+  config.assets.logger = false
   
   config.log_level = :debug
   

@@ -3,10 +3,10 @@
     %h1= "#{action_name}".capitalize + " Article"
     .row
       .span9
-        %ul.tabs{ data: { tabs: :tabs } }
-          %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Write", "#modify"
-          %li= link_to "Preview", "#preview"
-          %li= link_to "Help?", "#help"
+        %ul.nav.nav-tabs{ data: { tabs: :tabs } }
+          %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Write", "#modify", data: { toggle: "tab" }
+          %li= link_to "Preview", "#preview", data: { toggle: "tab" }
+          %li= link_to "Help?", "#help", data: { toggle: "tab" }
       .span7
         - unless @article.new_record?
           = link_to "Remove", article_path(@article), :method => :delete, :class => 'btn error'

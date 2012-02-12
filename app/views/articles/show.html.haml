@@ -18,7 +18,7 @@
             
         
     .span7
-      %ul.tabs
+      %ul.nav.nav-tabs
         %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Comments#{@article.commentable ? " (#{@article.comments.count})" : ''}", article_path(@article)
     
 

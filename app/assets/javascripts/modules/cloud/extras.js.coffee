@@ -35,7 +35,7 @@ do ($ = jQuery) ->
             <img src='#{image_src}' alt='#{user.name}' />
           </a>
         </li>").find("li.#{user.id}")
-        newItem.find('a').twipsy()
+        newItem.find('a').tooltip()
       else
         userInList.attr('data-last-seen',timestamp)
     

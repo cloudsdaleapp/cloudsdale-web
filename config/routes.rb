@@ -60,4 +60,6 @@ Cloudsdale::Application.routes.draw do
   
   resources :search, only: [:create]
   
+  resources :admin, only: [:index]
+  
 end

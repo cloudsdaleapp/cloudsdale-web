@@ -1,10 +1,10 @@
 = form_for @cloud, :validate => true, multipart: true do |f|
   .page-header
     %h1= "#{action_name}".capitalize + " Cloud"
-    %ul.tabs{ data: { tabs: :tabs } }
-      %li.active= link_to "General", "#general"
-      %li= link_to "Avatar", "#avatar"
-      %li= link_to "Security", "#security"
+    %ul.nav.nav-tabs{ data: { tabs: :tabs } }
+      %li.active= link_to "General", "#general", data: { toggle: "tab" }
+      %li= link_to "Avatar", "#avatar", data: { toggle: "tab" }
+      %li= link_to "Security", "#security", data: { toggle: "tab" }
       
   .row
     .span16

@@ -1,7 +1,5 @@
-= form_tag with_path, remote: true, method: :post, id: 'drop', class: 'form-stacked' do
-  .clearfix
-    .input
-      = text_field_tag :url, "", placeholder: 'Share a URL with the world...'
-      = hidden_field_tag :pending_id, ""
-      = submit_tag "Drop", disable_with: "Drop", class: 'btn'
-      %span.help-block= "invalid url"
+= form_tag with_path, remote: true, method: :post, id: 'drop', class: 'form-inline' do
+  = text_field_tag :url, "", placeholder: 'Share a URL with the world...'
+  = hidden_field_tag :pending_id, ""
+  = submit_tag "Drop", disable_with: "Drop", class: 'btn'
+  %span.help-block= "invalid url"

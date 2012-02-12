@@ -1,0 +1,22 @@
+.page-header
+  %h1 Admin
+  %ul.nav.nav-tabs
+    %li.active= link_to "Dashboard", "#dashboard", data: { toggle: "tab" }
+    %li= link_to "Inbox", "#inbox", data: { toggle: "tab" }
+    %li= link_to "Statistics", "#statistics", data: { toggle: "tab" }
+    %li= link_to "Monitor", "#monitor", data: { toggle: "tab" }
+    
+.row
+  .span16
+    .tab-content#admin-tab-content
+      .tab-pane#dashboard.active
+      .tab-pane#inbox
+      .tab-pane#statistics
+        .row
+          .span6
+            = form_tag "/", class: 'form-stacked' do
+              %fieldset
+                .clearfix
+                  %label{ for: :from }= "From:"
+                  .input
+      .tab-pane#monitor
