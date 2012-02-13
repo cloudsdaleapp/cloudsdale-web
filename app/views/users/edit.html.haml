@@ -4,21 +4,21 @@
       = image_tag user_avatar_path(@user.avatar.url), :title => @user.name, :class => 'avatar'
     = "#{@user.name}'s Settings"
   
-  %ul.tabs{ data: { tabs: :tabs } }
-    %li{ class: params[:tab].nil? ? 'active' : '' }= link_to "Profile", "#profile"
-    %li{ class: params[:tab]=='avatar' ? 'active' : '' }= link_to "Avatar", "#avatar"
-    %li= link_to "Account", "#account"
-    %li= link_to "Security", "#security"
+  %ul.nav.nav-tabs{ data: { tabs: :tabs } }
+    %li{ class: params[:tab].nil? ? 'active' : '' }= link_to "Profile", "#profile", data: { toggle: "tab" }
+    %li{ class: params[:tab]=='avatar' ? 'active' : '' }= link_to "Avatar", "#avatar", data: { toggle: "tab" }
+    %li= link_to "Account", "#account", data: { toggle: "tab" }
+    %li= link_to "Security", "#security", data: { toggle: "tab" }
           
 .row
   .span16
-    = form_for @user, :multipart => true, :validate => true, :url => user_path(@user), :method => :put, :html => { :class => 'with_notifications' } do |f|
+    = form_for @user, :multipart => true, :validate => true, :url => user_path(@user), :method => :put, :html => { :class => 'with_notifications form-horizontal' } do |f|
       .tab-content#my-tab-content
         .tab-pane#profile{ class: params[:tab].nil? ? 'active' : '' }= render :partial => 'edit_profile_tab', :locals => { f: f }
         .tab-pane#avatar{ class: params[:tab]=='avatar' ? 'active' : '' }= render :partial => 'edit_avatar_tab', :locals => { f: f }
         .tab-pane#account= render :partial => 'edit_account_tab', :locals => { f: f }
         .tab-pane#security= render :partial => 'edit_security_tab', :locals => { f: f }
       
-        %fieldset
-          .actions
-            = f.submit "Save", :class => 'btn primary'
+        %fieldset.action-wrapper
+          .form-actions
+            = f.submit "Save", :class => 'btn btn-primary'

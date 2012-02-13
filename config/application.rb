@@ -22,6 +22,10 @@ module Cloudsdale
   def self.ytClient
     @ytClient = YouTubeIt::Client.new(:dev_key => config['youtube']['dev_key'])
   end
+
+  def self.soundcloud
+    @soundcloud = Soundcloud.new(:client_id => config['soundcloud']['client_id'])
+  end
   
   def self.faye_path(connection=nil)
     host = (connection == :inhouse) ? config['faye']['inhouse_host'] : config['faye']['host']
@@ -68,6 +72,7 @@ module Cloudsdale
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    config.assets.logger = false
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

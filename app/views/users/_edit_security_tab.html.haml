@@ -1,35 +1,33 @@
 %fieldset
-  .clearfix
+  .control-group
     = f.label :password, "Password"
-    .input
+    .controls
       = f.password_field :password, :placeholder => "New password..."
-  .clearfix
+  .control-group
     = f.label :password_confirmation, "Confirmation"
-    .input
+    .controls
       = f.password_field :password_confirmation, :placeholder => "Confirm please..."
 %fieldset
   - @user.authentications.each do |authentication|
-    .clearfix
+    .control-group
       %label.with-image= image_tag("icons/cloud/#{authentication.provider}_cloud.png")
-      .input
-        = link_to "Disconnect", authentication_path(authentication), :method => :delete, :class => 'btn error', 'data-skip-pjax' => true
+      .controls
+        = link_to "Disconnect", authentication_path(authentication), :method => :delete, :class => 'btn btn-danger', 'data-skip-pjax' => true
         %span.help-inline
-          %strong
-            = "UID: "
-            %span.label
-              = authentication.uid
+          %span.label
+            = authentication.uid
 
   - auth_providers = @user.authentications.map {|a| a.provider }
   - unless auth_providers.include?("facebook")
-    .clearfix
+    .control-group
       %label.with-image= image_tag("icons/cloud/facebook_cloud.png")
-      .input
-        = link_to "Connect", "/auth/facebook", :class => 'btn success', 'data-skip-pjax' => true
+      .controls
+        = link_to "Connect", "/auth/facebook", :class => 'btn btn-success', 'data-skip-pjax' => true
         
 
   - unless auth_providers.include?("twitter")
-    .clearfix
+    .control-group
       %label.with-image= image_tag("icons/cloud/twitter_cloud.png")
-      .input
-        = link_to "Connect", "/auth/twitter", :class => 'btn success', 'data-skip-pjax' => true
+      .controls
+        = link_to "Connect", "/auth/twitter", :class => 'btn btn-success', 'data-skip-pjax' => true
         

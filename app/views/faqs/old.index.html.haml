@@ -16,13 +16,13 @@
     .span16
       = form_for @faq, remote: true, validate: true, html: { class: 'form-stacked' } do |f|
         %fieldset
-          .clearfix
+          .control-group
             = f.label :question, "Question"
-            .input
+            .controls
               = f.text_field :question, class: 'xxlarge'
-          .clearfix
+          .control-group
             = f.label :answer, "Answer"
-            .input
+            .controls
               = f.text_area :answer, class: 'xxlarge'
-          .actions
+          .form-actions
             = f.submit "Save", :disable_with => 'Saving...', class: 'btn primary'

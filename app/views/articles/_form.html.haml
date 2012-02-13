@@ -3,10 +3,10 @@
     %h1= "#{action_name}".capitalize + " Article"
     .row
       .span9
-        %ul.tabs{ data: { tabs: :tabs } }
-          %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Write", "#modify"
-          %li= link_to "Preview", "#preview"
-          %li= link_to "Help?", "#help"
+        %ul.nav.nav-tabs{ data: { tabs: :tabs } }
+          %li{:class=>"#{params[:tab].nil? ? 'active' : ''}"}= link_to "Write", "#modify", data: { toggle: "tab" }
+          %li= link_to "Preview", "#preview", data: { toggle: "tab" }
+          %li= link_to "Help?", "#help", data: { toggle: "tab" }
       .span7
         - unless @article.new_record?
           = link_to "Remove", article_path(@article), :method => :delete, :class => 'btn error'
@@ -16,9 +16,9 @@
       .tab-content#my-tab-content
         .tab-pane#modify.active
           %fieldset
-            .clearfix
+            .control-group
               = f.label :content, "Content"
-              .input
+              .controls
                 = f.text_area :content
         .tab-pane#preview
           %article
@@ -57,26 +57,26 @@
           
     .span7
       %fieldset
-        .clearfix
+        .control-group
           = f.label :title, "Title"
-          .input= f.text_field :title, :class => 'xlarge'
-        .clearfix
+          .controls= f.text_field :title, :class => 'xlarge'
+        .control-group
           = f.label :premabel, "Premabel"
-          .input
+          .controls
             = f.text_area :preambel
       %fieldset
-        .clearfix
+        .control-group
           = f.label :banner, "Banner"
-          .input
+          .controls
             = f.file_field :banner
             .help-inline
               %strong= "Note:"
               = "Max size 480px * 200px, if it's any bigger, the picture will be resized automatically to fit the boundary."
             
       %fieldset
-        .clearfix
+        .control-group
           %label Options
-          .input
+          .controls
             %ul.inputs-list
               %li
                 %label
@@ -92,8 +92,8 @@
                   %span= "Enable users commenting on this Article."
 
       %fieldset
-        .clearfix
+        .control-group
           = f.label :tag_tokens, "Tags"
-          .input
+          .controls
             = f.text_area :tag_tokens, :class => 'span5', "data-pre" => @article.tags.map(&:token_inputs).to_json
             

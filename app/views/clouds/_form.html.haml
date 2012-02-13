@@ -1,38 +1,38 @@
-= form_for @cloud, :validate => true, multipart: true do |f|
+= form_for @cloud, :validate => true, multipart: true, html: { class: 'form-horizontal' } do |f|
   .page-header
     %h1= "#{action_name}".capitalize + " Cloud"
-    %ul.tabs{ data: { tabs: :tabs } }
-      %li.active= link_to "General", "#general"
-      %li= link_to "Avatar", "#avatar"
-      %li= link_to "Security", "#security"
+    %ul.nav.nav-tabs{ data: { tabs: :tabs } }
+      %li.active= link_to "General", "#general", data: { toggle: "tab" }
+      %li= link_to "Avatar", "#avatar", data: { toggle: "tab" }
+      %li= link_to "Security", "#security", data: { toggle: "tab" }
       
   .row
     .span16
       .tab-content#cloud-tab-content
         .tab-pane#general.active
           %fieldset
-            .clearfix
+            .control-group
               = f.label :name, "Name"
-              .input= f.text_field :name, :class => 'xlarge'
-            .clearfix
+              .controls= f.text_field :name, :class => 'xlarge'
+            .control-group
               = f.label :description, "Description"
-              .input
+              .controls
                 = f.text_area :description
                 
         .tab-pane#avatar
           %fieldset.avatarupload
-            .clearfix
-              = f.label :remote_avatar_url, "URL"
-              .input
+            .control-group
+              = f.label :remote_avatar_url, "URL", class: 'control-label'
+              .controls
                 .input-prepend
-                  .add-on.active
+                  %span.add-on.active
                     = radio_button_tag :avatar_from, "url", :selected => true
-                  = f.text_field :remote_avatar_url
-            .clearfix
+                  = f.text_field :remote_avatar_url, class: 'span3'
+            .control-group
               = f.label :avatar, "File"
-              .input
+              .controls
                 .input-prepend
-                  .add-on
+                  %span.add-on
                     = radio_button_tag :avatar_from, "file"
                   = f.file_field :avatar, :class => 'disabled'
                 .help-inline
@@ -41,29 +41,26 @@
                   
         .tab-pane#security
           %fieldset.security
-            .clearfix
-              .input
-                %ul.inputs-list
-                  %li
-                    %label{ for: :cloud_locked }
-                      = f.check_box :locked
-                
-                      %span
-                        %strong Lock -
-                        and requires people to request permission to join or be personally invited.
-                  
-                  %li
-                    %label{ for: :cloud_hidden }
-                      = f.check_box :hidden
-                      %span
-                        %strong Hide -
-                        cloud will not listed and can only be made visible through personal invite.
+            .control-group
+              .controls
+                %label.checkbox{ for: :cloud_locked }
+                  = f.check_box :locked
+          
+                  %span
+                    %strong Lock -
+                    and requires people to request permission to join or be personally invited.
+
+                %label.checkbox{ for: :cloud_hidden }
+                  = f.check_box :hidden
+                  %span
+                    %strong Hide -
+                    cloud will not listed and can only be made visible through personal invite.
                       
-            .clearfix
+            .control-group
                   
-      %fieldset
-        .actions
+      %fieldset.action-wrapper
+        .form-actions
           - unless @cloud.new_record?
             - if can? :destroy, @cloud
               = link_to "Remove", cloud_path(@cloud), :method => :delete, :class => 'btn error'
-          = f.submit "Save", :disable_with => 'Saving...', :class => 'btn primary'
+          = f.submit "Save", :disable_with => 'Saving...', :class => 'btn btn-primary'

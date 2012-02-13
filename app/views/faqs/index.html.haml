@@ -4,16 +4,14 @@
     = "If you have any other questions, want to request features that you'd like to see on Cloudsdale or just show some appreciation, send an email to: "
     = mail_to("ask@cloudsdale.org")
     = " where we will try to answer your questions individually."
-  %ul.tabs
-    %li.active= link_to "FAQ", "#faq"
-    %li= link_to "Terms & Conditions", "#tnc"
-    %li= link_to "Privacy", "#privacy"
-    %li= link_to "Contributors", "#contributors"
+  %ul.nav.nav-tabs
+    %li.active= link_to "FAQ", "#faq", data: { toggle: "tab" }
+    %li= link_to "Terms & Conditions", "#tnc", data: { toggle: "tab" }
+    %li= link_to "Privacy", "#privacy", data: { toggle: "tab" }
+    %li= link_to "Contributors", "#contributors", data: { toggle: "tab" }
     
-.row
-  .span16
-    .tab-content#my-tab-content
-      .tab-pane#faq.active= render :partial => 'faq_tab'
-      .tab-pane#tnc= render :partial => 'tnc_tab'
-      .tab-pane#privacy= render :partial => 'privacy_policy_tab'
-      .tab-pane#contributors= render :partial => 'contributers_tab'
+.tab-content#my-tab-content
+  .tab-pane#faq.active= render :partial => 'faq_tab'
+  .tab-pane#tnc= render :partial => 'tnc_tab'
+  .tab-pane#privacy= render :partial => 'privacy_policy_tab'
+  .tab-pane#contributors= render :partial => 'contributers_tab'

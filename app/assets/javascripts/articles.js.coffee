@@ -19,8 +19,7 @@ $(document).bind 'new_articles.load edit_articles.load', (e,obj) =>
         span = if item.times_referred > 0 then "#{item.times_referred}" else "new"
         "<li>#{item.name}<span>#{span}</span></li>"
   
-  $('.tabs').tabs()
-  $("#.tabs a").bind 'change', (e) ->
+  $("#.nav.nav-tabs a").bind 'change', (e) ->
     targetContent = $($(e.target).attr('href'))
     if $("#preview")[0] == targetContent[0]
       raw_markdown = $('#modify textarea').val()

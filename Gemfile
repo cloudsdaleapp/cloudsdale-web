@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.2.0'
 
 # Database NO-SQL
 gem 'mongoid'
@@ -30,11 +30,10 @@ gem 'redcarpet'
 gem 'pjax_rails'
 gem 'best_in_place'
 
-# Styling
-gem 'bootstrap-sass', '1.4.0'
-
 # Authentication & Authorization
 gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 gem 'cancan'
 
 # Forms
@@ -50,6 +49,9 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'imagesize'
 gem 'pdf-reader'
 gem 'youtube_it'
+
+# Music
+gem 'soundcloud'
 
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'
@@ -77,7 +79,6 @@ end
 group :development do
   gem 'gist'
   gem 'foreman'
-  gem 'rails-dev-tweaks', '~> 0.5.2'
 end
 
 group :test do

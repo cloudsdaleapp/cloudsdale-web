@@ -1,80 +1,64 @@
+@charset "UTF-8"
 //*= require_self
+//*= require farbtastic
 
-@import "bootstrap/reset"
-@import "bootstrap/variables"
-
-// Links
-$linkColor:         #66CCFF
-$linkColorHover:    darken($linkColor, 10%)
-$color-dark-gray: rgb(77,78,80)
+@import "bootstrap"
 
 // Colors
+$color-dark-gray: rgb(77,78,80)
+
 $green: #009900
 $red: #FF0000
 
-@import "bootstrap/mixins"
-@import "bootstrap/type"
-@import "bootstrap/forms"
-@import "bootstrap/patterns"
+$color-cd-background-dark: #3F85B3
+$color-cd-background-light: #63A0D0
+
+$color-cd-background-lighter: #E8F1FF
+$color-cd-background-lightest: #FFFFFF
 
 @import "mixins"
 @import "preload"
 
+@import "bootstrap-fixes"
+
+@import "token-input-facebook"
+@import "jquery-ui"
+@import "jquery-ui-ie6"
+@import "jquery-daterangepicker"
+
 html
-  background: #72C3E8
-  background-position: 50% -0px
-  background-repeat: no-repeat
+  background: #3F85B3
 
 body
-
-  padding: 0
-  margin: 0
-  float: left
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-  color: #343434 !important
+  background: transparent
+  margin-top: 130px
   
-  #body-wrapper
+  .bg-container
     top: 0
-    bottom: 0
     width: 100%
-    left: 0
-    right: 0
-    position: absolute
-    background-image: image-url("bg-noise.png"),-moz-radial-gradient(center 45%, ellipse closest-corner, #BEDAE2, #3F85B3 85%)
-    background-image: image-url("bg-noise.png"), -webkit-radial-gradient(center 45%, ellipse closest-corner, #BEDAE2, #3F85B3 85%)
-    background-image: image-url("bg-noise.png"),-o-radial-gradient(center 45%, ellipse closest-corner, #BEDAE2, #3F85B3 85%)
-    background-image: image-url("bg-noise.png"),-ms-radial-gradient(center 45%, ellipse closest-corner, #BEDAE2, #3F85B3 85%)
-    background-image: image-url("bg-noise.png"),radial-gradient(center 45%, ellipse closest-corner, #BEDAE2, #3F85B3 85%)
-  
-  #content-wrapper
-    text-align: center
-    position: absolute
-    top: 50%
-    left: 0px
-    width: 100%
-    height: 1px
-    overflow: visible
-    visibility: visible
-    display: block
+    height: 1000px
+    position: fixed
+    z-index: -1
+    background-image: image-url("bg-noise.png"),-moz-radial-gradient(center 45%, ellipse closest-corner, #A8C6D0, #3F85B3 85%)
+    background-image: image-url("bg-noise.png"), -webkit-radial-gradient(center 45%, ellipse closest-corner, #A8C6D0, #3F85B3 85%)
+    background-image: image-url("bg-noise.png"),-o-radial-gradient(center 45%, ellipse closest-corner, #A8C6D0, #3F85B3 85%)
+    background-image: image-url("bg-noise.png"),-ms-radial-gradient(center 45%, ellipse closest-corner, #A8C6D0, #3F85B3 85%)
+    background-image: image-url("bg-noise.png"),radial-gradient(center 45%, ellipse closest-corner, #A8C6D0, #3F85B3 85%)
     
-    #content
-      width: 660px
-      height: 500px
-      margin-left: -330px
-      background: transparent
-      position: absolute
-      top: -250px
-      left: 50%
 
-
-h1.logo
-  font-size: 38px
-h5.slogan, h1.logo
-  font-weight: bold
+.page-header
   text-align: center
-  color: #343434
-  text-shadow: rgba(255,255,255,0.6) 0px 1px 2px
-  
+  border: 0
+  max-height: 150px
+
+.span16.content
+  padding-top: 120px
+  padding-bottom: 30px
+  // background: rgba(255,255,255,.2)
+  // +border-radius(100px)
+  // border: 3px rgba(255,255,255,.05) solid
+
+
 
 footer
   border:  none
@@ -89,11 +73,6 @@ footer
     color: #343434
     text-shadow: rgba(255,255,255,0.4) 0px 1px 2px
 
-.twipsy-inner
-  background-color: #FF0000
-.twipsy-arrow
-  border-top-color: #FF0000 !important
-
 input[type=text], input[type=password], select
   &.error
     border-color: #FF0000 !important
@@ -105,6 +84,10 @@ nav
     font-weight: bold
     font-size: 12px
     text-decoration: none
+
+.alert
+  margin-left: 50px
+  margin-right: 50px
 
 nav.social_connect
   position: fixed
@@ -134,18 +117,18 @@ nav.social_connect
       margin-right: 10px
 
 nav.options
-  position: absolute
-  width: 100%
-  bottom: 70px
+  text-align: center
+  padding: 20px 0
   a:not(:last-child)
     margin-right: 90px
   a
     &:visited, &
       color: #435865
-      text-shadow: rgba(255,255,255,0.4) 0px 1px 2px
+      text-shadow: rgba(255,255,255,.7) 0px 1px 2px
     &:hover
-      color: #D9E1E4
-      text-shadow: rgba(0,0,0,0.4) 0px -1px 1px
+      text-decoration: none
+      color: #E3EEF2
+      text-shadow: rgba(0,0,0,.3) -1px -1px 1px
     
 
 @import "sessions"

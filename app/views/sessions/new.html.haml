@@ -1,16 +1,15 @@
-= image_tag "logo/cloudsdale-logo-medium.png"
-- if MAINTENANCE
-  %h5= MAINTENANCE_MESSAGE
-= form_tag sessions_path, :method => :post, :class => 'form-stacked'  do
-  %center
-    = render :partial => 'layouts/alert'
-  %fieldset
-    = text_field_tag :email, "",:placeholder => "Email"
-    = password_field_tag :password, "",:placeholder => "Password"
-    = submit_tag "Login\t»", :class => 'btn success'
-    
+= render :partial => 'layouts/alert'
+
+= form_tag sessions_path, :method => :post, :class => 'form-search'  do
+  .btn-group
+    = link_to image_tag("icons/cloud/facebook_cloud.png"), "/auth/facebook", :class => 'btn btn-primary', 'data-skip-pjax' => true
+    = link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter", :class => 'btn btn-primary', 'data-skip-pjax' => true
+  = text_field_tag :email, "",:placeholder => "Email"
+  = password_field_tag :password, "",:placeholder => "Password"
+  = submit_tag "Login", :class => 'btn btn-success'
+  
 %nav.options
-  = link_to "Saddle up", register_path
   = link_to "Restore", restore_path
-  = link_to "Help", "help"
+  = link_to "Saddle up", register_path
+  //= link_to "Help", "help"
   

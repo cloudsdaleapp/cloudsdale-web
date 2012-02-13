@@ -23,72 +23,69 @@ body.drops
 form#drop
   padding: 0
   margin: 0 0 10px 0
-  &.error
-    .clearfix
-      +linear-gradient(#C82E21,#B72A1E)
-      .input
-        span.help-block
-          display: block
-        input
-          border-color: rgba(0, 0, 0, .5)
-        input[type=submit]
-          +opacity(.8)
-          pointer-events: none
-        
-  .clearfix
-    padding: 10px
-    //+linear-gradient(#8CBBD9,#70B0D9)
-    +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-    -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-    border: 1px rgba(50, 50, 50, 0.3) solid
-    +border-radius(5px)
+  padding: 10px
+  //+linear-gradient(#8CBBD9,#70B0D9)
+  +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  border: 1px rgba(50, 50, 50, 0.3) solid
+  +border-radius(5px)
+  position: relative
+  
+  span.help-block
+    display: none
+    position: absolute
+    background: #C82E21
+    +border-radius(3px 3px 0 0)
+    color: #fff
+    padding: 2px 7px
+    font-weight: bold
+    top: -21px
+  
+  input
+    border: 1px rgba(0, 0, 0, .3) solid
     margin: 0
-    position: relative
-    .input
-      span.help-block
-        display: none
-        position: absolute
-        background: #C82E21
-        +border-radius(3px 3px 0 0)
-        color: #fff
-        padding: 2px 7px
-        font-weight: bold
-        top: -21px
-    input
-      float: left
-      border: 1px rgba(0, 0, 0, .3) solid
-      &[type=text]
-        +border-radius(0)
-        +box-shadow-inset(1px,0,1px,rgba(0,0,0,0.1))
-        background: rgba(255,255,255,.95)
-        border-right: none
-        width: 605px
-      &[type=submit]
-        padding: 5px 8px 5px 32px
-        font-weight: 600
-        +border-radius(0)
+    &[type=text]
+      +border-radius(0)
+      +box-shadow-inset(1px,0,1px,rgba(0,0,0,0.1))
+      background: rgba(255,255,255,.95)
+      width: 600px
+    &[type=submit]
+      padding: 4px 8px 4px 32px
+      font-weight: 600
+      +border-radius(0)
+      background-color: #E6E6E6
+      background-repeat: no-repeat
+      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(white), color-stop(25%, white), to(#E6E6E6))
+      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -webkit-linear-gradient(white, white 25%, #E6E6E6)
+      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -moz-linear-gradient(top, white, white 25%, #E6E6E6)
+      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -ms-linear-gradient(white, white 25%, #E6E6E6)
+      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -o-linear-gradient(white, white 25%, #E6E6E6)
+      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, linear-gradient(white, white 25%, #E6E6E6)
+      +transition(all 0.0 ease)
+      &:hover
         background-color: #E6E6E6
         background-repeat: no-repeat
-        background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(white), color-stop(25%, white), to(#E6E6E6))
-        background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -webkit-linear-gradient(white, white 25%, #E6E6E6)
-        background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -moz-linear-gradient(top, white, white 25%, #E6E6E6)
-        background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -ms-linear-gradient(white, white 25%, #E6E6E6)
-        background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -o-linear-gradient(white, white 25%, #E6E6E6)
-        background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, linear-gradient(white, white 25%, #E6E6E6)
-        +transition(all 0.0 ease)
-        &:hover
-          background-color: #E6E6E6
-          background-repeat: no-repeat
-          background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(white), color-stop(25%, white), to(#E6E6E6))
-          background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -webkit-linear-gradient(white, white 25%, #E6E6E6)
-          background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -moz-linear-gradient(top, white, white 25%, #E6E6E6)
-          background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -ms-linear-gradient(white, white 25%, #E6E6E6)
-          background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -o-linear-gradient(white, white 25%, #E6E6E6)
-          background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, linear-gradient(white, white 25%, #E6E6E6)
-          color: #3BF
+        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(white), color-stop(25%, white), to(#E6E6E6))
+        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -webkit-linear-gradient(white, white 25%, #E6E6E6)
+        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -moz-linear-gradient(top, white, white 25%, #E6E6E6)
+        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -ms-linear-gradient(white, white 25%, #E6E6E6)
+        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -o-linear-gradient(white, white 25%, #E6E6E6)
+        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, linear-gradient(white, white 25%, #E6E6E6)
+        color: #3BF
+  
+  &.error
+    +linear-gradient(#C82E21,#B72A1E)
+    span.help-block
+      display: inline
+    input
+      border-color: rgba(0, 0, 0, .5)
+    input[type=submit]
+      +opacity(.8)
+      pointer-events: none
+    
           
 ul.drop-facet-list
   list-style: none
@@ -343,7 +340,7 @@ ul.drop-list > li.drop.youtube_video
     .info
       padding-top: 5px
       margin-bottom: 3px
-      color: #B3B3B3
+      color: #808080
       font-weight: bold
     p
       padding-right: 10px
@@ -373,5 +370,30 @@ ul.drop-list > li.drop.cloudsdale_users, ul.drop-list > li.drop.cloudsdale_cloud
         font-weight: bold
         display: block
         margin-bottom: 3px
+
+ul.drop-list > li.drop.soundcloud_track
+  header
+    +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.7))
+    +linear-gradient(rgb(84,162,255),rgb(35,133,255))
+    a
+      color: #F5F5F5
+      text-shadow: -1px -1px 1px rgba(0,0,0,.4)
+      &:hover
+        color: darken(#F5F5F5,15%)
+    
+  .drop-content
+    .float-left
+      margin: 5px 15px 5px 5px
+    .info
+      padding-top: 5px
+      margin-bottom: 3px
+      padding-right: 10px
+      color: #808080
+      font-weight: bold
+      span.genre
+        float: right
+    p
+      padding-right: 10px
+    
       
       

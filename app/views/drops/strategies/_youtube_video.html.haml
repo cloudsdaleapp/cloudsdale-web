@@ -1,10 +1,10 @@
 %header
-  = image_tag "icons/remote_fav/youtube.ico", :title => "title", :class => "class"
+  = image_tag "icons/remote_fav/youtube.ico"
   = link_to truncate(drop.title, :length => 60), drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'title'
 .drop-content
   .float-left
     = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
-      - if image_tag drop.preview.url
+      - if drop.preview.url
         = image_tag drop.preview.url, :title => drop.title
   
   .info

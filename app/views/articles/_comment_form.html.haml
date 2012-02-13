@@ -3,10 +3,10 @@
     - if can? :create, @comment
       = form_for [@article,@comment], :html=>{:class => 'form-stacked'} do |f|
         %fieldset
-          .clearfix
+          .control-group
             = f.text_area :content, placeholder: 'Write a comment...'
-          .clearfix.submit
-            .input
+          .control-group.submit
+            .controls
               %span.help-inline
                 %span.character-counter 0
                 = "/ 300 characters used"
