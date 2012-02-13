@@ -83,8 +83,9 @@ body.main
             
 
 .get-started
-  .alert-message.block-message
+  .alert.alert-block
     margin-top: 15px
+    padding: 15px
     a.special_close
       float: right
       color: black
@@ -106,13 +107,31 @@ body.main
         -moz-opacity: 0.4
         opacity: 0.4
   
+  .float-left
+    float: left
+    margin-right: 20px
+  
   .recruiting_message
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
     img
       max-height: 120px
       max-width: 120px
       
   .cloud_suggestion
     .clouds
+      &:after
+        content: "."
+        display: block
+        clear: both
+        visibility: hidden
+        line-height: 0
+        height: 0
       .cloud
         float: left
         width: 33%
@@ -144,6 +163,13 @@ body.main
             margin-left: 3px
             
   .add_avatar_suggestion
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
     .avatar
       float: left
       margin: 5px 10px 5px 5px
