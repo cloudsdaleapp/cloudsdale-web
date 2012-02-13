@@ -57,7 +57,7 @@ $ ->
   
   
   $(document).bind 'faye.connected', =>
-    $('.topbar').topBar()
+    $('.navbar.navbar-fixed-top').topBar()
     $('.bottombar').bottomBar
       userData: @userData
       userId: @userData.id
