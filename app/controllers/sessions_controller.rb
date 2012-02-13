@@ -18,9 +18,9 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:email], params[:password]) if params[:email] && params[:password]
     if user
       authenticate!(user)
-      redirect_to unless_pending_request_go_to(root_path), :notice => notify_with(:success,"Signed in!","in 10 seconds flat...")
+      redirect_to unless_pending_request_go_to(root_path)
     else
-      redirect_to '/login', :notice => notify_with(:error, "Error:", "wrong email and password combination")
+      redirect_to login_path, :notice => notify_with(:error, "Login Failed!", "Wrong email and password combination, maybe you're not a member?")
     end
   end
 
