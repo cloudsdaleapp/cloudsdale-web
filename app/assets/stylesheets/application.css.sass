@@ -17,6 +17,9 @@ $color-cd-background-lighter: #E8F1FF
 $color-cd-background-lightest: #FFFFFF
 
 @import "token-input-facebook"
+@import "jquery-ui"
+@import "jquery-ui-ie6"
+@import "jquery-daterangepicker"
 
 @import "mixins"
 @import "preload"
@@ -144,10 +147,10 @@ footer
     color: #525252
 
 [class^="icon-"]
-  background-image: image-url("glyphicons-halflings.png")
+  background-image: asset-data-url("glyphicons-halflings.png")
   
 .icon-white
-  background-image: image-url("glyphicons-halflings-white.png")
+  background-image: asset-data-url("glyphicons-halflings-white.png")
 
 .online
   color: $green

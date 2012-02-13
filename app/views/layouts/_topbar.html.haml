@@ -15,10 +15,14 @@
                 %span= "Admin"
                 %b.caret
               %ul.dropdown-menu
-                %li= link_to "Dashboard", admin_index_path(:anchor => "dashboard")
-                %li= link_to "Inbox", admin_index_path(:anchor => "inbox")
-                %li= link_to "Statistics", admin_index_path(:anchor => "statistics")
-                %li= link_to "Monitor", admin_index_path(:anchor => "monitor")
+                %li
+                  = link_to admin_index_path(:anchor => "complaints") do
+                    %i.icon-fire
+                    = "Complaints"
+                %li
+                  = link_to admin_index_path(:anchor => "statistics") do
+                    %i.icon-signal
+                    = "Statistics"
                 
           %li
             = link_to user_path(current_user), class: 'profile' do
