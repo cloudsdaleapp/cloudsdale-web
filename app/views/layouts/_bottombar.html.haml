@@ -22,7 +22,7 @@
                 
   = link_to "", new_cloud_path, class: 'new-cloud'
   
-  %ul.cloud-list.clearfix
+  %ul.cloud-list.control-group
     - if current_user
       - @clouds = current_user.clouds
       - @clouds.each do |cloud|

@@ -16,13 +16,15 @@ $color-cd-background-light: #63A0D0
 $color-cd-background-lighter: #E8F1FF
 $color-cd-background-lightest: #FFFFFF
 
+@import "mixins"
+@import "preload"
+
+@import "bootstrap-fixes"
+
 @import "token-input-facebook"
 @import "jquery-ui"
 @import "jquery-ui-ie6"
 @import "jquery-daterangepicker"
-
-@import "mixins"
-@import "preload"
 
 // Bootstrap Extentions
 //@import "bootstrap-ytshadow"
@@ -37,6 +39,7 @@ body
   display: block !important
   margin-bottom: 52px
   margin-top: 52px
+  color: #666666
 
 #preload
   position: absolute
@@ -111,6 +114,7 @@ body
     position: relative
       
 
+
 @media screen and (min-width: 1136px)
   .sideshadow
     display: none
@@ -121,13 +125,10 @@ body
   border-bottom: 1px solid rgba(255,255,255,.9)
   +box-shadow(0,0,0,#000)
   padding-bottom: 0
+  margin-bottom: 18px
   h1, h2
     padding: 20px 20px 10px 20px
     text-shadow: 1px 1px 2px rgba(255,255,255,0.3)
-
-a, button, a.btn
-  &:focus
-    outline: none
     
 a.disabled-link
   +opacity(0.5)
@@ -145,12 +146,6 @@ footer
     font-weight: bold
     text-align: center
     color: #525252
-
-[class^="icon-"]
-  background-image: asset-data-url("glyphicons-halflings.png")
-  
-.icon-white
-  background-image: asset-data-url("glyphicons-halflings-white.png")
 
 .online
   color: $green
@@ -175,9 +170,10 @@ footer
 .page-header.profile
   min-height: 80px
   background: transparent
-  margin: 40px 3px 0px 4px
+  margin: 40px 3px 18px 4px
   nav
     padding-bottom: 30px
+    border-bottom: 1px solid #DDD
     a
       margin-right: 10px
       font-weight: bold
@@ -239,7 +235,11 @@ footer
       +linear-gradient(#fff,#E8F1FF)
       +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
       border: 1px rgba(50, 50, 50, 0.3) solid
+      min-height: 100px
+      min-width: 100px
+      text-align: center
       img
+        float: none
         border: 1px rgba(50, 50, 50, 0.2) solid
         margin: 0
         padding: 0
@@ -254,9 +254,24 @@ footer
         img
           margin-bottom: -1px
           margin-left: 3px
-        
-.actions
-  background: none
+
+fieldset.action-wrapper
+  border-bottom: 1px solid rgba(255, 255, 255, .9)
+  border-top: 1px solid rgba(255, 255, 255, .9)
+  padding: 0
+  .form-actions
+    margin: 0
+.form-actions
+  background: #F8F8F8 url(/assets/bg-noise.png) repeat 0px 0px fixed
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(/assets/bg-noise.png) repeat 0px 0px fixed, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2VlZWZlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOGY4ZjgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+  background: url(/assets/bg-noise.png) repeat 0px 0px fixed,-moz-linear-gradient(left,  rgba(248,248,248,1) 0%, rgba(238,239,238,1) 50%, rgba(248,248,248,1) 100%) /* FF3.6+ */
+  background: url(/assets/bg-noise.png) repeat 0px 0px fixed, -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(248,248,248,1)), color-stop(50%,rgba(238,239,238,1)), color-stop(100%,rgba(248,248,248,1))) /* Chrome,Safari4+ */
+  background: url(/assets/bg-noise.png) repeat 0px 0px fixed, -webkit-linear-gradient(left,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* Chrome10+,Safari5.1+ */
+  background: url(/assets/bg-noise.png) repeat 0px 0px fixed, -o-linear-gradient(left,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* Opera 11.10+ */
+  background: url(/assets/bg-noise.png) repeat 0px 0px fixed, -ms-linear-gradient(left,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* IE10+ */
+  background: url(/assets/bg-noise.png) repeat 0px 0px fixed, linear-gradient(left,  rgba(248,248,248,1) 0%,rgba(238,239,238,1) 50%,rgba(248,248,248,1) 100%) /* W3C */  
+  border-bottom: 1px solid #DDD
 
 select, textarea, input
   &.disabled
@@ -266,31 +281,23 @@ select, textarea, input
 
 input[type=file]
   background-color: transparent
-  &.disabled
+  &.disabled, &:disabled
     +opacity(0.5)
 
 form
-  div.clearfix.error
+  div.control-group.error
     background: transparent
     padding: 10px 0 0 0
     margin-bottom: 18px
   &.form-stacked
-    div.clearfix.error
+    div.control-group.error
       padding: 0
       margin: 0 0 9px 0
 
 .input-prepend, .input-append
   .active
-    background: #66CCFF
+    background: #77ACD6
     border-color: #0080FF
-
-ul.inputs-list > li
-  +user-select(none)
-  label
-    & > span
-      cursor: pointer
-      
-    
 
 img.noavatar
   background: #E6E6E6 center center no-repeat
@@ -343,6 +350,8 @@ ul.nav.nav-tabs
       float: left
       margin-right: 20px
       margin-bottom: 5px
+
+
 
 @import "topbar"
 @import "bottombar"

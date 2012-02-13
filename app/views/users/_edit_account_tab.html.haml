@@ -1,9 +1,9 @@
 %fieldset
-  .clearfix
+  .control-group
     = f.label :email, "Email"
-    .input
+    .controls
       = f.text_field :email
-  .clearfix
+  .control-group
     = f.label :time_zone, "Time zone"
-    .input
+    .controls
       = f.time_zone_select :time_zone, ActiveSupport::TimeZone.all, {:default => Cloudsdale::Application.config.time_zone}, { :class => 'span4' }

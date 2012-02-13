@@ -10,10 +10,8 @@
     %li= link_to "Privacy", "#privacy", data: { toggle: "tab" }
     %li= link_to "Contributors", "#contributors", data: { toggle: "tab" }
     
-.row
-  .span16
-    .tab-content#my-tab-content
-      .tab-pane#faq.active= render :partial => 'faq_tab'
-      .tab-pane#tnc= render :partial => 'tnc_tab'
-      .tab-pane#privacy= render :partial => 'privacy_policy_tab'
-      .tab-pane#contributors= render :partial => 'contributers_tab'
+.tab-content#my-tab-content
+  .tab-pane#faq.active= render :partial => 'faq_tab'
+  .tab-pane#tnc= render :partial => 'tnc_tab'
+  .tab-pane#privacy= render :partial => 'privacy_policy_tab'
+  .tab-pane#contributors= render :partial => 'contributers_tab'

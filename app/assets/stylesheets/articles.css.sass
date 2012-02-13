@@ -25,7 +25,7 @@ body.articles
         fieldset
           input[type=file]
             background: transparent
-          .clearfix.error
+          .control-group.error
             padding-top: 0
             padding-bottom: 0
           input[type=text]#article_title
@@ -216,17 +216,17 @@ body.articles
               resize: none
               width: 350px
             
-            .clearfix.submit
+            .control-group.submit
               display: none
               text-align: right
               span.help-inline
                 margin-right: 10px
                 font-weight: bold
             &.active
-              .clearfix.submit
+              .control-group.submit
                 display: block
             &.invalid
-              .clearfix.submit
+              .control-group.submit
                 span.help-inline
                   color: red
         

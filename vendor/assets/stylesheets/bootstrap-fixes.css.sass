@@ -1,0 +1,51 @@
+span.add-on
+  .add-on
+    margin-left: .5px
+  & > input[type=radio], & > input[type=checkbox]
+    margin-top: 0px
+
+.input-prepend
+  .add-on
+    margin-right: .5px
+  & > input[type=text], & > input[type=password]
+    +border-radius(0 3px 3px 0)
+    border-left: 0
+    
+.input-append
+  & > input[type=text], & > input[type=password]
+    +border-radius(3px 0 0 3px)
+    border-right: 0
+    
+a, button, a.btn
+  &:focus
+    outline: none
+
+[class^="icon-"]
+  background-image: asset-data-url("glyphicons-halflings.png")
+  
+.icon-white
+  background-image: asset-data-url("glyphicons-halflings-white.png")
+
+.controls
+  label.checkbox
+    +user-select(none)
+    & > span
+      cursor: pointer
+div
+  &.span13
+    width: 575px
+  &.span14
+    width: 620px
+  &.span15
+    width: 665px
+  &.span16
+    width: 710px
+
+form.form-search
+  .btn-group
+    float: none
+    clear: none
+    display: inline-block
+    vertical-align: middle
+    &:after
+      clear: both

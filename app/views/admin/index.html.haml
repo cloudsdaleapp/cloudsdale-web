@@ -13,7 +13,7 @@
         %h6= "Under Construction"
     .tab-pane#statistics
       .span4
-        = form_tag admin_statistics_path, remote: true, id: 'date_select',class: 'form-stacked' do
+        = form_tag statistics_admin_index_path, remote: true, id: 'date_select',class: 'form-stacked' do
           %fieldset
             .control-group
               %label{ for: :date_range }= "Date Range:"

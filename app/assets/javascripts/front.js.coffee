@@ -24,15 +24,10 @@ $ ->
   
   $(document).bind 'application.load', =>
     $("form[data-validate='true']").validate()
-    
-    $(".alert-message > .close").bind "click", (e) ->
-      hide_alert_message $(@).parent()
-
-    $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
-      hide_alert_message @
+    $(".alert").alert()
     
   $(document).bind 'start.pjax', (a,b,c) ->
-    $("[data-validate]:input").twipsy('hide')
+    $("[data-validate]:input").tooltip('hide')
     $(".container[data-pjax-container]").fadeOut(50)
   $(document).bind 'end.pjax', (a,b,c) ->
     $(".container[data-pjax-container]").fadeIn(500)

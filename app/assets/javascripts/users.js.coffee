@@ -13,24 +13,18 @@ $(document).bind 'new_users.load', (e,obj) =>
   
   $('.form_part_next').bind 'click', ->
     $(@).parent()
-    valid = true
+    valid = false
     $("fieldset.active [data-validate]:input").each (k,v) ->
       settings = window[@form.id]
-      valid = false unless $(this).isValid(settings.validators)
-    
+      valid = if $(this).isValid(settings.validators) then true else false
     if valid
       current = $('fieldset.active')
       current.removeClass('active').slideUp(300)
       current.next().addClass('active').slideDown(300)
-      window.setTimeout ( =>
-        $("fieldset.active [data-validate]:input.error").twipsy('show')
-      ), 400
-      
-      
-      
+      $("fieldset.active [data-validate]:input.error").tooltip('show')
   
   $('.form_part_previous').bind 'click', ->
-    $("fieldset.active [data-validate]:input").twipsy('hide')
+    $("fieldset.active [data-validate]:input").tooltip('hide')
     current = $('fieldset.active')
     current.prev().addClass('active').slideDown(300)
     current.removeClass('active').slideUp(300)
