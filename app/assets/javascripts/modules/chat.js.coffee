@@ -108,7 +108,7 @@ do ($ = jQuery) ->
     
     resizeElements: ->
       window.setTimeout ( =>
-        resizeHeight = @input.outerHeight() + 9
+        resizeHeight = @input.outerHeight() + 18
         @messagesWrapper.css
           bottom: resizeHeight
         @correctContainerScroll(true)
