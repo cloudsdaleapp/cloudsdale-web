@@ -398,5 +398,28 @@ ul.drop-list > li.drop.soundcloud_track
     p
       padding-right: 10px
     
-      
+ul.drop-list > li.drop.soundcloud_user
+  header
+    +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.7))
+    +linear-gradient(rgb(84,162,255),rgb(35,133,255))
+    a
+      color: #F5F5F5
+      text-shadow: -1px -1px 1px rgba(0,0,0,.4)
+      &:hover
+        color: darken(#F5F5F5,15%)
+    
+  .drop-content
+    .float-left
+      margin: 5px 15px 5px 5px
+    .info
+      padding-top: 5px
+      margin-bottom: 3px
+      padding-right: 10px
+      color: #808080
+      font-weight: bold
+      span.location
+        float: right
+    p
+      padding-right: 10px
+    
       

@@ -1,0 +1,15 @@
+%header
+	= image_tag "icons/remote_fav/soundcloud.ico"
+	= link_to drop.title, drop.url
+.drop-content
+	.float-left
+		= link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
+			- if drop.preview.url
+				= image_tag drop.preview.url, :title => drop.title
+	.info
+		- unless drop[:metadata]['full_name'].nil?
+			%span= drop[:metadata]['full_name']
+		- unless drop[:metadata]['country'].nil?
+			%span.location= drop[:metadata]['country']
+		- unless drop[:metadata]['description'].nil?
+			%p= truncate(drop[:metadata]['description'], :length => 150)
