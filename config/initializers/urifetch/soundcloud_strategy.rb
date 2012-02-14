@@ -1,7 +1,10 @@
 # encoding: utf-8
 
 Urifetch.register do 
-	match /(soundcloud.com)\/([a-z]+)\/([a-z0-9\-]+)\/?$/i, :soundcloud_track
+	match /(soundcloud.com)\/([a-z0-9]+)\/?([a-z0-9\-]+)?\/?$/i, :soundcloud_track do
+		match /(soundcloud.com)\/([a-z0-9]+)\/([a-z0-9\-]+)\/?$/i, :soundcloud_track
+		match /(soundcloud.com)\/([a-z0-9]+)\/?$/i, :soundcloud_user
+	end
 end
 
 Urifetch::Strategy.layout(:soundcloud_track) do
@@ -35,15 +38,23 @@ end
 Urifetch::Strategy.layout(:soundcloud_user) do
 
 	before_request do
-		# Skips the normal request
 		@skip_request = true
+		@uri = Addressable::URI.heuristic_parse(match_data.string)
 
-		user = Cloudsdale.soundcloud.get('/resolve', :url => match_data[0])
+		begin
+			user = Cloudsdale.soundcloud.get('/resolve', :url => @uri.to_s)
+		rescue Soundcloud::ResponseError => e
+			user = nil
+			status = ["404", "Not Found"]
+		end
+
 		if user
-			data.username				= user.username
-			data.avatar_url			= user.avatar_url
+			data.match_id				= @uri.to_s
+			data.title					= user.username
+			data.preview_image	= user.avatar_url
 			data.full_name			= user.full_name
 			data.country				=	user.country
+			data.description		=	user.description
 
 			# Sets status
 			status = ["200","OK"]
