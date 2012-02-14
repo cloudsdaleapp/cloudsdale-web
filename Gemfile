@@ -44,7 +44,7 @@ gem 'fog'
 gem 'cloudfiles'
 gem 'mini_magick'
 gem 'rmagick'
-gem 'carrierwave'
+gem 'carrierwave', git: "git://github.com/jnicklas/carrierwave.git"
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'imagesize'
 gem 'pdf-reader'
@@ -55,6 +55,7 @@ gem 'soundcloud'
 
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'user-agent'
 
 # Assets
 gem 'sass'

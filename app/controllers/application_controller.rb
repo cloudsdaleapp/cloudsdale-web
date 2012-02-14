@@ -39,7 +39,11 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate!(user)
+    # Denies access if no user is present
     raise CanCan::AccessDenied if user.nil?
+    # Logs what agent is used
+    UserAgent.find_or_create_from_http_request_with_user(request.env['HTTP_USER_AGENT'],user) unless request.env['HTTP_USER_AGENT'].nil?
+    # Sets session data
     session[:user_id] = user.id
     session[:display_name] = user.name
     @current_user = user
