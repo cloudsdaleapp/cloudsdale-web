@@ -34,8 +34,6 @@ Urifetch::Strategy.layout(:pdf_document) do
  
     if pdf
       data.pdf_version = pdf.pdf_version
-      # data.info = pdf.info
-      # data.metadata = pdf.metadata
       data.page_count = pdf.page_count
     end
     
