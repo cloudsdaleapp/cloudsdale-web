@@ -5,6 +5,7 @@ class AdminController < ApplicationController
   end
   
   def index
+    @user_agents = UserAgent.all
   end
   
   def statistics

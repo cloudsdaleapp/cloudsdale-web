@@ -13,10 +13,17 @@
         %h6= "Under Construction"
     .tab-pane#statistics
       .span4
-        = form_tag statistics_admin_index_path, remote: true, id: 'date_select',class: 'form-stacked' do
+        = form_tag statistics_admin_index_path, remote: true, id: 'date_select', class: 'form-stacked' do
           %fieldset
             .control-group
               %label{ for: :date_range }= "Date Range:"
               .controls
                 = text_field_tag :date_range, "", placeholder: 'd/m/yy - d/m/yy', class: 'span4'
+        %ul.unstyled
+          - @user_agents.distinct(:name).each do |name|
+            - total_usage = @user_agents.where(name: name).map{ |ua| ua.user_count }.inject{|sum,x| sum + x }
+            %li.agent{ class: name }
+              %h5.agent-name= name.split(/\-\_/i).map { |w| w.capitalize }.join(' ')
+              %span.agent-usage= total_usage
+        
       .span12{ "data-statistics-container" => true }
