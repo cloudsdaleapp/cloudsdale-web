@@ -1,11 +1,11 @@
 = f.fields_for :character do |char_f|
   %fieldset
-    .clearfix
+    .control-group
       = char_f.label :name, "Name"
-      .input= char_f.text_field :name, :placeholder => "Pony name...", :original_value => char_f.object.name, :attribute_name => :name, :user_id => @user.id, :class => 'span4'
-    .clearfix
+      .controls= char_f.text_field :name, :placeholder => "Pony name...", :original_value => char_f.object.name, :attribute_name => :name, :user_id => @user.id, :class => 'span4'
+    .control-group
       = char_f.label :gender, "Gender"
-      .input= char_f.select(:gender, options_for_select(Character::GENDERS.collect{ |g| [g.capitalize, g] }, char_f.object.gender), {}, { :class => 'span4' })
-    .clearfix
+      .controls= char_f.select(:gender, options_for_select(Character::GENDERS.collect{ |g| [g.capitalize, g] }, char_f.object.gender), {}, { :class => 'span4' })
+    .control-group
       = char_f.label :gender, "Kind"
-      .input= char_f.select(:kind, options_for_select(Character::KINDS.collect{ |k| [k.capitalize, k] }, char_f.object.kind), {}, { :class => 'span4' })
+      .controls= char_f.select(:kind, options_for_select(Character::KINDS.collect{ |k| [k.capitalize, k] }, char_f.object.kind), {}, { :class => 'span4' })

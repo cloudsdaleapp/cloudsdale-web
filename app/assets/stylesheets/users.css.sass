@@ -1,23 +1,19 @@
 body.users.new, body.authentications.create, body.restorations.new, body.users.change_password
+  
+  .btn-group
+    margin-right: 10px
+    a
+      border-color: #4C4C4C
+      line-height: 14px
+      padding: 3px 10px 4px 10px
+      img
+        vertical-align: middle
+        max-height: 25px
+        max-width: 25px
+  
+  form
+    text-align: center
 
-  center
-    .alert-message
-      margin-top: 20px
-      width: 428px
-      a.close
-        text-decoration: none
-        
-      &.hidden
-        background: none
-        height: 20px
-        border: none
-        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
-        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
-        box-shadow: 0 1px 2px rgba(0, 0, 0, .0)
-        
-  fieldset
-    padding: 0px 0 60px 0
-    
     span.auth_cloud
       visibility: visible
       padding: 17px
@@ -26,7 +22,10 @@ body.users.new, body.authentications.create, body.restorations.new, body.users.c
       &.twitter
         background: transparent image-url("icons/cloud/twitter_cloud.png") center center no-repeat
         background-size: 28px
-        
+      &.facebook
+        background: transparent image-url("icons/cloud/facebook_cloud.png") center center no-repeat
+        background-size: 28px
+    
     input[type=text], input[type=password], select
       padding-top: 7px
       padding-bottom: 7px
@@ -36,7 +35,7 @@ body.users.new, body.authentications.create, body.restorations.new, body.users.c
       margin-right: 10px
       border-color: #4C4C4C
       width: 140px
-      
+  
       &:hover
         cursor: pointer
       &:focus
@@ -46,19 +45,20 @@ body.users.new, body.authentications.create, body.restorations.new, body.users.c
           -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 13px rgba(255, 255, 255, 0.9)
           -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 13px rgba(255, 255, 255, 0.9)
           box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 13px rgba(255, 255, 255, 0.9)
-          
+      
     input[type=submit], .form_part_next, .form_part_previous
       padding: 9px 15px 9px 15px
-      margin-top: 1px
+      margin-top: 0
       font-size: 12px
       line-height: 14px
       font-weight: bold
       border-color: #4C4C4C
-      text-decoration: none
+      display: inline-block
+      vertical-align: middle
       &:not(:last-child)
         margin-right: 10px
 
-  
+
   form.form-stacked
     padding-left: 0
         

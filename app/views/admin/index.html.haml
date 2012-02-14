@@ -1,0 +1,22 @@
+.page-header
+  %h1 Admin
+  %ul.nav.nav-tabs
+    %li.active= link_to "Complaints", "#complaints", data: { toggle: "tab" }
+    %li= link_to "Statistics", "#statistics", data: { toggle: "tab" }
+    
+.row
+  .tab-content#admin-tab-content
+    .tab-pane#complaints.active
+      %br
+      %br
+      %center
+        %h6= "Under Construction"
+    .tab-pane#statistics
+      .span4
+        = form_tag statistics_admin_index_path, remote: true, id: 'date_select',class: 'form-stacked' do
+          %fieldset
+            .control-group
+              %label{ for: :date_range }= "Date Range:"
+              .controls
+                = text_field_tag :date_range, "", placeholder: 'd/m/yy - d/m/yy', class: 'span4'
+      .span12{ "data-statistics-container" => true }

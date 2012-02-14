@@ -1,34 +1,47 @@
-.topbar
-  .fill
-    .container-fluid.main
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
       = link_to  root_path, :class => 'brand' do
         = image_tag "logo/cloudsdale-thin-bright-logo-small.png", :title => "Cloudsdale", :class => "logo"
-      
-      = form_tag search_drops_path, remote: true, method: :get, class: 'pull-left', id: 'search-main' do
-        = text_field_tag :q, '', placeholder: 'Search...'
+      .nav-collapse
+        = form_tag search_drops_path, remote: true, method: :get, class: 'navbar-search pull-left', id: 'search-main' do
+          = text_field_tag :q, '', placeholder: 'Search...'
        
-      %ul.nav.secondary-nav
-        / %li
-        /   = link_to "/articles/new", class: 'submit' do
-        /     = image_tag("icons/iconic/white/pen_12x12.png")
-        /     %span Submit
-        %li
-          = link_to user_path(current_user), class: 'profile' do
-            = image_tag("icons/iconic/white/user_9x12.png")
-            %span Profile
-        %li
-          = link_to "/", class: 'explore disabled-link' do
-            = image_tag("icons/iconic/white/compass_12x12.png")
-            %span Explore
-        %li
-          = link_to edit_user_path(current_user), class: 'settings' do
-            = image_tag("icons/iconic/white/cog_12x12.png")
-            %span Settings
-        %li
-          = link_to faqs_path, class: 'faq' do
-            = image_tag("icons/iconic/white/question_mark_6x12.png")
-            %span Info
-        %li
-          = link_to logout_path, 'data-skip-pjax' => true, class: 'logout' do
-            = image_tag("icons/iconic/white/denied_12x12.png")
-            %span Sign Out
+        %ul.nav.pull-right
+          - if can? :reach, :admin_panel
+            %li.dropdown
+              = link_to "#", class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+                = image_tag("icons/iconic/white/key_fill_12x12.png")
+                %span= "Admin"
+                %b.caret
+              %ul.dropdown-menu
+                %li
+                  = link_to admin_index_path(:anchor => "complaints") do
+                    %i.icon-fire
+                    = "Complaints"
+                %li
+                  = link_to admin_index_path(:anchor => "statistics") do
+                    %i.icon-signal
+                    = "Statistics"
+                
+          %li
+            = link_to user_path(current_user), class: 'profile' do
+              = image_tag("icons/iconic/white/user_9x12.png")
+              %span Profile
+                
+          %li
+            = link_to "/", class: 'explore disabled-link' do
+              = image_tag("icons/iconic/white/compass_12x12.png")
+              %span Explore
+          %li
+            = link_to edit_user_path(current_user), class: 'settings' do
+              = image_tag("icons/iconic/white/cog_12x12.png")
+              %span Settings
+          %li
+            = link_to faqs_path, class: 'faq' do
+              = image_tag("icons/iconic/white/question_mark_6x12.png")
+              %span Info
+          %li
+            = link_to logout_path, 'data-skip-pjax' => true, class: 'logout' do
+              = image_tag("icons/iconic/white/denied_12x12.png")
+              %span Sign Out

@@ -1,7 +1,9 @@
 #= require jquery
+#= require bootstrap
 #= require jquery_ujs
 #= require jquery-ui.js
 #= require pjax
+#= require date
 #= require jquery.cookie
 #= require jquery.BetterGrow
 #= require jquery.titlealert
@@ -10,9 +12,8 @@
 #= require jquery.periodicalupdater
 #= require jquery.mousewheel
 #= require jquery.purr
+#= require jquery.daterangepicker
 #= require best_in_place
-#= require bootstrap
-#= require date
 #= require rails.validations
 #= require rails.validations.custom
 #= require rails.validations.formbuilder
@@ -21,6 +22,9 @@
 #= require bottombar
 #= require topbar
 #= require showdown
+#= require highcharts
+
+#= require bootstrap.tabs
 
 #= require main
 #= require articles
@@ -28,6 +32,7 @@
 #= require sessions
 #= require clouds
 #= require faqs
+#= require admin
 
 $ ->
   
@@ -65,11 +70,6 @@ $ ->
     $.event.trigger "#{controller}.load"
     $.event.trigger "#{action}_#{controller}.load"
 
-  $('[rel=twipsy-chat-room]').twipsy
-    placement: 'above'
-    offset: '7'
-    template: '<div class="twipsy-arrow chatilo"></div><div class="twipsy-inner chatilu"></div>'
-
   $(document).bind 'application.load', =>
 
     $("form[data-validate='true']").validate()
@@ -80,7 +80,7 @@ $ ->
     $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
       hide_alert_message @
 
-    $('[rel=twipsy]').twipsy()
+    $('[rel=twipsy]').tooltip()
     $(".alert-message").alert()
     
     $("a.special_close").bind 'ajax:success', (request,response) ->

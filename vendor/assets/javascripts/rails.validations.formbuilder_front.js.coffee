@@ -2,16 +2,16 @@
 
 clientSideValidations.formBuilders["ActionView::Helpers::FormBuilder"] =
   add: (element, settings, message) ->
-    $(element).twipsy('hide').twipsy(
+    $(element).tooltip('hide').tooltip(
       fallback: message
       animate: true
       placement: 'above'
       html: 'false'
       offset: 10
       trigger: 'manual'
-    ).twipsy('show')
+    ).tooltip('show')
     $(element).addClass('error')
     
   remove: (element, settings) ->
-    $(element).twipsy('hide')
+    $(element).tooltip('hide')
     $(element).removeClass('error')

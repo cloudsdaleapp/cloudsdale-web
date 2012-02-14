@@ -56,6 +56,7 @@ class Ability
         
       if user.role >= 2  ## Moderator
         # Articles
+        can :reach, :admin_panel
         can [:read,:update,:destroy,:promote], Entry
         can :update, User
         can [:destroy,:update], Cloud
