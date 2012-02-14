@@ -37,7 +37,7 @@ class Drop
   scope :only_visable, where(hidden: false)
   
   before_save do
-    reload if last_load.nil? or last_load < 1.week.ago
+    re_fetch if last_load.nil? or last_load < 1.week.ago
     self[:metadata] = {}.deep_merge(self[:metadata].to_hash)
   end
   
@@ -93,14 +93,13 @@ class Drop
     status[0].to_s == "200"
   end
   
-  def reload
-    super
+  def re_fetch
     set_data Urifetch.fetch_from(url)
     has_been_loaded = true
   end
   
-  def reload!
-    reload
+  def re_fetch!
+    re_fetch
     save
   end
   

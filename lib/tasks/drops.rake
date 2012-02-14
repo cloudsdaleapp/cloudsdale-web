@@ -7,7 +7,7 @@ namespace :drops do
       Drop.where(strategy:'image').each do |d|
         print "Reloading #{d.title}..."
         begin
-          d.reload!
+          d.re_fetch!
           print " success!\n"
         rescue Exception => msg
           print " fail! - #{msg.inspect}\n\n"
