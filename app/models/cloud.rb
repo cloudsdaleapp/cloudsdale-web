@@ -48,12 +48,12 @@ class Cloud
     self.drop.hidden    = self.hidden.to_s
     self.drop.last_load = Time.now
   
-    self.drop['metadata'] ||= {}
+    self.drop.src_meta ||= {}
   
-    self.drop['metadata']['avatar']           = self.avatar.preview.url
-    self.drop['metadata']['member_count']     = self.member_count
-    self.drop['metadata']['created_at']       = Time.now
-    self.drop['metadata']['reference_id']     = self._id.to_s
+    self.drop.src_meta['avatar']           = self.avatar.preview.url
+    self.drop.src_meta['member_count']     = self.member_count
+    self.drop.src_meta['created_at']       = Time.now
+    self.drop.src_meta['reference_id']     = self._id.to_s
   end
   
   def to_indexed_json

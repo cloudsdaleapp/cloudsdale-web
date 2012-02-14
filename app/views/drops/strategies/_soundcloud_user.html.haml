@@ -9,9 +9,9 @@
 			- else
 				= image_tag "other/unknown_pony_preview.jpg"
 	.info
-		- unless drop[:metadata]['full_name'].nil?
-			%span= drop[:metadata]['full_name']
-		- unless drop[:metadata]['country'].nil?
-			%span.location= drop[:metadata]['country']
-		- unless drop[:metadata]['description'].nil?
-			%p= truncate(drop[:metadata]['description'], :length => 150)
+		- unless drop.src_meta['full_name'].nil?
+			%span= drop.src_meta['full_name']
+		- unless drop.src_meta['country'].nil?
+			%span.location= drop.src_meta['country']
+		- unless drop.src_meta['description'].nil?
+			%p= truncate(drop.src_meta['description'], :length => 150)

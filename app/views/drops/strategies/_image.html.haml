@@ -7,7 +7,7 @@
       - if image_tag drop.preview.url
         = image_tag drop.preview.url, :title => drop.title
   .info
-    - unless drop[:metadata]['mime_type'].nil?
-      %span.mimetype= drop[:metadata]['mime_type'].sub(/^image\//,"").upcase
-    - unless drop[:metadata]['image_size'] == [nil,nil]
-      %span.sizes= "#{drop[:metadata]['image_size'][0]} × #{drop[:metadata]['image_size'][1]}"
+    - unless drop.src_meta['mime_type'].nil?
+      %span.mimetype= drop.src_meta['mime_type'].sub(/^image\//,"").upcase
+    - unless drop.src_meta['image_size'] == [nil,nil]
+      %span.sizes= "#{drop.src_meta['image_size'][0]} × #{drop.src_meta['image_size'][1]}"

@@ -7,9 +7,9 @@
         = image_tag drop.preview.url, :title => drop.title
 
   .info
-    - unless drop[:metadata]['page_count'].nil?
-      %span.pages= "#{drop[:metadata]['page_count']} pages"
-    - unless drop[:metadata]['pdf_version'].nil?
-      %span.version= "PDF Version: #{drop[:metadata]['pdf_version']}"
+    - unless drop.src_meta['page_count'].nil?
+      %span.pages= "#{drop.src_meta['page_count']} pages"
+    - unless drop.src_meta['pdf_version'].nil?
+      %span.version= "PDF Version: #{drop.src_meta['pdf_version']}"
       
     

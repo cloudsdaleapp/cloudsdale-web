@@ -4,7 +4,7 @@ gem 'rails', '3.2.0'
 
 # Database NO-SQL
 gem 'mongoid'
-gem 'bson_ext', '1.5.1'
+gem 'bson_ext', '1.5.2'
 gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
 gem 'mongoid_rails_migrations'
 

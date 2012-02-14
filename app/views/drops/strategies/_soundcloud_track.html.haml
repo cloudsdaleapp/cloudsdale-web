@@ -6,14 +6,12 @@
     = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
       - if drop.preview.url
         = image_tag drop.preview.url, :title => drop.title
-      - else
-        = image_tag "other/unknown_pony_preview.jpg"
   .info
-    - unless drop[:metadata]['author'].nil?
+    - unless drop.src_meta['author'].nil?
       = "By "
-      %span= drop[:metadata]['author']
-    - unless drop[:metadata]['genre'].nil?
-      %span.genre= "#{drop[:metadata]['genre']}"
-  - unless drop[:metadata]['description'].nil?
-    %p= truncate(drop[:metadata]['description'], :length => 150)
+      %span= drop.src_meta['author']
+    - unless drop.src_meta['genre'].nil?
+      %span.genre= "#{drop.src_meta['genre']}"
+  - unless drop.src_meta['description'].nil?
+    %p= truncate(drop.src_meta['description'], :length => 150)
 	

@@ -21,7 +21,7 @@ class Drop
   
   field :title,               type: String
   
-  field :metadata,            type: Hash
+  field :src_meta,            type: Hash,         default: {}
   field :last_load,           type: DateTime
   field :hidden,              type: String,       default: "false"
   
@@ -38,7 +38,7 @@ class Drop
   
   before_save do
     re_fetch if last_load.nil? or last_load < 1.week.ago
-    self[:metadata] = {}.deep_merge(self[:metadata].to_hash)
+    self[:src_meta] = {}.deep_merge(self[:src_meta].to_hash)
   end
   
   # Tire, Mongoid requirements
@@ -68,7 +68,7 @@ class Drop
   end
   
   def to_indexed_json
-    self.to_json(:only => [ :_id,:_type,:title,:total_visits,:strategy,:metadata,:votes,:created_at,:updated_at,:hidden], :methods => [:preview_versions])
+    self.to_json(:only => [ :_id,:_type,:title,:total_visits,:strategy,:src_meta,:votes,:created_at,:updated_at,:hidden], :methods => [:preview_versions])
   end
   
   def self.paginate(options = {})
@@ -105,13 +105,13 @@ class Drop
   
   def set_data(response)
     self[:title]      = response.data.title
-    self[:metadata]   = {}.deep_merge(response.data.to_hash)
+    self[:src_meta]   = {}.deep_merge(response.data.to_hash)
     self[:status]     = response.status
     self[:strategy]   = response.strategy.layout_key
     self[:last_load]  = -> { DateTime.current }.call
     self[:url]        = self[:match_id] || response.strategy.uri.to_s
     
-    set_preview_image(self[:metadata]['preview_image'],self[:metadata]['preview_image_is_local']) if self[:metadata]['preview_image']
+    set_preview_image(self[:src_meta]['preview_image'],self[:src_meta]['preview_image_is_local']) if self[:src_meta]['preview_image']
   end
   
   private

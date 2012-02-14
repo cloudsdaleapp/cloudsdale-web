@@ -59,20 +59,6 @@ namespace :deploy do
       run "#{try_sudo} chown -R deploy:deploy /opt/app"
     end
   end
-  
-  namespace :drops do
-    desc "Reloads the preview image files"
-    task :reload, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
-      run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} drops:images:reload"
-    end
-  end
-  
-  namespace :users do
-    desc "Reload the user avatars"
-    task :recreate_avatars, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
-      run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} users:reload_avatars"
-    end
-  end
 
   desc "Setup your git-based deployment app"
   task :setup, :except => { :no_release => true } do
@@ -97,6 +83,10 @@ namespace :deploy do
   task :update_code, :except => { :no_release => true } do
     run "cd #{current_path}; git fetch origin; git reset --hard #{branch}"
     finalize_update
+  end
+
+  task :mongo_migrate, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
+    run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} db:migrate"
   end
 
   desc "Update the database (overwritten to avoid symlink)"

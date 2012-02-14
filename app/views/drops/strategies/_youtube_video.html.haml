@@ -8,15 +8,15 @@
         = image_tag drop.preview.url, :title => drop.title
   
   .info
-    - unless drop[:metadata]['upload_date'].nil?
+    - unless drop.src_meta['upload_date'].nil?
       = "Uploaded "
-      - if drop[:metadata]['upload_date'].is_a? String
-        %span= drop[:metadata]['upload_date']
+      - if drop.src_meta['upload_date'].is_a? String
+        %span= drop.src_meta['upload_date']
       - else
-        %span= drop[:metadata]['upload_date'].strftime("%e %b %Y")
-    - unless drop[:metadata]['author'].nil?
+        %span= drop.src_meta['upload_date'].strftime("%e %b %Y")
+    - unless drop.src_meta['author'].nil?
       = " by "
-      %span= drop[:metadata]['author']
+      %span= drop.src_meta['author']
 
-  - unless drop[:metadata]['description'].nil?
-    %p= truncate(drop[:metadata]['description'], :length => 126)
+  - unless drop.src_meta['description'].nil?
+    %p= truncate(drop.src_meta['description'], :length => 126)
