@@ -1,8 +1,10 @@
 GIT
   remote: git://github.com/Zeeraw/Urifetch.git
-  revision: 1d510d9fef220e9e8a412016fc0eb213775450d4
+  revision: b08443c14fc3f9b6251a11e26ed42d63f742387f
   specs:
-    urifetch (0.0.5.rc1)
+    urifetch (0.1.0.rc1)
+      actionpack
+      activesupport
       addressable
       hashie
       imagesize
