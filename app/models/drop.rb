@@ -39,6 +39,7 @@ class Drop
   before_save do
     re_fetch if last_load.nil? or last_load < 1.week.ago
     self[:src_meta] = {}.deep_merge(self[:src_meta].to_hash)
+    self[:_type] = "Drop"
   end
   
   # Tire, Mongoid requirements
