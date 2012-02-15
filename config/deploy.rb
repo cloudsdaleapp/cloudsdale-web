@@ -15,11 +15,10 @@ set :user,            "deploy"
 set :group,           "deploy"
 set :use_sudo,        false
 
-role :web, "rarity.web.cloudsdale.org", "applejack.web.cloudsdale.org", "fluttershy.web.cloudsdale.org"
-role :app, "rarity.web.cloudsdale.org", :primary => true
-role :app, "applejack.web.cloudsdale.org", "fluttershy.web.cloudsdale.org"
-role :db,  "rarity.web.cloudsdale.org", :primary => true
-role :faye, "celestia.chat.cloudsdale.org"
+role :web, "50.57.221.158"
+role :app, "50.57.221.158", :primary => true
+role :db,  "50.57.221.158", :primary => true
+#role :faye, "celestia.chat.cloudsdale.org"
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }
