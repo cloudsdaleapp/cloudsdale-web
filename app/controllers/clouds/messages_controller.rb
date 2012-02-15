@@ -19,16 +19,12 @@ class Clouds::MessagesController < ApplicationController
     @cloud.chat.messages.order_by(:timestamp,:desc).skip(50).each{|m|m.destroy}
     @message = @cloud.chat.messages.build author: current_user, content: params[:message]
     
-    @drops = []
     @message.urls.each do |url|
-      drop = @cloud.create_drop_deposit_from_url_by_user(url,current_user)
-      unless drop.nil?
-        @drops << drop
-      end
+      @cloud.create_drop_deposit_from_url_by_user(url,current_user)
     end
     
     if @message.save
-      faye_broadcast "/cloud/#{@cloud.id}/chat", { uid: @message.author_id ,content: @message.content, timestamp: @message.timestamp.utc, user_name: @message.user_name, user_path: @message.user_path, user_avatar: @message.user_avatar, client_id: params[:client_id], drops: @drops }
+      faye_broadcast "/cloud/#{@cloud.id}/chat", { uid: @message.author_id ,content: @message.content, timestamp: @message.timestamp.utc, user_name: @message.user_name, user_path: @message.user_path, user_avatar: @message.user_avatar, client_id: params[:client_id] }
       render :json => :success
     else
       render :json => @message.errors

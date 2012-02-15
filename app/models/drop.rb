@@ -79,14 +79,15 @@ class Drop
     response  = Urifetch.fetch_from(url)
     match_id  = response.data.match_id || response.strategy.uri.to_s
     
+    drop = Drop.find_or_initialize_by(match_id: match_id)
+    
     if response.status[0].to_s == "200"
-      drop = Drop.find_or_initialize_by(match_id: match_id)
       drop.set_data(response)
-      drop
     else
-      nil
+      drop.status = response.status
     end
-
+    
+    drop
   end
   
   def visitable?

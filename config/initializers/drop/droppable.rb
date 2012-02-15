@@ -8,10 +8,8 @@ module Droppable
       dp = d.deposits.find_or_initialize_by(depositable_id: i, depositable_type: t)
       dp.depositers << user unless dp.depositer_ids.include?(user.id)
       dp.save
-      d
-    else
-      nil
     end
+    d
   end
   
 end
