@@ -15,10 +15,10 @@ set :user,            "deploy"
 set :group,           "deploy"
 set :use_sudo,        false
 
-role :web, "50.57.221.158"
-role :app, "50.57.221.158", :primary => true
-role :db,  "50.57.221.158", :primary => true
-#role :faye, "celestia.chat.cloudsdale.org"
+role :web,  "web.cloudsdale.org"
+role :app,  "web.cloudsdale.org", :primary => true
+role :db,   "db.cloudsdale.org", :primary => true
+role :faye, "chat.cloudsdale.org"
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }
