@@ -4,7 +4,7 @@ require 'capistrano_colors'
 
 set :scm,             :git
 set :repository,      "git@github.com:IOMUSE/Cloudsdale.git"
-set :branch,          "origin/deploy"
+set :branch,          "origin/server-migration-tmp"
 set :migrate_target,  :current
 set :ssh_options,     { :forward_agent => true }
 set :rails_env,       "production"
@@ -15,11 +15,10 @@ set :user,            "deploy"
 set :group,           "deploy"
 set :use_sudo,        false
 
-role :web, "rarity.web.cloudsdale.org", "applejack.web.cloudsdale.org", "fluttershy.web.cloudsdale.org"
-role :app, "rarity.web.cloudsdale.org", :primary => true
-role :app, "applejack.web.cloudsdale.org", "fluttershy.web.cloudsdale.org"
-role :db,  "rarity.web.cloudsdale.org", :primary => true
-role :faye, "celestia.chat.cloudsdale.org"
+role :web,  "web.cloudsdale.org"
+role :app,  "web.cloudsdale.org", :primary => true
+role :db,   "db.cloudsdale.org", :primary => true
+role :faye, "chat.cloudsdale.org"
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }

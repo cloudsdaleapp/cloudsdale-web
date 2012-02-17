@@ -20,7 +20,7 @@ development:
       port: 6379
   rackspace_cloudfiles:
     username: zeeraw
-    api_key: 8df411c5fe3d2a3580ab48e661d277ee
+    api_key: fb02d3d2336d887b81c7401d522ea393
     fog_directory: cloudsdale_development_uploads
     fog_host: http://c775851.r51.cf2.rackcdn.com
   faye:
@@ -46,26 +46,26 @@ production:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
   tire:
-    host: pinkie.snet.misc.cloudsdale.org
+    host: db.s.cloudsdale.org
     port: 9200
   redis:
-    host: twilight.snet.misc.cloudsdale.org
+    host: db.s.cloudsdale.org
     port: 6379
     chat:
       host: 127.0.0.1
       port: 6379
   rackspace_cloudfiles:
     username: zeeraw
-    api_key: 8df411c5fe3d2a3580ab48e661d277ee
+    api_key: fb02d3d2336d887b81c7401d522ea393
     fog_directory: cloudsdale_production_uploads
     fog_host: http://c775850.r50.cf2.rackcdn.com
   faye:
     path: faye
     schema: http
-    host: celestia.chat.cloudsdale.org
+    host: chat.cloudsdale.org
     port: 80
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
-    inhouse_host: celestia.snet.chat.cloudsdale.org
+    inhouse_host: chat.s.cloudsdale.org
   soundcloud:
     client_id: 3897d7c3ae5a3178c8626d7b51ce370a
     client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b

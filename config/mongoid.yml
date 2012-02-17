@@ -18,19 +18,30 @@ test:
   use_utc: true
   use_activesupport_time_zone: true
   identity_map_enabled: true
-  
+
+
 production:
-  hosts: 
-    - - scootaloo.snet.mongo.cloudsdale.org
-      - 27017
-    - - applebloom.snet.mongo.cloudsdale.org
-      - 27017
-    - - sweetiebelle.snet.mongo.cloudsdale.org
-      - 27017
-  read_secondary: true
+  host: db.s.cloudsdale.org
   username: cloudsdale
   password: 62148f9b9158ead23c8ace8c1b081055d068a216d3096b95f6399508f6674d6e3bf6ebbfcdbe85b126b431a8674a1d59370918683781976be5cfeba2c89f94b4
   database: cloudsdale
+  port: 27017
   use_utc: true
   use_activesupport_time_zone: true
   identity_map_enabled: true
+  
+# production:
+#   hosts: 
+#     - - scootaloo.snet.mongo.cloudsdale.org
+#       - 27017
+#     - - applebloom.snet.mongo.cloudsdale.org
+#       - 27017
+#     - - sweetiebelle.snet.mongo.cloudsdale.org
+#       - 27017
+#   read_secondary: true
+#   username: cloudsdale
+#   password: 62148f9b9158ead23c8ace8c1b081055d068a216d3096b95f6399508f6674d6e3bf6ebbfcdbe85b126b431a8674a1d59370918683781976be5cfeba2c89f94b4
+#   database: cloudsdale
+#   use_utc: true
+#   use_activesupport_time_zone: true
+#   identity_map_enabled: true
