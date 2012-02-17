@@ -58,7 +58,7 @@ class User
   before_save do
     self[:auth_token]     = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
     self[:_type] = "User"
-    email.downcase! if email.present?
+    self[:email] = self[:email].downcase if email.present?
     encrypt_password
     enable_account_on_password_change
     set_creation_date
