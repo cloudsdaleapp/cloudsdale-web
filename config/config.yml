@@ -46,7 +46,7 @@ production:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
   tire:
-    host: db.cloudsdale.org
+    host: db.s.cloudsdale.org
     port: 9200
   redis:
     host: db.s.cloudsdale.org
