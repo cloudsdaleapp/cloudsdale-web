@@ -1,2 +1,2 @@
-MAINTENANCE = true
+MAINTENANCE = false
 MAINTENANCE_MESSAGE = "Cloudsdale is undergoing maintenance we will be back in due time. Account resigtered after Feb 17 01:00 GMT+1 will not be available no longer. We're truly sorry for the inconvenience and will be back shortly."
