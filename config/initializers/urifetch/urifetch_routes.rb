@@ -15,7 +15,7 @@ Urifetch.route do
   match /(?<soundcloud_user>(soundcloud.com)\/(?<user_id>[a-z0-9\-\_]+)\/?$)/i, :soundcloud_user, strategy_class: 'Urifetch::Strategy::SoundCloudUser'
   
   # Cloudsdale Specific
-  match /(https?:\/\/(www|local).cloudsdale.org(\:\d{4})?\/users\/(?<user_id>[a-z0-9]{24}))/i,  :cloudsdale_users
-  match /(https?:\/\/(www|local).cloudsdale.org(\:\d{4})?\/users\/(?<cloud_id>[a-z0-9]{24}))/i, :cloudsdale_clouds
+  match /(?<match_id>(https?:\/\/(www|local).cloudsdale.org(\:\d{4})?\/users\/(?<user_id>[a-z0-9]{24})))/i,  :cloudsdale_users, strategy_class: 'Urifetch::Strategy::CloudsdaleUser'
+  match /(?<match_id>(https?:\/\/(www|local).cloudsdale.org(\:\d{4})?\/clouds\/(?<cloud_id>[a-z0-9]{24})))/i, :cloudsdale_clouds, strategy_class: 'Urifetch::Strategy::CloudsdaleCloud'
 
 end
