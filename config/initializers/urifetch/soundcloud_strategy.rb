@@ -24,11 +24,14 @@ class Urifetch::Strategy::SoundCloudUser < Urifetch::Strategy::SoundCloud
 
   def process_request
     set :match_id,      @uri.to_s
+    
+    # OpenGraph Standardized
     set :title,         @user.username
     set :image,         @user.avatar_url
+    set :description,   @user.description
+    
     set :full_name,     @user.full_name
     set :country,       @user.country
-    set :description,   @user.description
   end
 
 end
@@ -42,10 +45,12 @@ class Urifetch::Strategy::SoundCloudTrack < Urifetch::Strategy::SoundCloud
 
   def process_request
     set :match_id,      @uri.to_s
+    
+    # OpenGraph Standardized
     set :title,         @track.title
     set :image,         @track.artwork_url
     set :description,   @track.description
-    
+  
     set :author,        @track.user.username
     set :genre,         @track.genre
   end

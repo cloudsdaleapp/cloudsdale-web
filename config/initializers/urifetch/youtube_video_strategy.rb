@@ -16,29 +16,21 @@ class Urifetch::Strategy::YoutubeVideo < Urifetch::Strategy::Base
   end
   
   def process_request
-        
-    set :image, "http://img.youtube.com/vi/#{match_data["youtube_id"]}/0.jpg"
-    set :video_id, match_data["youtube_id"]
-    set :match_id, "http://www.youtube.com/watch?v=#{match_data["youtube_id"]}"
-
-    # # Title
-    set :title, @video.title
-
-    # # Upload Date
-    set :video_release_date, @video.published_at || DateTime.utc.now
-
-    # # Author
-    set :video_director, @video.author.name || ""
     
-    # # Description
+    # Cloudsdale Data
+    set :match_id, "http://www.youtube.com/watch?v=#{match_data["youtube_id"]}"
+    set :video_id, match_data["youtube_id"]
+    
+    # OpenGraph Standardized
+    set :image, "http://img.youtube.com/vi/#{match_data["youtube_id"]}/0.jpg"
+    set :title, @video.title
     set :description, @video.description || ""
     
-    # # Duration
+    # OpenGraph Video
+    set :video_release_date, @video.published_at || DateTime.utc.now
+    set :video_director, @video.author.name || ""
     set :video_duration, @video.duration || 0
-    
-    # # Tags
     set :video_tags, @video.keywords || []
-    
   end
   
 end
