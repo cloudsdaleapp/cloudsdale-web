@@ -7,7 +7,8 @@ class Urifetch::Strategy::PDFDocument < Urifetch::Strategy::Base
   def process_request
     
     # Match ID
-    set :match_id, @request.base_uri.to_s
+    set :url,       @request.base_uri.to_s
+    set :match_id,  @request.base_uri.to_s
     
     # Title
     set :title, File.basename(@request.base_uri.to_s)

@@ -23,6 +23,8 @@ class Urifetch::Strategy::SoundCloudUser < Urifetch::Strategy::SoundCloud
   end
 
   def process_request
+    
+    set :url,           @uri.to_s
     set :match_id,      @uri.to_s
     
     # OpenGraph Standardized
@@ -44,6 +46,8 @@ class Urifetch::Strategy::SoundCloudTrack < Urifetch::Strategy::SoundCloud
   end
 
   def process_request
+    
+    set :url,           @uri.to_s
     set :match_id,      @uri.to_s
     
     # OpenGraph Standardized

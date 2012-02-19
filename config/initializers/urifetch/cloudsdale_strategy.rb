@@ -14,6 +14,8 @@ class Urifetch::Strategy::CloudsdaleUser < Urifetch::Strategy::Base
   end
   
   def process_request
+    
+    set :url,           @uri.to_s
     set :match_id,      match_data['match_id']
     
     set :title,               @user.name
@@ -39,6 +41,8 @@ class Urifetch::Strategy::CloudsdaleCloud < Urifetch::Strategy::Base
   end
   
   def process_request
+    
+    set :url,           @uri.to_s
     set :match_id,      match_data['match_id']
     
     set :title,         @cloud.name

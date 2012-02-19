@@ -18,7 +18,8 @@ class Urifetch::Strategy::YoutubeVideo < Urifetch::Strategy::Base
   def process_request
     
     # Cloudsdale Data
-    set :match_id, "http://www.youtube.com/watch?v=#{match_data["youtube_id"]}"
+    set :url,       "http://www.youtube.com/watch?v=#{match_data["youtube_id"]}"
+    set :match_id,  "http://www.youtube.com/watch?v=#{match_data["youtube_id"]}"
     set :video_id, match_data["youtube_id"]
     
     # OpenGraph Standardized
