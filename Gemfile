@@ -40,7 +40,7 @@ gem 'cancan'
 gem 'client_side_validations'
 
 # Images and Image manipulation
-gem 'fog'
+gem 'fog', '0.9.0'
 gem 'cloudfiles'
 gem 'mini_magick'
 gem 'rmagick'
