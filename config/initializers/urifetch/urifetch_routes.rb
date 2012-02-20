@@ -11,7 +11,7 @@ Urifetch.route do
   match /youtube.com\/watch.*[\?\&]v=(?<youtube_id>[A-Za-z0-9\_\-]{9,11}).*$|youtu.be\/(?<youtube_id>[A-Za-z0-9\_\-]{9,11}).*$/i, :youtube_video, strategy_class: 'Urifetch::Strategy::YoutubeVideo'
   
   # Soundcloud
-  match /(?<soundcloud_track>(soundcloud.com)\/(?<user_id>[a-z0-9\-\_]+)\/(?<track_id>[a-z0-9\-\_]+)\/?$)/i, :soundcloud_track, strategy_class: 'Urifetch::Strategy::SoundCloudUser'
+  match /(?<soundcloud_track>(soundcloud.com)\/(?<user_id>[a-z0-9\-\_]+)\/(?<track_id>[a-z0-9\-\_]+)\/?$)/i, :soundcloud_track, strategy_class: 'Urifetch::Strategy::SoundCloudTrack'
   match /(?<soundcloud_user>(soundcloud.com)\/(?<user_id>[a-z0-9\-\_]+)\/?$)/i, :soundcloud_user, strategy_class: 'Urifetch::Strategy::SoundCloudUser'
   
   # Cloudsdale Specific
