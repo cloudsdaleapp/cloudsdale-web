@@ -46,6 +46,7 @@ class PreviewUploader < CarrierWave::Uploader::Base
   def resize_to_fit_x_500
     manipulate! do |img|
       img.resize_to_fit!(500)
+      img
     end
   end
   
