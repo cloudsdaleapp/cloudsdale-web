@@ -156,6 +156,7 @@ ul.drop-facet-list
 ul.drop-list
   list-style: none
   margin: 0 0 0 0
+  padding-left: 30px
   
   li.pending
     position: relative
@@ -171,14 +172,15 @@ ul.drop-list
     margin-bottom: 15px
     padding: 0
     +border-radius(3px)
+    background: rgba(0,0,0,.03)
     
     header
       margin: 0
       padding: 2px 5px
       +border-radius(2px 2px 0 0)
-      +linear-gradient(#FFFFFF,#F5F5F5)
+      //+linear-gradient(#FFFFFF,#F5F5F5)
       +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.9))
-      border: 1px rgba(50, 50, 50, 0.3) solid
+      border-bottom: 3px rgba(50, 50, 50, 0.3) solid
       img
         float: left
         max-height: 16px
@@ -198,10 +200,6 @@ ul.drop-list
       padding: 0
       word-wrap: break-word
       background: #FFFFFF
-      border: 1px rgba(50, 50, 50, 0.3) solid
-      border-top: none
-      border-bottom: none
-      //border-bottom-color: #999999
       &:after
         content: "."
         display: block
@@ -221,9 +219,7 @@ ul.drop-list
       margin: 0
       padding: 0 3px
       +border-radius(0 0 2px 2px)
-      border: 1px rgba(50, 50, 50, 0.3) solid
-      border-top: none
-      +linear-gradient(#ffffff,#f6f6f6)
+      border-top: 3px rgba(50, 50, 50, 0.3) solid
       word-wrap: break-word
       &:after
         content: "."
@@ -293,50 +289,68 @@ ul.drop-list
 
 // IMAGE DROP
 
-ul.drop-list > li.drop.default
+ul.drop-list > li.drop.default, ul.drop-list > li.drop.base
   .drop-content
-    padding: 5px
-
+    min-height: 45px
+    a.main-url
+      position: absolute
+      bottom: 10px
+      left: 10px
+      font-size: 90%
+      font-weight: bold
+      color: #E6E6E6
+      background: rgba(0,0,0,.3)
+      padding: 3px 5px
+      +border-radius(3px)
+      &:hover
+        color: #FFFFFF
+    
 ul.drop-list > li.drop.image
   .drop-content
     .info
-      padding: 10px
+      position: absolute
+      bottom: 0
+      right: 0
+      margin: 5px
       span
-        font-size: 120%
+        font-size: 110%
         font-weight: bold
         display: block
-        margin-bottom: 3px
+        margin-top: 3px
+        color: #E6E6E6
+        background: rgba(0,0,0,.3)
+        padding: 3px 5px
+        +border-radius(3px)
+        
     .float-left
-      margin: 10px
+
 
 ul.drop-list > li.drop.pdf_document
   .drop-content
     .info
-      padding: 10px
+      position: absolute
+      right: 0px
+      bottom: 0px
+      margin: 5px
       span
-        font-size: 120%
-        font-weight: bold
         display: block
-        margin-bottom: 3px
+        font-weight: bold
+        color: #E6E6E6
+        margin-top: 3px
+        background: rgba(0,0,0,.3)
+        padding: 3px 5px
+        +border-radius(3px)
     .float-left
-      img
-        margin-right: 10px
-        margin-left: 10px
 
 ul.drop-list > li.drop.youtube_video
   header
-    +linear-gradient(rgb(62,62,62),rgb(40,40,40))
-    +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.3))
-    border-bottom-color: #191919
-    a
-      color: #F5F5F5
-      text-shadow: -1px -1px 1px rgba(0,0,0,.4)
-      &:hover
-        color: darken(#F5F5F5,15%)
+    border-color: rgb(62,62,62)
+  nav
+    border-color: rgb(40,40,40)
     
   .drop-content
     .float-left
-      margin: 5px 15px 5px 5px
+      margin: 7px 15px 7px 7px
     .info
       padding-top: 5px
       margin-bottom: 3px
@@ -347,13 +361,9 @@ ul.drop-list > li.drop.youtube_video
   
 ul.drop-list > li.drop.cloudsdale_users, ul.drop-list > li.drop.cloudsdale_clouds
   header
-    +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.7))
-    +linear-gradient($color-cd-background-light,$color-cd-background-dark)
-    a
-      color: #F5F5F5
-      text-shadow: -1px -1px 1px rgba(0,0,0,.3)
-      &:hover
-        color: darken(#F5F5F5,10%)
+    border-color: $color-cd-background-light
+  nav
+    border-color: $color-cd-background-dark
   .float-left
     +border-radius(3px)
     +linear-gradient(#fff,#E8F1FF)
@@ -370,20 +380,16 @@ ul.drop-list > li.drop.cloudsdale_users, ul.drop-list > li.drop.cloudsdale_cloud
         font-weight: bold
         display: block
         margin-bottom: 3px
-
+// 
 ul.drop-list > li.drop.soundcloud_track
   header
-    +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.7))
-    +linear-gradient(rgb(84,162,255),rgb(35,133,255))
-    a
-      color: #F5F5F5
-      text-shadow: -1px -1px 1px rgba(0,0,0,.4)
-      &:hover
-        color: darken(#F5F5F5,15%)
+    border-color: rgb(35,133,255)
+  nav
+    border-color: rgb(84,162,255)
     
   .drop-content
     .float-left
-      margin: 5px 15px 5px 5px
+      margin: 7px 15px 7px 7px
     .info
       padding-top: 5px
       margin-bottom: 3px
@@ -397,17 +403,13 @@ ul.drop-list > li.drop.soundcloud_track
     
 ul.drop-list > li.drop.soundcloud_user
   header
-    +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.7))
-    +linear-gradient(rgb(84,162,255),rgb(35,133,255))
-    a
-      color: #F5F5F5
-      text-shadow: -1px -1px 1px rgba(0,0,0,.4)
-      &:hover
-        color: darken(#F5F5F5,15%)
+    border-color: rgb(35,133,255)
+  nav
+    border-color: rgb(84,162,255)
     
   .drop-content
     .float-left
-      margin: 5px 15px 5px 5px
+      margin: 7px 15px 7px 7px
     .info
       padding-top: 5px
       margin-bottom: 3px

@@ -40,11 +40,11 @@ gem 'cancan'
 gem 'client_side_validations'
 
 # Images and Image manipulation
-gem 'fog'
+gem 'fog', '0.9.0'
 gem 'cloudfiles'
 gem 'mini_magick'
 gem 'rmagick'
-gem 'carrierwave', git: "git://github.com/jnicklas/carrierwave.git"
+gem 'carrierwave', '0.5.8'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'imagesize'
 gem 'pdf-reader'

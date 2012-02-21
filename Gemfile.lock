@@ -1,8 +1,10 @@
 GIT
   remote: git://github.com/Zeeraw/Urifetch.git
-  revision: 1d510d9fef220e9e8a412016fc0eb213775450d4
+  revision: b08443c14fc3f9b6251a11e26ed42d63f742387f
   specs:
-    urifetch (0.0.5.rc1)
+    urifetch (0.1.0.rc1)
+      actionpack
+      activesupport
       addressable
       hashie
       imagesize
@@ -20,14 +22,6 @@ GIT
       faye-websocket (>= 0.3.0)
       json (>= 1.0.0)
       rack (>= 1.0.0)
-
-GIT
-  remote: git://github.com/jnicklas/carrierwave.git
-  revision: 3fe8c8cc9cd8f803feb97bcbf49cea1767d19d66
-  specs:
-    carrierwave (0.6.0.beta)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
 
 GIT
   remote: git://github.com/karmi/tire.git
@@ -106,6 +100,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    carrierwave (0.5.8)
+      activesupport (~> 3.0)
     carrierwave-mongoid (0.1.3)
       carrierwave (>= 0.5.6)
       mongoid (~> 2.1)
@@ -138,7 +134,7 @@ GEM
     eventmachine (0.12.10)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
-    excon (0.9.5)
+    excon (0.6.6)
     execjs (1.2.9)
       multi_json (~> 1.0)
     factory_girl (2.3.2)
@@ -153,15 +149,15 @@ GEM
     faye-websocket (0.3.0)
       eventmachine (>= 0.12.0)
     ffi (1.0.11)
-    fog (1.1.2)
+    fog (0.9.0)
       builder
-      excon (~> 0.9.0)
-      formatador (~> 0.2.0)
+      excon (~> 0.6.1)
+      formatador (>= 0.1.3)
+      json
       mime-types
-      multi_json (~> 1.0.3)
-      net-scp (~> 1.0.4)
-      net-ssh (>= 2.1.3)
-      nokogiri (~> 1.5.0)
+      net-scp (>= 1.0.4)
+      net-ssh (>= 2.1.4)
+      nokogiri (>= 1.4.4)
       ruby-hmac
     foreman (0.38.0)
       term-ansicolor (~> 1.0.7)
@@ -387,7 +383,7 @@ DEPENDENCIES
   capistrano
   capistrano_colors
   capybara
-  carrierwave!
+  carrierwave (= 0.5.8)
   carrierwave-mongoid
   client_side_validations
   cloudfiles
@@ -397,7 +393,7 @@ DEPENDENCIES
   execjs
   factory_girl_rails
   faye!
-  fog
+  fog (= 0.9.0)
   foreman
   gist
   guard-livereload

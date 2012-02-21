@@ -77,12 +77,12 @@ class Drop
   end
     
   def self.find_or_initialize_from_matched_url(url)
-    response  = Urifetch.fetch_from(url)
-    match_id  = response.data.match_id || response.strategy.uri.to_s
+    response  = Urifetch.fetch(url)
+    match_id  = response.data['match_id'] || url
     
     drop = Drop.find_or_initialize_by(match_id: match_id)
     
-    if response.status[0].to_s == "200"
+    if response.status.include?("200")
       drop.set_data(response)
     else
       drop.status = response.status
@@ -96,7 +96,7 @@ class Drop
   end
   
   def re_fetch
-    set_data Urifetch.fetch_from(url)
+    set_data Urifetch.fetch(url)
     has_been_loaded = true
   end
   
@@ -106,14 +106,18 @@ class Drop
   end
   
   def set_data(response)
-    self[:title]      = response.data.title
-    self[:src_meta]   = {}.deep_merge(response.data.to_hash)
+    self[:strategy]   = response.strategy_key
     self[:status]     = response.status
-    self[:strategy]   = response.strategy.layout_key
-    self[:last_load]  = -> { DateTime.current }.call
-    self[:url]        = self[:match_id] || response.strategy.uri.to_s
+    self[:src_meta]   = response.data
     
-    set_preview_image(self[:src_meta]['preview_image'],self[:src_meta]['preview_image_is_local']) if self[:src_meta]['preview_image']
+    self[:title]      = response.data['title']
+    
+    self[:url]        = self[:match_id]
+    
+    self[:last_load]  = -> { DateTime.current }.call
+    if src_meta['image']
+      set_preview_image(src_meta['image'],src_meta['image_local'])
+    end
   end
   
   private

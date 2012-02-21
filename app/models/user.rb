@@ -81,9 +81,8 @@ class User
   
     self.drop.src_meta['avatar']             = self.avatar.preview.url
     self.drop.src_meta['subscribers_count']  = self.subscribers_count
-    self.drop.src_meta['member_since']       = Time.now
+    self.drop.src_meta['member_since']       = self[:member_since] || Time.now
     self.drop.src_meta['reference_id']       = self._id.to_s
-    
   end
   
   before_create do

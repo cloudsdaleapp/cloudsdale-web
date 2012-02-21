@@ -1,68 +1,55 @@
 # encoding: utf-8
 
-Urifetch.register do
-  match /(https?:\/\/(www|local).cloudsdale.org(\:\d{4})?\/users\/([a-z0-9]{24}))/i,  :cloudsdale_users
-  match /(https?:\/\/(www|local).cloudsdale.org(\:\d{4})?\/clouds\/([a-z0-9]{24}))/i, :cloudsdale_clouds
-end
+class Urifetch::Strategy::CloudsdaleUser < Urifetch::Strategy::Base
 
-Urifetch::Strategy.layout(:cloudsdale_users) do
-
-  before_request do
-    # Skips the normal request
-    @skip_request = true
-    
-    # Sets match ID
-    data.match_id = match_data[0]
-    
-    # Fetches data from user
-    user = User.find(match_data[4])
-    if user
-      data.title              = user.name
-      data.avatar             = user.avatar.preview.url
-      data.subscribers_count  = user.subscribers_count
-      data.member_since       = user.member_since.utc
-      data.reference_id       = user._id.to_s
-      
-      # Sets Status
-      status = ["200","OK"]
+  def perform_request
+    begin
+      timeout(30) { @user = User.find(match_data['user_id']) }
+      set_status ["200","OK"]
+    rescue Mongoid::Errors::DocumentNotFound
+      set_status ["404","Not Found"]
+    rescue
+      set_status ["500","Server Error"]
     end
   end
   
-  after_success do |request|
-  end
-  
-  after_failure do |error|
+  def process_request
+    
+    set :url,           @uri.to_s
+    set :match_id,      match_data['match_id']
+    
+    set :title,               @user.name
+    set :avatar,              @user.avatar.preview.url
+    set :subscribers_count,   @user.subscribers_count
+    set :member_since,        @user.member_since.utc
+    set :reference_id,        @user._id.to_s
   end
 
 end
 
-Urifetch::Strategy.layout(:cloudsdale_clouds) do
+class Urifetch::Strategy::CloudsdaleCloud < Urifetch::Strategy::Base
 
-  before_request do
-    # Skips the normal request
-    @skip_request = true
-    
-    # Sets match ID
-    data.match_id = match_data[0]
-    
-    # Fetches data from cloud
-    cloud = Cloud.find(match_data[4])
-    if cloud
-      data.title        = cloud.name
-      data.avatar       = cloud.avatar.preview.url
-      data.member_count = cloud.member_count
-      data.created_at   = cloud.created_at.utc
-      data.reference_id = cloud._id.to_s
-      
-      # Sets Status
-      status = ["200","OK"]
+  def perform_request
+    begin
+      timeout(30) { @cloud = Cloud.find(match_data['cloud_id']) }
+      set_status ["200","OK"]
+    rescue Mongoid::Errors::DocumentNotFound
+      set_status ["404","Not Found"]
+    rescue
+      set_status ["500","Server Error"]
     end
   end
   
-  after_success do |request|
-  end
-  
-  after_failure do |error|
+  def process_request
+    
+    set :url,           @uri.to_s
+    set :match_id,      match_data['match_id']
+    
+    set :title,         @cloud.name
+    set :avatar,        @cloud.avatar.preview.url
+    set :member_count,  @cloud.member_count
+    set :created_at,    @cloud.created_at.utc
+    set :reference_id,  @cloud._id.to_s
   end
 
 end
