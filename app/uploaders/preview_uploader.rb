@@ -25,7 +25,7 @@ class PreviewUploader < CarrierWave::Uploader::Base
   end
   
   version :banner do
-    process :resize_to_limit => [500,nil]
+    process :resize_to_fit_x_500
     process :convert => 'png'
     process :banner_crop
   end
@@ -48,7 +48,7 @@ class PreviewUploader < CarrierWave::Uploader::Base
       img.resize_to_fit!(500)
     end
   end
-
+  
   def filename
      "#{secure_token(10)}-preview.png" if original_filename.present?
   end
