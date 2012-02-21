@@ -5,13 +5,14 @@
   .float-left
     = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
       - if drop.preview.url
-        = image_tag drop.preview.url, :title => drop.title
+        = image_tag drop.preview.thumb.url, :title => drop.title
+      - else
+        = image_tag "artwork/soundcloud-logo.png"
   .info
     - unless drop.src_meta['author'].nil?
       = "By "
       %span= drop.src_meta['author']
     - unless drop.src_meta['genre'].nil?
       %span.genre= "#{drop.src_meta['genre']}"
-  - unless drop.src_meta['description'].nil?
-    %p= truncate(drop.src_meta['description'], :length => 150)
-	
+    - unless drop.src_meta['description'].nil?
+      %p= truncate(drop.src_meta['description'], :length => 150)

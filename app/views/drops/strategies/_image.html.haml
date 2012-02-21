@@ -4,10 +4,14 @@
 .drop-content
   .float-left
     = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
-      - if image_tag drop.preview.url
+      - if drop.preview.banner.url
+        = image_tag drop.preview.banner.url, :title => drop.title
+      - elsif drop.preview.thumb.url
+        = image_tag drop.preview.thumb.url, :title => drop.title
+      - elsif drop.preview.url
         = image_tag drop.preview.url, :title => drop.title
   .info
     - unless drop.src_meta['mime_type'].nil?
       %span.mimetype= drop.src_meta['mime_type'].sub(/^image\//,"").upcase
-    - unless drop.src_meta['image_size'] == [nil,nil]
-      %span.sizes= "#{drop.src_meta['image_size'][0]} × #{drop.src_meta['image_size'][1]}"
+    - unless drop.src_meta['image_height'].nil? and drop.src_meta['image_width'].nil?
+      %span.sizes= "#{drop.src_meta['image_height']} × #{drop.src_meta['image_width']}"
