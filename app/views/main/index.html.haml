@@ -12,11 +12,7 @@
   - elsif !current_user.checklist.read_terms_message
     = render :partial => 'read_terms_suggestion'
     
-.dropzone
-  .row
-    .span16
-      = render partial: 'drops/form', locals: { with_path: drops_path }
-            
+.dropzone            
   .row
     .span4
       .nav-wrapper
@@ -82,6 +78,7 @@
             
             
     .span12
+      = render partial: 'drops/form', locals: { with_path: drops_path }
       %ul.drop-list
         = render partial: 'drops/list_content'
         

@@ -22,66 +22,38 @@ body.drops
 
 form#drop
   padding: 0
-  margin: 0 0 10px 0
+  margin: 0 0 0 0
   padding: 10px
-  //+linear-gradient(#8CBBD9,#70B0D9)
-  +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-  -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
+  +linear-gradient(#fff,#F5F5F5)
   border: 1px rgba(50, 50, 50, 0.3) solid
-  +border-radius(5px)
+  border-bottom: 0
+  +border-radius(5px 5px 0 0)
   position: relative
   
   span.help-block
     display: none
     position: absolute
-    background: #C82E21
-    +border-radius(3px 3px 0 0)
-    color: #fff
+    color: #C82E21
     padding: 2px 7px
     font-weight: bold
-    top: -21px
+    top: -24px
+  
+  i
+    margin-top: 1px
   
   input
     border: 1px rgba(0, 0, 0, .3) solid
-    margin: 0
+    margin: 0 0 0 5px
     &[type=text]
       +border-radius(0)
-      +box-shadow-inset(1px,0,1px,rgba(0,0,0,0.1))
+      +box-shadow-inset(0px,0,1px,rgba(0,0,0,0.1))
       background: rgba(255,255,255,.95)
-      width: 600px
-    &[type=submit]
-      padding: 4px 8px 4px 32px
-      font-weight: 600
-      +border-radius(0)
-      background-color: #E6E6E6
-      background-repeat: no-repeat
-      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(white), color-stop(25%, white), to(#E6E6E6))
-      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -webkit-linear-gradient(white, white 25%, #E6E6E6)
-      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -moz-linear-gradient(top, white, white 25%, #E6E6E6)
-      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -ms-linear-gradient(white, white 25%, #E6E6E6)
-      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, -o-linear-gradient(white, white 25%, #E6E6E6)
-      background: image-url("icons/iconic/gray_dark/rain_16x14.png") 7px center no-repeat, linear-gradient(white, white 25%, #E6E6E6)
-      +transition(all 0.0 ease)
-      &:hover
-        background-color: #E6E6E6
-        background-repeat: no-repeat
-        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(white), color-stop(25%, white), to(#E6E6E6))
-        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -webkit-linear-gradient(white, white 25%, #E6E6E6)
-        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -moz-linear-gradient(top, white, white 25%, #E6E6E6)
-        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -ms-linear-gradient(white, white 25%, #E6E6E6)
-        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, -o-linear-gradient(white, white 25%, #E6E6E6)
-        background: image-url("icons/iconic/cyan/rain_16x14.png") 7px center no-repeat, linear-gradient(white, white 25%, #E6E6E6)
-        color: #3BF
   
   &.error
-    +linear-gradient(#C82E21,#B72A1E)
     span.help-block
       display: inline
-    input
-      border-color: rgba(0, 0, 0, .5)
+    input[type=text]
+      border-color: #C82E21
     input[type=submit]
       +opacity(.8)
       pointer-events: none
@@ -157,7 +129,7 @@ ul.drop-list
   //margin-left: 28px
   border: 1px rgba(50, 50, 50, 0.3) solid
   background: #fff
-  +border-radius(5px)
+  +border-radius(0 0 5px 5px)
   
   li:first-child
     +border-radius(5px 5px 0 0)
@@ -184,7 +156,7 @@ ul.drop-list
       margin: 0
       padding: 3px 0
       +border-radius(2px 2px 0 0)
-      border-bottom: 3px #797979 solid
+      border-bottom: 3px #E6E6E6 solid
       img
         float: left
         max-height: 16px
@@ -226,18 +198,18 @@ ul.drop-list
         left: 10px
         font-size: 12px
         font-weight: bold
-        color: #E6E6E6
-        background: #797979
-        padding: 3px 5px
+        color: $color-dark-gray
+        background: #E6E6E6
+        padding: 4px 7px 2px 5px
         +border-radius(3px 3px 0 0)
         &:hover
-          color: #FFFFFF
+          color: lighten($color-dark-gray,20%)
 
     nav
       margin: 0
       padding: 0 3px
       +border-radius(0 0 2px 2px)
-      border-top: 3px #797979 solid
+      border-top: 3px #E6E6E6 solid
       word-wrap: break-word
       &:after
         content: "."

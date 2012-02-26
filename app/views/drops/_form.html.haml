@@ -1,5 +1,6 @@
 = form_tag with_path, remote: true, method: :post, id: 'drop', class: 'form-inline' do
-  = text_field_tag :url, "", placeholder: 'Share a URL with the world...'
+  %i.icon-tint
+  = text_field_tag :url, "", placeholder: 'Drop a url...', class: 'span11'
   = hidden_field_tag :pending_id, ""
-  = submit_tag "Drop", disable_with: "Drop", class: 'btn'
+  //= submit_tag "Drop", disable_with: "Drop", class: 'btn'
   %span.help-block= "invalid url"

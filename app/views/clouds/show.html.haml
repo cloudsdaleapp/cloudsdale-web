@@ -19,10 +19,6 @@
 
 .dropzone
   .row
-    .span16
-      = render partial: 'drops/form', locals: { with_path: cloud_drops_path(@cloud) }
-            
-  .row
     .span4
       %ul.drop-facet-list
         %li.list-head= "Dropzone"
@@ -30,5 +26,6 @@
         %li= link_to "Top Rated", cloud_path(@cloud,sort:'top_rated'), class: 'top-rated'
         %li= link_to "Most Visited", cloud_path(@cloud,sort:'most_visited'), class: 'most-visited'
     .span12
+      = render partial: 'drops/form', locals: { with_path: cloud_drops_path(@cloud) }
       %ul.drop-list
         = render partial: 'drops/list_content', locals: { depositable: @cloud }
