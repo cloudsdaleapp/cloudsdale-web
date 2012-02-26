@@ -131,8 +131,6 @@ ul.drop-list
   background: #fff
   +border-radius(0 0 5px 5px)
   
-  li:first-child
-    +border-radius(5px 5px 0 0)
   li:last-child
     +border-radius(0 0 5px 5px)
   
@@ -142,7 +140,7 @@ ul.drop-list
     padding-left: 22px
     background: transparent $img-spinner-dark 0 top no-repeat
     h6
-      line-height: 12px
+      line-height: 16px
       font-size: 10px
     
   li.drop
@@ -150,12 +148,14 @@ ul.drop-list
     padding: 14px
     +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
     //background: rgba(0,0,0,.02)
-    border-bottom: 1px solid rgba(50, 50, 50, 0.3)
+    border-bottom: 1px solid #B3B3B3
+    &:last-child
+      border-top: 0
     
     header
       margin: 0
       padding: 3px 0
-      border-bottom: 2px #B3B3B3 solid
+      border-bottom: 1px #B3B3B3 solid
       img
         float: left
         max-height: 16px
@@ -174,7 +174,6 @@ ul.drop-list
       position: relative
       padding: 0
       word-wrap: break-word
-      background: #FFFFFF
 
       &:after
         content: "."
@@ -201,7 +200,7 @@ ul.drop-list
         font-size: 12px
         color: $color-dark-gray
         background: #E6E6E6
-        border: 2px solid #B3B3B3
+        border: 1px solid #B3B3B3
         border-bottom: 0
         padding: 4px 7px 2px 5px
         +border-radius(3px 3px 0 0)
@@ -218,7 +217,7 @@ ul.drop-list
     nav
       margin: 0
       padding: 0
-      border-top: 2px #B3B3B3 solid
+      border-top: 1px #B3B3B3 solid
       word-wrap: break-word
       font-size: 11px
       &:after
@@ -230,7 +229,7 @@ ul.drop-list
         height: 0
       a, span
         line-height: 22px
-        padding: 0 5px
+        padding: 0 2px
         display: inline
         
 // IMAGE DROP

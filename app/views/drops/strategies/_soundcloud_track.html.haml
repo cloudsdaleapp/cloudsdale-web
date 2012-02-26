@@ -4,7 +4,7 @@
 .drop-content
   .float-left
     = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
-      - if drop.preview.url
+      - if drop.preview.thumb.url
         = image_tag drop.preview.thumb.url, :title => drop.title
       - else
         = image_tag "artwork/soundcloud-logo.png"
