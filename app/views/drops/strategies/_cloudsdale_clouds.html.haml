@@ -4,7 +4,7 @@
   .float-left
     = link_to drop.url, class: 'preview' do
       = image_tag cloud_avatar_path(drop.src_meta['avatar'],:preview), :title => drop.title, onerror: "this.onerror = null; this.src='#{cloud_avatar_path(nil,:preview)}'"
-  .info
+  .description
     - unless drop.src_meta['member_count'].nil?
       %span.member-count= "#{drop.src_meta['member_count']} Members"
     - unless drop.src_meta['created_at'].nil?

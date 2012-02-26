@@ -7,7 +7,7 @@
       - if drop.preview.thumb.url
         = image_tag drop.preview.thumb.url, :title => drop.title
   
-  .info
+  .description
     - unless drop.src_meta['upload_date'].nil?
       = "Uploaded "
       - if drop.src_meta['upload_date'].is_a? String
@@ -18,5 +18,5 @@
       = " by "
       %span= drop.src_meta['author']
 
-  - unless drop.src_meta['description'].nil?
-    %p= truncate(drop.src_meta['description'], :length => 126)
+    - unless drop.src_meta['description'].nil?
+      %p= truncate(drop.src_meta['description'], :length => 126)

@@ -8,7 +8,7 @@
         = image_tag drop.preview.thumb.url, :title => drop.title
       - else
         = image_tag "artwork/soundcloud-logo.png"
-  .info
+  .description
     - unless drop.src_meta['author'].nil?
       = "By "
       %span= drop.src_meta['author']
