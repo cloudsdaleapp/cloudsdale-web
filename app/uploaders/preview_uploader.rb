@@ -34,7 +34,6 @@ class PreviewUploader < CarrierWave::Uploader::Base
     manipulate! do |img|   
       h = img.rows
       w = img.columns
-    
       if h > 150
         ch = ((h-150)/2)
         img.crop!(0,ch,w,150,true)
@@ -45,10 +44,15 @@ class PreviewUploader < CarrierWave::Uploader::Base
   
   def resize_to_fit_x_500
     manipulate! do |img|
-      if img.columns < 500
-        img.resize_to_fill!(500)
-      elsif img.columns >= 500
-        img.resize_to_fit!(500)
+      
+      desired_width = 500
+      height = img.rows
+      width = img.columns
+      
+      if img.columns < desired_width
+        img.resize_to_fill!(desired_width,(height*desired_width/width))
+      elsif img.columns >= desired_width
+        img.resize_to_fit!(desired_width,(height*desired_width/width))
       end
       img
     end
