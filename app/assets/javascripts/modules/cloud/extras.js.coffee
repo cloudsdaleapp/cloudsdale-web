@@ -16,6 +16,7 @@ do ($ = jQuery) ->
       @expandTrigger.bind 'click', =>
         @frame.toggleClass('expanded')
         if @frame.hasClass('expanded') then @expandTrigger.find('span').text("less") else @expandTrigger.find('span').text("more")
+        false
       
       @subscription = document.fayeCli.subscribe "/cloud/#{@cloud.cloudId}/presence", (data) =>
         @refreshPresence(data)
