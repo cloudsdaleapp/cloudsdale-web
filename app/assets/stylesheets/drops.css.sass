@@ -149,38 +149,42 @@ ul.drop-facet-list
         background-image: $img-spinner-dark
         background-size: 12px 12px
       
-      
-        
-    
 
 ul.drop-list
   list-style: none
-  margin: 0 0 0 0
-  padding-left: 30px
+  margin: 0
+  padding: 0
+  //margin-left: 28px
+  border: 1px rgba(50, 50, 50, 0.3) solid
+  background: #fff
+  +border-radius(5px)
+  
+  li:first-child
+    +border-radius(5px 5px 0 0)
+  li:last-child
+    +border-radius(0 0 5px 5px)
   
   li.pending
     position: relative
-    margin-bottom: 20px
-    padding-left: 40px
-    background: transparent $img-spinner-dark 15px center no-repeat
+    margin: 15px
+    padding-left: 22px
+    background: transparent $img-spinner-dark 0 top no-repeat
     h6
       line-height: 12px
       font-size: 10px
     
   li.drop
     position: relative
-    margin-bottom: 15px
-    padding: 0
-    +border-radius(3px)
-    background: rgba(0,0,0,.03)
+    padding: 14px
+    +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
+    //background: rgba(0,0,0,.02)
+    border-bottom: 1px solid rgba(50, 50, 50, 0.3)
     
     header
       margin: 0
-      padding: 2px 5px
+      padding: 3px 0
       +border-radius(2px 2px 0 0)
-      //+linear-gradient(#FFFFFF,#F5F5F5)
-      +box-shadow-inset(0px,0px,2px,rgba(255,255,255,.9))
-      border-bottom: 3px rgba(50, 50, 50, 0.3) solid
+      border-bottom: 3px #797979 solid
       img
         float: left
         max-height: 16px
@@ -200,6 +204,7 @@ ul.drop-list
       padding: 0
       word-wrap: break-word
       background: #FFFFFF
+
       &:after
         content: "."
         display: block
@@ -214,12 +219,25 @@ ul.drop-list
           float: left
           display: block
           line-height: 0
+          
+      .info-block
+        position: absolute
+        bottom: 0
+        left: 10px
+        font-size: 12px
+        font-weight: bold
+        color: #E6E6E6
+        background: #797979
+        padding: 3px 5px
+        +border-radius(3px 3px 0 0)
+        &:hover
+          color: #FFFFFF
 
     nav
       margin: 0
       padding: 0 3px
       +border-radius(0 0 2px 2px)
-      border-top: 3px rgba(50, 50, 50, 0.3) solid
+      border-top: 3px #797979 solid
       word-wrap: break-word
       &:after
         content: "."
@@ -292,18 +310,6 @@ ul.drop-list
 ul.drop-list > li.drop.default, ul.drop-list > li.drop.base
   .drop-content
     min-height: 45px
-    a.main-url
-      position: absolute
-      bottom: 10px
-      left: 10px
-      font-size: 90%
-      font-weight: bold
-      color: #E6E6E6
-      background: rgba(0,0,0,.3)
-      padding: 3px 5px
-      +border-radius(3px)
-      &:hover
-        color: #FFFFFF
     
 ul.drop-list > li.drop.image
   .drop-content
