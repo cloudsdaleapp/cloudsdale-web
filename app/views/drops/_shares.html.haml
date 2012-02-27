@@ -1,28 +1,17 @@
 = "Dropped "
 
-- deposits_through = deposits.on_clouds
-- unless deposits_through.empty?
-  = "through "
-  - deposits_through.each_with_index do |deposit,index|
-    - if index < 2
-      - unless deposits_through.first == deposit
-        = ", "
-      = link_to deposit.depositable.name, depositable_path(deposit)
-    / - elsif index == 2
-    /   = "and"
-    /   = link_to " #{deposits.size - 1} more ", "#", class: 'more-dropped-through'
+- unless depositable
+  - available_deposits = deposits.on_clouds
+  - unless available_deposits.empty?
+    - depositable = available_deposits.order_by('updated_at',:desc).first.depositable
+    - unless depositable.nil?
+      = "through "
+      = link_to depositable.name, cloud_path(depositable)
 
-- depositers = deposits.map(&:depositers).flatten.uniq
-- unless depositers.empty?
+- depositer = deposits.order_by('updated_at',:desc).map(&:depositers).flatten.uniq.first
+- unless depositer.nil?
   = "by "
-  - depositers.each_with_index do |depositer,index|
-    - if index < 3
-      - unless (depositers.first == depositer)
-        = depositers.count > 2 ? ", " : "and "
-      - if depositer == current_user
-        = dynamic_user_name(depositer)
-      - else
-        = link_to dynamic_user_name(depositer), user_path(depositer)
-    / - elsif index == 3
-    /   = " and"
-    /   = link_to "#{deposits.size - 2} more", "#", class: 'more-dropped-by'
+  - if depositer == current_user
+    = dynamic_user_name(depositer)
+  - else
+    = link_to dynamic_user_name(depositer), user_path(depositer)

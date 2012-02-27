@@ -2,8 +2,6 @@
   = render :partial => "drops/strategies/#{drop.strategy}", locals: { drop: drop }
 
   %nav
-    - depositable ||= User.new
     = render partial: 'drops/shares', locals: { drop: drop, deposits: deposits, depositable: depositable }
     %span.square-separator= "•"
     = drop_timestamp(drop,deposits,depositable)
-  //.right-nav= render partial: 'drops/votes/vote_links', locals: { drop: drop }

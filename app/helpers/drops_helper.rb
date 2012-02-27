@@ -12,12 +12,13 @@ module DropsHelper
   
   def drop_timestamp(drop,deposits,depositable=nil)
     if depositable.nil?
+      latest_update = drop.updated_at
       ts = time_ago_in_words(drop.updated_at)
     else
-      latest_update = deposits.order_by("#{depositable.id.to_s}_updated_at",:desc).first.try(:updated_at) || Time.now.utc
+      latest_update = deposits.order_by_depositable(depositable,:desc).first.updated_at_on_depositable(depositable) || Time.now.utc
       ts = time_ago_in_words(latest_update)
     end
-    content_tag(:span, class: :timestamp) do
+    content_tag(:span, class: :timestamp, data: { timestamp: latest_update.to_js }) do
       "#{ts} ago"
     end
   end
