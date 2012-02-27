@@ -14,4 +14,4 @@
     - unless drop.src_meta['mime_type'].nil?
       %span.mimetype= drop.src_meta['mime_type'].sub(/^image\//,"").upcase
     - unless drop.src_meta['image_height'].nil? and drop.src_meta['image_width'].nil?
-      %span.sizes= "#{drop.src_meta['image_height']} × #{drop.src_meta['image_width']}"
+      %span.sizes= "#{drop.src_meta['image_width']} × #{drop.src_meta['image_height']}"
