@@ -6,7 +6,7 @@
     = link_to image_tag("icons/cloud/twitter_cloud.png"), "/auth/twitter", :class => 'btn btn-primary', 'data-skip-pjax' => true
   = text_field_tag :email, "",:placeholder => "Email"
   = password_field_tag :password, "",:placeholder => "Password"
-  = submit_tag "Login", :class => 'btn btn-success'
+  = submit_tag "Login", :class => 'btn btn-success', disable_with: 'Logging in...'
   
 %nav.options
   = link_to "Restore", restore_path
