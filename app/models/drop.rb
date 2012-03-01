@@ -6,8 +6,10 @@ class Drop
   include Tire::Model::Search
   include Tire::Model::Callbacks
   
-  
+  ## Preview Uploader specific
   mount_uploader :preview, PreviewUploader
+  field :preview_dimensions,    type: Hash,       default: { width: 0, height: 0 }
+  field :preview_file_type,     type: String,     default: ""
   
   voteable self, :up => +1, :down => -1
   

@@ -6,7 +6,6 @@ $(document).bind 'edit_users.load', (e,obj) =>
 
 $(document).bind 'show_users.load', (e,obj) =>
   $('.dropzone').dropZone()
-  $('li.drop').rainDrop()
 
 $(document).bind 'new_users.load', (e,obj) =>
   $("fieldset").not('.active').hide()

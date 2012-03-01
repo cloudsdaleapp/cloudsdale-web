@@ -19,33 +19,42 @@ class PreviewUploader < CarrierWave::Uploader::Base
   
   # Process files as they are uploaded:
   
+  process :store_geometry_and_filetype
+  
+  
   version :thumb do
-    process :resize_to_limit => [120, 90]
     process :convert => 'png'
+    process :resize_to_fit_x => 120
+    process :crop_y => 90
+  end
+  
+  version :portrait do
+    process :convert => 'png'
+    process :resize_to_fit_x => 220
+    process :crop_y => 140
   end
   
   version :banner do
-    process :resize_to_fit_x_500
     process :convert => 'png'
-    process :banner_crop
+    process :resize_to_fit_x => 490
+    process :crop_y => 150
   end
   
-  def banner_crop
+  def crop_y(desired_height)
     manipulate! do |img|   
       h = img.rows
       w = img.columns
-      if h > 150
-        ch = ((h-150)/2)
-        img.crop!(0,ch,w,150,true)
+      if h > desired_height
+        ch = ((h-desired_height)/2)
+        img.crop!(0,ch,w,desired_height,true)
       end
       img
     end
   end
   
-  def resize_to_fit_x_500
+  def resize_to_fit_x(desired_width)
     manipulate! do |img|
       
-      desired_width = 500
       height = img.rows
       width = img.columns
       
@@ -61,8 +70,30 @@ class PreviewUploader < CarrierWave::Uploader::Base
   def filename
      "#{secure_token(10)}-preview.png" if original_filename.present?
   end
+  
+  def store_geometry_and_filetype
+    if @file
+      img = ::Magick::Image::read(@file.file).first
+      if model
+        model[:preview_file_type] = img.mime_type.sub(/image\//i,"").downcase
+        model[:preview_dimensions] = { width: img.columns, height: img.rows }
+      end
+    end
+  end
 
   protected
+  
+  # Checks if image is landscape that is large enough to become a banner.
+  # def is_landscape?(sanitized_file)    
+  #   # Checks if file is carrierwave friendly
+  #   if sanitized_file.is_a?(CarrierWave::SanitizedFile)
+  #     img = Magick::Image.read(open(sanitized_file.file))
+  #     img = img.first if img.is_a?(Array)
+  #     return img.columns >= 490
+  #   else
+  #     return true
+  #   end
+  # end
   
   def secure_token(length=16)
     var = :"@#{mounted_as}_secure_token"

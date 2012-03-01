@@ -12,8 +12,8 @@ module DropsHelper
   
   def drop_timestamp(drop,deposits,depositable=nil)
     if depositable.nil?
-      latest_update = drop.updated_at
-      ts = time_ago_in_words(drop.updated_at)
+      latest_update = deposits.order_by(:updated_at,:desc).first.updated_at
+      ts = time_ago_in_words(latest_update)
     else
       latest_update = deposits.order_by_depositable(depositable,:desc).first.updated_at_on_depositable(depositable) || Time.now.utc
       ts = time_ago_in_words(latest_update)

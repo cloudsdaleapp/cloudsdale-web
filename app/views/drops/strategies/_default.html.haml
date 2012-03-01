@@ -4,5 +4,8 @@
     = image_tag favicon_src, class: drop.src_meta["favicon"].nil? ? 'default' : ''
   = link_to truncate(drop.title, :length => 60), drop.url, target: '_blank', data: { 'skip-pjax' => true }
 
-.drop-content
-  = link_to drop.url, drop.url, target: '_blank', data: { 'skip-pjax' => true }
+- if drop.preview.url.present?
+  .drop-content
+    .float-left
+      = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
+        = render :partial => 'drops/preview_image', locals: { drop: drop }

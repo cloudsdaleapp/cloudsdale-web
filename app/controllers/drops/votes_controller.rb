@@ -8,7 +8,7 @@ class Drops::VotesController < ApplicationController
     respond_to do |format|
       if current_user.vote(@drop,params[:value])
         format.html { redirect_to :back }
-        format.js { render partial: 'drops/votes/vote_links', locals: { drop: @drop } }
+        format.js { render partial: 'drops/votes', locals: { drop: @drop } }
       end
     end
   end
@@ -17,7 +17,7 @@ class Drops::VotesController < ApplicationController
     respond_to do |format|
       if current_user.unvote(@drop)
         format.html { redirect_to :back }
-        format.js { render partial: 'drops/votes/vote_links', locals: { drop: @drop } }
+        format.js { render partial: 'drops/votes', locals: { drop: @drop } }
       end
     end
   end

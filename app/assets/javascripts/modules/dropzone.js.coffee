@@ -34,9 +34,7 @@ do ($ = jQuery) ->
         newDrop = $(response.responseText)
         id = newDrop.attr("id")
         @list.find("li##{id}").remove()
-        @pendingDrop.replaceWith(newDrop)
-        newDrop.rainDrop()
-      
+        @pendingDrop.replaceWith(newDrop)      
       @input.bind 'keyup', =>
         @transformInputValue()
         @validateInput()

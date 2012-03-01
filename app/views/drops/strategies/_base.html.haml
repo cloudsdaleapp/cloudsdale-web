@@ -4,17 +4,8 @@
     = image_tag favicon_src, class: drop.src_meta["favicon"].nil? ? 'default' : ''
   = link_to truncate(drop.title, :length => 45), drop.url, target: '_blank', data: { 'skip-pjax' => true }
 
-.drop-content
-  .float-left
-    = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
-      - if drop.preview.banner.url
-        = image_tag drop.preview.banner.url, :title => drop.title
-      - elsif drop.preview.thumb.url
-        = image_tag drop.preview.thumb.url, :title => drop.title
-      - elsif drop.preview.url
-        = image_tag drop.preview.url, :title => drop.title
-  
-  .info   
-    = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'main-url' do
-      %i.icon-tint
-      = truncate(drop.url, :length => 60)
+- if drop.preview.url.present?
+  .drop-content
+    .float-left
+      = link_to drop.url, target: '_blank', data: { 'skip-pjax' => true }, class: 'preview' do
+        = render :partial => 'drops/preview_image', locals: { drop: drop }

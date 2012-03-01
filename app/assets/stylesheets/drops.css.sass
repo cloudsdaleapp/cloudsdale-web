@@ -26,7 +26,6 @@ form#drop
   padding: 10px
   +linear-gradient(#fff,#F5F5F5)
   border: 1px #B3B3B3 solid
-  border-bottom: 0
   +border-radius(5px 5px 0 0)
   position: relative
   
@@ -127,12 +126,7 @@ ul.drop-list
   margin: 0
   padding: 0
   //margin-left: 28px
-  border: 1px #B3B3B3 solid
-  background: #fff
   +border-radius(0 0 5px 5px)
-  
-  li:last-child
-    +border-radius(0 0 5px 5px)
   
   li.pending
     position: relative
@@ -147,15 +141,42 @@ ul.drop-list
     position: relative
     padding: 14px
     +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-    //background: rgba(0,0,0,.02)
-    border-bottom: 1px solid #B3B3B3
-    &:last-child
-      border-top: 0
+    background: #fff
+    border: 1px #B3B3B3 solid
+    border-top: 0
     
+    &:last-child
+      border-bottom: 1px #B3B3B3 solid
+      +border-radius(0 0 5px 5px)
+      
+    &.above-expanded
+      border-bottom: 1px solid #B3B3B3
+      +border-radius(0 0 5px 5px)
+    &.below-expanded
+      border-top: 1px solid #B3B3B3
+      +border-radius(5px 5px 0 0)
+    &.expanded
+      margin: 20px 0
+      border: 1px solid #B3B3B3
+      +border-radius(5px)
+      .drop-extras
+        display: block
+      .drop-content
+        .info
+          display: block
+    
+    &:hover
+      .drop-content
+        .info
+          display: block
+      nav
+        a.drop-expand
+          display: block
+          
     header
       margin: 0
       padding: 3px 0
-      border-bottom: 1px #B3B3B3 solid
+      
       img
         float: left
         max-height: 16px
@@ -164,16 +185,72 @@ ul.drop-list
       a
         color: $color-dark-gray
         font-weight: bold
-        font-size: 16px
+        font-size: 13px
         text-shadow: 1px 1px 1px rgba(255,255,255,1)
         &:hover
           text-decoration: none
           color: lighten($color-dark-gray,20%)
-  
+    
+    .drop-extras
+      display: none
+      padding: 10px 0
+      &:after
+        content: "."
+        display: block
+        clear: both
+        visibility: hidden
+        line-height: 0
+        height: 0
+      	
+      .drop-votes
+        float: left
+        margin-right: 10px
+        margin-bottom: 10px
+        width: 130px
+        text-align: right
+        a
+          padding: 1px 3px
+          display: block
+          +opacity(.50)
+          &:hover
+            +opacity(.70)
+          &.selected
+            +opacity(1)
+            &:hover
+              +opacity(.60)
+        
+        span.score
+          color: $color-dark-gray
+          float: left
+          font-size: 31px
+          line-height: 40px
+          font-weight: bold
+          margin-left: 3px
+          
+      .drop-tags
+        float: left
+        margin-right: 10px
+        width: 130px
+        min-height: 150px
+        line-height: 150px
+        color: rgba(100,100,100,.5)
+        text-align: center
+        font-weight: bold
+        
+      .drop-reflections
+        float: right
+        width: 360px
+        min-height: 200px
+        line-height: 200px
+        color: rgba(100,100,100,.5)
+        text-align: center
+        font-weight: bold
+        
     .drop-content
       position: relative
       padding: 0
       word-wrap: break-word
+      // border-top: 1px #D9D9D9 solid
 
       &:after
         content: "."
@@ -185,26 +262,42 @@ ul.drop-list
             
       .float-left
         float: left
+        +border-radius(2px)
+        //+linear-gradient(#fff,#E8F1FF)
+        +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
+        padding: 3px
+        margin: 10px 10px 10px 0
+        border: 1px rgba(50, 50, 50, 0.3) solid
+        &:hover
+          border-color: $color-cd-background-light
+          img
+            border-color: lighten($color-cd-background-light,10%)
+        img
+          background: #fff
+          border: 1px rgba(50, 50, 50, 0.2) solid
+          max-width: 490px
         a
           float: left
           display: block
           line-height: 0
       
       .description
+        font-size: 12px
         span
           font-weight: bold
+          
       .info
         position: absolute
-        bottom: 0
+        bottom: 2px
         left: 10px
-        font-size: 12px
-        color: $color-dark-gray
-        background: #E6E6E6
+        font-size: 10px
+        color: #FFFFFF
+        background: rgba(0,0,0,.5)
         border: 1px solid #B3B3B3
-        border-bottom: 0
-        padding: 4px 7px 2px 5px
-        +border-radius(3px 3px 0 0)
+        padding: 2px 4px
+        +border-radius(3px)
         font-weight: bold
+        display: none
         a
           color: $color-dark-gray
           &:hover
@@ -213,11 +306,12 @@ ul.drop-list
         span
           display: inline
           margin-right: 7px
+          &:last-child
+            margin-right: 0
 
     nav
       margin: 0
       padding: 0
-      border-top: 1px #B3B3B3 solid
       word-wrap: break-word
       font-size: 11px
       &:after
@@ -231,6 +325,12 @@ ul.drop-list
         line-height: 22px
         padding: 0 2px
         display: inline
+      a.drop-expand
+        display: none
+        float: right
+        +opacity(.6)
+        &:hover
+          +opacity(1)
     
   .pagination
     h6
@@ -244,7 +344,6 @@ ul.drop-list > li.drop.default, ul.drop-list > li.drop.base
     
 ul.drop-list > li.drop.image
   .drop-content
-    .float-left
 
 
 ul.drop-list > li.drop.pdf_document
@@ -257,9 +356,6 @@ ul.drop-list > li.drop.youtube_video
     border-color: rgb(40,40,40)
     
   .drop-content
-    .float-left
-      margin: 7px 15px 7px 7px
-      
     .description
       padding-top: 5px
       margin-bottom: 3px
@@ -275,16 +371,6 @@ ul.drop-list > li.drop.cloudsdale_users, ul.drop-list > li.drop.cloudsdale_cloud
   nav
     border-color: $color-cd-background-dark
   .drop-content
-    .float-left
-      +border-radius(3px)
-      +linear-gradient(#fff,#E8F1FF)
-      +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
-      padding: 5px
-      margin: 10px
-      border: 1px rgba(50, 50, 50, 0.3) solid
-      img
-        border: 1px rgba(50, 50, 50, 0.2) solid
-        
     .description
       padding-top: 5px
       margin-bottom: 3px
@@ -303,8 +389,6 @@ ul.drop-list > li.drop.soundcloud_track, ul.drop-list > li.drop.soundcloud_user
   nav
     border-color: rgb(84,162,255)
   .drop-content
-    .float-left
-      margin: 7px 15px 7px 7px
     .description
       padding-top: 5px
       margin-bottom: 3px
