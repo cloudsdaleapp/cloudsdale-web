@@ -23,7 +23,7 @@
       = c_f.text_field :name, :original_value => "", :attribute_name => :name, :user_id => "", :placeholder => "Display Name"
       = c_f.select :kind, Character::KINDS.collect { |k| [k.capitalize, k] }
       = c_f.select :gender, Character::GENDERS.collect { |g| [g.capitalize, g] }
-      = f.submit "Register", :class => 'btn btn-success'
+      = f.submit "Register", :class => 'btn btn-success', disable_with: 'Registering...'
 
 %nav.options
   = link_to "Login", login_path
