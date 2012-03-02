@@ -85,10 +85,16 @@ class RainDrop
       @reflectionInput.val('')
     .bind 'ajax:complete', (request,response) =>
       @reflectionsList.append(response.responseText)
+    .submit =>
+      @validateInput()
 
       
     $('html').bind 'click', (e) =>
-      @reflectionForm.removeClass('active')    
+      @reflectionForm.removeClass('active')
+      
+  validateInput: ->
+      # Validates the input client side to ease load on chat servers.
+      (@reflectionInput.attr('value').match(/^\s*$/) == null) and (@reflectionInput.val.length > 0)
     
 $.fn.rainDrop = ->
   new RainDrop(@,arguments[0])
