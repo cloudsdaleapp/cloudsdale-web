@@ -5,7 +5,7 @@ do ($ = jQuery) ->
   class DropZone
     
     constructor: (@frame,args) ->
-      @form = @frame.find('form')
+      @form = @frame.find('form#drop')
       @input = @form.find('input#url')
       @pendingIdField = @form.find('input#pending_id')
       @list = @frame.find('ul.drop-list')
@@ -34,7 +34,7 @@ do ($ = jQuery) ->
         newDrop = $(response.responseText)
         id = newDrop.attr("id")
         @list.find("li##{id}").remove()
-        @pendingDrop.replaceWith(newDrop)      
+        @pendingDrop.replaceWith(newDrop)
       @input.bind 'keyup', =>
         @transformInputValue()
         @validateInput()

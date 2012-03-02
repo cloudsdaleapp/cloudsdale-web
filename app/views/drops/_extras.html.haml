@@ -1,0 +1,30 @@
+.drop-reflections
+  %ul.drop-reflections-list
+    - drop.reflections.each do |reflection|
+      = render :partial => 'drops/reflections/show', locals: { drop: drop, reflection: reflection }
+      
+  = form_for Reflection.new, url: drop_reflections_path(drop), remote: true, html: { class: 'form-vertical drop-reflection-new' } do |f|
+    .control-group
+      .controls
+        = f.text_area :content, placeholder: "Reflect upon this drop..."
+        
+    .form-actions
+      %span.drop-reflection-counter= "120"
+      = f.submit "Reflect", disable_with: "Reflecting...", class: 'btn btn-small btn-primary'
+
+    
+          
+.drop-votes
+  = render partial: 'drops/votes', locals: { drop: drop }
+%ul.drop-tags
+  %center
+    %h6
+      Coming Soon:
+      %br
+      Tags
+  / %li
+  /   %a Tag 1
+  / %li
+  /   %a Tag 2
+  / %li
+  /   %a Tag 3

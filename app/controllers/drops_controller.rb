@@ -14,6 +14,13 @@ class DropsController < ApplicationController
     end
   end
   
+  def extras
+    @drop = Drop.find(params[:id])
+    respond_to do |format|
+      format.js { render :partial => 'drops/extras', locals: { drop: @drop } }
+    end
+  end
+  
   def search
     response.headers["search"] = 'true'
     

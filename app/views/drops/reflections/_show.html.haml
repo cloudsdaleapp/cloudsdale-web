@@ -1,0 +1,33 @@
+%li{ id: reflection.id }
+  .drop-reflection-user-avatar
+    = link_to user_path(reflection.author) do
+      = image_tag user_avatar_path(reflection.author.avatar.mini.url,:mini)
+  .btn-toolbar
+    - if can? :destroy, reflection
+      .btn-group
+        = link_to drop_reflection_path(reflection.drop,reflection), remote: true, method: :delete, class: 'btn btn-mini btn-error drop-reflection-delete' do
+          %i.icon-trash
+    - if can? :rate, reflection
+      .btn-group
+        = link_to "#", class: 'btn btn-mini dropdown-toggle', data: { toggle: "dropdown" } do
+          %i.icon-ok
+        %ul.dropdown-menu
+          %li= link_to "Persuasive", "#"
+          %li= link_to "Ingenious", "#"
+          %li= link_to "Fascinating", "#"
+          %li= link_to "Informative", "#"
+
+      .btn-group
+        = link_to "#", class: 'btn btn-mini dropdown-toggle', data: { toggle: "dropdown" } do
+          %i.icon-remove
+        %ul.dropdown-menu
+          %li= link_to "Discouraging", "#"
+          %li= link_to "Awkward", "#"
+          %li= link_to "Boring", "#"
+          %li= link_to "Useless", "#"
+
+  %p
+    = link_to dynamic_user_name(reflection.author), user_path(reflection.author)
+    = reflection.content
+  
+  %script= "$(function () { $('li##{reflection.id}').dropReflection() });"

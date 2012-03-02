@@ -15,6 +15,7 @@ class Drop
   
   embeds_many :deposits
   embeds_many :visits
+  embeds_many :reflections
     
   field :url,                 type: String
   field :match_id,            type: String

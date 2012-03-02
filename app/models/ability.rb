@@ -47,6 +47,11 @@ class Ability
         # FAQ
         can :read, Faq
         
+        can [:create, :destroy], Reflection, :author_id => user.id
+        can :rate, Reflection do |r|
+          r.author_id != user.try(:id)
+        end
+        
         
       end
         
@@ -61,6 +66,7 @@ class Ability
         can :update, User
         can [:destroy,:update], Cloud
         can [:update,:destroy,:create], Faq
+        can :destroy, Reflection
       end
       
       if user.role >= 3  ## Placeholder

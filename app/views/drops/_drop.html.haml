@@ -1,13 +1,7 @@
 %li.drop{ id: drop.id, class: drop.strategy }
   = render :partial => "drops/strategies/#{drop.strategy}", locals: { drop: drop }
   .drop-extras.clearfix
-    .drop-reflections
-      Coming soon: Reflections
-    .drop-votes
-      = render partial: 'drops/votes', locals: { drop: drop }
-    .drop-tags
-      Coming soon: Tags
-    
+
   %nav
     = render partial: 'drops/shares', locals: { drop: drop, deposits: deposits, depositable: depositable }
     %span.square-separator= "•"
