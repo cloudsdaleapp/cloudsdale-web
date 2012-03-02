@@ -29,10 +29,12 @@ do ($ = jQuery) ->
       @scrollerDown.bind 'click', =>
         @cloudsHolder.scrollTop(@cloudsHolder.scrollTop()+52) unless @scrollerDown.hasClass('disabled')
         @arrangeScroll()
+        false
         
       @scrollerUp.bind 'click', =>
         @cloudsHolder.scrollTop(@cloudsHolder.scrollTop()-52) unless @scrollerUp.hasClass('disabled')
         @arrangeScroll()
+        false
       
       $(window).bind 'resize', =>
         @arrangeScroll()
