@@ -1223,6 +1223,18 @@ input:focus:required:invalid:focus, textarea:focus:required:invalid:focus, selec
 .btn-small .icon {
   margin-top: -1px;
 }
+
+.btn-mini {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.btn.btn-mini .caret {
+  margin-top: 5px;
+  margin-left: 0;
+}
+
 .btn-primary,
 .btn-primary:hover,
 .btn-warning,
