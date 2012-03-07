@@ -74,7 +74,7 @@ Cloudsdale::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       match :test, via: :get
-      resources :auth_tokens, only: [:index]
+      resources :auth_tokens, only: [:create]
     end
   end
   
