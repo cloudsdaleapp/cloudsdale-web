@@ -1,74 +1,71 @@
 = render :partial => 'kony'
+.row
+  .span4
+    %ul.nav.nav-tabs.nav-stacked{ data: { tabs: :tabs } }
+      - unless user_got_started?
+        %li
+          = link_to "#get-started", class: 'main-item', data: { toggle: "tab" } do
+            %i.icon-exclamation-sign
+            = "Get Started"
+            
+      %li
+        = link_to "#subscriptions", class: 'main-item', data: { toggle: "tab" } do
+          %i.icon-star
+          = "Subscriptions"
+      
+      / %li
+      /   = link_to "#popular", class: 'main-item', data: { toggle: "tab" } do
+      /     %i.icon-retweet
+      /     = "Popular"
+      / 
+      / %li
+      /   = link_to "#trending", class: 'main-item', data: { toggle: "tab" } do
+      /     %i.icon-signal
+      /     = "Trending"
+          
     
-.dropzone            
-  .row
-    .span4
-      .nav-wrapper
-        %nav.side-list
-          = link_to "/", class: 'main-item' do
-            = image_tag "icons/iconic/gray_dark/star_16x16.png", :title => "title", :class => "class"
-            = "Subscriptions"
-        - unless current_user.clouds.empty?
-          %span.nav-head Clouds
-          %nav.side-list
-            - current_user.clouds.each do |cloud|
-              = link_to cloud_path(cloud), class: 'main-item' do
-                = image_tag cloud_avatar_path(cloud.avatar.mini.url,:mini), onerror: "this.onerror = null; this.src='#{cloud_avatar_path(nil,:mini)}'"
-                = cloud.name
-              
-            / - if current_user.clouds.count > 5
-            /   = link_to "see all »","#", class: 'all'
+    - unless @suggested_clouds.empty?
+      %ul.unstyled.suggested-clouds
+        %li.list-header
+          %h6= "Clouds to join..."
+        - @suggested_clouds.each do |cloud|
+          %li
+            .main
+              .avatar-frame
+                = link_to cloud_path(cloud) do ||
+                  = image_tag cloud_avatar_path(cloud.avatar.thumb.url,:thumb), :class => 'avatar'
             
-            - if current_user.clouds.count > 5
-              = link_to " ","#", class: 'more'
-            
-        - unless current_user.publishers.empty?
-          %span.nav-head Subscriptions
-          %nav.side-list
-            - current_user.publishers.each do |user|
-              = link_to user_path(user), class: 'main-item' do
-                = image_tag user_avatar_path(user.avatar.mini.url,:mini), onerror: "this.onerror = null; this.src='#{user_avatar_path(nil,:mini)}'"
-                = user.name
+              %div
+                %i.icon-user
+                = cloud.member_count
+              %div
+                %i.icon-tint
+                = Drop.only_visable.where("deposits.depositable_id" => cloud.id).count
               
-            / - if current_user.publishers.count > 5
-            /   = link_to "all","#", class: 'all'
+            .details
+              = link_to cloud.name, cloud_path(cloud)
+              %p= cloud.description
+            .btn-group
+              = link_to "Join", cloud_members_path(cloud), method: :post, 'data-skip-pjax' => true, class: 'btn btn-small'
             
-            - if current_user.publishers.count > 5
-              = link_to " ","#", class: 'more'
-              
-        - unless @suggested_clouds.empty?
-          %span.nav-head Suggested Clouds
-          %nav.side-list
-            - @suggested_clouds.each do |cloud|
-              = link_to cloud_path(cloud), class: 'main-item' do
-                = image_tag cloud_avatar_path(cloud.avatar.mini.url,:mini), onerror: "this.onerror = null; this.src='#{cloud_avatar_path(nil,:mini)}'"
-                = cloud.name
-              
-            / - if current_user.clouds.count > 5
-            /   = link_to "see all »","#", class: 'all'
-            
-            - if @suggested_clouds.count > 5
-              = link_to " ","#", class: 'more'
+          
+  .span12.tab-content
+    - unless user_got_started?
+      .tab-pane.dropzone#get-started
+        = render :partial => 'get_started'
         
-          - unless @popular_users.empty?
-            %span.nav-head Popular Users
-            %nav.side-list
-              - @popular_users.each do |user|
-                = link_to user_path(user), class: 'main-item' do
-                  = image_tag user_avatar_path(user.avatar.mini.url,:mini), onerror: "this.onerror = null; this.src='#{user_avatar_path(nil,:mini)}'"
-                  = user.name
-
-              / - if current_user.publishers.count > 5
-              /   = link_to "all","#", class: 'all'
-
-              - if @popular_users.count > 5
-                = link_to " ","#", class: 'more'
-            
-            
-    .span12
+    .tab-pane.dropzone#subscriptions
       = render partial: 'drops/form', locals: { with_path: drops_path }
       %ul.drop-list
         = render partial: 'drops/list_content'
+    .tab-pane.dropzone#popular
+      / = render partial: 'drops/form', locals: { with_path: drops_path }
+      / %ul.drop-list
+      /   = render partial: 'drops/list_content'
+    .tab-pane.dropzone#trending
+      / = render partial: 'drops/form', locals: { with_path: drops_path }
+      / %ul.drop-list
+      /   = render partial: 'drops/list_content'
         
     
       

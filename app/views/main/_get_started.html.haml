@@ -1,0 +1,51 @@
+.clearfix
+  .float-left= image_tag "logo/cloudsdale-logo-small.png"
+  %h4= "Welcome to Cloudsdale - Start Here"
+  %p= "This is Cloudsdale, a ponytastic communication platform for sharing various types of web content. We at Cloudsdale wish you have a wonderful time exploring the site."
+  
+.row
+  .span12
+    .clearfix{ class: user_accepted_tnc? ? 'task-complete' : ''}
+      %span.chron-count 1
+      %h4= "Learn about our Rules"
+      .float-left= image_tag "artwork/scroll.png"
+      %p= "Cloudsdale's terms and conditions have been published. Please look over and comply with them."
+      %nav
+        = link_to "Terms & Conditions", faqs_path(anchor:'tnc'), class: 'btn btn-small'
+        
+.row
+  .span12
+    .clearfix{ class: user_has_avatar? ? 'task-complete' : ''}
+      %span.chron-count 2
+      %h4= "Choose your Avatar"
+      .float-left.avatar= image_tag "other/unknown_pony.jpg"
+      %p= "Make it easier for other people on the site to recognize you by choosing your unique avatar. You can either upload an image or provide a url."
+      %nav
+        = link_to "Upload Avatar", edit_user_path(current_user,anchor:'avatar'), class: 'btn btn-small'
+      
+.row
+  .span12
+    .clearfix{ class: user_is_member_of_cloud? ? 'task-complete' : ''}
+      %span.chron-count 3
+      %h4= "Join a Cloud"
+      .float-left= image_tag "artwork/cloud.png"
+      %p= "Why don't you join a cloud and start connecting with other bronies? In the sidebar to the right you can find some suggestions."
+      
+.row
+  .span12
+    .clearfix{ class: user_has_contributed? ? 'task-complete' : ''}
+      %span.chron-count 4
+      %h4= "Explore & Contribute"
+      .float-left= image_tag "artwork/telescope.png"
+      %p= "It's time to check out what other users have shared. Our users drop a lot of interesting links, why not check them out and share drop yourself?"
+      %nav
+        .btn-group
+          = link_to root_path(anchor:'subscriptions'), class: 'btn btn-small' do
+            %i.icon-star
+            = "Subscriptions"
+          = link_to root_path(anchor:'popular'), class: 'btn btn-small' do
+            %i.icon-retweet
+            = "Popular"
+          = link_to root_path(anchor:'trending'), class: 'btn btn-small' do
+            %i.icon-signal
+            = "Trending"

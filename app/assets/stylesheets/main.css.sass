@@ -1,189 +1,108 @@
 body.main
-  &.index
-    .span12, .span4
-      overflow: visible
-      
-    .nav-wrapper
-      span.nav-head
-        font-weight: bold
-        color: #333333
-    
-    nav.side-list
-      margin: 0 0 15px 0
-      padding: 5px 0
-      +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-      -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-      -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-      -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-      border: 1px rgba(50, 50, 50, 0.3) solid
-      +border-radius(5px)
-      &:first-child
-        margin-top: 5px
-      &:after
-        content: "."
-        display: block
-        clear: both
-        visibility: hidden
-        line-height: 0
-        height: 0
-      
-      &.expanded
-        a.main-item
-          display: block
-      
-      a
-        &.main-item
-          color: #808080
-          font-weight: bold
-          padding: 4px
-          +transition(background .1s ease-out)
-          +transition(border .1s ease-out)
-          border: 1px solid transparent
-          display: none
-          word-wrap: break-word
-          &:nth-child(-n+5)
-            display: block
-          &:hover
-            text-decoration: none
-            border-top-color: rgba(50, 50, 50, .1)
-            border-bottom-color: rgba(50, 50, 50, .1)
-            background: rgba(10,90,190,.05)
-        
-        &.more, &.all
-          padding: 4px
-          display: block
-          font-weight: bold
-          color: #808080
-          +opacity(.8)
-          &:hover
-            text-decoration: none
-            color: #4C4C4C
-            
-        &.all
-          float: right
-          margin-right: 3px
-          
-        &.more
-          float: left
-          margin-left: 3px
-          &:after
-            content: "more"
-          &.expanded
-            &:after
-              content: "less"
-          
-        img
-          float: left
-          vertical-align: middle
-          height: 16px
-          width: 16px
-          margin-right: 5px
-            
-            
 
-.get-started
-  .alert.alert-block
-    margin-top: 15px
-    padding: 15px
-    a.special_close
-      float: right
-      color: black
-      font-size: 20px
-      font-weight: bold
-      font-family: Arial, sans-serif
-      line-height: 18px
-      text-shadow: 0 1px 0 white
-      margin-top: 1px
-      filter: alpha(opacity=25)
-      -khtml-opacity: 0.25
-      -moz-opacity: 0.25
-      opacity: 0.25
-      &:hover
-        color: black
-        text-decoration: none
-        filter: alpha(opacity=40)
-        -khtml-opacity: 0.4
-        -moz-opacity: 0.4
-        opacity: 0.4
-  
-  .float-left
-    float: left
-    margin-right: 20px
-  
-  .recruiting_message
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
-    img
-      max-height: 120px
-      max-width: 120px
-      
-  .cloud_suggestion
-    .clouds
-      &:after
-        content: "."
-        display: block
-        clear: both
-        visibility: hidden
-        line-height: 0
-        height: 0
-      .cloud
-        float: left
-        width: 33%
-        .avatar
-          float: left
-          margin: 5px 10px 5px 5px
-          background: rgba(255,255,255,.7)
-          +border-radius(3px)
-          max-height: 62px
-          max-width: 62px
-          border: 1px solid rgba(0,0,0,.1)
-          a
-            float: left
-            img
-              width: 50px
-              height: 50px
-              margin: 5px
-              border: 1px solid rgba(0,0,0,.1)
-        h5
-          margin-top: 10px
-          margin-bottom: 5px
-        nav
-          a.btn
-            margin-left: -1px
-            padding: 4px 6px
-          span
-            font-size: 10px
+  &.index
+    #get-started
+      & > .clearfix
+        padding-top: 20px
+        margin: 0 15px 20px 15px
+        
+      .row:not(:first-child)
+        .clearfix
+          border-top: #ddd 1px solid
+      .row  
+        .clearfix
+          &.task-complete
+            span.chron-count
+              background-color: #33CC00
+            nav, p, .float-left
+              display: none !important
+              
+          position: relative
+          padding-top: 20px
+          padding-left: 50px
+          margin: 0 15px 20px 15px
+          h4
+            line-height: 32px
+          span.chron-count
+            position: absolute
+            left: 8px
+            +border-radius(30px)
             font-weight: bold
-            margin-left: 3px
+            font-size: 18px
+            float: left
+            line-height: 30px
+            background: $color-cd-background-light
+            width: 30px
+            text-align: center
+            color: #fff
+            border: 1px solid rgba(0,0,0,.2)
+          nav
+            text-align: left
+          
+          .float-left
+            margin-right: 20px
+    
+    ul.nav.nav-tabs
+      margin: 0
+      margin-bottom: 20px
+      li
+        margin: 0
+        &.active
+          a
+            background: rgba(0, 0, 0, 0.03)
+        &:not(:last-child)
+          a
+            border-bottom: 0
+        &:last-child
+          & > a:hover
+            border-bottom: 1px solid #DDD
+        a
+          padding: 7px 5px
+          i
+            margin-right: 3px
             
-  .add_avatar_suggestion
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
-    .avatar
-      float: left
-      margin: 5px 10px 5px 5px
-      background: rgba(255,255,255,.7)
-      +border-radius(3px)
-      max-height: 82px
-      max-width: 82px
-      border: 1px solid rgba(0,0,0,.1)
-      img
-        width: 70px
-        height: 70px
-        margin: 5px
-        border: 1px solid rgba(0,0,0,.1)
-    nav
-      margin-top: 3px
-            
+    ul.suggested-clouds
+      li.list-header
+        padding: 4px
+        h6
+          margin-bottom: 3px
+      li:not(.list-header)
+        +border-radius(4px)
+        border: 1px solid #DDD
+        margin-bottom: 10px
+        background: #fff
+        .main
+          padding: 7px
+          +border-radius(4px 4px 0 0)
+          +linear-gradient(#FFFFFF,#F5F5F5)
+          border-bottom: 1px solid #DDD
+          &:after
+            content: "."
+            display: block
+            clear: both
+            visibility: hidden
+            line-height: 0
+            height: 0
+          .avatar-frame
+            margin-right: 10px
+            margin-bottom: 5px
+            float: left
+            +border-radius(7px)
+            overflow: hidden
+            a
+              display: block
+              float: left
+              img
+                display: block
+                float: left
+        .details
+          padding: 7px
+          margin-bottom: 5px
+          a
+            font-weight: bold
+            font-size: 14px
+          p
+            word-wrap: break-word
+        .btn-group
+          padding: 7px
         
