@@ -28,6 +28,7 @@ class User
   field :member_since,          type: Time
   field :invisible,             type: Boolean,    default: false
   field :force_password_change, type: Boolean,    default: false
+  field :tnc_last_accepted,     type: Date,       default: nil
   
   field :subscribers_count,     type: Integer,    default: 0
   

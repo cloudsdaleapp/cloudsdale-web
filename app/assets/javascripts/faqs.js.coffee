@@ -32,3 +32,8 @@ $(document).bind 'index_faqs.load', (e,obj) =>
     handle: 'span.position'
   .live 'sortupdate', ->
     update_figures()
+  
+  $('a.tnc-accept-link').bind 'ajax:complete', (request,response) ->
+    $(@).addClass('disabled').attr('href','#').attr('disabled','disabled').removeClass('btn-success').bind('click', -> false)
+    $(@).find('i').removeClass('icon-white')
+    $(@).find('span').text('You have now agreed to our Terms & Conditions')

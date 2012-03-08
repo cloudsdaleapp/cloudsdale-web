@@ -76,5 +76,14 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  def accept_tnc
+    authorize! :update, current_user
+    respond_to do |format|
+      if current_user.update_attribute(:tnc_last_accepted,TNC_TIMESTAMP)
+        format.js { render json: { status: [200,'OK'] } }
+      end
+    end
+  end
 
 end

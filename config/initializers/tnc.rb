@@ -1,0 +1,1 @@
+TNC_TIMESTAMP = Date.parse('2012-03-08')
