@@ -27,7 +27,7 @@ class RainDrop
       @expandDrop()
       false
     @frame.bind 'click', (e) =>
-      unless $(e.target).is('a,img')
+      unless $(e.target).is('a,img,i')
         @expandDrop()
         false
   
