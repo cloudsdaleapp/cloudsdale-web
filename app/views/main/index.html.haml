@@ -1,16 +1,3 @@
-.get-started
-  - unless current_user.checklist.read_welcome_message
-    = render :partial => 'welcome_message'
-  - if current_user.cloud_ids.count < 1
-    = render :partial => 'cloud_suggestion'
-  - elsif current_user.avatar.url.nil?
-    = render :partial => 'add_avatar_suggestion'
-  - elsif current_user.publisher_ids.count < 1
-    = render :partial => 'user_suggestion'
-  - elsif !current_user.checklist.read_recruiting_message
-    = render :partial => 'recruiting_message'
-  - elsif !current_user.checklist.read_terms_message
-    = render :partial => 'read_terms_suggestion'
 = render :partial => 'kony'
     
 .dropzone            
