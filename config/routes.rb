@@ -40,13 +40,6 @@ Cloudsdale::Application.routes.draw do
     post :sort_figures, on: :collection
   end
   
-  # resources :articles, :except => [:index] do
-  #   get :publish, on: :member
-  #   get :promote, on: :member
-  #   post :parse, on: :collection
-  #   resources :comments, :controller => 'articles/comments', :only => [:create,:destroy], :path_names => { :new => :write }
-  # end
-  
   resources :clouds, :except => [:index] do
     resources :members, :controller => 'clouds/members', :only => [:create,:destroy,:index]
     resources :messages, only: [:create,:index], :controller => 'clouds/messages'
@@ -54,13 +47,7 @@ Cloudsdale::Application.routes.draw do
   end
   
   resources :notifications, :only => [:index,:show]
-  
-  resources :tags, :only => [] do
-    post :search, on: :collection
-  end
-  
-  resources :search, only: [:create]
-  
+    
   resources :admin, only: [:index] do
     collection do
       post :statistics

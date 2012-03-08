@@ -12,8 +12,6 @@ class User
   embeds_many :notifications
   
   has_one :drop, as: :local_reference, dependent: :delete, autosave: true
-  
-  has_many :entries, as: :author
   has_many :owned_clouds, class_name: "Cloud", as: :owner
   
   has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
