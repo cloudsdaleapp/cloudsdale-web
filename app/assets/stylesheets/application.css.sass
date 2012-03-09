@@ -255,6 +255,9 @@ footer
           margin-bottom: -1px
           margin-left: 3px
 
+table.table.table-bordered
+  background: #fff
+
 fieldset.action-wrapper
   border-bottom: 1px solid rgba(255, 255, 255, .9)
   border-top: 1px solid rgba(255, 255, 255, .9)
@@ -334,22 +337,24 @@ ul.nav.nav-tabs
   h1,h2,h3,h4,h5,h6
     margin-right: 30px
 
+.float-left
+  float: left
+  margin: 0 10px 10px 0
 
-.get-started
-  margin-bottom: 20px
-  .alert-message.block-message
-    margin: 0
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
-    .float-left
-      float: left
-      margin-right: 20px
-      margin-bottom: 5px
+.float-right
+  float: right
+  margin: 0 0 10px 10px
+
+.clearfix
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+    
+    
 
 
 
@@ -360,7 +365,6 @@ ul.nav.nav-tabs
 @import "main"
 @import "sessions"
 @import "authentications"
-@import "articles"
 @import "clouds"
 @import "drops"
 @import "faqs"

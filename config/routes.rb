@@ -20,13 +20,10 @@ Cloudsdale::Application.routes.draw do
   resources :users, :path_names => { :new => :register }, :except => [:index] do
     get :change_password, on: :member
     put :update_password, on: :member
+    put :accept_tnc, on: :member
     resources :subscribers, :only => [:create,:destroy], :controller => 'users/subscribers'
     resources :restorations, :only => [:create,:show], :controller => 'users/restorations'
     resources :drops, only: [:create], :controller => 'users/drops'
-    
-    match 'checklist/read_welcome_message' => 'users/checklist#read_welcome_message', via: :put
-    match 'checklist/read_recruiting_message' => 'users/checklist#read_recruiting_message', via: :put
-    match 'checklist/read_terms_message' => 'users/checklist#read_terms_message', via: :put
   end
   
   resources :drops, only: [:create] do
@@ -44,13 +41,6 @@ Cloudsdale::Application.routes.draw do
     post :sort_figures, on: :collection
   end
   
-  # resources :articles, :except => [:index] do
-  #   get :publish, on: :member
-  #   get :promote, on: :member
-  #   post :parse, on: :collection
-  #   resources :comments, :controller => 'articles/comments', :only => [:create,:destroy], :path_names => { :new => :write }
-  # end
-  
   resources :clouds, :except => [:index] do
     resources :members, :controller => 'clouds/members', :only => [:create,:destroy,:index]
     resources :messages, only: [:create,:index], :controller => 'clouds/messages'
@@ -58,16 +48,17 @@ Cloudsdale::Application.routes.draw do
   end
   
   resources :notifications, :only => [:index,:show]
-  
-  resources :tags, :only => [] do
-    post :search, on: :collection
-  end
-  
-  resources :search, only: [:create]
-  
+    
   resources :admin, only: [:index] do
     collection do
       post :statistics
+    end
+  end
+  
+  namespace :api do
+    namespace :v1 do
+      match :test, via: :get
+      resources :auth_tokens, only: [:create]
     end
   end
   

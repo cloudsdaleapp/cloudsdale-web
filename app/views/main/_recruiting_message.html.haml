@@ -1,9 +1,0 @@
-.alert.alert-block.alert-error.recruiting_message
-  = link_to "×",user_checklist_read_recruiting_message_path(current_user), remote: true, method: :put, class: 'special_close'
-  .float-left
-    = image_tag "artwork/rubylang.png"
-  %h4
-    = "Cloudsdale needs Programmers"
-  
-  %p= "Currently Zeeraw is the only programmer on duty, he gets pretty lonely cutting rubies by himself. Do you have any experience with Ruby or even Rails projects; why don't you opt-in to help him out? Contact him with the reasons you're the one for the spot, at: "
-  %h4= mail_to("zeeraw@cloudsdale.org")

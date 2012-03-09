@@ -24,10 +24,17 @@ class RainDrop
         @expanded = false
       
     @expandTrigger.bind 'click', =>
-      $('li.drop').removeClass('expanded').removeClass('above-expanded').removeClass('below-expanded')
-      $('li.drop > nav > a > i.icon-chevron-up').removeClass('icon-chevron-up').addClass('icon-chevron-down')
-      $.event.trigger 'expand.drop', @frame      
+      @expandDrop()
       false
+    @frame.bind 'click', (e) =>
+      unless $(e.target).is('a,img,i')
+        @expandDrop()
+        false
+  
+  expandDrop: =>
+    $('li.drop').removeClass('expanded').removeClass('above-expanded').removeClass('below-expanded')
+    $('li.drop > nav > a > i.icon-chevron-up').removeClass('icon-chevron-up').addClass('icon-chevron-down')
+    $.event.trigger 'expand.drop', @frame
   
   loadExtras: =>
     if @extrasLoaded == false

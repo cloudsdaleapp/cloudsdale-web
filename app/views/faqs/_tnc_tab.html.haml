@@ -35,4 +35,14 @@
       %h5 Changes to our Terms and Conditions
       %p= "If we decide to change our Terms and Conditions, you'll be automatically logged out and are prompted to accept the edited Terms and Conditions. If you don't want to accept the new Terms and Conditions you're given the option to delete your account."
 		
-      %footer These Terms and Conditions were last modified on February 6, 2012
+      %footer
+        %strong= "These Terms and Conditions were last modified on #{TNC_TIMESTAMP}"
+    
+    - if current_user.tnc_last_accepted.nil? or TNC_TIMESTAMP > current_user.tnc_last_accepted
+      .well
+        = link_to accept_tnc_user_path(current_user), remote: true, method: :put, class: 'btn btn-success tnc-accept-link' do
+          %i.icon-ok.icon-white{ style: 'margin-right:3px;'}
+          %span= "I have read and understood the Terms & Conditions"
+          
+
+          
