@@ -1,36 +1,36 @@
-@media screen and (max-width: 1135px)
-  .navbar.navbar-fixed-top
-    ul.nav.pull-right
-      margin-left: 0
-      & > li > a
-        position: relative
-        margin-left: 3px
-        img
-          float: none !important
-        span
-          position: absolute
-          text-align: center
-          +transition(opacity .3s)
-          +opacity(0)
-          bottom: 2px
-          left: 50%
-          margin-left: -50px
-          width: 100px
-        &:hover
-          span
-            +opacity(1)
+// @media screen and (max-width: 1135px)
+//   .navbar.navbar-fixed-top
+//     ul.nav.pull-right
+//       margin-left: 0
+//       & > li > a
+//         position: relative
+//         margin-left: 3px
+//         img
+//           float: none !important
+//         span
+//           position: absolute
+//           text-align: center
+//           +transition(opacity .3s)
+//           +opacity(0)
+//           bottom: 2px
+//           left: 50%
+//           margin-left: -50px
+//           width: 100px
+//         &:hover
+//           span
+//             +opacity(1)
 
-@media screen and (min-width: 1136px)
-  .navbar.navbar-fixed-top
-    ul.nav.pull-right
-      & > li > a
-        span
-          +transition(opacity .2s)
-          +opacity(.7)
-        &:hover
-          span
-            +opacity(1)
-      
+// @media screen and (min-width: 1136px)
+//   .navbar.navbar-fixed-top
+//     ul.nav.pull-right
+//       & > li > a
+//         span
+//           +transition(opacity .2s)
+//           +opacity(.7)
+//         &:hover
+//           span
+//             +opacity(1)
+//       
 .navbar.navbar-fixed-top
   margin-bottom: 0
   .navbar-inner
@@ -90,16 +90,79 @@
             color: #333333
           &::-webkit-input-placeholder
             color: #E6E6E6
-      ul.nav > li > a
-        padding: 16px 10px
-        color: rgba(255,255,255,.9)
-        text-shadow: -1px -1px 1px rgba(0,0,0,.2)
-        font-weight: bold
-        margin-left: 10px
-        img
-          float: left
-          margin-top:  3px
-          margin-right:  6px
+      ul.nav > li
+        border-style: solid
+        border-color: transparent
+        border-width: 0 1px 0 1px
+        
+        &.active, &.open
+          // border-color: rgba(255,255,255,.2)
+          & > a
+            background: transparent
+            +opacity(1)
+            // background: $color-cd-background-dark image-url("bg-noise-bar.png")
+            // +box-shadow-inset(0,2px,1px,rgba(50,105,141,.9))
+            // border-color: rgba(50,50,50,.6)
+            img.i-active
+              display: block
+            img:not(.i-active)
+              display: none
+              
+        &.open
+          & > a
+            +opacity(1)
+            // padding: 13px 10px 14px 10px
+            // margin-bottom: -1px
+            
+        & > a
+          line-height: 26px
+          font-size: 14px
+          padding: 13px 10px
+          color: rgba(255,255,255,1)
+          text-shadow: -1px -1px 1px rgba(0,0,0,.2)
+          font-weight: bold
           
-      .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover
-        background-color: lighten($color-cd-background-light,5%)
+          border-style: solid
+          border-color: transparent
+          border-width: 0 1px 0 1px
+          +opacity(.7)
+          
+          img.i-active
+            display: none
+          img:not(.i-active)
+            display: block
+          
+          &:hover, &.open
+            +opacity(1)
+          
+          img
+            float: left
+            margin-right: 6px
+            max-height: 26px
+            max-width: 26px
+          
+          b.caret
+            margin-top: 11px
+            
+        &.dropdown > ul.dropdown-menu
+          margin-top: 3px
+          min-width: 220px
+          margin-right: 0px
+          li.dropdown-item-profile
+            img
+              +border-radius(5px)
+              float: left
+              margin-right: 7px
+            span
+              font-weight: bold
+              color: $color-text
+            a:hover
+              img
+                +box-shadow(1px,1px,2px,rgba(0,0,0,.3))
+              span
+                color: #fff
+              
+          li > a, li.nav-header
+            padding: 5px 5px 5px 10px
+            
+      

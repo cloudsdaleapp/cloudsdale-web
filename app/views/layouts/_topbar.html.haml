@@ -4,17 +4,51 @@
       = link_to  root_path, :class => 'brand' do
         = image_tag "logo/cloudsdale-thin-bright-logo-small.png", :title => "Cloudsdale", :class => "logo"
       .nav-collapse
-        = form_tag search_drops_path, remote: true, method: :get, class: 'navbar-search pull-left', id: 'search-main' do
-          = text_field_tag :q, '', placeholder: 'Search...'
-       
+        %ul.nav.pull-left
+          %li{ data: { :'main-menu' => 'main' } }
+            = link_to root_path do
+              = image_tag "icons/glyphicons/white/tint.png"
+              = image_tag "icons/glyphicons/goldtint/tint.png", class: 'i-active'
+              %span Drop
+          
+          / %li{ data: { :'main-menu' => 'explore' } }
+          /   = link_to explore_path do
+          /     = image_tag "icons/glyphicons/white/compass.png"
+          /     = image_tag "icons/glyphicons/goldtint/compass.png", class: 'i-active'
+          /     %span Explore
+          / 
+          / %li{ data: { :'main-menu' => 'ribbons' } }
+          /   = link_to acquire_path do
+          /     = image_tag "icons/glyphicons/white/sheriffs_star.png"
+          /     = image_tag "icons/glyphicons/goldtint/sheriffs_star.png", class: 'i-active'
+          /     %span Acquire
+          
+        
         %ul.nav.pull-right
-          - if can? :reach, :admin_panel
-            %li.dropdown
-              = link_to "#", class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-                = image_tag("icons/iconic/white/key_fill_12x12.png")
-                %span= "Admin"
-                %b.caret
-              %ul.dropdown-menu
+          
+          %li.dropdown
+            = link_to "#", class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+              = image_tag("icons/glyphicons/white/user.png")
+              = image_tag "icons/glyphicons/goldtint/user.png", class: 'i-active'
+              %b.caret
+            %ul.dropdown-menu
+              %li.dropdown-item-profile
+                = link_to user_path(current_user), class: 'profile active clearfix' do
+                  = image_tag user_avatar_path(current_user.avatar.chat.url,:chat)
+                  %span= current_user.name
+                  %p= "Visit profile..."
+              %li.divider
+              %li
+                = link_to edit_user_path(current_user), class: 'settings' do
+                  %i.icon-cog
+                  %span Settings
+              %li
+                = link_to logout_path, 'data-skip-pjax' => true, class: 'logout' do
+                  %i.icon-off
+                  %span Sign Out
+              - if can? :reach, :admin_panel
+                %li.divider
+                %li.nav-header= "Admin"
                 %li
                   = link_to admin_index_path(:anchor => "complaints") do
                     %i.icon-fire
@@ -23,25 +57,17 @@
                   = link_to admin_index_path(:anchor => "statistics") do
                     %i.icon-signal
                     = "Statistics"
-                
-          %li
-            = link_to user_path(current_user), class: 'profile' do
-              = image_tag("icons/iconic/white/user_9x12.png")
-              %span Profile
-                
-          %li
-            = link_to "/", class: 'explore disabled-link' do
-              = image_tag("icons/iconic/white/compass_12x12.png")
-              %span Explore
-          %li
-            = link_to edit_user_path(current_user), class: 'settings' do
-              = image_tag("icons/iconic/white/cog_12x12.png")
-              %span Settings
-          %li
-            = link_to faqs_path, class: 'faq' do
-              = image_tag("icons/iconic/white/question_mark_6x12.png")
-              %span Info
-          %li
-            = link_to logout_path, 'data-skip-pjax' => true, class: 'logout' do
-              = image_tag("icons/iconic/white/denied_12x12.png")
-              %span Sign Out
+              %li.divider
+              %li.nav-header= "Help"
+              %li
+                = link_to faqs_path, class: 'faq' do
+                  %span FAQ
+              %li
+                = link_to faqs_path, class: 'faq' do
+                  %span Terms & Conditions
+              %li
+                = link_to faqs_path, class: 'faq' do
+                  %span Privacy Policy
+              %li
+                = link_to faqs_path, class: 'faq' do
+                  %span Contributors

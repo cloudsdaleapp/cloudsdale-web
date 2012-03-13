@@ -71,6 +71,8 @@ $ ->
     $.event.trigger "application.load"
     $.event.trigger "#{controller}.load"
     $.event.trigger "#{action}_#{controller}.load"
+    $("li[data-main-menu]").removeClass('active')
+    $("li[data-main-menu=#{controller}]").addClass('active')
 
   $(document).bind 'application.load', =>
 
