@@ -13,7 +13,8 @@ class Users::RestorationsController < ApplicationController
         @user.restoration.destroy
         format.html { redirect_to root_path }
       else
-        format.html { redirect_to login_path, notice: notify_with(:error, "Error!", "restoration process is invalid or has expired.") }
+        flash[:error] = "Error! restoration process is invalid or has expired."
+        format.html { redirect_to login_path }
       end
     end
   end
@@ -25,7 +26,7 @@ class Users::RestorationsController < ApplicationController
       UserMailer.restore_mail(@user).deliver
     end
     respond_to do |format|
-      format.html { redirect_to login_path, notice: notify_with(:success,params[:email],"has received an email.") }
+      format.html { redirect_to login_path, notice: "#{params[:email]} has received an email." }
     end
   end
   

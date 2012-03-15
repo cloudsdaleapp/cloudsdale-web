@@ -1,12 +1,8 @@
-- if flash[:notice]
-  - if flash[:notice].is_a?(Hash)
-    .alert{ :class => "alert-#{flash[:notice]['category']}" }
-      = link_to "×","#", :class => 'close', data: { dismiss: "alert" }
-      %strong= flash[:notice]['title']
-      = flash[:notice]['message']
-        
-  - else
-    .alert.alert-error
-      = link_to "×","#", :class => 'close', data: { dismiss: "alert" }
-      %strong= "The format of the flash notice: #{flash[:notice].inspect} is invalid"
-      
+- flash.each do |type, message|
+  .alert.fade.in{ :data => { :alert => "alert" }, :class => to_type(type) }
+    = link_to "×", "#", data: { dismiss: 'alert' }, class: 'close'
+    - if message.is_a?(Hash) and message.has_key?(:title)
+      %strong= message[:title].html_safe
+      = message[:message].html_safe
+    - else
+      = message.html_safe

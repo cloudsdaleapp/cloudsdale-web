@@ -40,10 +40,9 @@ class CloudsController < ApplicationController
     @cloud.owner = current_user
     respond_to do |format|
       if @cloud.save
-        format.html { redirect_to cloud_path(@cloud),
-                                  notice: notify_with(:success,"#{@cloud.name}","was successfully created.")
-                    }
+        format.html { redirect_to cloud_path(@cloud), notice: "#{@cloud.name} was successfully created." }
       else
+        flash[:error] = "#{@cloud.name} not be created. #{errors_to_string(@cloud.errors)}"
         format.html { render :new }
       end
     end
@@ -54,10 +53,9 @@ class CloudsController < ApplicationController
     authorize! :update, @cloud
     respond_to do |format|
       if @cloud.update_attributes(params[:cloud])
-        format.html { redirect_to cloud_path(@cloud),
-                                  notice: notify_with(:success,"#{@cloud.name}","was successfully updated.")
-                    }
+        format.html { redirect_to cloud_path(@cloud), notice: "#{@cloud.name} was successfully updated." }
       else
+        flash[:error] = "#{@cloud.name} not be updated. #{errors_to_string(@cloud.errors)}"
         format.html { render :edit }
       end
     end
@@ -68,10 +66,9 @@ class CloudsController < ApplicationController
     authorize! :destroy, @cloud
     respond_to do |format|
       if @cloud.destroy
-        format.html { redirect_to root_path,
-                                  notice: notify_with(:notice,"#{@cloud.name}","was successfully destroyed.")
-                    }
+        format.html { redirect_to root_path, notice: "#{@cloud.name} was successfully destroyed." }
       else
+        flash[:error] = "#{@cloud.name} not be destroyed. #{errors_to_string(@cloud.errors)}"
         format.html { redirect_to :back }
       end
     end

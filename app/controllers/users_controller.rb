@@ -40,8 +40,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         authenticate!(@user)
-        format.html { redirect_to root_path, :notice => notify_with(:success,'','Your account was successfully created, Welcome!.') }
+        format.html { redirect_to root_path, notice: "Your account was successfully created, Welcome #{@user.name}!." }
       else
+        flash[:error] = "#{@user.name} not be updated. #{errors_to_string(@user.errors)}"
         format.html { render :action => :new }
       end
     end
@@ -52,9 +53,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         session[:display_name] = @user.character.name
-        format.html { redirect_to edit_user_path(@user), :notice => notify_with(:success,'User',"successfully updated.") }
+        format.html { redirect_to edit_user_path(@user), notice: "#{@user.name} was successfully updated"  }
       else
-        format.html { redirect_to edit_user_path(@user), :notice => notify_with(:error,'User',"cloud not be updated, try again.") }
+        flash[:error] = "#{@user.name} not be updated. #{errors_to_string(@user.errors)}"
+        format.html { redirect_to edit_user_path(@user) }
       end
     end
   end
@@ -70,9 +72,10 @@ class UsersController < ApplicationController
     authorize! :update, @user
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to root_path, :notice => notify_with(:success,'Password',"successfully changed.") }
+        format.html { redirect_to root_path, notice: "#{@user.name}'s password was successfully updated." }
       else
-        format.html { render change_password_user(@user), :notice => notify_with(:error,'Password',"cloud not be changed, try again.") }
+        flash[:error] = "#{@user.name} not be updated. #{errors_to_string(@user.errors)}"
+        format.html { render change_password_user(@user) }
       end
     end
   end

@@ -20,7 +20,8 @@ class SessionsController < ApplicationController
       authenticate!(user)
       redirect_to unless_pending_request_go_to(root_path)
     else
-      redirect_to login_path, :notice => notify_with(:error, "Login Failed!", "Wrong email and password combination, maybe you're not a member?")
+      flash[:error] = "Login Failed! Wrong email and password combination, maybe you're not a member?"
+      redirect_to login_path
     end
   end
 
@@ -28,8 +29,9 @@ class SessionsController < ApplicationController
     if request.env['HTTP_REFERER'].nil? or !request.env['HTTP_REFERER'].match(/^http:\/\/(local|www)\.cloudsdale.org/i).nil?
       current_user.logout_and_save! if current_user
       session[:user_id] = nil
-      redirect_to login_path
+      redirect_to login_path, notice: "Logged out successfully!"
     else
+      flash[:error] = "Something went wrong and you could not terminate your session..."
       redirect_to root_path
     end
   end

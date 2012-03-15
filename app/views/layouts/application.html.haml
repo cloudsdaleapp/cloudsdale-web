@@ -22,6 +22,7 @@
         .sideshadow.right
           .ytshadow.left
     .container-fluid.body
+      = render partial: 'layouts/alert'
       .content{ :data => { 'pjax-container' => ''} }
         = yield
         
