@@ -4,7 +4,7 @@
     = @cloud.name
     %span.members
       = @cloud.user_ids.count
-      = image_tag "icons/iconic/gray_dark/user_9x12.png", :title => "title", :class => "class"
+      = image_tag "icons/iconic/gray_dark/user_9x12.png"
   %nav
     - unless @cloud.owner == current_user
       - if @cloud.users.include?(current_user)
@@ -16,6 +16,10 @@
     - if can? :update, @cloud
       = link_to edit_cloud_path(@cloud) do
         %span.settings= "Settings"
+    
+    - if can? :feature, @cloud
+      = link_to feature_cloud_path(@cloud), method: :put do
+        %span.feature= @cloud.featured? ? "Unfeature" : "Feature"
 
 .dropzone
   .row

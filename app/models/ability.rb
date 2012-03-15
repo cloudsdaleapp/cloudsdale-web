@@ -39,7 +39,7 @@ class Ability
       if user.role >= 2  ## Moderator
         can :reach, :admin_panel
         can :update, User
-        can [:destroy,:update], Cloud
+        can [:destroy,:update,:feature], Cloud
         can [:update,:destroy,:create], Faq
         can :destroy, Reflection
       end

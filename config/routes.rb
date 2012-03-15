@@ -42,6 +42,7 @@ Cloudsdale::Application.routes.draw do
   end
   
   resources :clouds, :except => [:index] do
+    put :feature, on: :member
     resources :members, :controller => 'clouds/members', :only => [:create,:destroy,:index]
     resources :messages, only: [:create,:index], :controller => 'clouds/messages'
     resources :drops, only: [:create], :controller => 'clouds/drops'

@@ -72,7 +72,24 @@ class CloudsController < ApplicationController
                                   notice: notify_with(:notice,"#{@cloud.name}","was successfully destroyed.")
                     }
       else
-        format.html { redirect :back }
+        format.html { redirect_to :back }
+      end
+    end
+  end
+  
+  
+  # Toggles is the Cloud should be featured or not.
+  # Featured Clouds appear at the top of the explore page.
+  def feature
+    @cloud = Cloud.find(params[:id])
+    authorize! :feature, @cloud
+    toggle = @cloud.featured? ? false : true
+    respond_to do |format|
+      if @cloud.update_attribute(:featured,toggle)
+        format.html { redirect_to cloud_path(@cloud), notice: "#{@cloud.name} is #{ toggle ? "now" : "no longer" } featured." }
+      else
+        flash[:error] = "Cloud not #{toggle ? 'feature' : 'unfeature' } #{@cloud.name}, something went wrong."
+        format.html { redirect_to :back }
       end
     end
   end
