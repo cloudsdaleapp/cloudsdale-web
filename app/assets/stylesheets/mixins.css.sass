@@ -88,6 +88,11 @@ $useIEFilters: 0
   -webkit-transition: $value
   transition: $value
 
+=animation-delay($value)
+  animation-delay: $value
+  -moz-animation-delay: $value
+  -webkit-animation-delay: $value
+
 =opacity($value)
   $cent_value: $value*100
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$cent_value})"
