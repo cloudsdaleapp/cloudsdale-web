@@ -22,33 +22,15 @@
       /   = link_to "#trending", class: 'main-item', data: { toggle: "tab" } do
       /     %i.icon-signal
       /     = "Trending"
+      
           
     
     - unless @suggested_clouds.empty?
-      %ul.unstyled.suggested-clouds
-        %li.list-header
-          %h6= "Clouds to join..."
+      %h6.sidebar-title= "Clouds to join..."
+      %ul.thumbnails.thumbnails-clouds
         - @suggested_clouds.each do |cloud|
-          %li
-            .main
-              .avatar-frame
-                = link_to cloud_path(cloud) do ||
-                  = image_tag cloud_avatar_path(cloud.avatar.thumb.url,:thumb), :class => 'avatar'
-            
-              %div
-                %i.icon-user
-                = cloud.member_count
-              %div
-                %i.icon-tint
-                = Drop.only_visable.where("deposits.depositable_id" => cloud.id).count
-              
-            .details
-              = link_to cloud.name, cloud_path(cloud)
-              %p= cloud.description
-            .btn-group
-              = link_to "Join", cloud_members_path(cloud), method: :post, 'data-skip-pjax' => true, class: 'btn btn-small'
-            
-          
+          = render :partial => 'clouds/card', locals: { cloud: cloud }
+      
   .span12.tab-content
     - unless user_got_started?
       .tab-pane.dropzone#get-started

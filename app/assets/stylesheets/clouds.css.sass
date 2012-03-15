@@ -62,3 +62,41 @@ body.clouds
         .btn
           width: 170px
           margin: 0 0 10px 20px
+                                                     
+ul.thumbnails.thumbnails-clouds
+  .thumbnail                                         
+    position: relative                               
+    +linear-gradient(#fff,#f8f8f8)                   
+    &:hover                                          
+      border-color: $color-cd-background-light       
+    &.span4                                          
+      min-height: 210px                              
+      max-height: 210px                              
+      .thumbnail-main                                
+        padding: 9px                                 
+        .float-left                                  
+          margin: 0 10px 0 0                         
+          img                                        
+            +border-radius(4px)                      
+            width: 50px                              
+            height: 50px                             
+        div                                          
+          margin-top: 5px                            
+          margin-bottom: 5px                         
+      .caption                                       
+        word-wrap: break-word                        
+      nav                                            
+        position: absolute                           
+        bottom: 4px                                  
+        right: 4px                                   
+        left: 4px                                    
+        top: auto                                    
+        height: auto                                 
+        padding: 9px                                 
+        span                                         
+          float: right                               
+          margin-right: 10px                         
+          font-weight: bold                          
+          padding: 3px 0                             
+          i                                          
+            +opacity(.85)                            
