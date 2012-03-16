@@ -1,0 +1,63 @@
+.page-header.top-banner
+  = image_tag "artwork/explore-daringdo.png", class: ''
+.page-header
+  #featured-clouds.carousel
+    .carousel-inner
+      - @featured_clouds.each_with_index do |cloud,i|
+        .item{ class: i == 0 ? 'active' : '' }
+          .avatar-container
+            = link_to cloud_path(cloud) do
+              = image_tag cloud_avatar_path(cloud.avatar.url), :title => cloud.name, :class => 'avatar'
+          %h2= link_to cloud.name, cloud_path(cloud)
+          %p= cloud.description
+          .btn-group
+            = link_to "Join", cloud_members_path(cloud), method: :post, 'data-skip-pjax' => true, class: 'btn btn-small'
+        
+    .carousel-sidebg.left
+    .carousel-gradient.left
+    .carousel-sidebg.right
+    .carousel-gradient.right
+    = link_to "&lsaquo;".html_safe, "#featured-clouds", data: { slide: 'prev' }, class: 'carousel-control left'
+    = link_to "&rsaquo;".html_safe, "#featured-clouds", data: { slide: 'next' }, class: 'carousel-control right'
+
+.row
+  .span4
+    %ul.nav.nav-tabs.nav-stacked
+      %li{ class: "#{(params[:presentation] == 'grid') or params[:presentation].nil? ? 'active' : ''}" }
+        = link_to explore_path(param_queries(:grid, presentation: :grid )), class: 'main-item' do
+          %i.icon-th-large
+          = "Grid"
+            
+      %li{ class: "#{(params[:presentation] == 'list') ? 'active' : ''}" }
+        = link_to explore_path(param_queries(:list, presentation: :list )), class: 'main-item' do
+          %i.icon-th-list
+          = "List"
+    
+    %h6.sidebar-title= "Order by..."
+    %ul.nav.nav-tabs.nav-stacked
+      %li{ class: ["#{((params[:sort_by] == 'popularity') or params[:sort_by].nil?) ? "active #{params[:sort_order] == 'asc'}" : ''}"] }
+        = link_to explore_path(param_queries(:popularity, sort_by: :popularity )), class: 'main-item' do
+          %i.icon-star
+          = "Popularity"
+      /       
+      / %li{ class: "#{(params[:sort_by] == 'activity') ? 'active' : ''}" }
+      /   = link_to explore_path(param_queries(:activity, sort_by: :activity )), class: 'main-item' do
+      /     %i.icon-refresh
+      /     = "Activity"
+      
+      %li{ class: "#{(params[:sort_by] == 'timestamp') ? 'active' : ''}" }
+        = link_to explore_path(param_queries(:timestamp, sort_by: :timestamp )), class: 'main-item' do
+          %i.icon-time
+          = "Creation Date"
+          
+  .span12
+    %ul.thumbnails.thumbnails-clouds
+      - @clouds.each do |cloud|
+        - case params[:presentation]
+          - when 'grid'
+            = render :partial => 'clouds/card', locals: { cloud: cloud }
+          - when 'list'
+            = render :partial => 'clouds/long', locals: { cloud: cloud }
+          
+
+            

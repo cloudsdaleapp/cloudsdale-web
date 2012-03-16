@@ -8,6 +8,7 @@ Cloudsdale::Application.routes.draw do
   match '/register' => 'users#new', as: :register
   match '/restore' => "restorations#new", as: :restore
   
+  get '/explore' =>"explore#index", as: :explore
   resources :sessions, :only => [:create] do
     get :count, on: :collection
   end

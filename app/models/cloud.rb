@@ -15,7 +15,7 @@ class Cloud
   field :locked,        type: Boolean,        default: false
   field :featured,      type: Boolean,        default: false
   field :member_count,  type: Integer,        default: 0
-  
+    
   mount_uploader :avatar, AvatarUploader
 
   validates :name, presence: true, uniqueness: true, length: { within: 3..24 }

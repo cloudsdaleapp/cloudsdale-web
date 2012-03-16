@@ -15,4 +15,7 @@
     %p= cloud.description
   %nav
     .btn-group
-      = link_to "Join", cloud_members_path(cloud), method: :post, 'data-skip-pjax' => true, class: 'btn btn-mini'
+      - if cloud.users.include?(current_user)
+        = link_to "Leave", cloud_member_path(cloud,current_user), method: :delete, 'data-skip-pjax' => true, class: 'btn btn-mini btn-danger'
+      - else
+        = link_to "Join", cloud_members_path(cloud), method: :post, 'data-skip-pjax' => true, class: 'btn btn-mini'

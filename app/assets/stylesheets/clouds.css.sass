@@ -64,39 +64,66 @@ body.clouds
           margin: 0 0 10px 20px
                                                      
 ul.thumbnails.thumbnails-clouds
-  .thumbnail                                         
+  .thumbnail
     position: relative                               
-    +linear-gradient(#fff,#f8f8f8)                   
+    +linear-gradient(#fff,#f8f8f8)    
+    .thumbnail-main
+    .caption
+      word-wrap: break-word
+    nav
+      
     &:hover                                          
       border-color: $color-cd-background-light       
-    &.span4                                          
-      min-height: 210px                              
-      max-height: 210px                              
-      .thumbnail-main                                
-        padding: 9px                                 
-        .float-left                                  
-          margin: 0 10px 0 0                         
-          img                                        
-            +border-radius(4px)                      
-            width: 50px                              
-            height: 50px                             
-        div                                          
-          margin-top: 5px                            
-          margin-bottom: 5px                         
-      .caption                                       
-        word-wrap: break-word                        
-      nav                                            
-        position: absolute                           
-        bottom: 4px                                  
-        right: 4px                                   
-        left: 4px                                    
-        top: auto                                    
-        height: auto                                 
-        padding: 9px                                 
-        span                                         
-          float: right                               
-          margin-right: 10px                         
-          font-weight: bold                          
-          padding: 3px 0                             
-          i                                          
-            +opacity(.85)                            
+    &.span4
+      min-height: 210px
+      max-height: 210px
+      .thumbnail-main
+        padding: 9px
+        .float-left
+          margin: 0 10px 0 0
+          img
+            +border-radius(4px)
+            width: 50px
+            height: 50px
+        div
+          margin-top: 5px
+          margin-bottom: 5px
+      nav
+        position: absolute
+        bottom: 4px
+        right: 4px
+        left: 4px
+        top: auto
+        height: auto
+        padding: 9px
+        span
+          float: right
+          margin-right: 10px
+          font-weight: bold
+          padding: 3px 0
+          i
+            +opacity(.85)
+    &.span12
+      .thumbnail-main
+        padding: 9px
+        .float-left
+          margin: 0 10px 0 0
+          img
+            +border-radius(4px)
+            width: 70px
+            height: 70px
+        span
+          float: right
+          margin-top: 5px
+          margin-bottom: 5px
+          margin-left: 10px
+      nav
+        padding: 9px 0 0 0
+        span
+          float: right
+          margin-right: 10px
+          font-weight: bold
+          padding: 3px 0
+          i
+            +opacity(.85)
+      
