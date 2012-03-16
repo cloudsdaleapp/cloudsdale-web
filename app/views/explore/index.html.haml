@@ -53,11 +53,10 @@
   .span12
     %ul.thumbnails.thumbnails-clouds
       - @clouds.each do |cloud|
-        - case params[:presentation]
-          - when 'grid'
-            = render :partial => 'clouds/card', locals: { cloud: cloud }
-          - when 'list'
-            = render :partial => 'clouds/long', locals: { cloud: cloud }
+        - if ['grid',nil].include?(params[:presentation])
+          = render :partial => 'clouds/card', locals: { cloud: cloud }
+        - elsif 'list'
+          = render :partial => 'clouds/long', locals: { cloud: cloud }
           
 
             
