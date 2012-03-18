@@ -39,18 +39,22 @@ gem 'cancan'
 # Forms
 gem 'client_side_validations'
 
-# Images and Image manipulation
+# Storage
 gem 'fog', '0.9.0'
 gem 'cloudfiles'
+
+# Images
 gem 'mini_magick'
 gem 'rmagick'
 gem 'carrierwave', git: 'git://github.com/jnicklas/carrierwave.git', branch: '0.5-stable'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'imagesize'
 gem 'pdf-reader'
+
+# Video
 gem 'youtube_it'
 
-# Music
+# Sound
 gem 'soundcloud'
 
 # Others
@@ -64,6 +68,10 @@ gem 'coffee-script'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'sprockets'
+
+# Queue
+gem 'bunny'
+gem 'yajl-ruby', :require => 'yajl'
 
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
