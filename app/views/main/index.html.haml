@@ -33,10 +33,10 @@
       
   .span12.tab-content
     - unless user_got_started?
-      .tab-pane.dropzone#get-started
+      .tab-pane#get-started
         = render :partial => 'get_started'
         
-    .tab-pane.dropzone#subscriptions
+    .tab-pane.dropzone#subscriptions{ data: { channels: (current_user.cloud_ids.map{|id|id.to_s} + current_user.publisher_ids.map{|id|id.to_s} ).uniq } }
       = render partial: 'drops/form', locals: { with_path: drops_path }
       %ul.drop-list
         = render partial: 'drops/list_content'
