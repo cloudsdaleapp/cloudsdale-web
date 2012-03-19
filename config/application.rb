@@ -1,3 +1,4 @@
+$LOAD_PATH.push File.expand_path("../../lib/workers", __FILE__)
 require File.expand_path('../boot', __FILE__)
 
 require "action_controller/railtie"
