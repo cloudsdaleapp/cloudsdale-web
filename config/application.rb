@@ -28,6 +28,17 @@ module Cloudsdale
     @soundcloud = Soundcloud.new(:client_id => config['soundcloud']['client_id'])
   end
   
+  def self.bunny
+    unless @bunny
+      @bunny ||= Bunny.new(
+        :host => Cloudsdale.config['rabbit']['host'],
+        :pass => Cloudsdale.config['rabbit']['pass'],
+        :user => Cloudsdale.config['rabbit']['user'])
+    end
+    @bunny.start unless @bunny.status == :connected
+    @bunny
+  end
+  
   def self.faye_path(connection=nil)
     host = (connection == :inhouse) ? config['faye']['inhouse_host'] : config['faye']['host']
     @faye_path = URI.parse("#{config['faye']['schema']}://#{host}:#{config['faye']['port']}/#{config['faye']['path']}")
