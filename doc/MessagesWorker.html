@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: MessagesWorker
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (M)</a> &raquo; 
+    
+    
+    <span class="title">MessagesWorker</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: MessagesWorker
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">MessagesWorker</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="Worker/Base.html" title="Worker::Base (module)">Worker::Base</a></span>, <span class='object_link'><a href="Worker/Helper/Faye.html" title="Worker::Helper::Faye (module)">Worker::Helper::Faye</a></span>, <span class='object_link'><a href="Worker/Queue.html" title="Worker::Queue (module)">Worker::Queue</a></span>, <span class='object_link'><a href="Worker/REnv.html" title="Worker::REnv (module)">Worker::REnv</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/background/workers/messages_worker.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>A worker that processes chat messages and broadcast them to a given
+destination.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#perform-instance_method" title="#perform (instance method)">- (Object) <strong>perform</strong>(message = Hashr.new) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The action performed as soon as there’s a new message in the queue.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Worker/Helper/Faye.html" title="Worker::Helper::Faye (module)">Worker::Helper::Faye</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Worker/Helper/Faye.html#broadcast-instance_method" title="Worker::Helper::Faye#broadcast (method)">#broadcast</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Worker/Queue.html" title="Worker::Queue (module)">Worker::Queue</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Worker/Queue.html#do_work-instance_method" title="Worker::Queue#do_work (method)">#do_work</a></span>, <span class='object_link'><a href="Worker/Queue.html#included-class_method" title="Worker::Queue.included (method)">included</a></span>, <span class='object_link'><a href="Worker/Queue.html#queue-instance_method" title="Worker::Queue#queue (method)">#queue</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Worker/REnv.html" title="Worker::REnv (module)">Worker::REnv</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Worker/REnv.html#included-class_method" title="Worker::REnv.included (method)">included</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Worker/Base.html" title="Worker::Base (module)">Worker::Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Worker/Base.html#do_work-instance_method" title="Worker::Base#do_work (method)">#do_work</a></span>, <span class='object_link'><a href="Worker/Base.html#included-class_method" title="Worker::Base.included (method)">included</a></span>, <span class='object_link'><a href="Worker/Base.html#initialize-instance_method" title="Worker::Base#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Worker/Base.html#register_signal_handlers-instance_method" title="Worker::Base#register_signal_handlers (method)">#register_signal_handlers</a></span>, <span class='object_link'><a href="Worker/Base.html#shutdown-instance_method" title="Worker::Base#shutdown (method)">#shutdown</a></span>, <span class='object_link'><a href="Worker/Base.html#start-instance_method" title="Worker::Base#start (method)">#start</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="Worker/Base.html#initialize-instance_method" title="Worker::Base#initialize (method)">Worker::Base</a></span></p>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="perform-instance_method">
+  
+    - (<tt>Object</tt>) <strong>perform</strong>(message = Hashr.new) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>The action performed as soon as there’s a new message in the queue</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'></span>
+      
+      
+        <em class="default">(defaults to: <tt>Hashr.new</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The Hashr options should contain (default: Hashr.new): :topic_id - The BSON
+id of the type of chat the message is being sent to (cloud of friendship)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:topic_type</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The type of chat the message is being sent to (cloud or friendship)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:author_id</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The BSON id of the user requesting to send the message</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:content</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The content text of the message</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:timestamp</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The time the message was sent</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:user_name</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The display name of the user requesting to send the message</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:user_path</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The profile path of the user requesting to send the message</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:user_avatar</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The avatar url of the user requesting to send the message</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:client_id</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The ID generated by the client requesting to send the message</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/background/workers/messages_worker.rb', line 31</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_perform'>perform</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='op'>=</span><span class='const'>Hashr</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
+      
+  <span class='id identifier rubyid_broadcast'>broadcast</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_topic_type'>topic_type</span><span class='rbrace'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_topic_id'>topic_id</span><span class='rbrace'>}</span><span class='tstring_content'>/chat</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+    <span class='label'>topic_id:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_topic_id'>topic_id</span><span class='comma'>,</span>
+    <span class='label'>topic_type:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_topic_type'>topic_type</span><span class='comma'>,</span>
+    <span class='label'>author_id:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_author_id'>author_id</span><span class='comma'>,</span>
+    <span class='label'>content:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='comma'>,</span>
+    <span class='label'>timestamp:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_utc_timestamp'>utc_timestamp</span><span class='comma'>,</span>
+    <span class='label'>user_name:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_user_name'>user_name</span><span class='comma'>,</span>
+    <span class='label'>user_path:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_user_path'>user_path</span><span class='comma'>,</span>
+    <span class='label'>user_avatar:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_user_avatar'>user_avatar</span><span class='comma'>,</span>
+    <span class='label'>client_id:</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_client_id'>client_id</span>
+  <span class='rbrace'>}</span>
+  
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Mar 26 08:35:47 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

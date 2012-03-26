@@ -15,6 +15,9 @@ do ($ = jQuery) ->
       @pendingDrop = null
       @currentlyFetching = false
       
+      @channels = @frame.data('channels')
+      @subscriptions = []
+      
       @bind()
     
     bind: =>
@@ -40,6 +43,14 @@ do ($ = jQuery) ->
         @validateInput()
         if @input.val().length <= 0
           @form.removeClass('error')
+      
+      $.each @channels, (i,channel) =>
+        console.log channel
+        subscription = document.fayeCli.subscribe "/#{channel}/drops", (data) =>
+          console.log data
+        @subscriptions.push(subscription)
+      
+      console.log @subscriptions
       
       $(window).scroll =>
         if @extendUrl && $(window).scrollTop() > $(document).height() - $(window).height() - 100

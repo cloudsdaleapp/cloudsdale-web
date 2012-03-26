@@ -44,7 +44,7 @@ module Worker
       self.class.class_variable_get(:"@@queue")
     end
   
-    # Internal: A method called inside of an eventmachine loop
+    # Internal A method called inside of an eventmachine loop
     # on the class including the Queue module. Remember adding
     # a do_work method to any other module included in the same
     # class as Queue will need to call super to not break any

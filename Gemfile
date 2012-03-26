@@ -109,6 +109,9 @@ group :production do
   gem 'exception_notification'
 end
 
+gem 'yard'
+gem 'yard-tomdoc', git: 'git://github.com/rubyworks/yard-tomdoc.git'
+
 gem 'capistrano'
 gem 'capistrano_colors', :require => nil
 gem 'unicorn'

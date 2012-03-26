@@ -57,12 +57,19 @@ module Worker
     def initialize(options={})
     end
     
-    # Internal: This is used gracefully kill the application
+    # Internal This is used gracefully kill the application
     # when process receives certain signals.
+    #
+    # Examples
+    #
+    # EM.run do
+    #   shutdown!
+    # end
+    #
     def register_signal_handlers
-      trap('TERM') { shutdown! }
-      trap('INT')  { shutdown! }
-      trap('QUIT') { shutdown! }
+      trap('TERM') { shutdown }
+      trap('INT')  { shutdown }
+      trap('QUIT') { shutdown }
       trap 'SIGHUP', 'IGNORE'
     end
     
@@ -73,7 +80,6 @@ module Worker
     # worker = SomeWorker.new()
     # worker.start
     #
-    # 
     def start
   
       register_signal_handlers
@@ -84,7 +90,7 @@ module Worker
   
     end
     
-    # Internal: Gracefully kills the eventmachine loop
+    # Internal Gracefully kills the eventmachine loop
     #
     # Examples
     # 
@@ -93,11 +99,11 @@ module Worker
     #   shutdown
     # end
     #
-    def shutdown!
+    def shutdown
       EM.stop_event_loop
     end
     
-    # Internal: A method called inside of an eventmachine loop
+    # Internal A method called inside of an eventmachine loop
     # on the class including the Base module. Remember adding
     # a do_work method to any other module included in the same
     # class as Base will need to call super to not break any
