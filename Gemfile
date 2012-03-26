@@ -16,8 +16,8 @@ gem 'tire',     git: 'git://github.com/karmi/tire.git'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari.git'
 
 gem 'voteable_mongo'
-# gem "hiredis"
-# gem "redis", ">= 2.2.0", :require => ["redis", "redis/connection/hiredis"]
+gem 'redis'
+gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
 
 # Push notifications
 gem 'faye', git: 'git://github.com/faye/faye.git', branch: '0.8.x'
@@ -73,9 +73,14 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'sprockets'
 
-# Queue
+# Workers
 gem 'bunny'
 gem 'yajl-ruby', :require => 'yajl'
+gem 'eventmachine'
+gem 'em-synchrony', :require => "em-synchrony"
+gem 'hashr', :require => 'hashr'
+gem 'amqp', '~> 0.9.2'
+
 
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
