@@ -17,15 +17,14 @@ class Clouds::MessagesController < ApplicationController
   def create
     
     @cloud.chat.messages.order_by(:timestamp,:desc).skip(50).each{|m|m.destroy}
-    @message = @cloud.chat.messages.build author: current_user, content: params[:message]
+    @message = @cloud.chat.messages.build author: current_user, content: params[:message], client_id: params[:client_id]
     
     @message.urls.each do |url|
       @cloud.create_drop_deposit_from_url_by_user(url,current_user)
     end
     
     if @message.save
-      faye_broadcast "/cloud/#{@cloud.id}/chat", { uid: @message.author_id ,content: @message.content, timestamp: @message.timestamp.utc, user_name: @message.user_name, user_path: @message.user_path, user_avatar: @message.user_avatar, client_id: params[:client_id] }
-      render :json => :success
+      render :json => :success, status: 200
     else
       render :json => @message.errors
     end

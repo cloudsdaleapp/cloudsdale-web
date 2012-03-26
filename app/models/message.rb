@@ -1,6 +1,10 @@
 class Message
   
+  include AMQPConnector
+  
   include Mongoid::Document
+  
+  attr_accessor :client_id
   
   embedded_in :chat
   belongs_to :author, class_name: "User"
@@ -20,6 +24,26 @@ class Message
   
   before_validation do
     set_foreign_attributes! if author
+  end
+  
+  after_save do
+    enqueue!("messages",self.to_queue)
+  end
+  
+  def to_queue
+    self.to_json(:only => [:author_id,:content,:user_name,:user_path,:user_avatar], methods: [:id,:utc_timestamp,:topic_id,:topic_type,:client_id])
+  end
+  
+  def topic_type
+    chat.topic._type.downcase
+  end
+  
+  def topic_id
+    chat.topic._id.to_s
+  end
+  
+  def utc_timestamp
+    self[:timestamp].utc
   end
   
   def content=(msg)

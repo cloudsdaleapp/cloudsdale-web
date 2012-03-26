@@ -20,7 +20,7 @@ do ($ = jQuery) ->
       
       # Default Chat specific variable values
       @seeded = false
-      @lastSenderUid = null
+      @lastSenderId = null
       @lastMessageFrame = null
       
       @bind()
@@ -69,14 +69,20 @@ do ($ = jQuery) ->
             
           @seeded = true
           
-    appendMessage: (timestamp,content,user_name,user_path,user_avatar,uid) ->
+    appendMessage: (timestamp,content,user_name,user_path,user_avatar,author_id) ->
       # Appends a message to the bottom of the message container.
       t = new Date(timestamp)
       image = if user_avatar then "src='#{user_avatar}'" else "src='#{$('.preload.avatar-user-chat').css('background-image').replace(/url\(|\)|"|'/g,"")}'"
       readyForScroll = @isNotReadingHistory()
-      if uid == @lastSenderUid
+      if author_id == @lastSenderId
+        ## If the last sender message was from the same sender as the new message
+        ## Append the the new message to the last one insted of creating a new entry.
         @lastMessageFrame.append("<p>#{content}</p>")
+        
+        ## Update the timestamp of the last message.
+        @lastMessageFrame.parent().find('span.metadata').html(t.toString('HH:mm:ss'))
       else
+        ## Append the message to the messages wrapper.
         @lastMessageFrame = @messagesWrapper.append("<div data-timestamp='#{timestamp}'class='chat-message'>
             <a href='#{user_path}'><img #{image}/></a>
             <header class='chat-message-head'>
@@ -87,7 +93,9 @@ do ($ = jQuery) ->
               <p >#{content}</p>
             </article>
           </div>").find('div.chat-message:last article')
-        @lastSenderUid = uid
+          
+        ## Let's remember what user sent the last message.
+        @lastSenderId = author_id
           
       @popLastMessages()
       @correctContainerScroll(readyForScroll)
