@@ -33,6 +33,10 @@ development:
   soundcloud:
     client_id: 3897d7c3ae5a3178c8626d7b51ce370a
     client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
+  rabbit:
+    host: localhost
+    user: guest
+    pass: guest
 
 
 production:
