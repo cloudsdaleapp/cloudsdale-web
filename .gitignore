@@ -16,3 +16,5 @@ tmp/sockets
 
 db/data/mongodb/mongod.lock
 app/.DS_Store
+
+doc/
