@@ -34,6 +34,9 @@ gem 'redcarpet'
 gem 'pjax_rails'
 gem 'best_in_place'
 
+# Frontend
+gem 'backbone-on-rails'
+
 # Authentication & Authorization
 gem 'omniauth'
 gem 'omniauth-facebook'
