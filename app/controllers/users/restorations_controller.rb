@@ -20,7 +20,7 @@ class Users::RestorationsController < ApplicationController
   end
   
   def create
-    @user = User.where(email: params[:email]).first
+    @user = User.where(email: params[:email].downcase).first
     if @user
       @user.create_restoration
       UserMailer.restore_mail(@user).deliver
