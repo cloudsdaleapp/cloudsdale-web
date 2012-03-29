@@ -10,17 +10,10 @@
     = yield :head
     
   %body{ :class => "#{params[:controller].to_s.parameterize} #{params[:action].to_s.parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
-    = render :partial => 'layouts/user_data'
-    = render :partial => 'layouts/preload'
     = render :partial => 'layouts/topbar'
     .bg-container
-      .container
-        .sideborder.left
-        .sideshadow.left
-          .ytshadow.right
-        .sideborder.right
-        .sideshadow.right
-          .ytshadow.left
+      .bg-main
+      
     .container-fluid.body
       = render partial: 'layouts/alert'
       .content{ :data => { 'pjax-container' => ''} }

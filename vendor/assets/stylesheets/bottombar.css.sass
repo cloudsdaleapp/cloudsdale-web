@@ -1,172 +1,169 @@
-.bottombar
+@-webkit-keyframes slideInRainbar
+  0%
+    left: 100%
+  80%
+    left: -5%
+  100%
+    left: 0
+
+@-webkit-keyframes appearCloudTrigger
+  0%
+    +opacity(0)
+    -webkit-transform: scale(.5)
+  60%
+    +opacity(1)
+    -webkit-transform: scale(1.1)
+  100%
+    +opacity(1)
+    -webkit-transform: scale(1)
+    
+
+.cloud-bar
+  float: left
   position: fixed
-  bottom: 0
-  left: -2px
-  right: -2px
-  padding: 0 2px
+  bottom: 10px
+  right: 0
+  width: auto
+  padding: 0
   z-index: 998
   overflow: visible
-  min-width: 750px
-  
-  background: #f5f5f5 image-url("bg-noise-bar.png")
-  background: image-url("bg-noise-bar.png"), url(data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1ZjVmNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiM2IzYjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
-  background: image-url("bg-noise-bar.png"), -moz-linear-gradient(top,  #f5f5f5 0%, #b3b3b3 100%)
-  background: image-url("bg-noise-bar.png"), -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#b3b3b3))
-  background: image-url("bg-noise-bar.png"), -webkit-linear-gradient(top,  #f5f5f5 0%,#b3b3b3 100%)
-  background: image-url("bg-noise-bar.png"), -o-linear-gradient(top,  #f5f5f5 0%,#b3b3b3 100%)
-  background: image-url("bg-noise-bar.png"), -ms-linear-gradient(top,  #f5f5f5 0%,#b3b3b3 100%)
-  background: image-url("bg-noise-bar.png"), linear-gradient(top,  #f5f5f5 0%,#b3b3b3 100%)
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#b3b3b3',GradientType=0 )
-  
-  -moz-box-shadow: 0 -2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
-  -o-box-shadow: 0 -2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
-  -webkit-box-shadow: 0 -2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
-  border-top: 1px rgba(50,50,50,0.8) solid
-  min-height: 52px
-  
-  .container
-    position: relative
-
-  .control-group
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
-    display: inline-block
-
-  html[xmlns] .control-group
+  height: 70px
+  .cloud-bar-rainbar
+    position: absolute
+    right: 0
+    left: 0
+    width: auto
+    -webkit-animation-name: slideInRainbar
+    -webkit-animation-duration: .9s
+    -webkit-animation-fill-mode: backwards
+    height: 10px
+    +border-radius(10px 0 0 10px)
+    +opacity(.8)
+    &:nth-child(1)
+      -webkit-animation-delay: .13s
+      background-color: rgb(220,38,0)
+      margin-left: 30px
+      top: 5px
+    &:nth-child(2)
+      -webkit-animation-delay: .07s
+      background-color: rgb(252,136,0)
+      margin-left: 20px
+      top: 15px
+    &:nth-child(3)
+      -webkit-animation-delay: .01s
+      background-color: rgb(255,230,0)
+      margin-left: 10px
+      top: 25px
+    &:nth-child(4)
+      -webkit-animation-delay: .04s
+      background-color: rgb(128,206,0)
+      margin-left: 10px
+      top: 35px
+    &:nth-child(5)
+      -webkit-animation-delay: .10s
+      background-color: rgb(0,165,255)
+      margin-left: 20px
+      top: 45px
+    &:nth-child(6)
+      -webkit-animation-delay: .16s
+      background-color: rgb(105,70,255)
+      margin-left: 30px
+      top: 55px
+    
+    
+  &:after
+    content: "."
     display: block
-
-  * html .control-group
-    height: 1%
-  
-  a.scroll
-    position: absolute
-    min-width: 40px
-    min-height: 26px
-    right: 2px
-    
-    &.disabled
-      +opacity(.4)
-      pointer-events: none
-      
-    &.up
-      top: 0
-      background: transparent image-url("icons/iconic/gray_dark/shift.png") center center no-repeat
-    &.down
-      bottom: 0
-      background: transparent image-url("icons/iconic/gray_dark/unshift.png") center center no-repeat
-      
-  a.new-cloud
-    position: absolute
-    left: 2px
-    min-height: 52px
-    min-width: 62px
-    border-right: 1px rgba(50,50,50,0.8) solid
-    background: transparent image-url("icons/iconic/gray_dark/plus_alt_12x12.png") 38px 30px no-repeat
-    z-index: 1
-    &:hover
-      background-color: rgba(0,0,0,.1)
-    
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
   
   ul.cloud-list
     display: block
     position: relative
     list-style: none
-    margin: 0 10px 0 0
-    padding-left: 58px
-    max-height: 52px
-    min-height: 52px
-    overflow: hidden
-    background: image-url("icons/iconic/gray_dark/cloud_32x20.png") no-repeat 14px center
-    &.scrollable
-      margin-right: 40px
+    float: right
+    margin: 0
+    padding: 0 60px 0 40px !important
+    max-height: 70px
+    min-height: 70px
 
     li.cloud-trigger
+      z-index: 999
       position: relative
-      float: right
-      width: 80px
-      height: 52px
-      overflow: visible
+      float: left
+      width: 66px
+      height: 66px
       +transition(all 0.15s ease-in-out)
-      border-right: 1px rgba(50,50,50,0.8) solid
-      border-left: 1px rgba(50,50,50,0.8) solid
-      background-position: center center
-      margin-left: 10px
+      +border-radius(35px)
+      overflow: hidden
+      border: 2px rgba(50,50,50,0.5) solid
+      margin-left: 15px
+      
+      -webkit-animation-name: appearCloudTrigger
+      -webkit-animation-duration: .5s
+      -webkit-animation-timing-function: ease-in-out
+      -webkit-animation-delay: 1s
+      -webkit-animation-fill-mode: backwards
+      +opacity(1)
+      
+      @for $i from 1 through 10
+        &:nth-child(#{$i})
+          -webkit-animation-delay: .1s * $i + 1
+          
+      
+      &:hover
+        +box-shadow(0,0,20px,rgba(255,255,255,1))
       
       span.cloud-notification
         position: absolute
         z-index: 2
         font-weight: bold
-        -webkit-border-radius: 5px 5px 5px 5px
-        -moz-border-radius: 5px 5px 5px 5px
-        border-radius: 5px 5px 5px 5px
+        +border-radius(8px)
         background: #D00000
         border: 1px solid black
-        padding: 0 5px 1px 5px
+        padding: 0 0
         font-size: 10px
-        line-height: 14px
+        line-height: 16px
+        min-height: 16px
+        min-width: 16px
         position: absolute
-        top: 2px
-        right: 2px
+        text-align: center
+        top: 0px
+        right: 0px
         color: white
         pointer-events: none
         
         
       &.active
         //border-color: rgba(150,150,150,1)
-        .bg-image, &:hover > .bg-image
-          +opacity(.9)
         a
           span.cloud-notification
             display: none
         
       &:hover
-        .bg-image
-          +opacity(.7)
-        a
-          img
-            +opacity(1)
       
       .bg-image
-        +opacity(.3)
         +transition(all 0.15s ease-in-out)
+        +border-radius(35px)
+        overflow: hidden
         position: absolute
         top: 0
         bottom: 0
         width: 100%
         background-position: center center
+        background-size: 66px 66px
         background-color: #4C4C4C !important
         z-index: -1
       
       a
-        width: 80px
-        height: 52px
+        width: 66px
+        height: 66px
         float: left
         overflow: hidden
         &:hover
           text-decoration: none
-          
-        h6.cloud-name
-          position: absolute
-          bottom: 0
-          left: 0
-          right: 0
-          background: rgba(0,0,0,0.7)
-          color: white
-          padding: 0 4px
-          font-size: 10px
-          line-height: 12px
-          text-decoration: none
-          text-transform: none
-          word-wrap: break-word
-          max-height: 10px
-          padding-bottom: 3px
-          overflow: hidden
 
 
 // CHAT WRAPPER

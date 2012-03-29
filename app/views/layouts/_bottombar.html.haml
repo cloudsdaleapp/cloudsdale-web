@@ -1,28 +1,12 @@
-.bottombar
-  .cloud-wrapper
-    - if current_user
-      - @clouds = current_user.clouds.unscoped
-      - @clouds.each do |cloud|
-        .cloud-container{ id: cloud.id }
-          .cloud-toolbar
-            %header
-              = cloud.name
-              %a.closex
-              = link_to "", cloud_path(cloud), class: 'cloud'
-          .cloud-extras-wrapper
-            = link_to "#", class: 'cloud expand-trigger' do
-              %span more
-            %ul.cloud-users-list
-            
-          .cloud-chat-wrapper
-            .chat-messages
-            = form_tag cloud_messages_path(cloud), :remote => true, :class => "chat-form" do
-              .chat-input
-                = text_area_tag :message, ""
-                
-  = link_to "", new_cloud_path, class: 'new-cloud'
+.cloud-bar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
   
-  %ul.cloud-list.control-group
+  %ul.cloud-list
     - if current_user
       - @clouds = current_user.clouds
       - @clouds.each do |cloud|
@@ -30,7 +14,6 @@
           .bg-image{ style: "background-image: url(#{cloud_avatar_path(cloud.avatar.url)})" }
           = link_to "#" do
             %span.cloud-notification
-            %h6.cloud-name= cloud.name
-            
+                        
   = link_to "","#", class: 'scroll up'
   = link_to "","#", class: 'scroll down'
