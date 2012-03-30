@@ -82,4 +82,20 @@ class Api::V1Controller < ActionController::Base
     render 'api/v1/exceptions/exception', status: status_code
   end
   
+  # Public: helper method to help determine how many records
+  # to fetch when fetching a collection based on the "limit"
+  # parameter sent by the client. If a negative value is supplied
+  # or if the limit parameter is nil, the method will return
+  # 1 by default.
+  #
+  # Examples
+  # 
+  # User.all.limit(record_limit)
+  #
+  # Returns an integer.
+  def record_limit
+    i = params[:limit].to_i
+    i > 0 ? i : 1
+  end
+  
 end
