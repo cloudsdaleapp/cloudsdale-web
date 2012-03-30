@@ -2,6 +2,9 @@ Cloudsdale::Application.routes.draw do
 
   namespace "v1", module: "api/v1", constraints: { subdomain: /api|api\.local/i } do
 
+    resources :clouds, only: [:show] do
+    end
+
     resources :users, only: [:show] do
       resources :clouds, :controller => "users/clouds", only: [:index]
     end
