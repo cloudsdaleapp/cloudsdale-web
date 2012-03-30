@@ -2,6 +2,8 @@ class Api::V1Controller < ActionController::Base
   
   before_filter :auth_token
   
+  helper_method :current_user
+  
   # Internal: Determains the current user by using
   # sessions falling back on x-auth-token request header
   # initializing a new user if none of these are present.
