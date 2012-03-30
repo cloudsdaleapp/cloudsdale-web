@@ -42,7 +42,7 @@ class Api::V1Controller < ActionController::Base
   end
   
   
-  # Internal: Sets the auth token of the current request
+  # Public: Sets the auth token of the current request
   #
   # Returns the auth token.
   def auth_token
