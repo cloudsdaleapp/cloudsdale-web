@@ -290,6 +290,9 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.4, < 3)
+    rabl (0.6.5)
+      activesupport (>= 2.3.14)
+      multi_json (~> 1.0)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -464,6 +467,7 @@ DEPENDENCIES
   pdf-reader
   pjax_rails
   pry
+  rabl
   rails (= 3.2.2)
   rails3-generators
   redcarpet

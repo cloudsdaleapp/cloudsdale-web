@@ -33,6 +33,7 @@ gem 'haml-rails'
 gem 'redcarpet'
 gem 'pjax_rails'
 gem 'best_in_place'
+gem 'rabl'
 
 # Frontend
 gem 'backbone-on-rails'
