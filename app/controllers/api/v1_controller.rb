@@ -1,5 +1,7 @@
 class Api::V1Controller < ActionController::Base
   
+  layout :determine_layout
+  
   before_filter :auth_token
   
   helper_method :current_user
@@ -30,6 +32,27 @@ class Api::V1Controller < ActionController::Base
   # Returns the auth token.
   def auth_token
     @auth_token ||= request.headers['X-Auth-Token']
+  end
+  
+  # Internal: Determines which layout to use based on the
+  # requested content type.
+  #
+  # Examples
+  #
+  # class SomeController < SomeOtherController
+  # 
+  # layout :determine_layout
+  #
+  # end
+  #
+  # Returns a string with the layout name
+  def determine_layout
+    case request.format
+    when /xml/
+      'api_v1.xml'
+    else
+      'api_v1.json'
+    end
   end
   
 end
