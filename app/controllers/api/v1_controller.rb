@@ -86,16 +86,32 @@ class Api::V1Controller < ActionController::Base
   # to fetch when fetching a collection based on the "limit"
   # parameter sent by the client. If a negative value is supplied
   # or if the limit parameter is nil, the method will return
-  # 1 by default.
+  # the fallback_limit which is 1 by default.
+  #
+  # fallback - Integer of which limit to use if no limit parameter is supplied.
+  # max - Integer of the maximum amount of records that are allowed to be fetched.
   #
   # Examples
-  # 
-  # User.all.limit(record_limit)
+  #
+  # params[:limit] = 50
+  #
+  # User.all.limit record_limit(5,100)
+  # # => 50
+  #
+  # User.all.limit record_limit(5,30)
+  # # => 30
+  #
+  #
+  # params[:limit] = -1
+  #
+  # User.all.limit record_limit(5)
+  # # => 5
   #
   # Returns an integer.
-  def record_limit
-    i = params[:limit].to_i
-    i > 0 ? i : 1
+  def record_limit(fallback=1,max=nil)
+    i = params[:limit].try(:to_i) || fallback
+    i = i > max ? max : i if max
+    i > 0 ? i : fallback_limit
   end
   
 end
