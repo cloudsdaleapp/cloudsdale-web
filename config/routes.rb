@@ -1,11 +1,12 @@
 Cloudsdale::Application.routes.draw do
 
-  api version: 1 do
-    resources :clouds
+  namespace "v1", module: "api/v1", constraints: { subdomain: /api|api\.local/i } do
+
+
     match '*path', to: 'exceptions#routing_error'
+
   end
-
-
+  
   root to: 'main#index'
   
   match '/maintenance' => 'main#maintenance', as: :maintenance
@@ -60,13 +61,6 @@ Cloudsdale::Application.routes.draw do
   resources :admin, only: [:index] do
     collection do
       post :statistics
-    end
-  end
-  
-  namespace :api do
-    namespace :v1 do
-      match :test, via: :get
-      resources :auth_tokens, only: [:create]
     end
   end
   
