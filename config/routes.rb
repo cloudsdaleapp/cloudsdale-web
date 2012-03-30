@@ -1,5 +1,11 @@
 Cloudsdale::Application.routes.draw do
 
+  api version: 1 do
+    resources :clouds
+    match '*path', to: 'api/v2/exceptions#routing_error'
+  end
+
+
   root to: 'main#index'
   
   match '/maintenance' => 'main#maintenance', as: :maintenance
