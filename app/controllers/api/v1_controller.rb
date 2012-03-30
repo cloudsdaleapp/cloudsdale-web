@@ -6,6 +6,21 @@ class Api::V1Controller < ActionController::Base
   
   helper_method :current_user
   
+  # Rescues the error yielded from not finding requested document
+  rescue_from Mongoid::Errors::DocumentNotFound do |message|
+    render_exception "#{message} You sure this was what you were looking for?", 404
+  end
+  
+  # Rescues the error from not being authorized to perform an action
+  rescue_from CanCan::AccessDenied do |message|
+    render_exception "You're not allowed to do this, GTFO. #{message}", 401
+  end
+  
+  # Rescues the errors yielded by supplying a faulty BSON id
+  rescue_from BSON::InvalidObjectId do |message|
+    render_exception "BSON #{message}", 500
+  end
+  
   # Internal: Determains the current user by using
   # sessions falling back on x-auth-token request header
   # initializing a new user if none of these are present.
@@ -53,6 +68,18 @@ class Api::V1Controller < ActionController::Base
     else
       'api_v1.json'
     end
+  end
+  
+  # Public: Renders an exception back to the caller with a message and a status code.
+  #
+  # Examples
+  #
+  # render_exception "Not found", 404
+  #
+  # Returns a pretty render.
+  def render_exception(error_message, status_code=500)
+    @error = error_message
+    render 'api/v1/exceptions/exception', status: status_code
   end
   
 end
