@@ -153,7 +153,6 @@ GEM
       execjs
     eco-source (1.1.0.rc.1)
     ejs (1.0.0)
-    elif (0.1.0)
     em-hiredis (0.1.1)
       hiredis (~> 0.4.0)
     em-http-request (0.3.0)
@@ -215,6 +214,10 @@ GEM
       activesupport (~> 3.0)
       haml (~> 3.0)
       railties (~> 3.0)
+    haml_coffee_assets (0.8.4)
+      execjs (>= 1.2.9)
+      sprockets (>= 2.0.3)
+      tilt (>= 1.3.3)
     hashie (1.2.0)
     hashr (0.0.19)
     highline (1.6.2)
@@ -363,8 +366,6 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    scout (5.3.3)
-      elif
     selenium-webdriver (2.15.0)
       childprocess (>= 0.2.1)
       ffi (~> 1.0.9)
@@ -453,6 +454,7 @@ DEPENDENCIES
   guard-rspec
   haml
   haml-rails
+  haml_coffee_assets
   hashr
   imagesize
   jquery-rails
@@ -477,7 +479,6 @@ DEPENDENCIES
   rspec-rails
   sass
   sass-rails
-  scout
   soundcloud
   sprockets
   therubyracer

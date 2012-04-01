@@ -22,11 +22,6 @@ gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
 # Push notifications
 gem 'faye', git: 'git://github.com/faye/faye.git', branch: '0.8.x'
 
-# Production dependencies
-gem 'therubyracer'
-gem 'execjs'
-gem 'scout'
-
 # Markup
 gem 'haml'
 gem 'haml-rails'
@@ -90,6 +85,10 @@ gem 'amqp', '~> 0.9.2'
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
 
+group :assets do
+  gem 'haml_coffee_assets'
+end
+
 group :development, :test do
   gem 'pry'
   gem 'rails3-generators'
@@ -110,8 +109,10 @@ group :test do
   gem 'factory_girl_rails'
 end
 
-group :production do
+group :production, :assets do
   gem 'exception_notification'
+  gem 'therubyracer'
+  gem 'execjs'
 end
 
 gem 'yard'
