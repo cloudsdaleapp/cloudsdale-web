@@ -2,6 +2,6 @@
   {
     "status": #{response.status},
     "error": #{@error.to_json.html_safe},
-    "auth_token": #{current_user.auth_token ? current_user.auth_token : "null"},
+    "auth_token": #{current_user.auth_token ? current_user.auth_token.to_json : "null"},
     "result": #{yield}
   }
