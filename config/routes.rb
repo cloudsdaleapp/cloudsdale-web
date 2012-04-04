@@ -1,6 +1,6 @@
 Cloudsdale::Application.routes.draw do
 
-  namespace "v1", module: "api/v1", constraints: { subdomain: /api|api\.local/i } do
+  namespace "v1", module: "api/v1" do
 
     resources :tokens, only: [:create]
 
