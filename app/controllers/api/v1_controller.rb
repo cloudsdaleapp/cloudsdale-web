@@ -21,7 +21,27 @@ class Api::V1Controller < ActionController::Base
     render_exception "BSON #{message}", 500
   end
   
-  # Internal: Determains the current user by using
+  # Internal: Determines if the client doing the API call is an
+  # authorized client - This means the client has access to inhouse
+  # methods in the API.
+  #
+  # Examples
+  #
+  # INTERNAL_TOKEN
+  # # => "1234"
+  #
+  # request.env['X_AUTH_INTERNAL_TOKEN']
+  # # => "1234"
+  #
+  # authorized_client?
+  # # => true
+  #
+  # Returns a TrueClass or FalseClass depending on the state on the client of the current request.
+  def authorized_client?
+    request.env['X_AUTH_INTERNAL_TOKEN'] == INTERNAL_TOKEN
+  end
+  
+  # Internal: Determines the current user by using
   # sessions falling back on x-auth-token request header
   # initializing a new user if none of these are present.
   #
