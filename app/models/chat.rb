@@ -12,7 +12,7 @@ class Chat
   #
   # Returns a DateTime object.
   def last_message_at
-    messages.order_by([:timestamp,:desc]).limit(1).first.timestamp
+    messages.order_by([:timestamp,:desc]).limit(1).first.try(:timestamp)
   end
   
 end
