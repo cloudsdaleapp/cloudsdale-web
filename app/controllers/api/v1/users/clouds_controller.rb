@@ -7,7 +7,7 @@ class Api::V1::Users::CloudsController < Api::V1Controller
   def index
     @clouds = @user.clouds.limit(record_limit)
     authorize! :read, Cloud
-    render "api/v1/clouds/clouds", status: 200
+    render status: 200
   end
   
   # Private: Fetch user
