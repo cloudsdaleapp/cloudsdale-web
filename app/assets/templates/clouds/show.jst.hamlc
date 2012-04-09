@@ -1,0 +1,48 @@
+.fixed-container
+  .container-inner
+    .cloud-head.clearfix
+      .float-left
+        %img{ src: @model.get('avatar').normal }
+      %h2= @model.get('name')
+      %p= @model.get('description')
+    %nav.cloud-nav
+      %ul.cloud-nav-inner.nav-tabs
+        %li
+          %a{ href: "##{@model.id}-dropzone", data: { toggle: "tab"} }
+            %i.icon-white.icon-tint
+            = "Drops"
+        %li
+          %a{ href: "##{@model.id}-rules", data: { toggle: "tab"} }
+            %i.icon-white.icon-warning-sign
+            = "Rules"
+        %li
+          %a{ href: "##{@model.id}-members", data: { toggle: "tab"} }
+            %i.icon-white.icon-user
+            = "Members"
+        %li
+          %a{ href: "##{@model.id}-settings", data: { toggle: "tab"} }
+            %i.icon-white.icon-cog
+            = "Settings"
+        %li
+          %a{ href: "#" }
+            %i.icon-white.icon-plus
+            = "Join"
+    .cloud-content.tab-content
+      .cloud-dropzone.tab-pane{ id: "#{@model.id}-dropzone" }
+        %h3= "Dropzone"
+      .cloud-rules.tab-pane{ id: "#{@model.id}-rules" }
+        %h3= "Rules"
+      .cloud-members.tab-pane{ id: "#{@model.id}-members" }
+        %h3= "Members"
+      .cloud-settings.tab-pane{ id: "#{@model.id}-settings" }
+        %h3= "Settings"
+  
+.float-container
+  .container-inner
+
+/ .cloud-container
+/   .drop-wrapper
+/     .drop-inner
+/       .drop-header
+/       .drop-content
+/       .drop-footer

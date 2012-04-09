@@ -1,0 +1,10 @@
+.cloud-bar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  .cloud-bar-rainbar
+  %ul.cloud-list
+
+.view-container

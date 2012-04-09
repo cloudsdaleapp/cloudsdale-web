@@ -1,0 +1,3 @@
+%a{ href: "#", rel: 'popover', title: @model.get('name'), "data-content" => "<img src='#{@model.get('avatar').thumb}'/>", "data-placement" => "left" }
+  %img{ src: @model.get('avatar').thumb }
+  %span= @model.get('name')

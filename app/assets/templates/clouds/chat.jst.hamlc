@@ -1,0 +1,16 @@
+.loading-content
+.chat-sidebar
+  .chat-sidebar-header
+    %a.sidebar-toggle{ href: "#" }
+    %span.chat-sidebar-online-count
+      %span.n= "0"
+      %i.icon-user
+      
+  %ul.chat-online-list
+.chat-wrapper
+  .chat-messages
+  .chat-footer
+    %form.chat-message-form{ id: "#{@model.id}-message" }
+      %input{ type: 'hidden', value: session.get('client_id'), name: 'client_id' }
+      .better-grow-parent
+        %textarea.chat-message-content{ name: 'content', id: "#{@model.id}-content" }
