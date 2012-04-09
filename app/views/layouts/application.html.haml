@@ -2,12 +2,13 @@
 %html
   %head
     %title Cloudsdale
+    %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
+    %meta{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = favicon_link_tag "favicons/48by48.ico"
+    %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view"}
     = csrf_meta_tags
-    %meta{:content => "user-scalable=no, width=760", :name => "viewport", :id => "view"}
-    = yield :head
     
   %body{ :class => "#{params[:controller].to_s.parameterize} #{params[:action].to_s.parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
     = render :partial => 'layouts/topbar'
