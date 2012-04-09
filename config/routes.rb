@@ -4,7 +4,11 @@ Cloudsdale::Application.routes.draw do
 
     resources :tokens, only: [:create]
 
-    resources :clouds, only: [:show]
+    resources :clouds, only: [:show] do
+      namespace :chat, module: 'clouds/chat' do
+        resources :messages, only: [:index,:create]
+      end
+    end
 
     resources :users, only: [:show] do
       resources :clouds, :controller => "users/clouds", only: [:index]

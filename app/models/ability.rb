@@ -20,6 +20,9 @@ class Ability
         can :read, Cloud
         can :create, Cloud
         can [:update,:destroy], Cloud, :owner_id => user.id
+        can :create, Message do |message|
+          user.cloud_ids.include?(message.chat.topic.id)
+        end
         
         # FAQ
         can :read, Faq
