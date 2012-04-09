@@ -81,7 +81,10 @@ module Cloudsdale
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-
+    
+    # Configure HamlCoffee to so it does not escape HTML
+    config.hamlcoffee.escapeHtml = false
+    
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.logger = false
