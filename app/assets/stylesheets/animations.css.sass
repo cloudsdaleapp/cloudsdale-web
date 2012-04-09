@@ -1,0 +1,31 @@
+@each $vendor in -webkit-, -moz-, -o-, ""
+
+  @#{$vendor}keyframes slideInRainbar
+    0%
+      bottom: 100%
+    80%
+      bottom: -1%
+    100%
+      bottom: 0
+
+  @#{$vendor}keyframes appearCloudTrigger
+    0%
+      +opacity(0)
+      #{$vendor}transform: scale(.5)
+    60%
+      +opacity(1)
+      #{$vendor}transform: scale(1.1)
+    100%
+      +opacity(1)
+      #{$vendor}transform: scale(1)
+  
+  @#{$vendor}keyframes removeLoadFrame
+    0%
+      +opacity(1)
+      visibility: visible
+    99%
+      +opacity(0)
+      visibility: visible
+    100%
+      +opacity(0)
+      visibility: hidden  
