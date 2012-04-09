@@ -1,15 +1,17 @@
 .preloads
-  .preload.spinner
-  .preload.spinner-dark
-  .preload.arrow-up
-  .preload.arrow-up-small
-  .preload.arrow-down
-  .preload.arrow-up-small
-  .preload.arrow-up-color
-  .preload.arrow-up-color-small
-  .preload.arrow-down-color
-  .preload.arrow-down-color-small
-  .preload.avatar-cloud-chat
-  .preload.avatar-cloud-thumb
-  .preload.avatar-user-chat
-  .preload.avatar-user-thumb
+  / .preload.spinner
+  / .preload.spinner-dark
+  / .preload.arrow-up
+  / .preload.arrow-up-small
+  / .preload.arrow-down
+  / .preload.arrow-up-small
+  / .preload.arrow-up-color
+  / .preload.arrow-up-color-small
+  / .preload.arrow-down-color
+  / .preload.arrow-down-color-small
+  / .preload.avatar-cloud-chat
+  / .preload.avatar-cloud-thumb
+  / .preload.avatar-user-chat
+  / .preload.avatar-user-thumb
+
+  #preload-session{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }

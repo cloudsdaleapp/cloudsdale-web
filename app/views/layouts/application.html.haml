@@ -10,15 +10,9 @@
     %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view"}
     = csrf_meta_tags
     
-  %body{ :class => "#{params[:controller].to_s.parameterize} #{params[:action].to_s.parameterize}", :data => { :controller => params[:controller], :action => params[:action]} }
+  %body
+    = render :partial => 'layouts/preload'
     = render :partial => 'layouts/topbar'
-    .bg-container
-      .bg-main
-      
-    .container-fluid.body
-      = render partial: 'layouts/alert'
-      .content{ :data => { 'pjax-container' => ''} }
-        = yield
-        
-    = render :partial => 'layouts/bottombar'
-
+    = render :partial => 'layouts/background'
+    = render :partial => 'layouts/main'
+    = render :partial => 'layouts/modal'
