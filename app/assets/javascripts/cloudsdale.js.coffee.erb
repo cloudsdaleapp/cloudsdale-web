@@ -1,16 +1,13 @@
-# require modules/topbar
-# require modules/bottombar
+# Let's backbone handle Cloudsdale API calls by default.
+Backbone.Model.prototype.parse = (resp, xhr) -> if resp.result then resp.result else resp
+Backbone.Collection.prototype.parse = (resp, xhr) -> if resp.result then resp.result else resp
 
-# require bootstrap.tabs
-
-# require application/main
-# require application/users
-# require application/sessions
-# require application/clouds
-# require application/faqs
-# require application/admin
-# require application/explore
-# require application/drops/reflections
+window.railsRestSync = (method, model, options) ->
+  if method == 'GET'
+    options.url = model.url() + "/#{model.id}.json"
+  else
+    options.url = model.url()
+  return Backbone.sync(method, model, options)
 
 window.Cloudsdale =
   Models: {}
@@ -18,37 +15,35 @@ window.Cloudsdale =
   Views: {}
   Routers: {}
   init: ->
-    new Cloudsdale.Routers.Sessions()
+    new Cloudsdale.Routers.Root()
     new Cloudsdale.Routers.Clouds()
     Backbone.history.start({pushState: true})
-    
+    window.app = Backbone.history
 
 $(document).ready ->
-  Cloudsdale.init()
+  # Sets the session for the current user
+  window.session = new Cloudsdale.Models.Session($('#preload-session').data().session)
+  
+  # Initializes the notification centre
+  window.nfc = new NotificationCentre()
+  $(document).bind "connected:nfc", ->
+    
+    # Changes an attribute to the document if focused
+    # Initializes as true
+    window.window_focus = true
+    $(window).focus(-> document.window_focus = true).blur(-> document.window_focus = false)
+  
+    # Initializes the root view.
+    view = new Cloudsdale.Views.Root()
+    $('.main-container').replaceWith(view.el)
+
+    Cloudsdale.init()
 
 # $ ->
 #   
-#   document.window_focus = true
-#   $(window).focus ->
-#     document.window_focus = true
-#   .blur ->
-#     document.window_focus = false
 #   
 #   @userData = $('#user').data()
 #   
-#   document.fayeCli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", { timeout: 500 })
-#   subscription = document.fayeCli.subscribe('/')
-#   
-#   subscription.callback =>
-#     if document.fayeCli.getState() == 'CONNECTED'
-#       $.event.trigger "faye.connected"
-#   
-#   subscription.errback =>
-#     if document.fayeCli.getState() == 'CONNECTED'
-#       $.event.trigger "faye.connected"
-#   
-#   
-#   $(document).bind 'faye.connected', =>
 #     $('.navbar.navbar-fixed-top').topBar()
 #     $('.bottombar').bottomBar
 #       userData: @userData
