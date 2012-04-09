@@ -3,7 +3,16 @@
 class AvatarUploader < CarrierWave::Uploader::Base
   
   include CarrierWave::MiniMagick
+  include Sprockets::Helpers::RailsHelper
+  
+  def config
+    Rails.application.config.action_controller
+  end
 
+  def controller
+    nil
+  end
+  
   # Choose what kind of storage to use for this uploader:
   storage :fog
   
@@ -51,6 +60,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   
   def filename
      "#{secure_token(10)}-avatar.png" if original_filename.present?
+  end
+  
+  def default_url
+    image_path("fallback/" + [mounted_as, version_name, "#{model._type.downcase}.png"].compact.join('_'))    
   end
 
   protected
