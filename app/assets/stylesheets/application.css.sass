@@ -1,6 +1,9 @@
 @charset "UTF-8"
 //*= require_self
 
+$iconSpritePath: asset-data-url("glyphicons-halflings.png")
+$iconWhiteSpritePath: asset-data-url("glyphicons-halflings-white.png")
+
 @import "bootstrap"
 
 // Colors
@@ -20,15 +23,12 @@ $color-cd-background-lightest: #FFFFFF
 @import "preload"
 @import "animations"
 
-@import "bootstrap-fixes"
+// @import "bootstrap-fixes"
 
 @import "token-input-facebook"
 @import "jquery-ui"
 @import "jquery-ui-ie6"
 @import "jquery-daterangepicker"
-
-// Bootstrap Extentions
-//@import "bootstrap-ytshadow"
 
 
 html
@@ -54,80 +54,467 @@ body
     bottom: 0
     left: 0
     right: 0
-    
   .bg-main
     +linear-gradient(lighten(#63A0D0,15%),lighten(#63A0D0,3%))
-    
 
-.container-fluid.body
-  margin: 20px 0
-  padding: 0 20px
-  width: 710px
-  min-width: 710px
-  .content
-    width: 710px
-    margin: 0
-  
-.page-header
-  border-bottom: 1px solid rgba(255,255,255,.9)
-  +box-shadow(0,0,0,#000)
-  padding-bottom: 0
-  margin-bottom: 18px
-  h1, h2
-    padding: 20px 20px 10px 20px
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.3)
+$barPadding: 10px
+$borderColor: rgba(50, 90, 130, .5)
+$bgStripes: asset-data-url("bg-stripe.png")
+$bgNoise: asset-data-url("bg-noise.png")
+
+$phone: 480px
+$ipad-min: $phone + 1px
+$ipad-max: 980px
+$desktop-s-min: $ipad-max + 1px
+$desktop-s-max: 1230px
+$desktop-m-min: $desktop-s-max + 1px
+$desktop-m-max: 1480px
+$desktop-l-min: $desktop-m-max + 1px
+$desktop-l-max: 1730px
+
+$color-border-light: rgba(0,0,0,.3)
+$color-border-heavy: rgba(50,50,50,.5)
+
+.main-container
+  @media (max-width: $ipad-max)
+    top: 52px
+    left: 0
+    bottom: 0
+    right: 0
+    .view-container
+      margin-bottom: 78px
+      border-bottom: 1px solid $color-border-heavy
+      +box-shadow(0,5px,10px,rgba(0,0,0,.3))
+      z-index: 1
+  @media (min-width: $desktop-s-min)
+    .view-container
+      margin-right: 85px
+      
+  position: fixed
+  display: block
+  top: 68px
+  left: 15px
+  right: 15px
+  bottom: 15px
+  // min-height: 400px !important
+  .view-container
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    display: none
+    &.active
+      display: block
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+
+.fixed-container, .float-container
+  position: relative
+  height: 100%
+  background: rgba(255,255,255,.4) $bgStripes fixed
+  .container-inner
+    @media (min-width: $ipad-min) and (max-width: $ipad-max)
+      border-right: 1px solid $color-border-light
+    @media (min-width: $desktop-s-min)
+      margin: $barPadding
+      +box-shadow(1px, 1px, 8px, rgba(0,0,0,.05))
+    position: absolute
+    background: #f8f8f8
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+
+.fixed-container
+  @media (min-width: $ipad-min)
+    float: left
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    margin-right: 0
+    width: 420px
+  @media (min-width: $desktop-s-min)
+    margin-right: 15px
+    width: 450px
+
+.float-container
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    margin-left: 420px
+  @media (min-width: $desktop-s-min) 
+    margin-left: 465px
+
+.cloud-bar
+  padding: 0
+  z-index: 998
+  overflow: visible
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
     
+  @media (max-width: $ipad-max)
+    height: 78px
+    width: 100%
+    max-width: 100%
+    position: absolute
+    padding: 0
+    bottom: 0
+    ul.cloud-list
+      position: absolute
+      padding: 4px 8px
+      margin: 0
+      height: 70px
+      right: 0
+      left: 0
+      max-width: 100%
+      li.cloud-toggle
+        float: left
+        margin: 0 10px 0 0
+    .cloud-bar-rainbar
+      height: 13px
+      width: auto
+      margin: 0
+      top: 0
+      right: 0
+      left: 0
+      z-index: -1
+      +opacity(.8)
+      // +border-radius(0 13px 13px 0)
+      @for $i from 0 to 6
+        &:nth-child(#{($i+1)})
+          top: (13px*$i)
+        
+  @media (min-width: $desktop-s-min)
+    position: absolute
+    right: 0
+    top: -16px
+    bottom: -16px
+    width: 70px
+    
+    ul.cloud-list
+      float: left
+      position: absolute
+      padding: 30px 15px !important
+      margin: 0 -15px !important
+      top: 0
+      bottom: 0
+      li.cloud-toggle
+        float: left
+        margin: 0 0 10px 0
+    .cloud-bar-rainbar
+      top: 0
+      right: 0
+      bottom: 0
+      -webkit-animation-name: slideInRainbar
+      -webkit-animation-duration: .9s
+      -webkit-animation-fill-mode: backwards
+      width: 10px
+      +border-radius(0 0 10px 10px)
+      +opacity(.8)
+      &:nth-child(1)
+        right: 5px
+      @for $i from 1 to 6
+        &:nth-child(#{$i+1})
+          right: 5px + (10px * $i)
+  
+  .cloud-bar-rainbar
+    position: absolute
+    // @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
+    -webkit-animation-name: slideInRainbar
+    -webkit-animation-duration: .9s
+    -webkit-animation-fill-mode: backwards
+    &:nth-child(1)
+      -webkit-animation-delay: .13s
+      background-color: rgb(220,38,0)
+    &:nth-child(2)
+      -webkit-animation-delay: .07s
+      background-color: rgb(252,136,0)
+    &:nth-child(3)
+      -webkit-animation-delay: .01s
+      background-color: rgb(255,230,0)
+    &:nth-child(4)
+      -webkit-animation-delay: .04s
+      background-color: rgb(128,206,0)
+    &:nth-child(5)
+      -webkit-animation-delay: .10s
+      background-color: rgb(0,165,255)
+    &:nth-child(6)
+      -webkit-animation-delay: .16s
+      background-color: rgb(105,70,255)
+  
+ul.cloud-list
+  display: block
+  position: relative
+  list-style: none
+  overflow: auto
+  margin: 0
+  
+  li.cloud-toggle
+    z-index: 999
+    position: relative
+    width: 66px
+    height: 66px
+    
+    -webkit-animation-name: appearCloudTrigger
+    -webkit-animation-duration: .5s
+    -webkit-animation-timing-function: ease-in-out
+    -webkit-animation-delay: 1s
+    -webkit-animation-fill-mode: backwards
+    
+    @for $i from 1 through 10
+      &:nth-child(#{$i})
+        -webkit-animation-delay: .1s * $i + 1
+  
+    +opacity(1)
+    +transition(all 0.15s ease-in-out)
+    +border-radius(35px)
+    overflow: visible
+    border: 2px rgba(50,50,50,.5) solid
+    
+    &:hover
+      +box-shadow(0,0,20px,rgba(255,255,255,1))
+    
+    span.cloud-notification
+      position: absolute
+      z-index: 2
+      font-weight: bold
+      +border-radius(8px)
+      background: #D00000
+      border: 1px solid black
+      padding: 0 0
+      font-size: 10px
+      line-height: 16px
+      min-height: 16px
+      min-width: 16px
+      position: absolute
+      text-align: center
+      top: 0px
+      right: 0px
+      color: white
+      pointer-events: none
+      
+      
+    &.active
+      a
+        span.cloud-notification
+          display: none
+      
+    &:hover
+    
+    .bg-image
+      +transition(all 0.15s ease-in-out)
+      +border-radius(35px)
+      overflow: hidden
+      position: absolute
+      top: 0
+      bottom: 0
+      width: 100%
+      background-position: center center
+      background-size: 66px 66px
+      background-color: #4C4C4C !important
+      z-index: -1
+    
+    a
+      width: 66px
+      height: 66px
+      float: left
+      overflow: hidden
+      &:hover
+        text-decoration: none
+    
+          
+.navbar.navbar-fixed-top
+  margin-bottom: 0
+  .navbar-inner
+      
+    margin: 0 -2px
+    padding: 0 2px
+    
+    background: #63a0d0 image-url("bg-noise-bar.png")
+    background: image-url("bg-noise-bar.png"), url(data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYzYTBkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZjg1YjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+    background: image-url("bg-noise-bar.png"), -moz-linear-gradient(top,  #63a0d0 0%, #3f85b3 100%)
+    background: image-url("bg-noise-bar.png"), -webkit-gradient(linear, left top, left bottom, color-stop(0%,#63a0d0), color-stop(100%,#3f85b3))
+    background: image-url("bg-noise-bar.png"), -webkit-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+    background: image-url("bg-noise-bar.png"), -o-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+    background: image-url("bg-noise-bar.png"), -ms-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+    background: image-url("bg-noise-bar.png"), linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63a0d0', endColorstr='#3f85b3',GradientType=0 )
+    
+    -moz-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+    -o-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+    -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+    border-bottom: 1px rgba(50,50,50,0.8) solid
+    .container-fluid
+      min-width: 750px
+              
+      a.brand
+        padding: 10px 35px 13px 25px
+        margin-right: 15px
+        background: transparent right center no-repeat
+        &.loading
+          background-image: image-url("details/pjax-indicator-001.gif")
+          background-size: 28px 28px
+      form.navbar-search
+        margin-top: 11px
+        margin-bottom: 11px
+        input
+          margin-bottom: 0
+          background-color: rgba(255, 255, 255, 0.3)
+          padding: 4px 9px
+          color: #E6E6E6
+          -webkit-border-radius: 4px
+          -moz-border-radius: 4px
+          border-radius: 4px
+          -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),0 1px 0px rgba(255, 255, 255, 0.25)
+          -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),0 1px 0px rgba(255, 255, 255, 0.25)
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),0 1px 0px rgba(255, 255, 255, 0.25)
+          +transition(none)
+        
+          padding-right: 28px
+          width: 160px
+          -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"
+          +opacity(.7)
+          font-weight: bold
+          text-shadow: 0px 0px 0px #000
+          border-color: rgba(50, 50, 50, 0.9)
+          &:focus
+            background-color: rgba(255, 255, 255, 0.7)
+            color: #333333
+          &::-webkit-input-placeholder
+            color: #E6E6E6
+      ul.nav > li
+        border-style: solid
+        border-color: transparent
+        border-width: 0 1px 0 1px
+        
+        &.active, &.open
+          // border-color: rgba(255,255,255,.2)
+          & > a
+            background: transparent
+            +opacity(1)
+            // background: $color-cd-background-dark image-url("bg-noise-bar.png")
+            // +box-shadow-inset(0,2px,1px,rgba(50,105,141,.9))
+            // border-color: rgba(50,50,50,.6)
+            img.i-active
+              display: block
+            img:not(.i-active)
+              display: none
+              
+        &.open
+          & > a
+            +opacity(1)
+            // padding: 13px 10px 14px 10px
+            // margin-bottom: -1px
+            
+        & > a
+          line-height: 26px
+          font-size: 14px
+          padding: 13px 10px
+          color: rgba(255,255,255,1)
+          text-shadow: -1px -1px 1px rgba(0,0,0,.2)
+          font-weight: bold
+          
+          border-style: solid
+          border-color: transparent
+          border-width: 0 1px 0 1px
+          +opacity(.7)
+          
+          img.i-active
+            display: none
+          img:not(.i-active)
+            display: block
+          
+          &:hover, &.open
+            +opacity(1)
+          
+          img
+            float: left
+            margin-right: 6px
+            max-height: 26px
+            max-width: 26px
+          
+          b.caret
+            margin-top: 11px
+            
+        &.dropdown > ul.dropdown-menu
+          margin-top: 3px
+          min-width: 220px
+          margin-right: 0px
+          li.dropdown-item-profile
+            img
+              +border-radius(5px)
+              float: left
+              margin-right: 7px
+            span
+              font-weight: bold
+              color: $color-text
+            a:hover
+              img
+                +box-shadow(1px,1px,2px,rgba(0,0,0,.3))
+              span
+                color: #fff
+              
+          li > a, li.nav-header
+            padding: 5px 5px 5px 10px
+
+.loading-content
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  background: rgba(248,248,248,.6)
+  z-index: 10
+  &:before
+    position: absolute
+    top: 50%
+    left: 50%
+    font-size: 20px
+    width: 100px
+    height: 60px
+    font-weight: bold
+    content: 'loading'
+    text-align: right
+    background: rgba(0,0,0,.3)
+    background-image: image-url("details/ajax-spinner.gif")
+    background-size: 30px 30px
+    background-position: 10px center
+    background-repeat: no-repeat
+    padding: 0 20px 0 20px
+    color: #ffffff
+    line-height: 60px
+    display: block
+    +border-radius(7px)
+    
+    margin-left: -50px
+    margin-top: -30px
+  
+  &.load-ok
+    +opacity(0)
+    visibility: hidden
+    pointer-events: none
+    @each $vendor in -webkit-, -moz-, -o-, ""
+      #{$vendor}animation: removeLoadFrame .3s ease-in
+    
+  &.load-error
+    &:before
+      content: 'error'
+      background-color: rgba(150,0,0,.3)
+      background-image: image-url("icons/glyphicons/white/circle_remove.png")
 a.disabled-link
   +opacity(0.5)
   cursor: default
   pointer-events: none
   &:hover
-
-img.link_icon
-  float: left
-  margin-right: 10px
-
-footer
-  border-top: none !important
-  p
-    font-weight: bold
-    text-align: center
-    color: #525252
-
-.online
-  color: $green
-.offline
-  color: $red
-
-.block-message.alert-message
-  margin: 0 20px
-
-.avatar-container
-  line-height: 0em
-  padding: 7px
-  float: left
-  +border-radius(3px)
-  +linear-gradient(#fff,#E8F1FF)
-  +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
-  border: 1px rgba(50, 50, 50, 0.3) solid
-  min-height: 100px
-  min-width: 100px
-  text-align: center
-  img
-    float: none
-    border: 1px rgba(50, 50, 50, 0.2) solid
-    margin: 0
-    padding: 0
-
-table.table.table-bordered
-  background: #fff
-
-fieldset.action-wrapper
-  border-bottom: 1px solid rgba(255, 255, 255, .9)
-  border-top: 1px solid rgba(255, 255, 255, .9)
-  padding: 0
-  .form-actions
-    margin: 0
+  
 
 select, textarea, input
   &.disabled
@@ -139,56 +526,6 @@ input[type=file]
   background-color: transparent
   &.disabled, &:disabled
     +opacity(0.5)
-
-form
-  div.control-group.error
-    background: transparent
-    padding: 10px 0 0 0
-    margin-bottom: 18px
-  &.form-stacked
-    div.control-group.error
-      padding: 0
-      margin: 0 0 9px 0
-
-.input-prepend, .input-append
-  .active
-    background: #77ACD6
-    border-color: #0080FF
-
-img.noavatar
-  background: #E6E6E6 center center no-repeat
-  background-image: image-url("other/unknown_pony_thumb.jpg")
-  img.thumb
-    background-image: image-url("other/unknown_pony_thumb.jpg")
-  img.chat
-    background-image: image-url("other/unknown_pony_chat.jpg")
-
-img.nocloudavatar
-  background: #E6E6E6 image-url("icons/iconic/gray_light/cloud_32x20.png") center center no-repeat
-  border: #E6E6E6 1px solid
-  &.borderless
-    border: none
-    outline: none
-
-ul.nav.nav-tabs
-  margin-bottom: 0
-  margin-top: 15px
-  li
-    margin-bottom: -2px
-    a
-      font-weight: bold
-      &:hover
-        background: rgba(0,0,0,.05)
-        border-bottom: none
-    &.active
-      a
-        background: #F8F8F8 image-url("bg-noise.png") repeat 0px 0px fixed
-        &:hover
-          border-bottom: 1px transparent solid
-
-.alert-message.block-message
-  h1,h2,h3,h4,h5,h6
-    margin-right: 30px
 
 .float-left
   float: left
@@ -206,15 +543,6 @@ ul.nav.nav-tabs
     visibility: hidden
     line-height: 0
     height: 0
-    
-h6.sidebar-title
-  padding-left: 3px
-  margin-bottom: 5px
-
-
-
-@import "topbar"
-@import "bottombar"
 
 @import "users"
 @import "main"
