@@ -1,18 +1,23 @@
 #= require jquery
-#= require jquery_ujs
-#= require pjax
-#= require jquery.cookie
-#= require date
-#= require bootstrap
-
-#= require rails.validations
-#= require rails.validations.custom
-#= require rails.validations.formbuilder_front
-
-#= require users
-#= require sessions
 
 $ ->
+  
+  $('a.external-inline').live 'click touchstart', ->
+    location.href = $(this).attr( "href" )
+    return false
+  
+  # $(document).on "click", "a", (event) ->
+  #   
+  #   console.log "hello"
+  #   
+  #   # Stop the default behavior of the browser, which
+  #   # is to change the URL of the page.
+  #   event.preventDefault()
+  # 
+  #   # Manually change the location of the page to stay in
+  #   # "Standalone" mode and change the URL at the same time.
+  #   location.href = $( event.target ).attr( "href" )
+    
   
   hide_alert_message = (p) ->
     $(p).replaceWith("<div class='alert-message hidden'></div>")
@@ -38,5 +43,5 @@ $ ->
       load_javascript(b.getResponseHeader('controller'),b.getResponseHeader('action'))
       $("body").attr('class', "#{b.getResponseHeader('controller')} #{b.getResponseHeader('action')}")
   
-  $(document).ready ->
+  $(document).ready ->    
     load_javascript($("body").data('controller'),$("body").data('action'))
