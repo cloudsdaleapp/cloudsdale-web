@@ -29,6 +29,7 @@ gem 'redcarpet'
 gem 'pjax_rails'
 gem 'best_in_place'
 gem 'rabl'
+gem 'bootstrap-sass'
 
 # Frontend
 gem 'backbone-on-rails'
@@ -66,7 +67,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'user-agent'
 
 # Assets
-gem 'sass'
+gem 'sass', git: 'https://github.com/nex3/sass.git'
 gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier'
