@@ -1,8 +1,0 @@
-- flash.each do |type, message|
-  .alert.fade.in{ :data => { :alert => "alert" }, :class => to_type(type) }
-    = link_to "×", "#", data: { dismiss: 'alert' }, class: 'close'
-    - if message.is_a?(Hash) and message.has_key?(:title)
-      %strong= message[:title].html_safe
-      = message[:message].html_safe
-    - else
-      = message.html_safe
