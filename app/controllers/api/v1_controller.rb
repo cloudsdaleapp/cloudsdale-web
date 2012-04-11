@@ -3,6 +3,7 @@ class Api::V1Controller < ActionController::Base
   layout :determine_layout
   
   before_filter :auth_token
+  after_filter :build_response_headers
   
   helper_method :current_user
   
@@ -132,6 +133,19 @@ class Api::V1Controller < ActionController::Base
     i = params[:limit].try(:to_i) || fallback
     i = i > max ? max : i if max
     i > 0 ? i : fallback
+  end
+  
+  # Builds some generic response headers, among them
+  # X-Auth-Token // If a current user is present
+  #
+  # Examples
+  #
+  # after_filter :build_response_headers
+  # 
+  # Returns "ok".
+  def build_response_headers
+    response.headers['X-Auth-Token'] = current_user.auth_token unless current_user.new_record?
+    "ok"
   end
   
 end
