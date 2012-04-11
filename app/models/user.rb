@@ -19,6 +19,7 @@ class User
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
   
   
+  field :name,                  type: String
   field :email,                 type: String
   field :auth_token,            type: String
   field :password_hash,         type: String
@@ -28,6 +29,7 @@ class User
   field :member_since,          type: Time
   field :invisible,             type: Boolean,    default: false
   field :force_password_change, type: Boolean,    default: false
+  field :force_name_change,     type: Boolean,    default: false
   field :tnc_last_accepted,     type: Date,       default: nil
   
   field :subscribers_count,     type: Integer,    default: 0
@@ -43,8 +45,8 @@ class User
   accepts_nested_attributes_for :character, :allow_destroy => true
   accepts_nested_attributes_for :authentications, :allow_destroy => true
   
-  validates_uniqueness_of :email
-  validates :email, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+  validates :name, presence: true, length: { within: 2..20 }, format: { :with => /^[a-z0-9\_]*$/i }
+  validates :email, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }, uniqueness: true
   validates :password, confirmation: true, length: { within: 6..56 }, :allow_blank => true
   validates :auth_token, uniqueness: true
   
@@ -162,10 +164,6 @@ class User
     rescue Fog::Storage::Rackspace::NotFound
       @previous_model_for_avatar = nil
     end
-  end
-  
-  def name
-    self.character.name
   end
   
   def status_in_words

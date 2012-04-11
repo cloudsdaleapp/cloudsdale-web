@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     authorize! :update, @user
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        session[:display_name] = @user.character.name
+        session[:display_name] = @user.name
         format.html { redirect_to edit_user_path(@user), notice: "#{@user.name} was successfully updated"  }
       else
         flash[:error] = "#{@user.name} not be updated. #{errors_to_string(@user.errors)}"
