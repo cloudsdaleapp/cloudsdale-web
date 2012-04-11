@@ -5,6 +5,8 @@ class User
 
   include Droppable
   
+  attr_accessible :name, :email, :password, :invisible
+  
   embeds_one :character
   embeds_one :restoration
   embeds_one :checklist
@@ -17,7 +19,6 @@ class User
   has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
   has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
   has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
-  
   
   field :name,                  type: String
   field :email,                 type: String
