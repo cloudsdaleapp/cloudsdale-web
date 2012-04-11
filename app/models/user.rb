@@ -84,7 +84,7 @@ class User
   end
   
   def avatar_versions
-    { normal: avatar.url, mini: avatar.mini.url, thumb: avatar.thumb.url, preview: avatar.preview.url }
+    { normal: avatar.url, mini: avatar.mini.url, thumb: avatar.thumb.url, preview: avatar.preview.url, chat: avatar.chat.url }
   end
   
   def self.authenticate(email, password)
