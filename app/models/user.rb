@@ -5,7 +5,8 @@ class User
 
   include Droppable
   
-  attr_accessible :name, :email, :password, :invisible
+  attr_accessible :name, :email, :password, :password_confirmation, :invisible, :time_zone
+  attr_accessor :password
   
   embeds_one :character
   embeds_one :restoration
@@ -39,9 +40,6 @@ class User
   
   scope :top_subscribed, -> { order_by([:subscribers_count,:desc]) }
   scope :visable, where(:invisible => false)
-
-  attr_accessible :email, :password, :password_confirmation, :auth_token, :authentications_attributes, :character_attributes, :avatar, :force_password_change, :time_zone
-  attr_accessor :password
   
   accepts_nested_attributes_for :character, :allow_destroy => true
   accepts_nested_attributes_for :authentications, :allow_destroy => true
