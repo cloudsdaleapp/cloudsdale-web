@@ -15,9 +15,9 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = User.authenticate(params[:email], params[:password]) if params[:email] && params[:password]
-    if user
-      authenticate!(user)
+    @user = User.authenticate(email: params[:email], password: params[:password]) if params[:email] && params[:password]
+    if @user
+      authenticate!(@user)
       redirect_to unless_pending_request_go_to(root_path)
     else
       flash[:error] = "Login Failed! Wrong email and password combination, maybe you're not a member?"

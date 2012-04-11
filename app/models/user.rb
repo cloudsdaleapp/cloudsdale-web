@@ -87,13 +87,63 @@ class User
     { normal: avatar.url, mini: avatar.mini.url, thumb: avatar.thumb.url, preview: avatar.preview.url, chat: avatar.chat.url }
   end
   
-  def self.authenticate(email, password)
-    user = where(:email => email.downcase, :password_hash.exists => true, :password_salt.exists => true).first
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-      user
-    else
-      nil
+
+  # Public: Takes authentication options and tries to
+  # resolve and return a user record.
+  #
+  # TODO: Add Twitter & Facebook authentication connectors.
+  #
+  # options - A options Hash which defaults to ({}):
+  #
+  #           :email - The registered email for a user
+  #           :password - The password associated with that user
+  #
+  #           :oauth - A hash of oauth options defaults to nil:
+  #
+  #             :provider - String with the service oAuth provider
+  #                         Can either be "facebook" or "twitter"
+  #
+  #             :uid -      String with the user id with the provider
+  #
+  #             :token -    String with the secret token for the user to allow the
+  #                         application to access and authenticate.
+  #
+  #             :cli_type - String with the type of the client.
+  #                         Currently supports "ios" or "android"
+  #
+  # Examples
+  #
+  # User.authenticate(oauth: { provider: 'facebook', uid: '1234...', token: '***', cli_type: 'iphone' } )
+  # # => #<User:...> 
+  #
+  # User.authenticate(password: '***', email: 'info@cl...')
+  # # => #<User:...>
+  #
+  # Returns the user record if it's present, otherwise return nil.
+  def self.authenticate(options={})
+    email     = options[:email]
+    password  = options[:password]
+    oauth     = options[:oauth]
+    user      = nil
+    
+    if oauth
+      # Do oAuth stuff.
     end
+    
+    if email && password && user.nil?
+      user = where(
+        :email => /#{email}/i,
+        :password_hash.exists => true,
+        :password_salt.exists => true
+      ).first
+      
+      if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
+        user
+      else
+        nil
+      end
+    end
+      
   end
   
   def encrypt_password

@@ -2,6 +2,8 @@ Cloudsdale::Application.routes.draw do
 
   namespace "v1", module: "api/v1" do
 
+    resources :sessions, only: [:create]
+
     resources :tokens, only: [:create]
 
     resources :clouds, only: [:show] do
