@@ -14,7 +14,6 @@ class Drop
   voteable self, :up => +1, :down => -1
   
   embeds_many :deposits
-  embeds_many :visits
   embeds_many :reflections
     
   field :url,                 type: String
@@ -27,9 +26,7 @@ class Drop
   field :src_meta,            type: Hash,         default: {}
   field :last_load,           type: DateTime
   field :hidden,              type: String,       default: "false"
-  
-  field :total_visits,        type: Integer,      default: 0
-  
+    
   belongs_to :local_reference, polymorphic: true
     
   validates :url, presence: true, format: /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i
@@ -72,7 +69,7 @@ class Drop
   end
   
   def to_indexed_json
-    self.to_json(:only => [ :_id,:_type,:title,:total_visits,:strategy,:src_meta,:votes,:created_at,:updated_at,:hidden], :methods => [:preview_versions])
+    self.to_json(:only => [ :_id,:_type,:title,:strategy,:src_meta,:votes,:created_at,:updated_at,:hidden], :methods => [:preview_versions])
   end
   
   def self.paginate(options = {})
@@ -132,10 +129,6 @@ class Drop
   
   def preview_versions
     { default: self.preview.url }
-  end
-  
-  def update_statistics
-    self[:total_visits] = visit_ids.count
   end
   
   def set_preview_image(file,local=false)
