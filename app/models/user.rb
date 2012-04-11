@@ -18,8 +18,6 @@ class User
   has_many :owned_clouds, class_name: "Cloud", as: :owner
   
   has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
-  has_and_belongs_to_many :subscribers, class_name: "User", :inverse_of => :publishers, dependent: :nullify
-  has_and_belongs_to_many :publishers, class_name: "User", :inverse_of => :subscribers, dependent: :nullify
   
   field :name,                  type: String
   field :email,                 type: String
@@ -33,12 +31,9 @@ class User
   field :force_password_change, type: Boolean,    default: false
   field :force_name_change,     type: Boolean,    default: false
   field :tnc_last_accepted,     type: Date,       default: nil
-  
-  field :subscribers_count,     type: Integer,    default: 0
-  
+    
   mount_uploader :avatar, AvatarUploader
   
-  scope :top_subscribed, -> { order_by([:subscribers_count,:desc]) }
   scope :visable, where(:invisible => false)
   
   accepts_nested_attributes_for :character, :allow_destroy => true
@@ -48,9 +43,7 @@ class User
   validates :email, format: { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }, uniqueness: true
   validates :password, confirmation: true, length: { within: 6..56 }, :allow_blank => true
   validates :auth_token, uniqueness: true
-  
-  validates_exclusion_of :id, :in => lambda { |u| u.publisher_ids }, :message => "cannot subscribe to yourself"
-  
+    
   before_validation do
     self[:cloud_ids].uniq!
   end
@@ -62,9 +55,7 @@ class User
     encrypt_password
     enable_account_on_password_change
     set_creation_date
-    update_statistics
-    remove_duplicate_subscriptions
-    
+        
     if drop.nil?
       self.build_drop
     end
@@ -80,7 +71,6 @@ class User
     self.drop.src_meta ||= {}
   
     self.drop.src_meta['avatar']             = self.avatar.preview.url
-    self.drop.src_meta['subscribers_count']  = self.subscribers_count
     self.drop.src_meta['member_since']       = self[:member_since] || Time.now
     self.drop.src_meta['reference_id']       = self._id.to_s
   end
@@ -90,7 +80,7 @@ class User
   end
   
   def to_indexed_json
-    self.to_json(:only => [ :_id,:subscribers_count], :methods => [:name,:avatar_versions])
+    self.to_json(:only => [ :_id], :methods => [:name,:avatar_versions])
   end
   
   def avatar_versions
@@ -126,16 +116,7 @@ class User
       self[:member_since] = Time.now
     end
   end
-  
-  def update_statistics
-    self[:subscribers_count] = self.subscribers.count
-  end
-  
-  def remove_duplicate_subscriptions
-    self[:subscriber_ids].uniq!
-    self[:publisher_ids].uniq!
-  end
-  
+
   def logout_and_save!
     save!
   end

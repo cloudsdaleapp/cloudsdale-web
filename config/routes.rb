@@ -40,7 +40,6 @@ Cloudsdale::Application.routes.draw do
     get :change_password, on: :member
     put :update_password, on: :member
     put :accept_tnc, on: :member
-    resources :subscribers, :only => [:create,:destroy], :controller => 'users/subscribers'
     resources :restorations, :only => [:create,:show], :controller => 'users/restorations'
     resources :drops, only: [:create], :controller => 'users/drops'
   end
