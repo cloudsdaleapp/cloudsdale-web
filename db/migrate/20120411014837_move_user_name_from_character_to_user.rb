@@ -2,10 +2,12 @@ class MoveUserNameFromCharacterToUser < Mongoid::Migration
   
   def self.up
     User.all.each do |user|
-      user[:name] = user.character.name.gsub(/\s/i,"")[0..19].downcase
-      unless user.save
-        user[:name] = SecureRandom.hex(10)
-        user[:force_name_change] = true
+      if user.character
+        user[:name] = user.character.name.gsub(/\s/i,"")[0..19].downcase
+        unless user.save
+          user[:name] = SecureRandom.hex(10)
+          user[:force_name_change] = true
+        end
       end
     end
   end
