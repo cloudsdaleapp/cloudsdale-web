@@ -11,12 +11,12 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     @bind()
   
   render: ->
-    $(@el).html(@template(model: @model)).attr('data-cloud-id',@model.id)
+    $(@el).html(@template(model: @model)).attr('data-page-id',@model.id)
     this
   
   bind: ->
-    $(@el).bind 'clouds:show', (event,cloud_id) =>
-      @show() if cloud_id == @model.id
+    $(@el).bind 'page:show', (event,page_id) =>
+      @show() if page_id == @model.id
   
   show: ->
     $('.view-container').removeClass('active')
