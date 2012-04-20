@@ -7,7 +7,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
   className: 'cloud-toggle'
   
   events: {
-    'click' : 'toggle'
+    'click' : 'activate'
   }
   
   initialize: ->
@@ -19,18 +19,15 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     this
   
   bind: ->
-    $(@el).bind 'clouds:show', (event,cloud_id) =>
-      $(@el).addClass('active') if cloud_id == @model.id
+    $(@el).bind 'page:show', (event,page_id) =>
+      if page_id == @model.id
+        $(@el).addClass('active') 
+      else
+        $(@el).removeClass('active') 
     
-    # nfc.on "#{@model.type}:#{@model.id}:chat", (payload) ->
-    #   console.log payload
+    nfc.on "#{@model.type}:#{@model.id}:chat", (payload) ->
+      console.log payload
       
-  toggle: ->
-    $('.cloud-toggle').removeClass('active')
-    $(@el).addClass('active')
+  activate: ->
     Backbone.history.navigate("/clouds/#{@model.id}",true)
     false
-    
-    # console.log Backbone.Router()
-    # if @model.active then  else 
-      
