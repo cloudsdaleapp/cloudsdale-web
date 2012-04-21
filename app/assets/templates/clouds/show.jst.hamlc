@@ -39,10 +39,3 @@
   
 .float-container.with-fixed-container
   .container-inner
-
-/ .cloud-container
-/   .drop-wrapper
-/     .drop-inner
-/       .drop-header
-/       .drop-content
-/       .drop-footer
