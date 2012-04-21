@@ -109,12 +109,13 @@ body
   
   @media (min-width: $desktop-s-min)
     margin-right: 80px
+    +box-shadow(2px,0,5px,rgba(0,0,0,.3))
   
-  @media (min-width: $desktop-l-min)
-    margin-right: 200px
-  
-  @media (min-width: $desktop-l-max)
-    margin-right: 280px
+    @media (min-width: $desktop-l-min)
+      margin-right: 200px
+
+    @media (min-width: $desktop-l-max)
+      margin-right: 280px
 
 .view-container
   position: absolute
