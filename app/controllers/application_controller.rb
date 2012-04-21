@@ -98,9 +98,14 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # Internal: Forces users that are not of role moderator or higher to get redirected to
+  # the maintenence page. The site will still work as normal even though maintenance
+  # mode is activated for the users with sufficient rights.
+  #
+  # Returns nothing of intrest.
   def redirect_on_maintenance!
     if MAINTENANCE
-      unless current_user and current_user.role >= 4
+      unless current_user and current_user.role >= 2
         redirect_to maintenance_path
       end
     end
