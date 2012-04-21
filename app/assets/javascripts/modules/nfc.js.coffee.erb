@@ -21,8 +21,8 @@ do ($ = jQuery) ->
     on: (event,f) ->
       
       channel = "/#{event.replace(/\:/ig,"/")}" # The event name translated to Faye channel
-      
-      if @cli['_2']['_2'][channel] == undefined
+                  
+      if @cli._channels._channels[channel] == undefined
         subscription = @cli.subscribe channel, (payload) ->
           $.event.trigger "#{event}", payload
       
