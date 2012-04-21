@@ -108,7 +108,7 @@ body
       +box-shadow(0,2px,5px,rgba(0,0,0,.3))
   
   @media (min-width: $desktop-s-min)
-    margin-right: 80px
+    margin-right: 81px
     +box-shadow(2px,0,5px,rgba(0,0,0,.3))
   
     @media (min-width: $desktop-l-min)
@@ -245,6 +245,7 @@ li.cloud-toggle
   z-index: 999
   overflow: visible
   position: relative
+  
   @media (max-width: $ipad-max)
     float: left
     height: $height-cloudbar
@@ -280,10 +281,9 @@ li.cloud-toggle
       width: 10%
   
   @media (min-width: $desktop-s-min)
-    padding: 12px 12px 0 12px
-    
+    padding: 11px 11px 0 11px
     a
-      position: relative
+      position: relative !important
       
     .cloud-toggle-avatar
       float: left
@@ -292,23 +292,40 @@ li.cloud-toggle
         +box-shadow(0,0,10px,rgba(255,255,255,.7))
       
   @media (max-width: $desktop-m-max)
+    a
+      position: relative
+      display: block
+      float: left
+      &:after
+        content: "."
+        display: block
+        clear: both
+        visibility: hidden
+        line-height: 0
+        height: 0
+    .cloud-toggle-avatar
+      margin: 1px
     span.cloud-toggle-notification
       position: absolute
       z-index: 2
       
       background: #D00000
       
-      padding: 0
+      padding: 1px 2px
       
       line-height: 16px
       min-height: 16px
       min-width: 16px
-      top: -7px
-      right: -7px
+      top: -6px
+      right: -6px
       
       color: white
       text-align: center
       font-size: 10px
+      line-height: 16px
+      
+      float: right
+      display: block
       
       border: 2px solid rgba(255,255,255,.9)
       +border-radius(9px)
@@ -317,6 +334,7 @@ li.cloud-toggle
       display: none
           
   @media (min-width: $desktop-l-min)
+  
     a
       display: block
       padding: 5px
