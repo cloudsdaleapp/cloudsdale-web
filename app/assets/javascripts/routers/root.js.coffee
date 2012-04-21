@@ -5,4 +5,10 @@ class Cloudsdale.Routers.Root extends Backbone.Router
   
   # Initializes the dynamic Interface
   index: ->
-    # do stuff #
+    if $(".view-container[data-page-id=root]").size() == 0
+      console.log "lol"
+      # $('.main-container').append new Cloudsdale.Views.CloudsShow(model: model).el
+      #
+      
+    $.event.trigger 'page:show', "root"
+    

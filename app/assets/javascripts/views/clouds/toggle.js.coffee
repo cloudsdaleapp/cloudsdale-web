@@ -7,7 +7,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
   className: 'cloud-toggle'
   
   events: {
-    'click' : 'activate'
+    'click a' : 'activate'
   }
   
   initialize: ->
