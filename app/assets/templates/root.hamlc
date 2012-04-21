@@ -1,4 +1,10 @@
 .view-container.root{ 'data-page-id' => 'root' }
+  .fixed-container
+    .container-inner
+    
+  .float-container.with-fixed-container
+    .container-inner
+    
   / %ul.root-page-nav.nav-tabs
   /   %li.active
   /     %a.fill-all{ href: "#home", data: { toggle: "tab"} }

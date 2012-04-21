@@ -29,242 +29,252 @@
     +opacity(1)
 
 .view-container.root
+  .fixed-container
+    width: 305px
   .float-container
     margin-left: 305px
-  ul.root-page-nav
-    width: 300px
-    background: none  
-    list-style: none
-    position: relative
-    height: 100%
-    margin: 0
-    padding: 0
-    float: left
-    border: 0
-    li
-      position: relative
-      float: left
-      text-align: center
-      margin: 0
-      padding: 0
-      width: 100%
-      height: 25%
-      +opacity(1)
-      @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
-        #{$vendor}animation-name: slideAndFadeInFrontPageNav
-        #{$vendor}animation-duration: .4s
-        #{$vendor}animation-fill-mode: backwards
-        &:nth-child(1)
-          #{$vendor}animation-delay: .1s
-        &:nth-child(2)
-          #{$vendor}animation-delay: .2s
-        &:nth-child(3)
-          #{$vendor}animation-delay: .3s
-        &:nth-child(4)
-          #{$vendor}animation-delay: .4s
-      &:first-child
-        a
-          margin: 10px 10px 10px 10px
-      &:last-child
-        a
-          margin: 0 10px 10px 10px
-      &:hover, &.active
-        a
-          text-decoration: none
-          border: 0
-          div
-            border-color: rgba(255,255,255,.85)
-            span
-              color: rgba(255,255,255,.95)
-      a
-        background: rgba(255,255,255,.4) $bgStripes fixed
-        +border-radius(3px)
-        +box-shadow(1px,1px,8px,rgba(0,0,0,.1))
-        margin: 0 10px 10px 10px
-        color: #999999
-        text-align: left
-        border: 0
-        div
-          padding: 20px
-          margin: 7px
-          border: transparent 4px solid
-          +box-shadow(1px, 1px, 8px, rgba(0,0,0,.05))
-          background: #f8f8f8
-          background-size: 300px auto, auto auto
-          background-repeat: no-repeat, repeat
-          +transition(background-position .3s ease)
-          span
-            font: 40px/48px 'MothproofScriptRegular', Arial, sans-serif
-            letter-spacing: 0
-            text-shadow:  -1px -1px 0px rgba(0,0,0,.2)
-            
-      &:nth-child(1)
-        a
-          div
-            background-image: asset-data-url("details/clouds/puff_01_01.png")
-            background-image: asset-data-url("details/clouds/puff_01_01.png"), none
-            background-position: 140px 20px, 0 0
-            span
-              color: $color-red
-        &:hover, &.active
-          a
-            div
-              background-position: 60px 10px, 70px 0
-              background-image: asset-data-url("details/clouds/puff_01_01.png")
-              background-image: asset-data-url("details/clouds/puff_01_01.png"), $bgStripes
-              background-color: $color-red
-              span
-                color: rgba(255,255,255,.95)
-      &:nth-child(2)
-        a
-          div
-            background-image: asset-data-url("details/clouds/puff_01_02.png")
-            background-image: asset-data-url("details/clouds/puff_01_02.png"), none
-            background-position: 140px 40px, 0 0
-            span
-              color: $color-orange
-        &:hover, &.active
-          a
-            div
-              background-position: 90px 20px, 70px 0
-              background-image: asset-data-url("details/clouds/puff_01_02.png")
-              background-image: asset-data-url("details/clouds/puff_01_02.png"), $bgStripes
-              background-color: $color-orange
-              span
-                color: rgba(255,255,255,.95)
-      &:nth-child(3)
-        a
-          div
-            background-image: asset-data-url("details/clouds/puff_01_03.png")
-            background-image: asset-data-url("details/clouds/puff_01_03.png"), none
-            background-position: 100px 70px, 0 0
-            span
-              color: $color-green
-        &:hover, &.active
-          a
-            div
-              background-position: 30px 70px, 70px 0
-              background-image: asset-data-url("details/clouds/puff_01_03.png")
-              background-image: asset-data-url("details/clouds/puff_01_03.png"), $bgStripes
-              background-color: $color-green
-              span
-                color: rgba(255,255,255,.95)
-      &:nth-child(4)
-        a
-          div
-            background-image: asset-data-url("details/clouds/puff_01_04.png")
-            background-image: asset-data-url("details/clouds/puff_01_04.png"), none
-            background-position: 110px 50px, 0 0
-            span
-              color: $color-purple
-        &:hover, &.active
-          a
-            div
-              background-position: 105px 10px, 70px 0
-              background-image: asset-data-url("details/clouds/puff_01_04.png")
-              background-image: asset-data-url("details/clouds/puff_01_04.png"), $bgStripes
-              background-color: $color-purple
-              span
-                color: rgba(255,255,255,.95)
-
-
-.root-header, .root-tab-container
-  position: absolute
-  
-.root-header
-  border-bottom: 1px solid $color-border-light
-  left: 0
-  right: 0
-  @media (max-width: $ipad-max)
-    height: 200px
-  @media (min-width: $desktop-s-min)
-    height: 300px
-
-.root-account, .root-ad
-  position: absolute
-  bottom: 0
-  top: 0
-
-.root-account
-  left: 0
-  right: 40%
-  background: rgba(255,0,0,.3)
-
-.root-ad
-  right: 0
-  left: 60%
-  background: rgba(255,255,0,.3)
-
-.root-tab-container
-  background: #f0f0f0
-  border-top: 1px solid rgba(255,255,255,.8)
-  bottom: 1px
-  left: 0
-  right: 0
-  overflow-y: auto
-
-  @media (max-width: $ipad-max)
-    top: 201px
-  @media (min-width: $desktop-s-min)
-    top: 301px
-  
-.item-inner
-  position: relative
-  height: 100%
-  width: 100%
-  
-.root-tab-container .carousel
-  margin: 0
-  position: absolute
-  width: 100%
-  top: 0
-  bottom: 51px
-  .carousel-inner, .item
-    height: 100%
-
-ul.front-carousel-nav
-  list-style: none
-  position: absolute
-  padding: 0
-  margin: 0
-  bottom: 0
-  left: 0
-  right: 0
-  height: 50px
-  background: #f8f8f8
-  border-top: 1px solid $color-border-light
-  li
-    float: left
-    width: 20%
-    height: 50px
-    position: relative
-    +transition(background .5s ease)
-    &:not(:first-child)
-      a
-        border-left: rgba(255,255,255,1) solid 1px
-    &:not(:last-child)
-      a
-        border-right: $color-border-heavy solid 1px
-    &.active
-      background-color: #e8e8e8
-        
-    a
-      border-top: 1px solid rgba(255,255,255,.8)
-      display: block
-      line-height: 49px
-      height: 49px
-      text-align: center
-      font-weight: bold
-      &:after
-        content: ""
-      &:hover
-        text-decoration: none
-
-.item
-  &:nth-child(1)
-    .item-inner
-      background-image: image-url("logo/main_logo.png")
-      background-image: image-url("logo/main_logo.svg")
-      background-size: 70% auto
+    .container-inner
+      background-color: #f8f8f8
+      background-image: asset-data-url("details/wing_watermark.png")
+      background-image: asset-data-url("details/wing_watermark.svg")
       background-position: center center
+      background-size: 50%
       background-repeat: no-repeat
+    
+//   ul.root-page-nav
+//     width: 300px
+//     background: none  
+//     list-style: none
+//     position: relative
+//     height: 100%
+//     margin: 0
+//     padding: 0
+//     float: left
+//     border: 0
+//     li
+//       position: relative
+//       float: left
+//       text-align: center
+//       margin: 0
+//       padding: 0
+//       width: 100%
+//       height: 25%
+//       +opacity(1)
+//       @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
+//         #{$vendor}animation-name: slideAndFadeInFrontPageNav
+//         #{$vendor}animation-duration: .4s
+//         #{$vendor}animation-fill-mode: backwards
+//         &:nth-child(1)
+//           #{$vendor}animation-delay: .1s
+//         &:nth-child(2)
+//           #{$vendor}animation-delay: .2s
+//         &:nth-child(3)
+//           #{$vendor}animation-delay: .3s
+//         &:nth-child(4)
+//           #{$vendor}animation-delay: .4s
+//       &:first-child
+//         a
+//           margin: 10px 10px 10px 10px
+//       &:last-child
+//         a
+//           margin: 0 10px 10px 10px
+//       &:hover, &.active
+//         a
+//           text-decoration: none
+//           border: 0
+//           div
+//             border-color: rgba(255,255,255,.85)
+//             span
+//               color: rgba(255,255,255,.95)
+//       a
+//         background: rgba(255,255,255,.4) $bgStripes fixed
+//         +border-radius(3px)
+//         +box-shadow(1px,1px,8px,rgba(0,0,0,.1))
+//         margin: 0 10px 10px 10px
+//         color: #999999
+//         text-align: left
+//         border: 0
+//         div
+//           padding: 20px
+//           margin: 7px
+//           border: transparent 4px solid
+//           +box-shadow(1px, 1px, 8px, rgba(0,0,0,.05))
+//           background: #f8f8f8
+//           background-size: 300px auto, auto auto
+//           background-repeat: no-repeat, repeat
+//           +transition(background-position .3s ease)
+//           span
+//             font: 40px/48px 'MothproofScriptRegular', Arial, sans-serif
+//             letter-spacing: 0
+//             text-shadow:  -1px -1px 0px rgba(0,0,0,.2)
+//             
+//       &:nth-child(1)
+//         a
+//           div
+//             background-image: asset-data-url("details/clouds/puff_01_01.png")
+//             background-image: asset-data-url("details/clouds/puff_01_01.png"), none
+//             background-position: 140px 20px, 0 0
+//             span
+//               color: $color-red
+//         &:hover, &.active
+//           a
+//             div
+//               background-position: 60px 10px, 70px 0
+//               background-image: asset-data-url("details/clouds/puff_01_01.png")
+//               background-image: asset-data-url("details/clouds/puff_01_01.png"), $bgStripes
+//               background-color: $color-red
+//               span
+//                 color: rgba(255,255,255,.95)
+//       &:nth-child(2)
+//         a
+//           div
+//             background-image: asset-data-url("details/clouds/puff_01_02.png")
+//             background-image: asset-data-url("details/clouds/puff_01_02.png"), none
+//             background-position: 140px 40px, 0 0
+//             span
+//               color: $color-orange
+//         &:hover, &.active
+//           a
+//             div
+//               background-position: 90px 20px, 70px 0
+//               background-image: asset-data-url("details/clouds/puff_01_02.png")
+//               background-image: asset-data-url("details/clouds/puff_01_02.png"), $bgStripes
+//               background-color: $color-orange
+//               span
+//                 color: rgba(255,255,255,.95)
+//       &:nth-child(3)
+//         a
+//           div
+//             background-image: asset-data-url("details/clouds/puff_01_03.png")
+//             background-image: asset-data-url("details/clouds/puff_01_03.png"), none
+//             background-position: 100px 70px, 0 0
+//             span
+//               color: $color-green
+//         &:hover, &.active
+//           a
+//             div
+//               background-position: 30px 70px, 70px 0
+//               background-image: asset-data-url("details/clouds/puff_01_03.png")
+//               background-image: asset-data-url("details/clouds/puff_01_03.png"), $bgStripes
+//               background-color: $color-green
+//               span
+//                 color: rgba(255,255,255,.95)
+//       &:nth-child(4)
+//         a
+//           div
+//             background-image: asset-data-url("details/clouds/puff_01_04.png")
+//             background-image: asset-data-url("details/clouds/puff_01_04.png"), none
+//             background-position: 110px 50px, 0 0
+//             span
+//               color: $color-purple
+//         &:hover, &.active
+//           a
+//             div
+//               background-position: 105px 10px, 70px 0
+//               background-image: asset-data-url("details/clouds/puff_01_04.png")
+//               background-image: asset-data-url("details/clouds/puff_01_04.png"), $bgStripes
+//               background-color: $color-purple
+//               span
+//                 color: rgba(255,255,255,.95)
+// 
+// 
+// .root-header, .root-tab-container
+//   position: absolute
+//   
+// .root-header
+//   border-bottom: 1px solid $color-border-light
+//   left: 0
+//   right: 0
+//   @media (max-width: $ipad-max)
+//     height: 200px
+//   @media (min-width: $desktop-s-min)
+//     height: 300px
+// 
+// .root-account, .root-ad
+//   position: absolute
+//   bottom: 0
+//   top: 0
+// 
+// .root-account
+//   left: 0
+//   right: 40%
+//   background: rgba(255,0,0,.3)
+// 
+// .root-ad
+//   right: 0
+//   left: 60%
+//   background: rgba(255,255,0,.3)
+// 
+// .root-tab-container
+//   background: #f0f0f0
+//   border-top: 1px solid rgba(255,255,255,.8)
+//   bottom: 1px
+//   left: 0
+//   right: 0
+//   overflow-y: auto
+// 
+//   @media (max-width: $ipad-max)
+//     top: 201px
+//   @media (min-width: $desktop-s-min)
+//     top: 301px
+//   
+// .item-inner
+//   position: relative
+//   height: 100%
+//   width: 100%
+//   
+// .root-tab-container .carousel
+//   margin: 0
+//   position: absolute
+//   width: 100%
+//   top: 0
+//   bottom: 51px
+//   .carousel-inner, .item
+//     height: 100%
+// 
+// ul.front-carousel-nav
+//   list-style: none
+//   position: absolute
+//   padding: 0
+//   margin: 0
+//   bottom: 0
+//   left: 0
+//   right: 0
+//   height: 50px
+//   background: #f8f8f8
+//   border-top: 1px solid $color-border-light
+//   li
+//     float: left
+//     width: 20%
+//     height: 50px
+//     position: relative
+//     +transition(background .5s ease)
+//     &:not(:first-child)
+//       a
+//         border-left: rgba(255,255,255,1) solid 1px
+//     &:not(:last-child)
+//       a
+//         border-right: $color-border-heavy solid 1px
+//     &.active
+//       background-color: #e8e8e8
+//         
+//     a
+//       border-top: 1px solid rgba(255,255,255,.8)
+//       display: block
+//       line-height: 49px
+//       height: 49px
+//       text-align: center
+//       font-weight: bold
+//       &:after
+//         content: ""
+//       &:hover
+//         text-decoration: none
+// 
+// .item
+//   &:nth-child(1)
+//     .item-inner
+//       background-image: image-url("logo/main_logo.png")
+//       background-image: image-url("logo/main_logo.svg")
+//       background-size: 70% auto
+//       background-position: center center
+//       background-repeat: no-repeat
