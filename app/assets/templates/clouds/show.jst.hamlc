@@ -37,7 +37,7 @@
       .cloud-settings.tab-pane{ id: "#{@model.id}-settings" }
         %h3= "Settings"
   
-.float-container
+.float-container.with-fixed-container
   .container-inner
 
 / .cloud-container

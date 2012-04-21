@@ -1,14 +1,14 @@
-@each $vendor in -webkit-, -moz-, -o-, ""
+@each $vendor in "", -webkit-, -moz-, -o-
 
-  @#{$vendor}keyframes slideInRainbar
+  @-webkit-keyframes slideInRainbar
     0%
       bottom: 100%
-    80%
+    90%
       bottom: -1%
     100%
       bottom: 0
 
-  @#{$vendor}keyframes appearCloudTrigger
+  @-webkit-keyframes appearCloudTrigger
     0%
       +opacity(0)
       #{$vendor}transform: scale(.5)
@@ -19,7 +19,7 @@
       +opacity(1)
       #{$vendor}transform: scale(1)
   
-  @#{$vendor}keyframes removeLoadFrame
+  @-webkit-keyframes removeLoadFrame
     0%
       +opacity(1)
       visibility: visible
@@ -28,4 +28,35 @@
       visibility: visible
     100%
       +opacity(0)
-      visibility: hidden  
+      visibility: hidden
+
+
+@-webkit-keyframes slideAndFadeInFloatContainer
+  0%
+    margin-bottom: -40px
+    +opacity(0)
+  70%
+    +opacity(1)
+  100%
+    margin-bottom: 0
+    +opacity(1)
+
+@-moz-keyframes slideAndFadeInFloatContainer
+  0%
+    margin-bottom: -40px
+    +opacity(0)
+  70%
+    +opacity(1)
+  100%
+    margin-bottom: 0
+    +opacity(1)
+
+@keyframes slideAndFadeInFloatContainer
+  0%
+    margin-bottom: -40px
+    +opacity(0)
+  70%
+    +opacity(1)
+  100%
+    margin-left: 0
+    +opacity(1)

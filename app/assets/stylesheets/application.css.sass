@@ -32,17 +32,6 @@ $color-cd-background-lightest: #FFFFFF
 @import "jquery-daterangepicker"
 
 
-html
-  overflow-x: hidden
-body
-  background: transparent
-  overflow: hidden !important
-  display: block !important
-  margin-top: 52px
-  margin-bottom: 0px
-  color: #666666
-
-
 $borderColor: rgba(50, 90, 130, .5)
 $bgStripes: asset-data-url("bg-stripe.png")
 $bgNoise: asset-data-url("bg-noise.png")
@@ -57,78 +46,104 @@ $desktop-m-max: 1480px
 $desktop-l-min: $desktop-m-max + 1px
 $desktop-l-max: 1730px
 
+$height-bar: 44px
+$height-cloudbar: 80px
+
+$width-button: 54px
+$height-button: $width-button
+
 $color-border-light: rgba(0,0,0,.3)
 $color-border-heavy: rgba(50,50,50,.5)
 
-.bg-container
-  z-index: -1
-  display: block
-  position: fixed
-  bottom: 0px
-  width: 100%
-  @media (max-width: $ipad-max)
-    top: 52px
-  @media (min-width: $desktop-s-min)
-    top: 0px
-  & > div
-    position: absolute
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-  .bg-main
-    +linear-gradient(lighten(#63A0D0,15%),lighten(#63A0D0,3%))
+$color-red: rgb(220,38,0)
+$color-orange: rgb(252,136,0)
+$color-yellow: rgb(255,230,0)
+$color-green: rgb(128,206,0)
+$color-blue: rgb(0,165,255)
+$color-purple: rgb(105,70,255)
+
+html
+  overflow-x: hidden
+body
+  position: absolute
+  background: transparent
+  overflow: hidden !important
+  display: block !important
+  margin-top: 0px
+  margin-bottom: 0px
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  color: #666666
+  &.with-expanded-cloudbar
+    @media (max-width: $phone)
+      .main-container
+        top: -$height-cloudbar
+        bottom: $height-bar + $height-cloudbar
+      .navbar
+        bottom: $height-cloudbar
+      .cloudbar
+        bottom: 0
+    @media (min-width: $ipad-min) and (max-width: $ipad-max)
+      .main-container
+        top: -$height-cloudbar
+        bottom: $height-cloudbar
+      .cloudbar
+        bottom: 0
 
 .main-container
-  @media (max-width: $ipad-max)
-    top: 52px
-    left: 0
-    bottom: 0
-    right: 0
-    .view-container
-      margin-bottom: 78px
-      border-bottom: 1px solid $color-border-heavy
-      +box-shadow(0,5px,10px,rgba(0,0,0,.3))
-      z-index: 1
-  @media (min-width: $desktop-s-min)
-    top: 66px
-    left: 6px
-    right: 6px
-    bottom: 6px
-    .view-container
-      margin-right: 80px
-      
+  left: 0
+  right: 0
   position: fixed
   display: block
-
-  // min-height: 400px !important
-  .view-container
-    position: absolute
+  @media (max-width: $phone)
     top: 0
+    bottom: $height-bar
+  @media (min-width: $ipad-min)
+    top: $height-bar
     bottom: 0
-    left: 0
-    right: 0
-    display: none
-    &.active
-      display: block
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
+    @media (max-width: $ipad-max)
+      border-bottom: 1px rgba(50,50,50,.5) solid
+      +box-shadow(0,2px,5px,rgba(0,0,0,.3))
+  
+  @media (min-width: $desktop-s-min)
+    margin-right: 80px
+  
+  @media (min-width: $desktop-l-min)
+    margin-right: 200px
+  
+  @media (min-width: $desktop-l-max)
+    margin-right: 280px
+
+.view-container
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  display: none
+  &.active
+    display: block
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
 
 .fixed-container, .float-container
   position: relative
   height: 100%
-  background: rgba(255,255,255,.5) $bgStripes fixed
+  background: rgba(0,0,0,.05)
   .container-inner
     @media (min-width: $ipad-min) and (max-width: $ipad-max)
       border-right: 1px solid $color-border-light
     @media (min-width: $desktop-s-min)
-      margin: 7px
-      +box-shadow(1px, 1px, 8px, rgba(0,0,0,.05))
+      border-right: 1px solid $color-border-light
+      // margin: 7px
+      // +box-shadow(1px, 1px, 8px, rgba(0,0,0,.05))
     position: absolute
     background: #f8f8f8
     top: 0
@@ -143,19 +158,228 @@ $color-border-heavy: rgba(50,50,50,.5)
     margin-right: 0
     width: 420px
   @media (min-width: $desktop-s-min)
-    margin-right: 10px
     width: 450px
 
 .float-container
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    margin-left: 420px
-  @media (min-width: $desktop-s-min) 
-    margin-left: 460px
+  &.with-fixed-container
+    @media (min-width: $ipad-min) and (max-width: $ipad-max)
+      margin-left: 420px
+    @media (min-width: $desktop-s-min) 
+      margin-left: 450px
 
-.cloud-bar
+.cloudbar
   padding: 0
-  z-index: 998
   overflow: visible
+  background: #333333 asset-data-url("bg-texture-dark.png")
+  overflow: hidden
+  
+  @media (max-width: $ipad-max)
+    position: fixed
+    height: $height-cloudbar
+    left: 0
+    right: 0
+    bottom: -$height-cloudbar
+    top: auto
+  
+  @media (min-width: $desktop-s-min)
+    position: relative
+    height: 100%
+    float: right
+    margin-top: $height-bar
+    @media (min-width: $desktop-s-min)
+      width: 80px
+    @media (min-width: $desktop-l-min)
+      width: 200px
+    @media (min-width: $desktop-l-max)
+      width: 280px
+    
+  //   
+  //   ul.cloud-list
+  //     width: 54px
+  //     float: left
+  //     padding: 8px 3px
+  //     margin: 0
+  //     li.cloud-toggle
+  //       float: left
+  //       margin: 0 0 10px 0
+  //   .cloud-bar-rainbar
+  //     top: 0
+  //     right: 0
+  //     bottom: 0
+  //     @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
+  //       #{$vendor}animation-name: slideInRainbar
+  //       #{$vendor}animation-duration: .9s
+  //       #{$vendor}animation-fill-mode: backwards
+  //     width: 10px
+  //     +border-radius(0 0 10px 10px)
+  //     +opacity(.8)
+  //     @for $i from 1 to 6
+  //       &:nth-child(#{$i+1})
+  //         right: (10px * $i)
+  // 
+  
+ul.cloud-list
+  display: block
+  position: static
+  list-style: none
+  overflow: auto
+  margin: 0
+  padding: 0
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0    
+      
+li.cloud-toggle
+  z-index: 999
+  overflow: visible
+  position: relative
+  @media (max-width: $ipad-max)
+    float: left
+    height: $height-cloudbar
+    a
+      position: absolute
+      display: block
+      
+      padding: 0
+      margin-left: -($height-button/2 + 1)
+      margin-top: -($height-button/2 + 1)
+      
+      left: 50%
+      top: 50%
+      
+      height: $height-button + 1
+      width: $width-button + 1
+    
+    .cloud-toggle-avatar
+      
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+    
+  @media (max-width: $phone)
+    width: 25%
+    
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    @media (orientation: portrait)
+      width: 12.5%
+    @media (orientation: landscape)
+      width: 10%
+  
+  @media (min-width: $desktop-s-min)
+    padding: 12px 12px 0 12px
+    
+    a
+      position: relative
+      
+    .cloud-toggle-avatar
+      float: left
+      
+      &:hover
+        +box-shadow(0,0,10px,rgba(255,255,255,.7))
+      
+  @media (max-width: $desktop-m-max)
+    span.cloud-toggle-notification
+      position: absolute
+      z-index: 2
+      
+      background: #D00000
+      
+      padding: 0
+      
+      line-height: 16px
+      min-height: 16px
+      min-width: 16px
+      top: -7px
+      right: -7px
+      
+      color: white
+      text-align: center
+      font-size: 10px
+      
+      border: 2px solid rgba(255,255,255,.9)
+      +border-radius(9px)
+      
+    span.cloud-toggle-name
+      display: none
+          
+  @media (min-width: $desktop-l-min)
+    a
+      display: block
+      padding: 5px
+      +border-radius(5px)
+      +linear-gradient(#f8f8f8,#d0d0d0)
+      border: 1px solid rgba(255,255,255,.3)
+      &:after
+        content: "."
+        display: block
+        clear: both
+        visibility: hidden
+        line-height: 0
+        height: 0
+      
+    span.cloud-toggle-name, span.cloud-toggle-notification
+      text-align: right
+      display: block
+      margin-bottom: 3px
+    
+    span.cloud-toggle-notification
+      color: #D00000
+      
+      
+  .cloud-toggle-avatar
+    +transition(box-shadow .2s ease-in-out)
+    +transition(opacity .2s ease-in-out)
+    +opacity(.8)
+    @media (max-width: $desktop-m-max)
+      width: 54px
+      height: 54px
+      background-position: center center
+      background-size: 54px 54px
+      border: 1px rgba(255,255,255,.9) solid
+      +border-radius(7px)
+    @media (min-width: $desktop-l-min)
+      width: 40px
+      height: 40px
+      background-position: center center
+      background-size: 40px 40px
+      border: 1px solid rgba(50,50,50,.3)
+      +border-radius(7px)
+    
+  span.cloud-toggle-name
+    font-weight: bold
+    color: #333
+  
+  span.cloud-toggle-notification
+    font-weight: bold
+    pointer-events: none
+    
+  &.active
+    span.cloud-toggle-notification
+      display: none
+      
+  &:hover, &.active
+    @media (min-width: $desktop-l-min)
+      a
+        +linear-gradient(#ffffff,#f8f8f8)
+        
+    .cloud-toggle-avatar
+      +opacity(1)
+      
+    a, a:hover
+      text-decoration: none
+    
+  
   &:after
     content: "."
     display: block
@@ -163,188 +387,22 @@ $color-border-heavy: rgba(50,50,50,.5)
     visibility: hidden
     line-height: 0
     height: 0
-    
-  @media (max-width: $ipad-max)
-    height: 78px
-    width: 100%
-    max-width: 100%
-    position: absolute
-    padding: 0
-    bottom: 0
-    ul.cloud-list
-      position: absolute
-      padding: 4px 8px
-      margin: 0
-      height: 70px
-      right: 0
-      left: 0
-      max-width: 100%
-      li.cloud-toggle
-        float: left
-        margin: 0 10px 0 0
-    .cloud-bar-rainbar
-      height: 13px
-      width: auto
-      margin: 0
-      top: 0
-      right: 0
-      left: 0
-      z-index: -1
-      +opacity(.8)
-      // +border-radius(0 13px 13px 0)
-      @for $i from 0 to 6
-        &:nth-child(#{($i+1)})
-          top: (13px*$i)
-        
-  @media (min-width: $desktop-s-min)
-    position: absolute
-    right: 0
-    top: -8px
-    bottom: -0px
-    width: 70px
-    
-    ul.cloud-list
-      float: left
-      position: absolute
-      padding: 30px 5px !important
-      margin: 0 -5px !important
-      top: 0
-      bottom: 0
-      li.cloud-toggle
-        float: left
-        margin: 0 0 10px 0
-    .cloud-bar-rainbar
-      top: 0
-      right: 0
-      bottom: 0
-      -webkit-animation-name: slideInRainbar
-      -webkit-animation-duration: .9s
-      -webkit-animation-fill-mode: backwards
-      width: 10px
-      +border-radius(0 0 10px 10px)
-      +opacity(.8)
-      &:nth-child(1)
-        right: 5px
-      @for $i from 1 to 6
-        &:nth-child(#{$i+1})
-          right: 5px + (10px * $i)
-  
-  .cloud-bar-rainbar
-    position: absolute
-    // @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
-    -webkit-animation-name: slideInRainbar
-    -webkit-animation-duration: .9s
-    -webkit-animation-fill-mode: backwards
-    &:nth-child(1)
-      -webkit-animation-delay: .13s
-      background-color: rgb(220,38,0)
-    &:nth-child(2)
-      -webkit-animation-delay: .07s
-      background-color: rgb(252,136,0)
-    &:nth-child(3)
-      -webkit-animation-delay: .01s
-      background-color: rgb(255,230,0)
-    &:nth-child(4)
-      -webkit-animation-delay: .04s
-      background-color: rgb(128,206,0)
-    &:nth-child(5)
-      -webkit-animation-delay: .10s
-      background-color: rgb(0,165,255)
-    &:nth-child(6)
-      -webkit-animation-delay: .16s
-      background-color: rgb(105,70,255)
-  
-ul.cloud-list
-  display: block
-  position: relative
-  list-style: none
-  overflow: auto
-  margin: 0
-  
-  li.cloud-toggle
-    z-index: 999
-    position: relative
-    width: 66px
-    height: 66px
-    
-    -webkit-animation-name: appearCloudTrigger
-    -webkit-animation-duration: .5s
-    -webkit-animation-timing-function: ease-in-out
-    -webkit-animation-delay: 1s
-    -webkit-animation-fill-mode: backwards
-    
-    @for $i from 1 through 10
-      &:nth-child(#{$i})
-        -webkit-animation-delay: .1s * $i + 1
-  
-    +opacity(1)
-    +transition(all 0.15s ease-in-out)
-    +border-radius(35px)
-    overflow: visible
-    border: 2px rgba(50,50,50,.5) solid
-    
-    &:hover
-      +box-shadow(0,0,10px,rgba(255,255,255,.7))
-    
-    span.cloud-notification
-      position: absolute
-      z-index: 2
-      font-weight: bold
-      +border-radius(8px)
-      background: #D00000
-      border: 1px solid black
-      padding: 0 0
-      font-size: 10px
-      line-height: 16px
-      min-height: 16px
-      min-width: 16px
-      position: absolute
-      text-align: center
-      top: 0px
-      right: 0px
-      color: white
-      pointer-events: none
-      
-      
-    &.active
-      a
-        span.cloud-notification
-          display: none
-      
-    &:hover
-    
-    .bg-image
-      +transition(all 0.15s ease-in-out)
-      +border-radius(35px)
-      overflow: hidden
-      position: absolute
-      top: 0
-      bottom: 0
-      width: 100%
-      background-position: center center
-      background-size: 66px 66px
-      background-color: #4C4C4C !important
-      z-index: -1
-    
-    a
-      width: 66px
-      height: 66px
-      float: left
-      overflow: hidden
-      &:hover
-        text-decoration: none
-    
           
 .navbar.navbar-fixed-top
-  @media (min-width: $desktop-s-min)
-    left: 5px
-    top: 5px
-    right: 5px
-    margin-bottom: 5px
-  @media (max-width: $ipad-max)
-    margin: 0
+  margin: 0
+  @media (max-width: $phone)
+    top: auto
+    bottom: 0
+    .navbar-inner
+      border-top: 1px rgba(50,50,50,0.8) solid
+  @media (min-width: $ipad-min)
+    top: 0
+    bottom: auto
+    .navbar-inner
+      border-bottom: 1px rgba(50,50,50,0.8) solid
+      
   .navbar-inner
-    
+  
     background: #63a0d0 image-url("bg-noise-bar.png")
     background: image-url("bg-noise-bar.png"), url(data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYzYTBkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZjg1YjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
     background: image-url("bg-noise-bar.png"), -moz-linear-gradient(top,  #63a0d0 0%, #3f85b3 100%)
@@ -360,134 +418,45 @@ ul.cloud-list
     -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
     box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
     
-    @media (min-width: $desktop-s-min)
-      margin: 0
-      padding: 0
-      border: 1px rgba(50,50,50,0.8) solid
-      +border-radius(5px)
-    @media (max-width: $ipad-max)
-      margin: 0 -2px
-      padding: 0 2px
-      border-bottom: 1px rgba(50,50,50,0.8) solid
+    margin: 0 -2px
+    padding: 0 2px
       
     .container-fluid
-      min-width: 750px
-      padding: 0 10px
-              
-      form.navbar-search
-        margin-top: 11px
-        margin-bottom: 11px
-        input
-          margin-bottom: 0
-          background-color: rgba(255, 255, 255, 0.3)
-          padding: 4px 9px
-          color: #E6E6E6
-          -webkit-border-radius: 4px
-          -moz-border-radius: 4px
-          border-radius: 4px
-          -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),0 1px 0px rgba(255, 255, 255, 0.25)
-          -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),0 1px 0px rgba(255, 255, 255, 0.25)
-          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),0 1px 0px rgba(255, 255, 255, 0.25)
-          +transition(none)
-        
-          padding-right: 28px
-          width: 160px
-          -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"
-          +opacity(.7)
-          font-weight: bold
-          text-shadow: 0px 0px 0px #000
-          border-color: rgba(50, 50, 50, 0.9)
-          &:focus
-            background-color: rgba(255, 255, 255, 0.7)
-            color: #333333
-          &::-webkit-input-placeholder
-            color: #E6E6E6
+      padding: 0
+      
       ul.nav > li
-        border-style: solid
-        border-color: transparent
-        border-width: 0 1px 0 1px
         
         &.active, &.open
-          // border-color: rgba(255,255,255,.2)
           & > a
             background: transparent
             +opacity(1)
-            // background: $color-cd-background-dark image-url("bg-noise-bar.png")
-            // +box-shadow-inset(0,2px,1px,rgba(50,105,141,.9))
-            // border-color: rgba(50,50,50,.6)
-            img.i-active
-              display: block
-            img:not(.i-active)
-              display: none
-              
+            
         &.open
           & > a
             +opacity(1)
-            // padding: 13px 10px 14px 10px
-            // margin-bottom: -1px
-            
+
         & > a
-          line-height: 26px
-          font-size: 14px
-          padding: 13px 10px
+          line-height: 23px
           color: rgba(255,255,255,1)
           text-shadow: -1px -1px 1px rgba(0,0,0,.2)
           font-weight: bold
-          
-          border-style: solid
-          border-color: transparent
-          border-width: 0 1px 0 1px
-          +opacity(.7)
-          
-          img.i-active
-            display: none
-          img:not(.i-active)
-            display: block
-          
-          &:hover, &.open
-            +opacity(1)
-          
-          img
-            float: left
-            margin-right: 6px
-            max-height: 26px
-            max-width: 26px
-          
-          b.caret
-            margin-top: 11px
-            
-        &.dropdown > ul.dropdown-menu
-          margin-top: 3px
-          min-width: 220px
-          margin-right: 0px
-          li.dropdown-item-profile
-            img
-              +border-radius(5px)
-              float: left
-              margin-right: 7px
-            span
-              font-weight: bold
-              color: $color-text
-            a:hover
-              img
-                +box-shadow(1px,1px,2px,rgba(0,0,0,.3))
-              span
-                color: #fff
-              
-          li > a, li.nav-header
-            padding: 5px 5px 5px 10px
+      
 .navbar
   a.brand
     float: left
-    height: 49px
+    height: $height-bar - 2
     width: 200px
     margin: 0 0 2px 0
     padding: 0
     background-image: image-url("logo/sub_logo.png")
     background-image: auto, image-url("logo/sub_logo.svg")
-    background-size: 90%
+    background-size: auto 70%
     background-position: center center
     background-repeat: no-repeat
+    @media (max-width: $phone)
+      display: none
+    @media (min-width: $ipad-min)
+      display: block
   
 .loading-content
   position: absolute
@@ -567,6 +536,40 @@ input[type=file]
     visibility: hidden
     line-height: 0
     height: 0
+
+.should-have-content
+  position: relative
+  vertical-align: middle
+  span
+    position: absolute
+    top: 50%
+    width: 100%
+    margin-top: -20px
+    font-size: 20px
+    line-height: 26px
+    font-weight: bold
+    display: inline-block
+    color: #ffffff
+  &:before
+    content: ""
+    position: absolute
+    top: 10px
+    left: 10px
+    right: 10px
+    bottom: 10px
+    background: rgba(0,0,0,.2)
+    line-height: 60px
+    display: block
+    border: 2px dashed #ffffff
+    +border-radius(7px)
+
+.fill-all
+  display: block
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
 
 @import "users"
 @import "main"

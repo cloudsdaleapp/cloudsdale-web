@@ -40,6 +40,15 @@ $(document).ready ->
     $('a.brand').bind 'click', ->
       Backbone.history.navigate("/",true)
       false
+    
+    $('a.cloud-trigger').bind 'click', ->
+      $('body').toggleClass('with-expanded-cloudbar')
+      false
+    
+    session.get('clouds').each (cloud) =>
+      session.listenToCloud(cloud)
+      view = new Cloudsdale.Views.CloudsToggle(model: cloud)
+      $('.cloudbar > .cloud-list').append(view.el)
 
     Cloudsdale.init()
 

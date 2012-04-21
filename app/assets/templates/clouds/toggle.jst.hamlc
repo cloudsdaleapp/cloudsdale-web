@@ -1,3 +1,4 @@
-.bg-image{ style: "background-image: url(#{@model.get('avatar').normal})" }
 %a{ href: "#" }
-  %span.cloud-notification
+  .cloud-toggle-avatar{ style: "background-image: url(#{@model.get('avatar').preview})" }
+  %span.cloud-toggle-name= @model.get('name')
+  %span.cloud-toggle-notification= "123"
