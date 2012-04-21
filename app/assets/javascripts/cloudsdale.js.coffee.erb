@@ -36,6 +36,10 @@ $(document).ready ->
     # Initializes the root view.
     view = new Cloudsdale.Views.Root()
     $('.main-container').replaceWith(view.el)
+    
+    $('a.brand').bind 'click', ->
+      Backbone.history.navigate("/",true)
+      false
 
     Cloudsdale.init()
 
