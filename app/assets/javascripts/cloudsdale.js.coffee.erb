@@ -45,6 +45,10 @@ $(document).ready ->
       $('body').toggleClass('with-expanded-cloudbar')
       false
     
+    $(".cloud-list").mousewheel (event, delta) ->
+      @scrollTop -= (delta * 30)
+      event.preventDefault()
+    
     session.get('clouds').each (cloud) =>
       session.listenToCloud(cloud)
       view = new Cloudsdale.Views.CloudsToggle(model: cloud)

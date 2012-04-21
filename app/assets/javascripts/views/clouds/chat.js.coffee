@@ -42,7 +42,11 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
           
         @resetForm()
         false
-        
+    
+    @.$(".chat-online-list").mousewheel (event, delta) ->
+      @scrollTop -= (delta * 30)
+      event.preventDefault()
+    
     nfc.on "#{@model.type}:#{@model.id}:chat", (payload) =>
       if payload.client_id != session.get('client_id')
         payload.topic = @model
