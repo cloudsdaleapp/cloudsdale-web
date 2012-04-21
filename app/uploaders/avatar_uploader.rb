@@ -63,7 +63,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
   
   def default_url
-    image_path("fallback/" + [mounted_as, version_name, "#{model._type.downcase}.png"].compact.join('_'))    
+    image_path("#{Cloudsdale.config['asset_url']}/assets/fallback/" + [mounted_as, version_name, "#{model._type.downcase}.png"].compact.join('_'))    
   end
 
   protected
