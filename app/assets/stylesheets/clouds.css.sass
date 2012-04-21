@@ -75,7 +75,6 @@
 
 .chat-container
   &.expanded-sidebar
-    border-left: rgb(255,255,255) solid 1px
     a.sidebar-toggle
       background-image: image-url("icons/glyphicons/black/step_forward.png")
       background-image: none, image-url("icons/glyphicons/black/step_forward.svg"), image-url("icons/glyphicons/black/step_forward.png")
@@ -83,9 +82,12 @@
       .chat-wrapper
         display: none
       .chat-sidebar
+        display: block
         float: none
-        width: 100%
+        width: auto
         border-left: 0
+        margin-left: 1px
+        background: #F8F8F8
       .chat-sidebar-header
         span.chat-sidebar-online-count
           display: inline-block
@@ -214,6 +216,7 @@ ul.chat-online-list
   position: relative
   height: 100%
   border-right: rgba(0,0,0,.2) solid 1px
+  background: #F8F8F8
   @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
     margin-right: 50px
   @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)

@@ -139,14 +139,8 @@ body
   height: 100%
   background: rgba(0,0,0,.05)
   .container-inner
-    @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      border-right: 1px solid $color-border-light
-    @media (min-width: $desktop-s-min)
-      border-right: 1px solid $color-border-light
-      // margin: 7px
-      // +box-shadow(1px, 1px, 8px, rgba(0,0,0,.05))
     position: absolute
-    background: #f8f8f8
+    background: #F0F0F0
     top: 0
     bottom: 0
     left: 0
@@ -160,8 +154,16 @@ body
     width: 420px
   @media (min-width: $desktop-s-min)
     width: 450px
+  .container-inner
+    @media (min-width: $ipad-min)
+      border-right: 1px solid rgba(255,255,255,1)
 
 .float-container
+  .container-inner
+    @media (min-width: $ipad-min)
+      border-left: 1px solid $color-border-light
+      
+    
   &.with-fixed-container
     @media (min-width: $ipad-min) and (max-width: $ipad-max)
       margin-left: 420px
