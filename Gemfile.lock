@@ -11,19 +11,6 @@ GIT
       nokogiri
 
 GIT
-  remote: git://github.com/faye/faye.git
-  revision: b5cefce5fa9586a78e5d9dd216f4025b97697678
-  branch: 0.8.x
-  specs:
-    faye (0.8.0)
-      cookiejar (>= 0.3.0)
-      em-http-request (~> 0.3.0)
-      eventmachine (>= 0.12.0)
-      faye-websocket (>= 0.3.0)
-      json (>= 1.0.0)
-      rack (>= 1.0.0)
-
-GIT
   remote: git://github.com/jnicklas/carrierwave.git
   revision: 30167ec0ea89403219c757d1b5e4603c8994a57a
   branch: 0.5-stable
@@ -149,7 +136,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.2)
-    cookiejar (0.3.0)
     crack (0.1.8)
     daemons (1.1.6)
     database_cleaner (0.7.0)
@@ -188,8 +174,6 @@ GEM
       addressable (~> 2.2)
       multipart-post (~> 1.1)
       rack (~> 1.1)
-    faye-websocket (0.3.0)
-      eventmachine (>= 0.12.0)
     ffi (1.0.11)
     fog (0.9.0)
       builder
@@ -448,12 +432,12 @@ DEPENDENCIES
   coffee-script
   database_cleaner
   em-hiredis
+  em-http-request
   em-synchrony
   eventmachine
   exception_notification
   execjs
   factory_girl_rails
-  faye!
   fog (= 0.9.0)
   foreman
   gist

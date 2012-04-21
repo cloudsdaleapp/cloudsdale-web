@@ -20,7 +20,6 @@ gem 'redis'
 gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
 
 # Push notifications
-gem 'faye', git: 'git://github.com/faye/faye.git', branch: '0.8.x'
 
 # Markup
 gem 'haml'
@@ -79,6 +78,7 @@ gem 'bunny'
 gem 'yajl-ruby', :require => 'yajl'
 gem 'eventmachine'
 gem 'em-synchrony', :require => "em-synchrony"
+gem 'em-http-request'
 gem 'hashr', :require => 'hashr'
 gem 'amqp', '~> 0.9.2'
 

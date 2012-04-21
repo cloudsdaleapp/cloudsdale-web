@@ -1,0 +1,6 @@
+# A sample Gemfile
+source "https://rubygems.org"
+
+gem 'pry'
+gem 'thin'
+gem 'faye', git: 'git://github.com/faye/faye.git'
