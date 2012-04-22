@@ -26,7 +26,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
         $(@el).removeClass('active') 
     
     nfc.on "#{@model.type}:#{@model.id}:chat", (payload) ->
-      console.log payload
+      # console.log payload
       
   activate: ->
     Backbone.history.navigate("/clouds/#{@model.id}",true)
