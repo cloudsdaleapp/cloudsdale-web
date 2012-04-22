@@ -1,2 +1,7 @@
 object @message
-attributes :timestamp, :content, :user_name, :user_path, :user_avatar, :author_id
+attributes :timestamp, :content
+
+child(:author) do
+  extends 'api/v1/users/base'
+  node(:avatar) { |cloud| cloud.avatar_versions only: [:thumb] }
+end
