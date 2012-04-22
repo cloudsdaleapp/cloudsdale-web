@@ -6,6 +6,7 @@ class Cloudsdale.Models.Message extends Backbone.Model
   
   initialize: (args) ->
     @topic = args.topic
+    @user = new Cloudsdale.Models.User(args.user)
   
   timestamp: ->
     new Date(@get('timestamp'))
