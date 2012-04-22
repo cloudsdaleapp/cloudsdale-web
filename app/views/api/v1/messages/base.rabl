@@ -1,5 +1,5 @@
 object @message
-attributes :timestamp, :content
+attributes :id, :timestamp, :content
 
 child(:author) do
   extends 'api/v1/users/base'
