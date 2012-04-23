@@ -284,7 +284,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.4, < 3)
-    rabl (0.6.5)
+    rabl (0.6.10)
       activesupport (>= 2.3.14)
       multi_json (~> 1.0)
     rack (1.4.1)
