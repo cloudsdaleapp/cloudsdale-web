@@ -1,3 +1,5 @@
+require 'rabl/renderer'
+
 class Message
   
   include AMQPConnector
@@ -27,11 +29,19 @@ class Message
   end
   
   after_save do
-    enqueue!("messages",self.to_queue)
+    enqueue!("messages",self.to_json)
   end
   
-  def to_queue
-    self.to_json(:only => [:author_id,:content,:user_name,:user_path,:user_avatar], methods: [:id,:utc_timestamp,:topic_id,:topic_type,:client_id])
+  # Public: Translates the Message object to a JSON string using RABL
+  #
+  # Examples
+  # 
+  # @message.to_json
+  # # => "{\"content\":\"...\"}"
+  #
+  # Returns a json string.
+  def to_json
+    Rabl::Renderer.json(self, 'api/v1/messages/base', :view_path => 'app/views')
   end
   
   def topic_type
