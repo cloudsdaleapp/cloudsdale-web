@@ -3,6 +3,8 @@ require 'faye'
 require 'yaml'
 require 'thin'
 
+$stdout.sync = true
+
 ENVIRONMENT = ARGV[0]
 
 config = YAML.load_file("#{File.dirname(__FILE__)}/../../config/config.yml")[ENVIRONMENT.to_s]
