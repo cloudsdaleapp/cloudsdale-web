@@ -30,7 +30,9 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
   # Returns the message that was sent.
   def create
     
-    @message = @cloud.chat.messages.build author: current_user, content: params[:content], client_id: params[:client_id]
+    @message = @cloud.chat.messages.build params[:message]
+    @message.author = current_user
+    
     authorize! :create, @message
       
     if @message.save
