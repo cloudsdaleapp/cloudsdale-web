@@ -35,7 +35,10 @@ module Cloudsdale
         :pass => Cloudsdale.config['rabbit']['pass'],
         :user => Cloudsdale.config['rabbit']['user'])
     end
-    @bunny.start unless @bunny.status == :connected
+    unless @bunny.status == :connected
+      @bunny.stop
+      @bunny.start
+    end
     @bunny
   end
   
