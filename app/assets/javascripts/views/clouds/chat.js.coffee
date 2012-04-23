@@ -24,9 +24,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   
   # Binds events on certain elemnts
   bindEvents: ->
-    # @.$('textarea.chat-message-content').BetterGrow
-    #   initial_height: 18
-    #   do_not_enter: null
     @.$('textarea.chat-message-content').expandingTextarea().keydown (e) =>
       @resizeElements()
       if e.which == 13 and e.shiftKey == false
@@ -53,7 +50,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       @refreshPresence(payload)
   
   # Creates and saves a new message and then appends it to
-  # the DOM for the current topic. 
+  # the DOM for the current topic.
   #
   # args - The arguments to be passed to the message model
   # do_save - Boolean determining if the model should be saved or not
