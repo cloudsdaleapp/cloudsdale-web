@@ -6,7 +6,13 @@ class Cloudsdale.Models.Message extends Backbone.Model
   
   initialize: (args) ->
     @topic = args.topic
-    @user = new Cloudsdale.Models.User(args.user)
-  
+    @user = if args.user then new Cloudsdale.Models.User(args.user) else null
+      
   timestamp: ->
     new Date(@get('timestamp'))
+  
+  toJSON: ->
+    {
+      content: @get("content")
+      client_id: @get("client_id")
+    }

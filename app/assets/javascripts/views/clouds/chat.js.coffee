@@ -31,13 +31,8 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       @resizeElements()
       if e.which == 13 and e.shiftKey == false
         @createNewMessage
-          topic: @model
-          client_id: session.get('client_id')
-          author_id: session.get('user').id
           content: @.$('textarea.chat-message-content').val()
           timestamp: Date().toString()
-          user_avatar: session.get('user').get('avatar').thumb
-          user_name: session.get('user').get('name')
         , true # True for saving
           
         @resetForm()
@@ -51,6 +46,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       if payload.client_id != session.get('client_id')
         payload.topic = @model
         message = new Cloudsdale.Models.Message(payload)
+        
         @appendMessage(message)
     
     nfc.on "#{@model.type}:#{@model.id}:presence", (payload) =>
@@ -64,9 +60,16 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   #
   # Returns the message model.
   createNewMessage: (args,do_save) ->
+    args.topic = @model
     message = new Cloudsdale.Models.Message(args)
+    message.set('client_id',session.get('client_id'))
+    message.user = session.get('user')
+    message.set('user', session.get('user'))
+    
     @appendMessage(message)
+    
     message.save() if do_save == true
+    
     return message
       
   # Fetches the messages related to the chat and appends them to the chat frame.
