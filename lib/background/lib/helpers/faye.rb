@@ -27,8 +27,15 @@ module Worker
           query: { message: Yajl::Encoder.encode(message) }
         )
           
-        http.callback { callback.call }
-        http.errback { errback.call }
+        http.callback do
+          log.info("Broadcasted message through faye on channel #{channel}.")
+          callback.call
+        end
+        
+        http.errback do
+          log.warn("Was unable to broadcast message through faye on channel #{channel}.")
+          errback.call
+        end
         
       end
     
