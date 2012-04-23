@@ -15,9 +15,6 @@ class Message
   field :content,     type: String
   
   # Meta attributes
-  field :user_name,   type: String
-  field :user_path,   type: String
-  field :user_avatar, type: String
   field :urls,        type: Array,    default: []
   
   validates :timestamp,   :presence => true
