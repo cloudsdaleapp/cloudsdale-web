@@ -3,6 +3,7 @@
 
 $LOAD_PATH.push File.expand_path("../../lib", __FILE__)
 $LOAD_PATH.push File.expand_path("../../workers", __FILE__)
+$stdout.sync = true
 
 ENV['RAILS_ENV'] = 'development'
 
@@ -53,15 +54,24 @@ end
 
 def start(options={})
   
-  ammount_of_workers = options[:ammount] || 2
-  
-  # Load all code for specified worker
   worker = Worker.load_by_name(@worker_name)
+
+  if options[:deamonize]
     
-  ammount_of_workers.times do |i|
-    pid = Worker.spawn(worker)
-    print "Spawning worker #{pid.to_s.as_color(:red)}"
-    print fail_or_pass Worker.pid_alive?(pid)
+    ammount_of_workers = options[:ammount] || 1
+    # Load all code for specified worker
+    
+    ammount_of_workers.times do |i|
+      pid = Worker.spawn(worker)
+      print "Spawning worker #{pid.to_s.as_color(:red)}"
+      print fail_or_pass Worker.pid_alive?(pid)
+    end
+    
+  else
+    
+    print "Starting #{@worker_name} worker...\n"
+    Worker.start(worker,options)
+    
   end
   
 end
@@ -78,15 +88,27 @@ end
   "Available workers: #{ Worker::AVAILABLE_WORKERS.map{ |w| w = w.as_color(:yellow) }.join(", ") }\n\n"
 )
 
+@options = {}
+
+OptionParser.new do |opts|
+  
+  opts.banner = "Usage: ./worker [worker name] [worker action] [options]"
+
+  opts.on("-d", "--deamonize", "Forks processes of the workers and daemonizes them") do |val|
+    @options[:deamonize] = val || false
+  end
+  
+end.parse!
+
 
 case @command.to_sym
 when :start
   
-  ammount_of_workers = 2
+  ammount_of_workers = 1
   
-  puts "\nStarting #{ammount_of_workers.to_s.as_color(:blue)} #{@worker_name} worker(s)"
+  puts "\nStarting #{ammount_of_workers.to_s.as_color(:blue)} #{@worker_name} worker(s)" if @options[:deamonize]
   
-  start(ammount: ammount_of_workers)
+  start(ammount: ammount_of_workers, deamonize: @options[:deamonize] )
   
 when :stop
   

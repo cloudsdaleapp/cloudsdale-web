@@ -75,6 +75,19 @@ module Worker
     
   end
   
+  # Public: Starts one instance of the worker
+  #
+  # worker_class - The worker class object
+  # options - A hash of options to use to run the worker
+  #
+  # Examples
+  # Worker.start(HelloWorldWorker)
+  #
+  # Returns AN ENDLESS LOOP OF EVENTS!
+  def self.start(worker_class,options={})
+    worker_class.start(options)
+  end
+  
   def self.spawn(worker_class,options={})
     read, write = IO.pipe
     
