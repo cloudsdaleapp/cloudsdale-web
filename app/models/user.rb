@@ -61,11 +61,6 @@ class User
     build_checklist
   end
   
-  def to_indexed_json
-    self.to_json(:only => [ :_id], :methods => [:name,:avatar_versions])
-  end
-  
-  
   # Public: Fetches the URL's for the avatar versions
   #
   # args - A hash of arguments of what to do with the avatar versions.
