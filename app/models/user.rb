@@ -14,7 +14,6 @@ class User
   embeds_many :authentications
   embeds_many :notifications
   
-  has_one :drop, as: :local_reference, dependent: :delete, autosave: true
   has_many :owned_clouds, class_name: "Cloud", as: :owner
   
   has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
@@ -52,27 +51,10 @@ class User
     self[:auth_token]     = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
     self[:_type] = "User"
     self[:email] = self[:email].downcase if email.present?
+    
     encrypt_password
     enable_account_on_password_change
     set_creation_date
-        
-    if drop.nil?
-      self.build_drop
-    end
-    
-    self.drop.url       = "#{Cloudsdale.config['url']}/users/#{self._id.to_s}"
-    self.drop.match_id  = self.drop.url
-    self.drop.title     = self.name
-    self.drop.status    = ["200","OK"]
-    self.drop.strategy  = :cloudsdale_users
-    self.drop.hidden    = self.invisible.to_s
-    self.drop.last_load = Time.now
-  
-    self.drop.src_meta ||= {}
-  
-    self.drop.src_meta['avatar']             = self.avatar.preview.url
-    self.drop.src_meta['member_since']       = self[:member_since] || Time.now
-    self.drop.src_meta['reference_id']       = self._id.to_s
   end
   
   before_create do
