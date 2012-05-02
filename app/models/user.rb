@@ -180,10 +180,6 @@ class User
       self[:member_since] = Time.now
     end
   end
-
-  def logout_and_save!
-    save!
-  end
   
   # Internal: Changes the state of force_password_change to true
   # if the password_hash has recently been changed.
