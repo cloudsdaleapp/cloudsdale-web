@@ -48,10 +48,10 @@ class User
   end
   
   before_save do
-    self[:auth_token]     = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
     self[:_type] = "User"
     self[:email] = self[:email].downcase if email.present?
     
+    generate_auth_token
     encrypt_password
     enable_account_on_password_change
     set_creation_date
@@ -166,7 +166,7 @@ class User
   
   # Internal: Generates an auth token unless an auth token is already set
   def generate_auth_token
-    self.auth_token = SecureRandom.hex(16) unless auth_token.present?
+    self[:auth_token] = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
   end
   
   # Internal: Sets the creation date of the User unless
