@@ -11,10 +11,14 @@
     = csrf_meta_tags
     
   %body
-    = render :partial => 'layouts/preload'
+    .preloads
+      #preload-session{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
+      
     = render :partial => 'layouts/topbar'
+    
     .cloudbar
       %ul.cloud-list
       
     = render :partial => 'layouts/main'
+    
     = render :partial => 'layouts/modal'
