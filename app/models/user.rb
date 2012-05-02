@@ -166,14 +166,22 @@ class User
     end
   end
   
+  # Public: Builds an authentication based upon omniauth metadata.
+  #
+  # omniauth - A hash provided by the omniauth gem.
+  #
+  # Returns an authentication instance.
   def apply_omniauth(omniauth)
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
   
+  # Internal: Generates an auth token unless an auth token is already set
   def generate_auth_token
     self.auth_token = SecureRandom.hex(16) unless auth_token.present?
   end
   
+  # Internal: Sets the creation date of the User unless
+  # a creation date is already set.
   def set_creation_date
     unless member_since.present?
       self[:member_since] = Time.now
@@ -184,13 +192,15 @@ class User
     save!
   end
   
+  # Internal: Changes the state of force_password_change to true
+  # if the password_hash has recently been changed.
   def enable_account_on_password_change
     if password_hash_changed?
       self[:force_password_change] = false if force_password_change?
     end
   end
-  
-  # Override to silently ignore trying to remove missing
+    
+  # Internal: Override to silently ignore trying to remove missing
   # previous avatar when destroying a User.
   def remove_avatar!
     begin
@@ -199,7 +209,7 @@ class User
     end
   end
 
-  # Override to silently ignore trying to remove missing
+  # Internal: Override to silently ignore trying to remove missing
   # previous avatar when saving a new one.
   def remove_previously_stored_avatar
     begin
