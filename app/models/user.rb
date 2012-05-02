@@ -57,10 +57,6 @@ class User
     set_creation_date
   end
   
-  before_create do
-    build_checklist
-  end
-  
   # Public: Fetches the URL's for the avatar versions
   #
   # args - A hash of arguments of what to do with the avatar versions.
