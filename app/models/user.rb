@@ -159,13 +159,6 @@ class User
       
   end
   
-  def encrypt_password
-    if password.present? == true
-      self.password_salt = BCrypt::Engine.generate_salt
-      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
-    end
-  end
-  
   # Public: Builds an authentication based upon omniauth metadata.
   #
   # omniauth - A hash provided by the omniauth gem.
@@ -219,8 +212,16 @@ class User
     end
   end
   
-  def status_in_words
-    is_online? ? 'online' : 'offline'
+  private
+  
+  # Private: Encrypts the users password using a password salt & pepper
+  #
+  # Returns the password hash.
+  def encrypt_password
+    if password.present? == true
+      self.password_salt = BCrypt::Engine.generate_salt
+      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+    end
   end
   
 end
