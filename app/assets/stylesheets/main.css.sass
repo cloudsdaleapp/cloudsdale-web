@@ -28,18 +28,189 @@
     margin-left: 0
     +opacity(1)
 
+@-webkit-keyframes animateRootClouds
+  0%
+    background-position: 0px 50px
+  100%
+    background-position: 1800px 50px
+  
+
 .view-container.root
   .fixed-container
-    width: 305px
+    @media (min-width: $ipad-min)
+
   .float-container
-    margin-left: 305px
-    .container-inner
-      background-color: #f8f8f8
-      background-image: asset-data-url("details/wing_watermark.png")
-      background-image: asset-data-url("details/wing_watermark.svg")
-      background-position: center center
-      background-size: 50%
-      background-repeat: no-repeat
+    @media (min-width: $ipad-min)
+      .container-inner
+        +linear-gradient(#C0D6E9,#D9E2E7)
+
+
+// ul.root-page-nav
+//   position: relative
+//   list-style: none
+//   padding: 0
+//   margin: 0
+//   overflow-x: hidden
+//   text-align: center
+//   z-index: 4
+//   height: $height-bar
+//   margin-right: -6px
+//   margin-left: -6px
+//   +linear-gradient(#575757,#363636)
+//   +border-radius(6px)
+//   border-bottom: rgba(0,0,0,.7) solid 1px
+//   border-right: rgba(0,0,0,.7) solid 1px
+//   border-top: rgba(50,50,50,.6) solid 1px
+//   
+//   @media (max-width: $phone)
+//     position: static
+//     
+//   @media (min-width: $ipad-min) and (max-width: $ipad-max)
+//     position: static
+//     border-bottom: rgba(50,50,50,.8) solid 1px
+//   
+//   @media (min-width: $desktop-s-min)
+// 
+// li.root-page-nav-item
+//   text-align: center
+//   display: inline-block
+//   float: none
+//   border: 0
+//   padding: 0
+//   margin: 0
+//   a
+//     position: relative
+//     color: #666666
+//     border: 0
+//     padding: 0 5px 0 0
+//     margin: 0
+//     display: block
+//     height: $height-bar
+//     text-shadow: -1px -1px 0 rgba(0,0,0,.4)
+//     +border-radius(0)
+//     &:hover
+//       text-decoration: none
+//       text-shadow: -1px -1px 0 rgba(0,0,0,.5)
+//       
+//   span
+//     font: 22px/30px 'UbuntuTitle', Arial, sans-serif
+//     letter-spacing: 0
+//   
+//   &.active
+//     a, a:hover
+//       border: 0
+//       background: none
+//   
+//   &:nth-child(1)
+//     a:hover, &.active > a
+//       color: $color-red
+// 
+//   &:nth-child(2)
+//     a:hover, &.active > a
+//       color: $color-orange
+// 
+//   &:nth-child(3)
+//     a:hover, &.active > a
+//       color: $color-green
+// 
+//   &:nth-child(4)
+//     a:hover, &.active > a
+//       color: $color-blue
+// 
+//   &:nth-child(5)
+//     a:hover, &.active > a
+//       color: $color-purple
+//   
+//   // @media (min-width: $phone) and (max-width: $ipad-max)
+//   // 
+//   // @media (max-width: $phone)
+  
+  @media (min-width: $ipad-min)
+    width: 15%
+    height: $height-bar
+    border-right: rgba(255,255,255,.2) solid 1px
+    span
+      height: $height-bar
+      line-height: $height-bar
+      vertical-align: middle
+    a, a:hover
+      border-right: rgba(0,0,0,.6) solid 1px
+        
+    &.active:not(:last-child)
+      a, a:hover
+        border-right: rgba(0,0,0,.6) solid 1px
+    
+    &:last-child
+      border-right: 0
+      a
+        border-right: 0
+  
+      
+    
+$height-root-banner: 260px
+
+.root-clouds
+  background-image: image-url("details/background_clouds_medium.png")
+  // background-image: asset-data-url("details/background_clouds.svg")
+  background-size: 1800px auto
+  background-repeat: repeat-x
+  height: 100%
+
+  // @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
+  -webkit-animation-name: animateRootClouds
+  -webkit-animation-duration: 30s
+  -webkit-animation-delay: 0
+  -webkit-animation-fill-mode: backwards
+  -webkit-animation-iteration-count: infinite
+  -webkit-animation-timing-function: linear
+
+.root-icon-color
+  background-image: asset-data-url("logo/color_icon.png")
+  background-image: asset-data-url("logo/color_icon.svg")
+  background-size: auto 90%
+  background-position: center center
+  background-repeat: no-repeat
+  height: 260px
+.root-banner
+  height: $height-root-banner
+  background: #C2E3F7
+  // border-bottom: rgba(50,50,50,.5) solid 1px
+
+.root-content
+  position: absolute
+  top: $height-root-banner + $height-bar + 2
+  bottom: 0
+  left: 0
+  right: 0
+  background-color: #f8f8f8
+  background-image: asset-data-url("details/wing_watermark.png")
+  background-image: asset-data-url("details/wing_watermark.svg")
+  background-position: center center
+  border-top: 1px solid rgba(255,255,255,1)
+  
+  background-repeat: no-repeat
+  
+  @media (max-width: $phone)
+    background-size: 200px
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    background-size: 260px
+  @media (min-width: $desktop-s-min)
+    background-size: 340px
+
+article.front-tab-article
+  padding: 0 5px 5px 5px
+  h1
+    margin-bottom: 10px
+
+  @media (max-width: $phone)
+    margin: 5px
+    margin-right: 5px
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    margin: 10px
+    margin-right: 200px
+  @media (min-width: $desktop-s-min)
+    margin: 15px
+    margin-right: 300px
     
 //   ul.root-page-nav
 //     width: 300px
@@ -108,74 +279,6 @@
 //             letter-spacing: 0
 //             text-shadow:  -1px -1px 0px rgba(0,0,0,.2)
 //             
-//       &:nth-child(1)
-//         a
-//           div
-//             background-image: asset-data-url("details/clouds/puff_01_01.png")
-//             background-image: asset-data-url("details/clouds/puff_01_01.png"), none
-//             background-position: 140px 20px, 0 0
-//             span
-//               color: $color-red
-//         &:hover, &.active
-//           a
-//             div
-//               background-position: 60px 10px, 70px 0
-//               background-image: asset-data-url("details/clouds/puff_01_01.png")
-//               background-image: asset-data-url("details/clouds/puff_01_01.png"), $bgStripes
-//               background-color: $color-red
-//               span
-//                 color: rgba(255,255,255,.95)
-//       &:nth-child(2)
-//         a
-//           div
-//             background-image: asset-data-url("details/clouds/puff_01_02.png")
-//             background-image: asset-data-url("details/clouds/puff_01_02.png"), none
-//             background-position: 140px 40px, 0 0
-//             span
-//               color: $color-orange
-//         &:hover, &.active
-//           a
-//             div
-//               background-position: 90px 20px, 70px 0
-//               background-image: asset-data-url("details/clouds/puff_01_02.png")
-//               background-image: asset-data-url("details/clouds/puff_01_02.png"), $bgStripes
-//               background-color: $color-orange
-//               span
-//                 color: rgba(255,255,255,.95)
-//       &:nth-child(3)
-//         a
-//           div
-//             background-image: asset-data-url("details/clouds/puff_01_03.png")
-//             background-image: asset-data-url("details/clouds/puff_01_03.png"), none
-//             background-position: 100px 70px, 0 0
-//             span
-//               color: $color-green
-//         &:hover, &.active
-//           a
-//             div
-//               background-position: 30px 70px, 70px 0
-//               background-image: asset-data-url("details/clouds/puff_01_03.png")
-//               background-image: asset-data-url("details/clouds/puff_01_03.png"), $bgStripes
-//               background-color: $color-green
-//               span
-//                 color: rgba(255,255,255,.95)
-//       &:nth-child(4)
-//         a
-//           div
-//             background-image: asset-data-url("details/clouds/puff_01_04.png")
-//             background-image: asset-data-url("details/clouds/puff_01_04.png"), none
-//             background-position: 110px 50px, 0 0
-//             span
-//               color: $color-purple
-//         &:hover, &.active
-//           a
-//             div
-//               background-position: 105px 10px, 70px 0
-//               background-image: asset-data-url("details/clouds/puff_01_04.png")
-//               background-image: asset-data-url("details/clouds/puff_01_04.png"), $bgStripes
-//               background-color: $color-purple
-//               span
-//                 color: rgba(255,255,255,.95)
 // 
 // 
 // .root-header, .root-tab-container

@@ -108,7 +108,7 @@ body
       +box-shadow(0,2px,5px,rgba(0,0,0,.3))
   
   @media (min-width: $desktop-s-min)
-    margin-right: 81px
+    margin-right: 80px
     +box-shadow(2px,0,5px,rgba(0,0,0,.3))
   
     @media (min-width: $desktop-l-min)
@@ -147,13 +147,16 @@ body
     right: 0
 
 .fixed-container
+  @media (max-width: $phone)
+    overflow: scroll
+    
   @media (min-width: $ipad-min)
     float: left
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     margin-right: 0
-    width: 420px
+    width: 320px
   @media (min-width: $desktop-s-min)
-    width: 450px
+    width: 320px
   .container-inner
     @media (min-width: $ipad-min)
       border-right: 1px solid rgba(255,255,255,1)
@@ -166,17 +169,19 @@ body
     
   &.with-fixed-container
     @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      margin-left: 420px
+      margin-left: 320px
     @media (min-width: $desktop-s-min) 
-      margin-left: 450px
+      margin-left: 320px
 
 .cloudbar
   padding: 0
   overflow: visible
-  background: #333333 asset-data-url("bg-texture-dark.png")
   overflow: hidden
+  z-index: 3
+  background: #333333 asset-data-url("bg-texture-dark.png")
   
   @media (max-width: $ipad-max)
+    
     position: fixed
     height: $height-cloudbar
     left: 0
@@ -185,6 +190,7 @@ body
     top: auto
   
   @media (min-width: $desktop-s-min)
+
     position: relative
     height: 100%
     float: right
@@ -411,6 +417,7 @@ li.cloud-toggle
           
 .navbar.navbar-fixed-top
   margin: 0
+  z-index: 2
   @media (max-width: $phone)
     top: auto
     bottom: 0
