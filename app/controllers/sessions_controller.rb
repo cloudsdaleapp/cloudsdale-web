@@ -27,7 +27,6 @@ class SessionsController < ApplicationController
 
   def destroy
     if request.env['HTTP_REFERER'].nil? or !request.env['HTTP_REFERER'].match(/^http:\/\/(local|www)\.cloudsdale.org/i).nil?
-      current_user.logout_and_save! if current_user
       session[:user_id] = nil
       redirect_to login_path, notice: "Logged out successfully!"
     else
