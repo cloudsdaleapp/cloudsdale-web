@@ -3,8 +3,6 @@ class Drop
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongo::Voteable
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
   
   ## Preview Uploader specific
   mount_uploader :preview, PreviewUploader
@@ -40,36 +38,6 @@ class Drop
     re_fetch if last_load.nil? or last_load < 1.week.ago
     self[:src_meta] = {}.deep_merge(self[:src_meta].to_hash)
     self[:_type] = "Drop"
-  end
-  
-  # Tire, Mongoid requirements
-  index_name 'drops'
-  
-  tire.settings  :number_of_shards => 1,
-            :analysis => {
-               :analyzer => {
-                 :drop_analyzer => {
-                   "type"         => "custom",
-                   "tokenizer"    => "standard",
-                   "filter"       => ["stop","lowercase","drop_ngram"]
-                 }
-               },
-               :filter => {
-                 :drop_ngram  => {
-                   "type"     => "nGram",
-                   "min_gram" => 1,
-                   "max_gram" => 20 }
-                }
-  } do mapping {             
-      indexes :id,            :type => 'string',       :index => :not_analyzed
-      indexes :type,          :type => 'string',       :index => :not_analyzed
-      indexes :title,         :type => 'string',       :index_analyzer => 'drop_analyzer', :search_analyzer => 'standard',     :boost => 10
-      indexes :hidden,        :type => 'string'
-    }
-  end
-  
-  def to_indexed_json
-    self.to_json(:only => [ :_id,:_type,:title,:strategy,:src_meta,:votes,:created_at,:updated_at,:hidden], :methods => [:preview_versions])
   end
   
   def self.paginate(options = {})

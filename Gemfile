@@ -11,11 +11,8 @@ gem 'mongoid'
 gem 'bson_ext', '1.5.2'
 gem 'mongo_sessions', :require => "mongo_sessions/rails_mongo_store"
 gem 'mongoid_rails_migrations'
-
-gem 'tire',     git: 'git://github.com/karmi/tire.git'
-gem 'kaminari', git: 'https://github.com/amatsuda/kaminari.git'
-
 gem 'voteable_mongo'
+
 gem 'redis'
 gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
 

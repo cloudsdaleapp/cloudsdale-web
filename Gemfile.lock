@@ -19,32 +19,12 @@ GIT
       activesupport (>= 3.0)
 
 GIT
-  remote: git://github.com/karmi/tire.git
-  revision: 1d6b2678be47accecef5bc1c0efbb19f041daced
-  specs:
-    tire (0.3.12)
-      activemodel (~> 3.0)
-      hashr (~> 0.0.16)
-      multi_json (~> 1.0)
-      rake
-      rest-client (~> 1.6.0)
-
-GIT
   remote: git://github.com/rubyworks/yard-tomdoc.git
   revision: f3e9e3dd35af21b559057df8762d3acd0fc84340
   specs:
     yard-tomdoc (0.4.0)
       tomparse
       yard
-
-GIT
-  remote: https://github.com/amatsuda/kaminari.git
-  revision: 4f4d8c927e245df917ea3ce0b8a5c023f86a44bd
-  specs:
-    kaminari (0.13.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      railties (>= 3.0.0)
 
 GIT
   remote: https://github.com/nex3/sass.git
@@ -333,8 +313,6 @@ GEM
       redis-store (~> 1.1.0)
     redis-store (1.1.0)
       redis (~> 2.2.0)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     rmagick (2.13.1)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
@@ -449,7 +427,6 @@ DEPENDENCIES
   hashr
   imagesize
   jquery-rails
-  kaminari!
   mini_magick
   mongo_sessions
   mongoid
@@ -474,7 +451,6 @@ DEPENDENCIES
   sprockets
   therubyracer
   thin
-  tire!
   uglifier
   unicorn
   urifetch!
