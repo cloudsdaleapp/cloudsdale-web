@@ -76,21 +76,65 @@ body
   left: 0
   right: 0
   color: #666666
-  &.with-expanded-cloudbar
-    @media (max-width: $phone)
+  
+  @media (max-width: $phone)
+    .main-container, .cloudbar, .navbar
+      +transition(top .3s ease-in-out)
+      +transition(bottom .3s ease-in-out)
+      
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    .main-container, .cloudbar
+      +transition(top .3s ease-in-out)
+      +transition(bottom .3s ease-in-out)
+      
+  @media (min-width: $desktop-s-min)
+    .main-container, .cloudbar
+      +transition(margin-right .3s ease-in-out)
+  
+  &:not(.with-active-session)
+    @media (min-width: $desktop-s-min)
       .main-container
-        top: -$height-cloudbar
-        bottom: $height-bar + $height-cloudbar
-      .navbar
-        bottom: $height-cloudbar
-      .cloudbar
-        bottom: 0
-    @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      .main-container
-        top: -$height-cloudbar
-        bottom: $height-cloudbar
-      .cloudbar
-        bottom: 0
+        margin-right: 0
+      @media (min-width: $desktop-s-min)
+        .cloudbar
+          margin-right: -80px
+      @media (min-width: $desktop-l-min)
+        .cloudbar
+          margin-right: -200px
+      @media (min-width: $desktop-l-max)
+        .cloudbar
+          margin-right: -280px
+  
+  &.with-active-session
+    &.with-expanded-cloudbar
+      @media (max-width: $phone)
+        .main-container
+          top: -$height-cloudbar
+          bottom: $height-bar + $height-cloudbar
+        .navbar
+          bottom: $height-cloudbar
+        .cloudbar
+          bottom: 0
+          
+      @media (min-width: $ipad-min) and (max-width: $ipad-max)
+        .main-container
+          top: -$height-cloudbar
+          bottom: $height-cloudbar
+        .cloudbar
+          bottom: 0
+      
+      @media (min-width: $desktop-s-min)
+        .cloudbar
+          margin-right: 0
+        @media (min-width: $desktop-s-min)
+          .main-container
+            margin-right: 80px
+        @media (min-width: $desktop-l-min)
+          .main-container
+            margin-right: 200px
+        @media (min-width: $desktop-l-max)
+          .main-container
+            margin-right: 280px
 
 .main-container
   left: 0
@@ -108,14 +152,7 @@ body
       +box-shadow(0,2px,5px,rgba(0,0,0,.3))
   
   @media (min-width: $desktop-s-min)
-    margin-right: 80px
     +box-shadow(2px,0,5px,rgba(0,0,0,.3))
-  
-    @media (min-width: $desktop-l-min)
-      margin-right: 200px
-
-    @media (min-width: $desktop-l-max)
-      margin-right: 280px
 
 .view-container
   position: absolute
