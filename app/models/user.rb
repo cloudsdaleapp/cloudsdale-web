@@ -39,7 +39,7 @@ class User
   accepts_nested_attributes_for :authentications, :allow_destroy => true
   
   validates :name,        length: { within: 2..20 }, format: { :with => /^[a-z0-9\_]*$/i }, allow_blank: true
-  validates :email,       format: { with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }, uniqueness: true, allow_blank: true
+  validates :email,       format: { with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }, uniqueness: true
   validates :password,    length: { within: 6..56 }, allow_blank: true
   validates :auth_token,  uniqueness: true, allow_blank: true
     
