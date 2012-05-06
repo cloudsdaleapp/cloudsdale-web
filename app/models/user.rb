@@ -226,7 +226,16 @@ class User
     self[:force_name_change] || !self.name.present?
   end
   
+  # Public: Determines if the user has any form of viable authentication
+  # methods present. eg. Twitter/Facebook or password authentications.
+  #
+  # Returns a Boolean being true if at least one authentication method is available.
+  def has_a_valid_authentication_method?
+    authentications.size > 0 || (self.password_hash.present? && self.password_salt.present?)
+  end
+  
   # Public: Determines if the user has completed the registration process.
+  # depending on if the users email and a vaild authentication method is present.
   #
   # Examples
   #
