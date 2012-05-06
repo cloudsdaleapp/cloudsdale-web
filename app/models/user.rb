@@ -110,7 +110,7 @@ class User
   #           :oauth - A hash of oauth options defaults to nil:
   #
   #             :provider - String with the service oAuth provider
-  #                         Can either be "facebook" or "twitter"
+  #                         Can either be "facebook", "twitter" or "cloudsdale"
   #
   #             :uid -      String with the user id with the provider
   #
@@ -130,28 +130,39 @@ class User
   #
   # Returns the user record if it's present, otherwise return nil.
   def self.authenticate(options={})
+    
     email     = options[:email]
     password  = options[:password]
     oauth     = options[:oauth]
     user      = nil
     
-    if oauth
-      # Do oAuth stuff.
+    if oauth && oauth[:token] == INTERNAL_TOKEN
+      
+      if ["twitter","facebook"].include?(oauth[:provider])
+        
+        user = where('authentications.uid' => oauth[:uid], 'authentications.provider' => oauth[:provider]).first
+        
+      elsif "cloudsdale" == oauth[:provider]
+        
+        user = where(_id: oauth[:uid]).first
+        
+      end
+
     end
     
     if email && password && user.nil?
+      
       user = where(
         :email => /#{email}/i,
         :password_hash.exists => true,
         :password_salt.exists => true
       ).first
       
-      if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-        user
-      else
-        nil
-      end
+      user = nil unless user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
+      
     end
+    
+    return user
       
   end
   
