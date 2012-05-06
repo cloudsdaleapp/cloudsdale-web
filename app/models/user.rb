@@ -163,6 +163,21 @@ class User
       
   end
   
+  # Public: Checks if the user can be authenticated
+  # with the supplied parameters.
+  #
+  # options - A Hash containing the parameters to try and authenticate with
+  #             :passsword - A String set by the user at registration
+  #
+  # Returns a Boolean that is true if the user could be authenticated
+  def can_authenticate_with(options={})
+    if options[:password].present? && self.password_hash.present? && self.password_salt.present?
+      self.password_hash == BCrypt::Engine.hash_secret(options[:password], self.password_salt)
+    else
+      false
+    end
+  end
+  
   # Public: Builds an authentication based upon omniauth metadata.
   #
   # omniauth - A hash provided by the omniauth gem.
