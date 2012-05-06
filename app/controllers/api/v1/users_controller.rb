@@ -31,7 +31,7 @@ class Api::V1::UsersController < Api::V1Controller
       @user.write_attributes(params[:user])
       
       if @oauth && ['facebook','twitter'].include?(@oauth[:provider]) && @oauth[:token] == INTERNAL_TOKEN
-        @user.authentications.build_from_oauth(params[:oauth])
+        @user.authentications.find_or_initialize(@oauth.reject { |key,value| !["provider","uid"].include?(key) })
       end
       
       if @user.save
@@ -40,6 +40,7 @@ class Api::V1::UsersController < Api::V1Controller
         render_exception "Something went wrong while saving your user.", 500
       end
     else
+      set_flash_message message: "The user exist but your password didn't match. Please try again.", title: "The horror!", type: "warning"
       render_exception "User exists but you could not be authenticated.", 403
     end
     
