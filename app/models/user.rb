@@ -211,6 +211,21 @@ class User
     self[:force_password_change] || !self.password_hash.present? || !self.password_salt.present?
   end
   
+  # Public: Determines wether the user has to change it's password
+  # depending on if the :force_password_change attribute is true
+  # or if :password_hash and :password_salt is not present.
+  #
+  # Examples
+  #
+  # @user.force_password_change
+  # # => true
+  #
+  # Returns true or false depending on if the users has
+  # to change it's password.
+  def needs_name_change?
+    self[:force_name_change] || !self.name.present?
+  end
+  
   # Public: Determines if the user has completed the registration process.
   #
   # Examples
