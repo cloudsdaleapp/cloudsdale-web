@@ -33,6 +33,7 @@ $color-cd-background-lightest: #FFFFFF
 $borderColor: rgba(50, 90, 130, .5)
 $bgStripes: asset-data-url("bg-stripe.png")
 $bgNoise: asset-data-url("bg-noise.png")
+$bgTexture: asset-data-url("bg-texture-dark.png")
 
 $phone: 480px
 $ipad-min: $phone + 1px
@@ -52,6 +53,7 @@ $height-button: $width-button
 
 $color-border-light: rgba(0,0,0,.3)
 $color-border-heavy: rgba(50,50,50,.5)
+$color-border-dark: rgba(50, 50, 50, .8)
 
 $color-red: rgb(220,38,0)
 $color-orange: rgb(252,136,0)
@@ -60,6 +62,8 @@ $color-green: rgb(128,206,0)
 $color-blue: rgb(0,165,255)
 $color-purple: rgb(105,70,255)
 
+$color-background-light: #f8f8f8
+$color-background-medium: #f1f1f1 
 
 @import "bootstrap-fixes"
 
@@ -210,6 +214,13 @@ body
       margin-left: 320px
     @media (min-width: $desktop-s-min) 
       margin-left: 320px
+
+.modal-container
+  position: fixed
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
 
 .cloudbar
   padding: 0
@@ -621,8 +632,6 @@ input[type=file]
 @import "faqs"
 @import "admin"
 @import "explore"
-
-
 
 
 

@@ -33,7 +33,18 @@
     background-position: 0px 50px
   100%
     background-position: 1800px 50px
-  
+
+@-moz-keyframes animateRootClouds
+  0%
+    background-position: 0px 50px
+  100%
+    background-position: 1800px 50px
+
+@keyframes animateRootClouds
+  0%
+    background-position: 0px 50px
+  100%
+    background-position: 1800px 50px
 
 .view-container.root
   .fixed-container
@@ -159,13 +170,13 @@ $height-root-banner: 260px
   background-repeat: repeat-x
   height: 100%
 
-  // @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
-  -webkit-animation-name: animateRootClouds
-  -webkit-animation-duration: 30s
-  -webkit-animation-delay: 0
-  -webkit-animation-fill-mode: backwards
-  -webkit-animation-iteration-count: infinite
-  -webkit-animation-timing-function: linear
+  @each $vendor in "", -webkit-, -moz-
+    #{$vendor}animation-name: animateRootClouds
+    #{$vendor}animation-duration: 30s
+    #{$vendor}animation-delay: 0
+    #{$vendor}animation-fill-mode: backwards
+    #{$vendor}animation-iteration-count: infinite
+    #{$vendor}animation-timing-function: linear
 
 .root-icon-color
   background-image: asset-data-url("logo/color_icon.png")

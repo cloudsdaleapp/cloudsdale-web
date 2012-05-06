@@ -11,3 +11,4 @@ class Cloudsdale.Routers.Root extends Backbone.Router
       
     $.event.trigger 'page:show', "root"
     
+    console.log session.get('user').get('is_registered')    

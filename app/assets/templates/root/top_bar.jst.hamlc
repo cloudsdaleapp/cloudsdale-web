@@ -1,0 +1,15 @@
+.navbar-inner
+  .container-fluid
+    %a.brand{ href: "#" }
+    
+    .nav-collapse
+
+      %ul.nav.pull-right.barnav-phone
+        %li.barnav-a-login
+          %a{ href: '#', class: 'login-trigger' }
+            %span= "Login"
+          
+        %li.barnav-a-clouds
+          %a{ href: '#', class: 'cloud-trigger' }
+            %span= "Clouds"
+            

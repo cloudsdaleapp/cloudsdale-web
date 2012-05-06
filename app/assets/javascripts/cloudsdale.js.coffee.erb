@@ -22,7 +22,7 @@ window.Cloudsdale =
 
 $(document).ready ->
   # Sets the session for the current user
-  window.session = new Cloudsdale.Models.Session($('#preload-session').data().session)
+  window.session = new Cloudsdale.Models.Session($('body').data().session)
   
   # Initializes the notification centre
   window.nfc = new NotificationCentre()
@@ -35,74 +35,6 @@ $(document).ready ->
   
     # Initializes the root view.
     view = new Cloudsdale.Views.Root()
-    $('.main-container').replaceWith(view.el)
+    $('body').replaceWith(view.el)
     
-    $('a.brand').bind 'click', ->
-      Backbone.history.navigate("/",true)
-      false
-    
-    $('a.cloud-trigger').bind 'click', ->
-      $('body').toggleClass('with-expanded-cloudbar')
-      false
-    
-    $(".cloud-list").mousewheel (event, delta) ->
-      @scrollTop -= (delta * 30)
-      event.preventDefault()
-    
-    session.get('clouds').each (cloud) =>
-      session.listenToCloud(cloud)
-      view = new Cloudsdale.Views.CloudsToggle(model: cloud)
-      $('.cloudbar > .cloud-list').append(view.el)
-
     Cloudsdale.init()
-
-# $ ->
-#   
-#   
-#   @userData = $('#user').data()
-#   
-#     $('.navbar.navbar-fixed-top').topBar()
-#     $('.bottombar').bottomBar
-#       userData: @userData
-#       userId: @userData.id
-#       userName: @userData.name
-#       userAvatar: @userData.avatar
-#       userPath: @userData.path
-# 
-#   load_javascript = (controller,action) ->
-#     $.event.trigger "application.load"
-#     $.event.trigger "#{controller}.load"
-#     $.event.trigger "#{action}_#{controller}.load"
-#     $("li[data-main-menu]").removeClass('active')
-#     $("li[data-main-menu=#{controller}]").addClass('active')
-# 
-#   $(document).bind 'application.load', =>
-# 
-#     $("form[data-validate='true']").validate()
-# 
-#     $(".alert-message > .close").bind "click", (e) ->
-#       hide_alert_message $(@).parent()
-# 
-#     $(".alert-message.primary").hide().fadeIn(500).delay(8000).fadeOut 500, ->
-#       hide_alert_message @
-# 
-#     $('[rel=twipsy]').tooltip()
-#     $(".alert-message").alert()
-#     
-#     $("a.special_close").bind 'ajax:success', (request,response) ->
-#       $(@).parent().remove()
-# 
-#   $(document).bind 'start.pjax', (a,b,c) ->
-#     $("a.brand").addClass("loading")
-# 
-#   $(document).bind 'end.pjax', (a,b,c) ->
-#     $("a.brand").removeClass("loading")
-# 
-#     controller = b.getResponseHeader('controller')
-#     action     = b.getResponseHeader('action')
-#     if controller != null and action != null
-#       load_javascript(b.getResponseHeader('controller'),b.getResponseHeader('action'))
-#       $("body").attr('class', "#{b.getResponseHeader('controller')} #{b.getResponseHeader('action')}").scrollTop(0)
-# 
-#   $(document).ready ->
-#     load_javascript($("body").data('controller'),$("body").data('action'))

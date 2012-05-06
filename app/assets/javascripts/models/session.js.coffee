@@ -6,4 +6,9 @@ class Cloudsdale.Models.Session extends Backbone.Model
     
   listenToCloud: (cloud) ->
     this
-    
+  
+  # Returns true if the user is not a new user.
+  isRegistered: -> !@get('user').get('isRegistered')
+  
+  # Returns true if user is affiliated with any clouds.
+  hasClouds: -> @get('clouds').length > 1

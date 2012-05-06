@@ -1,0 +1,21 @@
+.modal-body
+  .img-wrap.color-icon
+  %form
+    .input-group
+      %fieldset
+        .control-group.auth-field-group-displayname
+          .controls
+            %input#session_password{ type: "text", placeholder: "Display Name" }
+        .control-group.auth-field-group-email
+          .controls
+            %input#session_email{ type: "text", placeholder: "Email" }
+        .control-group.auth-field-group-password
+          .controls
+            %input#session_password{ type: "password", placeholder: "Password" }
+      
+    .form-actions
+      %button.auth-submit
+      %a.facebook-auth{ href: '/auth/facebook' }= "Facebook"
+      %a.twitter-auth{ href: '/auth/twitter' }= "Twitter"
+      %a.auth-dialog-help.auth-dialog-help-one{ href: "#" }= "Forgot password?"
+      %a.auth-dialog-help.auth-dialog-help-two{ href: "#" }= "Register an account"

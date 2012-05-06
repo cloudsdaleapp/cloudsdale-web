@@ -10,15 +10,5 @@
     %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view"}
     = csrf_meta_tags
     
-  %body
-    .preloads
-      #preload-session{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
-      
-    = render :partial => 'layouts/topbar'
-    
-    .cloudbar
-      %ul.cloud-list
-      
-    = render :partial => 'layouts/main'
-    
-    = render :partial => 'layouts/modal'
+  %body{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
+  

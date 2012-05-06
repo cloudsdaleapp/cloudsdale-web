@@ -1,7 +1,14 @@
-.view-container.root{ 'data-page-id' => 'root' }
+.navbar.navbar-fixed-top
 
-  .float-container
-    .container-inner
-      .root-clouds
+.cloudbar
+  %ul.cloud-list
+  
+.main-container
+  .view-container.root{ 'data-page-id' => 'root' }
+    .float-container
+      .container-inner
+        .root-clouds
+
+.modal-container
 
 
