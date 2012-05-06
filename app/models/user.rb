@@ -244,7 +244,7 @@ class User
   #
   # Returns a Boolean, true if the user is registered otherwise false
   def is_registered?
-    self.member_since.present?
+    email.present? && has_a_valid_authentication_method?
   end
   
   protected
