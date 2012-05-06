@@ -246,7 +246,9 @@ class User
   def is_registered?
     self.member_since.present?
   end
-    
+  
+  protected
+  
   # Internal: Override to silently ignore trying to remove missing
   # previous avatar when destroying a User.
   def remove_avatar!
