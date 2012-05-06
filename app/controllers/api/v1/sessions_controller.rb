@@ -30,7 +30,29 @@ class Api::V1::SessionsController < Api::V1Controller
       oauth: params[:oauth]
     )
     
+    
+    # FIX ME - DO NOT DO THIS.
+    # PLEEEEEEEAAAAAAAASSSSEEEEE!
+    if params[:oauth]
+      render_exception "You don't have access to this service.", 403 if params[:oauth][:token] != INTERNAL_TOKEN
+    end
+    
     if @current_user
+      
+      if !@current_user.has_a_valid_authentication_method? && params[:oauth]
+        set_flash_message(
+            message: "Could not connect #{params[:oauth][:provider]} to any account, please login to connect your #{params[:oauth][:provider]}. If you have no account, one will be created for you.",
+            type: "error",
+            title: "Almost there!"
+        )
+      elsif !@current_user.has_a_valid_authentication_method?
+        set_flash_message(
+            message: "Could not authenticate your account please look over your credentials. Maybe you don't have an account, why don't you create one?",
+            type: "error",
+            title: "Login error!"
+        )
+      end
+      
       render status: 200
     else
       render_exception "User could not be authenticated.", 403
