@@ -1,5 +1,5 @@
 class Api::V1::SessionsController < Api::V1Controller
-    
+
   # Public: Creates a redis backed session for the requesting client if
   # CSRF token is available. Otherwise the application stays stateless.
   # If the oAuth hash is supplied it will override the email & password
@@ -9,7 +9,7 @@ class Api::V1::SessionsController < Api::V1Controller
   # email - The registered email for a user
   # password - The password associated with that user
   #
-  # oauth - A hash:
+  # oauth - A Hash:
   #         :provider - String with the service oAuth provider
   #                     Can either be "facebook" or "twitter"
   #
@@ -20,10 +20,8 @@ class Api::V1::SessionsController < Api::V1Controller
   #
   #         :cli_type - String with the type of the client.
   #                     Currently supports "ios" or "android"
-  # 
-  # TODO: Implement Facebook & Twitter api connectors.
   #
-  # Returns the the session template defined in 'views/api/v1/sessions/base.rabl'.
+  # Returns the session template defined in 'views/api/v1/sessions/base.rabl'.
   def create
     
     @current_user = User.authenticate(
