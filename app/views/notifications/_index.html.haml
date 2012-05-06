@@ -1,6 +1,0 @@
-- unless @notifications.empty?
-	- @notifications.each do |notification|
-		= link_to notification_path(notification.id), :class => "notification #{notification.read ? '' : 'unread'}" do
-			%h5.actor= notification.actor
-			%p.description= notification.text
-			%p.time= time_ago_in_words(notification.timestamp) + " ago"

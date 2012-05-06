@@ -1,9 +1,0 @@
-- width = drop.preview_dimensions[:width] || drop.preview_dimensions["width"]
-- if drop.preview.banner.url and (width >= 490)
-  = image_tag drop.preview.banner.url, class: 'drop-preview-banner'
-- elsif drop.preview.portrait.url and (width >= 220)
-  = image_tag drop.preview.portrait.url, class: 'drop-preview-portrait'
-- elsif drop.preview.thumb.url
-  = image_tag drop.preview.thumb.url, class: 'drop-preview-thumb'
-- elsif drop.preview.url
-  = image_tag drop.preview.url, class: 'drop-preview-base'

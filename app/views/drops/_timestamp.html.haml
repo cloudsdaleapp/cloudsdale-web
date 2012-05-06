@@ -1,8 +1,0 @@
-%span.timestamp
-  - unless depositable.nil?
-    - ua = deposits.order_by("#{depositable.id.to_s}_updated_at",:desc).last.try(:updated_at) || Time.now.utc
-    = time_ago_in_words(ua)
-  - else
-    = time_ago_in_words(drop.updated_at)
-  
-  = " ago"
