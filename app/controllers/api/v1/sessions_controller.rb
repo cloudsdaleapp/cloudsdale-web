@@ -24,6 +24,13 @@ class Api::V1::SessionsController < Api::V1Controller
   # Returns the session template defined in 'views/api/v1/sessions/base.rabl'.
   def create
     
+    if params[:oauth]
+      render_exception "You don't have access to this service.", 403 if params[:oauth][:token] != INTERNAL_TOKEN
+    elsif (params[:password].nil? && params[:email].nil?) || params[:oauth].nil?
+      set_flash_message message: "You did not supply valid credentials.", title: "Login error!", type: "error"
+      render_exception "You need to supply a valid authentication method.", 400
+    end
+    
     @current_user = User.authenticate(
       email: params[:email],
       password: params[:password],
@@ -33,9 +40,7 @@ class Api::V1::SessionsController < Api::V1Controller
     
     # FIX ME - DO NOT DO THIS.
     # PLEEEEEEEAAAAAAAASSSSEEEEE!
-    if params[:oauth]
-      render_exception "You don't have access to this service.", 403 if params[:oauth][:token] != INTERNAL_TOKEN
-    end
+
     
     if @current_user
       
