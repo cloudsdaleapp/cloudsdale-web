@@ -210,6 +210,18 @@ class User
   def force_password_change
     self[:force_password_change] || !self.password_hash.present? || !self.password_salt.present?
   end
+  
+  # Public: Determines if the user has completed the registration process.
+  #
+  # Examples
+  #
+  # @user.is_registered?
+  # # => false
+  #
+  # Returns a Boolean, true if the user is registered otherwise false
+  def is_registered?
+    self.member_since.present?
+  end
     
   # Internal: Override to silently ignore trying to remove missing
   # previous avatar when destroying a User.
