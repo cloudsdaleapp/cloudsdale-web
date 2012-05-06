@@ -95,12 +95,9 @@ class User
     end
       
   end
-  
 
   # Public: Takes authentication options and tries to
   # resolve and return a user record.
-  #
-  # TODO: Add Twitter & Facebook authentication connectors.
   #
   # options - A options Hash which defaults to ({}):
   #
@@ -128,7 +125,7 @@ class User
   # User.authenticate(password: '***', email: 'info@cl...')
   # # => #<User:...>
   #
-  # Returns the user record if it's present, otherwise return nil.
+  # Returns a user record.
   def self.authenticate(options={})
     
     email     = options[:email]
