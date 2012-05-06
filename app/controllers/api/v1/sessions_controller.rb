@@ -24,11 +24,16 @@ class Api::V1::SessionsController < Api::V1Controller
   # Returns the session template defined in 'views/api/v1/sessions/base.rabl'.
   def create
     
-    if params[:oauth]
-      render_exception "You don't have access to this service.", 403 if params[:oauth][:token] != INTERNAL_TOKEN
-    elsif (params[:password].nil? && params[:email].nil?) || params[:oauth].nil?
+    # EXCEPTION HANDLING - TODO: MAKE PRETTY
+    if params[:oauth][:token] != INTERNAL_TOKEN
+    
+      render_exception("You don't have access to this service.", 403) 
+    
+    elsif (params[:password].nil? && params[:email].nil?) && (params[:oauth][:provider].nil? && params[:oauth][:uid].nil?)
+      
       set_flash_message message: "You did not supply valid credentials.", title: "Login error!", type: "error"
-      render_exception "You need to supply a valid authentication method.", 400
+      render_exception "You need to specify a valid authentication method. With either oAuth or Email/Password", 400
+      
     end
     
     @current_user = User.authenticate(
@@ -37,32 +42,21 @@ class Api::V1::SessionsController < Api::V1Controller
       oauth: params[:oauth]
     )
     
-    
-    # FIX ME - DO NOT DO THIS.
-    # PLEEEEEEEAAAAAAAASSSSEEEEE!
-
-    
-    if @current_user
-      
-      if !@current_user.has_a_valid_authentication_method? && params[:oauth]
-        set_flash_message(
-            message: "Could not connect #{params[:oauth][:provider]} to any account, please login to connect your #{params[:oauth][:provider]}. If you have no account, one will be created for you.",
-            type: "error",
-            title: "Almost there!"
-        )
-      elsif !@current_user.has_a_valid_authentication_method?
-        set_flash_message(
-            message: "Could not authenticate your account please look over your credentials. Maybe you don't have an account, why don't you create one?",
-            type: "error",
-            title: "Login error!"
-        )
-      end
-      
-      render status: 200
-    else
-      render_exception "User could not be authenticated.", 403
+    # MORE EXCEPTION HANDLING - TODO: MAKE EVEN PRETTIER
+    if !@current_user.has_a_valid_authentication_method? && params[:oauth]
+      set_flash_message(
+          message: "Could not connect #{params[:oauth][:provider]} to any account, please login to connect your #{params[:oauth][:provider]}. If you have no account, one will be created for you.",
+          type: "error",
+          title: "Almost there!"
+      )
+    elsif !@current_user.has_a_valid_authentication_method?
+      set_flash_message(
+          message: "Could not authenticate your account please look over your credentials. Maybe you don't have an account, why don't you create one?",
+          type: "error",
+          title: "Login error!"
+      )
     end
-    
+        
   end
   
   # Public: Destroy the session
