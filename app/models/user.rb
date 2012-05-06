@@ -155,11 +155,11 @@ class User
         :password_salt.exists => true
       ).first
       
-      user = nil unless user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
+      user = nil unless user && user.can_authenticate_with(password: password)
       
     end
     
-    return user
+    return user || User.new(email: options[:email], password: options[:password])
       
   end
   
