@@ -31,7 +31,7 @@ class Api::V1::UsersController < Api::V1Controller
       @user.write_attributes(params[:user])
       
       if @oauth && ['facebook','twitter'].include?(@oauth[:provider]) && @oauth[:token] == INTERNAL_TOKEN
-        @user.authentications.find_or_initialize(@oauth.reject { |key,value| !["provider","uid"].include?(key) })
+        @user.authentications.find_or_initialize_by(@oauth.reject { |key,value| !["provider","uid"].include?(key) })
       end
       
       if @user.save
