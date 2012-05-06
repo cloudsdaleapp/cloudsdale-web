@@ -195,6 +195,21 @@ class User
       self[:force_password_change] = false if force_password_change?
     end
   end
+  
+  # Public: Determines wether the user has to change it's password
+  # depending on if the :force_password_change attribute is true
+  # or if :password_hash and :password_salt is not present.
+  #
+  # Examples
+  #
+  # @user.force_password_change
+  # # => true
+  #
+  # Returns true or false depending on if the users has
+  # to change it's password.
+  def force_password_change
+    self[:force_password_change] || !self.password_hash.present? || !self.password_salt.present?
+  end
     
   # Internal: Override to silently ignore trying to remove missing
   # previous avatar when destroying a User.
