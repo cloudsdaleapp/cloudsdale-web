@@ -103,6 +103,29 @@ class Api::V1Controller < ActionController::Base
     render 'api/v1/exceptions/exception', status: status_code
   end
   
+  # Public: Sets the instance variable @flash_message to a hash
+  # hash which defaults to { message: "", type: "notice", title: "Note" }
+  #
+  # options -   A Hash of options which defaults to ({}):
+  #               
+  #               :message - The content of the flash message
+  #               :type - The type of the flash message
+  #               :title - The title of the flash message
+  #
+  #               :* -  Any other parameters can be added to the flash
+  #               message, remember we only support the three stated above
+  #
+  # Examples
+  #
+  # set_flash_message message: "Foo", type: "bar", title: "BAZ"
+  # # => { message: "Foo", type: "bar", title: "BAZ" }
+  #
+  # Returns a motherfucking Hash, do not inject, smoke it.
+  def set_flash_message(options={})
+    default_options = { message: "", type: "notice", title: "Note" }
+    @flash_message = default_options.merge(options)
+  end
+  
   # Public: helper method to help determine how many records
   # to fetch when fetching a collection based on the "limit"
   # parameter sent by the client. If a negative value is supplied

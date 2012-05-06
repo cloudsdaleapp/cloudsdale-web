@@ -3,8 +3,21 @@
   <%= response.status %>
 </status>
 <error>
-  <%= @error.to_json.html_safe %>
+  <%= @error.to_xml.html_safe %>
 </error>
+<flash>
+  <%= unless @flash_message.nil? %>
+    <type>
+      <%= @flash_message['type'].html_safe %>
+    </type>
+    <title>
+      <%= @flash_message['title'].html_safe %>
+    </title>
+    <message>
+      <%= @flash_message['message'].html_safe %>
+    </message>
+  <% end %>
+</flash>
 <result>
   <%= yield %>
 </result>
