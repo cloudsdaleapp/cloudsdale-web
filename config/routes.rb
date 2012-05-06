@@ -10,7 +10,7 @@ Cloudsdale::Application.routes.draw do
       end
     end
 
-    resources :users, only: [:show] do
+    resources :users, only: [:show,:create] do
       resources :clouds, :controller => "users/clouds", only: [:index]
     end
 
