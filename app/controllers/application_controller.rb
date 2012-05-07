@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :redirect_on_maintenance!
   before_filter :set_time_zone_for_user!
-  
-  around_filter  :render_root_page!
-  
+    
   # Rescues the error yielded from not finding requested document
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
     redirect_to not_found_path
@@ -58,12 +56,6 @@ class ApplicationController < ActionController::Base
   
   def set_time_zone_for_user!
     Time.zone = current_user.time_zone if current_user and current_user.time_zone
-  end
-  
-  # Internal: This is called after each method call on controllers
-  # inheriting from this (ApplicationController)
-  def render_root_page!
-    render 'root/index', status: 500
   end
   
 end
