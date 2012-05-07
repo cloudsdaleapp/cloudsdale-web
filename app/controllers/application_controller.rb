@@ -29,10 +29,8 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.new
     end
   end
-  
-  private
-  
-  # Public: Takes rails errors and 
+    
+  # Public: Takes rails errors and ....
   def errors_to_string(errors)
     str = ""
     errors.each { |k,v| str += "#{k.to_s.gsub(/[\.\_\-]/i,' ')}: #{v}" }
