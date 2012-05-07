@@ -29,8 +29,6 @@ class Cloudsdale.Views.Root extends Backbone.View
       @scrollTop -= (delta * 30)
       event.preventDefault()
     
-    @.$('.modal-container').append(new Cloudsdale.Views.SessionsDialog().el)
-    
   show: (id) ->
     @.$('.view-container').removeClass('active')
     @.$(".view-container[data-page-id=#{id}]").addClass('active')

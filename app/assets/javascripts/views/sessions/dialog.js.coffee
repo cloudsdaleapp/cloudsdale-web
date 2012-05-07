@@ -3,7 +3,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   template: JST['sessions/dialog']
 
   tagName: 'div'
-  className: 'modal auth_dialog fade'
+  className: 'modal-container'
     
   events:
     'click a.auth-dialog-help-one' : 'triggerAction'
@@ -20,7 +20,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     this
   
   bindEvents: ->
-    $(@el).modal()
+    @.$('.modal').modal()
   
   refreshGfx: ->
     if @.$("form").hasClass('auth-form-restore')
