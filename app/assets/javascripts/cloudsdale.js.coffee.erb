@@ -9,6 +9,16 @@ window.railsRestSync = (method, model, options) ->
     options.url = model.url()
   return Backbone.sync(method, model, options)
 
+window.renderErrorPageFrom = (response) ->
+  status = response.status
+  
+  if status == 404
+    Backbone.history.navigate("/notfound",true)
+  else if status == 403
+    Backbone.history.navigate("/unauthorized",true)
+  else
+    Backbone.history.navigate("/error",true)
+
 window.Cloudsdale =
   Models: {}
   Collections: {}

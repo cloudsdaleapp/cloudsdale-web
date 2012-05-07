@@ -21,6 +21,15 @@ Cloudsdale::Application.routes.draw do
   # Public: The front page of Cloudsdale.
   root to: 'root#index'
   
+  # Public: The error page for not finding a record.
+  match '/notfound' => 'root#not_found', as: :not_found
+  
+  # Public: The error page for server errors.
+  match '/error' => 'root#server_error', as: :server_error
+  
+  # Public: The page for when a user is not authorized to visit another page.
+  match '/unauthorized' => 'root#unauthorized', as: :unauthorized
+  
   # Public: The maintenance page hosted by the Cloudsdale app.
   match '/maintenance' => 'root#maintenance', as: :maintenance
   

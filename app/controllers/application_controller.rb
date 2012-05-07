@@ -8,6 +8,21 @@ class ApplicationController < ActionController::Base
   before_filter :set_time_zone_for_user!
   
   around_filter  :render_root_page!
+  
+  # Rescues the error yielded from not finding requested document
+  rescue_from Mongoid::Errors::DocumentNotFound do |message|
+    render not_found_path, status: 404
+  end
+  
+  # Rescues the error from not being authorized to perform an action
+  rescue_from CanCan::AccessDenied do |message|
+    render unauthorized_path, status: 401
+  end
+  
+  # Rescues the errors yielded by supplying a faulty BSON id
+  rescue_from BSON::InvalidObjectId do |message|
+    render server_error_path, status: 500
+  end
     
   def current_user
     if session[:user_id]

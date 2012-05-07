@@ -1,0 +1,3 @@
+%center.error-page-message
+  %h1= ""
+  %h3= ""

@@ -46,6 +46,28 @@
   100%
     background-position: 1800px 50px
 
+.view-container.error-container
+  background-color: #f8f8f8
+  background-image: image-url("details/wing_watermark.png")
+  background-position: center
+  background-repeat: no-repeat
+  text-shadow: 1px 1px 1px rgba(255,255,255,1)
+  @media (max-width: $phone)
+    background-size: 90% auto
+    center
+      margin-top: -50px
+  @media (min-width: $ipad-min)
+    background-size: 500px auto
+    center
+      margin-top: -30px
+      
+  center
+    position: absolute
+    top: 50%
+    left: 0
+    right: 0
+    padding: 0 30px
+
 .view-container.root
   .fixed-container
     @media (min-width: $ipad-min)
