@@ -35,6 +35,7 @@ Cloudsdale::Application.routes.draw do
   
   # Internal: Used by Omniauth to redirect users back from authenticating.
   match 'auth/:provider/callback' => 'authentications#create'
+  match '/auth/failure' => 'authentications#failure'
   
   # Public: A place to explore Clouds
   get '/explore' =>"explore#index", as: :explore
