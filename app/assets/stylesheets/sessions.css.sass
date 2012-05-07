@@ -36,12 +36,19 @@
     
   form
     margin: 0
+    &.auth-form-complete-registration
+      .form-actions
+        a.twitter-auth, a.facebook-auth
+          +opacity(0)
+          pointer-events: none
+          margin-bottom: -32px
+          
     &.auth-form-restore
       .control-group.auth-field-group-password, .control-group.auth-field-group-displayname
         height: 0
         
       .form-actions
-        a.twitter-auth, a.facebook-auth
+        a.twitter-auth, a.facebook-auth, a.auth-dialog-cancel
           +opacity(0)
           pointer-events: none
           margin-bottom: -32px
@@ -57,10 +64,15 @@
         a.twitter-auth, a.facebook-auth
           +opacity(1)
           pointer-events: auto
+          
+        a.auth-dialog-cancel
+          +opacity(0)
+          pointer-events: none
+          margin-bottom: -32px
     
     &.auth-form-register
       .form-actions
-        a.twitter-auth, a.facebook-auth
+        a.twitter-auth, a.facebook-auth, a.auth-dialog-cancel
           +opacity(0)
           pointer-events: none
           margin-bottom: -32px
@@ -73,7 +85,7 @@
       padding: 5px 4px
       margin: 5px 0
       border-top: 0
-      button, a.twitter-auth, a.facebook-auth
+      button, a.twitter-auth, a.facebook-auth, a.auth-dialog-cancel
         display: block
         +border-radius(5px)
         font-weight: bold
@@ -90,23 +102,25 @@
         text-shadow: -1px -1px 0 rgba(0,0,0,.3)
           
       button
-        float: none
-        width: 100%
         +linear-gradient($color-green,darken($color-green,5%))
         &:focus, &:active
           +linear-gradient($color-green,darken($color-green,0%))
+      
+      button, a.auth-dialog-cancel
+        float: left
+        width: 100%
+        
+      a.twitter-auth, a.facebook-auth, a.auth-dialog-cancel
+        +linear-gradient(#63a0d0,#3f85b3)
+        +opacity(1)
+        +transition(all .3s ease)
+        &:focus, &:active
+          background-position: auto 10px
+          +linear-gradient(#63a0d0,lighten(#3f85b3,10%))
           
       a.twitter-auth, a.facebook-auth
         float: left
         width: 109px
-        +opacity(1)
-        +linear-gradient(#63a0d0,#3f85b3)
-        +transition(all .3s ease)
-        
-        &:focus, &:active
-          background-position: auto 10px
-          +linear-gradient(#63a0d0,lighten(#3f85b3,10%))
-        
         &.twitter-auth
           margin-left: 2px
         &.facebook-auth

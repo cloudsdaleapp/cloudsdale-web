@@ -48,18 +48,21 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       
   
   toggleRestore: ->
+    @state = 'restore'
     @clearLastState()
     @.$('form').addClass('auth-form-restore')
     @refreshGfx()
     false
 
   toggleRegister: ->
+    @state = 'register'
     @clearLastState()
     @.$('form').addClass('auth-form-register')
     @refreshGfx()
     false
 
   toggleLogin: ->
+    @state = 'login'
     @clearLastState()
     @.$('form').addClass('auth-form-login')
     @refreshGfx()

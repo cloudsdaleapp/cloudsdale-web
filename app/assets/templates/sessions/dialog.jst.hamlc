@@ -18,5 +18,6 @@
         %button.auth-submit
         %a.facebook-auth{ href: '/auth/facebook' }= "Facebook"
         %a.twitter-auth{ href: '/auth/twitter' }= "Twitter"
+        %a.auth-dialog-cancel{ href: '#' }= "Cancel"
         %a.auth-dialog-help.auth-dialog-help-one{ href: "#" }= "Forgot password?"
         %a.auth-dialog-help.auth-dialog-help-two{ href: "#" }= "Register an account"
