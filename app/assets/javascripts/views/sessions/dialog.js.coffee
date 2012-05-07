@@ -9,26 +9,30 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     'click a.auth-dialog-help-one' : 'triggerAction'
     'click a.auth-dialog-help-two' : 'triggerAction'
 
-  initialize: ->
+  initialize: (args) ->
+    args = {} unless args
+    @state = args.state || "login"
+    
     @render()
-    @refreshGfx()
+    @toggleStateFromAction(@state)
     @bindEvents()
+    
     
   render: ->
     $(@el).html(@template())
-    @.$('form').addClass('auth-form-login')
     this
   
   bindEvents: ->
     @.$('.modal').modal()
   
   refreshGfx: ->
-    if @.$("form").hasClass('auth-form-restore')
+    @clearLastState()
+    if @state == 'restore'
       @.$("button.auth-submit").text("Restore")
       @.$("a.auth-dialog-help-one").text("Register an account").data('auth-dialog-state','register')
       @.$("a.auth-dialog-help-two").text("Use an existing account").data('auth-dialog-state','login')
       
-    else if @.$("form").hasClass('auth-form-register')
+    else if @state == 'register'
       @.$("button.auth-submit").text("Continue")
       @.$("a.auth-dialog-help-one").text("Forgot password?").data('auth-dialog-state','restore')
       @.$("a.auth-dialog-help-two").text("Use an existing account").data('auth-dialog-state','login')
@@ -41,6 +45,9 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   
   triggerAction: (e) ->
     action = @.$(e.target).data('auth-dialog-state')
+    @toggleStateFromAction(action)
+    
+  toggleStateFromAction: (action) ->
     switch action
       when "restore" then @toggleRestore()
       when "register" then @toggleRegister()
@@ -49,23 +56,20 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   
   toggleRestore: ->
     @state = 'restore'
-    @clearLastState()
-    @.$('form').addClass('auth-form-restore')
     @refreshGfx()
+    @.$('form').addClass('auth-form-restore')
     false
 
   toggleRegister: ->
     @state = 'register'
-    @clearLastState()
-    @.$('form').addClass('auth-form-register')
     @refreshGfx()
+    @.$('form').addClass('auth-form-register')
     false
 
   toggleLogin: ->
     @state = 'login'
-    @clearLastState()
-    @.$('form').addClass('auth-form-login')
     @refreshGfx()
+    @.$('form').addClass('auth-form-login')
     false
   
   clearLastState: ->
