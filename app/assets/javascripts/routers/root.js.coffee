@@ -4,17 +4,17 @@ class Cloudsdale.Routers.Root extends Backbone.Router
     ''            : 'index'
     'notfound'    : 'notFound'
     'error'       : 'serverError'
-    'unauthorized': 'serverError'
+    'unauthorized': 'unauhorized'
     
   # Initializes the dynamic Interface
   index: ->
     $.event.trigger 'page:show', "root"
   
   notFound: ->
-    @asserErrorContainerAndRender("notFound")
+    @asserErrorContainerAndRender("notfound")
     
   serverError: ->
-    @asserErrorContainerAndRender("serverError")
+    @asserErrorContainerAndRender("servererror")
   
   unauhorized: ->
     @asserErrorContainerAndRender("unauhorized")

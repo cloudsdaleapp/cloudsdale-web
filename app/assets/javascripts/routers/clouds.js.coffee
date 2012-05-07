@@ -11,4 +11,4 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
         if $(".view-container[data-page-id=#{id}]").size() == 0
           $('.main-container').append new Cloudsdale.Views.CloudsShow(model: cloud).el
           
-          $.event.trigger 'page:show', id
+        $.event.trigger 'page:show', id
