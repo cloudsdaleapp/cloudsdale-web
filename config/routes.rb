@@ -21,6 +21,9 @@ Cloudsdale::Application.routes.draw do
   # Public: The front page of Cloudsdale.
   root to: 'root#index'
   
+  # Public: Logout path
+  match '/logout' => 'sessions#destroy', as: :logout
+  
   # Public: The error page for not finding a record.
   match '/notfound' => 'root#not_found', as: :not_found
   
@@ -42,5 +45,6 @@ Cloudsdale::Application.routes.draw do
   
   # Resource: For clouds.
   resources :clouds, :only => [:show]
+
   
 end
