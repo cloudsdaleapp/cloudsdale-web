@@ -11,17 +11,17 @@ class ApplicationController < ActionController::Base
   
   # Rescues the error yielded from not finding requested document
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
-    render not_found_path, status: 404
+    redirect_to not_found_path
   end
   
   # Rescues the error from not being authorized to perform an action
   rescue_from CanCan::AccessDenied do |message|
-    render unauthorized_path, status: 401
+    redirect_to unauthorized_path
   end
   
   # Rescues the errors yielded by supplying a faulty BSON id
   rescue_from BSON::InvalidObjectId do |message|
-    render server_error_path, status: 500
+    redirect_to server_error_path
   end
     
   def current_user
