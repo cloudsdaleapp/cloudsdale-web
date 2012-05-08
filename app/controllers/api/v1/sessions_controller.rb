@@ -25,7 +25,7 @@ class Api::V1::SessionsController < Api::V1Controller
   def create
     
     # EXCEPTION HANDLING - TODO: MAKE PRETTY
-    if params[:oauth][:token] != INTERNAL_TOKEN
+    if params[:oauth] && params[:oauth][:token] != INTERNAL_TOKEN 
     
       render_exception("You don't have access to this service.", 403) 
     
@@ -55,8 +55,13 @@ class Api::V1::SessionsController < Api::V1Controller
           type: "error",
           title: "Login error!"
       )
+      render_exception "Could not authenticate your account please look over your credentials", 401
+    else
+      if params[:persist_session] == "true"
+        session[:user_id] = @current_user.id
+      end
     end
-        
+      
   end
   
   # Public: Destroy the session
