@@ -36,12 +36,13 @@
     
   form
     margin: 0
-    &.auth-form-complete-registration
+    &.auth-form-complete
       .form-actions
-        a.twitter-auth, a.facebook-auth
-          +opacity(0)
-          pointer-events: none
-          margin-bottom: -32px
+        a.twitter-auth, a.facebook-auth, a.auth-dialog-help
+          display: none
+          
+      .control-group:not(:last-child)
+        border-bottom: 1px solid $color-border-light
           
     &.auth-form-restore
       .control-group.auth-field-group-password, .control-group.auth-field-group-displayname
@@ -175,4 +176,5 @@
       outline: none
       margin: 0
       
+      color: #666666
         

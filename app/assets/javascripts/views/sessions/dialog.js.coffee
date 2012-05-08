@@ -6,12 +6,17 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   className: 'modal-container'
     
   events:
-    'click a.auth-dialog-help-one' : 'triggerAction'
-    'click a.auth-dialog-help-two' : 'triggerAction'
+    'click a.auth-dialog-help-one'  : 'triggerAction'
+    'click a.auth-dialog-help-two'  : 'triggerAction'
+    'click a.auth-dialog-cancel'    : 'hide'
+    'click button.auth-submit'      : 'submitFormFromState'
 
   initialize: (args) ->
     args = {} unless args
     @state = args.state || "login"
+    
+    @session = window.session
+    @user = @session.get('user')
     
     @render()
     @toggleStateFromAction(@state)
@@ -19,11 +24,15 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     
     
   render: ->
-    $(@el).html(@template())
+    $(@el).html(@template(session: @session, user: @user))
     this
   
   bindEvents: ->
-    @.$('.modal').modal()
+    @.$('.modal').modal().bind 'hide', =>
+      @.$('.input-group').popover('hide')
+      window.setTimeout ->
+        $(@el).remove()
+      , 500
   
   refreshGfx: ->
     @clearLastState()
@@ -36,6 +45,10 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       @.$("button.auth-submit").text("Continue")
       @.$("a.auth-dialog-help-one").text("Forgot password?").data('auth-dialog-state','restore')
       @.$("a.auth-dialog-help-two").text("Use an existing account").data('auth-dialog-state','login')
+    
+    else if @state == 'complete'
+      @.$("button.auth-submit").text("Complete Registration")
+      @.$("a.auth-dialog-cancel").text("Cancel")
       
     else
       @.$("button.auth-submit").text("Login")
@@ -52,6 +65,8 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       when "restore" then @toggleRestore()
       when "register" then @toggleRegister()
       when "login" then @toggleLogin()
+      when "complete" then @toggleComplete()
+    false
       
   
   toggleRestore: ->
@@ -72,6 +87,62 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     @.$('form').addClass('auth-form-login')
     false
   
+  toggleComplete: ->
+    @state = 'complete'
+    @refreshGfx()
+    @.$('form').addClass('auth-form-complete')
+    false
+  
+  hide: ->
+    @.$('.modal').modal('hide')
+    false
+  
   clearLastState: ->
     @.$('form').removeClass('auth-form-login').removeClass('auth-form-register').removeClass('auth-form-restore')
+    false
+    
+  submitFormFromState: (e) ->
+    switch @state
+      when "restore" then @submitRestore()
+      when "register" then @submitRegister()
+      when "login" then @submitLogin()
+      when "complete" then @submitComplete()
+    e.preventDefault()
+    false
+  
+  submitRestore: ->
+  submitRegister: ->
+  submitLogin: ->
+    
+    submitData = {}
+    submitData.email = @.$('#session_email').val()
+    submitData.password = @.$('#session_password').val()
+    submitData.persist_session = true
+    
+    $.ajax
+      type: 'POST'
+      url: "/v1/sessions"
+      data: submitData
+      dataType: "json"
+      success: (response) =>
+        userData = response.result.user
+        session.get('user').set(userData)
+        @hide()
+      error: (response) =>
+        resp = $.parseJSON(response.responseText)
+        @.$('.input-group').popover(
+          placement: 'top'
+          trigger: 'manual'
+          animation: false
+          title: resp.flash.title
+          content: resp.flash.message
+        ).popover('show')
+          
+        switch resp.status
+          when 401 then false
+          when 403 then false
+          when 500 then false
+      
+    
+  submitComplete: ->
     
