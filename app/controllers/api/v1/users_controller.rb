@@ -47,7 +47,7 @@ class Api::V1::UsersController < Api::V1Controller
   end
   
   
-  # Public: Resets the password for a user.
+  # Public: Sends a restore email to a user matching an email.
   #
   # email - The email of the user you'd like to
   # =>      find and reset the password for.
