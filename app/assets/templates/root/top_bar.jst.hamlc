@@ -1,6 +1,6 @@
 .navbar-inner
   .container-fluid
-    %a.brand{ href: "#" }
+    %a.brand{ href: "#", data: { action: 'home' } }
     
     .nav-collapse
 
