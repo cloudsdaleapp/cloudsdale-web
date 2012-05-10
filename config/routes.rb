@@ -42,7 +42,7 @@ Cloudsdale::Application.routes.draw do
   match '/auth/failure' => 'authentications#failure'
   
   # Public: A place to explore Clouds
-  get '/explore' =>"explore#index", as: :explore
+  get '/explore' => "explore#index", as: :explore
   
   # Resource: For clouds.
   resources :clouds, :only => [:show]
