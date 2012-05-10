@@ -103,15 +103,27 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     
   submitFormFromState: (e) ->
     switch @state
-      when "restore" then @submitRestore()
+      when "restore"  then @submitRestore()
       when "register" then @submitRegister()
-      when "login" then @submitLogin()
+      when "login"    then @submitLogin()
       when "complete" then @submitComplete()
+      
     e.preventDefault()
     false
   
   submitRestore: ->
+    
+    submitData = {}
+    submitData.email = @.$('#session_email').val()
+    
   submitRegister: ->
+    
+    submitData = {}
+    submitData.user = {}
+    submitData.user.name = @.$('#session_password').val()
+    submitData.user.email = @.$('#session_email').val()
+    submitData.user.password = @.$('#session_password').val()
+    
   submitLogin: ->
     
     submitData = {}
@@ -144,4 +156,11 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       
     
   submitComplete: ->
+    
+    submitData = {}
+    submitData.user = {}
+    submitData.user.name = @.$('#session_password').val()
+    submitData.user.email = @.$('#session_email').val()
+    submitData.user.password = @.$('#session_password').val()
+    
     
