@@ -116,6 +116,22 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     submitData = {}
     submitData.email = @.$('#session_email').val()
     
+    $.ajax
+      type: 'POST'
+      url: "/v1/users/restore"
+      data: submitData
+      dataType: "json"
+      success: (response) =>
+        @hide()
+      error: (response) =>
+        resp = $.parseJSON(response.responseText)
+        @.$('.input-group').tooltip(
+          placement: 'top'
+          trigger: 'manual'
+          animation: false
+          title: "Something went wrong... try again later."
+        ).tooltip('show')
+    
   submitRegister: ->
     
     submitData = {}

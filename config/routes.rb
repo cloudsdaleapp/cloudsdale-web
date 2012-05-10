@@ -11,7 +11,7 @@ Cloudsdale::Application.routes.draw do
     end
 
     resources :users, only: [:show,:create] do
-      post restore: 'users/restore', on: :collection, as: :restore
+      post "/restore" => 'users#restore', on: :collection, as: :restore
       resources :clouds, :controller => "users/clouds", only: [:index]
     end
 
@@ -49,6 +49,9 @@ Cloudsdale::Application.routes.draw do
   
   # Resource: For clouds.
   resources :clouds, :only => [:show]
+  resources :users, :only => [] do
+    match "/restore/:token" => "users#restore", as: :restore, on: :collection
+  end
 
   
 end
