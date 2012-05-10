@@ -19,6 +19,16 @@ window.renderErrorPageFrom = (response) ->
   else
     Backbone.history.navigate("/error",true)
 
+window.deparam = (paramString) ->
+  result = {}
+  return result  unless paramString
+  $.each paramString.split("&"), (index, value) ->
+    if value
+      param = value.split("=")
+      result[param[0]] = param[1]
+
+  result
+
 window.Cloudsdale =
   Models: {}
   Collections: {}
