@@ -1,10 +1,11 @@
 class Cloudsdale.Routers.Root extends Backbone.Router
   
   routes:
-    ''            : 'index'
-    'notfound'    : 'notFound'
-    'error'       : 'serverError'
-    'unauthorized': 'unauhorized'
+    ''                    : 'index'
+    'notfound'            : 'notFound'
+    'error'               : 'serverError'
+    'unauthorized'        : 'unauhorized'
+    'error/:error_id?:params'     : 'custom'
     
   # Initializes the dynamic Interface
   index: ->
@@ -19,10 +20,13 @@ class Cloudsdale.Routers.Root extends Backbone.Router
   unauhorized: ->
     @asserErrorContainerAndRender("unauthorized")
   
-  
-  asserErrorContainerAndRender: (id) ->
+  custom: (error_id,params) ->
+    args = deparam(params)
+    @asserErrorContainerAndRender("custom",args.title,args.sub_title)
     
-    view = new Cloudsdale.Views.Error(errorType: id)
+  asserErrorContainerAndRender: (id,title,subTitle) ->
+    
+    view = new Cloudsdale.Views.Error(errorType: id, title: title, subTitle: subTitle)
         
     if $('.main-container .view-container.error-container').length > 0
       $('.main-container .view-container.error-container').replaceWith(view.el)

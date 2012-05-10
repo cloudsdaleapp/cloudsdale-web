@@ -6,6 +6,9 @@ class Cloudsdale.Views.Error extends Backbone.View
   
   initialize: (args) ->
     @errorType = args.errorType
+    
+    @title = args.title if args.title
+    @subTitle = args.subTitle if args.subTitle
        
     @render()
     @bindEvents()
@@ -17,7 +20,7 @@ class Cloudsdale.Views.Error extends Backbone.View
   
   bindEvents: ->
     $(@el).bind 'page:show', (event,pageId) =>
-      @show() if $.inArray(pageId, ["unauthorized","notfound","servererror"]) >= 0
+      @show() if $.inArray(pageId, ["unauthorized","notfound","servererror","custom"]) >= 0
   
   show: ->
     $('.view-container').removeClass('active')
@@ -37,3 +40,7 @@ class Cloudsdale.Views.Error extends Backbone.View
     else if @errorType == 'servererror'
       @.$('h1').text("I just don't know what went wrong.")
       @.$('h3').text('Something went wrong when you tried to view this page.')
+    
+    else
+      @.$('h1').text(@title)
+      @.$('h3').text(@subTitle)

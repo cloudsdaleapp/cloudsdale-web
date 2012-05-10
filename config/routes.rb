@@ -34,6 +34,9 @@ Cloudsdale::Application.routes.draw do
   # Public: The page for when a user is not authorized to visit another page.
   match '/unauthorized' => 'root#unauthorized', as: :unauthorized
   
+  # Public: Custom error page.
+  match '/error/:error_id' => 'root#custom_error', as: :custom_error
+  
   # Public: The maintenance page hosted by the Cloudsdale app.
   match '/maintenance' => 'root#maintenance', as: :maintenance
   

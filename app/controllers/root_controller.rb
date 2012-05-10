@@ -17,6 +17,13 @@ class RootController < ApplicationController
     render status: 401
   end
   
+  def custom_error
+    params[:title] = "Error" unless params[:title]
+    params[:sub_title] = "Stop messing around with custom errors." unless params[:sub_title]
+    
+    render status: params[:status] ? params[:status] : 500
+  end
+  
   def maintenance
     render layout: false
   end
