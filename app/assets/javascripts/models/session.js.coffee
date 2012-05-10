@@ -8,7 +8,8 @@ class Cloudsdale.Models.Session extends Backbone.Model
     this
   
   # Returns true if the user is not a new user.
-  isRegistered: -> !@get('user').get('isRegistered')
+  isRegistered: -> @get('user').get('is_registered')
+  
   # Returns true if the session user is an actual record
   isLoggedIn: -> @get('user').get('is_transient') == false
   
