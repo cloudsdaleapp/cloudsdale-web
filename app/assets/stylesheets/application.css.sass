@@ -111,8 +111,8 @@ body
           margin-right: -280px
   
   &.with-active-session
-    &.with-expanded-cloudbar
-      @media (max-width: $phone)
+    @media (max-width: $phone)
+      &.with-expanded-cloudbar 
         .main-container
           top: -$height-cloudbar
           bottom: $height-bar + $height-cloudbar
@@ -120,38 +120,41 @@ body
           bottom: $height-cloudbar
         .cloudbar
           bottom: 0
-          
-      @media (min-width: $ipad-min) and (max-width: $ipad-max)
+        
+    @media (min-width: $ipad-min) and (max-width: $ipad-max)
+      &.with-expanded-cloudbar 
         .main-container
           top: -$height-cloudbar
           bottom: $height-cloudbar
         .cloudbar
           bottom: 0
-      
+    
+    @media (min-width: $desktop-s-min)
+      .cloudbar
+        margin-right: 0
       @media (min-width: $desktop-s-min)
-        .cloudbar
-          margin-right: 0
-        @media (min-width: $desktop-s-min)
-          .main-container
-            margin-right: 80px
-        @media (min-width: $desktop-l-min)
-          .main-container
-            margin-right: 200px
-        @media (min-width: $desktop-l-max)
-          .main-container
-            margin-right: 280px
+        .main-container
+          margin-right: 80px
+      @media (min-width: $desktop-l-min)
+        .main-container
+          margin-right: 200px
+      @media (min-width: $desktop-l-max)
+        .main-container
+          margin-right: 280px
 
 .main-container
-  left: 0
-  right: 0
+  left: 0px
+  right: 0px
+  top: 0px
+  bottom: 0px
   position: fixed
   display: block
   @media (max-width: $phone)
-    top: 0
+    top: 0px
     bottom: $height-bar
   @media (min-width: $ipad-min)
     top: $height-bar
-    bottom: 0
+    bottom: 0px
     @media (max-width: $ipad-max)
       border-bottom: 1px rgba(50,50,50,.5) solid
       +box-shadow(0,2px,5px,rgba(0,0,0,.3))
