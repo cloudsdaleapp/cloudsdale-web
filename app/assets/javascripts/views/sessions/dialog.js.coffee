@@ -29,7 +29,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   
   bindEvents: ->
     @.$('.modal').modal().bind 'hide', =>
-      @.$('.input-group').popover('hide')
+      @.$('.input-group').tooltip('hide')
       window.setTimeout ->
         $(@el).remove()
       , 500
@@ -130,13 +130,12 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         @hide()
       error: (response) =>
         resp = $.parseJSON(response.responseText)
-        @.$('.input-group').popover(
+        @.$('.input-group').tooltip(
           placement: 'top'
           trigger: 'manual'
           animation: false
-          title: resp.flash.title
-          content: resp.flash.message
-        ).popover('show')
+          title: resp.flash.title + " " + resp.flash.message
+        ).tooltip('show')
           
         switch resp.status
           when 401 then false
