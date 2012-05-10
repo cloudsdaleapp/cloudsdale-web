@@ -15,7 +15,7 @@ class Cloudsdale.Views.Root extends Backbone.View
     session.get('clouds').each (cloud) =>
       session.listenToCloud(cloud)
       view = new Cloudsdale.Views.CloudsToggle(model: cloud)
-      $('.cloudbar > .cloud-list').append(view.el)
+      @.$('.cloudbar > .cloud-list').append(view.el)
     
     @refreshGfx()
   
