@@ -25,7 +25,7 @@ window.deparam = (paramString) ->
   $.each paramString.split("&"), (index, value) ->
     if value
       param = value.split("=")
-      result[param[0]] = param[1]
+      result[param[0]] = param[1].replace(/\+/gi," ")
 
   result
 
