@@ -16,6 +16,8 @@ class Cloudsdale.Views.Root extends Backbone.View
       session.listenToCloud(cloud)
       view = new Cloudsdale.Views.CloudsToggle(model: cloud)
       $('.cloudbar > .cloud-list').append(view.el)
+    
+    @refreshGfx()
   
   render: ->
     $(@el).html(@template())
@@ -28,6 +30,15 @@ class Cloudsdale.Views.Root extends Backbone.View
     @.$(".cloud-list").mousewheel (event, delta) ->
       @scrollTop -= (delta * 30)
       event.preventDefault()
+    
+    session.get('user').bind 'change', (user) =>
+      @refreshGfx()
+  
+  refreshGfx: ->
+    if session.isLoggedIn()
+      $(@el).addClass('with-active-session')
+    else
+      $(@el).removeClass('with-active-session')
     
   show: (id) ->
     @.$('.view-container').removeClass('active')
