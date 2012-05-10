@@ -485,7 +485,7 @@ li.cloud-toggle
           color: rgba(255,255,255,1)
           text-shadow: -1px -1px 1px rgba(0,0,0,.2)
           font-weight: bold
-      
+
 .navbar
   a.brand
     float: left
@@ -503,6 +503,100 @@ li.cloud-toggle
     @media (min-width: $ipad-min)
       display: block
   
+.navbar ul.nav.pull-right
+  padding: 0
+  margin: 0
+  height: $height-bar
+  
+  @media (max-width: $phone)
+    width: 100%
+    li
+      width: 20%
+  
+  @media (min-width: $ipad-min)
+    width: auto
+    li
+      width: 66px
+  
+  li
+    float: left
+    position: relative
+    height: $height-bar
+    
+    a
+      position: absolute
+      
+      background-color: transparent
+      background-position: center 2px
+      background-repeat: no-repeat
+      background-size: auto 24px
+      
+      padding: 0
+      margin: 0
+      top: 3px
+      bottom: 3px
+      left: 3px
+      right: 3px
+      
+      &.nav-trigger-noaction
+        pointer-events: none
+            
+      &.nav-trigger-home
+        background-image: asset-data-url("icons/glyphicons/white/home.png")
+        @media (min-width: $desktop-s-min)
+          &:hover
+            background-image: asset-data-url("icons/glyphicons/gold/home.png")
+
+      &.nav-trigger-explore
+        background-image: asset-data-url("icons/glyphicons/white/compass.png")
+        @media (min-width: $desktop-s-min)
+          &:hover
+            background-image: asset-data-url("icons/glyphicons/gold/compass.png")
+
+      &.nav-trigger-clouds
+        background-image: asset-data-url("icons/glyphicons/white/cloud.png")
+        @media (min-width: $desktop-s-min)
+          &:hover
+            background-image: asset-data-url("icons/glyphicons/gold/cloud.png")
+
+      &.nav-trigger-login
+        background-image: asset-data-url("icons/glyphicons/white/lock.png")
+        @media (min-width: $desktop-s-min)
+          &:hover
+            background-image: asset-data-url("icons/glyphicons/gold/lock.png")
+      
+      &.nav-trigger-register
+        background-image: asset-data-url("icons/glyphicons/white/pen.png")
+        @media (min-width: $desktop-s-min)
+          &:hover
+            background-image: asset-data-url("icons/glyphicons/gold/pen.png")
+
+      &.nav-trigger-settings
+        background-image: asset-data-url("icons/glyphicons/white/cogwheels.png")
+        @media (min-width: $desktop-s-min)
+          &:hover
+            background-image: asset-data-url("icons/glyphicons/gold/cogwheels.png")
+      
+      &.nav-trigger-info
+        background-image: asset-data-url("icons/glyphicons/white/circle_info.png")
+        @media (min-width: $desktop-s-min)
+          &:hover
+            background-image: asset-data-url("icons/glyphicons/gold/circle_info.png")
+          
+      span
+        position: absolute
+        display: block
+        bottom: 2px
+        left: 0
+        right: 0
+        text-align: center
+        font-size: 10px
+        line-height: 10px
+        text-shadow: 1px 1px 0 rgba(0,0,0,.1)
+        pointer-events: none
+          
+        
+
 .loading-content
   position: absolute
   top: 0
