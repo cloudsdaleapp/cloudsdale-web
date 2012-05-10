@@ -12,18 +12,21 @@ class Cloudsdale.Views.Root extends Backbone.View
     
     @bindEvents()
     
-    session.get('clouds').each (cloud) =>
-      session.listenToCloud(cloud)
-      view = new Cloudsdale.Views.CloudsToggle(model: cloud)
-      @.$('.cloudbar > .cloud-list').append(view.el)
-    
     @refreshGfx()
+    
+    @renderSessionClouds() if session.isLoggedIn()
   
   render: ->
     $(@el).html(@template())
     this
     
   bindEvents: ->
+    $(@el).bind 'clouds:join', (cloud) =>
+      @renderCloud(cloud)
+    
+    $(@el).bind 'clouds:initialize', =>
+      @renderSessionClouds()
+    
     $(@el).bind 'page:show', (event,page_id) =>
       @show(page_id) if page_id == "root"
     
@@ -43,3 +46,12 @@ class Cloudsdale.Views.Root extends Backbone.View
   show: (id) ->
     @.$('.view-container').removeClass('active')
     @.$(".view-container[data-page-id=#{id}]").addClass('active')
+  
+  renderSessionClouds: ->
+    session.get('clouds').each (cloud) =>
+      @renderCloud(cloud)
+      
+  renderCloud: (cloud) ->
+    session.listenToCloud(cloud)
+    view = new Cloudsdale.Views.CloudsToggle(model: cloud)
+    @.$('.cloudbar > .cloud-list').append(view.el)

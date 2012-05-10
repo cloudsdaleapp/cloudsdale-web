@@ -2,8 +2,8 @@ class Cloudsdale.Models.Session extends Backbone.Model
   
   initialize: (attr) ->
     @set 'user', new Cloudsdale.Models.User(@get('user'))
-    @set 'clouds', new Cloudsdale.Collections.Clouds(@get('user').get('clouds'))
-    
+    @reInitializeClouds()    
+  
   listenToCloud: (cloud) ->
     this
   
@@ -15,3 +15,7 @@ class Cloudsdale.Models.Session extends Backbone.Model
   
   # Returns true if user is affiliated with any clouds.
   hasClouds: -> @get('clouds').length > 1
+  
+  reInitializeClouds: ->
+    @set 'clouds', new Cloudsdale.Collections.Clouds(@get('user').get('clouds'))
+    $.event.trigger 'clouds:initialize'

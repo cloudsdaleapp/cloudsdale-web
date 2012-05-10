@@ -155,6 +155,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       success: (response) =>
         userData = response.result.user
         session.get('user').set(userData)
+        session.reInitializeClouds()
         @hide()
       error: (response) =>
         resp = $.parseJSON(response.responseText)
