@@ -4,12 +4,26 @@
     
     .nav-collapse
 
-      %ul.nav.pull-right.barnav-phone
-        %li.barnav-a-login
-          %a{ href: '#', class: 'login-trigger' }
+      %ul.nav.pull-right
+        %li
+          %a{ href: '#', class: 'nav-trigger-home', data: { action: 'home', navId: '1' } }
+            %span= "Home"
+            
+        %li
+          %a{ href: '#', class: 'nav-trigger-explore', data: { action: 'explore', navId: '2' } }
+            %span= "Explore"
+            
+        %li
+          %a{ href: '#', class: 'nav-trigger-register', data: { action: 'register', navId: '3' } }
+            %span= ""
+            
+        %li
+          %a{ href: '#', class: 'nav-trigger-login', data: { action: 'login', navId: '4' } }
             %span= "Login"
+        
+        %li
+          %a{ href: '#', class: 'nav-trigger-info', data: { action: 'info', navId: '5' } }
+            %span= "Info"
           
-        %li.barnav-a-clouds
-          %a{ href: '#', class: 'cloud-trigger' }
-            %span= "Clouds"
+        
             
