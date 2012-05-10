@@ -11,6 +11,7 @@ Cloudsdale::Application.routes.draw do
     end
 
     resources :users, only: [:show,:create] do
+      post restore: 'users/restore', on: :collection, as: :restore
       resources :clouds, :controller => "users/clouds", only: [:index]
     end
 

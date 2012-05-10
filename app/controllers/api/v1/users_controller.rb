@@ -7,7 +7,7 @@ class Api::V1::UsersController < Api::V1Controller
     render status: 200
   end
   
-  # Internal: Fetches or initiates a user based upon email and
+  # Public: Fetches or initiates a user based upon email and
   # tries to authenticate an already existing user using the
   # password if supplied. If the user is a new record or if
   # it can be successfully authenticated. Write the user attributes
@@ -43,6 +43,26 @@ class Api::V1::UsersController < Api::V1Controller
       set_flash_message message: "The user exist but your password didn't match. Please try again.", title: "The horror!", type: "warning"
       render_exception "User exists but you could not be authenticated.", 403
     end
+    
+  end
+  
+  
+  # Public: Resets the password for a user.
+  #
+  # email - The email of the user you'd like to
+  # =>      find and reset the password for.
+  #
+  # Returns an empty response with the status 200.
+  def restore
+    
+    @user = User.where(email: params[:email].downcase).first
+    
+    if @user
+      @user.create_restoration
+      UserMailer.restore_mail(@user).deliver
+    end
+    
+    render status: 200
     
   end
   
