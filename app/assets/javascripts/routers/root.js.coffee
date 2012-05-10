@@ -17,7 +17,7 @@ class Cloudsdale.Routers.Root extends Backbone.Router
     @asserErrorContainerAndRender("servererror")
   
   unauhorized: ->
-    @asserErrorContainerAndRender("unauhorized")
+    @asserErrorContainerAndRender("unauthorized")
   
   
   asserErrorContainerAndRender: (id) ->
