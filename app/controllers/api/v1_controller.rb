@@ -158,7 +158,7 @@ class Api::V1Controller < ActionController::Base
     i > 0 ? i : fallback
   end
   
-  # Builds some generic response headers, among them
+  # Internal: Builds some generic response headers, among them
   # X-Auth-Token // If a current user is present
   #
   # Examples
