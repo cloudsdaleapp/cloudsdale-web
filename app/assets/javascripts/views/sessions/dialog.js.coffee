@@ -8,7 +8,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   events:
     'click a.auth-dialog-help-one'  : 'triggerAction'
     'click a.auth-dialog-help-two'  : 'triggerAction'
-    'click a.auth-dialog-cancel'    : 'hide'
+    'click a.auth-dialog-cancel'    : 'cancelDialog'
     'click button.auth-submit'      : 'submitFormFromState'
 
   initialize: (args) ->
@@ -18,10 +18,11 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     @session = window.session
     @user = @session.get('user')
     
+    @logoutOnHide = false
+    
     @render()
     @toggleStateFromAction(@state)
     @bindEvents()
-    
     
   render: ->
     $(@el).html(@template(session: @session, user: @user))
@@ -30,10 +31,11 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   bindEvents: ->
     @.$('.modal').modal().bind 'hide', =>
       @.$('.input-group').tooltip('hide')
-      window.setTimeout ->
+      window.setTimeout =>
+        @logoutUser() if @logoutOnHide
         $(@el).remove()
       , 500
-  
+      
   refreshGfx: ->
     @clearLastState()
     if @state == 'restore'
@@ -61,39 +63,55 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     @toggleStateFromAction(action)
     
   toggleStateFromAction: (action) ->
+    
     switch action
-      when "restore" then @toggleRestore()
-      when "register" then @toggleRegister()
-      when "login" then @toggleLogin()
-      when "complete" then @toggleComplete()
+      when "restore"          then @toggleRestore()
+      when "register"         then @toggleRegister()
+      when "login"            then @toggleLogin()
+      when "complete"         then @toggleComplete()
+      
     false
       
   
   toggleRestore: ->
     @state = 'restore'
+    @logoutOnHide = false
     @refreshGfx()
     @.$('form').addClass('auth-form-restore')
     false
 
   toggleRegister: ->
     @state = 'register'
+    @logoutOnHide = false
     @refreshGfx()
     @.$('form').addClass('auth-form-register')
     false
 
   toggleLogin: ->
     @state = 'login'
+    @logoutOnHide = false
     @refreshGfx()
     @.$('form').addClass('auth-form-login')
     false
   
   toggleComplete: ->
     @state = 'complete'
+    @logoutOnHide = true
     @refreshGfx()
     @.$('form').addClass('auth-form-complete')
     false
   
-  hide: ->
+  
+  cancelDialog: () ->
+    @hide() if $.inArray(@state, ["complete","password_change","name_change"]) >= 0
+  
+  logoutUser: ->
+    window.location.replace('/logout')
+    
+  hide: (args) =>
+    args = {} unless args
+    @logoutOnHide = args.logout if args.logout != undefined
+    
     @.$('.modal').modal('hide')
     false
   
@@ -103,10 +121,10 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     
   submitFormFromState: (e) ->
     switch @state
-      when "restore"  then @submitRestore()
-      when "register" then @submitRegister()
-      when "login"    then @submitLogin()
-      when "complete" then @submitComplete()
+      when "restore"          then @submitRestore()
+      when "register"         then @submitRegister()
+      when "login"            then @submitLogin()
+      when "complete"         then @submitComplete()
       
     e.preventDefault()
     false
@@ -118,11 +136,11 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     
     $.ajax
       type: 'POST'
-      url: "/v1/users/restore"
+      url: "/v1/users/restore.json"
       data: submitData
       dataType: "json"
       success: (response) =>
-        @hide()
+        @hide(logout: false)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
         @.$('.input-group').tooltip(
@@ -167,17 +185,44 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         ).tooltip('show')
           
         switch resp.status
-          when 401 then false
-          when 403 then false
-          when 500 then false
-      
-    
+          # when 401
+          #   # do stuff
+          when 403
+            @logoutUser()
+          # when 500
+          #   # do stuff
+              
   submitComplete: ->
-    
     submitData = {}
     submitData.user = {}
     submitData.user.name = @.$('#session_password').val()
     submitData.user.email = @.$('#session_email').val()
     submitData.user.password = @.$('#session_password').val()
+    submitData.user.confirm_registration = true
     
-    
+    $.ajax
+      type: 'PUT'
+      url: "/v1/users/#{session.get('user').id}.json"
+      data: submitData
+      dataType: "json"
+      success: (response) =>
+        userData = response.user
+        session.get('user').set(userData)
+        @hide(logout: false)
+      error: (response) =>
+        resp = $.parseJSON(response.responseText)
+        @.$('.input-group').tooltip(
+          placement: 'top'
+          trigger: 'manual'
+          animation: false
+          title: resp.flash.title + " " + resp.flash.message
+        ).tooltip('show')
+          
+        switch resp.status
+          # when 422
+          #   # do stuff
+          when 403
+            @logoutUser()
+          # when 500
+          #   # do stuff
+              

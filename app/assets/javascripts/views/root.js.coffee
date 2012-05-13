@@ -14,8 +14,11 @@ class Cloudsdale.Views.Root extends Backbone.View
     
     @refreshGfx()
     
-    @renderSessionClouds() if session.isLoggedIn()
-  
+    if session.isLoggedIn()
+      @renderSessionClouds()
+            
+      if session.get('user').get('needs_to_confirm_registration')
+        @openSessionDialog('complete')
   render: ->
     $(@el).html(@template())
     this
@@ -46,6 +49,15 @@ class Cloudsdale.Views.Root extends Backbone.View
   show: (id) ->
     @.$('.view-container').removeClass('active')
     @.$(".view-container[data-page-id=#{id}]").addClass('active')
+  
+  openSessionDialog: (state) ->
+    # view = new Cloudsdale.Views.SessionsDialog(state: state).el
+    # if @.$('.modal-container').length > 0 then @.$('.modal-container').replaceWith(view) else $(@el).append(view)
+    
+    window.setTimeout =>
+      view = new Cloudsdale.Views.SessionsDialog(state: state).el
+      if @.$('.modal-container').length > 0 then @.$('.modal-container').replaceWith(view) else $(@el).append(view)
+    , 100
   
   renderSessionClouds: ->
     session.get('clouds').each (cloud) =>
