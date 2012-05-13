@@ -49,6 +49,27 @@ class Api::V1::UsersController < Api::V1Controller
     
   end
   
+  # Private: Accepts parameters to update a user object.
+  # matching the given ID.
+  #
+  # id    - A BSON id of the user to update the attributes on.
+  # user  - A Hash of parameters to send to the user object.
+  #
+  # Returns the user object.
+  def update
+    
+    @user = User.find(params[:id])
+    authorize! :update, @user
+    
+    if @user.update_attributes(params[:user])
+      render status: 200
+    else
+      build_errors_from_model @user
+      render status: 422
+    end
+    
+  end
+  
   
   # Public: Sends a restore email to a user matching an email.
   #
