@@ -22,6 +22,13 @@ class Api::V1Controller < ActionController::Base
     render_exception "BSON #{message}", 500
   end
   
+  # Public: Used to set a session for the user if the persist_session parameter is available.
+  def authenticate!(user)
+    if params[:persist_session] == "true"
+      session[:user_id] = user.id
+    end
+  end
+  
   # Internal: Determines if the client doing the API call is an
   # authorized client - This means the client has access to inhouse
   # methods in the API.
