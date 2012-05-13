@@ -50,7 +50,7 @@ class Api::V1::UsersController < Api::V1Controller
   # Public: Sends a restore email to a user matching an email.
   #
   # email - The email of the user you'd like to
-  # =>      find and reset the password for.
+  #         find and reset the password for.
   #
   # Returns an empty response with the status 200.
   def restore
