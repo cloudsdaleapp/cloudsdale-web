@@ -1,6 +1,9 @@
 class Api::V1::UsersController < Api::V1Controller
   
   # Public: Fetches a user from supplised id parameter
+  #
+  # id    - A BSON id of the user to look up.
+  #
   # Returns the user.
   def show
     @user = User.find(params[:id])
