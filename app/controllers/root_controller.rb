@@ -5,6 +5,12 @@ class RootController < ApplicationController
   def index
   end
   
+  def explore
+  end
+  
+  def info
+  end
+  
   def not_found
     render status: 404
   end

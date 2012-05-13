@@ -7,7 +7,7 @@ class Cloudsdale.Views.TopBar extends Backbone.View
   events:
     'click a' : 'performAction'
   
-  initialize: (args) ->    
+  initialize: (args) ->
     @render()
     @bindEvents()
     @refreshGfx()
@@ -42,11 +42,13 @@ class Cloudsdale.Views.TopBar extends Backbone.View
     
     switch $(event.target).data('action')
       when 'home' then @goToRootPage()
+      when 'explore' then @goToExplorePage()
+      when 'info' then @goToInfoPage()
       when 'settings' then @openSettingsDialog()
       when 'clouds' then @toggleCloudExpand()
       when 'login' then @openSessionDialog('login')
       when 'register' then @openSessionDialog('register')
-      
+    
     false
   
   openSessionDialog: (state) ->
@@ -65,4 +67,12 @@ class Cloudsdale.Views.TopBar extends Backbone.View
     
   goToRootPage: ->
     Backbone.history.navigate("/",true)
+    false
+  
+  goToExplorePage: ->
+    Backbone.history.navigate("/explore",true)
+    false
+  
+  goToInfoPage: ->
+    Backbone.history.navigate("/info",true)
     false
