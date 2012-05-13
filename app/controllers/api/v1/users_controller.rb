@@ -38,13 +38,17 @@ class Api::V1::UsersController < Api::V1Controller
       end
       
       if @user.save
+        authenticate! @user
         render status: 200
       else
-        render_exception "Something went wrong while saving your user.", 500
+        set_flash_message message: "Something went wrong while saving your user.", title: "The horror!"
+        build_errors_from_model @user
+        render status: 422 
       end
+      
     else
       set_flash_message message: "The user exist but your password didn't match. Please try again.", title: "The horror!", type: "warning"
-      render_exception "User exists but you could not be authenticated.", 403
+      render status: 403
     end
     
   end
