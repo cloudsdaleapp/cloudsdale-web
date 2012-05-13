@@ -196,7 +196,7 @@ class User
   # a creation date is already set.
   def set_creation_date
     unless member_since.present?
-      self[:member_since] = Time.now
+      self[:member_since] = -> { Time.now }.call
     end
   end
   
