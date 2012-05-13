@@ -167,14 +167,14 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     
     $.ajax
       type: 'POST'
-      url: "/v1/sessions"
+      url: "/v1/sessions.json"
       data: submitData
       dataType: "json"
       success: (response) =>
         userData = response.result.user
         session.get('user').set(userData)
         session.reInitializeClouds()
-        @hide()
+        @hide(logout: false)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
         @.$('.input-group').tooltip(
