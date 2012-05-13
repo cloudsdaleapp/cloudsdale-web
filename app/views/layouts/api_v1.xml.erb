@@ -2,9 +2,9 @@
 <status>
   <%= response.status %>
 </status>
-<error>
-  <%= @error.to_xml.html_safe %>
-</error>
+<errors>
+  <%= errors.to_xml.html_safe %>
+</errors>
 <flash>
   <%= unless @flash_message.nil? %>
     <type>

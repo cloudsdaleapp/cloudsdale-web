@@ -99,7 +99,7 @@ class Api::V1Controller < ActionController::Base
   #
   # Returns a pretty render.
   def render_exception(error_message, status_code=500)
-    @error = error_message
+    add_error message: error_message
     render 'api/v1/exceptions/exception', status: status_code
   end
   

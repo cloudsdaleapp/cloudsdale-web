@@ -38,8 +38,8 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
     if @message.save
       render status: 200
     else
-      @error = @message.errors
       render status: 403
+      build_errors_from_model @message
     end
   
   end

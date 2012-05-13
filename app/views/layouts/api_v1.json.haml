@@ -1,7 +1,7 @@
 :plain
   {
     "status": #{response.status},
-    "error": #{@error.to_json.html_safe},
+    "errors": #{errors.to_json.html_safe},
     "flash": #{@flash_message.to_json.html_safe},
     "result": #{yield}
   }
