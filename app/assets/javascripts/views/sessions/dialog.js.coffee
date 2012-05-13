@@ -154,7 +154,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     
     submitData = {}
     submitData.user = {}
-    submitData.user.name = @.$('#session_password').val()
+    submitData.user.name = @.$('#session_display_name').val()
     submitData.user.email = @.$('#session_email').val()
     submitData.user.password = @.$('#session_password').val()
     
@@ -195,7 +195,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   submitComplete: ->
     submitData = {}
     submitData.user = {}
-    submitData.user.name = @.$('#session_password').val()
+    submitData.user.name = @.$('#session_display_name').val()
     submitData.user.email = @.$('#session_email').val()
     submitData.user.password = @.$('#session_password').val()
     submitData.user.confirm_registration = true
