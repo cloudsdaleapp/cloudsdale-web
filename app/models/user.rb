@@ -5,8 +5,8 @@ class User
 
   include Droppable
   
-  attr_accessible :name, :email, :password, :invisible, :time_zone
-  attr_accessor :password
+  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration
+  attr_accessor :password, :confirm_registration
   
   embeds_one :character
   embeds_one :restoration
@@ -18,18 +18,19 @@ class User
   
   has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
   
-  field :name,                  type: String
-  field :email,                 type: String
-  field :auth_token,            type: String
-  field :password_hash,         type: String
-  field :password_salt,         type: String
-  field :time_zone,             type: String
-  field :role,                  type: Integer,    default: 0
-  field :member_since,          type: Time
-  field :invisible,             type: Boolean,    default: false
-  field :force_password_change, type: Boolean,    default: false
-  field :force_name_change,     type: Boolean,    default: false
-  field :tnc_last_accepted,     type: Date,       default: nil
+  field :name,                      type: String
+  field :email,                     type: String
+  field :auth_token,                type: String
+  field :password_hash,             type: String
+  field :password_salt,             type: String
+  field :time_zone,                 type: String
+  field :role,                      type: Integer,    default: 0
+  field :member_since,              type: Time
+  field :invisible,                 type: Boolean,    default: false
+  field :force_password_change,     type: Boolean,    default: false
+  field :force_name_change,         type: Boolean,    default: false
+  field :tnc_last_accepted,         type: Date,       default: nil
+  field :confirmed_registration_at, type: DateTime,   default: nil
     
   mount_uploader :avatar, AvatarUploader
   
@@ -54,6 +55,7 @@ class User
     generate_auth_token
     encrypt_password
     enable_account_on_password_change
+    set_confirmed_registration_date
     set_creation_date
   end
   
@@ -200,6 +202,15 @@ class User
     end
   end
   
+  # Internal: Sets the :confirmed_registration_date if
+  # :confirmed_registration is present and :confirmed_registration_at is nil
+  # as well as having an email together with a valid registration method.
+  def set_confirmed_registration_date
+    if confirm_registration.present? && confirmed_registration_at.nil? && has_a_valid_authentication_method? && email.present?
+      self[:confirmed_registration_at] = -> { DateTime.current }.call
+    end
+  end
+  
   # Internal: Changes the state of force_password_change to true
   # if the password_hash has recently been changed.
   def enable_account_on_password_change
@@ -236,6 +247,19 @@ class User
   # to change it's password.
   def needs_name_change?
     self[:force_name_change] || !self.name.present?
+  end
+  
+  # Public: Determines wether the user has completed it's
+  # registration or not based on the value of :confirmed_registration
+  #
+  # Examples
+  #
+  # @user.needs_to_confirm_registration?
+  # # => true
+  #
+  # Returns true if :confirmed_registration_at is set otherwise false.
+  def needs_to_confirm_registration?
+    self[:confirmed_registration_at].present?
   end
   
   # Public: Determines if the user has any form of viable authentication
