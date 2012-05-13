@@ -57,9 +57,7 @@ class Api::V1::SessionsController < Api::V1Controller
       )
       render_exception "Could not authenticate your account please look over your credentials", 401
     else
-      if params[:persist_session] == "true"
-        session[:user_id] = @current_user.id
-      end
+      authenticate! @current_user
     end
       
   end
