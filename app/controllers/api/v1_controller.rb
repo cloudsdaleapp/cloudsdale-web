@@ -152,7 +152,7 @@ class Api::V1Controller < ActionController::Base
   # # => 5
   #
   # Returns an integer.
-  def record_limit(fallback=0,max=nil)
+  def record_limit( fallback = 0, max = nil )
     i = params[:limit].try(:to_i) || fallback
     i = i > max ? max : i if max
     i > 0 ? i : fallback
