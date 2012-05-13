@@ -5,7 +5,7 @@ class Api::V1Controller < ActionController::Base
   before_filter :auth_token
   after_filter :build_response_headers
   
-  helper_method :current_user
+  helper_method :current_user, :errors
   
   # Rescues the error yielded from not finding requested document
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
