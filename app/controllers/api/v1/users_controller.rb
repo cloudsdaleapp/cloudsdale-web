@@ -64,6 +64,7 @@ class Api::V1::UsersController < Api::V1Controller
     if @user.update_attributes(params[:user])
       render status: 200
     else
+      set_flash_message message: "Something went wrong while updating your profile. Please look over your input.", title: "The horror!"
       build_errors_from_model @user
       render status: 422
     end
