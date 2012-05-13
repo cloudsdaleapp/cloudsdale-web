@@ -36,7 +36,8 @@ class AuthenticationsController < ApplicationController
       
     else
       if current_user.new_record?
-        @user = User.find_or_initialize_by(email: /#{@email}/i)
+        @user = User.where(email: /#{@email}/i).first if @email
+        @user = User.new if @user.nil?
       else
         @user = current_user
       end
