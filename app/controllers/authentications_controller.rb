@@ -22,8 +22,10 @@ class AuthenticationsController < ApplicationController
     @name = omniauth.info.nickname
     @email = omniauth.info.email
     
-    ActiveSupport::TimeZone.zones_map.keys.each do |allowed_time_zone|
-      @time_zone = allowed_time_zone if omniauth.info.location.match(/#{allowed_time_zone}/i)
+    if omniauth.info.location
+      ActiveSupport::TimeZone.zones_map.keys.each do |allowed_time_zone|
+        @time_zone = allowed_time_zone if omniauth.info.location.match(/#{allowed_time_zone}/i)
+      end
     end
     
     @user = User.where('authentications.provider' => @provider, 'authentications.uid' => @uid).first
@@ -48,7 +50,7 @@ class AuthenticationsController < ApplicationController
     @user.name      = @name       unless @user.name.present?
     @user.email     = @email      unless @user.email.present?
     @user.time_zone = @time_zone  unless @user.time_zone.present?
-    
+            
     if @user.save
       session[:user_id] = @user.id
     end
