@@ -171,4 +171,65 @@ class Api::V1Controller < ActionController::Base
     "ok"
   end
   
+  # Public: Used to build an error
+  #
+  # args -  The attributes from which the method will build the error.
+  #           :type     - The type of error, should be: :general, :field
+  #                       Defaults to :general .
+  #
+  #           :ref_id   - The id of the node to reference, eg. '4f2fd644b679de2228000007'
+  #                       Defaults to nil.
+  #
+  #           :ref_type - The type of the node to reference, eg. 'cloud'
+  #                       Defaults to nil.
+  #
+  #           :ref_node - The node of the reference object which is errorous, eg. a field name.
+  #                       Defaults to nil.
+  #
+  #           :message  - The message to display to the user.
+  #                       Defaults to an empty String.
+  #
+  # Returns the error hash which can in turn be rendered in a response
+  def add_error(args={})
+    defaults = { type: :general, ref_type: nil, ref_id: nil, ref_node: nil, message: '' }
+    error = defaults.merge(args)
+    errors << error
+    return error
+  end
+  
+  # Public: Used to extract error messages from a errorous model
+  # and compile them to be rendered in API responses.
+  #
+  # model - The model to extract the errors from.
+  #
+  # Examples
+  #
+  # build_errors_from_model @cloud
+  # # => [{ :type => :field, :ref_type => 'user', :ref_id => '4f2fd644b679de2228000007', :ref_node => 'name', :message => 'can't be blank' }]
+  #
+  # Returns the array of error hashes which can be rendered in a response.
+  def build_errors_from_model(model)
+    
+    unless model.errors.empty?
+      
+      model.errors.each do |field,message|
+        id    = model._id.to_s
+        type  = model._type.downcase
+        node  = field.to_s
+        
+        add_error type: :field, ref_type: type, ref_id: id, ref_node: node, message: message
+      end
+      
+    end
+    
+    return errors
+  end
+  
+  # Public: Accessor for the errors variable.
+  #
+  # Returns the errors array.
+  def errors
+    @errors ||= []
+  end
+  
 end
