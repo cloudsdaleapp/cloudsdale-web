@@ -259,7 +259,7 @@ class User
   #
   # Returns true if :confirmed_registration_at is set otherwise false.
   def needs_to_confirm_registration?
-    self[:confirmed_registration_at].present?
+    self[:confirmed_registration_at].nil?
   end
   
   # Public: Determines if the user has any form of viable authentication
