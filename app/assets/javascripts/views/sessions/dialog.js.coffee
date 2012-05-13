@@ -158,6 +158,36 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     submitData.user.email = @.$('#session_email').val()
     submitData.user.password = @.$('#session_password').val()
     
+    submitData.user.confirm_registration = true
+    submitData.persist_session = true
+    
+    $.ajax
+      type: 'POST'
+      url: "/v1/users.json"
+      data: submitData
+      dataType: "json"
+      success: (response) =>
+        userData = response.result
+        session.get('user').set(userData)
+        session.reInitializeClouds()
+        @hide(logout: false)
+      error: (response) =>
+        resp = $.parseJSON(response.responseText)
+        @.$('.input-group').tooltip(
+          placement: 'top'
+          trigger: 'manual'
+          animation: false
+          title: resp.flash.title + " " + resp.flash.message
+        ).tooltip('show')
+          
+        switch resp.status
+          # when 401
+          #   # do stuff
+          when 403
+            @logoutUser()
+          # when 500
+          #   # do stuff
+          
   submitLogin: ->
     
     submitData = {}
