@@ -10,6 +10,7 @@ gem 'rails', '3.2.2'
 gem 'mongoid'
 gem 'bson_ext', '1.5.2'
 gem 'mongoid_rails_migrations'
+gem 'mongoid_fulltext'
 gem 'voteable_mongo'
 
 gem 'redis'
