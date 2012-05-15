@@ -16,7 +16,16 @@ gem 'voteable_mongo'
 gem 'redis'
 gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
 
-# Push notifications
+group :assets do
+  gem 'sass', git: 'https://github.com/nex3/sass.git'
+  gem 'sass-rails'
+  gem 'bootstrap-sass'
+  gem 'coffee-script'
+  gem 'uglifier'
+  gem 'jquery-rails'
+  gem 'sprockets'
+  gem 'haml_coffee_assets'
+end
 
 # Markup
 gem 'haml'
@@ -25,7 +34,6 @@ gem 'redcarpet'
 gem 'pjax_rails'
 gem 'best_in_place'
 gem 'rabl'
-gem 'bootstrap-sass'
 
 # Frontend
 gem 'backbone-on-rails'
@@ -62,14 +70,6 @@ gem 'soundcloud'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'user-agent'
 
-# Assets
-gem 'sass', git: 'https://github.com/nex3/sass.git'
-gem 'sass-rails'
-gem 'coffee-script'
-gem 'uglifier'
-gem 'jquery-rails'
-gem 'sprockets'
-
 # Workers
 gem 'bunny'
 gem 'yajl-ruby', :require => 'yajl'
@@ -82,10 +82,6 @@ gem 'amqp', '~> 0.9.2'
 
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
-
-group :assets do
-  gem 'haml_coffee_assets'
-end
 
 group :development, :test do
   gem 'pry'
