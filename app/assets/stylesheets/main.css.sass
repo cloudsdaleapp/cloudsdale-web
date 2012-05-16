@@ -28,23 +28,23 @@
     margin-left: 0
     +opacity(1)
 
-@-webkit-keyframes animateRootClouds
-  0%
-    background-position: 0px 50px
-  100%
-    background-position: 1800px 50px
-
-@-moz-keyframes animateRootClouds
-  0%
-    background-position: 0px 50px
-  100%
-    background-position: 1800px 50px
-
-@keyframes animateRootClouds
-  0%
-    background-position: 0px 50px
-  100%
-    background-position: 1800px 50px
+// @-webkit-keyframes animateRootClouds
+//   0%
+//     background-position: 0px 50px
+//   100%
+//     background-position: 1800px 50px
+// 
+// @-moz-keyframes animateRootClouds
+//   0%
+//     background-position: 0px 50px
+//   100%
+//     background-position: 1800px 50px
+// 
+// @keyframes animateRootClouds
+//   0%
+//     background-position: 0px 50px
+//   100%
+//     background-position: 1800px 50px
 
 .view-container.error-container
   background-color: #f8f8f8
@@ -188,17 +188,22 @@ $height-root-banner: 260px
 .root-clouds
   background-image: image-url("details/background_clouds_medium.png")
   // background-image: asset-data-url("details/background_clouds.svg")
+  // background-size: 1800px auto
   background-size: 1800px auto
   background-repeat: repeat-x
-  height: 100%
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
 
-  @each $vendor in "", -webkit-, -moz-
-    #{$vendor}animation-name: animateRootClouds
-    #{$vendor}animation-duration: 30s
-    #{$vendor}animation-delay: 0
-    #{$vendor}animation-fill-mode: backwards
-    #{$vendor}animation-iteration-count: infinite
-    #{$vendor}animation-timing-function: linear
+  // @each $vendor in "", -webkit-, -moz-
+  //   #{$vendor}animation-name: animateRootClouds
+  //   #{$vendor}animation-duration: 60s
+  //   #{$vendor}animation-delay: 0
+  //   #{$vendor}animation-fill-mode: backwards
+  //   #{$vendor}animation-iteration-count: infinite
+  //   #{$vendor}animation-timing-function: linear
 
 .root-icon-color
   background-image: asset-data-url("logo/color_icon.png")
