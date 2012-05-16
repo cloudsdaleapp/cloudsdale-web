@@ -84,17 +84,24 @@ body
   
   @media (max-width: $phone)
     .main-container, .cloudbar, .navbar
-      +transition(top .3s ease-in-out)
-      +transition(bottom .3s ease-in-out)
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}transition-property: top, bottom
+        #{$vendor}transition-duration: .3s
+        #{$vendor}transition-timing-function: ease-in-out
       
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     .main-container, .cloudbar
-      +transition(top .3s ease-in-out)
-      +transition(bottom .3s ease-in-out)
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}transition-property: top, bottom
+        #{$vendor}transition-duration: .3s
+        #{$vendor}transition-timing-function: ease-in-out
       
   @media (min-width: $desktop-s-min)
     .main-container, .cloudbar
-      +transition(margin-right .3s ease-in-out)
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}transition-property: margin-right, width
+        #{$vendor}transition-duration: .3s
+        #{$vendor}transition-timing-function: ease-in-out
   
   &:not(.with-active-session)
     @media (min-width: $desktop-s-min)
