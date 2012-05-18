@@ -1,5 +1,7 @@
 class User
   
+  ROLES = { normal: 0, donor: 1, moderator: 2, placeholder: 3, admin: 4 }
+  
   include Mongoid::Document
   include Mongo::Voter
 
@@ -7,7 +9,7 @@ class User
   
   attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration
   attr_accessor :password, :confirm_registration
-  
+    
   embeds_one :character
   embeds_one :restoration
   embeds_one :checklist
@@ -64,6 +66,15 @@ class User
     set_creation_date
   end
   
+  # Public: Use a symbol to check if the user is of a specific role.
+  #
+  #   sym - The symbolic version of a role.
+  #         Defaults to :normal and accepts :normal, :donor, :moderator, :placeholder, :admin
+  #
+  # Returns true of the user is can act as one of these roles otherwise false.
+  def is_of_role?(sym=:normal)
+    ROLES[sym] ? ROLES[sym] >= self[:role] : false
+  end
   # Public: Fetches the URL's for the avatar versions
   #
   # args - A hash of arguments of what to do with the avatar versions.
