@@ -166,7 +166,17 @@ class User
       
     end
     
-    return user || User.new(email: options[:email], password: options[:password])
+    if user.nil?
+      
+      user = User.new(email: options[:email], password: options[:password])
+      
+      if oauth && ["twitter","facebook"].include?(oauth[:provider])
+        user.authentications.build(uid: oauth[:uid], provider: oauth[:provider])
+      end
+      
+    end
+    
+    return user
       
   end
   
