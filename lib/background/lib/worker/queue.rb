@@ -60,10 +60,13 @@ module Worker
   
       super
       
+      log.info("Connecting to AMQP...")
       @amqp_connection = AMQP.connect Cloudsdale.config['rabbit']
       @amqp_channel = AMQP::Channel.new @amqp_connection, :auto_recovery => true, :prefetch => 1
-      @amqp_queue = @amqp_channel.queue queue, :auto_delete => false      
+      log.info("Subscribing to AMQP queue [#{queue}]...")
+      @amqp_queue = @amqp_channel.queue queue, :auto_delete => false
       @amqp_queue.subscribe do |payload|
+        log.info("Picked message from [#{queue}] queue")
         perform(Hashr.new(Yajl::Parser.parse(payload, :check_utf8 => true)))
       end
   

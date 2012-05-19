@@ -1,13 +1,13 @@
 module AMQPConnector
   
-  def enqueue!(queue,data=self.to_queue)
+  def enqueue!(queue,data)
+    
+    encoded_data = data.class == String ? data : Yajl::Encoder.encode(data)
+        
     q = Cloudsdale.bunny.queue(queue)
     e = Cloudsdale.bunny.exchange('')
-    e.publish(data,:key => queue)
+    e.publish(encoded_data, :key => queue.to_s)
+    
   end
   
-  def to_queue
-    self.to_json
-  end
-
 end

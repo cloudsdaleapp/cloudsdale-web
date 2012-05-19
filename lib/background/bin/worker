@@ -83,7 +83,7 @@ end
 )
 
 @worker_name = ARGV[1] || ""
-@worker_name = assert_command_name(@worker_name, /^messages$/i,
+@worker_name = assert_command_name(@worker_name, /^messages|faye$/i,
   "\n#{@worker_name.as_color(:blue)} worker does not exist.\n",
   "Available workers: #{ Worker::AVAILABLE_WORKERS.map{ |w| w = w.as_color(:yellow) }.join(", ") }\n\n"
 )

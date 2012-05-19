@@ -32,7 +32,7 @@ module Worker
   
   extend System
   
-  AVAILABLE_WORKERS = ["messages","drops"]
+  AVAILABLE_WORKERS = ["messages","drops","faye"]
   NSPACE = "rainbowfactory"
   APPNAME = "Cloudsdale"
   

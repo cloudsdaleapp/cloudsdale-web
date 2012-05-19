@@ -26,7 +26,7 @@ class Message
   end
   
   after_save do
-    enqueue!("messages",self.to_json)
+    enqueue! "faye", { channel: "/#{self.topic_type}/#{self.topic_id}/chat", data: self.to_hash }
   end
   
   # Public: Translates the Message object to a JSON string using RABL
@@ -39,6 +39,18 @@ class Message
   # Returns a json string.
   def to_json
     Rabl::Renderer.json(self, 'api/v1/messages/base', :view_path => 'app/views')
+  end
+  
+  # Public: Translates the Message object to a HASH string using RABL
+  #
+  # Examples
+  # 
+  # @message.to_hash
+  # # => { content: "..." }
+  #
+  # Returns a Hash string.
+  def to_hash
+    Rabl.render(self, 'api/v1/messages/base', :view_path => 'app/views', :format => 'hash')
   end
   
   def topic_type
