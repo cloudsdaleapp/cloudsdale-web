@@ -56,6 +56,14 @@ class Api::V1::SessionsController < Api::V1Controller
           title: "Login error!"
       )
       render_exception "Could not authenticate your account please look over your credentials", 401
+    
+    elsif @current_user.banned?
+      set_flash_message(
+          message: "Your suspension ends on #{@current_user.suspended_until.strftime('%Y-%m-%d %H:%M')}. To appeal your case contact us at info@cloudsdale.org",
+          type: "error",
+          title: "You are banned."
+      )
+      render_exception "You are banned from this service.", 401
     else
       authenticate! @current_user
     end
