@@ -26,7 +26,7 @@ class Message
   end
   
   after_save do
-    enqueue! "faye", { channel: "/#{self.topic_type}/#{self.topic_id}/chat", data: self.to_hash }
+    enqueue! "faye", { channel: "/#{self.topic_type}/#{self.topic_id}/chat", data: self.to_hash } 
   end
   
   # Public: Translates the Message object to a JSON string using RABL

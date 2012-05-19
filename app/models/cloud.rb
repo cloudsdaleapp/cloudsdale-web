@@ -30,8 +30,8 @@ class Cloud
   
   has_and_belongs_to_many :users, :inverse_of => :clouds, dependent: :nullify
   
-  scope :popular, order_by(:member_count,:desc)
-  scope :recent, order_by(:created_at,:desc)
+  scope :popular, order_by(:member_count, :desc)
+  scope :recent, order_by(:created_at, :desc)
   
   fulltext_search_in :search_string, :filters => {
     :public => lambda { |cloud| cloud.hidden == false },
