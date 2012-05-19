@@ -34,6 +34,7 @@ class User
   field :tnc_last_accepted,         type: Date,       default: nil
   field :confirmed_registration_at, type: DateTime,   default: nil
   field :suspended_until,           type: DateTime,   default: nil
+  field :reason_for_suspension,     type: String,     default: nil
     
   mount_uploader :avatar, AvatarUploader
   
@@ -90,9 +91,8 @@ class User
   #   date_time - The DateTime of when the suspension will seize.
   #
   # Returns true if the user could be saved.
-  def ban!(date_time = -> { DateTime.now + 48.hours }.call)
-    ban(date_time)
-    save
+  def ban!(date_time = -> { DateTime.now + 48.hours }.call, reason="unknown reason")
+    ban(date_time,reason); save
   end
   
   # Public: Used to suspend a user for a set amount of time.
@@ -100,9 +100,10 @@ class User
   #   date_time - The DateTime of when the suspension will seize.
   #
   # Returns the DateTime instance.
-  def ban(date_time = -> { DateTime.now + 48.hours }.call)
+  def ban(date_time = -> { DateTime.now + 48.hours }.call, reason="unknown reason")
     date_time = [DateTime,Time,Date].include?(date_time.class) ? date_time.to_datetime : DateTime.parse(date_time)
     self.suspended_until = date_time
+    self.reason_for_suspension = reason
   end
   
   # Public: Instantly removes a suspension from a user.

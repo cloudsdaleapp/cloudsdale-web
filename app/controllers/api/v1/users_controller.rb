@@ -98,18 +98,23 @@ class Api::V1::UsersController < Api::V1Controller
   # Public: Ban a user
   #
   #   date_time - A String of until what time the user should be suspended.
+  #   reason - A String of why the user has been suspended.
   #
   # Returns an empty response with the status 200 if successful,
   # 422 if there is an error or 401 if you're not allowed to
   # perform the action.
   def ban
     @user = User.find(params[:id])
+    
+    @date_time  = params[:date_time]
+    @reason     = params[:reason]
+    
     authorize! :ban, @user
         
-    if @user.ban!(params[:date_time])
+    if @user.ban!(@date_time,@reason)
       render status: 200
     else
-      set_flash_message message: "You were unable to ban #{@user.name}. Please contact a SysOp."
+      set_flash_message message: "You were unable to ban #{@user.name} for #{@reason}. Please contact a SysOp."
       build_errors_from_model @user
       render status: 422
     end
