@@ -233,7 +233,7 @@ class User
     
     if user.nil?
       
-      user = User.new(email: options[:email], password: options[:password])
+      user = User.where(email: /#{email}/i).first || User.new(email: email, password: password)
       
       if oauth && ["twitter","facebook"].include?(oauth[:provider])
         user.authentications.build(uid: oauth[:uid], provider: oauth[:provider])
