@@ -33,6 +33,7 @@ class User
   field :force_name_change,         type: Boolean,    default: false
   field :tnc_last_accepted,         type: Date,       default: nil
   field :confirmed_registration_at, type: DateTime,   default: nil
+  field :suspended_until,           type: DateTime,   default: nil
     
   mount_uploader :avatar, AvatarUploader
   
@@ -75,6 +76,51 @@ class User
   def is_of_role?(sym=:normal)
     ROLES[sym] ? ROLES[sym] >= self[:role] : false
   end
+  
+  # Public: An Alias for the ´ban´ method with a bang to also save
+  # the user record to the database.
+  #
+  #   date_time - The DateTime of when the suspension will seize.
+  #
+  # Returns true if the user could be saved.
+  def ban!(date_time = -> { DateTime.now + 48.hours }.call)
+    ban(date_time)
+    save
+  end
+  
+  # Public: Used to suspend a user for a set amount of time.
+  #
+  #   date_time - The DateTime of when the suspension will seize.
+  #
+  # Returns the DateTime instance.
+  def ban(date_time = -> { DateTime.now + 48.hours }.call)
+    date_time = [DateTime,Time,Date].include?(date_time.class) ? date_time.to_datetime : DateTime.parse(date_time)
+    self.suspended_until = date_time
+  end
+  
+  # Public: Instantly removes a suspension from a user.
+  #
+  # Returns nil.
+  def unban; self.suspended_until = nil; end
+  
+  # Public: An Alias for the ´unban´ method with a bang to also save
+  # the user record to the database.
+  #
+  # Returns true if the user could be saved.
+  def unban!; unban; save; end
+  
+  # Public: Determines if the user is banned or not by comparing
+  # the current DateTime to the value of :suspended_until field.
+  #
+  # Returns true if the user is banned otherwise false.
+  def banned?
+    if self.suspended_until
+      self.suspended_until > -> { DateTime.now }.call
+    else
+      false
+    end
+  end
+  
   # Public: Fetches the URL's for the avatar versions
   #
   # args - A hash of arguments of what to do with the avatar versions.

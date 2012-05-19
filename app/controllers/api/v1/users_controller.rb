@@ -95,6 +95,44 @@ class Api::V1::UsersController < Api::V1Controller
     
   end
   
+  # Public: Ban a user
+  #
+  #   date_time - A String of until what time the user should be suspended.
+  #
+  # Returns an empty response with the status 200 if successful,
+  # 422 if there is an error or 401 if you're not allowed to
+  # perform the action.
+  def ban
+    @user = User.find(params[:id])
+    authorize! :ban, @user
+        
+    if @user.ban!(params[:date_time])
+      render status: 200
+    else
+      set_flash_message message: "You were unable to ban #{@user.name}. Please contact a SysOp."
+      build_errors_from_model @user
+      render status: 422
+    end
+  end
+  
+  # Public: Unban a user
+  #
+  # Returns an empty response with the status 200 if successful,
+  # 422 if there is an error or 401 if you're not allowed to
+  # perform the action.
+  def unban
+    @user = User.find(params[:id])
+    authorize! :unban, @user
+    
+    if @user.unban!
+      render status: 200
+    else
+      set_flash_message message: "You were unable to unban #{@user.name}. Please contact a SysOp."
+      build_errors_from_model @user
+      render status: 422
+    end
+  end
+  
   private
   
   # Private: Fetches the oauth credentials by looking

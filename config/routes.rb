@@ -12,6 +12,10 @@ Cloudsdale::Application.routes.draw do
 
     resources :users, only: [:show,:create,:update] do
       post "/restore" => 'users#restore', on: :collection, as: :restore
+      
+      put "/ban"    => 'users#ban',   on: :member, as: :ban
+      put "/unban"  => 'users#unban', on: :member, as: :unban
+      
       resources :clouds, :controller => "users/clouds", only: [:index]
     end
 
