@@ -6,6 +6,7 @@ Cloudsdale::Application.routes.draw do
 
     resources :clouds, only: [:show,:update] do
       
+      post  :search,  on: :collection, as: :search
       get   :recent,  on: :collection, as: :recent
       get   :popular, on: :collection, as: :popular
       

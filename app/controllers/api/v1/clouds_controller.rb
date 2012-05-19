@@ -3,9 +3,13 @@ class Api::V1::CloudsController < Api::V1Controller
   # Public: Fetches a cloud from supplised id parameter
   # Returns the cloud.
   def show
+    
     @cloud = Cloud.find(params[:id])
     authorize! :read, @cloud
     render status: 200
+    
+  end
+  
   # Private: Accepts parameters to update a cloud object.
   # matching the given ID.
   #
@@ -43,6 +47,19 @@ class Api::V1::CloudsController < Api::V1Controller
     render status: 200
     
   end
+  
+  # Public: Searches the Cloud collection based on a query parameter.
+  #
+  #   q - The query parameter
+  #
+  # Returns a collection of Clouds.
+  def search
+    
+    @query = params[:q] || ""
+    
+    @clouds = Cloud.fulltext_search @query, hidden: false
+    render status: 200
+    
   end
   
 end

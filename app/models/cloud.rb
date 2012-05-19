@@ -1,8 +1,9 @@
 class Cloud
-  
+    
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  include Mongoid::FullTextSearch
+  
   include Droppable
   
   embeds_one :chat, as: :topic
@@ -19,9 +20,9 @@ class Cloud
   field :locked,        type: Boolean,        default: false
   field :featured,      type: Boolean,        default: false
   field :member_count,  type: Integer,        default: 0
-    
+   
   mount_uploader :avatar, AvatarUploader
-
+  
   validates :name, presence: true, uniqueness: true, length: { within: 3..24 }
   validates :description, presence: true, length: { within: 5..50 }
   
@@ -31,6 +32,12 @@ class Cloud
   
   scope :popular, order_by(:member_count,:desc)
   scope :recent, order_by(:created_at,:desc)
+  
+  fulltext_search_in :search_string, :filters => {
+    :public => lambda { |cloud| cloud.hidden == false },
+    :hidden => lambda { |cloud| cloud.hidden == true }
+  }
+  
   before_validation do
     self.owner = self.users.first if owner.nil? and !users.empty?
     self[:name] = self[:name].slice(0..23) if name
@@ -57,6 +64,13 @@ class Cloud
     else
       return :observer
     end
+  end
+  
+  # Internal: The string which will be used to index a cloud.
+  #
+  # Returns the name and the description of the Cloud.
+  def search_string
+    [name, description].join(' ')
   end
 
   # Public: Fetches the URL's for the avatar versions
