@@ -1,5 +1,8 @@
 object @message
-attributes :id, :timestamp, :content, :topic_id, :topic_type, :client_id
+
+node(:id) { |message| message._id.to_s }
+
+attributes :timestamp, :content, :topic_id, :topic_type, :client_id
 
 child(:author) do
   extends 'api/v1/users/base', :view_path => 'app/views'
