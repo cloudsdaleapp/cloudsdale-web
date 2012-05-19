@@ -16,7 +16,7 @@ class Api::V1::CloudsController < Api::V1Controller
   def update
     
     @cloud = Cloud.find(params[:id])
-    authorize! :read, @cloud
+    authorize! :update, @cloud
     
     if @cloud.update_attribites(params[:cloud], as: @cloud.get_role_for(current_user))
       render status: 200
