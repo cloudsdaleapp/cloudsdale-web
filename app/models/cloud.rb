@@ -37,6 +37,21 @@ class Cloud
     
     build_chat unless chat.present?
   end
+  
+  # Public: Determines which role a user has on an instance of a Cloud.
+  #
+  #   user - An instance of User.
+  #
+  # Returns a Symbol.
+  def get_role_for(user)
+    if user.id == self.owner_id
+      return :owner
+    elsif self.user_ids.include?(user.id)
+      return :member
+    else
+      return :observer
+    end
+  end
 
   def avatar_versions
     { normal: avatar.url, mini: avatar.mini.url, thumb: avatar.thumb.url, preview: avatar.preview.url }
