@@ -54,12 +54,12 @@ class Message
   end
   
   def content=(msg)
-    if (m = msg.match(/^(.*)/i))
-      msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i do
-        self[:urls] ||= []
-        self[:urls] << url
-      end
-    end
+    # if (m = msg.match(/^(.*)/i))
+    #   msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i do
+    #     self[:urls] ||= []
+    #     self[:urls] << url
+    #   end
+    # end
     
     self[:content] = msg
   end
