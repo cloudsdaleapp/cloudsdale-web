@@ -1,6 +1,8 @@
 object @user
 
-attributes :id, :name, :time_zone, :member_since, :suspended_until, :reason_for_suspension
+node(:id) { |user| user._id.to_s }
+
+attributes :name, :time_zone, :member_since, :suspended_until, :reason_for_suspension
 
 child(:prosecutions) { extends 'api/v1/users/prosecutions/base' }
 
