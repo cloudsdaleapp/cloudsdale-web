@@ -5,9 +5,14 @@ Cloudsdale::Application.routes.draw do
     resources :sessions, only: [:create]
 
     resources :clouds, only: [:show,:update] do
+      
+      get   :recent,  on: :collection, as: :recent
+      get   :popular, on: :collection, as: :popular
+      
       namespace :chat, module: 'clouds/chat' do
         resources :messages, only: [:index,:create]
       end
+      
     end
 
     resources :users, only: [:show,:create,:update] do

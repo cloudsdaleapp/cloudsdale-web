@@ -25,6 +25,24 @@ class Api::V1::CloudsController < Api::V1Controller
     end
     
   end
+  
+  # Public: Get the 10 most popular Clouds based on member count.
+  # Returns a collection of Clouds.
+  def popular
+    
+    @clouds = Cloud.popular.limit(10)
+    render status: 200
+    
+  end
+  
+  # Public: Gets the 10 most recent Clouds in chronological order.
+  # Returns a collection of Clouds.
+  def recent
+    
+    @clouds = Cloud.recent.limit(10)
+    render status: 200
+    
+  end
   end
   
 end
