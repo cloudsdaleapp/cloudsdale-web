@@ -25,6 +25,8 @@ class Cloud
   
   has_and_belongs_to_many :users, :inverse_of => :clouds, dependent: :nullify
   
+  scope :popular, order_by(:member_count,:desc)
+  scope :recent, order_by(:created_at,:desc)
   before_validation do
     self.owner = self.users.first if owner.nil? and !users.empty?
     self[:name] = self[:name].slice(0..23) if name
