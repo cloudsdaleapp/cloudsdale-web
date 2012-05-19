@@ -23,10 +23,13 @@ class Api::V1Controller < ActionController::Base
   end
   
   # Public: Used to set a session for the user if the persist_session parameter is available.
+  # It will also save the user to the database to ensure any new SHIT added to the user model
+  # is persisted.
   def authenticate!(user)
     if params[:persist_session] == "true"
       session[:user_id] = user.id
     end
+    user.save
   end
   
   # Internal: Determines if the client doing the API call is an
