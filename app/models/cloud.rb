@@ -9,6 +9,10 @@ class Cloud
   
   attr_accessor :user_invite_tokens
   
+  attr_accessible :name, :description, :hidden, :locked
+  
+  attr_accessible :owner_id, as: [:owner]
+  
   field :name,          type: String
   field :description,   type: String
   field :hidden,        type: Boolean,        default: false
