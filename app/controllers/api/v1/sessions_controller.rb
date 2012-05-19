@@ -27,7 +27,7 @@ class Api::V1::SessionsController < Api::V1Controller
     # EXCEPTION HANDLING - TODO: MAKE PRETTY
     if params[:oauth] && params[:oauth][:token] != INTERNAL_TOKEN 
     
-      render_exception("You don't have access to this service.", 403) 
+      render_exception("You don't have access to this service.", 403)
     
     elsif (params[:password].nil? && params[:email].nil?) && (params[:oauth][:provider].nil? && params[:oauth][:uid].nil?)
       
@@ -61,7 +61,7 @@ class Api::V1::SessionsController < Api::V1Controller
       set_flash_message(
           message: "Your suspension ends on #{@current_user.suspended_until.strftime('%Y-%m-%d %H:%M')}. To appeal your case contact us at info@cloudsdale.org",
           type: "error",
-          title: "You are banned."
+          title: "To the moon!."
       )
       render_exception "You are banned from this service.", 401
     else
