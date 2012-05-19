@@ -224,7 +224,7 @@ class User
     if email && password && user.nil?
       
       user = where(
-        :email => /#{email}/i,
+        :email => /^#{email}$/i,
         :password_hash.exists => true,
         :password_salt.exists => true
       ).first
@@ -235,7 +235,7 @@ class User
     
     if user.nil?
       
-      user = User.where(email: /#{email}/i).first || User.new(email: email, password: password)
+      user = User.where(email: /^#{email}$/i).first || User.new(email: email, password: password)
       
       if oauth && ["twitter","facebook"].include?(oauth[:provider])
         user.authentications.build(uid: oauth[:uid], provider: oauth[:provider])
