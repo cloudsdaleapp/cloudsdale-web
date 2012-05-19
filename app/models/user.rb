@@ -67,6 +67,13 @@ class User
     set_creation_date
   end
   
+  # Public: Gets the symbolic name of the users role.
+  #
+  # Returns a Symbol, eg. :normal, :donor, :moderator, :placeholder or :admin
+  def symbolic_role
+    ROLES.invert[self[:role]]
+  end
+  
   # Public: Use a symbol to check if the user is of a specific role.
   #
   #   sym - The symbolic version of a role.
