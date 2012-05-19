@@ -28,7 +28,8 @@ class Cloud
   
   belongs_to :owner, polymorphic: true
   
-  has_and_belongs_to_many :users, :inverse_of => :clouds, dependent: :nullify
+  has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify
+  has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User"
   
   scope :popular, order_by(:member_count, :desc)
   scope :recent, order_by(:created_at, :desc)
@@ -39,9 +40,12 @@ class Cloud
   }
   
   before_validation do
-    self.owner = self.users.first if owner.nil? and !users.empty?
+    self.owner_id = user_ids.first if owner_id.nil? and !user_ids.empty?
+    self.moderator_ids << owner_id unless moderator_ids.include?(owner_id)
+    
     self[:name] = self[:name].slice(0..23) if name
     self[:user_ids].uniq!
+    self[:moderator_ids].uniq!
   end
   
   before_save do
