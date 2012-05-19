@@ -16,6 +16,8 @@ class User
   embeds_many :authentications
   embeds_many :notifications
   
+  embeds_many :prosecutions, as: :offender
+  
   has_many :owned_clouds, class_name: "Cloud", as: :owner
   
   has_and_belongs_to_many :clouds, :inverse_of => :users, dependent: :nullify
@@ -240,7 +242,7 @@ class User
       end
       
     end
-    
+        
     return user
       
   end

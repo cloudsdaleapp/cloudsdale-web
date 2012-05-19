@@ -16,6 +16,10 @@ class Ability
         user.cloud_ids.include?(message.chat.topic.id)
       end
       
+      can [:start,:vote], Prosecution do |prosecution|
+        prosecution.crime_scene.moderator_ids.include?(user.id) or prosecution.crime_scene.owner_id == user.id
+      end
+      
     end
     
     if user.is_of_role? :donor
@@ -24,6 +28,7 @@ class Ability
     
     if user.is_of_role? :moderator
       can [:ban,:unban], User
+      can [:start,:vote], Prosecution
     end
     
     if user.is_of_role? :placeholder
@@ -32,6 +37,18 @@ class Ability
     
     if user.is_of_role? :admin
       # ...
+    end
+    
+    can :update, Prosecution do |prosecution|
+      prosecution.prosecutor_id == user.id
+    end
+    
+    cannot [:start,:vote], Prosecution do |prosecution|
+      prosecution.offender.id == user.id
+    end
+    
+    cannot :vote, Prosecution do |prosecution|
+      prosecution.judgement.present?
     end
       
   end
