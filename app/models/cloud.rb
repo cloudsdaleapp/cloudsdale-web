@@ -51,10 +51,35 @@ class Cloud
   end
   
   before_save do
+    
     self[:member_count] = self.user_ids.count
     self[:_type] = "Cloud"
     
     build_chat unless chat.present?
+    
+  end
+  
+  after_save do
+    
+    enqueue! "faye", { channel: "/clouds/#{self._id.to_s}", data: self.to_hash }
+    
+  end
+  
+  # Public: Translates the Cloud object to a HASH string using RABL
+  #
+  #   args - A Hash of arguments to be sent to the rabl, renderer.
+  #
+  # Examples
+  # 
+  # @cloud.to_hash
+  # # => { name: "..." }
+  #
+  # Returns a Hash.
+  def to_hash(args={})
+    defaults = { template: "api/v1/clouds/base", view_path: 'app/views' }
+    options = defaults.merge(args)
+    
+    Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
   end
   
   # Public: Determines which role a user has on an instance of a Cloud.
