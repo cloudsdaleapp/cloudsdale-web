@@ -1,4 +1,4 @@
-class Api::V1::Users::ProsecutionController
+class Api::V1::Users::ProsecutionsController < Api::V1Controller
   
   before_filter do
     @user = User.find(params[:user_id])
