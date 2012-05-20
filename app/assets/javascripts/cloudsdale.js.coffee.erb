@@ -29,6 +29,13 @@ window.deparam = (paramString) ->
 
   result
 
+window.getObjectClass = (obj) ->
+  if obj and obj.constructor and obj.constructor.toString
+    arr = obj.constructor.toString().match(/function\s*(\w+)/)
+    return arr[1]  if arr and arr.length is 2
+    
+  undefined
+
 window.Cloudsdale =
   Models: {}
   Collections: {}
