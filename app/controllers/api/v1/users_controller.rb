@@ -47,7 +47,7 @@ class Api::V1::UsersController < Api::V1Controller
       end
       
     else
-      set_flash_message message: "The user exist but your password didn't match. Please try again.", title: "The horror!", type: "warning"
+      set_flash_message message: "A user with that email already exists. If this is your email you should try recovering your account.", title: "Who goes there!?", type: "warning"
       render status: 403
     end
     
