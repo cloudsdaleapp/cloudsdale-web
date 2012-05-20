@@ -28,6 +28,43 @@
     margin-left: 0
     +opacity(1)
 
+@-webkit-keyframes fadeInPonies
+  0%
+    +opacity(0)
+  100%
+    +opacity(1)
+
+@-moz-keyframes fadeInPonies
+  0%
+    +opacity(0)
+  100%
+    +opacity(1)
+
+@keyframes fadeInPonies
+  0%
+    +opacity(0)
+  100%
+    +opacity(1)
+
+// @-webkit-keyframes slideInTweets
+//   0%
+//     left: -301px
+//   100%
+//     left: 0px
+// 
+// @-moz-keyframes slideInTweets
+//   0%
+//     left: -301px
+//   100%
+//     left: 0px
+//   
+// 
+// @keyframes slideInTweets
+//   0%
+//     left: -301px
+//   100%
+//     left: 0px
+
 // @-webkit-keyframes animateRootClouds
 //   0%
 //     background-position: 0px 50px
@@ -69,134 +106,45 @@
     padding: 0 30px
 
 .view-container.root
-  .fixed-container
-    @media (min-width: $ipad-min)
-
   .float-container
     @media (max-width: $phone)
       .container-inner
+        overflow: auto
         background: #C0D6E9
+        margin-bottom: -50px
+        
     @media (min-width: $ipad-min)
       .container-inner
         +linear-gradient(#C0D6E9,#D9E2E7)
 
 
-// ul.root-page-nav
-//   position: relative
-//   list-style: none
-//   padding: 0
-//   margin: 0
-//   overflow-x: hidden
-//   text-align: center
-//   z-index: 4
-//   height: $height-bar
-//   margin-right: -6px
-//   margin-left: -6px
-//   +linear-gradient(#575757,#363636)
-//   +border-radius(6px)
-//   border-bottom: rgba(0,0,0,.7) solid 1px
-//   border-right: rgba(0,0,0,.7) solid 1px
-//   border-top: rgba(50,50,50,.6) solid 1px
-//   
-//   @media (max-width: $phone)
-//     position: static
-//     
-//   @media (min-width: $ipad-min) and (max-width: $ipad-max)
-//     position: static
-//     border-bottom: rgba(50,50,50,.8) solid 1px
-//   
-//   @media (min-width: $desktop-s-min)
-// 
-// li.root-page-nav-item
-//   text-align: center
-//   display: inline-block
-//   float: none
-//   border: 0
-//   padding: 0
-//   margin: 0
-//   a
-//     position: relative
-//     color: #666666
-//     border: 0
-//     padding: 0 5px 0 0
-//     margin: 0
-//     display: block
-//     height: $height-bar
-//     text-shadow: -1px -1px 0 rgba(0,0,0,.4)
-//     +border-radius(0)
-//     &:hover
-//       text-decoration: none
-//       text-shadow: -1px -1px 0 rgba(0,0,0,.5)
-//       
-//   span
-//     font: 22px/30px 'UbuntuTitle', Arial, sans-serif
-//     letter-spacing: 0
-//   
-//   &.active
-//     a, a:hover
-//       border: 0
-//       background: none
-//   
-//   &:nth-child(1)
-//     a:hover, &.active > a
-//       color: $color-red
-// 
-//   &:nth-child(2)
-//     a:hover, &.active > a
-//       color: $color-orange
-// 
-//   &:nth-child(3)
-//     a:hover, &.active > a
-//       color: $color-green
-// 
-//   &:nth-child(4)
-//     a:hover, &.active > a
-//       color: $color-blue
-// 
-//   &:nth-child(5)
-//     a:hover, &.active > a
-//       color: $color-purple
-//   
-//   // @media (min-width: $phone) and (max-width: $ipad-max)
-//   // 
-//   // @media (max-width: $phone)
+.root-logo
   
-  @media (min-width: $ipad-min)
-    width: 15%
-    height: $height-bar
-    border-right: rgba(255,255,255,.2) solid 1px
-    span
-      height: $height-bar
-      line-height: $height-bar
-      vertical-align: middle
-    a, a:hover
-      border-right: rgba(0,0,0,.6) solid 1px
-        
-    &.active:not(:last-child)
-      a, a:hover
-        border-right: rgba(0,0,0,.6) solid 1px
+  @media (max-width: $phone)
+    position: relative
+    display: block
+    height: 170px
+    background: image-url("logo/cloudsdale-logo-medium.png") center center no-repeat
+    background-size: 85% auto
     
-    &:last-child
-      border-right: 0
-      a
-        border-right: 0
-  
+  @media (min-width: $ipad-min)
+    display: none
       
     
 $height-root-banner: 260px
 
 .root-clouds
-  background-image: image-url("details/background_clouds_medium.png")
-  // background-image: asset-data-url("details/background_clouds.svg")
-  // background-size: 1800px auto
-  background-size: 1800px auto
+  background-image: image-url("details/background_clouds.png")
+  background-image: asset-data-url("details/background_clouds.svg")
+  background-size: 2700px auto
   background-repeat: repeat-x
   position: absolute
   top: 0
   bottom: 0
   left: 0
   right: 0
-
+  background-position: 20% center
+  
   // @each $vendor in "", -webkit-, -moz-
   //   #{$vendor}animation-name: animateRootClouds
   //   #{$vendor}animation-duration: 60s
@@ -217,208 +165,419 @@ $height-root-banner: 260px
   background: #C2E3F7
   // border-bottom: rgba(50,50,50,.5) solid 1px
 
-.root-content
+.root-ad
+  background-size: auto
+  background-repeat: no-repeat
+  background-position: center
+  @media (min-width: $desktop-s-min)
+    position: absolute
+    width: 600px
+    height: 600px
+    bottom: 0
+    left: 0
+    
+  &.root-ad-soon-on-iphone
+    background-image: image-url("details/soon-for-iphone.png")
+
+.root-ponies
+
+  @media (max-width: $phone)
+    display: none
+  
+  @media (min-width: $ipad-min)
+    position: absolute
+    
+  @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+    height: 100%
+    bottom: 0
+    top: auto
+    left: 10px
+    right: 10px
+    @media (max-height: $media-height-s)
+      height: auto
+      bottom: 0
+      top: 0
+      left: 10px
+      right: auto
+      width: 500px
+      @media (min-width: $desktop-s-min)
+        width: 670px
+    
+  @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
+    height: 100%
+    bottom: 0
+    top: auto
+    left: 520px
+    right: 10px
+    @media (max-height: $media-height-s)
+      height: auto
+      bottom: 0
+      top: 0
+      left: 10px
+      right: auto
+      width: 700px
+  
+  @media (min-width: $desktop-l-min)
+    height: 100%
+    bottom: 0
+    top: auto
+    left: 520px
+    right: 10px
+    @media (max-height: $media-height-s) and (max-width: $desktop-l-max)
+      height: auto
+      bottom: 0
+      top: 0
+      left: 10px
+      right: auto
+      width: 650px
+
+.root-pony    
   position: absolute
-  top: $height-root-banner + $height-bar + 2
-  bottom: 0
+  top: 0
   left: 0
   right: 0
-  background-color: #f8f8f8
-  background-image: asset-data-url("details/wing_watermark.png")
-  background-image: asset-data-url("details/wing_watermark.svg")
-  background-position: center center
-  border-top: 1px solid rgba(255,255,255,1)
-  
+  bottom: 0
   background-repeat: no-repeat
+  background-position: center
+  background-size: 100%
+    
+  @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+    background-position: center bottom
+    @media (max-height: $media-height-s)
+      
+  
+  @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
+    background-position: center bottom
+    background-size: auto 90%
+    
+    @media (min-height: $media-height-s)
+      &:nth-child(1), &:nth-child(3)
+        display: none
+        
+    @media (max-height: $media-height-s)
+      background-size: 90% auto
+  
+  @media (min-width: $desktop-l-min)
+    background-position: center bottom
+    background-size: 100% auto
+    @media (max-height: $media-height-s)
+      &:nth-child(2), &:nth-child(3)
+        display: none
+      
+      @media (max-width: $desktop-l-max)
+        &:nth-child(2)
+          display: none
+        &:nth-child(1), &:nth-child(3)
+          display: block
+      
+  
+  @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
+    #{$vendor}animation-name: fadeInPonies
+    #{$vendor}animation-duration: .7s
+    #{$vendor}animation-fill-mode: backwards
+    &:nth-child(1)
+      #{$vendor}animation-delay: .6s
+    &:nth-child(2)
+      #{$vendor}animation-delay: .3s
+    &:nth-child(3)
+      #{$vendor}animation-delay: .9s
+  
+  &:nth-child(1)
+    background-image: image-url("details/front-pony-1.png")
+  &:nth-child(2)
+    background-image: image-url("details/front-pony-2.png")
+  &:nth-child(3) 
+    background-image: image-url("details/front-pony-3.png")
+    
+.root-tweets-wrapper
+  @media (max-width: $phone)
+    position: relative    
+    +linear-gradient(#63a0d0,#3f85b3)
+    
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+      
+  @media (min-width: $ipad-min)
+    position: absolute
+    
+    left: 20px
+    top: 100px
+        
+    width: 300px
+    height: 190px
+    
+    background-color: #63a0d0
+    
+    border: solid 1px #333
+    
+    +border-radius(5px)
+    
+    @each $vendor in -moz-, -o-, -webkit-, ""
+      #{$vendor}transition-property: top, left
+      #{$vendor}transition-duration: .3s
+      #{$vendor}transition-timing-function: ease-in-out
+    
+    @media (min-width: $desktop-s-min)
+    
+      left: 190px
+      top: 60px
+      
+      @media (min-width: $desktop-m-min)
+        left: 210px
+        
+      &:after
+        content: ""
+        position: absolute
+
+        top: 20px
+        left: -20px
+
+        width: 0
+        height: 0
+        border-top: 20px solid transparent
+        border-bottom: 20px solid transparent
+
+        border-right: 20px solid #63a0d0
+
+      &:before
+        content: ""
+        position: absolute
+
+        top: 19px
+        left: -21px
+
+        width: 0
+        height: 0
+        border-top: 21px solid transparent
+        border-bottom: 21px solid transparent
+
+        border-right: 21px solid #333
+
+a.root-twitter-logo
+  display: block
+  &:hover
+    text-decoration: none
+
+  @media (max-width: $phone)
+    height: 44px
+    padding: 10px
+    
+    border-top: 1px solid $color-border-dark
+    border-bottom: 1px solid $color-border-dark
+    
+    +linear-gradient(#4C4C4C,#333333)
+        
+    background-size: auto 44px, auto
+    
+    background: #4c4c4c asset-data-url("details/twitter-bird-white.png") no-repeat 10px center 40px
+    background: asset-data-url("details/twitter-bird-white.png") no-repeat 10px center, -moz-linear-gradient(top,  #4c4c4c 0%, #333333 100%)
+    background: asset-data-url("details/twitter-bird-white.png") no-repeat 10px center, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4c4c4c), color-stop(100%,#333333))
+    background: asset-data-url("details/twitter-bird-white.png") no-repeat 10px center, -webkit-linear-gradient(top,  #4c4c4c 0%,#333333 100%)
+    background: asset-data-url("details/twitter-bird-white.png") no-repeat 10px center, -o-linear-gradient(top,  #4c4c4c 0%,#333333 100%)
+    background: asset-data-url("details/twitter-bird-white.png") no-repeat 10px center, -ms-linear-gradient(top,  #4c4c4c 0%,#333333 100%)
+    background: asset-data-url("details/twitter-bird-white.png") no-repeat 10px center, linear-gradient(top,  #4c4c4c 0%,#333333 100%)
+    
+    span
+      margin-left: 80px
+      line-height: 40px
+      font-size: 18px
+      font-weight: bold
+      color: #f8f8f8
+      text-shadow: -1px -1px 0 rgba(0,0,0,.3)
+      
+    &:hover
+      text-decoration: none
+  
+  @media (min-width: $ipad-min)
+    position: absolute
+    background-image: asset-data-url("details/twitter-bird.png")
+    background-repeat: no-repeat
+    
+    @each $vendor in -moz-, -o-, -webkit-, ""
+      #{$vendor}transition-property: top, left, background-position
+      #{$vendor}transition-duration: .3s
+      #{$vendor}transition-timing-function: ease-in-out
+    
+    span
+      display: block
+      font-size: 16px
+      color: #444
+      font-weight: bold
+      
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    background-position: 0px center
+    background-size: 90px auto
+
+    width: 300px
+    height: 95px
+    
+    top: -95px
+    
+    span
+      margin-left: 105px
+      line-height: 95px
+      text-align: left
+    
+    &:hover
+      background-position: 5px center
+      
+  @media (min-width: $desktop-s-min)
+  
+    left: -180px
+    
+    background-position: center 5px
+
+    width: 180px
+    height: 190px
+
+    left: -180px
+    
+    span
+      position: absolute
+      top: 100px
+      text-align: center
+      height: 16px
+      width: 100%
+    
+    &:hover
+      background-position: center 10px
+     
+.root-tweets
+
+  background: #f8f8f8
+
+  border: 1px solid $color-border-dark
+  
+  +border-radius(5px)
+  +box-shadow-inset(0,0,3px,rgba(0,0,0,.4))
   
   @media (max-width: $phone)
-    background-size: 200px
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    background-size: 260px
+    height: 150px
+    margin: 10px 10px 100px 10px
+    
+  @media (min-width: $ipad-min)
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    margin: 7px
+  
+  &.loading-tweets
+    background-image
+    background-position: center
+    background-repeat: no-repeat
+    background-image: asset-data-url("details/ajax-spinner-alt.gif")
+    background-size: 44px
+    
+    
+.root-tweet
+  @media (min-width: $ipad-min)    
+    font-size: 16px
+    line-height: 22px
+    word-wrap: break-word
+  
+  a
+    font-weight: bold
+
+span.root-tweet-sender
+  font-size: 20px
+  line-height: 25px
+  display: block
+  font-weight: bold
+  
+  margin-bottom: 5px
+  padding: 10px 10px 5px 10px
+  
+  border-bottom: 1px dashed $color-border-heavy
+    
+p.root-tweet-content
+  padding: 5px 10px 10px 10px
+  
+.root-get-started
+  
+  border: 1px solid $color-border-heavy
+  
+  @media (max-width: $phone)
+    position: relative
+    height: 200px
+  
+    background-color: #fff
+    
+    +border-radius(5px)
+    
+    margin: 10px
+    
+  @media (min-width: $ipad-min)
+  
+    position: absolute
+    
+    top: 100px
+    right: 20px
+    height: 360px
+    width: 400px
+
+    border: solid 1px #333
+    
+    background-color: #63a0d0
+    
+    +border-radius(5px)
+    
+    @media (max-width: $desktop-s-max)
+    
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}transition-property: top, width
+        #{$vendor}transition-duration: .3s
+        #{$vendor}transition-timing-function: ease-in-out
+  
   @media (min-width: $desktop-s-min)
-    background-size: 340px
+    
+    top: 60px
+    right: 30px
+    left: auto
+    width: 380px
+    height: 360px
+      
+  @media (min-width: $desktop-m-min)
+  
+    top: 340px
+    right: auto
+    left: 40px
+    width: 470px
+    height: 360px
+    
+    @media (max-height: $media-height-s)
+      top: 60px
+      right: 200px
+      left: auto
+      width: 380px
+      height: 360px
+      
+  @media (min-width: $desktop-l-min)
+  
+  @media (min-width: $desktop-l-max)
 
-article.front-tab-article
-  padding: 0 5px 5px 5px
-  h1
-    margin-bottom: 10px
-
+.root-get-started-inner
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  
   @media (max-width: $phone)
     margin: 5px
-    margin-right: 5px
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    margin: 10px
-    margin-right: 200px
-  @media (min-width: $desktop-s-min)
-    margin: 15px
-    margin-right: 300px
     
-//   ul.root-page-nav
-//     width: 300px
-//     background: none  
-//     list-style: none
-//     position: relative
-//     height: 100%
-//     margin: 0
-//     padding: 0
-//     float: left
-//     border: 0
-//     li
-//       position: relative
-//       float: left
-//       text-align: center
-//       margin: 0
-//       padding: 0
-//       width: 100%
-//       height: 25%
-//       +opacity(1)
-//       @each $vendor in "", -webkit-, -moz-, -o-, -khtml-
-//         #{$vendor}animation-name: slideAndFadeInFrontPageNav
-//         #{$vendor}animation-duration: .4s
-//         #{$vendor}animation-fill-mode: backwards
-//         &:nth-child(1)
-//           #{$vendor}animation-delay: .1s
-//         &:nth-child(2)
-//           #{$vendor}animation-delay: .2s
-//         &:nth-child(3)
-//           #{$vendor}animation-delay: .3s
-//         &:nth-child(4)
-//           #{$vendor}animation-delay: .4s
-//       &:first-child
-//         a
-//           margin: 10px 10px 10px 10px
-//       &:last-child
-//         a
-//           margin: 0 10px 10px 10px
-//       &:hover, &.active
-//         a
-//           text-decoration: none
-//           border: 0
-//           div
-//             border-color: rgba(255,255,255,.85)
-//             span
-//               color: rgba(255,255,255,.95)
-//       a
-//         background: rgba(255,255,255,.4) $bgStripes fixed
-//         +border-radius(3px)
-//         +box-shadow(1px,1px,8px,rgba(0,0,0,.1))
-//         margin: 0 10px 10px 10px
-//         color: #999999
-//         text-align: left
-//         border: 0
-//         div
-//           padding: 20px
-//           margin: 7px
-//           border: transparent 4px solid
-//           +box-shadow(1px, 1px, 8px, rgba(0,0,0,.05))
-//           background: #f8f8f8
-//           background-size: 300px auto, auto auto
-//           background-repeat: no-repeat, repeat
-//           +transition(background-position .3s ease)
-//           span
-//             font: 40px/48px 'MothproofScriptRegular', Arial, sans-serif
-//             letter-spacing: 0
-//             text-shadow:  -1px -1px 0px rgba(0,0,0,.2)
-//             
-// 
-// 
-// .root-header, .root-tab-container
-//   position: absolute
-//   
-// .root-header
-//   border-bottom: 1px solid $color-border-light
-//   left: 0
-//   right: 0
-//   @media (max-width: $ipad-max)
-//     height: 200px
-//   @media (min-width: $desktop-s-min)
-//     height: 300px
-// 
-// .root-account, .root-ad
-//   position: absolute
-//   bottom: 0
-//   top: 0
-// 
-// .root-account
-//   left: 0
-//   right: 40%
-//   background: rgba(255,0,0,.3)
-// 
-// .root-ad
-//   right: 0
-//   left: 60%
-//   background: rgba(255,255,0,.3)
-// 
-// .root-tab-container
-//   background: #f0f0f0
-//   border-top: 1px solid rgba(255,255,255,.8)
-//   bottom: 1px
-//   left: 0
-//   right: 0
-//   overflow-y: auto
-// 
-//   @media (max-width: $ipad-max)
-//     top: 201px
-//   @media (min-width: $desktop-s-min)
-//     top: 301px
-//   
-// .item-inner
-//   position: relative
-//   height: 100%
-//   width: 100%
-//   
-// .root-tab-container .carousel
-//   margin: 0
-//   position: absolute
-//   width: 100%
-//   top: 0
-//   bottom: 51px
-//   .carousel-inner, .item
-//     height: 100%
-// 
-// ul.front-carousel-nav
-//   list-style: none
-//   position: absolute
-//   padding: 0
-//   margin: 0
-//   bottom: 0
-//   left: 0
-//   right: 0
-//   height: 50px
-//   background: #f8f8f8
-//   border-top: 1px solid $color-border-light
-//   li
-//     float: left
-//     width: 20%
-//     height: 50px
-//     position: relative
-//     +transition(background .5s ease)
-//     &:not(:first-child)
-//       a
-//         border-left: rgba(255,255,255,1) solid 1px
-//     &:not(:last-child)
-//       a
-//         border-right: $color-border-heavy solid 1px
-//     &.active
-//       background-color: #e8e8e8
-//         
-//     a
-//       border-top: 1px solid rgba(255,255,255,.8)
-//       display: block
-//       line-height: 49px
-//       height: 49px
-//       text-align: center
-//       font-weight: bold
-//       &:after
-//         content: ""
-//       &:hover
-//         text-decoration: none
-// 
-// .item
-//   &:nth-child(1)
-//     .item-inner
-//       background-image: image-url("logo/main_logo.png")
-//       background-image: image-url("logo/main_logo.svg")
-//       background-size: 70% auto
-//       background-position: center center
-//       background-repeat: no-repeat
+  @media (min-width: $ipad-min)
+    margin: 7px
+    
+    border: 1px solid $color-border-dark
+    
+    background: #f8f8f8
+    
+    +box-shadow-inset(0,0,3px,rgba(0,0,0,.4))
+    +border-radius(5px)

@@ -45,6 +45,9 @@ $desktop-m-max: 1420px
 $desktop-l-min: $desktop-m-max + 1px
 $desktop-l-max: 1730px
 
+$media-height-s: 720px
+$media-height-l: 1080px
+
 $height-bar: 44px
 $height-cloudbar: 80px
 
@@ -160,7 +163,7 @@ body
     top: 0px
     bottom: $height-bar
   @media (min-width: $ipad-min)
-    top: $height-bar
+    top: $height-bar + 1px
     bottom: 0px
     @media (max-width: $ipad-max)
       border-bottom: 1px rgba(50,50,50,.5) solid
@@ -532,6 +535,9 @@ li.cloud-toggle
     float: left
     position: relative
     height: $height-bar
+    &:nth-child(3)
+      @media (min-width: $desktop-s-min)
+        display: none
     
     a
       position: absolute

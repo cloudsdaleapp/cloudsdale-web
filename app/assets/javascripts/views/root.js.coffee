@@ -14,11 +14,14 @@ class Cloudsdale.Views.Root extends Backbone.View
     
     @refreshGfx()
     
+    @getTweets()
+    
     if session.isLoggedIn()
       @renderSessionClouds()
             
       if session.get('user').get('needs_to_confirm_registration')
         @openSessionDialog('complete')
+        
   render: ->
     $(@el).html(@template())
     this
@@ -67,3 +70,36 @@ class Cloudsdale.Views.Root extends Backbone.View
     session.listenToCloud(cloud)
     view = new Cloudsdale.Views.CloudsToggle(model: cloud)
     @.$('.cloudbar > .cloud-list').append(view.el)
+  
+  getTweets: ->
+    $.ajax
+      type: 'GET'
+      url: "https://api.twitter.com/statuses/user_timeline.json"
+      data: { screen_name: "Cloudsdale_org" }
+      dataType: 'jsonp'
+      crossDomain: true
+        
+      success: (tweets) =>
+        $.each tweets, (id,tweet) =>
+          
+          tweetsWrapper = @.$('.root-tweets').removeClass('loading-tweets')
+          
+          tweetsWrapper.find('.carousel > .carousel-inner').append(
+            "<div class='root-tweet item #{if id == 0 then "active" else ""}' >
+              #{"<span class='root-tweet-sender'>@" + tweet.user.screen_name + ":</span>" + "<p class='root-tweet-content'>#{twttr.txt.autoLink(twttr.txt.htmlEscape(tweet.text))}</p>" }
+            </div>"
+          )
+          
+          tweetsWrapper.find('.carousel').carousel(
+            interval: 7000
+          )
+          
+      error: (response) =>
+        # resp = $.parseJSON(response.responseText)
+        # @.$('.input-group').tooltip(
+        #   placement: 'top'
+        #   trigger: 'manual'
+        #   animation: false
+        #   title: "Something went wrong... try again later."
+        # ).tooltip('show')
+        

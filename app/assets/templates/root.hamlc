@@ -8,6 +8,20 @@
     .float-container
       .container-inner
         .root-clouds
-
-
+        .root-ad
+        .root-logo
+        .root-ponies
+          .root-pony
+          .root-pony
+          .root-pony
+        
+        .root-get-started
+          .root-get-started-inner
+        
+        .root-tweets-wrapper
+          %a.root-twitter-logo{ href: "http://www.twitter.com/Cloudsdale_org", target: '_blank' }
+            %span= "Follow us on Twitter"
+          .root-tweets.loading-tweets
+            .carousel
+              .carousel-inner
 
