@@ -23,7 +23,6 @@ class FayeWorker
   # Requests faye to broadcast the message to the given channel.
   def perform(payload=Hashr.new)
     
-    log.info("Picked message from messages queue")
     log.debug("Message Payload: #{payload}")
     broadcast payload.channel, payload.data
     
