@@ -3,6 +3,8 @@ class Prosecution
   SENTENCES = { :mute => 0, :kick => 1, :ban => 2 }
   JUDGEMENTS = { :guilty => 0, :not_guilty => 1 }
   
+  include AMQPConnector
+  
   include Mongoid::Document
   include Mongoid::Timestamps
   
@@ -37,6 +39,23 @@ class Prosecution
   validates_presence_of [:argument, :sentence, :sentence_due]
   
   before_update :calculate_judgement
+  
+  after_update do
+    enqueue! "faye", { channel: "/users/#{self.offender._id.to_s}/prosecutions", data: self.to_hash }
+    enqueue! "faye", { channel: "/#{self.crime_scene_type.downcase}s/#{self.crime_scene_id.to_s}/prosecutions", data: self.to_hash }
+  end
+  
+  # Public: Translates the Prosecution object to a HASH string using RABL
+  #
+  # Examples
+  # 
+  # @prosecution.to_hash
+  # # => { argument: "..." }
+  #
+  # Returns a Hash string.
+  def to_hash
+    Rabl.render(self, 'api/v1/users/prosecutions/base', :view_path => 'app/views', :format => 'hash')
+  end
   
   # Public: Calculates and sets what judgement is to be.
   # if the up votes exceeds the down votes the judgement
