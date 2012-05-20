@@ -2,6 +2,8 @@ class User
   
   ROLES = { normal: 0, donor: 1, moderator: 2, placeholder: 3, admin: 4 }
   
+  include AMQPConnector
+  
   include Mongoid::Document
   include Mongo::Voter
 
@@ -70,6 +72,28 @@ class User
     enable_account_on_password_change
     set_confirmed_registration_date
     set_creation_date
+  end
+  
+  after_save do
+    enqueue! "faye", { channel: "/user/#{self.id}", data: self.to_hash }
+    enqueue! "faye", { channel: "/user/#{self.id}/private", data: self.to_hash( template: "api/v1/users/private" ) }
+  end
+  
+  # Public: Translates the User object to a HASH string using RABL
+  #
+  #   args - A Hash of arguments to be sent to the rabl, renderer.
+  #
+  # Examples
+  # 
+  # @user.to_hash
+  # # => { name: "..." }
+  #
+  # Returns a Hash string.
+  def to_hash(args={})
+    defaults = { template: "api/v1/users/base", view_path: 'app/views' }
+    options = defaults.merge(args)
+    
+    Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
   end
   
   # Public: Gets the symbolic name of the users role.
