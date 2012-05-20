@@ -39,7 +39,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       @scrollTop -= (delta * 30)
       event.preventDefault()
     
-    nfc.on "#{@model.type}:#{@model.id}:chat", (payload) =>
+    nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
       if payload.client_id != session.get('client_id')
         payload.topic = @model
         message = new Cloudsdale.Models.Message(payload)
