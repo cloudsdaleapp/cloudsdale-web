@@ -41,7 +41,7 @@ class Api::V1::UsersController < Api::V1Controller
         authenticate! @user
         render status: 200
       else
-        set_flash_message message: "Something went wrong while saving your user.", title: "The horror!"
+        set_flash_message message: "One or more of the fields were invalid.", title: "Field error."
         build_errors_from_model @user
         render status: 422 
       end
