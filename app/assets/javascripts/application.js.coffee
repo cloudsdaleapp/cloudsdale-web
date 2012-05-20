@@ -7,6 +7,7 @@
 #= require hamlcoffee
 #= require date
 #= require faye
+#= require twitter-text
 # require jquery-ui.js
 # require pjax
 # require jquery.cookie
