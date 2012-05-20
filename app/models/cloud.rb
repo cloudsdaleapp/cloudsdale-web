@@ -1,5 +1,7 @@
 class Cloud
-    
+  
+  include AMQPConnector
+  
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::FullTextSearch
