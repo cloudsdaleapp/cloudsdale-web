@@ -75,8 +75,8 @@ class User
   end
   
   after_save do
-    enqueue! "faye", { channel: "/user/#{self.id}", data: self.to_hash }
-    enqueue! "faye", { channel: "/user/#{self.id}/private", data: self.to_hash( template: "api/v1/users/private" ) }
+    enqueue! "faye", { channel: "/users/#{self._id.to_s}", data: self.to_hash }
+    enqueue! "faye", { channel: "/users/#{self._id.to_s}/private", data: self.to_hash( template: "api/v1/users/private" ) }
   end
   
   # Public: Translates the User object to a HASH string using RABL
@@ -88,7 +88,7 @@ class User
   # @user.to_hash
   # # => { name: "..." }
   #
-  # Returns a Hash string.
+  # Returns a Hash.
   def to_hash(args={})
     defaults = { template: "api/v1/users/base", view_path: 'app/views' }
     options = defaults.merge(args)
