@@ -9,7 +9,7 @@ Cloudsdale::Application.configure do
   config.action_controller.perform_caching = true
 
   # 
-  config.assets.precompile = %w(application.css front.css *.ttf *.png *.jpg .jpeg *.gif *.js *.bmp *.ico)
+  config.assets.precompile = %w(application.css application.js *.ttf *.svg *.woff *.eot *.jst *.png *.jpg .jpeg *.gif *.bmp *.ico)
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
