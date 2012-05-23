@@ -27,28 +27,28 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
   
   # Process files as they are uploaded:
-  process :resize_to_limit => [100, 100]
+  process :resize_to_fill => [100, 100]
   process :convert => 'png'
 
   # Create different versions of your uploaded files:
   
   version :mini do
-    process :resize_to_limit => [24, 24]
+    process :resize_to_fill => [24, 24]
     process :convert => 'png'
   end
   
   version :thumb do
-    process :resize_to_limit => [50, 50]
+    process :resize_to_fill => [50, 50]
     process :convert => 'png'
   end
 
   version :chat do
-    process :resize_to_limit => [40, 40]
+    process :resize_to_fill => [40, 40]
     process :convert => 'png'
   end
 
   version :preview do
-    process :resize_to_limit => [70, 70]
+    process :resize_to_fill => [70, 70]
     process :convert => 'png'
   end
   

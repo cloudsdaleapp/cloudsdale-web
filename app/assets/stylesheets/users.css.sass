@@ -1,84 +1,19 @@
-body.users.new, body.authentications.create, body.restorations.new, body.users.change_password
-  
-  .btn-group
-    margin-right: 10px
-    a
-      border-color: #4C4C4C
-      line-height: 14px
-      padding: 3px 10px 4px 10px
-      img
-        vertical-align: middle
-        max-height: 25px
-        max-width: 25px
-  
-  form
-    text-align: center
-
-    span.auth_cloud
-      visibility: visible
-      padding: 17px
-      vertical-align: baseline
+.settings-dialog
+  .modal-header
+    img
+      float: left
       margin-right: 10px
-      &.twitter
-        background: transparent image-url("icons/cloud/twitter_cloud.png") center center no-repeat
-        background-size: 28px
-      &.facebook
-        background: transparent image-url("icons/cloud/facebook_cloud.png") center center no-repeat
-        background-size: 28px
+      +border-radius(5px)
     
-    input[type=text], input[type=password], select
-      padding-top: 7px
-      padding-bottom: 7px
-      font-size: 12px
-      font-weight: bold
-      line-height: 14px
-      margin-right: 10px
-      border-color: #4C4C4C
-      width: 140px
-  
-      &:hover
-        cursor: pointer
-      &:focus
-        &:hover, &
-          outline: 0
-          cursor: auto
-          -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 13px rgba(255, 255, 255, 0.9)
-          -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 13px rgba(255, 255, 255, 0.9)
-          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 13px rgba(255, 255, 255, 0.9)
-      
-    input[type=submit], .form_part_next, .form_part_previous
-      padding: 9px 15px 9px 15px
-      margin-top: 0
-      font-size: 12px
-      line-height: 14px
-      font-weight: bold
-      border-color: #4C4C4C
-      display: inline-block
-      vertical-align: middle
-      &:not(:last-child)
-        margin-right: 10px
+    ul.nav-pills
+      margin: 0
+      border: 0
+      li
+        font-weight: bold
+        &.active > a
+          background-color: #63A0D0
+          +box-shadow-inset(1px,1px,1px,rgba(0,0,0,.2))
 
-
-  form.form-stacked
-    padding-left: 0
-        
-body.users
-  &.edit
-    label.with-image
-      padding-top: 0
-      & > img
-        max-height: 28px
-        max-width: 28px
-                  
-// GLOBAL PARTIAL STYLES
-      
-.row > .span16
-  overflow: visible !important
-  
-  
-  
-  
-  
-  
-
-
+#avatar-form
+  position: relative
+    

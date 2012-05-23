@@ -9,7 +9,7 @@ class User
 
   include Droppable
   
-  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration
+  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar, :avatar_url
   attr_accessor :password, :confirm_registration
     
   embeds_one :character

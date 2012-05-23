@@ -3,6 +3,7 @@
 #= require jquery_ujs
 #= require jquery.mousewheel
 #= require jquery.expanding
+#= require jquery.iframe-transport
 # require jquery.purr
 #= require hamlcoffee
 #= require date

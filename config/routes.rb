@@ -16,6 +16,7 @@ Cloudsdale::Application.routes.draw do
       
     end
 
+    
     resources :users, only: [:show,:create,:update] do
       
       post "/restore" => 'users#restore', on: :collection, as: :restore
@@ -32,7 +33,10 @@ Cloudsdale::Application.routes.draw do
       end
       
     end
-
+    
+    # Post update method for user.
+    match "/users/:id" => "users#update", via: :post, as: :user
+    
     match '*path', to: 'exceptions#routing_error'
 
   end
@@ -73,6 +77,5 @@ Cloudsdale::Application.routes.draw do
   resources :users, :only => [] do
     match "/restore/:token" => "users#restore", as: :restore, on: :collection
   end
-
-  
+    
 end
