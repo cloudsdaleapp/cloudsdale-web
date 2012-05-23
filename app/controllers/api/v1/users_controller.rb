@@ -138,6 +138,27 @@ class Api::V1::UsersController < Api::V1Controller
     end
   end
   
+  # Public: Accepts the TNC for a user
+  #
+  # Returns an empty response with the status 200 if successful
+  # or 401 if you're not allowed to perform the action.
+  def accept_tnc
+    
+    @user = User.find(params[:id])
+    authorize! :accept_tnc, @user
+    
+    @user.tnc_last_accepted = Date.current
+    
+    if @user.save
+      render status: 200
+    else
+      set_flash_message message: "You were unable to save #{@user.name}. Please contact a SysOp."
+      build_errors_from_model @user
+      render status: 422
+    end
+    
+  end
+  
   private
   
   # Private: Fetches the oauth credentials by looking

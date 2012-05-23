@@ -10,3 +10,8 @@ class Cloudsdale.Models.User extends Backbone.Model
     role: "normal"
     member_since: null
     invisible: false
+  
+  acceptTnc: (attr) ->
+    attr ||= {}
+    attr.url = "/v1/users/#{@id}/accept_tnc.json"
+    return @save({},attr)

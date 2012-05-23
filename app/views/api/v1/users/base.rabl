@@ -15,3 +15,4 @@ node(:is_registered) { |user| user.is_registered? }
 node(:is_transient) { |user| user.new_record? }
 
 node(:is_banned) { |user| user.banned? }
+node(:has_read_tnc) { |user| user.tnc_last_accepted.present? }

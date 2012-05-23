@@ -23,6 +23,8 @@ Cloudsdale::Application.routes.draw do
       put "/ban"    => 'users#ban',   on: :member, as: :ban
       put "/unban"  => 'users#unban', on: :member, as: :unban
       
+      put "/accept_tnc" => 'users#accept_tnc', on: :member, as: :accept_tnc
+      
       resources :clouds, :controller => "users/clouds", only: [:index]
       
       resources :prosecutions, :controller => "users/prosecutions", only: [:create,:update] do

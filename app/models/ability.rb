@@ -7,6 +7,7 @@ class Ability
     if user.is_of_role? :normal
       
       can [:read,:update], User, _id: user.id
+      can :accept_tnc, User, _id: user.id
       
       can [:read,:create], Cloud
 
