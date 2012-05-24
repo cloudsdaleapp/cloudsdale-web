@@ -38,3 +38,15 @@
     background: none
     border: 0
 
+.controls
+  span.help-inline
+    padding-bottom: 9px
+
+.control-label
+  font-weight: bold
+
+input[type=password], input[type=text], textarea
+  border-color: $color-border-dark
+  outline: 0
+  @each $vendor in -moz-, -o-, -webkit-, ""
+    #{$vendor}box-shadow: inset 1px 1px 1px rgba(0,0,0,.2)
