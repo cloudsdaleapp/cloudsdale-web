@@ -21,3 +21,5 @@ node(:is_member_of_a_cloud) { |user| user.cloud_ids.size >= 1 }
 node(:has_an_avatar) { |user| user.avatar.present? }
 
 node(:has_read_tnc) { |user| user.tnc_last_accepted.present? }
+
+node(:role) { |user| user.symbolic_role }
