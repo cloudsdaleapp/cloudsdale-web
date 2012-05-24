@@ -16,6 +16,8 @@ node(:is_transient) { |user| user.new_record? }
 
 node(:is_banned) { |user| user.banned? }
 
+node(:is_member_of_a_cloud) { |user| user.cloud_ids.size >= 1 }
+
 node(:has_an_avatar) { |user| user.avatar.present? }
 
 node(:has_read_tnc) { |user| user.tnc_last_accepted.present? }
