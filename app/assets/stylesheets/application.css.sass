@@ -611,7 +611,29 @@ li.cloud-toggle
         text-shadow: 1px 1px 0 rgba(0,0,0,.1)
         pointer-events: none
           
-        
+.loading-controls
+  padding-left: 33px
+  position: relative
+  input
+    +opacity(.8)
+    pointer-events: none
+    cursor: wait
+    position: relative
+  
+  &:before
+    content: ""
+    position: absolute
+    width: 26px
+    height: 26px
+    left: 0
+    top: 0
+    margin: 1px
+    background-image: asset-data-url("details/spinner-small.gif")
+    background-color: rgba(0,0,0,.3)
+    background-repeat: no-repeat
+    background-position: center center
+    background-size: 16px
+    +border-radius(4px)
 
 .loading-content
   position: absolute
