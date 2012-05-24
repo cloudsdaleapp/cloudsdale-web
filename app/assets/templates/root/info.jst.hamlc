@@ -1,32 +1,53 @@
 .float-container
   .container-inner
+    .root-clouds
+    %article#letter
+      %h3= "Hello dear friend,"
+
+      %p= "Welcome to Cloudsdale. If you’re here you most likely want to know more about us before you saddle up. We here at Cloudsdale strive to be a central place on the web where cool people like you and me can have fun and get to know each other and meet new friends."
+
+      %p= "We will achieve this goal by providing this non-profit service where everyone can enjoy their stay. The Crew of Cloudsdale want to be ahead of time and redefine how regular, people like us; use the web in our every day life."
+
+      %p= "Cloudsdale is all about interacting real time. We’ve built a fast, accessible and beautiful system that transcends many big corporate services out there."
+
+      %p= "Now when you know who we are, and what we want. Are you ready to join the party?"
+
+      %p
+        = "Yours truly,"
+        %span= "Zeeraw"
     
     #contributors
       .info-contributors-floor
       %ul#info-contributors-list
-        %li.conr-zeeraw
-          %h1.info-contributor-name= "Zeeraw"
-          .info-contributor-badges
-            %span.badge= "Creator"
+        
       
         %li.conr-aethe
           %h1.info-contributor-name= "Aethe"
           .info-contributor-badges
-            %span.badge= "iOS Developer"
-      
+            %span.badge.badge-success= "iOS Developer"
+            
+        %li.conr-zeeraw
+          %h1.info-contributor-name= "Zeeraw"
+          .info-contributor-badges
+            %span.badge.badge-warning= "Creator"
+            %span.badge.badge-success= "Web Developer"
+            %span.badge.badge-inverse= "System Operator"
+            
         %li.conr-berwyn
           %h1.info-contributor-name= "Berwyn"
           .info-contributor-badges
-            %span.badge= "Android Developer"
+            %span.badge.badge-success= "Android Developer"
       
         %li.conr-zimber
           %h1.info-contributor-name= "Zimber Fizz"
           .info-contributor-badges
-            %span.badge= "Graphics Designer"
-      
+            %span.badge.badge-info= "Graphics Designer"
         %li.conr-manearion
           %h1.info-contributor-name= "Manearion"
           .info-contributor-badges
             %span.badge= "Art Director"
-    
-    .root-clouds
+            
+        %li.conr-dash
+          %h1.info-contributor-name= "Rainbow Dash"
+          .info-contributor-badges
+            %span.badge.badge-inverse= "Admin"

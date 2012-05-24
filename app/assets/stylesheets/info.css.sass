@@ -13,44 +13,27 @@
 .view-container.info .page-header
   font: 50px/58px 'MothproofScriptRegular', Arial, sans-serif
 
-ul.info-nav
-  margin: 30px auto
-  list-style: none
-  position: relative
-  z-index: 2
-  text-align: center
-  li
-    display: inline-block
-    width: 122px
-    height: 122px
-    border: 1px solid $color-border-heavy
-    margin: 15px 15px
-    +border-radius(5px)
-    +opacity(.6)
-    +transition(opacity .3s ease-in-out)
-    &:hover
-      +opacity(1)
-    a
-      float: left
-      margin: 5px
+#letter
+  position: absolute
+  padding: 30px 40px
+  margin: 40px
+  width: 640px
+  +linear-gradient(#fefefe,#f8f8f8)
+  +border-radius(7px)
+  +box-shadow(3px,3px,10px,rgba(0,0,0,.3))
+  h3
+    margin-bottom: 10px
+  p
+    font-size: 15px
+    line-height: 23px
+    span
+      margin-left: -7px
       display: block
-      width: 110px
-      height: 110px
-      border: 1px solid $color-border-heavy
-      +border-radius(5px)
-      position: relative
-      
-      &:hover
-        text-decoration: none
-      
-      span
-        position: absolute
-        width: 100%
-        bottom: -30px
-        font-size: 18px
-        color: #fff
-        text-shadow: 1px 1px 1px rgba(0,0,0,.3)
-        font-weight: bold
+      font: 26px/34px 'MothproofScriptRegular', Arial, sans-serif
+
+
+.info-contributors-ribbon
+  
 
 .info-contributors-floor
   position: fixed
@@ -150,8 +133,13 @@ h1.info-contributor-name
 
 .conr-zeeraw
   background-image: image-url("contributors/zeeraw.png")
-
-.conr-aethe, .conr-berwyn, .conr-manearion, .conr-zimber
+.conr-zimber
+  background-image: image-url("contributors/zimber.png")
+.conr-aethe
+  background-image: image-url("contributors/aethe.png")
+.conr-dash
+  background-image: image-url("contributors/dash.png")
+.conr-berwyn, .conr-manearion
   background-image: image-url("details/wing_watermark.png")
 
   
