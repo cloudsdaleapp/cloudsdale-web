@@ -219,13 +219,14 @@ class Api::V1Controller < ActionController::Base
   #
   # Returns the array of error hashes which can be rendered in a response.
   def build_errors_from_model(model)
-    
+        
     unless model.errors.empty?
       
-      model.errors.each do |field,message|
+      model.errors.messages.each do |field,messages|
         id    = model._id.to_s
         type  = model._type.downcase
         node  = field.to_s
+        message = messages.join(', ')
         
         add_error type: :field, ref_type: type, ref_id: id, ref_node: node, message: message
       end
