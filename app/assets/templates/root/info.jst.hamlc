@@ -1,0 +1,32 @@
+.float-container
+  .container-inner
+    
+    #contributors
+      .info-contributors-floor
+      %ul#info-contributors-list
+        %li.conr-zeeraw
+          %h1.info-contributor-name= "Zeeraw"
+          .info-contributor-badges
+            %span.badge= "Creator"
+      
+        %li.conr-aethe
+          %h1.info-contributor-name= "Aethe"
+          .info-contributor-badges
+            %span.badge= "iOS Developer"
+      
+        %li.conr-berwyn
+          %h1.info-contributor-name= "Berwyn"
+          .info-contributor-badges
+            %span.badge= "Android Developer"
+      
+        %li.conr-zimber
+          %h1.info-contributor-name= "Zimber Fizz"
+          .info-contributor-badges
+            %span.badge= "Graphics Designer"
+      
+        %li.conr-manearion
+          %h1.info-contributor-name= "Manearion"
+          .info-contributor-badges
+            %span.badge= "Art Director"
+    
+    .root-clouds

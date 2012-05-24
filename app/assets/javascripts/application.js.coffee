@@ -4,6 +4,7 @@
 #= require jquery.mousewheel
 #= require jquery.expanding
 #= require jquery.iframe-transport
+#= require simply-scroll
 # require jquery.purr
 #= require hamlcoffee
 #= require date

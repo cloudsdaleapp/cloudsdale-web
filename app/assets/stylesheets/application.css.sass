@@ -24,12 +24,6 @@ $color-cd-background-lightest: #FFFFFF
 @import "animations"
 @import "fonts"
 
-@import "token-input-facebook"
-@import "jquery-ui"
-@import "jquery-ui-ie6"
-@import "jquery-daterangepicker"
-
-
 $borderColor: rgba(50, 90, 130, .5)
 $bgStripes: asset-data-url("bg-stripe.png")
 $bgNoise: asset-data-url("bg-noise.png")
@@ -67,6 +61,12 @@ $color-purple: rgb(105,70,255)
 
 $color-background-light: #f8f8f8
 $color-background-medium: #f1f1f1 
+
+@import "token-input-facebook"
+@import "jquery-ui"
+@import "jquery-ui-ie6"
+@import "jquery-daterangepicker"
+@import "simply-scroll"
 
 @import "bootstrap-fixes"
 
@@ -203,8 +203,7 @@ body
 
 .fixed-container
   @media (max-width: $phone)
-    overflow: scroll
-    
+    overflow: auto
   @media (min-width: $ipad-min)
     float: left
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
@@ -275,7 +274,7 @@ ul.cloud-list
     clear: both
     visibility: hidden
     line-height: 0
-    height: 0    
+    height: 0
       
 li.cloud-toggle
   z-index: 999
@@ -802,6 +801,7 @@ a.btn-special
 @import "faqs"
 @import "admin"
 @import "explore"
+@import "info"
 
 
 

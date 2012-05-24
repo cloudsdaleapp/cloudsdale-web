@@ -1,0 +1,157 @@
+.view-container.info
+  .float-container
+    .container-inner
+      overflow: auto
+    @media (max-width: $phone)
+      .container-inner
+        background: #C0D6E9
+        
+    @media (min-width: $ipad-min)
+      .container-inner
+        +linear-gradient(#C0D6E9,#D9E2E7)
+
+.view-container.info .page-header
+  font: 50px/58px 'MothproofScriptRegular', Arial, sans-serif
+
+ul.info-nav
+  margin: 30px auto
+  list-style: none
+  position: relative
+  z-index: 2
+  text-align: center
+  li
+    display: inline-block
+    width: 122px
+    height: 122px
+    border: 1px solid $color-border-heavy
+    margin: 15px 15px
+    +border-radius(5px)
+    +opacity(.6)
+    +transition(opacity .3s ease-in-out)
+    &:hover
+      +opacity(1)
+    a
+      float: left
+      margin: 5px
+      display: block
+      width: 110px
+      height: 110px
+      border: 1px solid $color-border-heavy
+      +border-radius(5px)
+      position: relative
+      
+      &:hover
+        text-decoration: none
+      
+      span
+        position: absolute
+        width: 100%
+        bottom: -30px
+        font-size: 18px
+        color: #fff
+        text-shadow: 1px 1px 1px rgba(0,0,0,.3)
+        font-weight: bold
+
+.info-contributors-floor
+  position: fixed
+  bottom: 0
+  height: 80px
+  width: 100%
+  border-top: 1px solid $color-border-dark
+  z-index: 0
+  
+  +linear-gradient(#f8f8f8,#e1e1e1)
+
+#contributors
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 2
+  overflow-x: hidden
+  overflow-y: visible
+  @media (max-width: $phone)
+    height: 200px
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    height: 300px
+  @media (min-width: $desktop-s-min)
+    height: 400px
+  
+ul#info-contributors-list
+  left: 1px
+  position: relative
+  list-style-type: none
+  margin: 0
+  padding: 0
+  
+  @media (max-width: $phone)
+    height: 200px
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    height: 300px
+  @media (min-width: $desktop-s-min)
+    height: 400px
+
+    
+ul#info-contributors-list > li
+  float: left
+  display: block
+  position: relative
+  background-repeat: no-repeat
+  background-position: center
+  
+  @media (max-width: $phone)
+    height: 200px
+    width: 320px
+    background-size: auto 90%
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    height: 300px
+    width: 460px
+    background-size: auto 90%
+  @media (min-width: $desktop-s-min)
+    height: 400px
+    width: 600px
+    background-size: auto 90%
+  &:hover
+    .info-contributor-badges
+      top: 10px
+      +opacity(1)
+      
+    h1.info-contributor-name
+      bottom: 90px
+      +opacity(1)
+
+h1.info-contributor-name
+  position: absolute
+  width: 100%
+  bottom: 130px
+  text-align: center
+  +opacity(0)
+  @each $vendor in -moz-, -o-, -webkit-, ""
+    #{$vendor}transition-property: opacity, bottom
+    #{$vendor}transition-duration: .3s
+    #{$vendor}transition-timing-function: ease-in-out
+    
+.info-contributor-badges
+  position: absolute
+  width: 100%
+  top: 50px
+  text-align: center
+  z-index: 2
+  +opacity(0)
+  @each $vendor in -moz-, -o-, -webkit-, ""
+    #{$vendor}transition-property: opacity, top
+    #{$vendor}transition-duration: .3s
+    #{$vendor}transition-timing-function: ease-in-out
+    
+  span
+    position: relative
+    z-index: 2
+    font-size: 16px
+
+.conr-zeeraw
+  background-image: image-url("contributors/zeeraw.png")
+
+.conr-aethe, .conr-berwyn, .conr-manearion, .conr-zimber
+  background-image: image-url("details/wing_watermark.png")
+
+  
