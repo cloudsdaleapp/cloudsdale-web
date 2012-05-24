@@ -84,17 +84,24 @@ ul#info-contributors-list > li
   
   @media (max-width: $phone)
     height: 200px
-    width: 320px
-    background-size: auto 90%
+    width: 250px
+    background-size: auto 88%
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     height: 300px
-    width: 460px
-    background-size: auto 90%
+    width: 350px
+    background-size: auto 88%
   @media (min-width: $desktop-s-min)
     height: 400px
-    width: 600px
-    background-size: auto 90%
+    width: 450px
+    background-size: auto 88%
+  
+  @each $vendor in -moz-, -o-, -webkit-, ""
+    #{$vendor}transition-property: background-size
+    #{$vendor}transition-duration: .3s
+    #{$vendor}transition-timing-function: ease-in-out
+  
   &:hover
+    background-size: auto 94%
     .info-contributor-badges
       top: 10px
       +opacity(1)
@@ -109,6 +116,8 @@ h1.info-contributor-name
   bottom: 130px
   text-align: center
   +opacity(0)
+  color: #333333
+  text-shadow: 1px 1px 2px rgba(0,0,0,.4), -1px -1px 0px rgba(255,255,255,.3)
   @each $vendor in -moz-, -o-, -webkit-, ""
     #{$vendor}transition-property: opacity, bottom
     #{$vendor}transition-duration: .3s

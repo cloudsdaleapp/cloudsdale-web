@@ -30,8 +30,6 @@
           %h1.info-contributor-name= "Zeeraw"
           .info-contributor-badges
             %span.badge.badge-warning= "Creator"
-            %span.badge.badge-success= "Web Developer"
-            %span.badge.badge-inverse= "System Operator"
             
         %li.conr-berwyn
           %h1.info-contributor-name= "Berwyn"
