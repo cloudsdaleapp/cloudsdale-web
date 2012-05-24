@@ -13,4 +13,12 @@ class Cloudsdale.Collections.Clouds extends Backbone.Collection
   #
   # Returns an instance of Cloudsdale.Models.Cloud if found, otherwise undefined.
   findOrInitialize: (id) ->
-    cloud = @get(id) || new Cloudsdale.Models.Cloud(id: id)    
+    cloud = @get(id) || new Cloudsdale.Models.Cloud(id: id)
+    
+    if cloud.is_transient
+      cloud.fetch
+        error: (request,response) -> renderErrorPageFrom(response)
+        success: -> return cloud
+    
+    else
+      return cloud
