@@ -114,7 +114,7 @@ class User
   #
   # Returns true of the user is can act as one of these roles otherwise false.
   def is_of_role?(sym=:normal)
-    ROLES[sym] ? ROLES[sym] >= self[:role] : false
+    ROLES[sym] ? (self[:role] >= ROLES[sym]) : false
   end
   
   # Public: An Alias for the ´ban´ method with a bang to also save
