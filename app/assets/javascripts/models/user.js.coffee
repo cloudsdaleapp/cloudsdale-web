@@ -20,3 +20,6 @@ class Cloudsdale.Models.User extends Backbone.Model
     attr = {}
     attr.remove_avatar = true
     return @save(attr,options)
+  
+  memberSince: ->
+    new Date(@get('member_since'))
