@@ -9,7 +9,7 @@ class User
 
   include Droppable
   
-  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar, :avatar_url
+  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar, :remote_avatar_url
   attr_accessor :password, :confirm_registration
     
   embeds_one :character
@@ -57,6 +57,7 @@ class User
   validates_uniqueness_of :email, :case_sensitive => false
   
   validates_presence_of [:email,:password,:name], :if => :confirm_registration
+  validates_presence_of [:email,:name], :unless => :new_record?
     
   before_validation do
     self[:cloud_ids].uniq!
