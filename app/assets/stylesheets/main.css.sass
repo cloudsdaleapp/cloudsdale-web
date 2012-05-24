@@ -111,7 +111,6 @@
       .container-inner
         overflow: auto
         background: #C0D6E9
-        margin-bottom: -50px
         
     @media (min-width: $ipad-min)
       .container-inner
@@ -193,6 +192,7 @@ $height-root-banner: 260px
     top: auto
     left: 10px
     right: 10px
+    
     @media (max-height: $media-height-s)
       height: auto
       bottom: 0
@@ -291,9 +291,12 @@ $height-root-banner: 260px
     
 .root-tweets-wrapper
   @media (max-width: $phone)
-    position: relative    
+    position: relative
     +linear-gradient(#63a0d0,#3f85b3)
-    
+    margin: 10px
+    border: 1px solid $color-border-heavy
+    +border-radius(5px 5px 5px 5px)
+    overflow: hidden
     &:after
       content: "."
       display: block
@@ -364,15 +367,17 @@ a.root-twitter-logo
     text-decoration: none
 
   @media (max-width: $phone)
-    height: 44px
+    height: 30px
     padding: 10px
     
     border-top: 1px solid $color-border-dark
     border-bottom: 1px solid $color-border-dark
     
     +linear-gradient(#4C4C4C,#333333)
-        
-    background-size: auto 44px, auto
+    
+    background-size: auto 30px, auto
+    
+    +border-radius(5px 5px 0 0)
     
     background: #4c4c4c asset-data-url("details/twitter-bird-white.png") no-repeat 10px center 40px
     background: asset-data-url("details/twitter-bird-white.png") no-repeat 10px center, -moz-linear-gradient(top,  #4c4c4c 0%, #333333 100%)
@@ -384,7 +389,7 @@ a.root-twitter-logo
     
     span
       margin-left: 80px
-      line-height: 40px
+      line-height: 28px
       font-size: 18px
       font-weight: bold
       color: #f8f8f8
@@ -458,7 +463,7 @@ a.root-twitter-logo
   
   @media (max-width: $phone)
     height: 150px
-    margin: 10px 10px 100px 10px
+    margin: 10px 10px 10px 10px
     
   @media (min-width: $ipad-min)
     position: absolute
@@ -505,7 +510,6 @@ p.root-tweet-content
   
   @media (max-width: $phone)
     position: relative
-    height: 200px
   
     background-color: #fff
     
@@ -540,7 +544,7 @@ p.root-tweet-content
     top: 60px
     right: 30px
     left: auto
-    width: 380px
+    width: 400px
     height: 360px
       
   @media (min-width: $desktop-m-min)
@@ -555,7 +559,7 @@ p.root-tweet-content
       top: 60px
       right: 200px
       left: auto
-      width: 380px
+      width: 400px
       height: 360px
       
   @media (min-width: $desktop-l-min)
@@ -563,16 +567,17 @@ p.root-tweet-content
   @media (min-width: $desktop-l-max)
 
 .root-get-started-inner
-  position: absolute
-  top: 0
-  bottom: 0
-  right: 0
-  left: 0
   
   @media (max-width: $phone)
     margin: 5px
     
   @media (min-width: $ipad-min)
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+    
     margin: 7px
     
     border: 1px solid $color-border-dark
@@ -581,3 +586,108 @@ p.root-tweet-content
     
     +box-shadow-inset(0,0,3px,rgba(0,0,0,.4))
     +border-radius(5px)
+
+.root-get-started-container > header
+  padding: 20px
+  border-bottom: 1px dashed $color-border-heavy
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+  .btn-group > a
+    border-color: $color-border-heavy
+    padding-left: 5px
+    padding-right: 5px
+
+  h1
+    letter-spacing: 0
+    margin-bottom: 10px
+    text-shadow: 1px 1px 1px #3F85B3, -1px -1px 0 rgba(255,255,255,.8)
+    color: #63A0D0
+    @media (max-width: $phone)
+      font: 40px/48px 'MothproofScriptRegular', Arial, sans-serif
+    @media (min-width: $ipad-min)
+      font: 50px/58px 'MothproofScriptRegular', Arial, sans-serif
+  p
+    
+    @media (max-width: $phone)
+      font-size: 18px
+      line-height: 26px
+    @media (min-width: $ipad-min)
+      font-size: 22px
+      line-height: 32px
+  
+  img
+    float: left
+    margin-right: 10px
+    +border-radius(5px)
+  
+
+.root-get-started-container > .root-info
+  padding: 20px
+  .progress.progress-striped.progress-success
+    border: 1px solid $color-border-heavy
+
+.root-get-started-container > .actions
+  padding: 20px
+  span
+    font-size: 16px
+    margin: 0 5px
+    font-weight: bold
+    font: 22px/20px 'MothproofScriptRegular', Arial, sans-serif
+    @media (max-width: $phone)
+      display: none
+      
+  a
+    position: relative
+    +border-radius(3px)
+    font-weight: bold
+    border: 1px solid #000
+    margin: 0
+    font-size: 14px
+    line-height: 22px
+    +box-shadow-inset(0px,1px,0px,rgba(255,255,255,.4))
+    margin-bottom: 5px
+    text-align: center
+    color: #fff
+    padding: 4px 6px
+    +box-sizing(border-box)
+    text-shadow: -1px -1px 0 rgba(0,0,0,.3)
+    
+    @media (max-width: $phone)
+      display: block
+      margin-bottom: 5px
+      &:last-child
+        margin-bottom: 0px
+    
+    &.root-trigger-connect
+      padding-left: 38px
+      +linear-gradient(#63a0d0,#3f85b3)
+      &:before
+        content: ""
+        position: absolute
+        top: 0
+        left: 0
+        bottom: 0
+        width: 30px
+        border-right: 1px solid $color-border-heavy
+        background-repeat: no-repeat
+        background-position: center
+        background-size: 24px auto
+      
+      &.twitter:hover:before, &.facebook:hover:before
+        background-color: rgba(0,0,0,.2)
+        
+      &.twitter:before
+        background-image: asset-data-url("icons/glyphicons/white/twitter.png")
+      &.facebook:before
+        background-image: asset-data-url("icons/glyphicons/white/facebook.png")
+        
+    &.root-trigger-saddle-up
+      +linear-gradient($color-green,darken($color-green,5%))
+    
+    
+  

@@ -1,0 +1,60 @@
+- if !session.isLoggedIn()
+  %header
+    %h1= "Welcome to Cloudsdale"
+    %p= "Meet new friends, chat & play; all in realtime. This is truly the best place in the sky."
+  
+  .actions
+    %a.btn.btn-success.root-trigger-connect.twitter{ href: '/auth/twitter' }= "Connect"
+    %a.btn.btn-success.root-trigger-connect.facebook{ href: '/auth/facebook' }= "Connect"
+    %span= " or "
+    %a.btn.btn-success.root-trigger-saddle-up= "Saddle Up"
+
+- else if session.isLoggedIn()
+  %header
+    %img.root-user-avatar{ src: session.get('user').get('avatar').preview, title: session.get('user').get('name') }
+    %h3.root-user-name= session.get('user').get('name')
+    .btn-group
+      %a.btn.root-trigger-settings{ href: "#" }
+        %i.icon-cog
+        = "Settings"
+      %a.btn{ href: "/logout" }
+        %i.icon-off
+        = "Log Out"
+  
+  .root-info
+    - if @step
+      %h2= "Get Started"
+      .progress.progress-striped.progress-success
+        .bar{ style: "width: #{@step.percent}%;" }
+    
+      - switch @step.id
+        - when 'avatar'
+          %h4
+            %strong= "Step 2/4:"
+            = "Upload Avatar"
+          %p= "To define yourself and make it easier for other users of the site to recognize you, please upload an avatar from file or URL."
+          %a.btn.root-trigger-avatar{ href: '#' }
+            %i.icon-picture
+            = "Upload"
+            
+        - when 'tnc'
+          %h4
+            %strong= "Step 3/4:"
+            = "Read Terms & Agreements"
+          %p= "Here on Cloudsdale we respect each other and these are the guidelines to provide you and other users with a good experience."
+          %a.btn.root-trigger-tnc{ href: '#' }
+            %i.icon-align-center
+            = "Read the Document"
+        
+        - when 'explore'
+          %h4
+            %strong= "Step 4/4:"
+            = "Go Explore"
+          %p= "You are not a member of any Clouds! Cloudsdale is all about Clouds, it's there you can meet new people, hang out and have fun. Why don't go look for one that might suit you."
+          %a.btn.root-trigger-explore{ href: '#' }
+            %i.icon-search
+            = "Go on Cloud Safari"
+    
+    - else
+      %center
+        %h1= "Congratulations you have fully completed your registration!"

@@ -21,6 +21,9 @@ class Cloudsdale.Views.Root extends Backbone.View
             
       if session.get('user').get('needs_to_confirm_registration')
         @openSessionDialog('complete')
+    
+    rootSessionView = new Cloudsdale.Views.RootSession
+    @.$('.root-get-started-inner').html(rootSessionView.el)
         
   render: ->
     $(@el).html(@template())
