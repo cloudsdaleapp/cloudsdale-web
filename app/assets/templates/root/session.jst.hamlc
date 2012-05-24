@@ -56,5 +56,18 @@
             = "Go on Cloud Safari"
     
     - else
-      %center
-        %h1= "Congratulations you have fully completed your registration!"
+      %h1= "Welcome back #{session.get('user').get('name')}!"
+      %h3
+        = "Account registered on "
+        = session.get('user').memberSince().toString("yyyy-HH-dd")
+      %h3
+        = "There are "
+        = session.get('user').get('clouds').length
+        = " clouds you're member of"
+      %h3
+        = "Your status on the site is "
+        %span= session.get('user').get('role')
+      %h3
+        = "You have "
+        = session.get('user').get('prosecutions').length
+        = " warnings"
