@@ -15,3 +15,8 @@ class Cloudsdale.Models.User extends Backbone.Model
     attr ||= {}
     attr.url = "/v1/users/#{@id}/accept_tnc.json"
     return @save({},attr)
+  
+  removeAvatar: (options) ->
+    attr = {}
+    attr.remove_avatar = true
+    return @save(attr,options)

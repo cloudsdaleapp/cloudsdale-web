@@ -1,19 +1,38 @@
 .settings-dialog
   .modal-header
+    color: #fff
+    +linear-gradient(#333333,#2A2A2A)
     img
       float: left
       margin-right: 10px
       +border-radius(5px)
+    
+    h2
+      text-shadow: -1px -1px 1px rgba(0,0,0,1)
     
     ul.nav-pills
       margin: 0
       border: 0
       li
         font-weight: bold
+        a
+          color: #fff
+          border: 1px solid transparent
+          &:hover
+            +linear-gradient(#333333,#2A2A2A)
+            border-color: #222
+            @each $vendor in -moz-, -o-, -webkit-, ""
+              #{$vendor}box-shadow: 0 1px 0 rgba(255,255,255,.2)
+            
         &.active > a
-          background-color: #63A0D0
-          +box-shadow-inset(1px,1px,1px,rgba(0,0,0,.2))
-
+          background-color: #2A2A2A
+          border-color: #222
+          @each $vendor in -moz-, -o-, -webkit-, ""
+            #{$vendor}box-shadow: inset 1px 1px 1px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255,.2)
+          
+  .modal-body
+    
+    
 #avatar-form
   position: relative
     

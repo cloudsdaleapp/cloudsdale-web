@@ -7,37 +7,61 @@
     %ul.nav.nav-pills
       %li
         %a{ href: "#settings-general", "data-toggle" => "pill" }
-          %i.icon-cog
+          %i.icon-cog.icon-white
           = "General"
           
       %li
         %a{ href: "#settings-avatar", "data-toggle" => "pill" }
-          %i.icon-picture
+          %i.icon-picture.icon-white
           = "Avatar"
           
       %li
         %a{ href: "#settings-security", "data-toggle" => "pill" }
-          %i.icon-lock
+          %i.icon-lock.icon-white
           = "Security"
         
   .modal-body
     .tab-content
       .tab-pane#settings-general
+        .control-group
+          %label.control-label{ for: 'user_name' }= "Display name"
+          .controls
+            %input#user_name{ type: 'text', name: 'name', placeholder: "Display Name", value: @user.get('name') }
+        .control-group
+          %label.control-label{ for: 'user_email' }= "Email"
+          .controls
+            %input#user_email{ type: 'text', name: 'email', placeholder: "Email", value: @user.get('email') }
     
       .tab-pane#settings-avatar
         %form#avatar-form
           .control-group
             %label.control-label{ for: 'user_avatar_file' }= "Upload from File"
             .controls
-              %input#user_avatar_file{ type: 'file', name: 'user[avatar]' }
+              %input#user_avatar_file{ type: 'file', name: 'user[avatar]', data: { preventAjax: true } }
               %p.help-block
                 %strong.badge.badge-important= "Known bug"
                 = "Browsers like Opera or older versions of IE might want you to download a"
                 %strong=".json"
                 = "file. The upload still works, you just have to cancel the download."
           
+          .control-group
+            %label.control-label{ for: 'user_avatar_url' }= "Upload from URL"
+            .controls
+              %input#user_avatar_url{ type: 'text', name: 'remote_avatar_url' }
+              %p.help-block
+                %strong= "Note: "
+                = "It can take up to a minute before the avatar image has propagated on the CDN."
+              
+          .well
+            %a.btn.btn-danger.remove-avatar{ href: "#" }
+              %i.icon-white.icon-remove
+              = "Remove Avatar"
     
       .tab-pane#settings-security
+        .control-group
+          %label.control-label{ for: 'user_password' }= "Password"
+          .controls
+            %input#user_password{ type: 'password', name: 'password', placeholder: "New Password" }
         
   .modal-footer
     
