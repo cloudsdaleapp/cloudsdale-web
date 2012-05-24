@@ -4,10 +4,10 @@
     %p= "Meet new friends, chat & play; all in realtime. This is truly the best place in the sky."
   
   .actions
-    %a.btn.btn-success.root-trigger-connect.twitter{ href: '/auth/twitter' }= "Connect"
-    %a.btn.btn-success.root-trigger-connect.facebook{ href: '/auth/facebook' }= "Connect"
+    %a.btn.btn-special.root-trigger-connect.twitter{ href: '/auth/twitter' }= "Connect"
+    %a.btn.btn-special.root-trigger-connect.facebook{ href: '/auth/facebook' }= "Connect"
     %span= " or "
-    %a.btn.btn-success.root-trigger-saddle-up= "Saddle Up"
+    %a.btn.btn-special.root-trigger-saddle-up= "Saddle Up"
 
 - else if session.isLoggedIn()
   %header

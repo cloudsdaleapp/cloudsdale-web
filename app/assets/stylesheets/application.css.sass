@@ -748,6 +748,51 @@ input[type=file]
   right: 0
   left: 0
 
+a.btn-special
+  position: relative
+  +border-radius(3px)
+  font-weight: bold
+  border: 1px solid #000
+  margin: 0
+  font-size: 14px
+  line-height: 22px
+  +box-shadow-inset(0px,1px,0px,rgba(255,255,255,.4))
+  margin-bottom: 5px
+  text-align: center
+  color: #fff
+  padding: 4px 6px
+  +box-sizing(border-box)
+  text-shadow: -1px -1px 0 rgba(0,0,0,.3)
+  &:hover
+    color: #fff
+  &.root-trigger-connect
+    padding-left: 38px
+    +linear-gradient(#63a0d0,#3f85b3)
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      width: 30px
+      border-right: 1px solid $color-border-heavy
+      background-repeat: no-repeat
+      background-position: center
+      background-size: 24px auto
+    
+    &:hover:before
+      background-color: rgba(0,0,0,.2)
+      
+    &.twitter:before
+      background-image: asset-data-url("icons/glyphicons/white/twitter.png")
+    &.twitter:hover:before
+      background-color: rgba(139,222,227,.5)
+    
+    &.facebook:before
+      background-image: asset-data-url("icons/glyphicons/white/facebook.png")
+    &.facebook:hover:before
+      background-color: rgba(42,70,138,.5)
+
 @import "users"
 @import "main"
 @import "sessions"
