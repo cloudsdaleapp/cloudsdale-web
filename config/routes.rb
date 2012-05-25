@@ -15,6 +15,9 @@ Cloudsdale::Application.routes.draw do
       end
       
     end
+    
+    # Post update method for cloud.
+    match "/clouds/:id" => "clouds#update", via: :post, as: :cloud
 
     
     resources :users, only: [:show,:create,:update] do
