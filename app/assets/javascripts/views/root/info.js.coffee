@@ -26,7 +26,7 @@ class Cloudsdale.Views.Info extends Backbone.View
     
     setTimeout =>
       @.$('ul#info-contributors-list').simplyScroll
-        speed: 4
+        speed: 8
     , 10
     
   show: ->
