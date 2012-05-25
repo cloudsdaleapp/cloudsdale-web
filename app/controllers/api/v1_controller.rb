@@ -94,6 +94,8 @@ class Api::V1Controller < ActionController::Base
   # Returns a string with the layout name
   def determine_layout
     case request.format
+    when /html/
+      'api_v1.html'
     when /xml/
       'api_v1.xml'
     else

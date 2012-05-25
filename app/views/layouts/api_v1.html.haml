@@ -1,0 +1,8 @@
+%textarea{ 'data-type' => "application/json" }
+  :plain
+    {
+      "status": #{response.status},
+      "errors": #{errors.to_json.html_safe},
+      "flash": #{@flash_message.to_json.html_safe},
+      "result": #{yield}
+    }
