@@ -28,7 +28,7 @@ class Api::V1::CloudsController < Api::V1Controller
       render status: 200
     else
       set_flash_message message: "Something went wrong while updating the cloud. Please look over your input.", title: "The horror!"
-      build_errors_from_model @user
+      build_errors_from_model @cloud
       render status: 422
     end
     
