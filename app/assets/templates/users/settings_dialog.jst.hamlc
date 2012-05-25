@@ -33,7 +33,7 @@
             %input#user_email{ type: 'text', name: 'email', placeholder: "Email", value: @user.get('email') }
     
       .tab-pane#settings-avatar
-        %form#avatar-form
+        %form#avatar-form{ enctype: "multipart/form-data" }
           .control-group
             %label.control-label{ for: 'user_avatar_file' }= "Upload from File"
             .controls
