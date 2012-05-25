@@ -10,6 +10,7 @@ class Cloudsdale.Models.User extends Backbone.Model
     role: "normal"
     member_since: null
     invisible: false
+    is_transient: true
   
   acceptTnc: (attr) ->
     attr ||= {}
