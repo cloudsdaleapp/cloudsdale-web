@@ -30,32 +30,31 @@
 .simply-scroll
   width: 100%
   @media (max-width: $phone)
-    height: 200px
+    height: 150px
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     height: 300px
+    @media (max-height: $media-height-s)
+      height: 200px
   @media (min-width: $desktop-s-min)
     height: 400px
+    @media (max-height: $media-height-s)
+      height: 200px
   margin-bottom: 0
   .simply-scroll-clip
     width: 100%
     @media (max-width: $phone)
-      height: 200px
+      height: 150px
     @media (min-width: $ipad-min) and (max-width: $ipad-max)
       height: 300px
+      @media (max-height: $media-height-s)
+        height: 200px
     @media (min-width: $desktop-s-min)
       height: 400px
+      @media (max-height: $media-height-s)
+        height: 200px
   .simply-scroll-list li
     float: left
     /* Horizontal scroll only
-    @media (max-width: $phone)
-      height: 200px
-      width: 250px
-    @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      height: 300px
-      width: 350px
-    @media (min-width: $desktop-s-min)
-      height: 400px
-      width: 450px
       
       
 

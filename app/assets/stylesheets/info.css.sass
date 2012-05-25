@@ -1,3 +1,21 @@
+@-webkit-keyframes slideInBottomBar
+  0%
+    +opacity(0)
+  100%
+    +opacity(1)
+
+@-moz-keyframes slideInBottomBar
+  0%
+    +opacity(0)
+  100%
+    +opacity(1)
+
+@keyframes slideInBottomBar
+  0%
+    +opacity(0)
+  100%
+    +opacity(1)
+
 .view-container.info
   .float-container
     .container-inner
@@ -14,13 +32,27 @@
   font: 50px/58px 'MothproofScriptRegular', Arial, sans-serif
 
 #letter
-  position: absolute
-  padding: 30px 40px
-  margin: 40px
-  width: 640px
   +linear-gradient(#fefefe,#f8f8f8)
   +border-radius(7px)
-  +box-shadow(3px,3px,10px,rgba(0,0,0,.3))
+  
+  @media (max-width: $phone)
+    position: relative
+    padding: 20px
+    margin: 10px
+    border: 1px solid $color-border-heavy
+  @media (min-width: $ipad-min)
+    position: absolute
+    z-index: 1
+    padding: 30px 40px
+    width: 640px
+    margin: 40px
+    
+    +box-shadow(3px,3px,10px,rgba(0,0,0,.3))
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    //
+  @media (min-width: $desktop-s-min)
+    //
+  
   h3
     margin-bottom: 10px
   p
@@ -33,33 +65,49 @@
 
 
 .info-contributors-ribbon
+
+#contributors
+  @each $vendor in "", -webkit-, -moz-
+    #{$vendor}animation-name: slideInBottomBar
+    #{$vendor}animation-duration: .7s
+    #{$vendor}animation-delay: .3s
+    #{$vendor}animation-fill-mode: backwards
+    #{$vendor}animation-timing-function: ease-in-out
   
+  @media (max-width: $phone)
+    height: 200px
+    position: relative
+  @media (min-width: $ipad-min)
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 1
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    height: 300px
+    @media (max-height: $media-height-s)
+      height: 200px
+  @media (min-width: $desktop-s-min)
+    height: 400px
+    @media (max-height: $media-height-s)
+      height: 200px
 
 .info-contributors-floor
-  position: fixed
+  position: absolute
   bottom: 0
-  height: 80px
   width: 100%
   border-top: 1px solid $color-border-dark
   z-index: 0
   
   +linear-gradient(#f8f8f8,#e1e1e1)
-
-#contributors
-  position: absolute
-  left: 0
-  right: 0
-  bottom: 0
-  z-index: 2
-  overflow-x: hidden
-  overflow-y: visible
-  @media (max-width: $phone)
-    height: 200px
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    height: 300px
-  @media (min-width: $desktop-s-min)
-    height: 400px
   
+  @media (max-width: $phone)
+    height: 80px
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    height: 65px
+  @media (min-width: $desktop-s-min)
+    height: 80px
+
 ul#info-contributors-list
   left: 1px
   position: relative
@@ -68,11 +116,15 @@ ul#info-contributors-list
   padding: 0
   
   @media (max-width: $phone)
-    height: 200px
+    height: 150px
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     height: 300px
+    @media (max-height: $media-height-s)
+      height: 200px
   @media (min-width: $desktop-s-min)
     height: 400px
+    @media (max-height: $media-height-s)
+      height: 200px
 
     
 ul#info-contributors-list > li
@@ -83,17 +135,23 @@ ul#info-contributors-list > li
   background-position: center
   
   @media (max-width: $phone)
-    height: 200px
-    width: 250px
+    height: 150px
+    width: 180px
     background-size: auto 88%
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     height: 300px
     width: 350px
     background-size: auto 88%
+    @media (max-height: $media-height-s)
+      height: 200px
   @media (min-width: $desktop-s-min)
     height: 400px
     width: 450px
     background-size: auto 88%
+    @media (max-height: $media-height-s)
+      height: 200px
+    
+    
   
   @each $vendor in -moz-, -o-, -webkit-, ""
     #{$vendor}transition-property: background-size
@@ -107,8 +165,18 @@ ul#info-contributors-list > li
       +opacity(1)
       
     h1.info-contributor-name
-      bottom: 90px
       +opacity(1)
+      @media (max-width: $phone)
+        bottom: 10px
+      @media (min-width: $ipad-min) and (max-width: $ipad-max)
+        bottom: 40px
+        @media (max-height: $media-height-s)
+          bottom: 30px
+      @media (min-width: $desktop-s-min)
+        bottom: 50px
+        @media (max-height: $media-height-s)
+          bottom: 30px
+        
 
 h1.info-contributor-name
   position: absolute
@@ -122,6 +190,11 @@ h1.info-contributor-name
     #{$vendor}transition-property: opacity, bottom
     #{$vendor}transition-duration: .3s
     #{$vendor}transition-timing-function: ease-in-out
+  
+  @media (max-width: $ipad-max)
+    font-size: 20px
+  @media (min-width: $desktop-s-min)
+    font-size: 28px
     
 .info-contributor-badges
   position: absolute
@@ -134,12 +207,15 @@ h1.info-contributor-name
     #{$vendor}transition-property: opacity, top
     #{$vendor}transition-duration: .3s
     #{$vendor}transition-timing-function: ease-in-out
-    
   span
     position: relative
     z-index: 2
-    font-size: 16px
-
+    
+    @media (max-width: $ipad-max)
+      font-size: 12px
+    @media (min-width: $desktop-s-min)
+      font-size: 16px
+    
 .conr-zeeraw
   background-image: image-url("contributors/zeeraw.png")
 .conr-zimber

@@ -193,6 +193,7 @@ body
   position: relative
   height: 100%
   background: rgba(0,0,0,.05)
+  
   .container-inner
     position: absolute
     background: #F0F0F0
@@ -226,6 +227,10 @@ body
       margin-left: 320px
     @media (min-width: $desktop-s-min) 
       margin-left: 320px
+
+.container-inner
+  @media (max-width: $phone)
+    padding-top: 20px
 
 .cloudbar
   padding: 0
