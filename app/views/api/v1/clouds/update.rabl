@@ -1,2 +1,2 @@
-extends '/api/v1/clouds/private'
+extends '/api/v1/clouds/base'
 object @cloud
