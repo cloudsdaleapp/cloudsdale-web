@@ -1,6 +1,7 @@
 #= require jquery
 #= require bootstrap
 #= require jquery_ujs
+#= require jquery.cookie
 #= require jquery.mousewheel
 #= require jquery.expanding
 #= require jquery.iframe-transport
@@ -12,7 +13,6 @@
 #= require twitter-text
 # require jquery-ui.js
 # require pjax
-# require jquery.cookie
 # require jquery.titlealert
 # require jquery.tokeninput
 # require jquery.daterangepicker
