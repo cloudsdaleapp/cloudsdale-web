@@ -11,23 +11,75 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
   }
   
   initialize: ->
+    
+    @fetchNotifications()
+    
     @render()
-    @bind()
+    @refreshGfx()
+    @bindEvents()
   
   render: ->
     $(@el).html(@template(model: @model))
     this
   
-  bind: ->
+  bindEvents: ->
     $(@el).bind 'page:show', (event,page_id) =>
       if page_id == @model.id
+        @active = true
         $(@el).addClass('active') 
       else
+        @active = false
         $(@el).removeClass('active') 
     
-    nfc.on "#{@model.type}:#{@model.id}:chat", (payload) ->
-      # console.log payload
+    nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
+      @addNotification()
       
+    $(window).focus =>
+      if @active
+        $(@el).addClass('active')
+        @clearNotifications()
+    
+    $(window).blur =>
+      $(@el).removeClass('active')
+  
+  refreshGfx: ->
+    @.$('.cloud-toggle-notification').html("#{@notifications}")
+    if @notifications >= 1
+      $(@el).addClass('with-notifications')
+    else
+      $(@el).removeClass('with-notifications')
+  
   activate: ->
     Backbone.history.navigate("/clouds/#{@model.id}",true)
     false
+  
+  # Clears Cloud of all notifications and refreshes the notification plate
+  clearNotifications: ->
+    # @parent.subtractGlobalNotification(@notifications)
+    @notifications = 0
+    @setNotifications()
+    
+  
+  # Appends a notification and refreshes the notification plate unless the Cloud is currently active
+  addNotification: ->
+    if @active == false or ((@active == true) and (document.window_focus == false))
+      # @parent.addGlobalNotification(1)
+      @notifications += 1
+      @setNotifications()
+
+  fetchNotifications: ->
+    unless @notifications
+      n = $.cookie("cloud:#{@model.id}:notifications")
+      if typeof n is 'string'
+        @notifications = parseInt(n)
+      else
+      
+    @refreshGfx()
+    
+  setNotifications: ->
+    $.cookie "cloud:#{@model.id}:notifications", @notifications, 
+      expires: 365
+      path: "/"    
+    
+    @refreshGfx()
+    

@@ -286,6 +286,10 @@ li.cloud-toggle
   overflow: visible
   position: relative
   
+  &:not(.with-notifications)
+    a > span.cloud-toggle-notification
+      display: none
+  
   @media (max-width: $ipad-max)
     float: left
     height: $height-cloudbar
