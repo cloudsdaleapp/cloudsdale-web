@@ -1,5 +1,25 @@
 do ($ = jQuery) ->
   
+  window.clearGlobalNotification: ->
+    window.globalNotifications = 0
+  
+  window.addGlobalNotification: (num) ->
+    window.globalNotifications += num
+    window.setGlobalNotification()
+  
+  window.subtractGlobalNotification: (num) ->
+    window.globalNotifications -= num
+    if window.lobalNotifications < 0
+      window.clearGlobalNotification()
+    window.setGlobalNotification()
+  
+  window.setGlobalNotification: ->
+    $.titleAlert "(#{window.globalNotifications}) new event(s)",
+      requireBlur: true
+      stopOnFocus: true
+      duration: 0
+      interval: 1500
+  
   window.NotificationCentre = class NotificationCentre
   
     constructor: (args) ->
