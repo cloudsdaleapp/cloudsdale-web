@@ -18,13 +18,17 @@ class Api::V1::CloudsController < Api::V1Controller
   #
   # Returns the cloud object with a status of 200 if successful & 422 if unsuccessful.
   def update
-    
+        
     @cloud = Cloud.find(params[:id])
     authorize! :update, @cloud
     
-    if @cloud.update_attributes(params[:cloud], as: @cloud.get_role_for(current_user))
+    @cloud.write_attributes(params[:cloud], as: @cloud.get_role_for(current_user))
+        
+    if @cloud.save
       render status: 200
     else
+      set_flash_message message: "Something went wrong while updating the cloud. Please look over your input.", title: "The horror!"
+      build_errors_from_model @user
       render status: 422
     end
     
