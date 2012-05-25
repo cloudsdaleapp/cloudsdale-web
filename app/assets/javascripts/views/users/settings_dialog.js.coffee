@@ -24,6 +24,7 @@ class Cloudsdale.Views.UsersSettingsDialog extends Backbone.View
     
 
   bindEvents: ->
+    
     session.get('user').on 'change', (user) =>
       @.$('img.user-avatar').attr('src',user.get('avatar').normal)
       @.$('h2.user-name').text(user.get('name'))
@@ -48,9 +49,9 @@ class Cloudsdale.Views.UsersSettingsDialog extends Backbone.View
       unless $(@).data('preventAjax') == true
         submitData = {}
         submitData[@name] = @value
-        $.event.trigger 'change:field:settings', { element: @, submitData: submitData }
+        $.event.trigger 'change:field:user', { element: @, submitData: submitData }
           
-    $(@el).bind 'change:field:settings', (event,payload) =>
+    $(@el).bind 'change:field:user', (event,payload) =>
       submitData = payload.submitData
       elem = payload.element
       @clearFieldErrors(@.$(elem))
