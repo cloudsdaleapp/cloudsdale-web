@@ -1,0 +1,55 @@
+.modal.fade.base-modal.settings-dialog
+  .modal-header
+    %a{ href: "#settings-avatar", "data-toggle" => "pill" }
+      %img.cloud-avatar{ src: @cloud.get('avatar').normal }      
+    %h2.cloud-name= @cloud.get('name')
+    
+    %ul.nav.nav-pills
+      %li
+        %a{ href: "#settings-general", "data-toggle" => "pill" }
+          %i.icon-cog.icon-white
+          = "General"
+      
+      %li
+        %a{ href: "#settings-avatar", "data-toggle" => "pill" }
+          %i.icon-picture.icon-white
+          = "Avatar"
+        
+  .modal-body
+    .tab-content
+      .tab-pane#settings-general
+        .control-group
+          %label.control-label{ for: 'cloud_name' }= "Cloud Name"
+          .controls
+            %input#cloud_name{ type: 'text', name: 'name', placeholder: "Cloud Name", value: @cloud.get('name') }
+            
+        .control-group
+          %label.control-label{ for: 'cloud_description' }= "Description"
+          .controls
+            %textarea#cloud_description{ name: 'description', placeholder: "Description" }
+              = @cloud.get('description')
+            
+      .tab-pane#settings-avatar
+        %form#avatar-form{ enctype: "multipart/form-data" }
+          .control-group
+            %label.control-label{ for: 'cloud_avatar_file' }= "Upload from File"
+            .controls
+              %input#cloud_avatar_file{ type: 'file', name: 'cloud[avatar]', data: { preventAjax: true } }
+              %p.help-block
+                %strong.badge.badge-important= "Known bug"
+                = "Browsers like Opera or older versions of IE might want you to download a"
+                %strong=".json"
+                = "file. The upload still works, you just have to cancel the download."
+          
+          .control-group
+            %label.control-label{ for: 'cloud_avatar_url' }= "Upload from URL"
+            .controls
+              %input#cloud_avatar_url{ type: 'text', name: 'remote_avatar_url' }
+              %p.help-block
+                %strong= "Note: "
+                = "It can take up to a minute before the avatar image has propagated on the CDN."
+              
+          .well
+            %a.btn.btn-danger.remove-avatar{ href: "#" }
+              %i.icon-white.icon-remove
+              = "Remove Avatar"
