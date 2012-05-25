@@ -8,3 +8,5 @@ child(:chat) do
 end
 
 node(:is_transient) { |cloud| cloud.new_record? }
+
+node(:moderators) { |cloud| cloud.moderator_ids.map { |user_id| { id: user_id } } }
