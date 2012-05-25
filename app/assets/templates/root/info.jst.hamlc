@@ -4,13 +4,13 @@
     %article#letter
       %h3= "Hello dear friend,"
 
-      %p= "Welcome to Cloudsdale. If you’re here you most likely want to know more about us before you saddle up. We here at Cloudsdale strive to be a central place on the web where cool people like you and me can have fun and get to know each other and meet new friends."
+      %p= "Welcome to Cloudsdale.  If you’re here you most likely want to know more about us before you saddle up.  At Cloudsdale we strive to be a central place on the web where cool people like you and I can have fun, get to know each other and meet new friends."
 
-      %p= "We will achieve this goal by providing this non-profit service where everyone can enjoy their stay. The Crew of Cloudsdale want to be ahead of time and redefine how regular, people like us; use the web in our every day life."
+      %p= "To achieve this goal we're providing this non-profit service where everyone can have a good time.  The Crew of Cloudsdale want to be ahead of the curve, redefining how regular people - just like you - use the web in every day life."
 
-      %p= "Cloudsdale is all about interacting real time. We’ve built a fast, accessible and beautiful system that transcends many big corporate services out there."
+      %p= "Cloudsdale is all about interacting in real time.  To this end, we’ve built a fast, elegant and accessible system that transcends many big corporate services out there."
 
-      %p= "Now when you know who we are, and what we want. Are you ready to join the party?"
+      %p= "Now that you know who we are and what we want, are you ready to join the party?"
 
       %p
         = "Yours truly,"
