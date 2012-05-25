@@ -41,13 +41,17 @@
     margin: 10px
     border: 1px solid $color-border-heavy
   @media (min-width: $ipad-min)
+    position: relative
+    padding: 30px
+    margin: 20px
+    +box-shadow(3px,3px,10px,rgba(0,0,0,.3))
+  @media (min-width: $desktop-s-min)
     position: absolute
     z-index: 1
     padding: 30px 40px
     width: 640px
     margin: 40px
-    
-    +box-shadow(3px,3px,10px,rgba(0,0,0,.3))
+
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     //
   @media (min-width: $desktop-s-min)
@@ -132,7 +136,8 @@ ul#info-contributors-list > li
   display: block
   position: relative
   background-repeat: no-repeat
-  background-position: center
+  background-position: center  
+  background-image: image-url("details/wing_watermark.png")
   
   @media (max-width: $phone)
     height: 150px
@@ -215,18 +220,19 @@ h1.info-contributor-name
       font-size: 12px
     @media (min-width: $desktop-s-min)
       font-size: 16px
-    
-.conr-zeeraw
-  background-image: image-url("contributors/zeeraw.png")
-.conr-zimber
-  background-image: image-url("contributors/zimber.png")
-.conr-aethe
-  background-image: image-url("contributors/aethe.png")
-.conr-dash
-  background-image: image-url("contributors/dash.png")
-.conr-manearion
-  background-image: image-url("contributors/mane.png")
-.conr-berwyn
-  background-image: image-url("details/wing_watermark.png")
+
+ul#info-contributors-list > li    
+  &.conr-zeeraw
+    background-image: image-url("contributors/zeeraw.png")
+  &.conr-zimber
+    background-image: image-url("contributors/zimber.png")
+  &.conr-aethe
+    background-image: image-url("contributors/aethe.png")
+  &.conr-dash
+    background-image: image-url("contributors/dash.png")
+  &.conr-manearion
+    background-image: image-url("contributors/mane.png")
+  &.conr-berwyn
+  
 
   
