@@ -8,6 +8,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   
   events:
     'click a.sidebar-toggle' : 'toggleSidebar'
+    'click a.cloud-settings-toggle' : 'openCloudSettingsDialog'
   
   initialize: ->
     @render()
@@ -197,4 +198,8 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
     $(@el).toggleClass('expanded-sidebar')
     @correctContainerScroll(true) unless $(@el).hasClass('expanded-sidebar')
     false
-      
+        
+  openCloudSettingsDialog: () ->
+    view = new Cloudsdale.Views.CloudsSettingsDialog(cloud: @model).el
+    if $('.modal-container').length > 0 then $('.modal-container').replaceWith(view) else $('body').append(view)
+    false      

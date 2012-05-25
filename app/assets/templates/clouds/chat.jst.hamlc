@@ -9,7 +9,8 @@
   %ul.chat-online-list
 .chat-wrapper
   .chat-messages
-  .chat-footer
+  .chat-footer{ class: 'with-access-to-settings' if session.user.get('id') == @model.get('admin').id }
+    %a.cloud-settings-toggle{ href: "#" }
     %form.chat-message-form{ id: "#{@model.id}-message" }
       %input{ type: 'hidden', value: session.get('client_id'), name: 'client_id' }
       .better-grow-parent
