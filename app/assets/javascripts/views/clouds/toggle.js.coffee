@@ -55,7 +55,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
   
   # Clears Cloud of all notifications and refreshes the notification plate
   clearNotifications: ->
-    # @parent.subtractGlobalNotification(@notifications)
+    subtractGlobalNotification(@notifications)
     @notifications = 0
     @setNotifications()
     
@@ -63,7 +63,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
   # Appends a notification and refreshes the notification plate unless the Cloud is currently active
   addNotification: ->
     if @active == false or ((@active == true) and (document.window_focus == false))
-      # @parent.addGlobalNotification(1)
+      addGlobalNotification(1)
       @notifications += 1
       @setNotifications()
 

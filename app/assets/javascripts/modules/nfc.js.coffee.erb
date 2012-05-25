@@ -1,19 +1,22 @@
 do ($ = jQuery) ->
   
-  window.clearGlobalNotification: ->
+  window.globalNotifications = 0
+  
+  window.clearGlobalNotification = ->
     window.globalNotifications = 0
   
-  window.addGlobalNotification: (num) ->
+  window.addGlobalNotification = (num) ->
     window.globalNotifications += num
+    console.log window.globalNotifications
     window.setGlobalNotification()
   
-  window.subtractGlobalNotification: (num) ->
+  window.subtractGlobalNotification = (num) ->
     window.globalNotifications -= num
     if window.lobalNotifications < 0
       window.clearGlobalNotification()
     window.setGlobalNotification()
   
-  window.setGlobalNotification: ->
+  window.setGlobalNotification = ->
     $.titleAlert "(#{window.globalNotifications}) new event(s)",
       requireBlur: true
       stopOnFocus: true
