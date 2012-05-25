@@ -40,10 +40,16 @@
           %h1.info-contributor-name= "Zimber Fizz"
           .info-contributor-badges
             %span.badge.badge-info= "Graphics Designer"
+            
         %li.conr-manearion
           %h1.info-contributor-name= "Manearion"
           .info-contributor-badges
             %span.badge= "Art Director"
+        
+        %li.conr-xtux
+          %h1.info-contributor-name= "Xtux"
+          .info-contributor-badges
+            %span.badge= "Web Designer"
             
         %li.conr-dash
           %h1.info-contributor-name= "Rainbow Dash"
