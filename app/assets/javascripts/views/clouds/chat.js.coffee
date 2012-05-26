@@ -178,7 +178,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   # Returns false.
   refreshPresence: (payload) ->
     if @.$(".chat-online-list > li[data-user-id=#{payload.id}]").length == 0
-      user = new Cloudsdale.Models.User(payload)
+      user = session.get('users').findOrInitialize(payload)
       user_view = new Cloudsdale.Views.CloudsChatUser(model: user, topic: @model)
       @.$(".chat-online-list").append(user_view.el)
     else
