@@ -2,7 +2,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   
   template: JST['clouds/chat']
   
-  model: 'cloud'
   tagName: 'div'
   className: 'container-inner chat-container'
   
@@ -11,11 +10,13 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
     'click a.cloud-settings-toggle' : 'openCloudSettingsDialog'
   
   initialize: ->
+    
     @render()
+        
     @fetchMessages()
     @bindEvents()
     @announcePresence()
-    
+
     @lastMessageView = null
     @lastAuthorId = null
     
@@ -40,6 +41,9 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       @scrollTop -= (delta * 30)
       event.preventDefault()
     
+    $(@el).bind "clouds:#{@model.id}:chat:inspect:user", (event,user) =>
+      @toggleUserInspect(user)
+      
     nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
       if payload.client_id != session.get('client_id')
         payload.topic = @model
@@ -58,18 +62,20 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   #
   # Returns the message model.
   createNewMessage: (args,do_save) ->
+    
+    args ||= {}
     args.topic = @model
+    args.user = session.get('user')
+    args.client_id = session.get('client_id')
+        
     message = new Cloudsdale.Models.Message(args)
-    message.set('client_id',session.get('client_id'))
-    message.user = session.get('user')
-    message.set('user', session.get('user'))
     
     @appendMessage(message)
-    
+
     message.save() if do_save == true
-    
+
     return message
-      
+    
   # Fetches the messages related to the chat and appends them to the chat frame.
   #
   # Returns the collection of messages.
@@ -198,8 +204,29 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
     $(@el).toggleClass('expanded-sidebar')
     @correctContainerScroll(true) unless $(@el).hasClass('expanded-sidebar')
     false
-        
+  
+  startProsecution: () ->
+    prosecution = new Cloudsdale.Models.Prosecution(offender: session.get('user'))
+    view = new Cloudsdale.Views.CloudsProsecutionDialog(model: prosecution)
+    @.$('.chat-wrapper').append(view.el)
+  
   openCloudSettingsDialog: () ->
     view = new Cloudsdale.Views.CloudsSettingsDialog(cloud: @model).el
     if $('.modal-container').length > 0 then $('.modal-container').replaceWith(view) else $('body').append(view)
-    false      
+    false
+  
+  toggleUserInspect: (user) ->
+    view = new Cloudsdale.Views.CloudsChatUserInspect(model: user, topic: @model).el
+    if @.$(".chat-inspect > .chat-inspect-content[data-user-id='#{user.id}']").length > 0
+      window.setTimeout =>
+        @resizeElements()
+      , 10
+      $(".chat-inspect > .chat-inspect-content[data-user-id='#{user.id}']").remove()
+    else
+      window.setTimeout =>
+        @resizeElements()
+      , 305
+      $('.chat-inspect').append(view)
+
+    false
+    

@@ -7,9 +7,12 @@ class Cloudsdale.Views.CloudsChatUser extends Backbone.View
   className: 'chat-user'
   
   events:
-    'click a' : 'openUserModal'
+    'click a' : 'openUserInspect'
   
   initialize: (args) ->
+    
+    args ||= {}
+    
     @topic = args.topic
     
     @bindEvents()
@@ -25,7 +28,6 @@ class Cloudsdale.Views.CloudsChatUser extends Backbone.View
   # Renders the template to the element.
   render: ->
     $(@el).html(@template(model: @model)).attr('data-user-id',@model.id)
-    @.$('a').popover()
     this
   
   # Binds specific events not bindable by backbone.
@@ -57,7 +59,8 @@ class Cloudsdale.Views.CloudsChatUser extends Backbone.View
     ), 5000
     false
   
-  openUserModal: (event) ->
+  openUserInspect: (event) ->
+    $.event.trigger "clouds:#{@topic.id}:chat:inspect:user", @model
     false
     
     

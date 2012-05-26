@@ -24,3 +24,13 @@ class Cloudsdale.Models.User extends Backbone.Model
   
   memberSince: ->
     new Date(@get('member_since'))
+  
+  ban: (attr) ->
+    attr ||= {}
+    attr.url = "/v1/users/#{@id}/ban.json"
+    return @save({},attr)
+  
+  unban: (attr) ->
+    attr ||= {}
+    attr.url = "/v1/users/#{@id}/unban.json"
+    return @save({},attr)

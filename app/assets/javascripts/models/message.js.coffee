@@ -2,11 +2,18 @@ class Cloudsdale.Models.Message extends Backbone.Model
   
   sync: railsRestSync
   
-  url: -> "/v1/#{@topic.type}s/#{@topic.id}/chat/messages"
+  url: -> "/v1/#{@get('topic').type}s/#{@get('topic').id}/chat/messages"
   
   initialize: (args) ->
-    @topic = args.topic
-    @user = if args.user then new Cloudsdale.Models.User(args.user) else null
+    args ||= {}
+    
+    topic = session.get('clouds').findOrInitialize(args.topic)
+    @set('topic',topic)
+    
+    user = session.get('users').findOrInitialize(args.user)
+    @set('user',user)
+    
+    # @get('user').on 'change', -> alert("wat")
       
   timestamp: ->
     new Date(@get('timestamp'))

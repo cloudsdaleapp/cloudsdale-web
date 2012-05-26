@@ -1,11 +1,28 @@
 class Cloudsdale.Models.Session extends Backbone.Model
   
   initialize: (attr) ->
+    
     @set 'user', new Cloudsdale.Models.User(@get('user'))
-    @reInitializeClouds()    
+    @set 'users', new Cloudsdale.Collections.Users()
+    
+    @get('users').add(@get('user'))
+    
+    @bindEvents()
+    @reInitializeClouds()
   
   listenToCloud: (cloud) ->
     this
+  
+  listenToPrivateChannel: ->
+    if @isLoggedIn()
+      nfc.on "users:#{@get('user').id}:private", (payload) =>
+        @get('user').set(payload)
+  
+  bindEvents: ->
+      
+    @get('user').on 'change', () =>
+      window.location.replace("/logout") if @get('user').get('is_banned')
+      @listenToPrivateChannel()
   
   # Returns true if the user is not a new user.
   isRegistered: -> @get('user').get('is_registered')
@@ -19,3 +36,9 @@ class Cloudsdale.Models.Session extends Backbone.Model
   reInitializeClouds: ->
     @set 'clouds', new Cloudsdale.Collections.Clouds(@get('user').get('clouds'))
     $.event.trigger 'clouds:initialize'
+  
+  isModerator: ->
+    $.inArray(@get('user').get('role'),["admin","moderator","creator"]) > -1
+  
+  isAdmin: ->
+    $.inArray(@get('user').get('role'),["creator","admin"]) > -1

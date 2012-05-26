@@ -14,6 +14,11 @@
         %a{ href: "#settings-avatar", "data-toggle" => "pill" }
           %i.icon-picture.icon-white
           = "Avatar"
+      
+      %li
+        %a{ href: "#settings-moderators", "data-toggle" => "pill" }
+          %i.icon-user.icon-white
+          = "Moderators"
         
   .modal-body
     .tab-content
@@ -53,3 +58,9 @@
             %a.btn.btn-danger.remove-avatar{ href: "#" }
               %i.icon-white.icon-remove
               = "Remove Avatar"
+              
+      .tab-pane#settings-moderators
+        .control-group
+          %label.control-label{ for: 'cloud_name' }= "Cloud Name"
+          .controls
+            %input#cloud_name{ type: 'text', name: 'name', placeholder: "Cloud Name", value: @cloud.get('name') }

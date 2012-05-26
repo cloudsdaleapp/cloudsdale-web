@@ -7,7 +7,6 @@ do ($ = jQuery) ->
   
   window.addGlobalNotification = (num) ->
     window.globalNotifications += num
-    console.log window.globalNotifications
     window.setGlobalNotification()
   
   window.subtractGlobalNotification = (num) ->
@@ -26,7 +25,7 @@ do ($ = jQuery) ->
   window.NotificationCentre = class NotificationCentre
   
     constructor: (args) ->
-      @cli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", { timeout: 1000 })
+      @cli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", { timeout: 120 })
       subscription = @cli.subscribe('/')
       
       subscription.callback =>

@@ -7,6 +7,7 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
   className: 'view-container'
   
   initialize: ->
+    
     @render()
     @bind()
   

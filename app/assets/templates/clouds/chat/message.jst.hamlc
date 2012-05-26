@@ -1,8 +1,10 @@
 .chat-message-avatar
-  %img{ src: @model.user.get('avatar').thumb }
+  %a.message-user-inspect{ href: "#" }
+    %img{ src: @model.get('user').get('avatar').thumb }
 .chat-message-meta
   %span= @model.timestamp().toString('HH:mm:ss')
 .chat-message-head
-  = @model.user.get('name')
+  %a.message-user-inspect{ href: "#" }
+    = @model.get('user').get('name')
 .chat-message-content
   %p= @model.get('content')

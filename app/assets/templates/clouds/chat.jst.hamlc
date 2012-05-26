@@ -10,8 +10,9 @@
 .chat-wrapper
   .chat-messages
   .chat-footer{ class: 'with-access-to-settings' if session.user.get('id') == @model.get('admin').id }
-    %a.cloud-settings-toggle{ href: "#" }
+    .chat-inspect
     %form.chat-message-form{ id: "#{@model.id}-message" }
+      %a.cloud-settings-toggle{ href: "#" }
       %input{ type: 'hidden', value: session.get('client_id'), name: 'client_id' }
       .better-grow-parent
         %textarea.chat-message-content{ name: 'content', id: "#{@model.id}-content" }

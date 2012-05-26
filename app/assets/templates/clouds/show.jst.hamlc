@@ -5,16 +5,6 @@
         %img{ src: @model.get('avatar').normal }
       %h2= @model.get('name')
       %p= @model.get('description')
-
-    .cloud-content.tab-content
-      .cloud-dropzone.tab-pane{ id: "#{@model.id}-dropzone" }
-        %h3= "Dropzone"
-      .cloud-rules.tab-pane{ id: "#{@model.id}-rules" }
-        %h3= "Rules"
-      .cloud-members.tab-pane{ id: "#{@model.id}-members" }
-        %h3= "Members"
-      .cloud-settings.tab-pane{ id: "#{@model.id}-settings" }
-        %h3= "Settings"
   
 .float-container.with-fixed-container
   .container-inner

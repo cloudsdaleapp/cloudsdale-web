@@ -1,0 +1,18 @@
+%img{ src:  @model.get('offender').get('avatar').normal }
+%a.close{ href: "#" }= "×"
+
+%h2= @model.get('offender').get('name') + " is on trial."
+
+.chat-dialog-inner
+  .dialog-actions
+    %a.btn.btn-success{ href: "#", data: { 'vote-value' => "up" } }
+      %i.icon-white.icon-ok
+    %a.btn.btn-danger{ href: "#", data: { 'vote-value' => "down" } }
+      %i.icon-white.icon-remove
+
+  .chat-dialog-timer= "60"
+
+  %p
+    = @model.get('argument')
+    %span= "Sentence - #{@model.get('sentence')} until #{Date.parse(@model.get('sentence_due'))}."
+  

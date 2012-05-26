@@ -128,7 +128,7 @@ class Api::V1::UsersController < Api::V1Controller
   def unban
     @user = User.find(params[:id])
     authorize! :unban, @user
-    
+        
     if @user.unban!
       render status: 200
     else

@@ -1,0 +1,13 @@
+.explore-wrapper
+  %form#explore-search
+    .control-group
+      .controls
+        %input{ type: 'text' name: 'q', id: 'search_q', placeholder: 'Search for a cloud...' }
+        %button.btn.btn-info
+          %i.icon-search.icon-white
+          
+  .explore-inner
+    .explore-content-wrapper{ data: { 'explore-content-id' => 'search' } }
+      %ul.explore-results
+      .explore-preview
+      

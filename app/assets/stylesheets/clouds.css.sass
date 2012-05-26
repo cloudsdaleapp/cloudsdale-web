@@ -1,3 +1,22 @@
+@-webkit-keyframes slideInInspect
+  0%
+    height: 0px
+  100%
+    height: 40px
+
+@-moz-keyframes slideInInspect
+  0%
+    height: 0px
+  100%
+    height: 40px
+
+@keyframes slideInInspect
+  0%
+    height: 0px
+  100%
+    height: 40px
+
+
 .cloud-head
   padding: 10px
   // border-bottom: rgba(0,0,0,.3) 1px dashed
@@ -330,24 +349,24 @@ ul.chat-online-list
   overflow: auto
 .chat-footer
   position: absolute
+  z-index: 5
   bottom: 0
   height: auto
   left: 0
   right: 0
-  padding: 5px
   border-top: rgba(0,0,0,.2) solid 1px
   +linear-gradient(#f8f8f8,#efefef)
   
   &.with-access-to-settings
     form
-      margin: 0 56px 0px 0px
+      margin: 5px 61px 5px 5px
     
   &:not(.with-access-to-settings)
     a.cloud-settings-toggle
       display: none
   form
     position: relative
-    margin: 0 25px 0px 0px
+    margin: 5px 30px 5px 5px
     float: none
     padding-bottom: 6px
     pre
@@ -370,19 +389,18 @@ ul.chat-online-list
       +box-shadow-inset(0px,0px,1px,rgba(255,255,255,1))
       height: auto
   
-  a.cloud-settings-toggle
-    position: absolute
-    right: 0
-    top: 0
-    height: 25px
-    width: 25px
-    margin: 5px
-    background-image: asset-data-url("icons/glyphicons/gray/cogwheel.png")
-    background-position: center center
-    background-size: 100%
-    +opacity(.4)
-    &:hover
-      +opacity(.7)
+a.cloud-settings-toggle
+  position: absolute
+  right: -56px
+  top: 0px
+  height: 25px
+  width: 25px
+  background-image: asset-data-url("icons/glyphicons/gray/cogwheel.png")
+  background-position: center center
+  background-size: 100%
+  +opacity(.4)
+  &:hover
+    +opacity(.7)
       
 .chat-message
   border-top: rgb(255,255,255) solid 1px
@@ -420,6 +438,10 @@ ul.chat-online-list
   .chat-message-head
     margin-bottom: 5px
     font-weight: bold
+    a
+      color: inherit
+      &:hover
+        text-decoration: none
     
   .chat-message-content
     padding-left: 60px
@@ -427,7 +449,49 @@ ul.chat-online-list
       margin-bottom: 4px
       word-wrap: break-word
     
+
+.chat-inspect
+  position: relative
+
+.chat-inspect-content
+  position: relative
+  +linear-gradient(#F8F8F8,#EFEFEF)
+  border-bottom: rgba(0,0,0,.2) solid 1px
+  z-index: 1
+  overflow: hidden
+  @each $vendor in "", -webkit-, -moz-
+    #{$vendor}animation-name: slideInInspect
+    #{$vendor}animation-duration: .3s
+    #{$vendor}animation-delay: .1
+    #{$vendor}animation-fill-mode: backwards
+    #{$vendor}animation-timing-function: ease-in-out
     
+img.inspect-user-avatar
+  margin: 7px 14px 7px 7px
+  border: 1px solid $color-border-heavy
+  background: #B3B3B3
+
+span.inspect-user-name
+  line-height: 40px
+  font-size: 14px
+  font-weight: bold
+
+.inspect-user-actions
+  position: absolute
+  right: 0
+  top: 0
+  bottom: 0
+  margin: 7px
+  width: 300px
+  text-align: right
+  a
+    margin-left: 4px
+    border-color: $color-border-heavy
+    span
+      pointer-events: none
+      @media (max-width: $ipad-max)
+        display: none
+  
 
 // body.clouds
 //   &.edit, &.new
