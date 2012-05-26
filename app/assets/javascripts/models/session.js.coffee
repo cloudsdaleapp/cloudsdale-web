@@ -3,8 +3,9 @@ class Cloudsdale.Models.Session extends Backbone.Model
   initialize: (attr) ->
     
     @set 'user', new Cloudsdale.Models.User(@get('user'))
-    @set 'users', new Cloudsdale.Collections.Users()
+    @listenToPrivateChannel()
     
+    @set 'users', new Cloudsdale.Collections.Users()
     @get('users').add(@get('user'))
     
     @bindEvents()
@@ -20,9 +21,9 @@ class Cloudsdale.Models.Session extends Backbone.Model
   
   bindEvents: ->
       
-    @get('user').on 'change', () =>
-      window.location.replace("/logout") if @get('user').get('is_banned')
-      @listenToPrivateChannel()
+    @get('user').on 'change', (user) =>
+      window.location.replace("/logout") if user.get('is_banned')
+      @listenToPrivateChannel() 
   
   # Returns true if the user is not a new user.
   isRegistered: -> @get('user').get('is_registered')
