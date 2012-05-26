@@ -39,10 +39,6 @@ class Drop
     self[:src_meta] = {}.deep_merge(self[:src_meta].to_hash)
     self[:_type] = "Drop"
   end
-  
-  def self.paginate(options = {})
-     page(options[:page]).per(options[:per_page])
-  end
     
   def self.find_or_initialize_from_matched_url(url)
     response  = Urifetch.fetch(url)
