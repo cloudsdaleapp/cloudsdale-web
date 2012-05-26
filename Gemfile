@@ -12,6 +12,7 @@ gem 'bson_ext', '1.5.2'
 gem 'mongoid_rails_migrations'
 gem 'mongoid_fulltext'
 gem 'voteable_mongo'
+gem 'kaminari'
 
 gem 'redis'
 gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
