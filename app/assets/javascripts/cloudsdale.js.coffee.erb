@@ -48,11 +48,12 @@ window.Cloudsdale =
     window.app = Backbone.history
 
 $(document).ready ->
+  # Initializes the notification centre
+  window.nfc = new NotificationCentre()
+  
   # Sets the session for the current user
   window.session = new Cloudsdale.Models.Session($('body').data().session)
   
-  # Initializes the notification centre
-  window.nfc = new NotificationCentre()
   $(document).bind "connected:nfc", ->
     
     # Changes an attribute to the document if focused
