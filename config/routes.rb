@@ -10,6 +10,8 @@ Cloudsdale::Application.routes.draw do
       get   :recent,  on: :collection, as: :recent
       get   :popular, on: :collection, as: :popular
       
+      resources :drops, :controller => "clouds/drops", only: [:index]
+      
       namespace :chat, module: 'clouds/chat' do
         resources :messages, only: [:index,:create]
       end
