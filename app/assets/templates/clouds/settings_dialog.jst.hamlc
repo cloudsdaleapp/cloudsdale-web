@@ -18,7 +18,12 @@
       %li
         %a{ href: "#settings-moderators", "data-toggle" => "pill" }
           %i.icon-user.icon-white
-          = "Moderators"
+          = "Mods"  
+      %li
+        %a{ href: "#settings-rules", "data-toggle" => "pill" }
+          %i.icon-list.icon-white
+          = "Rules"
+          
         
   .modal-body
     .tab-content
@@ -60,7 +65,10 @@
               = "Remove Avatar"
               
       .tab-pane#settings-moderators
+      
+      .tab-pane#settings-rules
         .control-group
-          %label.control-label{ for: 'cloud_name' }= "Cloud Name"
+          %label.control-label{ for: 'cloud_name' }= "Rules for #{@cloud.get('name')}"
           .controls
-            %input#cloud_name{ type: 'text', name: 'name', placeholder: "Cloud Name", value: @cloud.get('name') }
+            %textarea#cloud_rules{ name: 'rules', placeholder: "Rules..." }
+              = @cloud.get('rules')

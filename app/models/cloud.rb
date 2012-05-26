@@ -12,11 +12,12 @@ class Cloud
   
   attr_accessor :user_invite_tokens
   
-  attr_accessible :name, :description, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url
+  attr_accessible :name, :description, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules
   attr_accessible :owner_id, as: [:owner]
   
   field :name,          type: String
   field :description,   type: String
+  field :rules,         type: String
   field :hidden,        type: Boolean,        default: false
   field :locked,        type: Boolean,        default: false
   field :featured,      type: Boolean,        default: false
