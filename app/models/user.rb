@@ -237,7 +237,7 @@ class User
     oauth     = options[:oauth]
     user      = nil
     
-    if oauth && oauth[:token] == INTERNAL_TOKEN
+    if oauth && oauth[:token] == BCrypt::Engine.hash_secret("#{oauth[:uid]}#{oauth[:provider]}",INTERNAL_TOKEN)
       
       if ["twitter","facebook"].include?(oauth[:provider])
         
