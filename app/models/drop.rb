@@ -33,6 +33,8 @@ class Drop
   
   scope :expired, -> { where( :last_load.gt => 1.week.ago ) }
   scope :only_visable, where(hidden: false)
+  scope :after_on_topic, -> time, topic { where(:"deposits.#{topic.id}_updated_at".lt => time, "deposits.depositable_id" => topic.id) }
+  scope :order_by_topic, -> topic { order_by("deposits.#{topic.id}_updated_at",:desc) }
   
   before_save do
     re_fetch if last_load.nil? or last_load < 1.week.ago
