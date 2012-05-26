@@ -123,7 +123,8 @@ class User
   #   date_time - The DateTime of when the suspension will seize.
   #
   # Returns true if the user could be saved.
-  def ban!(date_time = -> { DateTime.now + 48.hours }.call, reason="unknown reason")
+  def ban!(date_time=nil, reason="unknown reason")
+    date_time = DateTime.now + 48.hours unless date_time.present?
     ban(date_time,reason); save
   end
   
@@ -132,7 +133,8 @@ class User
   #   date_time - The DateTime of when the suspension will seize.
   #
   # Returns the DateTime instance.
-  def ban(date_time = -> { DateTime.now + 48.hours }.call, reason="unknown reason")
+  def ban(date_time=nil, reason="unknown reason")
+    date_time = DateTime.now + 48.hours unless date_time.present?
     date_time = [DateTime,Time,Date].include?(date_time.class) ? date_time.to_datetime : DateTime.parse(date_time)
     self.suspended_until = date_time
     self.reason_for_suspension = reason
