@@ -53,3 +53,13 @@
           %h1.info-contributor-name= "Rainbow Dash"
           .info-contributor-badges
             %span.badge.badge-inverse= "Admin"
+
+        %li.conr-six
+          %h1.info-contributor-name= "Six Reader"
+          .info-contributor-badges
+            %span.badge.badge-inverse= "Admin"
+
+        %li.conr-shan
+          %h1.info-contributor-name= "Shansai"
+          .info-contributor-badges
+            %span.badge.badge-inverse= "Admin"
