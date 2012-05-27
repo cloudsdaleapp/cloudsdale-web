@@ -29,7 +29,7 @@ class Api::V1::SessionsController < Api::V1Controller
     
       render_exception("You don't have access to this service.", 403)
     
-    elsif (params[:password].nil? && params[:email].nil?) && (params[:oauth][:provider].nil? && params[:oauth][:uid].nil?)
+    elsif (params[:password].nil? && params[:email].nil?) && ( params[:oauth].try(:fetch, :provider).nil? && params[:oauth].try(:fetch, :uid).nil? )
       
       set_flash_message message: "You did not supply valid credentials.", title: "Login error!", type: "error"
       render_exception "You need to specify a valid authentication method. With either oAuth or Email/Password", 400
