@@ -36,6 +36,14 @@ window.getObjectClass = (obj) ->
     
   undefined
 
+window.escapeHTML = (html) ->
+  escaped = html
+  findReplace = [ [ /&/g, "&amp;" ], [ /</g, "&lt;" ], [ />/g, "&gt;" ], [ /"/g, "&quot;" ] ]
+  for item of findReplace
+    escaped = escaped.replace(findReplace[item][0], findReplace[item][1])
+  
+  return escaped
+
 window.Cloudsdale =
   Models: {}
   Collections: {}
