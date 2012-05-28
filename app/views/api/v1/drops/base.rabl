@@ -1,5 +1,7 @@
 object @drop
 
-node(:id) { |user| user._id.to_s }
+node(:id) { |drop| drop._id.to_s }
 
 attributes :url, :status, :title
+
+node(:preview) { |drop| drop.preview.thumb.url }
