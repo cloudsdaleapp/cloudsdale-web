@@ -15,6 +15,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   
   render: ->
     $(@el).html(@template(model: @model))
+    @appendContent(@model)
     this
   
   bindEvents: ->
@@ -27,8 +28,11 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   
   # Appends content to the message
   appendContent: (message) ->
-    @.$('.chat-message-content').append("<p>#{message.get('content')}</p>")
-    @.$('.chat-message-meta').html(message.timestamp().toString('HH:mm:ss'))
+    content = escapeHTML(message.get('content')).autoLink({ target: "_blank", rel: "nofollow" })
+    
+    @.$('.chat-message-content').append("<p>#{content}</p>")
+    @.$('.chat-message-meta').text(message.timestamp().toString('HH:mm:ss'))
+    
   
   openUserInspect: (event) ->
     $.event.trigger "clouds:#{@model.get('topic').id}:chat:inspect:user", @model.get('user')
