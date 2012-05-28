@@ -34,7 +34,11 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
     @message.author = current_user
     
     authorize! :create, @message
-      
+    
+    @message.urls.each do |url|
+      @cloud.create_drop_deposit_from_url_by_user(url,current_user)
+    end
+
     if @message.save
       render status: 200
     else
