@@ -1,510 +1,138 @@
-body.drops
-  &.search
-    .page-header
-      padding: 10px
-      +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-      -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-      -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-      -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-      border: 1px rgba(50, 50, 50, 0.3) solid
-      +border-radius(5px)
-      
-      h2
-        padding: 5px 10px
-        span
-          float: right
-          font-size: 60%
-          margin-left: 10px
-    .row > .span4
-      overflow: visible
-      
-
-form#drop
-  padding: 0
-  margin: 0 0 0 0
-  padding: 10px
-  +linear-gradient(#fff,#F5F5F5)
-  border: 1px #B3B3B3 solid
-  +border-radius(5px 5px 0 0)
-  position: relative
+.drop-wrapper
+  @media (max-width: $phone)
   
-  span.help-block
-    display: none
+  @media (min-width: $ipad-min)
     position: absolute
-    color: #C82E21
-    padding: 2px 7px
-    font-weight: bold
-    top: -24px
-  
-  i
-    margin-top: 1px
-  
-  input
-    border: 1px rgba(0, 0, 0, .3) solid
-    margin: 0 0 0 5px
-    &[type=text]
-      +border-radius(0)
-      +box-shadow-inset(0px,0,1px,rgba(0,0,0,0.1))
-      background: rgba(255,255,255,.95)
-  
-  &.error
-    span.help-block
-      display: inline
-    input[type=text]
-      border-color: #C82E21
-    input[type=submit]
-      +opacity(.8)
-      pointer-events: none
+    top: 201px
+    bottom: 0
+    left: 0
+    right: 0
+    overflow: auto
     
-          
-ul.drop-facet-list
-  list-style: none
-  margin: 0
-  padding: 5px 10px
-  +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-  -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-  border: 1px rgba(50, 50, 50, 0.3) solid
-  +border-radius(5px)
+    background: #e0e0e0 asset-data-url("bg-noise.png")
   
-  lh
-    font-size: 14px
-    line-height: 26px
-    font-weight: bold
-      
-  li
-    padding: 0
-    line-height: 20px
-    font-weight: bold
-    text-align: right
-    &:not(.list-head)
-      margin-right: 0px
-      background: transparent left center no-repeat
-    
-    &.recent
-      background-image: image-url("icons/iconic/gray_dark/clock_12x12.png")
-      &.active
-        background-image: image-url("icons/iconic/blue/clock_12x12.png")
-    &.rating
-      background-image: image-url("icons/iconic/gray_dark/arrow_up_alt1_12x12.png")
-      &.active
-        background-image: image-url("icons/iconic/green/arrow_up_alt1_12x12.png")
-    &.visits
-      background-image: image-url("icons/iconic/gray_dark/eye_12x9.png")
-      &.active
-        background-image: image-url("icons/iconic/orange/eye_12x9.png")
-    &.relevance
-      background-image: image-url("icons/iconic/gray_dark/target_12x12.png")
-      &.active
-        background-image: image-url("icons/iconic/red/target_12x12.png")
-    &.active
-      a
-        margin-right: 0px
-        &:after
-          +opacity(1)
-    a
-      color: $color-dark-gray
+  form
+    position: relative
+    padding: 5px 30px 5px 5px
+    margin: 0
+    float: none
+    border-bottom: 1px solid rgba(0,0,0,.3)
+    +linear-gradient(#f8f8f8,#EFEFEF)
+    i.icon-search
+      position: absolute
+      margin: 5px
+    a.drop-close-search
+      position: absolute
+      display: none
+      right: 5px
+      margin: 5px
+      height: 14px
+      width: 14px
+      line-height: 10px
       font-weight: bold
-      &:after
-        content: " »"
-        +opacity(0)
+      text-align: center
+      background: rgba(0,0,0,.2)
+      color: rgba(255,255,255,.7)
+      +border-radius(7px)
       &:hover
+        background: rgba(0,0,0,.4)
         text-decoration: none
-        &:after
-          +opacity(1)
-      
-      &.loading
-        background-image: $img-spinner-dark
-        background-size: 12px 12px
-      
+        
+    input
+      width: 100%
+      padding: 3px 3px 0px 20px
+      font-size: 12px
+      resize: none
+      min-height: 20px
+      color: #404040
+      background: rgba(0, 0, 0, 0.05)
+      border: rgba(0, 0, 20, 0.2) solid 1px
+      margin-bottom: 0
+      +border-radius(3px)
+      +box-shadow-inset(0px,0px,1px,rgba(255,255,255,1))
+      height: auto
+  &.with-search-results
+    a.drop-close-search
+      display: block
 
 ul.drop-list
   list-style: none
-  margin: 0
   padding: 0
-  //margin-left: 28px
-  +border-radius(0 0 5px 5px)
+  margin: 0
   
-  li.pending
-    position: relative
-    margin: 15px
-    padding-left: 22px
-    background: transparent $img-spinner-dark 0 top no-repeat
-    h6
-      line-height: 16px
-      font-size: 10px
-    
-  li.drop
-    position: relative
-    padding: 14px
-    +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-    background: #fff
-    border: 1px #B3B3B3 solid
-    border-top: 0
-    
-    &:last-child
-      border-bottom: 1px #B3B3B3 solid
-      +border-radius(0 0 5px 5px)
-      
-    &.above-expanded
-      border-bottom: 1px solid #B3B3B3
-      +border-radius(0 0 5px 5px)
-    &.below-expanded
-      border-top: 1px solid #B3B3B3
-      +border-radius(5px 5px 0 0)
-    &.expanded
-      margin: 20px 0
-      border: 1px solid #B3B3B3
-      +border-radius(5px)
-      .drop-extras
-        display: block
-      .drop-content
-        .info
-          display: block
-    
-    &:hover
-      .drop-content
-        .info
-          display: block
-      nav
-        a.drop-expand
-          display: block
-          
-    header
-      margin: 0
-      padding: 3px 0
-      
-      img
-        float: left
-        max-height: 16px
-        max-width: 16px
-        margin: 2px 6px 2px 2px
-      a
-        color: $color-dark-gray
-        font-weight: bold
-        font-size: 13px
-        text-shadow: 1px 1px 1px rgba(255,255,255,1)
-        &:hover
-          text-decoration: none
-          color: lighten($color-dark-gray,20%)
-    
-    .drop-extras
-      display: none
-      padding: 10px 0
-      min-height: 200px
-      &:after
-        content: "."
-        display: block
-        clear: both
-        visibility: hidden
-        line-height: 0
-        height: 0
-      	
-      .drop-votes
-        float: left
-        margin-right: 20px
-        margin-bottom: 20px
-        width: 150px
-        text-align: right
-        a
-          padding: 1px 3px
-          display: block
-          +opacity(.50)
-          &:hover
-            +opacity(.70)
-          &.selected
-            +opacity(1)
-            &:hover
-              +opacity(.60)
-        
-        span.score
-          color: $color-dark-gray
-          float: left
-          font-size: 31px
-          line-height: 40px
-          font-weight: bold
-          margin-left: 3px
-          
-      ul.drop-tags
-        float: left
-        padding: 0
-        margin: 0
-        margin-right: 20px
-        margin-bottom: 20px
-        width: 150px
-        list-style: none inside
-        li
-          margin-bottom: 7px
-          background: lighten($color-cd-background-light,30%)
-          //+linear-gradient($color-cd-background-light,$color-cd-background-dark)
-          // -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,1)
-          // -o-box-shadow: 0 1px 4px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,1)
-          // -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,1)
-          // box-shadow: 0 1px 4px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,1)
-          bottom: 1px rgba(50,50,50,.2) solid
-          +border-radius(7px)
-          a
-            font-weight: bold
-            display: block
-            color: rgba(50,50,50,.5)
-            padding: 5px
-            &:hover
-              text-decoration: none
-        
-      .drop-reflections
-        float: right
-        width: 330px
-        min-height: 200px
-        
-        ul.drop-reflections-list
-          list-style: none inside
-          padding: 0
-          margin: 0
-          & > li
-            border-top: 1px solid rgba(50, 50, 50, 0.2)
-            padding: 5px 0
-            position: relative
-            &:first-child
-              border-top: 0
-            &:hover
-              .btn-toolbar
-                +opacity(1)
-                
-            .drop-reflection-user-avatar
-              float: left
-              margin-right: 7px
-              a
-                float: left
-                img
-                  float: left
-                  
-            .btn-toolbar
-              float: right
-              margin: 0 0 0 0
-              display: inline-block
-              +opacity(0)
-              .btn-group
-                float: left
-              
-            p
-              word-wrap: break-word
-              line-height: 24px
-              & > a
-                margin-right: 1px
-                font-weight: bold
-                &:hover
-                  text-decoration: none
-                  
-        
-        form.drop-reflection-new
-          &.active
-            .form-actions
-              display: block
-          
-          &.invalid
-            .form-actions
-              span.drop-reflection-counter
-                color: #CC0000
-              
-          .control-group
-            .controls
-              textarea
-                +border-radius(0)
-                border: rgba(50, 50, 50, 0.3) 1px solid
-                background: rgba(255,255,255,.8)
-                margin: 0
-                width: 320px
-                height: 18px
-                resize: none
-                +transition(opacity .3s ease-out)
-                +opacity(.6)
-                &:focus
-                  border-color: lighten($color-cd-background-light,10%)
-                  +opacity(1)
-              
-          .form-actions
-            background: none
-            border: 0
-            margin: 0
-            padding: 0
-            text-align: right
-            display: none
-            input[type=submit]
-              margin: 0
-              &.disabled, &[disabled]
-                background-color: #CCCCCC
-                color: #666666
-                text-shadow: 1px 1px 1px rgba(255,255,255,.4)
-                
-            span.drop-reflection-counter
-              line-height: 28px
-              font-size: 13px
-              font-weight: bold
-              float: left
-              margin-left: 5px
-        
-    .drop-content
-      position: relative
-      padding: 0
-      word-wrap: break-word
-      // border-top: 1px #D9D9D9 solid
-
-      &:after
-        content: "."
-        display: block
-        clear: both
-        visibility: hidden
-        line-height: 0
-        height: 0
-            
-      .float-left
-        float: left
-        +border-radius(2px)
-        //+linear-gradient(#fff,#E8F1FF)
-        +box-shadow(3px, 3px, 3px, rgba(0,0,0,.05))
-        padding: 3px
-        margin: 10px 10px 10px 0
-        border: 1px rgba(50, 50, 50, 0.3) solid
-        &:hover
-          border-color: $color-cd-background-light
-          img
-            border-color: lighten($color-cd-background-light,10%)
-        img
-          background: #fff
-          border: 1px rgba(50, 50, 50, 0.2) solid
-          max-width: 490px
-          &.drop-preview-banner
-            min-width: 490px
-          &.drop-preview-portrait
-            min-width: 220px
-          &.drop-preview-thumb
-            min-width: 120px
-          &.drop-preview-base
-            min-width: 0
-        a
-          float: left
-          display: block
-          line-height: 0
-      
-      .description
-        font-size: 12px
-        span
-          font-weight: bold
-          
-      .info
-        position: absolute
-        bottom: 2px
-        left: 10px
-        font-size: 10px
-        color: #FFFFFF
-        background: rgba(0,0,0,.5)
-        border: 1px solid #B3B3B3
-        padding: 2px 4px
-        +border-radius(3px)
-        font-weight: bold
-        display: none
-        a
-          color: $color-dark-gray
-          &:hover
-            color: lighten($color-dark-gray,20%)
-        
-        span
-          display: inline
-          margin-right: 7px
-          &:last-child
-            margin-right: 0
-
-    nav
-      margin: 0
-      padding: 0
-      word-wrap: break-word
-      font-size: 11px
-      &:after
-        content: "."
-        display: block
-        clear: both
-        visibility: hidden
-        line-height: 0
-        height: 0
-      a, span
-        line-height: 22px
-        padding: 0 2px
-        display: inline
-      a.drop-expand
-        display: none
-        float: right
-        +opacity(.6)
-        &:hover
-          +opacity(1)
-    
-  .pagination
-    h6
-      text-align: center
-      
-// IMAGE DROP
-
-ul.drop-list > li.drop.default, ul.drop-list > li.drop.base
-  .drop-content
-    min-height: 45px
-    
-ul.drop-list > li.drop.image
-  .drop-content
-
-
-ul.drop-list > li.drop.pdf_document
-  .drop-content
-
-ul.drop-list > li.drop.youtube_video
-  header
-    border-color: rgb(62,62,62)
-  nav
-    border-color: rgb(40,40,40)
-    
-  .drop-content
-    .description
-      padding-top: 5px
-      margin-bottom: 3px
-      padding-right: 10px
-      span.genre
-        float: right
-      p
-        padding-right: 10px
+li.drop
+  display: block
+  border-bottom: 1px solid rgba(0,0,0,.3)
+  &:not(:first-child)
+    border-top: 1px solid rgba(255,255,255,.9)
   
-ul.drop-list > li.drop.cloudsdale_users, ul.drop-list > li.drop.cloudsdale_clouds
-  header
-    border-color: $color-cd-background-light
-  nav
-    border-color: $color-cd-background-dark
-  .drop-content
-    .description
-      padding-top: 5px
-      margin-bottom: 3px
-      padding-right: 10px
-      span
-        &.created-at, &.member-since
-          float: left
-        &.subscriber-count, &.member-count
-          float: right
-      p
-        padding-right: 10px
+  +linear-gradient(#f9f9f9,#f4f4f4)
+  &:hover
+    +linear-gradient(#f1f1f1,#e6e6e6)
+    cursor: pointer
+    
+    
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
 
-ul.drop-list > li.drop.soundcloud_track, ul.drop-list > li.drop.soundcloud_user
-  header
-    border-color: rgb(35,133,255)
-  nav
-    border-color: rgb(84,162,255)
-  .drop-content
-    .description
-      padding-top: 5px
-      margin-bottom: 3px
-      padding-right: 10px
-      span.genre
-        float: right
-      p
-        padding-right: 10px
+
+a.drop-preview
+  height: 92px
+  width: 122px
+  margin: 7px
+  float:  left
+  padding: 5px
+  border: 1px solid $color-border-light
+  background: #fff
+  +box-shadow(1px,1px,3px,rgba(0,0,0,.1))
+  +border-radius(3px)
+  &:hover
+    border-color: #8AB8DC
+    img
+      border-color: #8AB8DC
+  img
+    border: 1px solid $color-border-light
+    height: 90px
+    width: 120px
+    +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
     
-    
-      
+
+a.drop-title
+  line-height: 18px
+  font-size: 13px
+  margin-left: 155px
+  padding: 10px 10px 10px 0
+  font-weight: bold
+  display: block
+  span
+    word-wrap: break-word
+  &:hover
+    text-decoration: none
+
+a.drop-load-more
+  margin: 10px
+  padding: 5px
+  display: block
+  line-height: 24px
+  font-size: 16px
+  color: #666666
+  text-align: center
+  text-shadow: 1px 1px 0 rgba(255,255,255,.9)
+  
+  border: 1px $color-border-heavy solid
+  +linear-gradient(#f8f8f8,#f4f4f4)
+  +border-radius(5px)
+  +transition(background .3s ease)
+  &:hover
+    +linear-gradient(#f4f4f4,#f0f0f0)
+    color: #555555
+    text-decoration: none
+  
+  &.no-more-results
+    display: none
+
