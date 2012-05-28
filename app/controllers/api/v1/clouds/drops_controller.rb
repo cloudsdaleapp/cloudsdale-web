@@ -1,24 +1,24 @@
 class Api::V1::Clouds::DropsController < Api::V1Controller
   
-  # Fetches the the drops for the cloud with :cloud_id
-  # this query can be paginated from a timestamp.
-  #
-  #
   #   headers - The headers you can use to modify your results:
   #
   #             X-Result-Page - An Integer used as an offset for the pagination.
   #             X-Result-Time - A DateTime timestamp of which you should fetch no records after.
-  #   
-  # Returns a Drops collection with 10 results at a time.
   #
-  #   headers - The headers you can use to modify your next request:
-  #
-  #             X-Result-Page - An Integer used as an offset for the pagination.
-  #             X-Result-Time - A DateTime timestamp of which you should fetch no records after.
-  def index
+  before_filter only: [:index,:search] do
     
     @page = request.headers["X_RESULT_PAGE"].to_i || 1
-    @time = request.headers["X_RESULT_TIME"] ? Time.parse(request.header["X_RESULT_TIME"]) : Time.now
+    @time = request.headers["X_RESULT_TIME"] ? Time.parse(request.headers["X_RESULT_TIME"]) : Time.now
+    
+  end
+  
+  # Fetches the the drops for the cloud with :cloud_id
+  # this query can be paginated from a timestamp.
+  #
+  #   cloud_id - The id of the clouds of where to scope the drop results.
+  #
+  # Returns a Drops collection with 10 results at a time.
+  def index
     
     @cloud = Cloud.find(params[:cloud_id])
     
@@ -30,7 +30,6 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
     
   end
   
-  after_filter only: [:index] do
   # Fetches the the drops for the cloud with :cloud_id
   # based on :q search query.
   #
@@ -50,6 +49,15 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
         
     render status: 200
     
+  end
+  
+  # Returns a Drops collection with 10 results at a time.
+  #
+  #   headers - The headers you can use to modify your next request:
+  #
+  #             X-Result-Page - An Integer used as an offset for the pagination.
+  #             X-Result-Time - A DateTime timestamp of which you should fetch no records after.
+  after_filter only: [:index,:search] do
     
     response.headers["X-Result-Page"] = @page.to_s
     
