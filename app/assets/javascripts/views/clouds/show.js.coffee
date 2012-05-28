@@ -33,3 +33,7 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
       @.$('.float-container').html(@chat_view.el)
     else
       @chat_view.correctContainerScroll(true)
+    
+    if @.$('.drop-wrapper').children().length == 0
+      @drop_view = new Cloudsdale.Views.CloudsDrops(model: @model)
+      @.$('.drop-wrapper').replaceWith(@drop_view.el)

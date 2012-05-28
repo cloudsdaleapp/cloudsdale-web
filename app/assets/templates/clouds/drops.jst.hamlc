@@ -1,0 +1,8 @@
+%form{ id: "drop-search-form-#{@model.id}"}
+  %i.icon-search
+  %a.drop-close-search{ href: '#' }= "×"
+  %input{ type: 'text', name: 'q' }
+  
+%ul.drop-list
+      
+%a.drop-load-more{ href: '#' }= "load more..."

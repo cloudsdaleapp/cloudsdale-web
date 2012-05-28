@@ -19,16 +19,19 @@
 
 .cloud-head
   padding: 10px
-  // border-bottom: rgba(0,0,0,.3) 1px dashed
+  border-bottom: $color-border-light 1px solid
+  @media (min-width: $ipad-min)
+    height: 180px
+    
   .float-left
     margin-bottom: 0
     img
-      height: 100px
-      width: 100px
+      height: 70px
+      width: 70px
       +border-radius(10px)
   
   p, h2
-    margin-left: 110px
+    margin-left: 80px
     word-wrap: break-word
 
 .cloud-nav
@@ -439,13 +442,16 @@ a.cloud-settings-toggle
     margin-bottom: 5px
     font-weight: bold
     a
+      color: #333333
       color: inherit
       &:hover
         text-decoration: none
+        color: $color-blue
     
   .chat-message-content
     padding-left: 60px
     p
+      color: #333333
       margin-bottom: 4px
       word-wrap: break-word
     
