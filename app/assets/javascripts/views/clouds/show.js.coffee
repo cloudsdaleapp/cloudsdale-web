@@ -18,6 +18,12 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
   bindEvents: ->
     $(@el).bind 'page:show', (event,page_id) =>
       @show() if page_id == @model.id
+    
+    @model.on 'change', (model) =>
+      @refreshGfx()
+  
+  refreshGfx: ->
+    # ...
   
   show: ->
     $('.view-container').removeClass('active')
