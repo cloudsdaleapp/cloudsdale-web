@@ -4,6 +4,7 @@ class Drop
   
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::FullTextSearch
   include Mongo::Voteable
   
   ## Preview Uploader specific
@@ -38,12 +39,16 @@ class Drop
   scope :after_on_topic, -> time, topic { where(:"deposits.#{topic.id}_updated_at".lt => time, "deposits.depositable_id" => topic.id) }
   scope :order_by_topic, -> topic { order_by("deposits.#{topic.id}_updated_at",:desc) }
   
+  fulltext_search_in :search_string, :filters => {
+    :depositable_ids => lambda { |drop| drop.deposits.map { |deposit| deposit.depositable_id.to_s } }
+  }
+  
   before_save do
     re_fetch if last_load.nil? or last_load < 1.week.ago
     self[:src_meta] = {}.deep_merge(self[:src_meta].to_hash)
     self[:_type] = "Drop"
   end
-    
+  
   def self.find_or_initialize_from_matched_url(url)
     response  = Urifetch.fetch(url)
     match_id  = response.data['match_id'] || url
@@ -74,6 +79,13 @@ class Drop
     options = defaults.merge(args)
     
     Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
+  end
+  
+  # Internal: The string which will be used to index a drop.
+  #
+  # Returns the of the Drop.
+  def search_string
+    [self.title].join(' ')
   end
   
   def visitable?
