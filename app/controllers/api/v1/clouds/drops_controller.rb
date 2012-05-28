@@ -31,6 +31,25 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
   end
   
   after_filter only: [:index] do
+  # Fetches the the drops for the cloud with :cloud_id
+  # based on :q search query.
+  #
+  #   cloud_id - The id of the clouds of where to scope the drop results.
+  #   q - The query string of which to base the search result of.
+  #
+  # Returns a Drops collection.
+  def search
+    
+    @cloud = Cloud.find(params[:cloud_id])
+    @query = params[:q]
+    
+    authorize! :read, @cloud
+    
+    @drops = Drop.only_visable.fulltext_search(@query, depositable_ids: { any: [@cloud.id.to_s] })
+    @drops = Kaminari.paginate_array(@drops).page(@page).per(10)
+        
+    render status: 200
+    
     
     response.headers["X-Result-Page"] = @page.to_s
     
