@@ -1,5 +1,7 @@
 class Deposit
   
+  include AMQPConnector
+  
   include Mongoid::Document
   include Mongoid::Timestamps
   
@@ -16,6 +18,10 @@ class Deposit
     self["#{depositable_id.to_s}_created_at".to_sym] = !self.created_at.nil? ? self.created_at.utc : Time.now.utc
     self[:depositable_type] = self[:depositable_type].classify
     self[:depositer_ids].uniq!
+  end
+  
+  after_save do
+    enqueue! "faye", { channel: "/#{depositable_type.downcase.to_s}s/#{depositable_id.to_s}/drops", data: self.drop.to_hash }
   end
   
   def updated_at_on_depositable(depositable)
