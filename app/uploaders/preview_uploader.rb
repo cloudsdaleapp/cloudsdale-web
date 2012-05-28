@@ -3,6 +3,15 @@
 class PreviewUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::RMagick
+  include Sprockets::Helpers::RailsHelper
+  
+  def config
+    Rails.application.config.action_controller
+  end
+
+  def controller
+    nil
+  end
 
   # Choose what kind of storage to use for this uploader:
   storage :fog
@@ -26,18 +35,6 @@ class PreviewUploader < CarrierWave::Uploader::Base
     process :convert => 'png'
     process :resize_to_fit_x => 120
     process :crop_y => 90
-  end
-  
-  version :portrait do
-    process :convert => 'png'
-    process :resize_to_fit_x => 220
-    process :crop_y => 140
-  end
-  
-  version :banner do
-    process :convert => 'png'
-    process :resize_to_fit_x => 490
-    process :crop_y => 150
   end
   
   def crop_y(desired_height)
@@ -79,6 +76,10 @@ class PreviewUploader < CarrierWave::Uploader::Base
         model[:preview_dimensions] = { width: img.columns, height: img.rows }
       end
     end
+  end
+  
+  def default_url
+    image_path("#{Cloudsdale.config['asset_url']}/assets/fallback/" + [mounted_as, version_name, "#{model._type.downcase}.png"].compact.join('_'))    
   end
 
   protected
