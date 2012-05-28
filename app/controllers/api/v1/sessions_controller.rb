@@ -25,7 +25,7 @@ class Api::V1::SessionsController < Api::V1Controller
   def create
     
     # EXCEPTION HANDLING - TODO: MAKE PRETTY
-    if params[:oauth] && params[:oauth][:token] != BCrypt::Engine.hash_secret("#{params[:oauth][:uid]}#{params[:oauth][:provider]}",INTERNAL_TOKEN)
+    if params[:oauth].present? && params[:oauth].try(:fetch, :token) != BCrypt::Engine.hash_secret("#{params[:oauth][:uid]}#{params[:oauth][:provider]}",INTERNAL_TOKEN)
     
       render_exception("You don't have access to this service.", 403)
     
