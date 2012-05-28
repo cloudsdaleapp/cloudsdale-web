@@ -9,10 +9,12 @@
   %ul.chat-online-list
 .chat-wrapper
   .chat-messages
-  .chat-footer{ class: 'with-access-to-settings' if session.user.get('id') == @model.get('admin').id }
+  .chat-footer{ :class => if session.get('user').get('id') == @model.get('owner').id then 'with-access-to-settings' else '' }
     .chat-inspect
     %form.chat-message-form{ id: "#{@model.id}-message" }
-      %a.cloud-settings-toggle{ href: "#" }
+      - console.log @model
+      - if session.get('user').get('id') == @model.get('owner').id
+        %a.cloud-settings-toggle{ href: "#" }
       %input{ type: 'hidden', value: session.get('client_id'), name: 'client_id' }
       .better-grow-parent
         %textarea.chat-message-content{ name: 'content', id: "#{@model.id}-content" }
