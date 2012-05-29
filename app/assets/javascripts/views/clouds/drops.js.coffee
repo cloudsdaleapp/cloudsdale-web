@@ -38,9 +38,8 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
     @collection.on 'remove', (model,collection) =>
       @removeDrop(model)
       
-    
     $(@el).on 'scroll', =>
-      if $(window).scrollTop() > $(document).height() - $(window).height() - 100
+      if $(@el).scrollTop() > (@el.scrollHeight - $(@el).innerHeight() - 100)
         @fetchMore() unless @collection.lastPage() or @currentlyLoading
   
   unbindEvents: ->
