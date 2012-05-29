@@ -17,7 +17,7 @@ class Cloudsdale.Views.CloudsDropsListItem extends Backbone.View
     @render()
   
   render: ->
-    $(@el).html(@template(model: @model))
+    $(@el).html(@template(model: @model)).attr('data-model-id',@model.id)
     this
     
   visit: (event) ->

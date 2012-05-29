@@ -37,7 +37,12 @@ class Cloudsdale.Collections.Drops extends Backbone.Collection
   bindEvents: ->
     if @subscription
       nfc.on @subscription(), (payload) =>
+        
         drop = new Cloudsdale.Models.Drop(payload)
+        
+        existing_drop = @get(drop.id)
+        @remove(existing_drop) if existing_drop
+        
         @unshift(drop)
   
   lastPage: ->

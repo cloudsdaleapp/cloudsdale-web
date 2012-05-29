@@ -35,6 +35,10 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
       else
         @appendDrop(model)
     
+    @collection.on 'remove', (model,collection) =>
+      @removeDrop(model)
+      
+    
     $(@el).on 'scroll', =>
       if $(window).scrollTop() > $(document).height() - $(window).height() - 100
         @fetchMore() unless @collection.lastPage() or @currentlyLoading
@@ -60,6 +64,9 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
     
   prependDrop: (model) ->
     @.$('ul.drop-list').prepend(@generateDropView(model).el)
+  
+  removeDrop: (model) ->
+    @.$("ul.drop-list > li[data-model-id=#{model.id}]").remove()
   
   renderDefaultCollection: ->
     
