@@ -116,9 +116,7 @@ class Drop
       set_preview_image(src_meta['image'],src_meta['image_local'])
     end
   end
-  
-  private
-  
+    
   def hidden_as_string
     val = self[:hidden] || "false"
     { hidden: val.to_s }
@@ -142,7 +140,7 @@ class Drop
 
   # Override to silently ignore trying to remove missing
   # previous avatar when destroying a User.
-  def remove_avatar!
+  def remove_preview!
     begin
       super
     rescue Fog::Storage::Rackspace::NotFound
@@ -151,7 +149,7 @@ class Drop
 
   # Override to silently ignore trying to remove missing
   # previous avatar when saving a new one.
-  def remove_previously_stored_avatar
+  def remove_previously_stored_preview
     begin
       super
     rescue Fog::Storage::Rackspace::NotFound
