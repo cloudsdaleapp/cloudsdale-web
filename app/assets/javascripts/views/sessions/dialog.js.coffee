@@ -69,7 +69,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       when "register"         then @toggleRegister()
       when "login"            then @toggleLogin()
       when "complete"         then @toggleComplete()
-      
+    
     false
       
   
@@ -125,9 +125,15 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       when "register"         then @submitRegister()
       when "login"            then @submitLogin()
       when "complete"         then @submitComplete()
-      
+    
     e.preventDefault()
     false
+  
+  buildErrors: (errors) ->
+    t = "<ul style='text-align: left;'>"
+    $.each errors, (index,error) ->
+      t += "<li><strong>#{error.ref_node}</strong> #{error.message}</li>" if error.type == "field"
+    t += "</ul>"
   
   submitRestore: ->
     
@@ -173,20 +179,22 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         @hide(logout: false)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
-        @.$('.input-group').tooltip(
-          placement: 'top'
-          trigger: 'manual'
-          animation: false
-          title: resp.flash.title + " " + resp.flash.message
-        ).tooltip('show')
           
         switch resp.status
-          # when 401
-          #   # do stuff
+          when 422
+            @.$('.input-group').tooltip(
+              placement: 'top'
+              trigger: 'manual'
+              animation: false
+              html: true
+              title: @buildErrors(resp.errors)
+
+            ).tooltip('show')
           when 403
             @logoutUser()
-          # when 500
-          #   # do stuff
+          else
+            
+            
           
   submitLogin: ->
     
@@ -207,20 +215,17 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         @hide(logout: false)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
-        @.$('.input-group').tooltip(
-          placement: 'top'
-          trigger: 'manual'
-          animation: false
-          title: resp.flash.title + " " + resp.flash.message
-        ).tooltip('show')
           
         switch resp.status
-          # when 401
-          #   # do stuff
+          when 401
+            @.$('.input-group').tooltip(
+              placement: 'top'
+              trigger: 'manual'
+              animation: false
+              title: resp.flash.title + " " + resp.flash.message
+            ).tooltip('show')
           when 403
             @logoutUser()
-          # when 500
-          #   # do stuff
               
   submitComplete: ->
     submitData = {}
@@ -241,16 +246,17 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         @hide(logout: false)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
-        @.$('.input-group').tooltip(
-          placement: 'top'
-          trigger: 'manual'
-          animation: false
-          title: resp.flash.title + " " + resp.flash.message
-        ).tooltip('show')
           
         switch resp.status
-          # when 422
-          #   # do stuff
+          when 422
+            @.$('.input-group').tooltip(
+              placement: 'top'
+              trigger: 'manual'
+              animation: false
+              html: true
+              title: @buildErrors(resp.errors)
+
+            ).tooltip('show')
           when 403
             @logoutUser()
           # when 500
