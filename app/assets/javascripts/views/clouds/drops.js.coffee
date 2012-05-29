@@ -45,6 +45,7 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
   
   unbindEvents: ->
     @collection.off('add')
+    @collection.unbindEvents()
     $(@el).off('scroll')
     
   fetchMore: ->

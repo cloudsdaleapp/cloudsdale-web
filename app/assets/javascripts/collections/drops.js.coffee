@@ -45,5 +45,9 @@ class Cloudsdale.Collections.Drops extends Backbone.Collection
         
         @unshift(drop)
   
+  unbindEvents: ->
+    if @subscription
+      nfc.off @subscription()
+  
   lastPage: ->
     @nextPage == null
