@@ -13,6 +13,7 @@ tmp/cache
 tmp/pids
 tmp/sessions
 tmp/sockets
+public/uploads
 .DS_Store
 
 db/data/mongodb/mongod.lock
