@@ -21,3 +21,5 @@ app/.DS_Store
 
 doc/*
 .yardoc
+
+*.dump
