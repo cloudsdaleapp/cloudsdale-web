@@ -7,11 +7,15 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
     name: ""
     description: ""
     avatar: {}
+    owner: {}
     is_transient: true
   
-  initialize: ->
+  initialize: (args) ->
+    
+    args = {} unless args
+    
     @type = 'cloud'
-  
+      
   removeAvatar: (options) ->
     attr = {}
     attr.remove_avatar = true
