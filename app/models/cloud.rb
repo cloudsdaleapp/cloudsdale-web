@@ -42,9 +42,27 @@ class Cloud
   }
   
   before_validation do
-    self.owner_id = user_ids.first if owner_id.nil? and !user_ids.empty?
-    self.moderator_ids << owner_id unless moderator_ids.include?(owner_id)
     
+    # Sets a new Owner from among the moderators if owner id is nil.
+    sedlf.owner = moderators.first if owner_id.nil? && !moderators.empty?
+    
+    # Sets a new Owner from among the users if owner id is nil.
+    self.owner = users.first if owner_id.nil? && !users.empty?
+    
+    # Sets the owner to the user with the highest rank if owner_id is not present.
+    self.owner = User.order_by(:role,:desc).first if owner.nil?
+    
+    # Adds owner_id to moderator_ids if moderator_ids does not include the owner id.
+    self.moderators << owner unless moderator_ids.include?(owner_id)
+    
+     # Adds owner_id to user_ids if user_ids does not include the owner id.
+    self.users << owner unless user_ids.include?(owner_id)
+    
+    # Adds a moderator id to user_ids if user_ids does not include the moderator id.
+    self.moderator_ids.each do |mod_id|
+      self.users << mod_id unless user_ids.include?(mod_id)
+    end
+            
     self[:name] = self[:name].slice(0..23) if name
     self[:user_ids].uniq!
     self[:moderator_ids].uniq!
