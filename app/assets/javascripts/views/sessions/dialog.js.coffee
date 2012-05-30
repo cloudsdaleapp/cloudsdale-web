@@ -15,10 +15,14 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     args = {} unless args
     @state = args.state || "login"
     
+    @callback = args.callback if args.callback
+    @callbackArgs = args.callbackArgs if args.callbackArgs
+    
     @session = window.session
     @user = @session.get('user')
     
     @logoutOnHide = false
+    @callbackOnHide = false
     
     @render()
     @toggleStateFromAction(@state)
@@ -33,6 +37,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       @.$('.input-group').tooltip('hide')
       window.setTimeout =>
         @logoutUser() if @logoutOnHide
+        @callback(@callbackArgs) if @callback && @callbackOnHide
         $(@el).remove()
       , 500
       
@@ -110,8 +115,10 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     
   hide: (args) =>
     args = {} unless args
-    @logoutOnHide = args.logout if args.logout != undefined
     
+    @logoutOnHide = args.logout if args.logout != undefined
+    @callbackOnHide = args.callback if args.callback != undefined
+
     @.$('.modal').modal('hide')
     false
   
@@ -146,7 +153,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       data: submitData
       dataType: "json"
       success: (response) =>
-        @hide(logout: false)
+        @hide(logout: false, callback: true)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
         @.$('.input-group').tooltip(
@@ -176,7 +183,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         userData = response.result
         session.get('user').set(userData)
         session.reInitializeClouds()
-        @hide(logout: false)
+        @hide(logout: false, callback: true)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
           
@@ -212,7 +219,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         userData = response.result.user
         session.get('user').set(userData)
         session.reInitializeClouds()
-        @hide(logout: false)
+        @hide(logout: false, callback: true)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
           
@@ -243,7 +250,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       success: (response) =>
         userData = response.user
         session.get('user').set(userData)
-        @hide(logout: false)
+        @hide(logout: false, callback: true)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
           
