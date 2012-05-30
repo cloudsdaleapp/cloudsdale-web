@@ -9,6 +9,8 @@ class User
 
   include Droppable
   
+  delegate :can?, :cannot?, :to => :ability
+  
   attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar, :remote_avatar_url, :remove_avatar
   attr_accessor :password, :confirm_registration
     
@@ -396,6 +398,11 @@ class User
   # Returns a Boolean, true if the user is registered otherwise false
   def is_registered?
     email.present? && has_a_valid_authentication_method?
+  end
+  
+  # Public: Can be used to access CanCan on a specific user.
+  def ability
+    @ability ||= Ability.new(self)
   end
   
   protected
