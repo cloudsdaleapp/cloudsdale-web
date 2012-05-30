@@ -23,11 +23,14 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
       @refreshGfx()
   
   refreshGfx: ->
-    # ...
+    @.$('.cloud-head img').attr('src',@model.get('avatar').normal)
+    @.$('.cloud-head > h2').text(@model.get('name'))
+    @.$('.cloud-head > p').text(@model.get('description'))
   
   show: ->
     $('.view-container').removeClass('active')
     $(@el).addClass('active')
+            
     if @.$('.chat-container').length == 0
       @chat_view = new Cloudsdale.Views.CloudsChat(model: @model)
       @.$('.float-container').html(@chat_view.el)
