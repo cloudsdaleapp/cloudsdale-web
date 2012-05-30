@@ -12,8 +12,7 @@ class Cloud
   
   attr_accessor :user_invite_tokens
   
-  attr_accessible :name, :description, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules
-  attr_accessible :owner_id, as: [:owner]
+  attr_accessible :name, :description, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :owner_id
   
   field :name,          type: String
   field :description,   type: String
@@ -44,7 +43,7 @@ class Cloud
   before_validation do
     
     # Sets a new Owner from among the moderators if owner id is nil.
-    sedlf.owner = moderators.first if owner_id.nil? && !moderators.empty?
+    self.owner = moderators.first if owner_id.nil? && !moderators.empty?
     
     # Sets a new Owner from among the users if owner id is nil.
     self.owner = users.first if owner_id.nil? && !users.empty?
