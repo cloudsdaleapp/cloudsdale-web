@@ -155,13 +155,34 @@ a.explore-create-start
     
     border-top: 1px solid #fff
     
-    background: rgba(254,254,254,1)
+    &:after
+      content: ""
+      position: absolute
+      top: 36px
+      bottom: 0
+      right: 0
+      left: 0
+      background-image: asset-data-url("bg-noise.png")
+      
+    &:before
+      content: ""
+      position: absolute
+      top: 36px
+      bottom: 0
+      right: 0
+      left: 0
+      background: #e0e0e0 asset-data-url("details/wing_watermark.png")
+      background-position: center center
+      background-size: 50%
+      background-repeat: no-repeat
+      +opacity(.2)
         
 .explore-search-sidefade
   position: absolute
   top: 36px
   bottom: 0
   pointer-events: none
+  z-index: 1
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     width: 15px
   @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
@@ -268,7 +289,8 @@ ul.explore-cloud-list
   left: 0
   right: 0
   overflow: auto
-  background: transparent
+  background: #ffffff
+  z-index: 1
   
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     padding: 0 10px
