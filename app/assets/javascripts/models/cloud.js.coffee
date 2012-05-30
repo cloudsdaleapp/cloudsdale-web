@@ -8,6 +8,7 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
     description: ""
     avatar: {}
     owner: {}
+    moderators: {}
     is_transient: true
   
   initialize: (args) ->
