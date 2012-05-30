@@ -1,0 +1,8 @@
+%form#explore-search
+  %i.icon-search
+  %a.drop-close-search{ href: '#' }= "×"
+  %input{ type: 'text' name: 'q', id: 'search_q' }
+
+%ul.explore-cloud-list            
+.explore-search-sidefade.right
+.explore-search-sidefade.left

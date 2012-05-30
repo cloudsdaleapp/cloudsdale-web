@@ -1,3 +1,13 @@
-%a{ href: "#" }
-  %img{ src: @model.get('avatar').thumb }
-  %h4= @model.get('name')
+.explore-cloud-list-image
+  %img{ src: @model.get('avatar').preview }
+  
+.explore-cloud-list-actions
+  %a.btn.btn-success{ href: "/clouds/#{@model.id}", data: { action: 'join-cloud' } }
+    %i.icon-white.icon-chevron-right
+    = "Join"
+    
+.explore-cloud-list-title= @model.get('name')
+%p.explore-cloud-list-description= @model.get('description')
+.explore-cloud-list-stats
+  %span.explore-cloud-list-stat
+  %span.explore-cloud-list-stat

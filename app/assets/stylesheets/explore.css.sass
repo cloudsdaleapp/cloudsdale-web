@@ -176,11 +176,16 @@ a.explore-create-start
       background-size: 50%
       background-repeat: no-repeat
       +opacity(.2)
-        
+    
+    &.with-search-results
+      form#explore-search > a.drop-close-search, .explore-search-sidefade, ul.explore-cloud-list
+        display: block
+    
 .explore-search-sidefade
   position: absolute
   top: 36px
   bottom: 0
+  display: none
   pointer-events: none
   z-index: 1
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
@@ -284,6 +289,7 @@ ul.explore-cloud-list
   padding: 0
   margin: 0
   position: absolute
+  display: none
   top: 36px
   bottom: 0
   left: 0

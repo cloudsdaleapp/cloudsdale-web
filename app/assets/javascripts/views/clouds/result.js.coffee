@@ -4,20 +4,25 @@ class Cloudsdale.Views.CloudsResult extends Backbone.View
   
   model: 'cloud'
   tagName: 'li'
-  className: 'explore-result'
+  className: 'explore-cloud-list-item'
+  
+  events:
+    'click a[data-action=join-cloud]' : "joinCloud"
   
   initialize: (args) ->
     
     args = {} unless args
-    
-    @model = args.model if args.model
-    
+        
     @render()
     @bindEvents()
-          
+              
   render: ->
-    $(@el).html(@template(view: @, model: @model))
+    $(@el).html(@template(model: @model))
     this
   
   bindEvents: ->
     # TODO
+  
+  joinCloud: ->
+    Backbone.history.navigate("/clouds/#{@model.id}",true)
+    false

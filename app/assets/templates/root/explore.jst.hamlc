@@ -30,27 +30,5 @@
       .explore-create-inner
         %a.explore-create-start{ href: '#' }= "Create a new Cloud"
     .explore-search-wrapper
-      %form#explore-search
-        %i.icon-search
-        %a.drop-close-search{ href: '#' }= "×"
-        %input{ type: 'text' name: 'q', id: 'search_q' }
-
-      %ul.explore-cloud-list
-        - $.each [0..100], (i) ->
-          %li.explore-cloud-list-item
-            .explore-cloud-list-image
-              %img
-            .explore-cloud-list-actions
-              %a.btn.btn-success
-                %i.icon-white.icon-chevron-right
-                = "Join"
-                
-            .explore-cloud-list-title= "Cloud"
-            %p.explore-cloud-list-description= "A cloud description of some sort..."
-            .explore-cloud-list-stats
-              %span.explore-cloud-list-stat
-              %span.explore-cloud-list-stat
-                
-      .explore-search-sidefade.right
-      .explore-search-sidefade.left
+      
       
