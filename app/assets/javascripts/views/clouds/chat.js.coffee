@@ -226,7 +226,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       window.setTimeout =>
         @resizeElements()
       , 305
-      $('.chat-inspect').append(view)
+      @.$('.chat-inspect').append(view)
 
     false
     
