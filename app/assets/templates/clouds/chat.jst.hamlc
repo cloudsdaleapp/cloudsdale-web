@@ -12,7 +12,6 @@
   .chat-footer{ :class => if session.get('user').get('id') == @model.get('owner').id then 'with-access-to-settings' else '' }
     .chat-inspect
     %form.chat-message-form{ id: "#{@model.id}-message" }
-      - console.log @model
       - if session.get('user').get('id') == @model.get('owner').id
         %a.cloud-settings-toggle{ href: "#" }
       %input{ type: 'hidden', value: session.get('client_id'), name: 'client_id' }
