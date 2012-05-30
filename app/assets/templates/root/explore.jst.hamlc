@@ -1,13 +1,56 @@
-.explore-wrapper
-  %form#explore-search
-    .control-group
-      .controls
-        %input{ type: 'text' name: 'q', id: 'search_q', placeholder: 'Search for a cloud...' }
-        %button.btn.btn-info
-          %i.icon-search.icon-white
+.fixed-container.explore-sidebar
+  .container-inner
+    .explore-header
+      %hgroup
+        %h2= "Explore"
+        %p= "Here you can explore our vast variety of Clouds. A Cloud is a gathering point for people on the site."
+      .explore-header-menu
+        %a{ href: '#explore-popular', data: { toggle: 'tab' } }= "Popular"
+        %a{ href: '#explore-recent', data: { toggle: 'tab' } }= "Recent"
+    
+    .tab-content
+      %ul#explore-popular.explore-featurelist.tab-pane
+        - $.each [0..5], (i) ->
+          %li.explore-feature-item
+            .explore-cloud-list-image
+              %img
+            .explore-cloud-list-title= "Cloud"
+            %p.explore-cloud-list-description= "A cloud description of some sort..."
+            .explore-cloud-featurelist-actions
+              %a.btn.btn-success
+                %i.icon-white.icon-chevron-right
+                = "Join"
           
-  .explore-inner
-    .explore-content-wrapper{ data: { 'explore-content-id' => 'search' } }
-      %ul.explore-results
-      .explore-preview
+      %ul#explore-recent.explore-featurelist.tab-pane
+        %li.explore-feature-item= "Recent Cloud"
+        
+.float-container.with-fixed-container
+  .container-inner
+    .explore-create-wrapper
+      .explore-create-inner
+        %a.explore-create-start{ href: '#' }= "Create a new Cloud"
+    .explore-search-wrapper
+      %form#explore-search
+        %i.icon-search
+        %a.drop-close-search{ href: '#' }= "×"
+        %input{ type: 'text' name: 'q', id: 'search_q' }
+
+      %ul.explore-cloud-list
+        - $.each [0..100], (i) ->
+          %li.explore-cloud-list-item
+            .explore-cloud-list-image
+              %img
+            .explore-cloud-list-actions
+              %a.btn.btn-success
+                %i.icon-white.icon-chevron-right
+                = "Join"
+                
+            .explore-cloud-list-title= "Cloud"
+            %p.explore-cloud-list-description= "A cloud description of some sort..."
+            .explore-cloud-list-stats
+              %span.explore-cloud-list-stat
+              %span.explore-cloud-list-stat
+                
+      .explore-search-sidefade.right
+      .explore-search-sidefade.left
       

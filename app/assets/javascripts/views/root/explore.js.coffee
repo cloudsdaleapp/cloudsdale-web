@@ -19,73 +19,82 @@ class Cloudsdale.Views.Explore extends Backbone.View
   initialize: (args) ->
     
     args = {} unless args
-    @collection = if args.collection then args.collection else new Cloudsdale.Collections.Clouds()
     
-    @state = if args.state then args.state else 'popular'
+    @allClouds = new Cloudsdale.Collections.Clouds()
+    
+    @popularClouds = new Cloudsdale.Collections.Clouds()
+    
+    @recentClouds = new Cloudsdale.Collections.Clouds()
+    
     
     @render()
     @bindEvents()
-    @renderResults()
-    
-    @collection.add(session.get('clouds').pop)
-      
+          
   render: ->
     $(@el).html(@template(view: @)).attr('data-page-id','explore')
     this
   
-  bindEvents: ->
-    $(@el).bind 'page:show', (event,pageId) =>
-      @show() if pageId == 'explore'
-    
-    @.$('form#explore-search').bind 'submit', (event) =>
-      @fetchFromSearch()
-      event.preventDefault()
-    
-    @collection.on 'reset', (model) =>
-      @renderResults()
-  
-  fetchFromSearch: ->
-    
-    submitData = {}
-    submitData.q = @.$('input[type=text]').attr('value')
-    
-    @reloadResults('search',submitData)
-    
-  fetchPopular: ->
-    @reloadResults('popular')
-    
-  fetchRecent: ->
-    @reloadResults('recent')
-  
-  nextPage: ->
-    # TODO
-    
-  previousPage: ->
-    # TODO
-      
   show: ->
     $('.view-container').removeClass('active')
     $(@el).addClass('active')
   
-  reloadResults: (s,data) =>
-    @state = s
-    data = {} unless data
-    @collection.fetch
-      url: @endPoints[@state].url,
-      data: data,
-      type: @endPoints[@state].method,
-      add: false
-  
-  renderResults: ->
-    wrapper = @.$('.explore-results')
-    # wrapper.children.fadeOut(500)
-    if @collection.length > 0
-      cloud = @collection.first()
-      view = new Cloudsdale.Views.CloudsPreview(model: cloud)
-      @.$('.explore-preview').replaceWith(view.el)
+  bindEvents: ->
+    
+    $("body").on "click.tab.data-api", "[data-toggle=\"tab\"], [data-toggle=\"pill\"]", (e) ->
+      e.preventDefault()
+      $("a[href=#{$(@).attr('href')}]").tab "show"
+    
+    setTimeout =>
+      @.$("a[href=#explore-popular]").tab('show')
+    , 10
+    
+    $(@el).bind 'page:show', (event,pageId) =>
+      @show() if pageId == 'explore'
       
-      @collection.each (cloud) ->
-        view = new Cloudsdale.Views.CloudsResult(model: cloud)
-        wrapper.append(view.el)
+    # 
+    # @.$('form#explore-search').bind 'submit', (event) =>
+    #   @fetchFromSearch()
+    #   event.preventDefault()
   
-  addCloud: ->
+  # fetchFromSearch: ->
+  #   
+  #   submitData = {}
+  #   submitData.q = @.$('input[type=text]').attr('value')
+  #   
+  #   @reloadResults('search',submitData)
+  #   
+  # fetchPopular: ->
+  #   @reloadResults('popular')
+  #   
+  # fetchRecent: ->
+  #   @reloadResults('recent')
+  # 
+  # nextPage: ->
+  #   # TODO
+  #   
+  # previousPage: ->
+  #   # TODO
+  #     
+  # 
+  # reloadResults: (s,data) =>
+  #   @state = s
+  #   data = {} unless data
+  #   @collection.fetch
+  #     url: @endPoints[@state].url,
+  #     data: data,
+  #     type: @endPoints[@state].method,
+  #     add: false
+  # 
+  # renderResults: ->
+  #   wrapper = @.$('.explore-results')
+  #   # wrapper.children.fadeOut(500)
+  #   if @collection.length > 0
+  #     cloud = @collection.first()
+  #     view = new Cloudsdale.Views.CloudsPreview(model: cloud)
+  #     @.$('.explore-preview').replaceWith(view.el)
+  #     
+  #     @collection.each (cloud) ->
+  #       view = new Cloudsdale.Views.CloudsResult(model: cloud)
+  #       wrapper.append(view.el)
+  # 
+  # addCloud: ->
