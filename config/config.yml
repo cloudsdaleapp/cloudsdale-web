@@ -83,9 +83,14 @@ production:
   soundcloud:
     client_id: 3897d7c3ae5a3178c8626d7b51ce370a
     client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
-    
+  
   rabbit:
     host: push01.snet.cloudsdale.org
-    user: cloudsdale
-    pass: a73eb7270e283e9777a7e7d7124c4a3e
+    user: guest
+    pass: guest 
+   
+  # rabbit:
+  #   host: push01.snet.cloudsdale.org
+  #   user: cloudsdale
+  #   pass: a73eb7270e283e9777a7e7d7124c4a3e
     
