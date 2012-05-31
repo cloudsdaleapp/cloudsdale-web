@@ -1,6 +1,13 @@
 class Cloudsdale.Models.User extends Backbone.Model
   
   url: -> "/v1/users/#{@id}.json"
+  type: 'user'
+  
+  setters:
+      
+    clouds: (value) ->
+      new Cloudsdale.Collections.Clouds value,
+        url: -> "/v1/users/#{@id}/clouds.json"
   
   defaults:
     name: ""

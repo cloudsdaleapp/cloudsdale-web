@@ -27,6 +27,7 @@
 #
 #= require underscore
 #= require backbone
+#= require backbone.getset
 #
 #= require cloudsdale
 #
