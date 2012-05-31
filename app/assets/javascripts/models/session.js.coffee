@@ -11,9 +11,6 @@ class Cloudsdale.Models.Session extends Backbone.Model
     @bindEvents()
     @reInitializeClouds()
   
-  listenToCloud: (cloud) ->
-    this
-  
   listenToPrivateChannel: ->
     if @isLoggedIn()
       nfc.on "users:#{@get('user').id}:private", (payload) =>

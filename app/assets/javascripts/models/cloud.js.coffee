@@ -32,3 +32,11 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
     attr = {}
     attr.remove_avatar = true
     return @save(attr,options)
+  
+  addUser: (user,options) ->
+    # options = {} unless options
+    # 
+    # # collection = new Cloudsdale.Collections.Users attr.users,
+    # #   url: "/v1/clouds/#{@id}/users.json"
+    #     
+    # collection.save()

@@ -19,7 +19,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     @bindEvents()
   
   render: ->
-    $(@el).html(@template(model: @model))
+    $(@el).html(@template(model: @model)).attr('data-cloud-id',@model.id)
     this
   
   bindEvents: ->

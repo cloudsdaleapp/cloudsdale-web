@@ -30,7 +30,7 @@ class Cloudsdale.Views.Root extends Backbone.View
     this
     
   bindEvents: ->
-    $(@el).bind 'clouds:join', (cloud) =>
+    $(@el).bind 'clouds:join', (event,cloud) =>
       @renderCloud(cloud)
     
     $(@el).bind 'clouds:initialize', =>
@@ -70,9 +70,9 @@ class Cloudsdale.Views.Root extends Backbone.View
       @renderCloud(cloud)
       
   renderCloud: (cloud) ->
-    session.listenToCloud(cloud)
-    view = new Cloudsdale.Views.CloudsToggle(model: cloud)
-    @.$('.cloudbar > .cloud-list').append(view.el)
+    if @.$(".cloudbar > .cloud-list > li[data-cloud-id=#{cloud.id}]").length == 0
+      view = new Cloudsdale.Views.CloudsToggle(model: cloud)
+      @.$('.cloudbar > .cloud-list').append(view.el)
   
   getTweets: ->
     $.ajax

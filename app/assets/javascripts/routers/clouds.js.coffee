@@ -20,9 +20,12 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
     
   
   renderCloudPage: (args) ->
-    cloud = session.get('clouds').findOrInitialize(args)
+    cloud = session.get('clouds').findOrInitialize args,
+      success: (_cloud) =>
+                
+        $.event.trigger 'clouds:join', _cloud
     
-    if $(".view-container[data-page-id=#{args.id}]").size() == 0
-      $('.main-container').append new Cloudsdale.Views.CloudsShow(model: cloud).el
-      
-    $.event.trigger 'page:show', args.id
+        if $(".view-container[data-page-id=#{args.id}]").size() == 0
+          $('.main-container').append new Cloudsdale.Views.CloudsShow(model: _cloud).el
+    
+        $.event.trigger 'page:show', _cloud.id
