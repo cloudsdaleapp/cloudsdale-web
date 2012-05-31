@@ -17,9 +17,11 @@ gem 'kaminari'
 gem 'redis'
 gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
 
+# Sass & Rails-Sass must be outside the assets group.
+gem 'sass', '~> 3.2.0.alpha'
+gem 'sass-rails', '~> 3.2.5'
+
 group :assets do
-  gem 'sass', '~> 3.2.0.alpha'
-  gem 'sass-rails', '~> 3.2.5'
   gem 'bootstrap-sass'
   gem 'coffee-script'
   gem 'uglifier'
@@ -27,6 +29,7 @@ group :assets do
   gem 'sprockets'
   gem 'haml_coffee_assets'
 end
+
 
 # Markup
 gem 'haml'
