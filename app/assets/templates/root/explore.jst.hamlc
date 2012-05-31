@@ -16,8 +16,6 @@
 .float-container.with-fixed-container
   .container-inner
     .explore-create-wrapper
-      .explore-create-inner
-        %a.explore-create-start{ href: '#' }= "Create a new Cloud"
     .explore-search-wrapper
       
       

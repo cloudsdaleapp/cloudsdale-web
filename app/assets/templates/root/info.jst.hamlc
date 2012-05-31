@@ -47,19 +47,19 @@
         %li.conr-xtux
           %h1.info-contributor-name= "Xtux"
           .info-contributor-badges
-            %span.badge= "Web Designer"
+            %span.badge= "Optimization Expert"
             
         %li.conr-dash
           %h1.info-contributor-name= "Rainbow Dash"
           .info-contributor-badges
-            %span.badge.badge-inverse= "Admin"
+            %span.badge.badge-inverse= "Moderator"
 
         %li.conr-six
           %h1.info-contributor-name= "Six Reader"
           .info-contributor-badges
-            %span.badge.badge-inverse= "Admin"
+            %span.badge.badge-inverse= "Moderator"
 
         %li.conr-shan
           %h1.info-contributor-name= "Shansai"
           .info-contributor-badges
-            %span.badge.badge-inverse= "Admin"
+            %span.badge.badge-inverse= "Moderator"

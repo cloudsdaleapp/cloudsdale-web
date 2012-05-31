@@ -20,6 +20,9 @@ class Cloudsdale.Views.Explore extends Backbone.View
     
     @searchView = new Cloudsdale.Views.ExploreSearch()
     @.$('.explore-search-wrapper').replaceWith(@searchView.el)
+    
+    @createView = new Cloudsdale.Views.CloudsNew()
+    @.$('.explore-create-wrapper').replaceWith(@createView.el)
           
   render: ->
     $(@el).html(@template(view: @)).attr('data-page-id','explore')
@@ -43,7 +46,7 @@ class Cloudsdale.Views.Explore extends Backbone.View
     
     $(@el).bind 'page:show', (event,pageId) =>
       @show() if pageId == 'explore'
-  
+    
   renderRecent: ->
     @recentClouds.fetch
       success: (collection) =>

@@ -34,6 +34,31 @@ class Api::V1::CloudsController < Api::V1Controller
     
   end
   
+  # Private: Accepts parameters to create a cloud object.
+  # when saved the current user is added as the cloud owner.
+  #
+  # cloud  - A Hash of parameters to send to the cloud object.
+  #
+  # Returns the cloud object with a status of 200 if successful & 422 if unsuccessful.
+  def create
+    
+    @cloud = Cloud.new(params[:cloud])
+    authorize! :create, @cloud
+    
+    @cloud.owner = current_user
+    @cloud.users << current_user
+    @cloud.moderators << current_user
+    
+    if @cloud.save
+      render status: 200
+    else
+      set_flash_message message: "You could not create the Cloud. Please look over your input.", title: "What did you say?"
+      build_errors_from_model @cloud
+      render status: 422
+    end
+    
+  end
+  
   # Public: Get the 10 most popular Clouds based on member count.
   # Returns a collection of Clouds.
   def popular

@@ -4,7 +4,7 @@ Cloudsdale::Application.routes.draw do
 
     resources :sessions, only: [:create]
 
-    resources :clouds, only: [:show,:update] do
+    resources :clouds, only: [:show,:update,:create] do
       
       get   :search,  on: :collection, as: :search
       get   :recent,  on: :collection, as: :recent

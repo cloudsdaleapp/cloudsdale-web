@@ -106,12 +106,95 @@ li.explore-card
     left: 50%
     width: 480px
     margin-left: -240px
-    background-image: image-url("contributors/zeeraw.png")
-    background-repeat: no-repeat
-    background-size: auto 90%
-    background-position: 20px center
+    &.active
+      .explore-create-pony
+        +opacity(0)
+        left: -50px
+        right: 50px
+        pointer-events: none
+        
+      a.explore-create-start
+        +opacity(0)
+        right: -20px
+        pointer-events: none
+      
+      form.explore-create-form
+        +opacity(1)
+        top: 0
+        bottom: 0
+        pointer-events: all
+        
+.explore-create-pony
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  +opacity(1)
+  background-image: image-url("contributors/zeeraw.png")
+  background-repeat: no-repeat
+  background-size: auto 90%
+  background-position: 20px center
+  @each $vendor in "", -webkit-, -o-, -moz-
+    #{$vendor}transition-property: right, left, opacity
+    #{$vendor}transition-duration: .4s, .4s, .4s
 
-a.explore-create-start
+form.explore-create-form
+  position: absolute
+  top: 30px
+  bottom: -30px
+  right: 0
+  left: 0
+  margin: 40px 20px
+  background: #63A0D0 $bgStripes
+  border: 1px solid $color-border-light
+  pointer-events: none
+  +border-radius(5px 5px)
+  +opacity(0)
+  @each $vendor in "", -webkit-, -o-, -moz-
+    #{$vendor}transition-property: top, bottom, opacity
+    #{$vendor}transition-duration: .4s, .4s, .4s
+  
+  .control-group
+    position: absolute
+    top: 0
+    bottom: 71px
+    right: 0
+    left: 0
+    margin: 7px 7px 0 7px
+    background: #fefefe
+    border: 1px solid $color-border-heavy
+    +border-radius(5px 5px 0 0)
+    .controls
+      position: absolute
+      left: 0
+      right: 0 
+      top: 0
+      bottom: 0
+      margin: 40px
+      label
+        font-size: 14px
+        margin-bottom: 10px
+      input
+        padding: 10px
+        width: 100%
+        margin: 0
+        margin-left: -11px
+        font-size: 18px
+  
+  .form-actions
+    margin: 0 7px 7px 7px
+    position: absolute
+    bottom: 0
+    right: 0
+    left: 0
+    border: 1px solid $color-border-heavy
+    border-top: 0
+    +border-radius(0 0 5px 5px)
+    text-align: right
+
+    
+a.explore-create-start, a.explore-create-login
   
   position: absolute
   right: 20px
@@ -119,7 +202,6 @@ a.explore-create-start
   
   display: block
   
-  width: 160px
   padding: 5px
   
   color: #f8f8f8
@@ -131,7 +213,9 @@ a.explore-create-start
   
   +linear-gradient(#63a0d0,#3f85b3)
   +opacity(1)
-  +transition(all .3s ease)
+  @each $vendor in "", -webkit-, -o-, -moz-
+    #{$vendor}transition-property: right, left, opacity, background
+    #{$vendor}transition-duration: .4s, .4s, .4s, .4s
   
   border: 1px solid $color-border-dark
   +border-radius(3px)
@@ -139,7 +223,6 @@ a.explore-create-start
     text-decoration: none
   
   &:focus, &:active
-    background-position: auto 10px
     +linear-gradient(#63a0d0,lighten(#3f85b3,10%))
 
 

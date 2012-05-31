@@ -1,6 +1,11 @@
 class Cloudsdale.Models.Cloud extends Backbone.GSModel
   
-  url: -> "/v1/clouds/#{@id}.json"
+  url: ->
+    if @id
+      "/v1/clouds/#{@id}.json"
+    else
+      "v1/clouds.json"
+      
   type: 'cloud'
   
   setters:
@@ -25,7 +30,6 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
     is_transient: true
   
   initialize: (args) ->
-    
     args = {} unless args
       
   removeAvatar: (options) ->

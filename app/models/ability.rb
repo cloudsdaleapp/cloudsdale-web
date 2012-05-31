@@ -9,8 +9,11 @@ class Ability
       can [:read,:update], User, _id: user.id
       can :accept_tnc, User, _id: user.id
       
-      can [:read,:create], Cloud
 
+      can :read, Cloud
+      can :create, Cloud do
+        user.is_registered?
+      end
       can [:update,:destroy], Cloud, :owner_id => user.id
       
       can :create, Message do |message|
