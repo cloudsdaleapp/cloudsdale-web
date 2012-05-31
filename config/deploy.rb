@@ -4,7 +4,7 @@ require 'capistrano_colors'
 
 set :scm,             :git
 set :repository,      "git@github.com:IOMUSE/Cloudsdale.git"
-set :branch,          "origin/deploy"
+set :branch,          "origin/server-migration-04"
 set :migrate_target,  :current
 set :ssh_options,     { :forward_agent => true }
 set :rails_env,       "production"
