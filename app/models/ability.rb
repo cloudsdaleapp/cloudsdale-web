@@ -14,7 +14,7 @@ class Ability
       can [:update,:destroy], Cloud, :owner_id => user.id
       
       can :create, Message do |message|
-        user.cloud_ids.include?(message.chat.topic.id)
+        user.cloud_ids.include?(message.chat.topic.id) || !message.chat.topic.locked?
       end
       
       can [:start,:vote], Prosecution do |prosecution|
