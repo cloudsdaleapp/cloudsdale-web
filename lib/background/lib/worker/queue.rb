@@ -61,7 +61,10 @@ module Worker
       super
       
       log.info("Connecting to AMQP...")
-      @amqp_connection = AMQP.connect Cloudsdale.config['rabbit']
+      @amqp_connection = AMQP.connect({ :host => Cloudsdale.config.rabbit.host,
+                                        :user => Cloudsdale.config.rabbit.user,
+                                        :pass => Cloudsdale.config.rabbit.pass })
+                                        
       @amqp_channel = AMQP::Channel.new @amqp_connection, :auto_recovery => true, :prefetch => 1
       log.info("Subscribing to AMQP queue [#{queue}]...")
       @amqp_queue = @amqp_channel.queue queue, :auto_delete => false
