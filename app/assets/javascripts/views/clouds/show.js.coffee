@@ -45,9 +45,9 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
         
     "Member of Cloud: #{session.get('user').isMemberOf(@model)}"
     if session.get('user').isMemberOf(@model)
-      @.$('a.followed').removeClass('btn-info').addClass('btn-danger').text('Leave').attr('data-action','leave')
+      @.$('a.followed').removeClass('btn-info').addClass('btn-danger').text('Leave Cloud').attr('data-action','leave')
     else
-      @.$('a.followed').addClass('btn-info').removeClass('btn-danger').text('Add').attr('data-action','add')
+      @.$('a.followed').addClass('btn-info').removeClass('btn-danger').text('Add Cloud').attr('data-action','add')
   
   show: ->
     $('.view-container').removeClass('active')
