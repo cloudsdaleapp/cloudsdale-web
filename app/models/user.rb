@@ -52,10 +52,10 @@ class User
   
   validates :auth_token,  uniqueness: true
   
-  validates_length_of :name, :within => 2..20, if: :name?
-  validates_length_of :password, minimum: 6, :too_short => "pick a longer password, at least 6 characters", if: :password
+  validates_length_of :name,      within: 3..30, message: "must be between 3 and 30 characters", if: :name?
+  validates_length_of :password,  minimum: 6, :too_short => "pick a longer password, at least 6 characters", if: :password
   
-  validates_format_of :name,  with: /^[a-z0-9\_]*$/i, :message => "must be a-z 0-9 '-' or '_' and contain no spaces", if: :name
+  validates_format_of :name,  with: /^([a-z]*\s?){1,5}$/i, message: "must use a-z and max five words", if: :name
   validates_format_of :email, with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "invalid email", if: :email
   
   validates_uniqueness_of :name, :case_sensitive => false
@@ -83,6 +83,14 @@ class User
   after_save do
     enqueue! "faye", { channel: "/users/#{self._id.to_s}", data: self.to_hash }
     enqueue! "faye", { channel: "/users/#{self._id.to_s}/private", data: self.to_hash( template: "api/v1/users/private" ) }
+  end
+  
+  
+  # Public: Customer setter for the name attribute.
+  #
+  # Returns the name String.
+  def name=(val=nil)
+    self[:name] = val.split(/\s/).each{|w|w.capitalize!}.join(" ") if val.present?
   end
   
   # Public: Translates the User object to a HASH string using RABL
