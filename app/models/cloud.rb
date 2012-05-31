@@ -25,7 +25,7 @@ class Cloud
   mount_uploader :avatar, AvatarUploader
   
   validates :name, presence: true, uniqueness: true, length: { within: 3..24 }
-  validates :description, presence: true, length: { within: 5..50 }
+  validates :description, length: { minimum: 140 }
   
   belongs_to :owner, polymorphic: true
   
