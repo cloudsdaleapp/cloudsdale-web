@@ -5,10 +5,8 @@ $LOAD_PATH.push File.expand_path("../../lib", __FILE__)
 $LOAD_PATH.push File.expand_path("../../workers", __FILE__)
 $stdout.sync = true
 
-ENV['RAILS_ENV'] = 'development'
-
 # Load development tools
-if ENV['RAILS_ENV'] == 'development'
+if ENV['RAILS_ENV'] == 'production'
   require 'pry'
 end
 
