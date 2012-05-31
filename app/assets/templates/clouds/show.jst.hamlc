@@ -5,6 +5,9 @@
         %img{ src: @model.get('avatar').normal }
       %h2= @model.get('name')
       %p= @model.get('description')
+      .cloud-head-actions
+        %a.btn.followed
+
     .drop-wrapper
   
 .float-container.with-fixed-container

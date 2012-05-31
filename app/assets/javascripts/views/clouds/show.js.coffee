@@ -6,10 +6,15 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
   tagName: 'div'
   className: 'view-container'
   
+  events: ->
+    'click a.followed' : 'toggleFollow'
+  
   initialize: ->
     
     @render()
     @bindEvents()
+    
+    @refreshGfx()
   
   render: ->
     $(@el).html(@template(model: @model)).attr('data-page-id',@model.id)
@@ -21,16 +26,25 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     
     @model.on 'change', (model) =>
       @refreshGfx()
+    
+    session.get('user').on 'change', (model) =>
+      @refreshGfx()
   
-  refreshGfx: ->
+  refreshGfx: () ->
     @.$('.cloud-head img').attr('src',@model.get('avatar').normal)
     @.$('.cloud-head > h2').text(@model.get('name'))
     @.$('.cloud-head > p').text(@model.get('description'))
+        
+    "Member of Cloud: #{session.get('user').isMemberOf(@model)}"
+    if session.get('user').isMemberOf(@model)
+      @.$('a.followed').removeClass('btn-info').addClass('btn-danger').text('Leave').attr('data-action','leave')
+    else
+      @.$('a.followed').addClass('btn-info').removeClass('btn-danger').text('Add').attr('data-action','add')
   
   show: ->
     $('.view-container').removeClass('active')
     $(@el).addClass('active')
-            
+    
     if @.$('.chat-container').length == 0
       @chat_view = new Cloudsdale.Views.CloudsChat(model: @model)
       @.$('.float-container').html(@chat_view.el)
@@ -40,3 +54,14 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     if @.$('.drop-wrapper').children().length == 0
       @drop_view = new Cloudsdale.Views.CloudsDrops(model: @model)
       @.$('.drop-wrapper').replaceWith(@drop_view.el)
+  
+  toggleFollow: (event) ->
+    switch @.$(event.target).attr('data-action')
+      when 'add'
+        session.get('user').add_cloud @model
+        
+      when 'leave'
+        session.get('user').leave_cloud @model
+    
+      
+    

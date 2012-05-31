@@ -14,18 +14,33 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
   # Returns an instance of Cloudsdale.Models.User if found, otherwise undefined.
   findOrInitialize: (args,options) ->
     
-    options ||= {}
-    
-    options.fetch = false
+    args = {} unless args
+    options = {} unless options
     
     user = @get(args.id)
     
     if user
-      user.fetch() if options.fetch
+      if options.fetch
+        user.fetch(
+          success: (_user) =>
+            options.success(_user) if options.success
+        )
+      else
+        options.success(user) if options.success
+        
     else
-      user = new Cloudsdale.Models.User(args)
-      user.fetch() if user.get('is_transient')
+      user = new Cloudsdale.Models.Cloud(args)
+      
+      if user.get('is_transient')
+        user.fetch(
+          success: (_user) =>
+            options.success(_user) if options.success
+        )
+      else
+        options.success(user) if options.success
+        
       @add(user)
-
+      
+    
     return user
       

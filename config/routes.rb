@@ -6,9 +6,11 @@ Cloudsdale::Application.routes.draw do
 
     resources :clouds, only: [:show,:update,:create] do
       
-      get   :search,  on: :collection, as: :search
-      get   :recent,  on: :collection, as: :recent
-      get   :popular, on: :collection, as: :popular
+      get   :search,  on: :collection,  as: :search
+      get   :recent,  on: :collection,  as: :recent
+      get   :popular, on: :collection,  as: :popular
+      
+      resources :users, :controller => "clouds/users", only: [:destroy,:create]
       
       resources :drops, :controller => "clouds/drops", only: [:index] do
         

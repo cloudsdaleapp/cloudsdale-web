@@ -6,12 +6,15 @@ class Cloudsdale.Models.Session extends Backbone.Model
     users: []
   
   initialize: (attr) ->
-        
+    
     @set 'user', new Cloudsdale.Models.User(@get('user'))
-    @listenToPrivateChannel()
     
     @set 'users', new Cloudsdale.Collections.Users()
+    @set 'clouds', new Cloudsdale.Collections.Clouds()
+    
+    
     @get('users').add(@get('user'))
+    @listenToPrivateChannel()
     
     @bindEvents()
     @reInitializeClouds()

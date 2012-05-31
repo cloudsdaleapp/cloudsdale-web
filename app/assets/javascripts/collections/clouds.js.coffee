@@ -36,7 +36,6 @@ class Cloudsdale.Collections.Clouds extends Backbone.Collection
       if options.fetch
         cloud.fetch(
           success: (_cloud) =>
-            console.log _cloud
             options.success(_cloud) if options.success
         )
       else

@@ -36,3 +36,24 @@ class Cloudsdale.Models.User extends Backbone.Model
     attr ||= {}
     attr.url = "/v1/users/#{@id}/unban.json"
     return @save({},attr)
+  
+  add_cloud: (cloud,options) ->
+    
+    options = {} unless options
+    
+    options.url = "/v1/clouds/#{cloud.id}/users.json"
+    options.type = 'POST'
+    
+    return @save({},options)
+  
+  leave_cloud: (cloud,options) ->
+    
+    options = {} unless options
+    
+    options.url = "/v1/clouds/#{cloud.id}/users/#{@id}.json"
+    options.type = 'DELETE'
+    
+    return @save({},options)
+  
+  isMemberOf: (cloud) ->
+    $.inArray(cloud.id, _.map(@get('clouds'), (c) -> c.id)) >= 0
