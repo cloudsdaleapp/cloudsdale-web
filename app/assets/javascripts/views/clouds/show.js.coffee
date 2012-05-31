@@ -29,6 +29,14 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     
     session.get('user').on 'change', (model) =>
       @refreshGfx()
+      
+    $(@el).bind "clouds:leave", (event,cloud) =>
+      if cloud.id == @model.id
+        @unbindEvents()
+        $(@el).remove()
+  
+  unbindEvents: ->
+    $(@el).unbind('page:show').unbind("clouds:leave")
   
   refreshGfx: () ->
     @.$('.cloud-head img').attr('src',@model.get('avatar').normal)
@@ -59,9 +67,12 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     switch @.$(event.target).attr('data-action')
       when 'add'
         session.get('user').add_cloud @model
-        
       when 'leave'
         session.get('user').leave_cloud @model
+        $.event.trigger "clouds:leave", @model
+        Backbone.history.navigate("/",true)
+            
+    false
     
       
     

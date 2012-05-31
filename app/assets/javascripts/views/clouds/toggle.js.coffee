@@ -31,6 +31,11 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
         @active = false
         $(@el).removeClass('active') 
     
+    $(@el).bind "clouds:leave", (event,cloud) =>
+      if cloud.id == @model.id
+        @unbindEvents()
+        $(@el).remove()
+        
     nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
       @addNotification()
       
@@ -42,6 +47,10 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     $(window).blur =>
       $(@el).removeClass('active')
   
+  unbindEvents: ->
+    $(@el).unbind('page:show').unbind('clouds:leave')
+    nfc.off("#{@model.type}s:#{@model.id}:chat:messages")
+    
   refreshGfx: ->
     @.$('.cloud-toggle-notification').html("#{@notifications}")
     if @notifications >= 1
@@ -52,6 +61,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
   activate: ->
     Backbone.history.navigate("/clouds/#{@model.id}",true)
     false
+  
   
   # Clears Cloud of all notifications and refreshes the notification plate
   clearNotifications: ->
