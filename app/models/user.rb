@@ -90,7 +90,7 @@ class User
   #
   # Returns the name String.
   def name=(val=nil)
-    self[:name] = val.split(/\s/).each{|w|w.capitalize!}.join(" ") if val.present?
+    self[:name] = val.gsub(/^\s*/i,"").split(/\s/).each{|w|w.capitalize!}.join(" ") if val.present?
   end
   
   # Public: Translates the User object to a HASH string using RABL
