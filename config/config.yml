@@ -41,7 +41,7 @@ development:
 
 
 production:
-  url: http://www.cloudsdale.org
+  url: http://web01.cloudsdale.org
   asset_url: http://assets.cloudsdale.org
   
   youtube:
