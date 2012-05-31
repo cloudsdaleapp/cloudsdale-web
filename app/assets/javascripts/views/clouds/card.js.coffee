@@ -1,10 +1,13 @@
 class Cloudsdale.Views.CloudsPreview extends Backbone.View
   
-  template: JST['clouds/preview']
+  template: JST['clouds/card']
   
   model: 'cloud'
-  tagName: 'div'
-  className: 'explore-preview'
+  tagName: 'li'
+  className: 'explore-card'
+  
+  events:
+    'click a[data-action=join-cloud]' : "joinCloud"
   
   initialize: (args) ->
     
@@ -21,3 +24,7 @@ class Cloudsdale.Views.CloudsPreview extends Backbone.View
   
   bindEvents: ->
     # TODO
+  
+  joinCloud: ->
+    Backbone.history.navigate("/clouds/#{@model.id}",true)
+    false

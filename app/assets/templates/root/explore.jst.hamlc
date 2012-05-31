@@ -9,20 +9,9 @@
         %a{ href: '#explore-recent', data: { toggle: 'tab' } }= "Recent"
     
     .tab-content
-      %ul#explore-popular.explore-featurelist.tab-pane
-        - $.each [0..5], (i) ->
-          %li.explore-feature-item
-            .explore-cloud-list-image
-              %img
-            .explore-cloud-list-title= "Cloud"
-            %p.explore-cloud-list-description= "A cloud description of some sort..."
-            .explore-cloud-featurelist-actions
-              %a.btn.btn-success
-                %i.icon-white.icon-chevron-right
-                = "Join"
+      %ul#explore-popular.explore-card-list.tab-pane
           
-      %ul#explore-recent.explore-featurelist.tab-pane
-        %li.explore-feature-item= "Recent Cloud"
+      %ul#explore-recent.explore-card-list.tab-pane
         
 .float-container.with-fixed-container
   .container-inner

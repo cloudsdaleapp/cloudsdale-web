@@ -1,6 +1,0 @@
-.explore-preview-nav
-  %img{ src: @model.get('avatar').normal }
-%header
-  %h3= @model.get('name')
-%article
-  %p= @model.get('description')

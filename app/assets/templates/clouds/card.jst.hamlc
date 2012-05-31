@@ -1,0 +1,8 @@
+.explore-cloud-list-image
+  %img{ src: @model.get('avatar').normal }
+.explore-cloud-list-title= @model.get('name')
+%p.explore-cloud-list-description= @model.get('description')
+.explore-card-actions
+  %a.btn.btn-success{ href: "/clouds/#{@model.id}", data: { action: 'join-cloud' } }
+    %i.icon-white.icon-chevron-right
+    = "Join"

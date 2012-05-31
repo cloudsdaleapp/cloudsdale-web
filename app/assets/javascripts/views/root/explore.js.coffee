@@ -23,6 +23,8 @@ class Cloudsdale.Views.Explore extends Backbone.View
           
   render: ->
     $(@el).html(@template(view: @)).attr('data-page-id','explore')
+    @renderRecent()
+    @renderPopular()
     this
   
   show: ->
@@ -41,3 +43,17 @@ class Cloudsdale.Views.Explore extends Backbone.View
     
     $(@el).bind 'page:show', (event,pageId) =>
       @show() if pageId == 'explore'
+  
+  renderRecent: ->
+    @recentClouds.fetch
+      success: (collection) =>
+        collection.each (model) =>
+          view = new Cloudsdale.Views.CloudsPreview(model: model)
+          @.$('ul#explore-recent').append(view.el)
+  
+  renderPopular: ->
+    @popularClouds.fetch
+      success: (collection) =>
+        collection.each (model) =>
+          view = new Cloudsdale.Views.CloudsPreview(model: model)
+          @.$('ul#explore-popular').append(view.el)
