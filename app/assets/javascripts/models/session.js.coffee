@@ -1,7 +1,12 @@
 class Cloudsdale.Models.Session extends Backbone.Model
   
+  defaults:
+    user: {}
+    clouds: []
+    users: []
+  
   initialize: (attr) ->
-    
+        
     @set 'user', new Cloudsdale.Models.User(@get('user'))
     @listenToPrivateChannel()
     
@@ -10,7 +15,7 @@ class Cloudsdale.Models.Session extends Backbone.Model
     
     @bindEvents()
     @reInitializeClouds()
-  
+      
   listenToPrivateChannel: ->
     if @isLoggedIn()
       nfc.on "users:#{@get('user').id}:private", (payload) =>
