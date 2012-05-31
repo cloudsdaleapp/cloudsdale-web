@@ -6,7 +6,7 @@ class Cloudsdale.Models.User extends Backbone.Model
   defaults:
     name: ""
     avatar: {}
-    clouds: {}
+    clouds: []
     email: ""
     time_zone: ""
     role: "normal"
