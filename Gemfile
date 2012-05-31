@@ -18,8 +18,8 @@ gem 'redis'
 gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
 
 group :assets do
-  gem 'sass', git: 'https://github.com/nex3/sass.git'
-  gem 'sass-rails'
+  gem 'sass', '~> 3.2.0.alpha'
+  gem 'sass-rails', '~> 3.2.5'
   gem 'bootstrap-sass'
   gem 'coffee-script'
   gem 'uglifier'
