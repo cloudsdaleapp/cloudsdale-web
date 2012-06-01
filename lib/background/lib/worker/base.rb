@@ -66,7 +66,7 @@ module Worker
         # @logfile = @logdir + "/#{self.class.to_s.downcase}.log"
         # FileUtils.touch @logfile
       
-        @log = Logger.new #MultiDelegator.delegate(:write, :close).to(STDOUT, File.open(@logfile,'a'))
+        @log = Logger.new(STDOUT) #MultiDelegator.delegate(:write, :close).to(STDOUT, File.open(@logfile,'a'))
         @log.level = Logger::DEBUG # TODO Only log if development environment
         
         @log.formatter = proc do |severity, datetime, progname, msg|
