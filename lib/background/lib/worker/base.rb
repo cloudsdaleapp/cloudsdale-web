@@ -60,21 +60,21 @@ module Worker
     def initialize(options={})
       @root = File.expand_path('../../../../../', __FILE__)
       
-      # if @log.nil?
-      #   @logdir = @root + "/log/worker"
-      #   FileUtils.mkdir_p @logdir
-      #   @logfile = @logdir + "/#{self.class.to_s.downcase}.log"
-      #   FileUtils.touch @logfile
-      # 
-      #   @log = Logger.new MultiDelegator.delegate(:write, :close).to(STDOUT, File.open(@logfile,'a'))
-      #   @log.level = Logger::DEBUG # TODO Only log if development environment
-      #   
-      #   @log.formatter = proc do |severity, datetime, progname, msg|
-      #     "[#{severity}] - #{datetime}: #{msg}\n"
-      #   end
-      #   
-      #   @log.info("Started logging in: #{@logfile}")
-      # end
+      if @log.nil?
+        # @logdir = @root + "/log/worker"
+        # FileUtils.mkdir_p @logdir
+        # @logfile = @logdir + "/#{self.class.to_s.downcase}.log"
+        # FileUtils.touch @logfile
+      
+        @log = Logger.new #MultiDelegator.delegate(:write, :close).to(STDOUT, File.open(@logfile,'a'))
+        @log.level = Logger::DEBUG # TODO Only log if development environment
+        
+        @log.formatter = proc do |severity, datetime, progname, msg|
+          "[#{severity}] - #{datetime}: #{msg}\n"
+        end
+        
+        @log.info("Started logging in: #{@logfile}")
+      end
       
       return self
     end
