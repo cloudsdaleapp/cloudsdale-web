@@ -220,17 +220,17 @@ class Api::V1Controller < ActionController::Base
   # # => [{ :type => :field, :ref_type => 'user', :ref_id => '4f2fd644b679de2228000007', :ref_node => 'name', :message => 'can't be blank' }]
   #
   # Returns the array of error hashes which can be rendered in a response.
-  def build_errors_from_model(model)
+  def build_errors_from_model(_model)
         
-    unless model.errors.empty?
+    unless _model.errors.empty?
       
-      model.errors.messages.each do |field,messages|
-        id    = model._id.to_s
-        type  = model._type.downcase
+      _model.errors.messages.each do |field,messages|
+        id    = _model._id.to_s
+        type  = _model.try(:_type) || _model.to_s || ""
         node  = field.to_s
         message = messages.join(', ')
         
-        add_error type: :field, ref_type: type, ref_id: id, ref_node: node, message: message
+        add_error type: :field, ref_type: type.downcase, ref_id: id, ref_node: node, message: message
       end
       
     end
