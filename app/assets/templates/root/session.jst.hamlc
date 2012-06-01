@@ -59,7 +59,7 @@
       %h1= "Welcome back #{session.get('user').get('name')}!"
       %h3
         = "Account registered on "
-        = session.get('user').memberSince().toString("yyyy-HH-dd")
+        = session.get('user').memberSince().toString("yyyy-MM-dd")
       %h3
         = "There are "
         = session.get('user').get('clouds').length
