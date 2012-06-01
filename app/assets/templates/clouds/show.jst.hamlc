@@ -6,7 +6,8 @@
       %h2= @model.get('name')
       %p= @model.get('description')
       .cloud-head-actions
-        %a.btn.followed
+        - unless @model.get('owner').id == session.get('user').id
+          %a.btn.followed
 
     .drop-wrapper
   
