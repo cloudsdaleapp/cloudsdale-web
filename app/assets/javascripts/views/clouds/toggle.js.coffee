@@ -12,6 +12,8 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
   
   initialize: ->
     
+    @active = false
+    
     @fetchNotifications()
     
     @render()
