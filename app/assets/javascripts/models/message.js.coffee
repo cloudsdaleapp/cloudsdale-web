@@ -12,9 +12,7 @@ class Cloudsdale.Models.Message extends Backbone.Model
     
     user = session.get('users').findOrInitialize(args.user)
     @set('user',user)
-    
-    # @get('user').on 'change', -> alert("wat")
-      
+          
   timestamp: ->
     new Date(@get('timestamp'))
   
