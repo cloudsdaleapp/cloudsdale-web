@@ -95,7 +95,6 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
         @.$(":file").val('')
         @.$('form#avatar-form > .loading-content').remove()
         resp = $.parseJSON(response.responseText)
-        console.log resp
         switch resp.status
           when 200
             @cloud.set(resp.result)
