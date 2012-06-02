@@ -25,7 +25,8 @@
 # require showdown
 # require highcharts
 #
-#= require underscore
+# require underscore
+#= require underscore-1.3.3
 #= require backbone
 #= require backbone.getset
 #
