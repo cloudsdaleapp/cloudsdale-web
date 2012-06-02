@@ -1,7 +1,7 @@
 development:
   url: http://local.cloudsdale.org:3000
   asset_url: http://local.cloudsdale.org:3000
-  faye_port: 9191
+
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
   twitter:
@@ -16,19 +16,18 @@ development:
   redis:
     host: 127.0.0.1
     port: 6379
-    chat:
-      host: 127.0.0.1
-      port: 6379
+      
   rackspace_cloudfiles:
     username: zeeraw
     api_key: fb02d3d2336d887b81c7401d522ea393
     fog_directory: cloudsdale_development_uploads
     fog_host: http://c775851.r51.cf2.rackcdn.com
+    
   faye:
-    path: faye
+    path: push
     schema: http
     host: 127.0.0.1
-    port: 9191
+    port: 8000
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
     inhouse_host: 127.0.0.1
   soundcloud:
@@ -62,10 +61,7 @@ production:
   redis:
     host: db.s.cloudsdale.org
     port: 6379
-    chat:
-      host: db.s.cloudsdale.org
-      port: 6379
-      
+
   rackspace_cloudfiles:
     username: zeeraw
     api_key: fb02d3d2336d887b81c7401d522ea393
@@ -73,7 +69,7 @@ production:
     fog_host: http://c775850.r50.cf2.rackcdn.com
     
   faye:
-    path: faye
+    path: push
     schema: http
     host: push01.cloudsdale.org
     port: 80
