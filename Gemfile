@@ -79,6 +79,10 @@ gem 'bunny'
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
 
+
+# Profiling
+gem 'newrelic_rpm'
+
 group :development, :test do
   gem 'pry'
   gem 'rails3-generators'
