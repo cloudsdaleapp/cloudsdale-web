@@ -28,10 +28,12 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     $(@el).bind 'page:show', (event,page_id) =>
       if page_id == @model.id
         @active = true
-        $(@el).addClass('active') 
+        $(@el).addClass('active')
+        @clearNotifications()
       else
         @active = false
         $(@el).removeClass('active') 
+        
     
     $(@el).bind "clouds:leave", (event,cloud) =>
       if cloud.id == @model.id
