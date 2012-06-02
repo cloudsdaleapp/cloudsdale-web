@@ -87,6 +87,9 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
       if typeof n is 'string'
         @notifications = parseInt(n)
       else
+        @notifications = n
+      
+      addGlobalNotification(@notifications)
       
     @refreshGfx()
     
