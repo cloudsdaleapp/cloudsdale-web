@@ -85,6 +85,9 @@ body
   right: 0
   color: #666666
   
+  & > .loading-content
+    background: #f8f8f8 $bgNoise
+  
   @media (max-width: $phone)
     .main-container, .cloudbar, .navbar
       @each $vendor in -moz-, -o-, -webkit-, ""

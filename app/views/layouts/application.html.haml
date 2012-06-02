@@ -11,4 +11,5 @@
     = csrf_meta_tags
     
   %body{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
+    .loading-content
   
