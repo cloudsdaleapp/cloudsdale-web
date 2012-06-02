@@ -34,7 +34,7 @@ class Cloudsdale.Views.CloudsChatUser extends Backbone.View
   #
   # Returns god knows what...
   bindEvents: ->
-    $(@el).bind "#{@topic.type}:#{@topic.id}:presence:#{@model.id}", (event,payload) =>
+    $(@el).bind "#{@topic.type}s:#{@topic.id}:users:#{@model.id}", (event,payload) =>
       @model.set(payload)
       @haveBeenSeen()
   

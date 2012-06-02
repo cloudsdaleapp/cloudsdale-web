@@ -51,7 +51,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         
         @appendMessage(message)
     
-    nfc.on "#{@model.type}:#{@model.id}:presence", (payload) =>
+    nfc.on "#{@model.type}s:#{@model.id}:users", (payload) =>
       @refreshPresence(payload)
   
   # Creates and saves a new message and then appends it to
@@ -164,7 +164,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   # Returns false.
   announcePresence: ->
     setTimeout( =>
-      nfc.cli.publish "/#{@model.type}/#{@model.id}/presence", session.get('user')
+      nfc.cli.publish "/#{@model.type}s/#{@model.id}/users", session.get('user').toBroadcastJSON()
       setTimeout( =>
         @announcePresence()
       , 27000)
@@ -182,7 +182,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       user_view = new Cloudsdale.Views.CloudsChatUser(model: user, topic: @model)
       @.$(".chat-online-list").append(user_view.el)
     else
-      $.event.trigger "#{@model.type}:#{@model.id}:presence:#{payload.id}", payload
+      $.event.trigger "#{@model.type}s:#{@model.id}:users:#{payload.id}", payload
     
     @refreshSidebarGFX()
     
