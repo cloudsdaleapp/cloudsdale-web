@@ -6,7 +6,8 @@ module AMQPConnector
         
     q = Cloudsdale.bunny.queue(queue)
     e = Cloudsdale.bunny.exchange('')
-    e.publish(encoded_data, :key => queue.to_s)
+        
+    e.publish(encoded_data, :key => queue.to_s, :content_type => "application/json")
     
   end
   
