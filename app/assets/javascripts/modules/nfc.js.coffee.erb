@@ -2,18 +2,26 @@ do ($ = jQuery) ->
   
   window.globalNotifications = 0
   
+  $(window).blur =>
+    window.addGlobalNotification(0) if window.globalNotifications > 0
+  
   window.clearGlobalNotification = ->
     window.globalNotifications = 0
+    window.setGlobalNotification()
   
   window.addGlobalNotification = (num) ->
     window.globalNotifications += num
-    window.setGlobalNotification()
+    if window.globalNotifications > 0
+      window.setGlobalNotification()
+    else
+      window.clearGlobalNotification()
   
   window.subtractGlobalNotification = (num) ->
     window.globalNotifications -= num
-    if window.lobalNotifications < 0
+    if window.globalNotifications > 0
+      window.setGlobalNotification()
+    else
       window.clearGlobalNotification()
-    window.setGlobalNotification()
   
   window.setGlobalNotification = ->
     $.titleAlert "(#{window.globalNotifications}) new event(s)",
