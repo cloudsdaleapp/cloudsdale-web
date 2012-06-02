@@ -29,7 +29,7 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
         options.success(user) if options.success
         
     else
-      user = new Cloudsdale.Models.Cloud(args)
+      user = new Cloudsdale.Models.User(args)
       
       if user.get('is_transient')
         user.fetch(
