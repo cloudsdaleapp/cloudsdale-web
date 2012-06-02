@@ -12,3 +12,6 @@ module AMQPConnector
   end
   
 end
+
+Cloudsdale.bunny.queue 'faye'
+Cloudsdale.bunny.queue 'drops'
