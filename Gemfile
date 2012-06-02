@@ -70,16 +70,11 @@ gem 'soundcloud'
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'user-agent'
-
-# Workers
-gem 'bunny'
-gem 'yajl-ruby', :require => 'yajl'
-gem 'eventmachine'
-gem 'em-synchrony', :require => "em-synchrony"
-gem 'em-http-request'
 gem 'hashr', :require => 'hashr'
-gem 'amqp', '~> 0.9.2'
+gem 'yajl-ruby', :require => 'yajl'
 
+# AMQP
+gem 'bunny'
 
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
