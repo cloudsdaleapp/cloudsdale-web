@@ -66,7 +66,7 @@ class Cloudsdale.Collections.Clouds extends Backbone.Collection
       headers:
         'X-Result-Page' : @nextPage if @nextPage
         'X-Result-Time' : @timeThreshold if @timeThreshold
-        
+      
       success: (collection,resp) =>
         @page           = xhr.getResponseHeader('X-Result-Page')
         @nextPage       = xhr.getResponseHeader('X-Result-Next')
@@ -74,6 +74,7 @@ class Cloudsdale.Collections.Clouds extends Backbone.Collection
         @totalResults   = xhr.getResponseHeader('X-Result-Total')
         @timeThreshold  = xhr.getResponseHeader('X-Result-Time')
         options.success(collection,resp) if options.success
+        
       error: (collection,resp) =>
         options.error(collection,resp) if options.error
   
