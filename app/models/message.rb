@@ -38,7 +38,7 @@ class Message
   #
   # Returns a Hash string.
   def to_hash
-    Rabl.render(self, 'api/v1/messages/mini', :view_path => 'app/views', :format => 'hash')
+    Rabl.render(self, 'api/v1/messages/base', :view_path => 'app/views', :format => 'hash')
   end
   
   def topic_type
