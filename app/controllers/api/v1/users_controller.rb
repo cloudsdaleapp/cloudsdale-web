@@ -86,12 +86,16 @@ class Api::V1::UsersController < Api::V1Controller
     
     @user = User.where(email: params[:email].downcase).first
     
-    if @user
+    if @user && cannot?(:restore, @user)
+      set_flash_message message: "You were unable to restore this account as it is suspended."
+      render status: 401
+    elsif @user
       @user.create_restoration
       UserMailer.restore_mail(@user).deliver
+      render status: 200
+    else
+      render status: 200
     end
-    
-    render status: 200
     
   end
   

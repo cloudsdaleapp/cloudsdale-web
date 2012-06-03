@@ -9,6 +9,10 @@ class Ability
       can [:read,:update], User, _id: user.id
       can :accept_tnc, User, _id: user.id
       
+      can :restore, User do |u|
+        !u.banned?
+      end
+      
       can :add_to_cloud, User
       can :deduct_from_cloud, User
       

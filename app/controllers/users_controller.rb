@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   def restore
     
     @user = User.where('restoration.token' => params[:token]).first
+    authorize! :restore, @user
+    
     if @user
       unless @user.restoration.expired?
         
