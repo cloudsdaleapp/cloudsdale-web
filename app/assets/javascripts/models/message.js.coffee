@@ -7,14 +7,12 @@ class Cloudsdale.Models.Message extends Backbone.Model
   initialize: (args) ->
     args ||= {}
     
-    if args.topic
-      topic = session.get('clouds').findOrInitialize(args.topic)
-      @set('topic',topic)
-    
-    if args.author
-      user = session.get('users').findOrInitialize(args.author)
-      @set('user',user)
-          
+    topic = session.get('clouds').findOrInitialize(args.topic)
+    @set('topic',topic)
+  
+    user = session.get('users').findOrInitialize(args.author)
+    @set('user',user)
+        
   timestamp: ->
     new Date(@get('timestamp'))
   
