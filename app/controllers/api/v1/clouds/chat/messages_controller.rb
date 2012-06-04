@@ -35,6 +35,10 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
     
     authorize! :create, @message
     
+    # Autoprune - Fetches all the oldest messages and TRASHES THEM LIKE A BAWS!
+    # TODO: MAEK BUAUTIFULIER!
+    @cloud.chat.messages.order_by([:timestamp,:desc]).only([:_id,:timestamp]).skip(50).delete
+    
     @message.urls.each do |url|
       @cloud.create_drop_deposit_from_url_by_user(url,current_user)
     end
