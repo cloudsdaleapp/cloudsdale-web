@@ -91,9 +91,6 @@ end
 group :development do
   gem 'gist'
   gem 'foreman'
-  
-  # Development Profiling
-  gem 'newrelic_rpm'
 end
 
 group :test do
@@ -110,6 +107,9 @@ end
 
 gem 'yard'
 gem 'yard-tomdoc', git: 'git://github.com/rubyworks/yard-tomdoc.git'
+
+# Profiling
+gem 'newrelic_rpm'
 
 gem 'capistrano'
 gem 'capistrano_colors', :require => nil
