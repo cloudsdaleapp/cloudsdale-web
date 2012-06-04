@@ -44,8 +44,13 @@ class Api::V1::SessionsController < Api::V1Controller
     
     # MORE EXCEPTION HANDLING - TODO: MAKE EVEN PRETTIER
     if !@current_user.has_a_valid_authentication_method? && params[:oauth]
+      if params[:oauth][:provider] == "cloudsdale"
+        error_message = "Could not authenticate your account please look over your credentials. Maybe you don't have an account, why don't you create one?"
+      else
+        error_message = "Could not connect #{params[:oauth][:provider]} to any account, please login to connect your #{params[:oauth][:provider]}. If you have no account, one will be created for you."
+      end
       set_flash_message(
-          message: "Could not connect #{params[:oauth][:provider]} to any account, please login to connect your #{params[:oauth][:provider]}. If you have no account, one will be created for you.",
+          message: error_message,
           type: "error",
           title: "Almost there!"
       )
