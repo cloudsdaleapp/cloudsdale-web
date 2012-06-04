@@ -58,8 +58,8 @@ class User
   validates_format_of :name,  with: /^([a-z]*\s?){1,5}$/i, message: "must use a-z and max five words", if: :name
   validates_format_of :email, with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "invalid email", if: :email
   
-  validates_uniqueness_of :name, :case_sensitive => false
-  validates_uniqueness_of :email, :case_sensitive => false
+  validates_uniqueness_of :name, :case_sensitive => false, if: :name?
+  validates_uniqueness_of :email, :case_sensitive => false, if: :email?
   
   validates_presence_of [:email,:password,:name], :if => :confirm_registration
   validates_presence_of [:email,:name], :unless => :new_record?
