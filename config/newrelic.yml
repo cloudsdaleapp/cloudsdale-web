@@ -3,9 +3,9 @@
 # Ruby, Java, .NET, PHP, and Python applications with deep visibility and low overhead.
 # For more information, visit www.newrelic.com.
 #
-# Generated June 02, 2012
+# Generated June 04, 2012
 #
-# This configuration file is custom generated for The Light Agency AB
+# This configuration file is custom generated for Cloudsdale
 
 # Here are the settings that are common to all environments:
 common: &default_settings
@@ -14,7 +14,7 @@ common: &default_settings
   # You must specify the license key associated with your New Relic
   # account.  This key binds your Agent's data to your account in the
   # New Relic service.
-  license_key: 'dd106062198424454d94438bcf8fca458fb74764'
+  license_key: '8e02cf5a4ffe7ed8e478260d4dcbf310b2155db3'
   
   # Agent Enabled (Ruby/Rails Only)
   # Use this setting to force the agent to run or not run.
