@@ -2,6 +2,7 @@ class Cloudsdale.Routers.Root extends Backbone.Router
   
   routes:
     ''                            : 'index'
+    '_=_'                         : 'redirectIndex'
     'explore'                     : 'explore'
     'info'                        : 'info'
     'notfound'                    : 'notFound'
@@ -12,6 +13,9 @@ class Cloudsdale.Routers.Root extends Backbone.Router
   # Initializes the dynamic Interface
   index: ->
     $.event.trigger 'page:show', "root"
+  
+  redirectIndex: ->
+    Backbone.history.navigate("/",true)
   
   explore: ->
         
