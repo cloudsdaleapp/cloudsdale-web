@@ -19,6 +19,14 @@ GIT
       activesupport (>= 3.0)
 
 GIT
+  remote: git://github.com/newrelic/rpm_contrib.git
+  revision: f2c8878041245485619d0cf23c579f3d74243889
+  specs:
+    rpm_contrib (2.1.11)
+      newrelic_rpm (>= 3.1.1)
+      newrelic_rpm (>= 3.1.1)
+
+GIT
   remote: git://github.com/rubyworks/yard-tomdoc.git
   revision: f3e9e3dd35af21b559057df8762d3acd0fc84340
   specs:
@@ -430,6 +438,7 @@ DEPENDENCIES
   redis
   redis-rails (~> 3.2.1)
   rmagick
+  rpm_contrib!
   rspec-rails
   sass (~> 3.2.0.alpha)
   sass-rails (~> 3.2.5)
