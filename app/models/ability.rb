@@ -62,7 +62,13 @@ class Ability
       
       if !user.banned?
       
-        can [:ban,:unban], User
+        # You can't ban users that have higher role than you
+        can [:ban,:unban], User do |_user|
+          puts "Banner: #{user.role}"
+          puts "Banee: #{_user.role}"
+          (_user.try(:_id) != user.try(:_id)) && user.role > _user.role
+        end
+        
         can [:start,:vote], Prosecution
         
       end
@@ -87,11 +93,6 @@ class Ability
     # You can't start prosecutions that have a judgement in place.
     cannot :vote, Prosecution do |prosecution|
       prosecution.judgement.present?
-    end
-    
-    # You can't ban users that have higher role than you.
-    cannot [:ban,:unban], User do |_user|
-      (_user.try(:_id) == user.try(:_id)) && _user.role > user.role
     end
       
   end
