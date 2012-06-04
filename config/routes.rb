@@ -88,5 +88,7 @@ Cloudsdale::Application.routes.draw do
   resources :users, :only => [] do
     match "/restore/:token" => "users#restore", as: :restore, on: :collection
   end
+  
+  get '/sitemap' => 'sitemap#index', as: :sitemap
     
 end

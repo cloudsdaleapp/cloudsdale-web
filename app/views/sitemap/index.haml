@@ -1,0 +1,28 @@
+- base_url = "http://#{request.host_with_port}"
+!!! XML
+%urlset{ :xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9" }
+  %url
+    %loc= "#{base_url}"
+    %lastmod= "2012-06-04"
+    %changefreq= "monthly"
+    %priority= "1"
+  
+  %url
+    %loc= "#{base_url}/explore"
+    %lastmod= "2012-06-04"
+    %changefreq= "monthly"
+    %priority= "0.7"
+  
+  %url
+    %loc= "#{base_url}/info"
+    %lastmod= "2012-06-04"
+    %changefreq= "monthly"
+    %priority= "0.7"
+    
+  - @clouds.each do |cloud|
+    %url
+      %loc= "#{base_url}/clouds/#{cloud.id}"
+      %lastmod= cloud.updated_at.strftime("%Y-%m-%d")
+      %changefreq= "monthly"
+      %priority= "0.3"
+
