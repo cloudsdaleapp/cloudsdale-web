@@ -27,10 +27,10 @@ class Cloud
   validates :name, presence: true, uniqueness: true, length: { within: 3..24 }
   validates :description, length: { maximum: 140 }
   
-  belongs_to :owner, polymorphic: true
+  belongs_to :owner, polymorphic: true, index: true
   
-  has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify
-  has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User"
+  has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true
+  has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true
   
   scope :popular, order_by(:member_count, :desc)
   scope :recent, order_by(:created_at, :desc)

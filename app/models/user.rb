@@ -24,8 +24,8 @@ class User
   
   has_many :owned_clouds, class_name: "Cloud", as: :owner
   
-  has_and_belongs_to_many :clouds,            :inverse_of => :users,      dependent: :nullify
-  has_and_belongs_to_many :clouds_moderated,  :inverse_of => :moderators, dependent: :nullify,  class_name: "Cloud"
+  has_and_belongs_to_many :clouds,            :inverse_of => :users,      dependent: :nullify,  index: true
+  has_and_belongs_to_many :clouds_moderated,  :inverse_of => :moderators, dependent: :nullify,  class_name: "Cloud",  index: true
   
   field :name,                      type: String
   field :email,                     type: String
