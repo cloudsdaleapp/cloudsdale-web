@@ -50,8 +50,9 @@ class AuthenticationsController < ApplicationController
     @user.name      = @name       unless @user.name.present?
     @user.email     = @email      unless @user.email.present?
     @user.time_zone = @time_zone  unless @user.time_zone.present?
-            
-    if @user.save
+    
+    
+    if !@user.banned? && @user.save
       session[:user_id] = @user.id
     end
     
