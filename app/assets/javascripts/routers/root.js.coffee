@@ -2,7 +2,7 @@ class Cloudsdale.Routers.Root extends Backbone.Router
   
   routes:
     ''                            : 'index'
-    '_=_'                         : 'redirectIndex'
+    '_=_'                         : 'redirectIndex' # For facebook redirect.
     'explore'                     : 'explore'
     'info'                        : 'info'
     'notfound'                    : 'notFound'
@@ -14,8 +14,7 @@ class Cloudsdale.Routers.Root extends Backbone.Router
   index: ->
     $.event.trigger 'page:show', "root"
   
-  redirectIndex: ->
-    Backbone.history.navigate("/",true)
+  redirectIndex: -> Backbone.history.navigate("/",true)
   
   explore: ->
         
