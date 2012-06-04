@@ -30,14 +30,14 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
   # Returns the message that was sent.
   def create
     
+    # Autoprune - Fetches all the oldest messages and TRASHES THEM LIKE A BAWS!
+    # TODO: MAEK BUAUTIFULIER!
+    @cloud.chat.messages.order_by([:timestamp,:desc]).only([:_id,:timestamp]).skip(50).delete
+    
     @message = @cloud.chat.messages.build params[:message]
     @message.author = current_user
     
     authorize! :create, @message
-    
-    # Autoprune - Fetches all the oldest messages and TRASHES THEM LIKE A BAWS!
-    # TODO: MAEK BUAUTIFULIER!
-    @cloud.chat.messages.order_by([:timestamp,:desc]).only([:_id,:timestamp]).skip(50).delete
     
     @message.urls.each do |url|
       @cloud.create_drop_deposit_from_url_by_user(url,current_user)
