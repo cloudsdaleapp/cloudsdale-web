@@ -37,7 +37,7 @@ class Ability
       
         # Normal users can only create messages in clouds that are unlocked or that they have added. 
         can :create, Message do |message|
-          user.cloud_ids.include?(message.chat.topic.id) || !message.chat.topic.locked?
+          (user.cloud_ids.include?(message.chat.topic.id) || !message.chat.topic.locked?) && user.is_registered?
         end
       
         # Can only start & vote on prosecutions where they are a moderator or owner of the cloud.
