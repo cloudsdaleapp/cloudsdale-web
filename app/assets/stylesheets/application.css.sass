@@ -105,6 +105,14 @@ body
         margin-right: -241px
   
   &.with-active-session
+    .cloudbar
+      ul
+        overflow: hidden
+    &.with-expanded-cloudbar
+      .cloudbar
+        ul
+          overflow: auto
+          
     @media (max-width: $phone)
       .cloudbar
         margin-right: -100%
@@ -121,9 +129,6 @@ body
     @media (min-width: $ipad-min)
       .cloudbar
         margin-right: -188px
-        ul
-          overflow: hidden
-          
       .main-container
         margin-right: 53px
         &:before
@@ -133,8 +138,6 @@ body
       &.with-expanded-cloudbar
         .cloudbar
           margin-right: 0
-          ul
-            overflow: auto
         .main-container
           margin-right: 241px
           @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
