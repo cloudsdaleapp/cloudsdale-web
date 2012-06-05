@@ -36,6 +36,9 @@ class Cloudsdale.Views.Root extends Backbone.View
     $(@el).bind 'clouds:initialize', =>
       @renderSessionClouds()
     
+    $(@el).bind 'clouds:toggle:order', (event,cloud) =>
+      @moveToggleFirst(cloud)
+    
     $(@el).bind 'page:show', (event,page_id) =>
       @show(page_id) if page_id == "root"
     
@@ -59,6 +62,11 @@ class Cloudsdale.Views.Root extends Backbone.View
     @.$('.view-container').removeClass('active')
     @.$(".view-container[data-page-id=#{id}]").addClass('active')
   
+  moveToggleFirst: (cloud) ->
+    toggle = @.$("li.cloud-toggle[data-cloud-id=#{cloud.id}]")
+    @.$('.cloudbar > ul.cloud-list').prepend(toggle)
+    
+  
   openSessionDialog: (state) ->
     # view = new Cloudsdale.Views.SessionsDialog(state: state).el
     # if @.$('.modal-container').length > 0 then @.$('.modal-container').replaceWith(view) else $(@el).append(view)
@@ -70,7 +78,7 @@ class Cloudsdale.Views.Root extends Backbone.View
   
   renderSessionClouds: ->
     session.get('clouds').each (cloud) =>
-      @renderCloud(cloud)
+      @renderCloud(cloud) 
       
   renderCloud: (cloud) ->
     if @.$(".cloudbar > .cloud-list > li[data-cloud-id=#{cloud.id}]").length == 0

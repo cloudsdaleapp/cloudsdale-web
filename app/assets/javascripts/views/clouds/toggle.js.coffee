@@ -42,6 +42,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
         
     nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
       @addNotification()
+      $.event.trigger 'clouds:toggle:order', @model
       
     $(window).focus =>
       if @active

@@ -44,3 +44,7 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
     # #   url: "/v1/clouds/#{@id}/users.json"
     #     
     # collection.save()
+  
+  lastMessageAt: ->
+    new Date(@get('chat').last_message_at)
+    

@@ -2,6 +2,8 @@ class Cloudsdale.Collections.Clouds extends Backbone.Collection
 
   model: Cloudsdale.Models.Cloud
   url: -> "/v1/clouds"
+  comparator: (_model) ->
+    return -_model.lastMessageAt().getTime()
   
   initialize: (models,options) ->
     
