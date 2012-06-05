@@ -24,7 +24,7 @@ class Message
   before_validation do
     set_foreign_attributes! if author
   end
-  
+    
   after_save do
     enqueue! "faye", { channel: "/#{self.topic_type}s/#{self.topic_id}/chat/messages", data: self.to_hash } 
   end
@@ -54,9 +54,14 @@ class Message
   end
   
   def content=(msg)
+    
+    msg.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n"
+    msg.gsub! /<br\/><br\/>/,"\\n"
+    msg.gsub! /^\s*$/, ""
+    
     if (m = msg.match(/^(.*)/i))
       msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i do
-        
+              
         protocol = $1
         top_dom = $2
         path = $3
@@ -70,6 +75,7 @@ class Message
     end
     
     self[:content] = msg
+
   end
   
   private

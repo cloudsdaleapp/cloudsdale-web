@@ -28,7 +28,9 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   
   # Appends content to the message
   appendContent: (message) ->
+    
     content = escapeHTML(message.get('content')).autoLink({ target: "_blank" })
+    content = content.replace(/\\n/ig,"<br />")
     
     @.$('.chat-message-content').append("<p>#{content}</p>")
     @.$('.chat-message-meta').text(message.timestamp().toString('HH:mm:ss'))

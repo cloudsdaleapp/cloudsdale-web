@@ -30,7 +30,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       @resizeElements()
       if e.which == 13 and e.shiftKey == false
         @createNewMessage
-          content: @.$('textarea.chat-message-content').val()
+          content: JSON.stringify(@.$('textarea.chat-message-content').val()).replace(/^\"/,"").replace(/\"$/,"")
           timestamp: Date().toString()
         , true # True for saving
           
@@ -69,7 +69,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
     args.client_id = session.get('client_id')
         
     message = new Cloudsdale.Models.Message(args)
-    
+        
     @appendMessage(message)
 
     message.save() if do_save == true
