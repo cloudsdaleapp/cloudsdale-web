@@ -4,7 +4,7 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
   
   model: 'cloud'
   tagName: 'div'
-  className: 'view-container'
+  className: 'view-container cloud-container'
   
   events: ->
     'click a.followed' : 'toggleFollow'

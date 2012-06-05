@@ -105,6 +105,11 @@ body
       #{$vendor}transition-timing-function: ease-in-out
   
   &:not(.with-active-session)
+    @media (max-width: $phone)
+      .cloudbar
+        margin-right: -100%
+      .main-container
+        margin-right: 0%
     @media (min-width: $ipad-min)
       .main-container
         margin-left: 0
@@ -237,10 +242,6 @@ body
       margin-left: 320px
     @media (min-width: $desktop-s-min) 
       margin-left: 320px
-
-.container-inner
-  @media (max-width: $phone)
-    padding-top: 20px
 
 .cloudbar
   padding: 0

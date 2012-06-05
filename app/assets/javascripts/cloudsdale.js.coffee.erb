@@ -74,3 +74,12 @@ $(document).ready ->
     $('body').replaceWith(view.el)
     
     Cloudsdale.init()
+    
+    # iPad, iPhone & iPod installed web-app top margin correction.
+    setTimeout (->
+      if (navigator.userAgent.match(/iPhone|iPod|iPad/i))
+        if ("standalone" of window.navigator) and not window.navigator.standalone
+          $(".main-container").css("top","0px")
+        else
+          $(".main-container").css("top","20px")
+    ), 0
