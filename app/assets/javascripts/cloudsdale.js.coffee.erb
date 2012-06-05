@@ -79,7 +79,7 @@ $(document).ready ->
     setTimeout (->
       if (navigator.userAgent.match(/iPhone|iPod|iPad/i))
         if ("standalone" of window.navigator) and not window.navigator.standalone
-          $(".main-container").css("top","0px")
+          $(".main-container, body").css("top","0px")
         else
-          $(".main-container").css("top","20px")
+          $(".main-container, body").css("top","20px")
     ), 0
