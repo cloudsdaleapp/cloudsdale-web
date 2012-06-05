@@ -121,6 +121,8 @@ body
     @media (min-width: $ipad-min)
       .cloudbar
         margin-right: -188px
+        ul
+          overflow: hidden
           
       .main-container
         margin-right: 53px
@@ -131,6 +133,8 @@ body
       &.with-expanded-cloudbar
         .cloudbar
           margin-right: 0
+          ul
+            overflow: auto
         .main-container
           margin-right: 241px
           @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
@@ -261,7 +265,6 @@ ul.cloud-list
   display: block
   position: static
   list-style: none
-  overflow: hidden
   margin: 0
   padding: 0
   position: absolute
