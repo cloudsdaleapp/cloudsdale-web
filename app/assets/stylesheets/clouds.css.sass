@@ -117,13 +117,15 @@
       .chat-sidebar-header
         span.chat-sidebar-online-count
           display: inline-block
-      ul.chat-online-list li a
-        padding: 3px
-        span
-          display: inline-block
-          font-size: 15px
-        img
-          +border-radius(3px)
+      ul.chat-online-list
+        overflow: auto
+        li a
+          padding: 3px
+          span
+            display: inline-block
+            font-size: 15px
+          img
+            +border-radius(3px)
       
 .chat-sidebar
   position: relative
