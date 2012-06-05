@@ -78,6 +78,7 @@ $(document).ready ->
     # iPad, iPhone & iPod installed web-app top margin correction.
     setTimeout (->
       if (navigator.userAgent.match(/iPhone|iPod|iPad/i))
+        $("body").addClass('device-mobile')
         if ("standalone" of window.navigator) and not window.navigator.standalone
           $(".main-container, body").css("top","0px")
         else

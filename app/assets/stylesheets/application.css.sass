@@ -85,15 +85,16 @@ body
   right: 0
   color: #666666
   
-  @media (max-width: $phone)
-    @media all and (orientation: landscape)
-      zoom: .6
-      -webkit-text-size-adjust: 60%
+  &.device-mobile
+    @media (max-width: $phone)
+      @media all and (orientation: landscape)
+        zoom: .6
+        -webkit-text-size-adjust: 60%
       
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    @media all and (orientation: landscape)
-      zoom: .8
-      -webkit-text-size-adjust: 80%
+    @media (min-width: $ipad-min) and (max-width: $ipad-max)
+      @media all and (orientation: landscape)
+        zoom: .8
+        -webkit-text-size-adjust: 80%
   
   & > .loading-content
     background: #f8f8f8 $bgNoise
