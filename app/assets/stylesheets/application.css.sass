@@ -90,73 +90,61 @@ body
   
   & > .loading-content
     background: #f8f8f8 $bgNoise
-  
-  @media (max-width: $phone)
-    .main-container, .cloudbar, .navbar
-      @each $vendor in -moz-, -o-, -webkit-, ""
-        #{$vendor}transition-property: top, bottom
-        #{$vendor}transition-duration: .3s
-        #{$vendor}transition-timing-function: ease-in-out
-      
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    .main-container, .cloudbar
-      @each $vendor in -moz-, -o-, -webkit-, ""
-        #{$vendor}transition-property: top, bottom
-        #{$vendor}transition-duration: .3s
-        #{$vendor}transition-timing-function: ease-in-out
-      
-  @media (min-width: $desktop-s-min)
-    .main-container, .cloudbar
-      @each $vendor in -moz-, -o-, -webkit-, ""
-        #{$vendor}transition-property: margin-right, width
-        #{$vendor}transition-duration: .3s
-        #{$vendor}transition-timing-function: ease-in-out
+        
+  .main-container, .cloudbar
+    @each $vendor in -moz-, -o-, -webkit-, ""
+      #{$vendor}transition-property: margin-right, margin-left
+      #{$vendor}transition-duration: .3s
+      #{$vendor}transition-timing-function: ease-in-out
   
   &:not(.with-active-session)
-    @media (min-width: $desktop-s-min)
+    @media (min-width: $ipad-min)
       .main-container
-        margin-right: 0
-      @media (min-width: $desktop-s-min)
-        .cloudbar
-          margin-right: -80px
-      @media (min-width: $desktop-l-min)
-        .cloudbar
-          margin-right: -200px
-      @media (min-width: $desktop-l-max)
-        .cloudbar
-          margin-right: -280px
+        margin-left: 0
+      .cloudbar
+        margin-right: -241px
   
   &.with-active-session
     @media (max-width: $phone)
-      &.with-expanded-cloudbar 
-        .main-container
-          top: -$height-cloudbar
-          bottom: $height-bar + $height-cloudbar
-        .navbar
-          bottom: $height-cloudbar
-        .cloudbar
-          bottom: 0
-        
-    @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      &.with-expanded-cloudbar 
-        .main-container
-          top: -$height-cloudbar
-          bottom: $height-cloudbar
-        .cloudbar
-          bottom: 0
-    
-    @media (min-width: $desktop-s-min)
       .cloudbar
-        margin-right: 0
-      @media (min-width: $desktop-s-min)
+        margin-right: -100%
+      .main-container
+        margin-right: 0%
+    
+      &.with-expanded-cloudbar
+        .cloudbar
+          margin-right: 0%
         .main-container
-          margin-right: 80px
-      @media (min-width: $desktop-l-min)
+          margin-right: 100%
+          margin-left: -100%
+    
+    @media (min-width: $ipad-min)
+      .cloudbar
+        margin-right: -188px
+          
+      .main-container
+        margin-right: 53px
+        &:before
+          +opacity(0)
+          +transition(opacity .3s ease)
+    
+      &.with-expanded-cloudbar
+        .cloudbar
+          margin-right: 0
         .main-container
-          margin-right: 200px
-      @media (min-width: $desktop-l-max)
-        .main-container
-          margin-right: 280px
+          margin-right: 241px
+          @media (min-width: $ipad-min) and (max-width: $ipad-max)
+            margin-left: -241px
+            &:before
+              content: ""
+              position: absolute
+              top: 0
+              bottom: 0
+              right: 0
+              left: 0
+              background: black
+              +opacity(.8)
+              z-index: 7
 
 .main-container
   left: 0px
@@ -176,7 +164,7 @@ body
       +box-shadow(0,2px,5px,rgba(0,0,0,.3))
   
   @media (min-width: $desktop-s-min)
-    +box-shadow(2px,0,5px,rgba(0,0,0,.3))
+    // +box-shadow(2px,0,5px,rgba(0,0,0,.3))
 
 .view-container
   position: absolute
@@ -244,30 +232,30 @@ body
   padding: 0
   overflow: visible
   overflow: hidden
-  z-index: 3
-  background: #333333 asset-data-url("bg-texture-dark.png")
+  background: #333333 $bgNoise
   
-  @media (max-width: $ipad-max)
+  @media (max-width: $phone)
     
-    position: fixed
-    height: $height-cloudbar
-    left: 0
-    right: 0
-    bottom: -$height-cloudbar
-    top: auto
-  
-  @media (min-width: $desktop-s-min)
+    position: relative
+    height: 100%
+    width: 100%
+    float: right
+    z-index: 1
+      
+  @media (min-width: $ipad-min)
 
     position: relative
     height: 100%
     float: right
-    margin-top: $height-bar
-    @media (min-width: $desktop-s-min)
-      width: 80px
-    @media (min-width: $desktop-l-min)
-      width: 200px
-    @media (min-width: $desktop-l-max)
-      width: 280px
+    margin-top: $height-bar + 1
+    z-index: 5
+    
+    @each $vendor in -webkit-, -moz-, -o-, ""
+      #{$vendor}box-shadow: 0 2px 10px rgba(0, 0, 0, .2)
+    
+    border-left: 1px solid #222
+    
+    width: 240px
   
 ul.cloud-list
   display: block
@@ -281,8 +269,7 @@ ul.cloud-list
   bottom: 0
   left: 0
   right: 0
-  @media (min-width: $desktop-s-min)
-    padding-bottom: 60px
+  padding-bottom: 60px
   &:after
     content: "."
     display: block
@@ -295,159 +282,83 @@ li.cloud-toggle
   z-index: 999
   overflow: visible
   position: relative
+  a
+    border-bottom: 1px solid #222
+    border-top: 1px solid rgba(255,255,255,.2)
+  &:first-child
+    border-top: 0
   
   &:not(.with-notifications)
     a > span.cloud-toggle-notification
       display: none
+      
+  a
+    display: block
+    padding: 5px
+    +linear-gradient(#484848,#343434)
+      
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+    
+  span.cloud-toggle-name, span.cloud-toggle-notification
+    text-align: right
+    display: block
+    margin-bottom: 3px
+    text-shadow: 1px 1px 0 rgba(0,0,0,.3)
   
-  @media (max-width: $ipad-max)
-    float: left
-    height: $height-cloudbar
-    a
-      position: absolute
-      display: block
-      
-      padding: 0
-      margin-left: -($height-button/2 + 1)
-      margin-top: -($height-button/2 + 1)
-      
-      left: 50%
-      top: 50%
-      
-      height: $height-button + 1
-      width: $width-button + 1
-    
-    .cloud-toggle-avatar
-      
-      position: absolute
-      top: 0
-      left: 0
-      right: 0
-      bottom: 0
-    
-  @media (max-width: $phone)
-    width: 25%
-    
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    @media (orientation: portrait)
-      width: 12.5%
-    @media (orientation: landscape)
-      width: 10%
-  
-  @media (min-width: $desktop-s-min)
-    padding: 11px 11px 0 11px
-    a
-      position: relative !important
-      
-    .cloud-toggle-avatar
-      float: left
-      
-      &:hover
-        +box-shadow(0,0,10px,rgba(255,255,255,.7))
-      
-  @media (max-width: $desktop-m-max)
-    a
-      position: relative
-      display: block
-      float: left
-      &:after
-        content: "."
-        display: block
-        clear: both
-        visibility: hidden
-        line-height: 0
-        height: 0
-    .cloud-toggle-avatar
-      margin: 1px
-    span.cloud-toggle-notification
-      position: absolute
-      z-index: 2
-      
-      background: #D00000
-      
-      padding: 1px 2px
-      
-      line-height: 16px
-      min-height: 16px
-      min-width: 16px
-      top: -6px
-      right: -6px
-      
-      color: white
-      text-align: center
-      font-size: 10px
-      line-height: 16px
-      
-      float: right
-      display: block
-      
-      border: 2px solid rgba(255,255,255,.9)
-      +border-radius(9px)
-      
-    span.cloud-toggle-name
-      display: none
-          
-  @media (min-width: $desktop-l-min)
-  
-    a
-      display: block
-      padding: 5px
-      +border-radius(5px)
-      +linear-gradient(#f8f8f8,#d0d0d0)
-      border: 1px solid rgba(255,255,255,.3)
-      &:after
-        content: "."
-        display: block
-        clear: both
-        visibility: hidden
-        line-height: 0
-        height: 0
-      
-    span.cloud-toggle-name, span.cloud-toggle-notification
-      text-align: right
-      display: block
-      margin-bottom: 3px
-    
-    span.cloud-toggle-notification
-      color: #D00000
-      
-      
-  .cloud-toggle-avatar
-    +transition(box-shadow .2s ease-in-out)
-    +transition(opacity .2s ease-in-out)
-    +opacity(.8)
-    @media (max-width: $desktop-m-max)
-      width: 54px
-      height: 54px
-      background-position: center center
-      background-size: 54px 54px
-      border: 1px rgba(255,255,255,.9) solid
-      +border-radius(7px)
-    @media (min-width: $desktop-l-min)
-      width: 40px
-      height: 40px
-      background-position: center center
-      background-size: 40px 40px
-      border: 1px solid rgba(50,50,50,.3)
-      +border-radius(7px)
-    
   span.cloud-toggle-name
     font-weight: bold
-    color: #333
-  
+    color: #f8f8f8
+    
   span.cloud-toggle-notification
     font-weight: bold
     pointer-events: none
+    position: absolute
+    left: 9px
+    top: 9px
+    color: #fff
+    background: #D00000
+    border: #fff 1px solid
+    padding: 0 5px
+    +border-radius(10px)
+    font-size: 11px
+      
+  .cloud-toggle-avatar
+    float: left
+    +transition(box-shadow .2s ease-in-out)
+    +transition(opacity .2s ease-in-out)
+    +opacity(.6)
+    width: 40px
+    height: 40px
+    background-position: center center
+    background-size: 40px 40px
+    border: 1px #222 solid
+    +border-radius(3px)
+    +box-shadow-inset(1px,1px,2px,rgba(0,0,0,.2))
+    @each $vendor in -webkit-, -moz-, -o-, ""
+      #{$vendor}box-shadow: 0 1px 0 rgba(255, 255, 255, .4), inset 1px 1px 2px rgba(0,0,0,.2)
     
   &.active
+    a
+      .cloud-toggle-avatar
+        +opacity(1)
+      +linear-gradient(#63a0d0,#3f85b3)
+      &:hover
+        +linear-gradient(darken(#63a0d0,5%),darken(#3f85b3,5%))
+        
     span.cloud-toggle-notification
       display: none
-      
-  &:hover, &.active
-    @media (min-width: $desktop-l-min)
-      a
-        +linear-gradient(#ffffff,#f8f8f8)
-        
+    
+  &:hover
+    a
+      +linear-gradient(darken(#484848,5%),darken(#343434,5%))
+         
+  &:hover
     .cloud-toggle-avatar
       +opacity(1)
       
@@ -465,7 +376,7 @@ li.cloud-toggle
           
 .navbar.navbar-fixed-top
   margin: 0
-  z-index: 2
+  z-index: 15
   @media (max-width: $phone)
     top: auto
     bottom: 0
@@ -553,9 +464,9 @@ li.cloud-toggle
     float: left
     position: relative
     height: $height-bar
-    &:nth-child(3)
-      @media (min-width: $desktop-s-min)
-        display: none
+    // &:nth-child(3)
+    //   @media (min-width: $desktop-s-min)
+    //     display: none
     
     a
       position: absolute
@@ -660,7 +571,7 @@ li.cloud-toggle
   right: 0
   left: 0
   background: rgba(248,248,248,.6)
-  z-index: 10
+  z-index: 6
   &:before
     position: absolute
     top: 50%

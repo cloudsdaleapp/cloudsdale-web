@@ -43,6 +43,9 @@ class Cloudsdale.Views.Root extends Backbone.View
       @scrollTop -= (delta * 30)
       event.preventDefault()
     
+    $(document).bind 'click', (event) ->
+      $("body").removeClass('with-expanded-cloudbar')
+      
     session.get('user').bind 'change', (user) =>
       @refreshGfx()
   

@@ -40,6 +40,9 @@ class Cloudsdale.Views.TopBar extends Backbone.View
   
   performAction: (event) ->
     
+    unless $(event.target).data('action') == 'clouds'
+      @collapseCloudBar()
+    
     switch $(event.target).data('action')
       when 'home' then @goToRootPage()
       when 'explore' then @goToExplorePage()
@@ -61,9 +64,12 @@ class Cloudsdale.Views.TopBar extends Backbone.View
     if $('.modal-container').length > 0 then $('.modal-container').replaceWith(view) else $('body').append(view)
     false
   
-  toggleCloudExpand: ->
+  toggleCloudExpand: (event) ->
     $('body').toggleClass('with-expanded-cloudbar')
     false
+  
+  collapseCloudBar: ->
+    $('body').removeClass('with-expanded-cloudbar')
     
   goToRootPage: ->
     Backbone.history.navigate("/",true)

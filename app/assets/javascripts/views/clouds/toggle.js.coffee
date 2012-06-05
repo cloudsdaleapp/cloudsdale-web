@@ -63,6 +63,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
       $(@el).removeClass('with-notifications')
   
   activate: ->
+    $("body").removeClass('with-expanded-cloudbar')
     Backbone.history.navigate("/clouds/#{@model.id}",true)
     false
   
