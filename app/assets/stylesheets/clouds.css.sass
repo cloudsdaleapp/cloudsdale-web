@@ -131,26 +131,24 @@
   height: 100%
   border-left: rgb(255,255,255) solid 1px
   background: #f0f0f0
-  @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
     width: 49px
-  @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
-    width: 200px
-  @media (min-width: $desktop-l-min)
-    width: 300px
+  @media (min-width: $desktop-s-min)
+    width: 240px
 
 .chat-sidebar-header
   margin-left: -1px
   padding-left: 1px
   border-bottom: 1px solid $color-border-light
   +linear-gradient(#ffffff,#f8f8f8)
-  @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
     height: 50px
     span.chat-sidebar-online-count
       display: none
     a.sidebar-toggle
       display: inline-block
         
-  @media (min-width: $desktop-m-min)
+  @media (min-width: $desktop-s-min)
     height: 36px
     span.chat-sidebar-online-count
       display: inline-block
@@ -161,12 +159,12 @@ span.chat-sidebar-online-count
   float: right
   font-weight: bold
   font-size: 11px
-  @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
     margin-right: 10px
     line-height: 50px
     span.n, i
       margin-right: 5px
-  @media (min-width: $desktop-m-min)
+  @media (min-width: $desktop-s-min)
     margin-right: 5px
     line-height: 36px
     span.n, i
@@ -180,12 +178,12 @@ a.sidebar-toggle
   background-position: center center
   background-repeat: no-repeat
   +opacity(.5)
-  @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
     line-height: 44px
     height: 44px
     width: 44px
     margin: 3px 3px 3px 2px
-  @media (min-width: $desktop-m-min)
+  @media (min-width: $desktop-s-min)
     line-height: 32px
     height: 32px
     width: 32px
@@ -202,7 +200,7 @@ ul.chat-online-list
   overflow: hidden
   @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
     top: 51px
-  @media (min-width: $desktop-m-min)
+  @media (min-width: $desktop-s-min)
     top: 37px
   li
     &:not(:first-child)
@@ -216,7 +214,7 @@ ul.chat-online-list
       font-weight: bold
       color: #4C4C4C
       text-shadow: 1px 1px 1px rgba(255,255,255,.9)
-      @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+      @media (min-width: $ipad-min) and (max-width: $ipad-max)
         padding: 0
         height: 50px
         img
@@ -225,7 +223,7 @@ ul.chat-online-list
         span
           display: none
         
-      @media (min-width: $desktop-m-min)
+      @media (min-width: $desktop-s-min)
         padding: 3px
         img
           width: 24px
@@ -243,12 +241,10 @@ ul.chat-online-list
   height: 100%
   border-right: $color-border-light solid 1px
   background: #F8F8F8
-  @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
     margin-right: 50px
-  @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
-    margin-right: 201px
-  @media (min-width: $desktop-l-min)
-    margin-right: 301px
+  @media (min-width: $desktop-s-min)
+    margin-right: 241px
 
 .chat-dialog
   position: absolute
@@ -317,13 +313,7 @@ ul.chat-online-list
     margin-left: 0
   @media (min-width: $desktop-s-min)
     margin-left: 110px
-    
-  //  and (max-width: $desktop-s-max)
-  // 
-  // @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
-  // 
-  // @media (min-width: $desktop-l-min)
- 
+
   &:after
     content: "."
     display: block
@@ -499,7 +489,7 @@ span.inspect-user-name
     border-color: $color-border-heavy
     span
       pointer-events: none
-      @media (max-width: $ipad-max)
+      @media (max-width: $desktop-s-max)
         display: none
     
     
