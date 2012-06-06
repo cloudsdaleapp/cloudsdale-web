@@ -56,7 +56,6 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
   #
   # Returns false.
   announcePresence: ->
-    console.log "/clouds/#{@id}/users"
     setTimeout( =>
       nfc.cli.publish "/clouds/#{@id}/users", session.get('user').toBroadcastJSON()
       setTimeout( =>

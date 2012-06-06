@@ -73,10 +73,6 @@ class Cloudsdale.Views.Root extends Backbone.View
       posB = $.cookie("cloud:#{$(b).attr('data-cloud-id')}:toggle:pos")
       compA = if typeof posA == 'string' then parseInt(posA) else 1000
       compB = if typeof posB == 'string' then parseInt(posB) else 1000
-      
-      console.log compA
-      console.log compB
-         
       return (if (compA < compB) then -1 else (if (compA > compB) then 1 else 0))
       
     @.$(".cloud-list").append(_elements)
