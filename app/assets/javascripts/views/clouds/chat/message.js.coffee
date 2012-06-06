@@ -32,7 +32,6 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     content = message.get('content')
     content = escapeHTML(content).autoLink({ target: "_blank" })
     
-    console.log "-------"
     content = content + "\\n"
     
     # Greentext
@@ -42,7 +41,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     if @model.get('user').get('role') == 'creator'
       content = content.replace(/^\[ZEE\](.*)/ig,"<span style='color: orange; font-weight: bold;'>$1</span>")
     
-    content = content.replace(/\\n/ig,"<br/>")
+    content = content.replace(/\\n$/ig,"").replace(/\\n/ig,"<br/>")
     
     @.$('.chat-message-content').append("<p>#{content}</p>")
     @.$('.chat-message-meta').text(message.timestamp().toString('HH:mm:ss'))
