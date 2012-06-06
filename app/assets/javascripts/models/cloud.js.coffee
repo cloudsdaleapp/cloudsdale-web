@@ -46,5 +46,8 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
     # collection.save()
   
   lastMessageAt: ->
-    new Date(@get('chat').last_message_at)
+    if @get('chat')
+      new Date(@get('chat').last_message_at)
+    else
+      new Date(0)
     

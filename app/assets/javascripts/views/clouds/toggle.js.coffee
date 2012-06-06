@@ -34,7 +34,6 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
         @active = false
         $(@el).removeClass('active') 
         
-    
     $(@el).bind "clouds:leave", (event,cloud) =>
       if cloud.id == @model.id
         @unbindEvents()
@@ -42,7 +41,6 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
         
     nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
       @addNotification()
-      $.event.trigger 'clouds:toggle:order', @model
       
     $(window).focus =>
       if @active
@@ -98,7 +96,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
   setNotifications: ->
     $.cookie "cloud:#{@model.id}:notifications", @notifications, 
       expires: 365
-      path: "/"    
+      path: "/"
     
     @refreshGfx()
     

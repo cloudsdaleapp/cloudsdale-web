@@ -36,16 +36,17 @@ class Cloudsdale.Views.Root extends Backbone.View
     $(@el).bind 'clouds:initialize', =>
       @renderSessionClouds()
     
-    $(@el).bind 'clouds:toggle:order', (event,cloud) =>
-      @moveToggleFirst(cloud)
-    
     $(@el).bind 'page:show', (event,page_id) =>
       @show(page_id) if page_id == "root"
     
     @.$(".cloud-list").mousewheel (event, delta) ->
       @scrollTop -= (delta * 30)
       event.preventDefault()
-    
+    .sortable
+      axis: 'y'
+      stop: (event, ui) =>
+        @refreshListPositions()
+        
     $(document).bind 'click', (event) ->
       $("body").removeClass('with-expanded-cloudbar')
       
@@ -57,6 +58,28 @@ class Cloudsdale.Views.Root extends Backbone.View
       $(@el).addClass('with-active-session')
     else
       $(@el).removeClass('with-active-session')
+  
+  refreshListPositions: ->
+    @.$(".cloud-list > li").each (index,elem) =>
+      _pos = @.$(elem).prevAll().length
+      $.cookie "cloud:#{@.$(elem).attr('data-cloud-id')}:toggle:pos", _pos,
+        expires: 365
+        path: "/"
+  
+  reorderClouds: ->
+    _elements = @.$(".cloud-list > li")
+    _elements.sort (a,b) ->
+      posA = $.cookie("cloud:#{$(a).attr('data-cloud-id')}:toggle:pos")
+      posB = $.cookie("cloud:#{$(b).attr('data-cloud-id')}:toggle:pos")
+      compA = if typeof posA == 'string' then parseInt(posA) else 1000
+      compB = if typeof posB == 'string' then parseInt(posB) else 1000
+      
+      console.log compA
+      console.log compB
+         
+      return (if (compA < compB) then -1 else (if (compA > compB) then 1 else 0))
+      
+    @.$(".cloud-list").append(_elements)
     
   show: (id) ->
     @.$('.view-container').removeClass('active')
@@ -68,8 +91,6 @@ class Cloudsdale.Views.Root extends Backbone.View
     
   
   openSessionDialog: (state) ->
-    # view = new Cloudsdale.Views.SessionsDialog(state: state).el
-    # if @.$('.modal-container').length > 0 then @.$('.modal-container').replaceWith(view) else $(@el).append(view)
     
     window.setTimeout =>
       view = new Cloudsdale.Views.SessionsDialog(state: state).el
@@ -78,8 +99,11 @@ class Cloudsdale.Views.Root extends Backbone.View
   
   renderSessionClouds: ->
     session.get('clouds').each (cloud) =>
-      @renderCloud(cloud) 
+      @renderCloud(cloud)
       
+    @reorderClouds()
+    @refreshListPositions()
+    
   renderCloud: (cloud) ->
     if @.$(".cloudbar > .cloud-list > li[data-cloud-id=#{cloud.id}]").length == 0
       view = new Cloudsdale.Views.CloudsToggle(model: cloud)
