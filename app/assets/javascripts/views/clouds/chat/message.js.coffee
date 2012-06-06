@@ -32,8 +32,9 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     content = message.get('content')
     content = escapeHTML(content).autoLink({ target: "_blank" })
     
+    console.log "-------"
     content = content + "\\n"
-    content = content.replace(/((^&gt;|\\n&gt;)[^\\n]*\\n)/ig,"<span style='color: green;'>$1</span>")
+    content = content.replace(/((^&gt;|\\n&gt;)[\w\d\s\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*\\n)/ig,"<span style='color: green;'>$1</span>")
     content = content.replace(/\\n/ig,"<br/>")
     
     @.$('.chat-message-content').append("<p>#{content}</p>")
