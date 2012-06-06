@@ -72,6 +72,7 @@ $color-background-medium: #f1f1f1
 
 html
   overflow-x: hidden
+  background: #f8f8f8 $bgNoise
 body
   position: absolute
   background: transparent
@@ -85,13 +86,30 @@ body
   right: 0
   color: #666666
   
-  &.device-mobile
+  @media (max-width: $phone)
+    top: 0px
+  @media (min-width: $ipad-min)
+    top: $height-bar + 1px
+  
+  &.device-ios
     @media (max-width: $phone)
+      @media all and (orientation: portrait)
+        &.device-ios-standalone
+          top: 20px
+          .main-container
+            top: 20px
       @media all and (orientation: landscape)
         zoom: .6
         -webkit-text-size-adjust: 60%
       
     @media (min-width: $ipad-min) and (max-width: $ipad-max)
+      @media all and (orientation: portrait)
+        &.device-ios-standalone
+          top: 65px
+          .navbar.navbar-fixed-top
+            top: 20px
+          .main-container
+            top: 65px
       @media all and (orientation: landscape)
         zoom: .8
         -webkit-text-size-adjust: 80%
@@ -263,7 +281,6 @@ body
     position: relative
     height: 100%
     float: right
-    margin-top: $height-bar + 1
     z-index: 5
     
     @each $vendor in -webkit-, -moz-, -o-, ""
@@ -346,7 +363,7 @@ li.cloud-toggle
     float: left
     +transition(box-shadow .2s ease-in-out)
     +transition(opacity .2s ease-in-out)
-    +opacity(.6)
+    +opacity(.8)
     width: 40px
     height: 40px
     background-color: #4C4C4C
@@ -357,15 +374,30 @@ li.cloud-toggle
     +box-shadow-inset(1px,1px,2px,rgba(0,0,0,.2))
     @each $vendor in -webkit-, -moz-, -o-, ""
       #{$vendor}box-shadow: 0 1px 0 rgba(255, 255, 255, .4), inset 1px 1px 2px rgba(0,0,0,.2)
+  
+  &.cloud-toggle-pinned
+    a
+      +linear-gradient(#CCCCCC,#999999)
+    &:hover
+      a
+        +linear-gradient(darken(#CCCCCC,5%),darken(#999999,5%))
     
+    &.active
+      a
+        +linear-gradient(rgb(225,223,0),rgb(190,125,0))
+      &:hover
+        a
+          +linear-gradient(darken(rgb(225,223,0),5%),darken(rgb(190,125,0),5%))
   &.active
     a
       .cloud-toggle-avatar
         +opacity(1)
-      +linear-gradient(#63a0d0,#3f85b3)
-      &:hover
-        +linear-gradient(darken(#63a0d0,5%),darken(#3f85b3,5%))
         
+      +linear-gradient(#63a0d0,#3f85b3)
+    &:hover
+      a
+        +linear-gradient(darken(#63a0d0,5%),darken(#3f85b3,5%))
+    
     span.cloud-toggle-notification
       display: none
     
