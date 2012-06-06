@@ -38,7 +38,7 @@ window.getObjectClass = (obj) ->
 
 window.escapeHTML = (html) ->
   escaped = html
-  findReplace = [ [ /&/g, "&amp;" ], [ /</g, "&lt;" ], [ />/g, "&gt;" ], [ /"/g, "&quot;" ] ]
+  findReplace = [ [ /&/g, "&amp;" ], [ /</g, "&lt;" ], [ />/g, "&gt;" ], [ /"/g, "&quot;" ], [ /\\\\/g, "&#92;" ] ]
   for item of findReplace
     escaped = escaped.replace(findReplace[item][0], findReplace[item][1])
   
