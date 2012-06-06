@@ -108,6 +108,7 @@ class Cloudsdale.Views.Root extends Backbone.View
     if @.$(".cloudbar > .cloud-list > li[data-cloud-id=#{cloud.id}]").length == 0
       view = new Cloudsdale.Views.CloudsToggle(model: cloud)
       @.$('.cloudbar > .cloud-list').append(view.el)
+      cloud.announcePresence()
   
   getTweets: ->
     $.ajax

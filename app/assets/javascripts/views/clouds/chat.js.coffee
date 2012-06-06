@@ -15,7 +15,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         
     @fetchMessages()
     @bindEvents()
-    @announcePresence()
 
     @lastMessageView = null
     @lastAuthorId = null
@@ -158,19 +157,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   # Returns false.
   resetForm: ->
     @.$('textarea.chat-message-content').val("").trigger('input')
-    false
-  
-  # Announces your chat presence in the chat room periodicly
-  # every 27 seconds with a 3 second delay before restarting the timer
-  #
-  # Returns false.
-  announcePresence: ->
-    setTimeout( =>
-      nfc.cli.publish "/#{@model.type}s/#{@model.id}/users", session.get('user').toBroadcastJSON()
-      setTimeout( =>
-        @announcePresence()
-      , 27000)
-    , 3000)
     false
   
   # Refreshes a users presence in the online list

@@ -50,4 +50,17 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
       new Date(@get('chat').last_message_at)
     else
       new Date(0)
-    
+  
+  # Announces your chat presence in the chat room periodicly
+  # every 27 seconds with a 3 second delay before restarting the timer
+  #
+  # Returns false.
+  announcePresence: ->
+    console.log "/clouds/#{@id}/users"
+    setTimeout( =>
+      nfc.cli.publish "/clouds/#{@id}/users", session.get('user').toBroadcastJSON()
+      setTimeout( =>
+        @announcePresence()
+      , 27000)
+    , 3000)
+    false
