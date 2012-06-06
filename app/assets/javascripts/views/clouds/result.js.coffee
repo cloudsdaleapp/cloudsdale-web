@@ -23,6 +23,7 @@ class Cloudsdale.Views.CloudsResult extends Backbone.View
   bindEvents: ->
     # TODO
   
-  joinCloud: ->
+  joinCloud: (event) ->
+    event.preventDefault()
     Backbone.history.navigate("/clouds/#{@model.id}",true)
     false
