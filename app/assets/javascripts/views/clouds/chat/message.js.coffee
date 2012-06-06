@@ -31,7 +31,10 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     
     content = message.get('content')
     content = escapeHTML(content).autoLink({ target: "_blank" })
-    content = content.replace(/\\n/ig,"<br />")
+    
+    content = content + "\\n"
+    content = content.replace(/((^&gt;|\\n&gt;)[^\\n]*\\n)/ig,"<span style='color: green;'>$1</span>")
+    content = content.replace(/\\n/ig,"<br/>")
     
     @.$('.chat-message-content').append("<p>#{content}</p>")
     @.$('.chat-message-meta').text(message.timestamp().toString('HH:mm:ss'))
