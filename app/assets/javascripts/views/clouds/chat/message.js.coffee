@@ -35,7 +35,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     content = content + "\\n"
     
     # Greentext
-    content = content.replace(/((^&gt;|\\n&gt;)[\w\d\s\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\*\~\\√\◊\(\)]*\\n)/ig,"<span style='color: green;'>$1</span>")
+    content = content.replace(/((^&gt;|\\n&gt;)[\w\d\s\!\'\"\.\,\-\_\/\?\:\&\^\<\>\=\#\%\+\*\~\\√\◊\(\)]*\\n)/ig,"<span style='color: green;'>$1</span>")
     
     # Zee text.
     if @model.get('user').get('role') == 'creator'
