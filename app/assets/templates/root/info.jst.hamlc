@@ -12,7 +12,7 @@
 
       %p
         = "Yours truly,"
-        %span= "Zeeraw"
+        %span= "Tjockfan"
     
     #contributors
       .info-contributors-floor
@@ -28,6 +28,11 @@
           %h1.info-contributor-name= "Zeeraw"
           .info-contributor-badges
             %span.badge.badge-warning= "Creator"
+            
+        %li.conr-zeeraw
+          %h1.info-contributor-name= "Lisinge"
+          .info-contributor-badges
+            %span.badge.badge-warning= "King"
             
         %li.conr-berwyn
           %h1.info-contributor-name= "Berwyn"
@@ -63,3 +68,9 @@
           %h1.info-contributor-name= "Shansai"
           .info-contributor-badges
             %span.badge.badge-inverse= "Moderator"
+            
+            
+            
+            
+            
+            
