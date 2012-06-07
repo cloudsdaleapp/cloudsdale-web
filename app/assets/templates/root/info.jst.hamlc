@@ -12,7 +12,7 @@
 
       %p
         = "Yours truly,"
-        %span= "Tjockfan"
+        %span= "Zeeraw"
     
     #contributors
       .info-contributors-floor
