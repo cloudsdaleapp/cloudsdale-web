@@ -29,7 +29,7 @@
           .info-contributor-badges
             %span.badge.badge-warning= "Creator"
             
-        %li.conr-zeeraw
+        %li.conr-lisinge
           %h1.info-contributor-name= "Lisinge"
           .info-contributor-badges
             %span.badge.badge-warning= "King"
