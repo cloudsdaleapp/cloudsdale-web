@@ -1,0 +1,22 @@
+%html
+  %body{ style: 'font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;' }
+    #wrap{ style: 'margin: 20px auto 20px auto; width: 700px;' }
+      %header{ style: 'margin-bottom: 20px;' }
+        %h1= "Hello #{@user.name}!"
+        %h2= "Cloudsdale is finally out of beta."
+      %article
+        %img{ src: 'https://dl.dropbox.com/u/500876/Cloudsdale/sales/cloudsdale-promo-email.jpg', title: 'cloudsdale-promo', style: 'margin-bottom: 20px;' }
+        %p= "Cloudsdale has just left beta and is now publicly available for everypony to use. We at Cloudsdale welcome you back to the site as we've had a whole lot refurbishing going on. We at Cloudsdale sincerely hope that you will once again enjoy your stay and find the site both useful and fun."
+        
+        %p= "We have aimed our resources to provide Cloudsdale to not only your computer browser, but also all phone and tablet devices. Currently you can browse the Cloudsdale web from any devise of your preference and soon you will also be able to install native apps for both iOS & Android as well, enhancing the experience even further."
+        
+        %h3
+          %a{ href: "http://www.cloudsdale.org" }= "http://www.cloudsdale.org"
+        
+        %p
+          = "If you have any questions, please feel free to send an email to "
+          %a{ href: 'mailto:ask@cloudsdale.org' }= "ask@cloudsdale.org"
+          = "and we will try to answer all of them."
+          
+      %nav
+        %a{ href: @url, style: 'word-wrap: break-words' }= @url

@@ -7,4 +7,9 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Cloudsdale Account Restoration - #{user.email}")
   end
   
+  def beta_mail(user)
+    @user = user
+    mail(:to => user.email, :subject => "Cloudsdale - We're out of beta.")
+  end
+  
 end
