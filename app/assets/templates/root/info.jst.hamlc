@@ -32,7 +32,7 @@
         %li.conr-lisinge
           %h1.info-contributor-name= "Lisinge"
           .info-contributor-badges
-            %span.badge.badge-warning= "King"
+            %span.badge.badge-success= "Server Technician"
             
         %li.conr-berwyn
           %h1.info-contributor-name= "Berwyn"
