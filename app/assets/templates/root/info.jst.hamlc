@@ -27,7 +27,7 @@
         %li.conr-zeeraw
           %h1.info-contributor-name= "Zeeraw"
           .info-contributor-badges
-            %span.badge.badge-warning= "Creator"
+            %span.badge.badge-warning= "Founder"
             
         %li.conr-lisinge
           %h1.info-contributor-name= "Lisinge"
