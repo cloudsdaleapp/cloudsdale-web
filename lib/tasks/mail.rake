@@ -7,8 +7,6 @@ namespace :mail do
     
     @users.each_with_index do |user,i|
       
-      system('clear')
-      
       if user.email? && user.name?
         begin
           mail = UserMailer.beta_mail(user)
@@ -18,7 +16,10 @@ namespace :mail do
         end
       end
       
-      puts "Sent an email to #{i+1} out of #{@tot_users}" if (i%10==0) or (@tot_users==i+1)
+      if (i%10==0) or (@tot_users==i+1)
+        system('clear')
+        puts "Sent an email to #{i+1} out of #{@tot_users}"
+      end
       
     end
     
