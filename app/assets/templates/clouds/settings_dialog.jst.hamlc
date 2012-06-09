@@ -16,9 +16,9 @@
           = "Avatar"
       
       %li
-        %a{ href: "#settings-moderators", "data-toggle" => "pill" }
-          %i.icon-user.icon-white
-          = "Mods"  
+        %a{ href: "#settings-security", "data-toggle" => "pill" }
+          %i.icon-lock.icon-white
+          = "Security"  
       %li
         %a{ href: "#settings-rules", "data-toggle" => "pill" }
           %i.icon-list.icon-white
@@ -64,8 +64,16 @@
               %i.icon-white.icon-remove
               = "Remove Avatar"
               
-      .tab-pane#settings-moderators
+      .tab-pane#settings-security
       
+        .control-group
+          .controls
+            %label.checkbox{ for: 'cloud_hidden' }
+              %input#cloud_hidden{ type: 'checkbox', name: 'hidden' }
+              %strong= "Hidden - "
+              = "Use this feature to hide cloud from appearing in search."
+
+
       .tab-pane#settings-rules
         .control-group
           %label.control-label{ for: 'cloud_name' }= "Rules for #{@cloud.get('name')}"

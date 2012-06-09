@@ -1,5 +1,5 @@
 object @cloud
-attributes :id, :name, :description, :created_at, :rules
+attributes :id, :name, :description, :created_at, :rules, :hidden
 
 node(:avatar) { |cloud| cloud.avatar_versions }
 
