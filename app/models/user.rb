@@ -56,7 +56,7 @@ class User
   validates_length_of :password,  minimum: 6, :too_short => "pick a longer password, at least 6 characters", if: :password
   
   validates_format_of :name,  with: /^([a-z]*\s?){1,5}$/i, message: "must use a-z and max five words", if: :name
-  validates_format_of :email, with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "invalid email", if: :email
+  validates_format_of :email, with: /^.+@.+$/i, :message => "invalid email", if: :email
   
   validates_uniqueness_of :name, :case_sensitive => false, if: :name?
   validates_uniqueness_of :email, :case_sensitive => false, if: :email?
