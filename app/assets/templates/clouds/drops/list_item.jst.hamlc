@@ -1,6 +1,6 @@
-%a.drop-preview{ href: @model.get('url') }
+%a.drop-preview{ href: @model.get('url'), rel: "safe" }
   %img{ src: @model.get('preview'), title: @model.get('title') }
-%a.drop-title{ href: @model.get('url') }
+%a.drop-title{ href: @model.get('url'), rel: "safe" }
   %span= @model.get('title')
 
 .drop-votes

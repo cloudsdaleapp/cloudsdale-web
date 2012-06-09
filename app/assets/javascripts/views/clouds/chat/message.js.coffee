@@ -30,7 +30,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   appendContent: (message) ->
     
     content = message.get('content')
-    content = escapeHTML(content).autoLink({ target: "_blank" })
+    content = escapeHTML(content).autoLink({ target: "_blank", rel: 'safe' })
     
     content = content + "\\n"
     

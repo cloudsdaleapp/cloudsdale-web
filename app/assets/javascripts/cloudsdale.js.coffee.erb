@@ -54,7 +54,24 @@ window.Cloudsdale =
     new Cloudsdale.Routers.Clouds()
     Backbone.history.start({pushState: true})
     window.app = Backbone.history
-
+    
+$('a[rel="safe"]').live 'click', (event,target) ->
+  _href = @href.match /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i
+  
+  protocol = _href[1]
+  top_dom = _href[2]
+  path = _href[3]
+  
+  inhouse = (top_dom.match(/cloudsdale.org/i) != null)
+  
+  if inhouse
+    console.log "wat"
+    event.preventDefault()
+    Backbone.history.navigate(path,true)
+    return false
+  else
+    return @
+    
 $(document).ready ->
   # Initializes the notification centre
   window.nfc = new NotificationCentre()
@@ -83,3 +100,4 @@ $(document).ready ->
           $("body").addClass('device-ios-standalone')
             
     ), 0
+  
