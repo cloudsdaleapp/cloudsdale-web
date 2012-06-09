@@ -22,8 +22,23 @@ class Cloudsdale.Views.CloudsDropsListItem extends Backbone.View
     
   visit: (event) ->
     event.preventDefault()
-    @model.visit()
-    window.open(@model.get('url'),'_blank')
+    # @model.visit()
+    
+    _href = @model.get('url').match /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i
+
+    protocol = _href[1]
+    top_dom = _href[2]
+    path = _href[3]
+
+    inhouse = (top_dom.match(/cloudsdale.org/i) != null)
+
+    if inhouse
+      console.log "wat"
+      event.preventDefault()
+      Backbone.history.navigate(path,true)
+    else
+      window.open(@model.get('url'),'_blank')
+    
     false
   
   voteUp: ->
