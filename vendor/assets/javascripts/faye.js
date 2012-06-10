@@ -235,55 +235,42 @@ Faye.Error.parse = function(message) {
   return new this(code, params, message);
 };
 
-
 Faye.Error.versionMismatch = function() {
   return new this(300, arguments, "Version mismatch").toString();
 };
-
 Faye.Error.conntypeMismatch = function() {
   return new this(301, arguments, "Connection types not supported").toString();
 };
-
 Faye.Error.extMismatch = function() {
   return new this(302, arguments, "Extension mismatch").toString();
 };
-
 Faye.Error.badRequest = function() {
   return new this(400, arguments, "Bad request").toString();
 };
-
 Faye.Error.clientUnknown = function() {
   return new this(401, arguments, "Unknown client").toString();
 };
-
 Faye.Error.parameterMissing = function() {
   return new this(402, arguments, "Missing required parameter").toString();
 };
-
 Faye.Error.channelForbidden = function() {
   return new this(403, arguments, "Forbidden channel").toString();
 };
-
 Faye.Error.channelUnknown = function() {
   return new this(404, arguments, "Unknown channel").toString();
 };
-
 Faye.Error.channelInvalid = function() {
   return new this(405, arguments, "Invalid channel").toString();
 };
-
 Faye.Error.extUnknown = function() {
   return new this(406, arguments, "Unknown extension").toString();
 };
-
 Faye.Error.publishFailed = function() {
   return new this(407, arguments, "Failed to publish").toString();
 };
-
 Faye.Error.serverError = function() {
   return new this(500, arguments, "Internal server error").toString();
 };
-
 
 
 Faye.Deferrable = {
@@ -458,51 +445,28 @@ Faye.Logging = {
 
 
 Faye.Grammar = {
-
   LOWALPHA:     /^[a-z]$/,
-
   UPALPHA:     /^[A-Z]$/,
-
   ALPHA:     /^([a-z]|[A-Z])$/,
-
   DIGIT:     /^[0-9]$/,
-
   ALPHANUM:     /^(([a-z]|[A-Z])|[0-9])$/,
-
   MARK:     /^(\-|\_|\!|\~|\(|\)|\$|\@)$/,
-
   STRING:     /^(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)| |\/|\*|\.))*$/,
-
   TOKEN:     /^(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)))+$/,
-
   INTEGER:     /^([0-9])+$/,
-
   CHANNEL_SEGMENT:     /^(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)))+$/,
-
   CHANNEL_SEGMENTS:     /^(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)))+(\/(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)))+)*$/,
-
   CHANNEL_NAME:     /^\/(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)))+(\/(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)))+)*$/,
-
   WILD_CARD:     /^\*{1,2}$/,
-
   CHANNEL_PATTERN:     /^(\/(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)))+)*\/\*{1,2}$/,
-
   VERSION_ELEMENT:     /^(([a-z]|[A-Z])|[0-9])(((([a-z]|[A-Z])|[0-9])|\-|\_))*$/,
-
   VERSION:     /^([0-9])+(\.(([a-z]|[A-Z])|[0-9])(((([a-z]|[A-Z])|[0-9])|\-|\_))*)*$/,
-
   CLIENT_ID:     /^((([a-z]|[A-Z])|[0-9]))+$/,
-
   ID:     /^((([a-z]|[A-Z])|[0-9]))+$/,
-
   ERROR_MESSAGE:     /^(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)| |\/|\*|\.))*$/,
-
   ERROR_ARGS:     /^(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)| |\/|\*|\.))*(,(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)| |\/|\*|\.))*)*$/,
-
   ERROR_CODE:     /^[0-9][0-9][0-9]$/,
-
   ERROR:     /^([0-9][0-9][0-9]:(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)| |\/|\*|\.))*(,(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)| |\/|\*|\.))*)*:(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)| |\/|\*|\.))*|[0-9][0-9][0-9]::(((([a-z]|[A-Z])|[0-9])|(\-|\_|\!|\~|\(|\)|\$|\@)| |\/|\*|\.))*)$/
-
 };
 
 
@@ -715,10 +679,11 @@ Faye.Client = Faye.Class({
   initialize: function(endpoint, options) {
     this.info('New client created for ?', endpoint);
     
+    this._options   = options || {};
     this.endpoint   = endpoint || this.DEFAULT_ENDPOINT;
+    this.endpoints  = this._options.endpoints || {};
     this._cookies   = Faye.CookieJar && new Faye.CookieJar();
     this._headers   = {};
-    this._options   = options || {};
     this._disabled  = [];
     this.retry      = this._options.retry || this.DEFAULT_RETRY;
     
@@ -1157,11 +1122,13 @@ Faye.Transport = Faye.extend(Faye.Class({
     if (connectionTypes === undefined) connectionTypes = this.supportedConnectionTypes();
     
     Faye.asyncEach(this._transports, function(pair, resume) {
-      var connType = pair[0], klass = pair[1];
+      var connType     = pair[0], klass = pair[1],
+          connEndpoint = client.endpoints[connType] || endpoint;
+      
       if (Faye.indexOf(connectionTypes, connType) < 0) return resume();
       
-      klass.isUsable(endpoint, function(isUsable) {
-        if (isUsable) callback.call(context, new klass(client, endpoint));
+      klass.isUsable(connEndpoint, function(isUsable) {
+        if (isUsable) callback.call(context, new klass(client, connEndpoint));
         else resume();
       });
     }, function() {
@@ -1253,41 +1220,28 @@ Faye.URI = Faye.extend(Faye.Class({
   
   toURL: function() {
     var query = this.queryString();
-    return this.protocol + this.hostname + ':' + this.port +
+    return this.protocol + this.hostname + (this.port ? ':' + this.port : '') +
            this.pathname + (query ? '?' + query : '');
   }
 }), {
   parse: function(url, params) {
     if (typeof url !== 'string') return url;
     
-    var location = new this();
+    var a   = document.createElement('a'),
+        uri = new this();
     
-    var consume = function(name, pattern) {
-      url = url.replace(pattern, function(match) {
-        if (match) location[name] = match;
-        return '';
-      });
-    };
-    consume('protocol', /^https?\:\/+/);
-    consume('hostname', /^[^\/\:]+/);
-    consume('port',     /^:[0-9]+/);
+    a.href = url;
     
-    Faye.extend(location, {
-      protocol:   Faye.ENV.location.protocol + '//',
-      hostname:   Faye.ENV.location.hostname,
-      port:       Faye.ENV.location.port
-    }, false);
+    uri.protocol = a.protocol + '//';
+    uri.hostname = a.hostname;
+    uri.port     = a.port;
+    uri.pathname = a.pathname;
     
-    if (!location.port) location.port = (location.protocol === 'https://') ? '443' : '80';
-    location.port = location.port.replace(/\D/g, '');
-    
-    var parts = url.split('?'),
-        path  = parts.shift(),
-        query = parts.join('?'),
-    
+    var query = a.search.replace(/^\?/, ''),
         pairs = query ? query.split('&') : [],
         n     = pairs.length,
-        data  = {};
+        data  = {},
+        parts;
     
     while (n--) {
       parts = pairs[n].split('=');
@@ -1295,10 +1249,9 @@ Faye.URI = Faye.extend(Faye.Class({
     }
     if (typeof params === 'object') Faye.extend(data, params);
     
-    location.pathname = path;
-    location.params = data;
+    uri.params = data;
     
-    return location;
+    return uri;
   }
 });
 
@@ -2065,7 +2018,8 @@ Faye.Transport.CORS = Faye.extend(Faye.Class(Faye.Transport, {
       return callback.call(context, false);
     
     if (Faye.ENV.XDomainRequest)
-      return callback.call(context, true);
+      return callback.call(context, Faye.URI.parse(endpoint).protocol ===
+                                    Faye.URI.parse(Faye.ENV.location).protocol);
     
     if (Faye.ENV.XMLHttpRequest) {
       var xhr = new Faye.ENV.XMLHttpRequest();
