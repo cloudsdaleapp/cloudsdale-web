@@ -33,7 +33,12 @@ do ($ = jQuery) ->
   window.NotificationCentre = class NotificationCentre
   
     constructor: (args) ->
-      @cli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", { timeout: 120 })
+      @cli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", {
+        timeout: 120,
+        transportEndpoints: {
+          websocket: "<%=Cloudsdale.faye_path(:client)%>"
+        }
+      })
       subscription = @cli.subscribe('/')
       
       subscription.callback =>
