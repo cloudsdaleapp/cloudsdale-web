@@ -44,7 +44,7 @@ module Cloudsdale
   
   def self.faye_path(connection=nil)
     host = (connection == :inhouse) ? config['faye']['inhouse_host'] : config['faye']['host']
-    @faye_path = URI.parse("#{config['faye']['schema']}://#{host}:#{config['faye']['port']}/#{config['faye']['path']}")
+    @faye_path = "#{config['faye']['schema']}://#{host}:#{config['faye']['port']}/#{config['faye']['path']}"
   end
   
   class Application < Rails::Application
