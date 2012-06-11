@@ -23,8 +23,10 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
       @refreshGfx()
   
   refreshGfx: ->
-    @.$('.chat-message-avatar a img').attr('src',@model.get('user').get('avatar').thumb)
-    @.$('.chat-message-head a').text(@model.get('user').get('name'))
+    if @model.get('user')
+      $(@el).addClass("role-#{@model.get('user').get('role')}")
+      @.$('.chat-message-avatar a img').attr('src',@model.get('user').get('avatar').thumb)
+      @.$('.chat-message-head a').text(@model.get('user').get('name'))
   
   # Appends content to the message
   appendContent: (message) ->

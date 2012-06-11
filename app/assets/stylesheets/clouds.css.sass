@@ -205,12 +205,15 @@ ul.chat-online-list
   list-style: none outside
   padding: 0 0 0 0
   margin: 0 0 0 -1px
+  
   @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
     top: 51px
     overflow: hidden
+    
   @media (min-width: $desktop-s-min)
     top: 37px
     overflow: auto
+    
   li
     &:not(:first-child)
       border-top: 1px solid rgba(255,255,255,.8)
@@ -444,12 +447,18 @@ a.cloud-settings-toggle
     margin-bottom: 5px
     font-weight: bold
     a
-      color: #333333
       color: inherit
+      &:after
+        display: block
+        font-size: 10px
+        margin-left: 5px
+        
       &:hover
         text-decoration: none
         color: $color-blue
-    
+        &:after
+          color: #666
+          
   .chat-message-content
     padding-left: 60px
     p
@@ -457,6 +466,21 @@ a.cloud-settings-toggle
       margin-bottom: 4px
       word-wrap: break-word
     
+.chat-message
+  &.role-creator
+    .chat-message-head > a:after
+      content: "mod"
+      color: #CC9900
+  
+  &.role-admin
+    .chat-message-head > a:after
+      content: "admin"
+      color: #669966
+  
+  &.role-creator
+    .chat-message-head > a:after
+      content: "founder"
+      color: #CC3300
 
 .chat-inspect
   position: relative
@@ -483,7 +507,7 @@ span.inspect-user-name
   line-height: 40px
   font-size: 14px
   font-weight: bold
-
+    
 .inspect-user-actions
   position: absolute
   right: 0
