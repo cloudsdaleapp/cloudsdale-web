@@ -33,6 +33,9 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     content = escapeHTML(content).autoLink({ target: "_blank", rel: 'safe' })
     
     content = content + "\\n"
+
+    # Tab fix
+    content = content.replace(/\\t/ig,"&nbsp;&nbsp;&nbsp;&nbsp;")
     
     # Greentext
     content = content.replace(/((^&gt;|\\n&gt;)[\w\d\s\!\'\"\.\,\-\_\/\?\:\&\^\<\>\=\#\%\+\*\~\\√\◊\(\)]*\\n)/ig,"<span style='color: green;'>$1</span>")
