@@ -55,6 +55,9 @@ class Message
   
   def content=(msg)
     
+    # CAPSLOCK DAY
+    msg.upcase! if (Date.today.day == 28 && Date.today.month == 6) || (Date.today.day == 22 && Date.today.month == 10)
+    
     msg.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n"
     msg.gsub! /<br\/><br\/>/,"\\n"
     msg.gsub! /^\s*$/, ""
