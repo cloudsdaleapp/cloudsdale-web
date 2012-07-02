@@ -29,11 +29,6 @@ class Api::V1::UsersController < Api::V1Controller
     
     @user = User.find_or_initialize_by(email: /^#{params[:user][:email]}$/i)
 
-    if @user.new_record
-       set_flash_message message: "Registrations are currently disbaled. Please try again later.", title: "Registrations disabled"
-       render status: 400
-    end
-
     if @user.new_record? or @user.can_authenticate_with password: params[:user][:password]
       
       @user.write_attributes(params[:user])
