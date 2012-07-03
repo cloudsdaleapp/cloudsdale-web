@@ -28,7 +28,7 @@ class Api::V1::UsersController < Api::V1Controller
     @oauth = fetch_oauth_credentials
     
     @user = User.find_or_initialize_by(email: /^#{params[:user][:email]}$/i)
-    
+
     if @user.new_record? or @user.can_authenticate_with password: params[:user][:password]
       
       @user.write_attributes(params[:user])
