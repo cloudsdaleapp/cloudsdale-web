@@ -17,12 +17,6 @@
     #contributors
       .info-contributors-floor
       %ul#info-contributors-list
-        
-      
-        %li.conr-aethe
-          %h1.info-contributor-name= "Aethe"
-          .info-contributor-badges
-            %span.badge.badge-success= "iOS Developer"
             
         %li.conr-zeeraw
           %h1.info-contributor-name= "Zeeraw"
@@ -33,11 +27,21 @@
           %h1.info-contributor-name= "Lisinge"
           .info-contributor-badges
             %span.badge.badge-success= "Server Technician"
+
+        %li.conr-aethe
+          %h1.info-contributor-name= "Aethe"
+          .info-contributor-badges
+            %span.badge.badge-success= "iOS Developer"
             
         %li.conr-berwyn
           %h1.info-contributor-name= "Berwyn"
           .info-contributor-badges
             %span.badge.badge-success= "Android Developer"
+
+        %li.conr-connor
+          %h1.info-contributor-name="Connorcpu"
+          .info-contributor-badges
+            %span.badge.badge-success= "Windows Phone Developer"
       
         %li.conr-zimber
           %h1.info-contributor-name= "Zimber Fizz"
@@ -59,18 +63,12 @@
           .info-contributor-badges
             %span.badge.badge-inverse= "Moderator"
 
-        %li.conr-six
-          %h1.info-contributor-name= "Six Reader"
-          .info-contributor-badges
-            %span.badge.badge-inverse= "Moderator"
-
         %li.conr-shan
           %h1.info-contributor-name= "Shansai"
           .info-contributor-badges
             %span.badge.badge-inverse= "Moderator"
             
-            
-            
-            
-            
-            
+        %li.conr-wane
+          %h1.info-contributor-name= "Pinkie Pie"
+          .info-contributor-badges
+            %span.badge.badge-inverse= "Moderator"
