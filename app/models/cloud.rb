@@ -34,6 +34,8 @@ class Cloud
   
   scope :popular, order_by(:member_count, :desc)
   scope :recent, order_by(:created_at, :desc)
+  scope :visible, where(hidden: false)
+  scope :hidden, where(hidden: true)
   
   fulltext_search_in :search_string, :filters => {
     :public => lambda { |cloud| cloud.hidden == false },

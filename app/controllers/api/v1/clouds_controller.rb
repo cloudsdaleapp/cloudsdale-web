@@ -63,7 +63,7 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns a collection of Clouds.
   def popular
     
-    @clouds = Cloud.popular.limit(10)
+    @clouds = Cloud.visible.popular.limit(10)
     render status: 200
     
   end
@@ -72,7 +72,7 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns a collection of Clouds.
   def recent
     
-    @clouds = Cloud.recent.limit(10)
+    @clouds = Cloud.visible.recent.limit(10)
     render status: 200
     
   end
