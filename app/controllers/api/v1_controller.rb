@@ -113,6 +113,7 @@ class Api::V1Controller < ActionController::Base
   def render_exception(error_message, status_code=500)
     add_error message: error_message
     render 'api/v1/exceptions/exception', status: status_code
+    return
   end
   
   # Public: Sets the instance variable @flash_message to a hash
