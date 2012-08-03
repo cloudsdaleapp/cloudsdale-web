@@ -3,7 +3,7 @@
 # Ruby, Java, .NET, PHP, and Python applications with deep visibility and low overhead.
 # For more information, visit www.newrelic.com.
 #
-# Generated June 04, 2012
+# Generated August 03, 2012
 #
 # This configuration file is custom generated for Cloudsdale
 
@@ -14,7 +14,7 @@ common: &default_settings
   # You must specify the license key associated with your New Relic
   # account.  This key binds your Agent's data to your account in the
   # New Relic service.
-  license_key: '8e02cf5a4ffe7ed8e478260d4dcbf310b2155db3'
+  license_key: '8fd6a8250dd094538a4ea7e29ab6f313f3ef9ada'
   
   # Agent Enabled (Ruby/Rails Only)
   # Use this setting to force the agent to run or not run.
@@ -224,4 +224,4 @@ production:
 staging:
   <<: *default_settings
   monitor_mode: true
-  app_name: My Application (Staging)
+  app_name: Cloudsdale (Staging)
