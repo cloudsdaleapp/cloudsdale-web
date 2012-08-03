@@ -100,7 +100,6 @@ group :test do
 end
 
 group :production, :assets do
-  gem 'exception_notification'
   gem 'therubyracer'
   gem 'execjs'
 end

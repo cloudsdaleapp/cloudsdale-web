@@ -74,10 +74,10 @@ Cloudsdale::Application.configure do
     :enable_starttls_auto => true
   }
   
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[SERVER EXCEPTION] ",
-    :sender_address => %{"notifications" <notifications@cloudsdale.org>},
-    :exception_recipients => %w{exceptions@cloudsdale.org}
+  # config.middleware.use ExceptionNotifier,
+  #   :email_prefix => "[SERVER EXCEPTION] ",
+  #   :sender_address => %{"notifications" <notifications@cloudsdale.org>},
+  #   :exception_recipients => %w{exceptions@cloudsdale.org}
   
   
 end
