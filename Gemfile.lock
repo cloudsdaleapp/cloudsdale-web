@@ -127,8 +127,6 @@ GEM
       eventmachine (>= 0.12.9)
     erubis (2.7.0)
     eventmachine (0.12.10)
-    exception_notification (2.5.2)
-      actionmailer (>= 3.0.4)
     excon (0.6.6)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -405,7 +403,6 @@ DEPENDENCIES
   coffee-script
   database_cleaner
   em-hiredis
-  exception_notification
   execjs
   factory_girl_rails
   fog (= 0.9.0)
