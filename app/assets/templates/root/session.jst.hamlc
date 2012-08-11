@@ -67,7 +67,7 @@
       %h3
         = "Your status on the site is "
         %span= session.get('user').get('role')
-      / %h3
-      /   = "You have "
-      /   = session.get('user').get('prosecutions').length
-      /   = " warnings"
+      -# %h3
+      -#   = "You have "
+      -#   = session.get('user').get('prosecutions').length
+      -#   = " warnings"
