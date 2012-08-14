@@ -44,7 +44,7 @@ class Cloudsdale.Models.Session extends Backbone.Model
     $.event.trigger 'clouds:initialize'
   
   isModerator: ->
-    $.inArray(@get('user').get('role'),["admin","moderator","creator"]) > -1
+    $.inArray(@get('user').get('role'),["admin","moderator","founder","developer"]) > -1
   
   isAdmin: ->
-    $.inArray(@get('user').get('role'),["creator","admin"]) > -1
+    $.inArray(@get('user').get('role'),["founder","admin","developer"]) > -1
