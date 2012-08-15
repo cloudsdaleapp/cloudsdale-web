@@ -52,4 +52,4 @@ class Cloudsdale.Views.CloudsChatUserInspect extends Backbone.View
           @model.set(user)
   
   hideFrame: ->
-    $(@el).remove()
+    $.event.trigger "clouds:#{@topic.id}:chat:inspect:user", @model
