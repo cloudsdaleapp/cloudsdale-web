@@ -11,6 +11,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
     else
       
       @user.clouds.push(@cloud)
+      @cloud.users.push(@user)
     
       if @user.save
         render status: 200
@@ -31,8 +32,10 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
     # if @user.cannot? :deduct, @cloud
     #   render status: 401
     # else
+    if true
       
       @user.clouds.delete(@cloud)
+      @cloud.users.delete(@user)
     
       if @user.save        
         render status: 200
