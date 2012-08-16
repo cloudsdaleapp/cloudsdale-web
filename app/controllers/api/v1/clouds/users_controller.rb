@@ -28,9 +28,9 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
     @cloud = fetch_cloud()
     @user = fetch_user()
     
-    if @user.cannot? :deduct, @cloud
-      render status: 401
-    else
+    # if @user.cannot? :deduct, @cloud
+    #   render status: 401
+    # else
       
       @user.clouds.delete(@cloud)
     
