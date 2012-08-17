@@ -16,6 +16,12 @@
     %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view"}
     = csrf_meta_tags
     
+    %meta{ name: "og:title", content: "Cloudsdale" }
+    %meta{ name: "og:description", content: "Cloudsdale, the best place in the sky. A fast, reliable and beautiful chat app exclusively for bronies." }
+    %meta{ name: "og:type", content: "website" }
+    %meta{ name: "og:url", content: "http://www.cloudsdale.org" }
+    %meta{ name: "og:image", content: image_path('logo/main_logo.png') }
+    
   %body{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
     .loading-content
   
