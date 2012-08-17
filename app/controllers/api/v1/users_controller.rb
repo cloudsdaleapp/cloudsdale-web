@@ -1,5 +1,23 @@
 class Api::V1::UsersController < Api::V1Controller
   
+  # Public: Fetches all users that match the supplied ids.
+  # will not return 404 if one of the supplied clouds cannot be found.
+  #
+  # id - A BSON id of a user to look up.
+  # ids - Array of BSON ids to look up.
+  #
+  # Returns an array of User objects.
+  def index
+    
+    params[:ids] ||= []
+    params[:ids] << params[:id]
+    params[:ids].uniq!
+    
+    @users = User.find(params[:ids])
+    render status: 200
+    
+  end
+  
   # Public: Fetches a user from supplised id parameter
   #
   # id    - A BSON id of the user to look up.

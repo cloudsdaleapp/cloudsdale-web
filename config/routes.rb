@@ -28,7 +28,7 @@ Cloudsdale::Application.routes.draw do
     match "/clouds/:id" => "clouds#update", via: :post, as: :cloud
 
     
-    resources :users, only: [:show,:create,:update] do
+    resources :users, only: [:show,:create,:update,:index] do
       
       post "/restore" => 'users#restore', on: :collection, as: :restore
       
