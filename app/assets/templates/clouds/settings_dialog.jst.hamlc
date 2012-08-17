@@ -1,5 +1,7 @@
 .modal.fade.base-modal.settings-dialog
   .modal-header
+    %a.close{ href: '#', data: { dismiss: 'modal' } }
+      = "×"
     %a{ href: "#settings-avatar", "data-toggle" => "pill" }
       %img.cloud-avatar{ src: @cloud.get('avatar').normal }      
     %h2.cloud-name= @cloud.get('name')
