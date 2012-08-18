@@ -1,7 +1,7 @@
 class Cloudsdale.Collections.Users extends Backbone.Collection
 
   model: Cloudsdale.Models.User
-  url: -> "/v1/users"
+  url: -> "/v1/users.json"
   
   # Public: Tries to find the model inside of the collection
   # if it can't be found it tries to initialize it from the server.
