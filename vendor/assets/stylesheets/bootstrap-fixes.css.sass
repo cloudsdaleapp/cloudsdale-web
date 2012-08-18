@@ -4,6 +4,7 @@
 .modal
   border: rgba(0, 0, 0, 0.2) 1px solid
   +box-shadow(1px,1px,10px,rgba(0,0,0,.1))
+  
   &.base-modal
     @media (max-width: $phone)
       position: fixed
@@ -33,6 +34,14 @@
         img
           max-width: 40px
           min-width: 40px
+    
+    .modal-body
+      padding: 0
+      margin: 15px
+     
+    .tab-content
+      overflow: visible !important
+  
 .modal-footer
   &:after
     background: none
