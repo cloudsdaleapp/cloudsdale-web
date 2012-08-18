@@ -14,33 +14,66 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
   # Returns an instance of Cloudsdale.Models.User if found, otherwise undefined.
   findOrInitialize: (args,options) ->
     
+    args = if (getObjectClass(args) == "String") then [args] else args
+    
     args = {} unless args
     options = {} unless options
     
-    user = @get(args.id)
-    
-    if user
-      if options.fetch
-        user.fetch(
-          success: (_user) =>
-            options.success(_user) if options.success
-        )
-      else
-        options.success(user) if options.success
+    if getObjectClass(args) == "Array"
+      
+      users = []
+      ids = []
+      
+      $.each args, (i,id) =>
+        user = @get(id)
+        unless user
+          ids.push(id)
+          user = new Cloudsdale.Models.User({id: id})
         
+        users.push(user)
+      
+      if ids.length > 0
+        @fetch
+          add: true
+          data:
+            ids: ids
+          success: (resp, status, xhr) =>
+            options.success(resp, status, xhr) if options.success
+          error: (resp, xhr, _options) =>
+            options.error(resp, xhr, _options) if options.error
+      else
+        options.success(users, 200, {}) if options.success
+      
+        
+      return users
+      
     else
-      user = new Cloudsdale.Models.User(args)
-      
-      if user.get('is_transient')
-        user.fetch(
-          success: (_user) =>
-            options.success(_user) if options.success
-        )
-      else
-        options.success(user) if options.success
+    
+      user = @get(args.id)
+    
+      if user
+        if options.fetch
+          user.fetch
+            success: (resp, status, xhr) => options.success(resp, status, xhr) if options.success
+            error: (resp, xhr, _options) => options.error(resp, xhr, _options) if options.error
+            
+        else
+          options.success(user) if options.success
         
-      @add(user)
+      else
+        user = new Cloudsdale.Models.User(args)
+      
+        if user.get('is_transient')
+          user.fetch
+            success: (resp, status, xhr) => options.success(resp, status, xhr) if options.success
+            error: (resp, xhr, _options) => options.error(resp, xhr, _options) if options.error
+
+        else
+          options.success(user) if options.success
+        
+        @add(user)
       
     
-    return user
+      return user
+      
       

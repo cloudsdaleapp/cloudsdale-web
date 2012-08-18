@@ -25,9 +25,14 @@
         %a{ href: "#settings-rules", "data-toggle" => "pill" }
           %i.icon-list.icon-white
           = "Rules"
+      
+      %li
+        %a{ href: "#settings-moderators", "data-toggle" => "pill" }
+          %i.icon-user.icon-white
+          = "Moderators"
           
         
-  .modal-body
+  .modal-body{ style: 'min-height: 400px;'}
     .tab-content
       .tab-pane#settings-general
         .control-group
@@ -82,3 +87,11 @@
           .controls
             %textarea#cloud_rules{ name: 'rules', placeholder: "Rules..." }
               = @cloud.get('rules')
+      
+      .tab-pane#settings-moderators
+        .control-group
+          %label.control-label{ for: 'cloud_moderators' }= "Select your moderators"
+          .controls
+            #cloud_moderators{ name: 'moderator_ids', placeholder: "Search by name...", multiple: "multiple", style: "width: 100%;" }
+        %ul.nav.nav-tabs.nav-stacked.moderator_list
+          

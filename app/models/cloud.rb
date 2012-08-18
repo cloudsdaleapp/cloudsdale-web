@@ -12,7 +12,7 @@ class Cloud
   
   attr_accessor :user_invite_tokens
   
-  attr_accessible :name, :description, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :owner_id
+  attr_accessible :name, :description, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :owner_id, :x_moderator_ids
   
   field :name,          type: String
   field :description,   type: String
@@ -21,7 +21,13 @@ class Cloud
   field :locked,        type: Boolean,        default: false
   field :featured,      type: Boolean,        default: false
   field :member_count,  type: Integer,        default: 0
-   
+  
+  def x_moderator_ids=(mod_ids)
+    mod_ids = mod_ids.map { |mod_id| mod_id.is_a?(BSON::ObjectId) ? mod_id : BSON::ObjectId(mod_id) }
+    mod_ids = mod_ids.reject { |mod_id| !self[:user_ids].include?(mod_id) }
+    self.moderators = User.where(:_id.in => mod_ids.uniq )
+  end
+  
   mount_uploader :avatar, AvatarUploader
   
   validates :name, presence: true, uniqueness: true, length: { within: 3..24 }
@@ -54,14 +60,14 @@ class Cloud
     self.owner = User.order_by(:role,:desc).first if owner.nil?
     
     # Adds owner_id to moderator_ids if moderator_ids does not include the owner id.
-    self.moderators << owner unless moderator_ids.include?(owner_id)
+    self.moderators << owner unless moderators.include?(owner)
     
      # Adds owner_id to user_ids if user_ids does not include the owner id.
-    self.users << owner unless user_ids.include?(owner_id)
+    self.users << owner unless users.include?(owner)
     
     # Adds a moderator id to user_ids if user_ids does not include the moderator id.
-    self.moderator_ids.each do |mod_id|
-      self.users << mod_id unless user_ids.include?(mod_id)
+    self.moderators.each do |moderator|
+      self.users << moderator unless users.include?(moderator)
     end
             
     self[:name] = self[:name].slice(0..23) if name

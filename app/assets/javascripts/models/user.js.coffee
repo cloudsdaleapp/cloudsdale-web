@@ -61,3 +61,6 @@ class Cloudsdale.Models.User extends Backbone.Model
   toBroadcastJSON: ->
     obj = @toJSON()
     _.pick obj, "id", "name", "avatar"
+  
+  toSelectable: ->
+    return { id: @id, text: @get('name'), avatar: @get('avatar').mini }

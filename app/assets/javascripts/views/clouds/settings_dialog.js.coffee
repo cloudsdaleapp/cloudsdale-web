@@ -7,6 +7,7 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
 
   events:
     'click .remove-avatar' : "removeAvatar"
+    'click .close.remove-mod' : "removeMod"
   
   initialize: (args) ->
     args = {} unless args
@@ -30,7 +31,22 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
     
     this
     
-
+    @cloud.users
+      success: (resp) =>
+        @renderModerators()
+        
+        @.$('#cloud_moderators').select2
+          data: _.map(resp, (_user) ->
+            return _user.toSelectable()
+          )
+          multiple: false
+          formatResult: @formatSelectResults
+          formatSelection: @formatSelectResults
+        .on "change", (e) =>
+          ids = @cloud.get('moderator_ids')
+          ids.push(e.val)
+          @saveCloud({ moderator_ids: ids })
+          
   bindEvents: ->
     
     @cloud.on 'change', (cloud) =>
@@ -80,6 +96,25 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
           @.$(elem).parent().removeClass('loading-controls')
       )
   
+  renderModerators: ->
+    @.$("ul.moderator_list > li").remove()
+    $.each @cloud.moderators(), (i,user) =>
+      @.$("ul.moderator_list").append("<li data-userId='#{user.id}'>
+        <a class='close remove-mod' href='#'>×</a>
+        <a>
+          <img src='#{user.get('avatar').chat}'/>
+          <strong>#{user.get('name')}</strong>
+        </a>
+      </li>")
+        
+  removeMod: (e) ->
+    user_id = @.$(e.target).parent().attr('data-userId')
+    moderator_ids = _.reject(@cloud.get('moderator_ids'), (mod_id) -> return mod_id == user_id)
+    @saveCloud({ x_moderator_ids: moderator_ids }
+      success: (resp) =>
+        @renderModerators()
+    )
+          
   saveCloud: (attr,options) ->
     attr ||= {}
     options ||= {}
@@ -127,4 +162,9 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
     controls = field.parent().parent()
     controls.removeClass('error')
     controls.find("span.help-inline.field-error-message").remove()
+  
+  formatSelectResults: (user) ->
+    return "<img src='#{user.avatar}'/> <strong>#{user.text}</strong>"
+    
+    
     

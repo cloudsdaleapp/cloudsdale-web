@@ -13,7 +13,7 @@ class Api::V1::UsersController < Api::V1Controller
     params[:ids] << params[:id]
     params[:ids].uniq!
     
-    @users = User.find(params[:ids])
+    @users = User.where(:_id.in => params[:ids])
     render status: 200
     
   end
