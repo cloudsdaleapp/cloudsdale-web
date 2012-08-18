@@ -10,7 +10,7 @@ Cloudsdale::Application.routes.draw do
       get   :recent,  on: :collection,  as: :recent
       get   :popular, on: :collection,  as: :popular
       
-      resources :users, :controller => "clouds/users", only: [:destroy,:create]
+      resources :users, :controller => "clouds/users", only: [:destroy,:create,:index]
       
       resources :drops, :controller => "clouds/drops", only: [:index] do
         

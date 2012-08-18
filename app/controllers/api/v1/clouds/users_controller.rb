@@ -1,5 +1,31 @@
 class Api::V1::Clouds::UsersController < Api::V1Controller
-
+  
+  # Public: Used to list all users in a cloud.
+  #
+  # cloud_id - The BSON id of the cloud.
+  #
+  # Returns all users for the given Cloud.
+  def index
+    
+    @cloud = fetch_cloud()
+    @users = @cloud.users
+    render status: 200
+    
+  end
+  
+  # Public: Used to list all moderators in a cloud.
+  #
+  # cloud_id - The BSON id of the cloud.
+  #
+  # Returns moderator users for the given Cloud.
+  def moderators
+    
+    @cloud = fetch_cloud()
+    @users = @cloud.moderators
+    render :index, status: 200
+    
+  end
+    
   # Private: Adds a user to the collection
   def create
     
