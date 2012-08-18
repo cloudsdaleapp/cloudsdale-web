@@ -35,6 +35,7 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
       if ids.length > 0
         
         if (options.specific_endpoint == true)
+          url = if options.url then options.url else @url()
           data = null
         else
           data = { ids: ids }
@@ -42,6 +43,7 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
         @fetch
           add: true
           data: data
+          url: url
           success: (resp, status, xhr) =>
             options.success(resp, status, xhr) if options.success
           error: (resp, xhr, _options) =>
