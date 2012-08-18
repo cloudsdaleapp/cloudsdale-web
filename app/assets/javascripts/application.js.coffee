@@ -14,6 +14,7 @@
 #= require faye
 #= require twitter-text
 #= require autolink
+#= require select2
 # require pjax
 # require jquery.tokeninput
 # require jquery.daterangepicker
