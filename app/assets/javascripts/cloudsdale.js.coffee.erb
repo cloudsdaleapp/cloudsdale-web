@@ -44,6 +44,14 @@ window.escapeHTML = (html) ->
   
   return escaped
 
+window.merge_options = (obj1, obj2) ->
+  obj3 = {}
+  for attrname of obj1
+    obj3[attrname] = obj1[attrname]
+  for attrname of obj2
+    obj3[attrname] = obj2[attrname]
+  obj3
+
 window.Cloudsdale =
   Models: {}
   Collections: {}

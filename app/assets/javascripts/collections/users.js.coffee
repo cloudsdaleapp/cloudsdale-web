@@ -33,10 +33,15 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
         users.push(user)
       
       if ids.length > 0
+        
+        if (options.specific_endpoint == true)
+          data = null
+        else
+          data = { ids: ids }
+          
         @fetch
           add: true
-          data:
-            ids: ids
+          data: data
           success: (resp, status, xhr) =>
             options.success(resp, status, xhr) if options.success
           error: (resp, xhr, _options) =>
