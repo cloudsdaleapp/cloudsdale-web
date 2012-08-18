@@ -48,7 +48,7 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
         .on "change", (e) =>
           ids = @cloud.get('moderator_ids')
           ids.push(e.val)
-          @saveCloud({ moderator_ids: ids },
+          @saveCloud({ x_moderator_ids: ids },
             success: => @.$('#cloud_moderators').select2("val", "")
           )
             
