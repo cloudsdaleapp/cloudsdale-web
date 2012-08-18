@@ -1,9 +1,11 @@
-.chat-message-avatar
-  %a.message-user-inspect{ href: "#" }
-    %img{ src: @model.get('user').get('avatar').thumb }
-.chat-message-meta
-  %span= @model.timestamp().toString('HH:mm:ss')
-.chat-message-head
-  %a.message-user-inspect{ href: "#" }
-    = @model.get('user').get('name')
+- unless @model.selfReference()
+  .chat-message-avatar
+    %a.message-user-inspect{ href: "#" }
+      %img{ src: @model.get('user').get('avatar').thumb }
+  .chat-message-meta
+    %span= @model.timestamp().toString('HH:mm:ss')
+  .chat-message-head
+    %a.message-user-inspect{ href: "#" }
+      = @model.get('user').get('name')
+
 .chat-message-content

@@ -22,3 +22,5 @@ class Cloudsdale.Models.Message extends Backbone.Model
       content: @get("content")
       client_id: @get("client_id")
     }
+  
+  selfReference: -> if @get('content').match(/^\/me/i) then true else false

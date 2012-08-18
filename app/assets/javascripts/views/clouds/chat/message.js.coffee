@@ -16,6 +16,9 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   render: ->
     $(@el).html(@template(model: @model)).addClass("role-#{@model.get('user').get('role')}")
     @appendContent(@model)
+    
+    $(@el).addClass('self-reference') if @model.selfReference()
+    
     this
   
   bindEvents: ->
@@ -46,7 +49,13 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     
     content = content.replace(/\\n$/ig,"").replace(/\\n/ig,"<br/>")
     
-    @.$('.chat-message-content').append("<p>#{content}</p>")
+    elem = $("<p></p>")
+    if message.selfReference()
+      elem.html(message.get('content').replace(/^\/me/i,message.get('user').get('name')))
+    else
+      elem.html(content)
+    
+    console.log @.$('.chat-message-content').append(elem)
     @.$('.chat-message-meta').text(message.timestamp().toString('HH:mm:ss'))
     
   
