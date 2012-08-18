@@ -42,10 +42,17 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
           multiple: false
           formatResult: @formatSelectResults
           formatSelection: @formatSelectResults
+          initSelection: (element,callback) ->
+            return callback(element)
+            
         .on "change", (e) =>
           ids = @cloud.get('moderator_ids')
           ids.push(e.val)
-          @saveCloud({ moderator_ids: ids })
+          @saveCloud({ moderator_ids: ids },
+            success: => @.$('#cloud_moderators').select2("val", "")
+          )
+            
+          
           
   bindEvents: ->
     
