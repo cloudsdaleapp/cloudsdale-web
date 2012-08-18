@@ -59,6 +59,7 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
     @cloud.on 'change', (cloud) =>
       @.$('img.cloud-avatar').attr('src',cloud.get('avatar').normal)
       @.$('h2.cloud-name').text(cloud.get('name'))
+      @renderModerators()
     
     $("body").on "click.tab.data-api", "[data-toggle=\"tab\"], [data-toggle=\"pill\"]", (e) ->
       e.preventDefault()
