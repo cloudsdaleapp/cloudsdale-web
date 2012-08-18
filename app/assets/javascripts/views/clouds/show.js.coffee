@@ -34,6 +34,9 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
       if cloud.id == @model.id
         @unbindEvents()
         $(@el).remove()
+    
+    nfc.on "#{@model.type}s:#{@model.id}", (payload) =>
+      @model.set(payload)
   
   unbindEvents: ->
     $(@el).unbind('page:show').unbind("clouds:leave")
