@@ -9,6 +9,6 @@ end
 
 node(:is_transient) { |cloud| cloud.new_record? }
 
-node(:owner_id) { |cloud| cloud.owner_id }
-node(:user_ids) { |cloud| cloud.user_ids }
-node(:moderator_ids) { |cloud| cloud.moderator_ids }
+node(:owner_id) { |cloud| cloud.owner_id.to_s }
+node(:user_ids) { |cloud| cloud.user_ids.map(&:to_s) }
+node(:moderator_ids) { |cloud| cloud.moderator_ids.map(&:to_s) }
