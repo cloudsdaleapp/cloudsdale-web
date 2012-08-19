@@ -1,5 +1,8 @@
 object @cloud
-attributes :id, :name, :description, :created_at, :rules, :hidden
+
+node(:id) { |cloud| cloud._id.to_s }
+
+attributes :name, :description, :created_at, :rules, :hidden
 
 node(:avatar) { |cloud| cloud.avatar_versions }
 
