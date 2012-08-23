@@ -15,7 +15,8 @@ class Cloudsdale.Models.Message extends Backbone.Model
   drops: -> new Cloudsdale.Collections.Drops(@get('drops'))
   
   user: (args) ->
-    return session.get('users').findOrInitialize @get('author'),
+    author = if @get('author') then @get('author') else { id: @get('author_id') }
+    return session.get('users').findOrInitialize author,
       fetch: false
   
   topic: (args) ->
