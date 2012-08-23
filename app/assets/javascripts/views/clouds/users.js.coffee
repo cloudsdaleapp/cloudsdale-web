@@ -14,6 +14,7 @@ class Cloudsdale.Views.CloudsUsers extends Backbone.View
     @refreshGfx()
   
   render: ->
+    @model.users()
     $(@el).html(@template(model: @model)).attr('data-entity-id',@model.id)
     this
   
