@@ -2,9 +2,7 @@ class Cloudsdale.Models.Message extends Backbone.Model
   
   sync: railsRestSync
   
-  initialize: (args) ->
-    
-    session.get('users').findOrInitialize(args.user) if args.user
+  initialize: () ->     
   
   url: -> "/v1/#{@get('topic_type')}s/#{@get('topic_id')}/chat/messages"
           
@@ -16,6 +14,11 @@ class Cloudsdale.Models.Message extends Backbone.Model
   
   drops: -> new Cloudsdale.Collections.Drops(@get('drops'))
   
-  user: (args) -> return session.get('users').findOrInitialize({id:@get('author_id')})
+  user: (args) ->
+    return session.get('users').findOrInitialize @get('author'),
+      fetch: false
   
-  topic: (args) -> return session.get(@get('topic_type') + 's').findOrInitialize(@get('topic_id'))
+  topic: (args) ->
+    return session.get(@get('topic_type') + 's').findOrInitialize @get('topic_id'),
+      fetch: false
+      
