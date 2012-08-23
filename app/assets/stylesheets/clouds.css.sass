@@ -406,12 +406,18 @@ a.cloud-settings-toggle
     font-family: 'lucida grande', tahoma, verdana, arial, sans-serif !important
     
   &.self-reference
+    .chat-message-meta
+      text-align: center
+      float: none
+      margin: 0 0 5px 0
+      span
+        font-weight: normal
+        
     .chat-message-content
       padding-left: 0
       p
         text-align: center
-        font-weight: bold
-        color: #666666
+        color: #333
         
   &.chat-message-with-drops
     ul.chat-message-drops
@@ -457,7 +463,7 @@ a.cloud-settings-toggle
   margin-right: 7px
   font-size: 10px
   font-weight: bold
-  +opacity(0)
+  +opacity(.5)
   +transition(opacity .08s ease-in)
   
 .chat-message-head

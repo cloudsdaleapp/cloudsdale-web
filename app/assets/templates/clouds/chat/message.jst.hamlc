@@ -2,8 +2,11 @@
   .chat-message-avatar
     %a.message-user-inspect{ href: "#" }
       %img{ src: @model.user().get('avatar').thumb }
-  .chat-message-meta
-    %span= @model.timestamp().toString('HH:mm:ss')
+      
+.chat-message-meta
+  %span= @model.timestamp().toString('HH:mm:ss')
+  
+- unless @model.selfReference()
   .chat-message-head
     %a.message-user-inspect{ href: "#" }
       = @model.user().get('name')
