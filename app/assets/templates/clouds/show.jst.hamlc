@@ -32,5 +32,4 @@
           %img{ src: @model.get('avatar').normal }
         %h2= @model.get('name')
         %p= @model.get('description')
-    .loading-content
     .chat-wrapper

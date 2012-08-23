@@ -79,11 +79,11 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       success: (messages) =>
         messages.each (message) =>
           @appendMessage(message)
-        @.$('.loading-content').addClass('load-ok')
+        @.$('.loading-content.loader-chat').addClass('load-ok')
         setTimeout ->
-          @.$('.loading-content').remove()
+          @.$('.loading-content.loader-chat').remove()
         , 500
-      error: (messages) => @.$('.loading-content').addClass('load-error')
+      error: (messages) => @.$('.loading-content.loader-chat').addClass('load-error')
       
     return collection
     

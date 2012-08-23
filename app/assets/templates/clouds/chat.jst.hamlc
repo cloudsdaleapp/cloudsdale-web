@@ -1,3 +1,4 @@
+.loading-content.loader-chat
 .chat-messages
 .chat-footer
   .chat-inspect

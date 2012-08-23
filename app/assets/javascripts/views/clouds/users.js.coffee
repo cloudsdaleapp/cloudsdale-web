@@ -7,14 +7,22 @@ class Cloudsdale.Views.CloudsUsers extends Backbone.View
   className: 'cloud-user-list-wrapper'
   
   initialize: (args) ->
-
-    @render()
-    @bindEvents()
     
-    @refreshGfx()
+    @render()
+    
+    @model.users
+      success: (messages) =>
+        @bindEvents()
+        @refreshGfx()
+        
+        @.$('.loading-content.loader-users').addClass('load-ok')
+        setTimeout ->
+          @.$('.loading-content.loader-users').remove()
+        , 500
+        
+      error: (messages) => @.$('.loading-content.loader-users').addClass('load-error')
   
   render: ->
-    @model.users()
     $(@el).html(@template(model: @model)).attr('data-entity-id',@model.id)
     this
   
