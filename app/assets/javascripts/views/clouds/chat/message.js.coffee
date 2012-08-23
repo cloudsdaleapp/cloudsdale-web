@@ -16,6 +16,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   render: ->
     $(@el).html(@template(model: @model)).addClass("role-#{@model.get('user').get('role')}")
     @appendContent(@model)
+    @appendDrops(@model)
     
     $(@el).addClass('self-reference') if @model.selfReference()
     
@@ -28,6 +29,8 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   refreshGfx: ->
     @.$('.chat-message-avatar a img').attr('src',@model.get('user').get('avatar').thumb)
     @.$('.chat-message-head a').text(@model.get('user').get('name'))
+    if @.$('ul.chat-message-drops').children().length > 0
+      $(@el).addClass('chat-message-with-drops')
 
   # Appends content to the message
   appendContent: (message) ->
@@ -55,9 +58,13 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     else
       elem.html(content)
     
-    console.log @.$('.chat-message-content').append(elem)
+    @.$('.chat-message-content').append(elem)
     @.$('.chat-message-meta').text(message.timestamp().toString('HH:mm:ss'))
-    
+  
+  appendDrops: (message) ->
+    message.drops().each (drop) =>
+      view = new Cloudsdale.Views.CloudsDropsListItem(model: drop)
+      @.$('ul.chat-message-drops').append(view.el)
   
   openUserInspect: (event) ->
     $.event.trigger "clouds:#{@model.get('topic').id}:chat:inspect:user", @model.get('user')

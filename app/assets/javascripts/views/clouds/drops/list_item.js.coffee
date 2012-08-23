@@ -13,7 +13,6 @@ class Cloudsdale.Views.CloudsDropsListItem extends Backbone.View
     'click a.drop-vote-down'  : 'voteDown'
     
   initialize: (args) ->
-    
     @render()
   
   render: ->
@@ -33,7 +32,6 @@ class Cloudsdale.Views.CloudsDropsListItem extends Backbone.View
     inhouse = (top_dom.match(/cloudsdale.org/i) != null)
 
     if inhouse
-      console.log "wat"
       event.preventDefault()
       Backbone.history.navigate(path,true)
     else

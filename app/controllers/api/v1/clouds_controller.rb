@@ -59,6 +59,26 @@ class Api::V1::CloudsController < Api::V1Controller
     
   end
   
+  # Private: Accepts request to destroy a cloud.
+  #
+  # id    - A BSON id of the cloud to update the attributes on.
+  #
+  # Returns the cloud object with a status of 200 if successful & 422 if unsuccessful.
+  def destroy
+    
+    @cloud = Cloud.find(params[:id])
+    authorize! :destroy, @cloud
+            
+    if @cloud.destroy
+      render status: 200
+    else
+      set_flash_message message: "Could not delete this Cloud, please contact a system administrator.", title: "I will destroy you!"
+      build_errors_from_model @cloud
+      render status: 422
+    end
+    
+  end
+  
   # Public: Get the 10 most popular Clouds based on member count.
   # Returns a collection of Clouds.
   def popular

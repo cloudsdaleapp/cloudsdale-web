@@ -229,13 +229,18 @@ body
   
   .container-inner
     position: absolute
-    background: #F0F0F0
+    background: #F0F0F0 $bgNoise
     top: 0
     bottom: 0
     left: 0
     right: 0
 
 .fixed-container
+  
+  position: relative
+  
+  z-index: 2
+  
   @media (max-width: $phone)
     overflow: auto
   @media (min-width: $ipad-min)
@@ -245,23 +250,33 @@ body
     width: 320px
   @media (min-width: $desktop-s-min)
     width: 320px
-  .container-inner
-    background-image: $bgStripes
-    @media (min-width: $ipad-min)
-      margin-right: -0
-      border-right: 1px solid rgba(255,255,255,1)
-
+  
 .float-container
-  .container-inner
-    @media (min-width: $ipad-min)
-      border-left: 1px solid $color-border-light
-      
-    
+  
+  position: relative
+  
+  z-index: 3
+  
   &.with-fixed-container
     @media (min-width: $ipad-min) and (max-width: $ipad-max)
       margin-left: 320px
     @media (min-width: $desktop-s-min) 
       margin-left: 320px
+    
+    border-left: 1px solid rgba(0,0,0,.2)
+
+    &:before
+      content: ""
+      position: absolute
+      left: 0px
+      top: 0px
+      bottom: 0px
+      width: 100px
+      display: block
+      z-index: 0
+
+      +box-shadow(0,0,100px,rgba(0,0,0,.1))
+      background: transparent
 
 .cloudbar
   padding: 0

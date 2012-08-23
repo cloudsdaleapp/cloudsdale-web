@@ -1,0 +1,9 @@
+.cloud-sidebar-top.clearfix
+  .cloud-sidebar-inner.clearfix
+    %a.close{ href: '#', data: { dismiss: 'dialog' } }
+      = "×"
+    .cloud-sidebar-head
+      %h3= "Rules"
+      
+.cloud-sidebar-bottom
+  %p.cloud-rules

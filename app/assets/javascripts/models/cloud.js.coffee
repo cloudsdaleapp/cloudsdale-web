@@ -33,6 +33,8 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
     #     
     # collection.save()
   
+  containsUser: (user) -> _.include @get('user_ids'), user.id
+  
   lastMessageAt: ->
     if @get('chat')
       new Date(@get('chat').last_message_at)
@@ -75,7 +77,7 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
   # Returns false.
   announcePresence: ->
     setTimeout( =>
-      nfc.cli.publish "/clouds/#{@id}/users", session.get('user').toBroadcastJSON()
+      nfc.cli.publish "/clouds/#{@id}/users/#{session.get('user').id}", {}
       setTimeout( =>
         @announcePresence()
       , 27000)

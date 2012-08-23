@@ -34,7 +34,7 @@ class Ability
         can :deduct, Cloud do |cloud|
           cloud.user_ids.include?(user.id)
         end
-      
+              
         # Normal users can only create messages in clouds that are unlocked or that they have added. 
         can :create, Message do |message|
           (user.cloud_ids.include?(message.chat.topic.id) || !message.chat.topic.locked?) && user.is_registered?

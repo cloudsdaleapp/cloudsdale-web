@@ -52,6 +52,24 @@ window.merge_options = (obj1, obj2) ->
     obj3[attrname] = obj2[attrname]
   obj3
 
+window.resizeBottomWrapper = (elems) ->
+  elems = $('.cloud-sidebar-bottom') unless elems
+  if window.outerWidth > 480
+    $.each elems, (i,elem) ->
+      setTimeout ->
+        topDistance = $(elem).prev().outerHeight()
+        $(elem).css
+          position: 'absolute'
+          left: 0
+          right: 0
+          top: topDistance
+          bottom: 0
+      , 100
+      
+$(window).bind 'resize', (e) ->
+  resizeBottomWrapper()
+  
+
 window.Cloudsdale =
   Models: {}
   Collections: {}
@@ -73,7 +91,6 @@ $('a[rel="safe"]').live 'click', (event,target) ->
   inhouse = (top_dom.match(/cloudsdale.org/i) != null)
   
   if inhouse
-    console.log "wat"
     event.preventDefault()
     Backbone.history.navigate(path,true)
     return false

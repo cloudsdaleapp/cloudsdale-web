@@ -1,8 +1,2 @@
 %a.drop-preview{ href: @model.get('url') }
   %img{ src: @model.get('preview'), title: @model.get('title') }
-%a.drop-title{ href: @model.get('url') }
-  %span= @model.get('title')
-
-.drop-votes
-  %a.drop-vote-up{ href: "#" }
-  %a.drop-vote-down{ href: "#" }

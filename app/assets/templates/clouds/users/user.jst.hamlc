@@ -1,0 +1,3 @@
+%a{ href: '#' }
+  %img{ src: @model.get('avatar').mini }
+  %span= @model.get('name')

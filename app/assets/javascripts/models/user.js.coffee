@@ -55,12 +55,9 @@ class Cloudsdale.Models.User extends Backbone.Model
     
     return @save({},options)
   
-  isMemberOf: (cloud) ->
-    $.inArray(cloud.id, _.map(@get('clouds'), (c) -> c.id)) >= 0
-  
   toBroadcastJSON: ->
     obj = @toJSON()
-    _.pick obj, "id", "name", "avatar"
+    _.pick obj, "id"
   
   toSelectable: ->
     return { id: @id, text: @get('name'), avatar: @get('avatar').mini }

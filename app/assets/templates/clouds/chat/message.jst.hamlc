@@ -7,5 +7,6 @@
   .chat-message-head
     %a.message-user-inspect{ href: "#" }
       = @model.get('user').get('name')
-
+      
+%ul.chat-message-drops
 .chat-message-content

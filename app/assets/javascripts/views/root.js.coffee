@@ -54,24 +54,22 @@ class Cloudsdale.Views.Root extends Backbone.View
       @refreshGfx()
     
     $(document).bind 'keydown', (e) =>
-            
-      if e.target.tagName == "BODY"
-                
-        activeToggle = @.$('.cloud-toggle.active')
+                      
+      activeToggle = @.$('.cloud-toggle.active')
+      
+      if ((e.keyCode == 38) or (e.keyCode == 40)) and e.shiftKey
         
-        if ((e.keyCode == 38) or (e.keyCode == 40)) and e.shiftKey
-          
-          if e.keyCode == 40
-            next = activeToggle.next()
-            if next.length > 0
-              id = next.attr('data-cloud-id')
-              Backbone.history.navigate("/clouds/#{id}",true)
-          
-          if e.keyCode == 38
-            prev = activeToggle.prev()
-            if prev.length > 0
-              id = prev.attr('data-cloud-id')
-              Backbone.history.navigate("/clouds/#{id}",true)
+        if e.keyCode == 40
+          next = activeToggle.next()
+          if next.length > 0
+            id = next.attr('data-cloud-id')
+            Backbone.history.navigate("/clouds/#{id}",true)
+        
+        if e.keyCode == 38
+          prev = activeToggle.prev()
+          if prev.length > 0
+            id = prev.attr('data-cloud-id')
+            Backbone.history.navigate("/clouds/#{id}",true)
           
           
           

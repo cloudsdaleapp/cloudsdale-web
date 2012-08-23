@@ -10,6 +10,7 @@ class Message
   
   embedded_in :chat
   belongs_to :author, class_name: "User"
+  has_and_belongs_to_many :drops, inverse_of: nil
   
   field :timestamp,   type: Time,    default: -> { Time.now }
   field :content,     type: String
@@ -20,10 +21,6 @@ class Message
   validates :timestamp,   :presence => true
   validates :content,     :presence => true
   validates :author,      :presence => true
-  
-  before_validation do
-    set_foreign_attributes! if author
-  end
     
   after_save do
     enqueue! "faye", { channel: "/#{self.topic_type}s/#{self.topic_id}/chat/messages", data: self.to_hash } 
@@ -79,14 +76,6 @@ class Message
     
     self[:content] = msg
 
-  end
-  
-  private
-  
-  def set_foreign_attributes!
-    self[:user_name] = self.author.name
-    self[:user_path] = "/users/#{author._id.to_s}"
-    self[:user_avatar] = author.avatar.thumb.url
   end
   
 end

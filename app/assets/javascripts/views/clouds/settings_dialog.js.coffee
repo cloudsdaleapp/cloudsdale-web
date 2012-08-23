@@ -3,9 +3,10 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
   template: JST['clouds/settings_dialog']
   
   tagName: 'div'
-  className: 'modal-container'
+  className: 'container-inner container-inner-secondary'
 
   events:
+    'click a.close[data-dismiss="dialog"]' : "close"
     'click .remove-avatar' : "removeAvatar"
     'click .close.remove-mod' : "removeMod"
   
@@ -23,13 +24,9 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
   render: ->
     $(@el).html(@template(cloud: @cloud))
     
-    @.$('input[type=checkbox]').each (index,cbInput) =>
-      _el   = @.$(cbInput)
-      _val  = @cloud.get(_el.attr('name'))
-      
-      _el.attr('checked','checked') if _val && _val == true
+    @fixCheckboxes()
     
-    this
+    resizeBottomWrapper(@.$('.cloud-sidebar-bottom'))
     
     @cloud.users
       success: (resp) =>
@@ -51,9 +48,17 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
           @saveCloud({ x_moderator_ids: ids },
             success: => @.$('#cloud_moderators').select2("val", "")
           )
-            
+    
+    this
           
-          
+  close: ->
+    $(@el).parent().removeClass('show-secondary')
+    setTimeout =>
+      $(@el).remove()
+    , 400
+    
+    false
+      
   bindEvents: ->
     
     @cloud.on 'change', (cloud) =>
@@ -66,14 +71,8 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
       $("a[href=#{$(@).attr('href')}]").tab "show"
     
     setTimeout =>
-      @.$(".nav.nav-pills a[href=#settings-#{@state}]").tab('show')
+      @.$(".nav.nav-tabs a[href=#settings-#{@state}]").tab('show')
     , 0
-    
-    @.$('.modal').modal().bind 'hide', =>
-      @.$('.input-group').tooltip('hide')
-      window.setTimeout ->
-        $(@el).remove()
-      , 500
     
     @.$(':checkbox').change ->
       unless $(@).data('preventAjax') == true
@@ -104,6 +103,15 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
           @.$(elem).parent().removeClass('loading-controls')
       )
   
+  fixCheckboxes: ->
+    @.$('input[type=checkbox]').each (index,cbInput) =>
+      _el   = @.$(cbInput)
+      _val  = @cloud.get(_el.attr('name'))
+      
+      _el.attr('checked','checked') if _val && _val == true
+    
+    this
+    
   renderModerators: ->
     @.$("ul.moderator_list > li").remove()
     $.each @cloud.moderators(), (i,user) =>

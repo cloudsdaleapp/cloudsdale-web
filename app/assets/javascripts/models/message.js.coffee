@@ -24,3 +24,5 @@ class Cloudsdale.Models.Message extends Backbone.Model
     }
   
   selfReference: -> if @get('content').match(/^\/me/i) then true else false
+  
+  drops: -> new Cloudsdale.Collections.Drops(@get('drops'))

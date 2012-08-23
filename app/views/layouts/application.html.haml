@@ -21,7 +21,6 @@
     %meta{ property: "og:type", content: "website" }
     %meta{ property: "og:url", content: "http://www.cloudsdale.org" }
     %meta{ property: "og:image", content: Cloudsdale.config['url'] + image_path('logo/main_logo.png') }
-    
   %body{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
     .loading-content
   

@@ -1,15 +1,35 @@
 .fixed-container
   .container-inner
-    .cloud-head.clearfix
-      .float-left
-        %img{ src: @model.get('avatar').normal }
-      %h2= @model.get('name')
-      %p= @model.get('description')
-      .cloud-head-actions
-        - unless @model.get('owner_id') == session.get('user').id
-          %a.btn.followed
-
-    .drop-wrapper
-  
+    .cloud-sidebar-top.clearfix
+      .cloud-sidebar-inner
+        .cloud-ad
+        .cloud-actions
+          - if @model.get('owner_id') == session.get('user').id
+            %a.btn{ href: '#', data: { action: 'settings' } }
+              %i.icon-cog
+              = "Settings"
+            
+          %a.btn{ href: '#', data: { action: 'rules' } }
+            %i.icon-list
+            = "Rules"
+          
+          - if @model.get('owner_id') == session.get('user').id
+            %a.btn{ href: '/', data: { action: 'destroy' } }
+              %i.icon-trash
+              = "Remove Cloud"
+          - else
+            %a.btn{ href: '#', data: { action: 'leave' } }
+              %i.icon-share-alt
+              = "Leave Cloud"
+              
+    .cloud-sidebar-bottom
+    
 .float-container.with-fixed-container
   .container-inner
+    .cloud-head.clearfix
+      .cloud-head-inner
+        .float-left
+          %img{ src: @model.get('avatar').normal }
+        %h2= @model.get('name')
+        %p= @model.get('description')
+    .chat-wrapper

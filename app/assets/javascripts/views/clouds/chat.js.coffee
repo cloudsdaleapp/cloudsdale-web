@@ -3,11 +3,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   template: JST['clouds/chat']
   
   tagName: 'div'
-  className: 'container-inner chat-container'
-  
-  events:
-    'click a.sidebar-toggle' : 'toggleSidebar'
-    'click a.cloud-settings-toggle' : 'openCloudSettingsDialog'
+  className: 'chat-wrapper'
   
   initialize: ->
     
@@ -38,10 +34,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         @resetForm()
         false
     
-    @.$(".chat-online-list").mousewheel (event, delta) ->
-      @scrollTop -= (delta * 30)
-      event.preventDefault()
-    
     $(@el).bind "clouds:#{@model.id}:chat:inspect:user", (event,user) =>
       @toggleUserInspect(user)
       
@@ -51,9 +43,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         message = new Cloudsdale.Models.Message(payload)
         
         @appendMessage(message)
-    
-    nfc.on "#{@model.type}s:#{@model.id}:users", (payload) =>
-      @refreshPresence(payload)
   
   # Creates and saves a new message and then appends it to
   # the DOM for the current topic.
@@ -73,8 +62,12 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         
     @appendMessage(message)
 
-    message.save() if do_save == true
-
+    message.save {},
+      success: (message) =>
+        @lastMessageView.appendDrops(message)
+        @lastMessageView.refreshGfx()
+        @correctContainerScroll(@isNotReadingHistory())
+        
     return message
     
   # Fetches the messages related to the chat and appends them to the chat frame.
@@ -106,6 +99,8 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
 
     if (message.get('user').id == @lastAuthorId) && (@lastMessageView != null) && (message.selfReference() == false)
       @lastMessageView.appendContent(message)
+      @lastMessageView.appendDrops(message)
+      @lastMessageView.refreshGfx()
     else
       view = new Cloudsdale.Views.CloudsChatMessage(model: message)
       @.$('.chat-messages').append(view.el)
@@ -115,6 +110,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         @lastMessageView = null
       else
         @lastMessageView = view
+        @lastMessageView.refreshGfx()
         
       @lastAuthorId = message.get('user').id
     
@@ -163,49 +159,10 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
     @.$('textarea.chat-message-content').val("").trigger('input')
     false
   
-  # Refreshes a users presence in the online list
-  #
-  # payload - The data of the user
-  #
-  # Returns false.
-  refreshPresence: (payload) ->
-    if @.$(".chat-online-list > li[data-user-id=#{payload.id}]").length == 0
-      user = session.get('users').findOrInitialize(payload)
-      user_view = new Cloudsdale.Views.CloudsChatUser(model: user, topic: @model)
-      @.$(".chat-online-list").append(user_view.el)
-    else
-      $.event.trigger "#{@model.type}s:#{@model.id}:users:#{payload.id}", payload
-    
-    @refreshSidebarGFX()
-    
-    false
-  
-  # Refresh the GFX in the sidebar
-  #
-  # Returns false.
-  refreshSidebarGFX: ->
-    users_online = @.$(".chat-online-list").children().length
-    @.$(".chat-sidebar-header > span.chat-sidebar-online-count > span.n").html("#{users_online}")
-    false
-  
-  # Toggles the sidebar on and off when toggled
-  # off it corrects chat container scroll
-  #
-  # Returns false to mitigate triggering links to append a hash tag.
-  toggleSidebar: ->
-    $(@el).toggleClass('expanded-sidebar')
-    @correctContainerScroll(true) unless $(@el).hasClass('expanded-sidebar')
-    false
-  
   startProsecution: () ->
     prosecution = new Cloudsdale.Models.Prosecution(offender: session.get('user'))
     view = new Cloudsdale.Views.CloudsProsecutionDialog(model: prosecution)
     @.$('.chat-wrapper').append(view.el)
-  
-  openCloudSettingsDialog: () ->
-    view = new Cloudsdale.Views.CloudsSettingsDialog(cloud: @model).el
-    if $('.modal-container').length > 0 then $('.modal-container').replaceWith(view) else $('body').append(view)
-    false
   
   toggleUserInspect: (user) ->
     view = new Cloudsdale.Views.CloudsChatUserInspect(model: user, topic: @model).el

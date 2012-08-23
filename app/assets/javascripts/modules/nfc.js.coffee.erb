@@ -33,12 +33,27 @@ do ($ = jQuery) ->
   window.NotificationCentre = class NotificationCentre
   
     constructor: (args) ->
+      
+      ChannelNameExt = {
+        
+        incoming: (message,callback) ->
+          message.data = {} unless message.data
+          
+          if m = /^\/clouds\/(.*)\/users\/(.{24})$/ig.exec(message.channel)
+            message.data.id = m[2]
+            
+          callback(message)
+      }
+      
       @cli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", {
         timeout: 120,
         endpoints: {
           websocket: "<%=Cloudsdale.faye_path(:client)%>"
         }
       })
+      
+      @cli.addExtension(ChannelNameExt)
+      
       subscription = @cli.subscribe('/')
       
       subscription.callback =>

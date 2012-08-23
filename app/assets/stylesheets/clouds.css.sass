@@ -23,12 +23,223 @@
     .float-container
       display: block
 
-.cloud-head
-  padding: 10px
-  border-bottom: $color-border-light 1px solid
-  @media (min-width: $ipad-min)
-    height: 180px
+.fixed-container
+  .container-inner
+    // background: transparent
+    // left: 0%
+    // right: 0%
+    // @each $vendor in "", -webkit-, -o-, -moz-
+    //   #{$vendor}transition-property: right, left
+    //   #{$vendor}transition-duration: .4s, .4s
     
+  .container-inner-secondary
+    left: 100%
+    right: -100%
+    border-left: 1px solid rgba(50,50,50,.5)
+    @each $vendor in "", -webkit-, -o-, -moz-
+      #{$vendor}transition-property: right, left
+      #{$vendor}transition-duration: .4s, .4s
+    @each $vendor in "", -webkit-, -moz-
+      #{$vendor}animation-name: slideInDialog
+      #{$vendor}animation-duration: .4s
+      // #{$vendor}animation-delay: .1
+      #{$vendor}animation-fill-mode: backwards
+      // #{$vendor}animation-timing-function: ease-in-out
+      
+.fixed-container.show-secondary
+  // .container-inner
+  //   left: -100%
+  //   right: 100%
+  .container-inner-secondary
+    left: 0%
+    right: 0%
+
+.cloud-sidebar-inner
+  border-bottom: 1px solid rgba(255,255,255,1)
+
+.cloud-sidebar-top
+  
+  position: relative
+  
+  padding-top: 10px
+
+  border-bottom: 1px solid rgba(0,0,0,.2)
+  
+  background: #f0f0f0 $bgNoise
+  
+  &:before
+    content: ""
+    position: absolute
+    bottom: -1px
+    left: 40px
+    right: 40px
+    height: 70px
+    display: block
+    z-index: -1
+    
+    +box-shadow(0,0,200px,rgba(0,0,0,.3))
+    background: transparent
+    
+  a.close
+    margin: 5px 10px 0 0
+  ul.nav-tabs.nav-stacked
+    padding-bottom: 1px
+    border: 1px solid rgba(50, 50, 50, 0.5)
+    background: #DDD
+    +box-shadow-inset(1px,1px,5px,rgba(0,0,0,.3))
+    +border-radius(3px)
+    li > a
+      font-weight: bold
+      color: #333
+      border: 0
+      &:hover
+        background: rgba(255,255,255,.3)
+    li.active > a
+      background: rgba(255,255,255,.8)
+      
+  
+.cloud-sidebar-bottom
+  overflow: auto
+  
+  .controls
+    textarea, input[type=text], input[type=password]
+      width: 100%
+      +box-sizing(border-box)
+      +box-shadow(0,0,0,rgba(0,0,0,0))
+    input[type=text], input[type=password]
+      height: 26px
+      
+  .tab-content
+    margin: 10px
+    overflow: visible
+
+.cloud-sidebar-head
+  margin: 0 10px 10px 10px
+  h3
+    margin-bottom: 15px
+    padding-top: 3px
+  
+.cloud-ad
+  width: 300px
+  height: 269px
+  background: #999
+  margin: 0 10px 10px 10px
+
+.cloud-actions
+  margin: 10px
+  a
+    display: block
+    border: 1px solid rgba(0,0,0,.3)
+    margin-bottom: 5px
+    +border-radius(2px)
+    text-align: left
+    font-weight: bold
+    i
+      float: right
+      margin: 2px
+
+.cloud-user-list-wrapper
+  
+.cloud-rules
+  margin: 0 10px
+  padding: 10px 0
+
+ul.cloud-user-list
+  padding: 0
+  margin: 0
+  list-style: none
+  display: block
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+
+li.cloud-user
+  border-bottom: 1px solid rgba(50,50,50,.3)
+  a
+    border-bottom: 1px solid rgba(255,255,255,1)
+    
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+  a
+    display: block
+    line-height: 47px
+    color: #333
+    font-weight: bold
+    
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+    
+    &:hover
+      text-decoration: none
+      img
+        +opacity(1)
+    
+    img
+      float: left
+      +opacity(.7)
+      margin: 10px
+      border: 1px solid rgba(0,0,0,.3)
+    span
+      font-weight: bold
+      
+
+.cloud-head
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  z-index: 5
+  
+  border-bottom: 1px solid rgba(0,0,0,.2)
+  
+  @media (max-width: $phone)
+    margin: 0
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    margin: 0 15px
+  @media (min-width: $desktop-s-min)
+    margin: 0 25px
+  
+  &:before
+    content: ""
+    position: absolute
+    bottom: -1px
+    left: 80px
+    right: 80px
+    height: 70px
+    display: block
+    z-index: 0
+    
+    +box-shadow(0,0,100px,rgba(0,0,0,.1))
+    background: transparent
+    
+
+.cloud-head-inner
+  
+  position: relative
+
+  height: 80px
+  padding: 10px
+  
+  z-index: 6
+  
+  border-bottom: 1px solid white
+  
+  background: #F0F0F0 $bgNoise
+
   .float-left
     margin-bottom: 20px
     img
@@ -43,57 +254,7 @@
 .cloud-head-actions
   text-align: left
   clear: both
-  
-.cloud-nav
-  margin: 0 -2px
-  border: rgba(0,0,0,.3) solid 1px
-  background: #99CCFF 
-  position: relative
-  +border-radius(2px)
-  
-  background: rgb(63,133,179) $bgNoise
-  background: $bgNoise, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNmODViMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzYzYTBkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZjg1YjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
-  background: $bgNoise, -moz-linear-gradient(left,  rgba(63,133,179,1) 0%, rgba(99,160,208,1) 50%, rgba(63,133,179,1) 100%)
-  background: $bgNoise, -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(63,133,179,1)), color-stop(50%,rgba(99,160,208,1)), color-stop(100%,rgba(63,133,179,1)))
-  background: $bgNoise, -webkit-linear-gradient(left,  rgba(63,133,179,1) 0%,rgba(99,160,208,1) 50%,rgba(63,133,179,1) 100%)
-  background: $bgNoise, -o-linear-gradient(left,  rgba(63,133,179,1) 0%,rgba(99,160,208,1) 50%,rgba(63,133,179,1) 100%)
-  background: $bgNoise, -ms-linear-gradient(left,  rgba(63,133,179,1) 0%,rgba(99,160,208,1) 50%,rgba(63,133,179,1) 100%)
-  background: $bgNoise, linear-gradient(left,  rgba(63,133,179,1) 0%,rgba(99,160,208,1) 50%,rgba(63,133,179,1) 100%)
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f85b3', endColorstr='#3f85b3',GradientType=1 )
-  
-  +box-shadow(0px,2px,5px,rgba(0,0,0,.3))
-  
-  ul.cloud-nav-inner
-    text-align: center
-    padding: 10px 2px
-    margin: 3px 3px
-    border-top: rgba(255,255,255,.7) 1px dashed
-    border-bottom: rgba(255,255,255,.7) 1px dashed
-    list-style: none
-    li
-      background: none
-      float: none
-      display: inline
-      color: rgba(255,255,255,1)
-      &.active, &:hover
-        a
-          color: inherit
-          background: none
-          border: none
-          text-decoration: none
-          &:hover
-            color: inherit
-        i
-          +opacity(1)
-      a
-        border: none
-        padding: 0
-        font-weight: bold
-        margin: 0 10px
-        color: rgba(255,255,255,.7)
-        text-shadow: -1px -1px 1px rgba(0,0,0,.3)
-        i
-          +opacity(.7)
+
 
 .cloud-content
   margin: 169px 5px 0 5px
@@ -132,132 +293,11 @@
             font-size: 15px
           img
             +border-radius(3px)
-      
-.chat-sidebar
-  position: relative
-  float: right
-  height: 100%
-  border-left: rgb(255,255,255) solid 1px
-  background: #f0f0f0
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    width: 49px
-  @media (min-width: $desktop-s-min)
-    width: 240px
-
-.chat-sidebar-header
-  margin-left: -1px
-  padding-left: 1px
-  border-bottom: 1px solid $color-border-light
-  +linear-gradient(#ffffff,#f8f8f8)
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    height: 50px
-    span.chat-sidebar-online-count
-      display: none
-    a.sidebar-toggle
-      display: inline-block
-        
-  @media (min-width: $desktop-s-min)
-    height: 36px
-    span.chat-sidebar-online-count
-      display: inline-block
-    a.sidebar-toggle
-      display: none
-      
-span.chat-sidebar-online-count
-  float: right
-  font-weight: bold
-  font-size: 11px
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    margin-right: 10px
-    line-height: 50px
-    span.n, i
-      margin-right: 5px
-  @media (min-width: $desktop-s-min)
-    margin-right: 5px
-    line-height: 36px
-    span.n, i
-      margin-right: 3px
-    
-a.sidebar-toggle
-  float: left
-  background-image: image-url("icons/glyphicons/black/step_backward.png")
-  background-image: none, image-url("icons/glyphicons/black/step_backward.svg"), image-url("icons/glyphicons/black/step_backward.png")
-  background-size: 40% 40%
-  background-position: center center
-  background-repeat: no-repeat
-  +opacity(.5)
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    line-height: 44px
-    height: 44px
-    width: 44px
-    margin: 3px 3px 3px 2px
-  @media (min-width: $desktop-s-min)
-    line-height: 32px
-    height: 32px
-    width: 32px
-    margin: 2px
-
-ul.chat-online-list
-  position: absolute
-  bottom: 0
-  right: 0
-  left: 0
-  list-style: none outside
-  padding: 0 0 0 0
-  margin: 0 0 0 -1px
-  
-  @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
-    top: 51px
-    overflow: hidden
-    
-  @media (min-width: $desktop-s-min)
-    top: 37px
-    overflow: auto
-    
-  li
-    &:not(:first-child)
-      border-top: 1px solid rgba(255,255,255,.8)
-    a
-      display: block
-      float: none
-      border-bottom: 1px solid $color-border-light
-      line-height: 24px
-      font-size: 12px
-      font-weight: bold
-      color: #4C4C4C
-      text-shadow: 1px 1px 1px rgba(255,255,255,.9)
-      @media (min-width: $ipad-min) and (max-width: $ipad-max)
-        padding: 0
-        height: 50px
-        img
-          width: 50px
-          height: 50px
-        span
-          display: none
-        
-      @media (min-width: $desktop-s-min)
-        padding: 3px
-        img
-          width: 24px
-          height: 24px
-        span
-          display: inline
-          
-      &:hover
-        text-decoration: none
-        background: rgba(255,255,255,.3)
-    
   
 .chat-wrapper
   position: relative
   height: 100%
-  border-right: $color-border-light solid 1px
-  background: #F8F8F8
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    margin-right: 50px
-  @media (min-width: $desktop-s-min)
-    margin-right: 241px
-
+    
 .chat-dialog
   position: absolute
   left: 0
@@ -293,68 +333,20 @@ ul.chat-online-list
     span
       font-weight: bold
 
-.chat-dialog-timer
-  float: left
-  padding: 5px
-  margin-right: 7px
-  
-  height: 22px
-  width: 22px
-  
-  line-height: 22px
-  color: #333
-  text-shadow: 1px 1px 0 rgba(255,255,255,.9)
-  font-size: 14px
-  text-align: center
-  font-weight: bold
-  
-  background: #e1e1e1
-  border: 1px solid $color-border-heavy
-  +border-radius(3px)
-  +linear-gradient(#f8f8f8,#e1e1e1)
-
-.chat-dialog-inner
-  padding: 5px
-  background: #f8f8f8
-  border: 1px solid $color-border-dark
-  +border-radius(5px)
-  +box-shadow-inset(0,0,3px,rgba(0,0,0,.4))
-  
-  @media (max-width: $ipad-max)
-    margin-left: 0
-  @media (min-width: $desktop-s-min)
-    margin-left: 110px
-
-  &:after
-    content: "."
-    display: block
-    clear: both
-    visibility: hidden
-    line-height: 0
-    height: 0
-  
-.dialog-actions
-  float: right
-  width: 50px
-  margin-left: 10px
-  a
-    text-align: center
-    display: block
-    margin: 0
-    padding: 10px
-    border: 1px solid $color-border-heavy
-    &:not(:last-child)
-      margin: 0 0 5px 0
-    i
-      pointer-events: none
-
-
 .chat-messages
   position: absolute
   top: 0
   bottom: 37px
-  width: 100%
   overflow: auto
+  left: 0
+  right: 0
+  @media (max-width: $phone)
+    padding: 102px 0 0 0
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    padding: 102px 15px 0 15px
+  @media (min-width: $desktop-s-min)
+    padding: 102px 25px 0 25px    
+  
 .chat-footer
   position: absolute
   z-index: 5
@@ -364,10 +356,6 @@ ul.chat-online-list
   right: 0
   border-top: rgba(0,0,0,.2) solid 1px
   +linear-gradient(#f8f8f8,#efefef)
-  
-  &.with-access-to-settings
-    form
-      margin: 5px 61px 5px 5px
     
   &:not(.with-access-to-settings)
     a.cloud-settings-toggle
@@ -411,9 +399,9 @@ a.cloud-settings-toggle
     +opacity(.7)
       
 .chat-message
-  border-top: rgb(255,255,255) solid 1px
-  border-bottom: rgba(0,0,0,.2) solid 1px
-  padding: 5px
+  border-top: rgba(255,255,255,.6) solid 1px
+  border-bottom: rgba(0,0,0,.1) solid 1px
+  padding: 10px
   p
     font-family: 'lucida grande', tahoma, verdana, arial, sans-serif !important
     
@@ -424,6 +412,18 @@ a.cloud-settings-toggle
         text-align: center
         font-weight: bold
         color: #666666
+        
+  &.chat-message-with-drops
+    .chat-message-content
+      @media (max-width: $ipad-max)
+        margin-right: 0
+      @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
+        margin-right: 155px
+      @media (min-width: $desktop-m-min)
+        margin-right: 310px
+      @media (min-width: $desktop-l-min)
+        margin-right: 465px
+      
       
   &:after
     content: "."
@@ -439,44 +439,142 @@ a.cloud-settings-toggle
   &:hover
     .chat-message-meta
       +opacity(1)
-  .chat-message-avatar
-    float: left
-    margin-right: 10px
-    img
-      width: 50px
-      height: 50px
-      +border-radius(5px)
-  .chat-message-meta
-    float: right
-    margin-right: 7px
-    font-size: 10px
-    font-weight: bold
-    +opacity(0)
-    +transition(opacity .08s ease-in)
+      
+.chat-message-avatar
+  float: left
+  margin-right: 10px
+  img
+    width: 50px
+    height: 50px
+    +border-radius(5px)
+    +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
+    border: 1px solid #555
     
-  .chat-message-head
-    margin-bottom: 5px
-    font-weight: bold
-    a
-      color: inherit
+.chat-message-meta
+  float: right
+  margin-right: 7px
+  font-size: 10px
+  font-weight: bold
+  +opacity(0)
+  +transition(opacity .08s ease-in)
+  
+.chat-message-head
+  margin-bottom: 5px
+  font-weight: bold
+  a
+    color: inherit
+    &:after
+      display: inline
+      font-size: 10px
+      margin-left: 5px
+      
+    &:hover
+      text-decoration: none
+      color: $color-blue
       &:after
-        display: inline
-        font-size: 10px
-        margin-left: 5px
+        color: #666
         
-      &:hover
-        text-decoration: none
-        color: $color-blue
-        &:after
-          color: #666
-          
-  .chat-message-content
-    padding-left: 60px
-    p
-      color: #333333
-      margin-bottom: 4px
-      word-wrap: break-word
+.chat-message-content
+  padding-left: 64px
+  p
+    color: #333333
+    margin-bottom: 4px
+    word-wrap: break-word
     
+ul.chat-message-drops
+  display: block
+  margin: 0
+  
+  @media (max-width: $ipad-max)
+    float: none
+    padding-left: 64px
+  @media (min-width: $desktop-s-min)
+    float: right
+  @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
+    width: 155px
+  @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
+    width: 310px
+  @media (min-width: $desktop-l-min)
+    width: 465px
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+  li
+    display: block
+    position: relative
+    float: right
+    
+    @media (max-width: $ipad-max)
+      float: left
+      margin-bottom: 5px
+      margin-right: 5px
+    @media (min-width: $desktop-s-min)
+      float: right
+      margin-bottom: 5px
+      margin-left: 5px
+      
+    &:after
+      content: "."
+      display: block
+      clear: both
+      visibility: hidden
+      line-height: 0
+      height: 0
+    
+    &:hover
+      a.drop-title
+        display: block
+        span
+        
+li.drop
+  display: block
+  
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+
+
+a.drop-preview
+
+  @media (max-width: $ipad-max)
+    height: 47px
+    width: 62px
+    padding: 3px
+  @media (min-width: $desktop-s-min)
+    height: 92px
+    width: 122px
+    padding: 5px
+  
+  float:  left
+  border: 1px solid $color-border-light
+  background: #fff
+  
+  +box-shadow(1px,1px,3px,rgba(0,0,0,.1))
+  +border-radius(3px)
+  
+  &:hover
+    border-color: #8AB8DC
+    img
+      border-color: #8AB8DC
+  img
+    @media (max-width: $ipad-max)
+      height: 45px
+      width: 60px
+    @media (min-width: $desktop-s-min)
+      height: 90px
+      width: 120px
+      
+    border: 1px solid $color-border-light
+    +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
+      
 .chat-message
   &.role-moderator
     .chat-message-head > a:after

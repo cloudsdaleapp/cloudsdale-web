@@ -14,8 +14,11 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
   #
   # Returns a collection of messages
   def index
+    
     @messages = fetch_cloud(params[:user_id]).chat.messages.order_by([:timestamp,:desc]).limit(50).reverse
+        
     render status: 200
+    
   end
 
   # Creates a chat message and queues it to be broadcasted
@@ -40,9 +43,9 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
     authorize! :create, @message
     
     @message.urls.each do |url|
-      @cloud.create_drop_deposit_from_url_by_user(url,current_user)
+      @message.drops << @cloud.create_drop_deposit_from_url_by_user(url,current_user)
     end
-
+        
     if @message.save
       render status: 200
     else
