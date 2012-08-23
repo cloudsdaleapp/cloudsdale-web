@@ -38,7 +38,8 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       
     nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
       if payload.client_id != session.get('client_id')
-        payload.topic = @model
+        payload.topic_id = @model.id
+        payload.topic_type = @model.type
         message = new Cloudsdale.Models.Message(payload)
         
         @appendMessage(message)
