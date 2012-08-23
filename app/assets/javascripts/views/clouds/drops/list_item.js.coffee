@@ -9,6 +9,8 @@ class Cloudsdale.Views.CloudsDropsListItem extends Backbone.View
   events:
     'click a.drop-title'      : 'visit'
     'click a.drop-preview'    : 'visit'
+    'click a.drop-big-title'  : 'visit'
+    'click a.drop-big-preview': 'visit'
     'click a.drop-vote-up'    : 'voteUp'
     'click a.drop-vote-down'  : 'voteDown'
     
