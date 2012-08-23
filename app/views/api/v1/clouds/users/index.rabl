@@ -1,2 +1,2 @@
-extends 'api/v1/users/base'
+extends 'api/v1/users/mini'
 collection @users
