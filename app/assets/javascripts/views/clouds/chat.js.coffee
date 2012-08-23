@@ -29,7 +29,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         @createNewMessage
           content: _content
           timestamp: Date().toString()
-        , true # True for saving
           
         @resetForm()
         false
@@ -66,6 +65,8 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       success: (message) =>
         @lastMessageView.appendDrops(message)
         @lastMessageView.refreshGfx()
+        @correctContainerScroll(@isNotReadingHistory())
+      error: (message) =>
         @correctContainerScroll(@isNotReadingHistory())
         
     return message
