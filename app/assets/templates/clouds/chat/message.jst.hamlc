@@ -1,11 +1,7 @@
 - unless @model.selfReference()
   .chat-message-avatar
     %a.message-user-inspect{ href: "#" }
-      - if @model.get('user')
-        - avatarUrl = @model.get('user').get('avatar').thumb
-      - else
-        - avatarUrl = ""
-      %img{ src: avatarUrl }
+      %img{ src: @model.get('user').get('avatar').thumb }
   .chat-message-meta
     %span= @model.timestamp().toString('HH:mm:ss')
   .chat-message-head

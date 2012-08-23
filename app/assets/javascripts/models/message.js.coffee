@@ -6,7 +6,6 @@ class Cloudsdale.Models.Message extends Backbone.Model
   
   initialize: (args) ->
     args ||= {}
-    
 
     topic = session.get('clouds').findOrInitialize(args.topic)
     @set('topic',topic)
