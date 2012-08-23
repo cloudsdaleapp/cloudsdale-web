@@ -120,10 +120,25 @@
     padding-top: 3px
   
 .cloud-ad
+  position: relative
   width: 300px
   height: 269px
   background: #999
   margin: 0 10px 10px 10px
+  border: 1px solid rgba(50, 50, 50, 0.5)
+  background: #DDD
+  +box-shadow-inset(1px,1px,5px,rgba(0,0,0,.3))
+  +border-radius(3px)
+  
+  a
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+    background: asset-data-url("logo/donate_button.png") center center no-repeat
+    background-size: 100%
+    margin: 20px
 
 .cloud-actions
   margin: 10px
