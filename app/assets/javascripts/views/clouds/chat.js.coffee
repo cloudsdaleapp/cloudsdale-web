@@ -102,7 +102,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   appendMessage: (message) ->
     readyForScroll = @isNotReadingHistory()
     
-    if (message.get('author_id').id == @lastAuthorId) && (@lastMessageView != null) && (message.selfReference() == false)
+    if (message.get('author_id') == @lastAuthorId) && (@lastMessageView != null) && (message.selfReference() == false)
       @lastMessageView.appendContent(message)
       @lastMessageView.appendDrops(message)
       @lastMessageView.refreshGfx()
@@ -115,10 +115,10 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         @lastMessageView = null
       else
         @lastMessageView = view
-        @myLastMessageView = view if message.get('author_id').id == session.get('user').id
+        @myLastMessageView = view if message.get('author_id') == session.get('user').id
         @lastMessageView.refreshGfx()
         
-      @lastAuthorId = message.get('author_id').id
+      @lastAuthorId = message.get('author_id')
     
     @popLastMessage()
     @correctContainerScroll(readyForScroll)
