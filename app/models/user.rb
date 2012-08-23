@@ -5,6 +5,7 @@ class User
   include AMQPConnector
   
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Mongo::Voter
 
   include Droppable
