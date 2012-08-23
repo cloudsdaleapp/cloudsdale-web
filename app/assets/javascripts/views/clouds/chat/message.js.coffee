@@ -14,7 +14,8 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     @bindEvents()
   
   render: ->
-    $(@el).html(@template(model: @model)).addClass("role-#{@model.get('user').get('role')}")
+    $(@el).html(@template(model: @model)).addClass("role-#{@model.get('user').get('role')}").addClass("device-#{@model.get('device')}")
+    
     @appendContent(@model)
     @appendDrops(@model)
     

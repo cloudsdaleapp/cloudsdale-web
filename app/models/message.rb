@@ -14,6 +14,7 @@ class Message
   
   field :timestamp,   type: Time,    default: -> { Time.now }
   field :content,     type: String
+  field :device,      type: String,   default: 'desktop'
   
   # Meta attributes
   field :urls,        type: Array,    default: []
