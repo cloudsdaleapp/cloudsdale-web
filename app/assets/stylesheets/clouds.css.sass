@@ -414,6 +414,8 @@ a.cloud-settings-toggle
         color: #666666
         
   &.chat-message-with-drops
+    ul.chat-message-drops
+      display: block
     .chat-message-content
       @media (max-width: $ipad-max)
         margin-right: 0
@@ -482,7 +484,7 @@ a.cloud-settings-toggle
     word-wrap: break-word
     
 ul.chat-message-drops
-  display: block
+  display: none
   margin: 0
   
   @media (max-width: $ipad-max)
