@@ -1,0 +1,15 @@
+.cloud-sidebar-top.clearfix
+  .cloud-sidebar-inner.clearfix
+    %a.close{ href: '#', data: { dismiss: 'dialog' } }
+      = "×"
+    .cloud-sidebar-head
+      %h3= "Drops"
+    .cloud-drops-search-wrapper
+      %form{ id: "drop-search-form-#{@model.id}" }
+        %i.icon-search
+        %a.drop-close-search{ href: '#' }= "×"
+        %input{ type: 'text', name: 'q' }
+    
+.cloud-sidebar-bottom.clearfix
+  %ul.cloud-drop-list
+  %a.drop-load-more{ href: '#' }= "load more..."

@@ -8,7 +8,11 @@
             %a.btn{ href: '#', data: { action: 'settings' } }
               %i.icon-cog
               = "Settings"
-            
+          
+          %a.btn{ href: '#', data: { action: 'drops' } }
+            %i.icon-tint
+            = "Drops"
+          
           %a.btn{ href: '#', data: { action: 'rules' } }
             %i.icon-list
             = "Rules"

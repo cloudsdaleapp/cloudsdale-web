@@ -13,6 +13,11 @@ class Cloudsdale.Views.CloudsDropsListItem extends Backbone.View
     'click a.drop-vote-down'  : 'voteDown'
     
   initialize: (args) ->
+    
+    args ||= {}
+    
+    @template = args.template if args.template
+    
     @render()
   
   render: ->

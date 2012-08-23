@@ -1,0 +1,5 @@
+%a.drop-big-preview{ href: @model.get('url') }
+  %img{ src: @model.get('preview'), title: @model.get('title') }
+
+%a.drop-big-title{ href: @model.get('url') }
+  %span= @model.get('title')

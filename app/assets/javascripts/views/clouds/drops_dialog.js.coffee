@@ -1,14 +1,15 @@
-class Cloudsdale.Views.CloudsDrops extends Backbone.View
+class Cloudsdale.Views.CloudsDropsDialog extends Backbone.View
   
-  template: JST['clouds/drops']
+  template: JST['clouds/drops_dialog']
   
   model: 'cloud'
   collection: 'drops'
   
   tagName: 'div'
-  className: 'drop-wrapper'
+  className: 'container-inner container-inner-secondary'
   
   events:
+    'click a.close[data-dismiss="dialog"]' : "close"
     'click a.drop-load-more' : 'fetchMore'
     'click a.drop-close-search' : 'cancelSearch'
     'submit form' : 'doSearch'
@@ -24,8 +25,9 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
     this
   
   refreshGfx: ->
-    @.$('ul.drop-list').html('')
+    @.$('ul.cloud-drop-list').html('')
     @.$('a.drop-load-more').removeClass('no-more-results')
+    resizeBottomWrapper(@.$('.cloud-sidebar-bottom'))
     
   
   bindEvents: ->
@@ -38,7 +40,7 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
     @collection.on 'remove', (model,collection) =>
       @removeDrop(model)
       
-    $(@el).on 'scroll', =>
+    @.$('.cloud-sidebar-bottom').on 'scroll', =>
       if $(@el).scrollTop() > (@el.scrollHeight - $(@el).innerHeight() - 250)
         @fetchMore() unless @collection.lastPage() or @currentlyLoading
   
@@ -57,16 +59,16 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
         @.$('a.drop-load-more').addClass('no-more-results') if @collection.lastPage()
   
   generateDropView: (model) ->
-    new Cloudsdale.Views.CloudsDropsListItem(model: model)
+    new Cloudsdale.Views.CloudsDropsListItem(model: model, template: JST['clouds/drops/list_item_big'])
    
   appendDrop: (model) ->
-    @.$('ul.drop-list').append(@generateDropView(model).el)
+    @.$('ul.cloud-drop-list').append(@generateDropView(model).el)
     
   prependDrop: (model) ->
-    @.$('ul.drop-list').prepend(@generateDropView(model).el)
+    @.$('ul.cloud-drop-list').prepend(@generateDropView(model).el)
   
   removeDrop: (model) ->
-    @.$("ul.drop-list > li[data-model-id=#{model.id}]").remove()
+    @.$("ul.cloud-drop-list > li[data-model-id=#{model.id}]").remove()
   
   renderDefaultCollection: ->
     
@@ -74,7 +76,7 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
       {
         topic: @model
         url: -> "/v1/#{@topic.type}s/#{@topic.id}/drops.json"
-        subscription: -> "#{@topic.type}s:#{@topic.id}:drops"
+        # subscription: -> "#{@topic.type}s:#{@topic.id}:drops"
       }
     
     @refreshGfx()
@@ -99,14 +101,22 @@ class Cloudsdale.Views.CloudsDrops extends Backbone.View
   
   cancelSearch: ->
     @.$('input[name=q]').val('')
-    $(@el).removeClass('with-search-results')
+    @.$('.cloud-drops-search-wrapper').removeClass('with-search-results')
     @unbindEvents()
     @renderDefaultCollection()
+    false
   
   doSearch: (event) ->
     event.preventDefault()
-    $(@el).addClass('with-search-results')
+    @.$('.cloud-drops-search-wrapper').addClass('with-search-results')
     @renderSearchCollection(@.$('input[name=q]').val())
+    false
+  
+  close: ->
+    $(@el).parent().removeClass('show-secondary')
+    setTimeout =>
+      $(@el).remove()
+    , 400
     false
     
     

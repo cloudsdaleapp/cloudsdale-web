@@ -9,6 +9,7 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
   events:
     'click a.btn[data-action="settings"]' : 'toggleSettings'
     'click a.btn[data-action="rules"]'    : 'toggleRules'
+    'click a.btn[data-action="drops"]'    : 'toggleDrops'
     'click a.btn[data-action="leave"]'    : 'leaveCloud'
     'click a.btn[data-action="destroy"]'  : 'destroyCloud'
   
@@ -74,6 +75,10 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     
   toggleRules: (event) ->
     view = new Cloudsdale.Views.CloudsRulesDialog(model: @model).el
+    @renderDialog(view)
+  
+  toggleDrops: (event) ->
+    view = new Cloudsdale.Views.CloudsDropsDialog(model: @model).el
     @renderDialog(view)
   
   renderDialog: (view) ->
