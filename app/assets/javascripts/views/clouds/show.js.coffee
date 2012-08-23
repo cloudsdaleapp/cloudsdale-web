@@ -55,11 +55,12 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     $('.view-container').removeClass('active')
     $(@el).addClass('active')
     
-    if @.$('.chat-container').length == 0
+    if @.$('.chat-wrapper').children().length > 0
+      @chat_view.correctContainerScroll(true)
+    else
       @chat_view = new Cloudsdale.Views.CloudsChat(model: @model)
       @.$('.float-container > .container-inner > .chat-wrapper').replaceWith(@chat_view.el)
-    else
-      @chat_view.correctContainerScroll(true)
+      
     
     if @.$('.cloud-sidebar-bottom').children().length == 0
       @users_view = new Cloudsdale.Views.CloudsUsers(model: @model)
