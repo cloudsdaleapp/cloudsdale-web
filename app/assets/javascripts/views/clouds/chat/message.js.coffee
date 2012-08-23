@@ -14,7 +14,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     @bindEvents()
   
   render: ->
-    $(@el).html(@template(model: @model)).addClass("role-#{@model.get('user').get('role')}").addClass("device-#{@model.get('device')}")
+    $(@el).html(@template(model: @model)).addClass("role-#{@model.user().get('role')}").addClass("device-#{@model.get('device')}")
     
     @appendContent(@model)
     @appendDrops(@model)
@@ -24,12 +24,12 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     this
   
   bindEvents: ->
-    @model.get('user').on 'change', (event,user) =>
+    @model.user().on 'change', (event,user) =>
       @refreshGfx()
   
   refreshGfx: ->
-    @.$('.chat-message-avatar a img').attr('src',@model.get('user').get('avatar').thumb) if @model.get('user').get('avatar')
-    @.$('.chat-message-head a').text(@model.get('user').get('name')) if @model.get('user').get('name')
+    @.$('.chat-message-avatar a img').attr('src',@model.user().get('avatar').thumb)
+    @.$('.chat-message-head a').text(@model.user().get('name'))
     if @.$('ul.chat-message-drops').children().length > 0
       $(@el).addClass('chat-message-with-drops')
 
@@ -55,7 +55,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     
     elem = $("<p></p>")
     if message.selfReference()
-      elem.html(message.get('content').replace(/^\/me/i,message.get('user').get('name')))
+      elem.html(message.get('content').replace(/^\/me/i,message.user().get('name')))
     else
       elem.html(content)
     
@@ -68,5 +68,5 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
       @.$('ul.chat-message-drops').append(view.el)
   
   openUserInspect: (event) ->
-    $.event.trigger "clouds:#{@model.get('topic').id}:chat:inspect:user", @model.get('user')
+    $.event.trigger "clouds:#{@model.topic().id}:chat:inspect:user", @model.user()
     false

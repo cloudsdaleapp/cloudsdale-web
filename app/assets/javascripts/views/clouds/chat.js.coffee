@@ -53,8 +53,9 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   createNewMessage: (args,do_save) ->
     
     args ||= {}
-    args.topic = @model
-    args.user = session.get('user')
+    args.topic_id = @model.id
+    args.topic_type = @model.type
+    args.author_id = session.get('user').id
     args.client_id = session.get('client_id')
         
     message = new Cloudsdale.Models.Message(args)
@@ -63,8 +64,9 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
 
     message.save {},
       success: (message) =>
-        @lastMessageView.appendDrops(message)
-        @lastMessageView.refreshGfx()
+        if @myLastMessageView
+          @myLastMessageView.appendDrops(message)
+          @myLastMessageView.refreshGfx()
         @correctContainerScroll(@isNotReadingHistory())
       error: (message) =>
         @correctContainerScroll(@isNotReadingHistory())
@@ -79,6 +81,8 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
     collection.fetch
       success: (messages) =>
         messages.each (message) =>
+          message.set('topic_id',@model.id)
+          message.set('topic_type',@model.type)
           @appendMessage(message)
         @.$('.loading-content.loader-chat').addClass('load-ok')
         setTimeout ->
@@ -98,7 +102,9 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   appendMessage: (message) ->
     readyForScroll = @isNotReadingHistory()
 
-    if (message.get('user').id == @lastAuthorId) && (@lastMessageView != null) && (message.selfReference() == false)
+    console.log message
+    
+    if (message.get('author_id').id == @lastAuthorId) && (@lastMessageView != null) && (message.selfReference() == false)
       @lastMessageView.appendContent(message)
       @lastMessageView.appendDrops(message)
       @lastMessageView.refreshGfx()
@@ -111,9 +117,10 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
         @lastMessageView = null
       else
         @lastMessageView = view
+        @myLastMessageView = view if message.get('author_id').id == session.get('user').id
         @lastMessageView.refreshGfx()
         
-      @lastAuthorId = message.get('user').id
+      @lastAuthorId = message.get('author_id').id
     
     @popLastMessage()
     @correctContainerScroll(readyForScroll)
