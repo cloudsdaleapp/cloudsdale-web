@@ -101,8 +101,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
   # Returns the message view.
   appendMessage: (message) ->
     readyForScroll = @isNotReadingHistory()
-
-    console.log message
     
     if (message.get('author_id').id == @lastAuthorId) && (@lastMessageView != null) && (message.selfReference() == false)
       @lastMessageView.appendContent(message)
