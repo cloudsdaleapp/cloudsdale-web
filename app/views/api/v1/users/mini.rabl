@@ -1,5 +1,4 @@
 object @user
-cache @user
 
 node(:id) { |user| user._id.to_s }
 
