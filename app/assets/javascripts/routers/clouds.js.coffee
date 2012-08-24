@@ -8,15 +8,25 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
     args = {}
     args.id = id
     
+    fail_to_load = =>
+      $(".loading-content.loader-cloud[data-entity-id='#{args.id}']").addClass('load-error')
+      setTimeout ->
+        $(".loading-content.loader-cloud[data-entity-id='#{args.id}']").remove()
+      , 500
+    
     if session.isLoggedIn()
+      $('body').append("<div class='loading-content loader-cloud' data-entity-id='#{id}'/>")
       cloud = session.get('clouds').findOrInitialize args,
         success: (cloud) =>
           if cloud.containsUser(session.get('user'))
             @renderCloudPage(args,cloud)
           else
             session.get('user').addCloud cloud,
-              success: () =>
-                @renderCloudPage(args,cloud)
+              success: () => @renderCloudPage(args,cloud)
+              error: => fail_to_load()
+        
+        error: -> fail_to_load()
+          
                 
     else
       Backbone.history.navigate("/",true)
@@ -28,7 +38,12 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
     
   
   renderCloudPage: (args,cloud) ->
-      
+    
+    $(".loading-content.loader-cloud[data-entity-id='#{args.id}']").addClass('load-ok')
+    setTimeout ->
+      $(".loading-content.loader-cloud[data-entity-id='#{args.id}']").remove()
+    , 500
+    
     $.event.trigger 'clouds:join', cloud
 
     if $(".view-container[data-page-id=#{args.id}]").size() == 0
