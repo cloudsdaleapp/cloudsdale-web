@@ -8,11 +8,8 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
     args = {}
     args.id = id
     
-    fail_to_load = =>
-      $(".loading-content.loader-cloud[data-entity-id='#{args.id}']").addClass('load-error')
-      setTimeout ->
-        $(".loading-content.loader-cloud[data-entity-id='#{args.id}']").remove()
-      , 500
+    fail_to_load = (_id) =>
+      $(".loading-content.loader-cloud[data-entity-id='#{_id}']").addClass('load-error')
     
     if session.isLoggedIn()
       $('body').append("<div class='loading-content loader-cloud' data-entity-id='#{id}'/>")
@@ -23,9 +20,9 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
           else
             session.get('user').addCloud cloud,
               success: () => @renderCloudPage(args,cloud)
-              error: => fail_to_load()
+              error: => fail_to_load(id)
         
-        error: -> fail_to_load()
+        error: => fail_to_load(id)
           
                 
     else
