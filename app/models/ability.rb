@@ -32,7 +32,7 @@ class Ability
       
         # Normal users can deduct clouds if their cloud portfolio include that cloud.
         can :deduct, Cloud do |cloud|
-          cloud.user_ids.include?(user.id)
+          user.is_registered?
         end
               
         # Normal users can only create messages in clouds that are unlocked or that they have added. 

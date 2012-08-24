@@ -1,5 +1,5 @@
 class Cloudsdale.Models.User extends Backbone.Model
-  
+    
   url: -> "/v1/users/#{@id}.json"
   type: 'user'
   
@@ -37,16 +37,16 @@ class Cloudsdale.Models.User extends Backbone.Model
     attr.url = "/v1/users/#{@id}/unban.json"
     return @save({},attr)
   
-  add_cloud: (cloud,options) ->
+  addCloud: (cloud,options) ->
     
     options = {} unless options
     
-    options.url = "/v1/clouds/#{cloud.id}/users.json"
-    options.type = 'POST'
+    options.url = "/v1/clouds/#{cloud.id}/users/#{@id}.json"
+    options.type = 'PUT'
     
     return @save({},options)
   
-  leave_cloud: (cloud,options) ->
+  leaveCloud: (cloud,options) ->
     
     options = {} unless options
     
@@ -54,6 +54,21 @@ class Cloudsdale.Models.User extends Backbone.Model
     options.type = 'DELETE'
     
     return @save({},options)
+  
+  toJSON: ->
+    obj = 
+      id: @id
+      name: @get('name')
+      email: @get('email')
+      invisible: @get('invisible')
+      time_zone: @get('time_zone')
+      
+    if @get('password')
+      obj.password = @get('password') 
+    if @get('avatar_url')
+      obj.avatar_url = @get('avatar_url')
+      
+    return obj
   
   toBroadcastJSON: ->
     obj = @toJSON()

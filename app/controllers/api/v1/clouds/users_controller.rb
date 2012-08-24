@@ -27,8 +27,8 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
   end
     
   # Private: Adds a user to the collection
-  def create
-    
+  def update
+        
     @cloud = fetch_cloud()
     @user = fetch_user()
         
@@ -39,7 +39,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       @user.clouds.push(@cloud)
       @cloud.users.push(@user)
     
-      if @user.save
+      if @user.save && @cloud.save
         render status: 200
       else
         set_flash_message message: "You could not add this cloud to the user.", title: "Say what now!?"
@@ -51,19 +51,18 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
   end
   
   def destroy
-    
+        
     @cloud = fetch_cloud()
     @user = fetch_user()
     
-    # if @user.cannot? :deduct, @cloud
-    #   render status: 401
-    # else
-    if true
+    if @user.cannot? :deduct, @cloud
+      render status: 401
+    else
       
       @user.clouds.delete(@cloud)
       @cloud.users.delete(@user)
     
-      if @user.save        
+      if @user.save && @cloud.save 
         render status: 200
       else
         set_flash_message message: "You could not add this cloud to the user.", title: "Say what now!?"

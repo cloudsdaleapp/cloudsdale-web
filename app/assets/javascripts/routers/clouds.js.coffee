@@ -14,7 +14,7 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
           if cloud.containsUser(session.get('user'))
             @renderCloudPage(args,cloud)
           else
-            session.get('user').add_cloud cloud,
+            session.get('user').addCloud cloud,
               success: () =>
                 @renderCloudPage(args,cloud)
                 

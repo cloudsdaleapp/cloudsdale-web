@@ -90,7 +90,7 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     false
     
   leaveCloud: (event) ->
-    session.get('user').leave_cloud @model
+    session.get('user').leaveCloud @model
     $.event.trigger "clouds:leave", @model
     Backbone.history.navigate("/",true)
     false
@@ -102,12 +102,6 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
       Backbone.history.navigate("/",true)
       @model.destroy()
     false
-  
-  # toggleFollow: (event) ->
-  #   switch @.$(event.target).attr('data-action')
-  #     when 'add'
-  #       session.get('user').add_cloud @model
-  #     when 'leave'
     
       
     
