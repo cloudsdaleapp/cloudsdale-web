@@ -39,6 +39,8 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
           data = null
         else
           data = { ids: ids }
+        
+        options.beforeRequest() if options.beforeRequest
           
         @fetch
           add: true
@@ -60,6 +62,9 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
     
       if user
         if options.fetch
+          
+          options.beforeRequest() if options.beforeRequest
+          
           user.fetch
             success: (resp, status, xhr) => options.success(resp, status, xhr) if options.success
             error: (resp, xhr, _options) => options.error(resp, xhr, _options) if options.error
@@ -71,6 +76,9 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
         user = new Cloudsdale.Models.User(args)
       
         if user.get('is_transient')
+          
+          options.beforeRequest() if options.beforeRequest
+          
           user.fetch
             success: (resp, status, xhr) => options.success(resp, status, xhr) if options.success
             error: (resp, xhr, _options) => options.error(resp, xhr, _options) if options.error

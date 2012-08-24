@@ -16,8 +16,12 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
       , 500
     
     if session.isLoggedIn()
-      $('body').append("<div class='loading-content loader-cloud' data-entity-id='#{id}'/>")
+      
       cloud = session.get('clouds').findOrInitialize args,
+        
+        beforeRequest: =>
+          $('body').append("<div class='loading-content loader-cloud' data-entity-id='#{id}'/>")
+        
         success: (cloud) =>
           if cloud.containsUser(session.get('user'))
             @renderCloudPage(args,cloud)
