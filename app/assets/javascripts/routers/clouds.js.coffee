@@ -10,6 +10,10 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
     
     fail_to_load = (_id) =>
       $(".loading-content.loader-cloud[data-entity-id='#{_id}']").addClass('load-error')
+      setTimeout ->
+        $(".loading-content.loader-cloud[data-entity-id='#{_id}']").remove()
+        Backbone.history.navigate("/",true)
+      , 500
     
     if session.isLoggedIn()
       $('body').append("<div class='loading-content loader-cloud' data-entity-id='#{id}'/>")
