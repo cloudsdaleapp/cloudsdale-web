@@ -1,6 +1,7 @@
 class Cloudsdale.Models.Message extends Backbone.Model
   
   sync: railsRestSync
+  type: 'message'
   
   initialize: () ->     
   
