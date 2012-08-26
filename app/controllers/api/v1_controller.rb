@@ -27,7 +27,7 @@ class Api::V1Controller < ActionController::Base
   # is persisted.
   def authenticate!(user)
     if params[:persist_session] == "true"
-      session[:user_id] = user.id
+      session[:user_id] = user.id.to_s
     end
     user.save
   end

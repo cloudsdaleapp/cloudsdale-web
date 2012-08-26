@@ -55,7 +55,7 @@ class AuthenticationsController < ApplicationController
     @user.save
     
     if !@user.banned?
-      session[:user_id] = @user.id
+      session[:user_id] = @user.id.to_s
     end
     
     redirect_to root_path
