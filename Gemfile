@@ -11,7 +11,7 @@ gem 'bson_ext'
 gem 'mongoid', :git => 'git://github.com/mongoid/mongoid.git'
 gem 'moped', git: 'git://github.com/mongoid/moped.git'
 gem 'mongoid_rails_migrations'
-gem 'mongoid_fulltext'
+gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
 gem 'voteable_mongo'
 gem 'kaminari'
 
