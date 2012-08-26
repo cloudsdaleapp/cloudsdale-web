@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Cloudsdale::Application.config.secret_token = '5b09bee0be9899b8aa2851dd78fa2b08867076e2624601e33fdc8f9b93c9763fb6582b36a77e995858107123c4584d9931b964edcf237e4827f55cb87ebda67b'
+Cloudsdale::Application.config.secret_token = '8948bbdacfe793a42f7714666fd3b79aba1653cfbc82548b4b1da254cd7896edc61e54dda378979f121a287c8a476d9642d368d0ab8ebc092d16f4992e211d12'
