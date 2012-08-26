@@ -11,14 +11,14 @@ GIT
       nokogiri
 
 GIT
-  remote: git://github.com/jnicklas/carrierwave-mongoid.git
-  revision: 28a9b718d42b8aba47d2eb951f73bd9d872b6eb0
-  branch: mongoid-3.0
+  remote: git://github.com/mongoid/mongoid.git
+  revision: f5622e6f779154ab9eba79c693d88db0754f4f59
   specs:
-    carrierwave-mongoid (0.3.0.alpha)
-      carrierwave (~> 0.6.1)
-      mongoid (~> 3.0.0)
-      mongoid-grid_fs (~> 1.3.1)
+    mongoid (3.1.0)
+      activemodel (~> 3.1)
+      moped (~> 1.2)
+      origin (~> 1.0)
+      tzinfo (~> 0.3.22)
 
 GIT
   remote: git://github.com/mongoid/moped.git
@@ -33,6 +33,16 @@ GIT
     yard-tomdoc (0.4.0)
       tomparse
       yard
+
+GIT
+  remote: git@github.com:Zeeraw/carrierwave-mongoid.git
+  revision: 1a46bf48a242e80a82b5cc392c771894fb238662
+  branch: mongoid-3.0
+  specs:
+    carrierwave-mongoid (0.3.0.alpha)
+      carrierwave (~> 0.6)
+      mongoid (~> 3.1)
+      mongoid-grid_fs (~> 1.3)
 
 GEM
   remote: http://rubygems.org/
@@ -205,11 +215,6 @@ GEM
     mime-types (1.19)
     mini_magick (3.4)
       subexec (~> 0.2.1)
-    mongoid (3.0.5)
-      activemodel (~> 3.1)
-      moped (~> 1.1)
-      origin (~> 1.0)
-      tzinfo (~> 0.3.22)
     mongoid-grid_fs (1.3.2)
       mime-types (~> 1.19)
       mongoid (~> 3.0)
@@ -421,7 +426,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mini_magick
-  mongoid (~> 3.0.0)
+  mongoid!
   mongoid_fulltext
   mongoid_rails_migrations
   moped!

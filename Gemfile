@@ -8,7 +8,7 @@ gem 'rails', '~> 3.2.2'
 
 # Database NO-SQL
 gem 'bson_ext'
-gem 'mongoid', '~> 3.0.0'
+gem 'mongoid', :git => 'git://github.com/mongoid/mongoid.git'
 gem 'moped', git: 'git://github.com/mongoid/moped.git'
 gem 'mongoid_rails_migrations'
 gem 'mongoid_fulltext'
@@ -58,7 +58,7 @@ gem 'cloudfiles'
 gem 'mini_magick'
 gem 'rmagick'
 gem 'carrierwave'
-gem "carrierwave-mongoid", :git => "git://github.com/jnicklas/carrierwave-mongoid.git", :branch => "mongoid-3.0", :require => 'carrierwave/mongoid'
+gem "carrierwave-mongoid", :git => "git@github.com:Zeeraw/carrierwave-mongoid.git", :branch => "mongoid-3.0", :require => 'carrierwave/mongoid'
 gem 'imagesize'
 gem 'pdf-reader'
 
