@@ -26,7 +26,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
     
   end
     
-  # Private: Adds a user to the collection
+  # Public: Adds a user to the collection
   def update
         
     @cloud = fetch_cloud()
@@ -36,8 +36,8 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       render status: 401
     else
       
-      @user.clouds.push(@cloud)
-      @cloud.users.push(@user)
+      @user.cloud_ids.push(@cloud.id)
+      @cloud.user_ids.push(@user.id)
     
       if @user.save && @cloud.save
         render status: 200
@@ -50,6 +50,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
     
   end
   
+  # Public: Removes user from the collection
   def destroy
         
     @cloud = fetch_cloud()
@@ -59,8 +60,8 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       render status: 401
     else
       
-      @user.clouds.delete(@cloud)
-      @cloud.users.delete(@user)
+      @user.cloud_ids.delete(@cloud.id)
+      @cloud.user_ids.delete(@user.id)
     
       if @user.save && @cloud.save 
         render status: 200
