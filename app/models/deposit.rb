@@ -11,7 +11,7 @@ class Deposit
   
   scope :on_clouds, where(depositable_type: "Cloud")
   scope :on_users, where(depositable_type: "User")
-  scope :order_by_depositable, ->(depositable,alignment) { order_by("#{depositable.id.to_s}_updated_at",alignment) }
+  scope :order_by_depositable, ->(depositable,alignment) { order_by(["#{depositable.id.to_s}_updated_at",alignment]) }
   
   before_save do
     self["#{depositable_id.to_s}_updated_at".to_sym] = !self.updated_at.nil? ? self.updated_at.utc : Time.now.utc

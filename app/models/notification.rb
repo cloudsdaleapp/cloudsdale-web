@@ -17,7 +17,7 @@ class Notification
   validates :text,      :presence => true
   validates :url,       :presence => true
   
-  default_scope order_by(:timestamp,:desc)
+  default_scope order_by([:timestamp,:desc])
   scope :unread, where(read: false)
   
 

@@ -35,7 +35,7 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
     
     # Autoprune - Fetches all the oldest messages and TRASHES THEM LIKE A BAWS!
     # TODO: MAEK BUAUTIFULIER!
-    @cloud.chat.messages.order_by(:timestamp,:desc).skip(50).each { |message| message.destroy }
+    @cloud.chat.messages.order_by([:timestamp,:desc]).skip(50).each { |message| message.destroy }
     
     @message = @cloud.chat.messages.build params[:message]
     @message.author = current_user

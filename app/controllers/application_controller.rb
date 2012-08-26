@@ -19,16 +19,18 @@ class ApplicationController < ActionController::Base
   end
   
   # Rescues the errors yielded by supplying a faulty BSON id
-  rescue_from BSON::InvalidObjectId do |message|
+  rescue_from Moped::Errors::InvalidObjectId do |message|
     redirect_to server_error_path
   end
   
   def current_user
+    
     if session[:user_id]
       @current_user ||= User.find_or_initialize_by(_id: session[:user_id])
     else
       @current_user ||= User.new
     end
+        
   end
     
   # Public: Takes rails errors and ....

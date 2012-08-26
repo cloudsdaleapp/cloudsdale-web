@@ -23,7 +23,7 @@ class Cloud
   field :member_count,  type: Integer,        default: 0
   
   def x_moderator_ids=(mod_ids)
-    mod_ids = mod_ids.map { |mod_id| mod_id.is_a?(BSON::ObjectId) ? mod_id : BSON::ObjectId(mod_id) }
+    mod_ids = mod_ids.map { |mod_id| mod_id.is_a?(Moped::BSON::ObjectId) ? mod_id : Moped::BSON::ObjectId(mod_id) }
     mod_ids = mod_ids.reject { |mod_id| !self[:user_ids].include?(mod_id) }
     self.moderators = User.where(:_id.in => mod_ids.uniq )
   end
@@ -38,8 +38,8 @@ class Cloud
   has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true
   has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true
   
-  scope :popular, order_by(:member_count, :desc)
-  scope :recent, order_by(:created_at, :desc)
+  scope :popular, order_by([:member_count, :desc])
+  scope :recent, order_by([:created_at, :desc])
   scope :visible, where(hidden: false)
   scope :hidden, where(hidden: true)
   
@@ -57,7 +57,7 @@ class Cloud
     self.owner = users.first if owner_id.nil? && !users.empty?
     
     # Sets the owner to the user with the highest rank if owner_id is not present.
-    self.owner = User.order_by(:role,:desc).first if owner.nil?
+    self.owner = User.order_by([:role,:desc]).first if owner.nil?
     
     # Adds owner_id to moderator_ids if moderator_ids does not include the owner id.
     self.moderators << owner unless moderators.include?(owner)

@@ -4,11 +4,11 @@ source 'http://rubygems.org'
 # gem 'ruby-debug-base19', '0.11.26', :path => "~/.rvm/gems/ruby-1.9.3-p#{RUBY_PATCHLEVEL}/gems/ruby-debug-base19-0.11.26/"
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-gem 'rails', '3.2.2'
+gem 'rails', '~> 3.2.2'
 
 # Database NO-SQL
-gem 'mongoid'
 gem 'bson_ext'
+gem 'mongoid', '~> 3.0.0'
 gem 'mongoid_rails_migrations'
 gem 'mongoid_fulltext'
 gem 'voteable_mongo'
@@ -56,8 +56,8 @@ gem 'cloudfiles'
 # Images
 gem 'mini_magick'
 gem 'rmagick'
-gem 'carrierwave', git: 'git://github.com/jnicklas/carrierwave.git', branch: '0.5-stable'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'carrierwave'
+gem "carrierwave-mongoid", :git => "git://github.com/jnicklas/carrierwave-mongoid.git", :branch => "mongoid-3.0", :require => 'carrierwave/mongoid'
 gem 'imagesize'
 gem 'pdf-reader'
 
@@ -109,7 +109,7 @@ gem 'yard-tomdoc', git: 'git://github.com/rubyworks/yard-tomdoc.git'
 
 # Profiling
 gem 'newrelic_rpm'
-gem 'rpm_contrib', git: 'git://github.com/newrelic/rpm_contrib.git'
+# gem 'rpm_contrib', git: 'git://github.com/newrelic/rpm_contrib.git'
 
 gem 'capistrano'
 gem 'capistrano_colors', :require => nil
