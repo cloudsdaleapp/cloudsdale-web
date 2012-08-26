@@ -74,6 +74,8 @@ class Api::V1Controller < ActionController::Base
     
     session[:user_id] = nil if @current_user.new_record?
     
+    return @current_user
+    
   end
   
   
