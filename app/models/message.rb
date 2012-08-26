@@ -24,7 +24,9 @@ class Message
   validates :timestamp,   :presence => true
   validates :content,     :presence => true
   validates :author,      :presence => true
-    
+
+  scope :old, -> { order_by([:timestamp,:desc]).skip(50) }
+  
   after_save do
     enqueue! "faye", { channel: "/#{self.topic_type}s/#{self.topic_id}/chat/messages", data: self.to_hash } 
   end
