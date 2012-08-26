@@ -6,6 +6,8 @@ class Message
   
   include Mongoid::Document
   
+  attr_accessible :client_id, :content, :device
+  
   attr_accessor :client_id
   
   embedded_in :chat
