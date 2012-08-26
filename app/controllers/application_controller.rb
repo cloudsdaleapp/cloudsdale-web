@@ -30,10 +30,6 @@ class ApplicationController < ActionController::Base
     else
       @current_user ||= User.new
     end
-    
-    session[:user_id] = nil if @current_user.new_record?
-    
-    return @current_user
             
   end
     
