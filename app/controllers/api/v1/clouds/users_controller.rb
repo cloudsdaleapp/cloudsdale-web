@@ -42,7 +42,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       if @user.save && @cloud.save
         render status: 200
       else
-        set_flash_message message: "You could not add this cloud to the user.", title: "Say what now!?"
+        set_flash_message message: "You could not join this cloud.", title: "Say what now!?"
         build_errors_from_model @user
         render status: 422
       end
@@ -66,7 +66,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       if @user.save && @cloud.save 
         render status: 200
       else
-        set_flash_message message: "You could not add this cloud to the user.", title: "Say what now!?"
+        set_flash_message message: "You could not leave this cloud.", title: "Say what now!?"
         build_errors_from_model @user
         render status: 422
       end
