@@ -25,19 +25,14 @@ class ApplicationController < ActionController::Base
   
   def current_user
     
-    unless session[:reset_session]
-      session = {}
-      session[:reset_session] = true
-    end
-    
-    session[:user_id] = session[:user_id].to_s
-    
     if session[:user_id]
       @current_user ||= User.find_or_initialize_by(_id: session[:user_id])
     else
       @current_user ||= User.new
     end
-        
+    
+    session[:user_id] = nil if @current_user.new_record?
+            
   end
     
   # Public: Takes rails errors and ....
