@@ -21,6 +21,12 @@ GIT
       mongoid-grid_fs (~> 1.3.1)
 
 GIT
+  remote: git://github.com/mongoid/moped.git
+  revision: eb57cd6f7fada328a898f1b684875db2b1b2fdb2
+  specs:
+    moped (1.3.0)
+
+GIT
   remote: git://github.com/rubyworks/yard-tomdoc.git
   revision: f3e9e3dd35af21b559057df8762d3acd0fc84340
   specs:
@@ -214,7 +220,6 @@ GEM
       bundler (>= 1.0.0)
       rails (>= 3.0.0)
       railties (>= 3.0.0)
-    moped (1.2.0)
     multi_json (1.0.4)
     multipart-post (1.1.4)
     net-scp (1.0.4)
@@ -419,6 +424,7 @@ DEPENDENCIES
   mongoid (~> 3.0.0)
   mongoid_fulltext
   mongoid_rails_migrations
+  moped!
   newrelic_rpm
   omniauth
   omniauth-facebook

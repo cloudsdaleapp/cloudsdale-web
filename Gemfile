@@ -9,6 +9,7 @@ gem 'rails', '~> 3.2.2'
 # Database NO-SQL
 gem 'bson_ext'
 gem 'mongoid', '~> 3.0.0'
+gem 'moped', git: 'git://github.com/mongoid/moped.git'
 gem 'mongoid_rails_migrations'
 gem 'mongoid_fulltext'
 gem 'voteable_mongo'
