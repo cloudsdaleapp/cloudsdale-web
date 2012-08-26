@@ -63,6 +63,14 @@ class Api::V1Controller < ActionController::Base
   # 
   # Returns an inatance of the User model.
   def current_user
+    
+    unless session[:reset_session]
+      session = {}
+      session[:reset_session] = true
+    end
+    
+    session[:user_id] = session[:user_id].to_s
+    
     if session[:user_id]
       @current_user ||= User.find_or_initialize_by(_id: session[:user_id])
     elsif @auth_token
