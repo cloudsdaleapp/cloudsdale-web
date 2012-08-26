@@ -8,7 +8,7 @@ gem 'rails', '3.2.2'
 
 # Database NO-SQL
 gem 'mongoid'
-gem 'bson_ext', '1.5.2'
+gem 'bson_ext'
 gem 'mongoid_rails_migrations'
 gem 'mongoid_fulltext'
 gem 'voteable_mongo'
