@@ -1,0 +1,22 @@
+.cloud-sidebar-top.clearfix
+  .cloud-sidebar-inner.clearfix
+    %a.close{ href: '#', data: { dismiss: 'dialog' } }
+      = "×"
+    .cloud-sidebar-head.clearfix
+      %img{ src: @model.get('avatar').normal }
+      %h3= @model.get('name')
+    .cloud-actions
+      - if session.isModerator()
+        %a.btn{ href: "#", 'data-action' => 'ban' } 
+          - if @model.get('is_banned')
+            %i.icon-repeat
+            = "Unban"
+    
+          - else
+            %i.icon-off
+            = "Ban"
+
+              
+.cloud-sidebar-bottom
+  %p{ style: "padding: 10px; font-weight: bold;" }= "Coming soon: Private Messages"
+  

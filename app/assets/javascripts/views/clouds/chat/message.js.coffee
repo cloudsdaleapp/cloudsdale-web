@@ -7,7 +7,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   className: 'chat-message'
     
   events:
-    'click a.message-user-inspect' : 'openUserInspect'
+    'click a[data-action="showUser"]' : 'openUserDialog'
   
   initialize: ->
     @render()
@@ -23,6 +23,8 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     
     if _.include(@model.topic().get('moderator_ids'), @model.get('author_id')) and @model.get('author_id') != @model.topic().get('owner_id')
       $(@el).addClass("role-mod")
+    
+    @.$('.chat-message-avatar > a, .chat-message-head > a').attr('data-entity-id',@model.id).attr('data-action',"showUser")
     
     @appendContent(@model)
     @appendDrops(@model)
@@ -75,6 +77,6 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
       view = new Cloudsdale.Views.CloudsDropsListItem(model: drop)
       @.$('ul.chat-message-drops').append(view.el)
   
-  openUserInspect: (event) ->
-    $.event.trigger "clouds:#{@model.topic().id}:chat:inspect:user", @model.user()
+  openUserDialog: (event) ->
+    $.event.trigger "#{@model.topic().type}s:#{@model.topic().id}:users:show", @model.user()
     false

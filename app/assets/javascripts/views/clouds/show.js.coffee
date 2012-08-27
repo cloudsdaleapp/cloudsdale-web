@@ -12,7 +12,7 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     'click a.btn[data-action="drops"]'    : 'toggleDrops'
     'click a.btn[data-action="leave"]'    : 'leaveCloud'
     'click a.btn[data-action="destroy"]'  : 'destroyCloud'
-  
+      
   initialize: ->
     
     @render()
@@ -41,6 +41,10 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     
     nfc.on "#{@model.type}s:#{@model.id}", (payload) =>
       @model.set(payload)
+    
+    $(@el).bind "#{@model.type}s:#{@model.id}:users:show", (event,_id) =>
+      user = session.get('users').findOrInitialize { id: _id }
+      @toggleUser(user)
     
   unbindEvents: ->
     $(@el).unbind('page:show').unbind("clouds:leave")
@@ -81,6 +85,10 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     view = new Cloudsdale.Views.CloudsDropsDialog(model: @model).el
     @renderDialog(view)
   
+  toggleUser: (_model) ->
+    view = new Cloudsdale.Views.CloudsUserDialog(model: _model).el
+    @renderDialog(view)
+    
   renderDialog: (view) ->
     if @.$('.fixed-container > .container-inner.container-inner-secondary').length > 0
       @.$('.container-inner.container-inner-secondary').replaceWith(view)

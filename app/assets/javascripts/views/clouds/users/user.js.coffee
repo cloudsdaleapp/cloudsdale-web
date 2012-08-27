@@ -6,7 +6,10 @@ class Cloudsdale.Views.CloudsUsersUser extends Backbone.View
   topic: 'cloud'
   tagName: 'li'
   className: 'cloud-user'
-
+    
+  events:
+    'click a[data-action="showUser"]' : 'openUserDialog'
+    
   initialize: (args) ->
     
     args ||= {}
@@ -35,6 +38,8 @@ class Cloudsdale.Views.CloudsUsersUser extends Backbone.View
       $(@el).addClass('cloud-user-role-mod')
     else
       $(@el).attr("data-role",3)
+      
+    @.$('a').attr('data-entity-id',@model.id).attr('data-action',"showUser")
     
     this
 
@@ -74,6 +79,6 @@ class Cloudsdale.Views.CloudsUsersUser extends Backbone.View
     ), 5000
     false
   
-  openUserInspect: (event) ->
-    $.event.trigger "clouds:#{@topic.id}:chat:inspect:user", @model
+  openUserDialog: (event) ->
+    $.event.trigger "#{@topic.type}s:#{@topic.id}:users:show", @model
     false

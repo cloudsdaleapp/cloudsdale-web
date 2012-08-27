@@ -1,6 +1,6 @@
 - unless @model.selfReference()
   .chat-message-avatar
-    %a.message-user-inspect{ href: "#" }
+    %a{ href: "#" }
       %img{ src: @model.user().get('avatar').thumb }
       
 .chat-message-meta
@@ -8,7 +8,7 @@
   
 - unless @model.selfReference()
   .chat-message-head
-    %a.message-user-inspect{ href: "#" }
+    %a{ href: "#" }
       = @model.user().get('name')
       
 %ul.chat-message-drops
