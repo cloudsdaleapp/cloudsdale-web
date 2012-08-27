@@ -599,22 +599,25 @@ a.drop-preview
     +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
       
 .chat-message
+
+  .chat-message-head > a:after
+    color: #B3B3B3
   
   &.role-mod
     $color-mod: #6666FF
-    .chat-message-avatar > a > img
-      border-color: $color-mod darken($color-mod,10%) darken($color-mod,10%) $color-mod
     .chat-message-head > a
       color: $color-mod
+      &:after
+        color: lighten($color-mod,5%)
       &:hover
         color: darken($color-mod,10%)
   
   &.role-owner
     $color-owner: #8000FF
-    .chat-message-avatar > a > img
-      border-color: $color-owner darken($color-owner,10%) darken($color-owner,10%) $color-owner
     .chat-message-head > a
       color: $color-owner
+      &:after
+        color: lighten($color-owner,5%)
       &:hover
         color: darken($color-owner,10%)
   
@@ -630,18 +633,15 @@ a.drop-preview
   
   &.role-developer
     .chat-message-head > a:after
-      content: "developer"
-      color: #CC6699
+      content: "[ dev ]"
   
   &.role-founder
     .chat-message-head > a:after
-      content: "founder"
-      color: #CC3300
+      content: "[ founder ]"
       
   &.role-donor
     .chat-message-head > a:after
-      content: "donor"
-      color: #663399
+      content: "[ donor ]"
 
 .chat-message.device-mobile
   .chat-message-head > a:before
