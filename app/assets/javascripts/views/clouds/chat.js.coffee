@@ -58,6 +58,7 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
     args.topic_type = @model.type
     args.author_id = session.get('user').id
     args.client_id = session.get('client_id')
+    args.device = if isMobile.any() then "mobile" else "desktop"
         
     message = new Cloudsdale.Models.Message(args)
         
