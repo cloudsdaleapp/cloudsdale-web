@@ -33,6 +33,6 @@ class Cloudsdale.Models.Message extends Backbone.Model
       
   
   topic: (args) ->
-    return session.get(@get('topic_type') + 's').findOrInitialize @get('topic_id'),
+    return session.get(@get('topic_type') + 's').findOrInitialize { id: @get('topic_id') },
       fetch: false
       

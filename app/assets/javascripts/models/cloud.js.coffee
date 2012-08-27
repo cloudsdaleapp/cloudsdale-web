@@ -42,7 +42,8 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
       new Date(0)
   
   owner: ->
-    return session.get('users').findOrInitialize(@owner_id)
+    return session.get('users').findOrInitialize { id: @owner_id },
+      fetch: false
 
   users: (options) ->
     options = {} unless options

@@ -33,7 +33,7 @@ class Cloudsdale.Collections.Clouds extends Backbone.Collection
     options = {} unless options
     
     cloud = @get(args.id)
-    
+            
     if cloud
       if options.fetch
         cloud.fetch(
@@ -45,7 +45,7 @@ class Cloudsdale.Collections.Clouds extends Backbone.Collection
         
     else
       cloud = new Cloudsdale.Models.Cloud(args)
-      
+            
       if cloud.get('is_transient')
         cloud.fetch(
           success: (_cloud) =>

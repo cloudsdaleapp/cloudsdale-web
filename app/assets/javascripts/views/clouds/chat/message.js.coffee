@@ -14,7 +14,15 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     @bindEvents()
   
   render: ->
-    $(@el).html(@template(model: @model)).addClass("role-#{@model.user().get('role')}").addClass("device-#{@model.get('device')}")
+    $(@el).html(@template(model: @model))
+    .addClass("role-#{@model.user().get('role')}")
+    .addClass("device-#{@model.get('device')}")
+        
+    if @model.get('author_id') == @model.topic().get('owner_id')
+      $(@el).addClass("role-owner")
+    
+    if _.include(@model.topic().get('moderator_ids'), @model.get('author_id')) and @model.get('author_id') != @model.topic().get('owner_id')
+      $(@el).addClass("role-mod")
     
     @appendContent(@model)
     @appendDrops(@model)

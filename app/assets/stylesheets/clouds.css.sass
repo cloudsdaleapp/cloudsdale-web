@@ -599,6 +599,25 @@ a.drop-preview
     +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
       
 .chat-message
+  
+  &.role-mod
+    $color-mod: #6666FF
+    .chat-message-avatar > a > img
+      border-color: $color-mod darken($color-mod,10%) darken($color-mod,10%) $color-mod
+    .chat-message-head > a
+      color: $color-mod
+      &:hover
+        color: darken($color-mod,10%)
+  
+  &.role-owner
+    $color-owner: #8000FF
+    .chat-message-avatar > a > img
+      border-color: $color-owner darken($color-owner,10%) darken($color-owner,10%) $color-owner
+    .chat-message-head > a
+      color: $color-owner
+      &:hover
+        color: darken($color-owner,10%)
+  
   &.role-moderator
     .chat-message-head > a:after
       content: "mod"
