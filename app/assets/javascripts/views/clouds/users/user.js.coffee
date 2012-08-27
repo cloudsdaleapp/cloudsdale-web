@@ -26,6 +26,16 @@ class Cloudsdale.Views.CloudsUsersUser extends Backbone.View
 
   render: ->
     $(@el).html(@template(model: @model)).attr('data-entity-id',@model.id)
+    
+    if @model.id == @topic.get('owner_id')
+      $(@el).attr("data-role",1)
+      $(@el).addClass('cloud-user-role-owner')
+    else if _.include(@topic.get('moderator_ids'), @model.id)
+      $(@el).attr("data-role",2)
+      $(@el).addClass('cloud-user-role-mod')
+    else
+      $(@el).attr("data-role",3)
+    
     this
 
   bindEvents: ->

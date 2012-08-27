@@ -50,7 +50,33 @@ class Cloudsdale.Views.CloudsUsers extends Backbone.View
       view = new Cloudsdale.Views.CloudsUsersUser(model: user, topic: @model, parentView: this)
       @.$('ul.cloud-user-list').append(view.el)
     
+    @reorderList()
+    
     this
+  
+  reorderList: ->
+    
+    _elements = @.$("ul.cloud-user-list > li")
+    _elements.sort (a, b) ->
+      
+      compA = $(a).find('a > span').text().toUpperCase()
+      compB = $(b).find('a > span').text().toUpperCase()
+      
+      return (if (compA < compB) then -1 else (if (compA > compB) then 1 else 0))
+          
+    @.$("ul.cloud-user-list").append(_elements)
+    
+    _elements = @.$("ul.cloud-user-list > li")
+    _elements.sort (a,b) ->
+      posA = $(a).attr('data-role')
+      posB = $(b).attr('data-role')
+      
+      compA = if typeof posA == 'string' then parseInt(posA) else 1000
+      compB = if typeof posB == 'string' then parseInt(posB) else 1000
+      return (if (compA < compB) then -1 else (if (compA > compB) then 1 else 0))
+    
+    @.$("ul.cloud-user-list").append(_elements)
+    
 
   # Refresh the GFX in the sidebar
   # 

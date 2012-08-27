@@ -1,3 +1,6 @@
+$color-owner: #8000FF
+$color-mod: #6666FF
+
 @-webkit-keyframes slideInInspect
   0%
     height: 0px
@@ -177,6 +180,11 @@ li.cloud-user
   border-bottom: 1px solid rgba(50,50,50,.3)
   a
     border-bottom: 1px solid rgba(255,255,255,1)
+  
+  &.cloud-user-role-mod > a
+    color: $color-mod
+  &.cloud-user-role-owner > a
+    color: $color-owner
     
   &:after
     content: "."
@@ -597,7 +605,7 @@ a.drop-preview
       
     border: 1px solid $color-border-light
     +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
-      
+
 .chat-message
 
   .chat-message-head > a:after
