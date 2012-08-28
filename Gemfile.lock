@@ -113,7 +113,7 @@ GEM
     bson_ext (1.6.4)
       bson (~> 1.6.4)
     builder (3.0.0)
-    bunny (0.7.9)
+    bunny (0.8.0)
     cancan (1.6.5)
     capistrano (2.9.0)
       highline
