@@ -51,7 +51,7 @@ gem 'cancan'
 gem 'client_side_validations'
 
 # Storage
-gem 'fog', '0.9.0'
+gem 'fog'
 gem 'cloudfiles'
 
 # Images
