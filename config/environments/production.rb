@@ -64,14 +64,19 @@ Cloudsdale::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => "www.cloudsdale.org" }
-  config.action_mailer.smtp_settings = {  
-    :address              => "mailcluster.loopia.se",  
-    :port                 => 587,
-    :user_name            => "noreply@cloudsdale.org",
-    :domain               => "cloudsdale.org",
-    :password             => "w94MJq25233S143",
-    :authentication       => :login,
-    :enable_starttls_auto => true
+  config.action_mailer.default_charset = "utf-8"
+  config.action_mailer.smtp_settings = {
+    
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "cloudsdale.org",
+    
+    enable_starttls_auto: true,
+    authentication: :plain,
+    
+    user_name: "info@cloudsdale.org",
+    password: "secret1234"
+    
   }
   
   # config.middleware.use ExceptionNotifier,
