@@ -103,6 +103,7 @@ end
 group :production, :assets do
   gem 'therubyracer'
   gem 'execjs'
+  gem 'exception_notification'
 end
 
 gem 'yard'

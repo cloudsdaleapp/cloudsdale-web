@@ -2,7 +2,7 @@ class Api::V1Controller < ActionController::Base
   
   layout :determine_layout
   
-  before_filter :auth_token
+  before_filter :auth_token, :log_additional_data
   after_filter :build_response_headers
   
   helper_method :current_user, :errors
@@ -246,6 +246,15 @@ class Api::V1Controller < ActionController::Base
   # Returns the errors array.
   def errors
     @errors ||= []
+  end
+
+protected
+  
+  def log_additional_data
+    # request.env["exception_notifier.exception_data"] = {
+    #   :document => @document,
+    #   :person => @person
+    # }
   end
   
 end
