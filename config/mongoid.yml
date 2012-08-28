@@ -9,7 +9,7 @@ development:
         - local.cloudsdale.org:52331
         
       options:
-        safe: true
+        safe: false
         consistency: :strong
         
   options:
@@ -47,7 +47,7 @@ production:
         - db.s.cloudsdale.org:27017
         
       options:
-        safe: true
+        safe: false
         consistency: :strong
         
   options:
