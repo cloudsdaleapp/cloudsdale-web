@@ -78,10 +78,10 @@ Cloudsdale::Application.configure do
     
   }
   
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[SERVER EXCEPTION] ",
-    :sender_address => %{"Cloudsdale Notifier" <notifier@cloudsdale.org>},
-    :exception_recipients => %w{zeeraw@cloudsdale.org}
-  
+  # config.middleware.use ExceptionNotifier,
+  #   :email_prefix => "[SERVER EXCEPTION] ",
+  #   :sender_address => %{"Cloudsdale Notifier" <notifier@cloudsdale.org>},
+  #   :exception_recipients => %w{zeeraw@cloudsdale.org}
+  # 
   
 end
