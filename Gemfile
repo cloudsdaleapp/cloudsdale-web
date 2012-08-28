@@ -52,7 +52,7 @@ gem 'client_side_validations'
 
 # Storage
 gem 'fog'
-gem 'cloudfiles'
+gem 'cloudfiles', '1.4.18'
 
 # Images
 gem 'mini_magick'
