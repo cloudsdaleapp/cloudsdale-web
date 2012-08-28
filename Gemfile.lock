@@ -43,6 +43,13 @@ GIT
       yard
 
 GIT
+  remote: git://github.com/thomas-mcdonald/bootstrap-sass.git
+  revision: 0ef5abedfa97fb678b5b3a5d6e05128791d4cedb
+  branch: 2.0.4.1
+  specs:
+    bootstrap-sass (2.0.4.0)
+
+GIT
   remote: git@github.com:Zeeraw/carrierwave-mongoid.git
   revision: 1a46bf48a242e80a82b5cc392c771894fb238662
   branch: mongoid-3.0
@@ -94,7 +101,6 @@ GEM
     best_in_place (1.0.6)
       jquery-rails
       rails (~> 3.1)
-    bootstrap-sass (2.0.3.1)
     bson (1.6.4)
     bson_ext (1.6.4)
       bson (~> 1.6.4)
@@ -403,7 +409,7 @@ DEPENDENCIES
   backbone-on-rails
   bcrypt-ruby
   best_in_place
-  bootstrap-sass
+  bootstrap-sass!
   bson_ext
   bunny
   cancan

@@ -21,7 +21,7 @@ gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
 # CANT HAVE ASSETS GROUP!
 gem 'sass', '~> 3.2.0.alpha'
 gem 'sass-rails', '~> 3.2.5'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git', branch: '2.0.4.1'
 gem 'coffee-script'
 gem 'uglifier'
 gem 'jquery-rails'
