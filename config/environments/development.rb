@@ -21,9 +21,18 @@ Cloudsdale::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+  
+  # Which files are going to be precompiled
+  # config.assets.precompile = %w(application.css application.js *.ttf *.svg *.woff *.eot *.jst *.png *.jpg .jpeg *.gif *.bmp *.ico)
 
   # Do not compress assets
   config.assets.compress = false
+  
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  # config.assets.compile = true
+
+  # Generate digests for assets URLs
+  # config.assets.digest = true
 
   # Expands the lines which load the assets
   config.assets.debug = false
