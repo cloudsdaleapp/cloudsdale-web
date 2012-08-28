@@ -10,9 +10,10 @@
     
     %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
     %meta{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }
-    = stylesheet_link_tag "application"
+    / = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = favicon_link_tag "favicons/48by48.ico"
+    %link{ href: "/assets/application.css", media: "screen", rel: "stylesheet", type: "text/css" }
     %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view"}
     = csrf_meta_tags
     
