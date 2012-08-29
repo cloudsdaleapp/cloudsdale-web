@@ -18,7 +18,7 @@ class Api::V1Controller < ActionController::Base
   end
   
   # Rescues the errors yielded by supplying a faulty BSON id
-  rescue_from BSON::InvalidObjectId do |message|
+  rescue_from Moped::Errors::InvalidObjectId do |message|
     render_exception "BSON #{message}", 500
   end
   
