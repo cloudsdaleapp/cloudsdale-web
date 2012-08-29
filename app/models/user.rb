@@ -66,8 +66,8 @@ class User
   validates_presence_of [:email,:name], :unless => :new_record?
     
   before_validation do
-    self[:cloud_ids].uniq!
-    self[:clouds_moderated_ids].uniq!
+    self[:cloud_ids].uniq! if self[:cloud_ids]
+    self[:clouds_moderated_ids].uniq! if self[:clouds_moderated_ids]
   end
   
   before_save do
