@@ -1224,40 +1224,55 @@ Faye.URI = Faye.extend(Faye.Class({
            this.pathname + (query ? '?' + query : '');
   }
 }), {
+  
+  options: {
+  	strictMode: false,
+  	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+  	q:   {
+  		name:   "queryKey",
+  		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+  	},
+  	parser: {
+  		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+  		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+  	}
+  },
+  
   parse: function(url, params) {
-    if (typeof url !== 'string') return url;
     
-    var a   = document.createElement('a'),
-        uri = new this();
+    var  o   = Faye.URI.options,
+     m   = o.parser[o.strictMode ? "strict" : "loose"].exec(url),
+     uri = {},
+     i   = 14;
+  
+   while (i--) uri[o.key[i]] = m[i] || "";
+  
+   uri[o.q.name] = {};
+   uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+     if ($1) uri[o.q.name][$1] = $2;
+   });
+        
+    _uri = new this();
     
-    a.href = url;
+    _uri.protocol = uri.protocol + '://';
+    _uri.hostname = uri.host;
+    _uri.pathname = uri.path;
     
-    uri.protocol = a.protocol + '//';
-    uri.hostname = a.hostname;
-    uri.pathname = a.pathname;
-    
-    if ((a.port === "0") || (a.port === "")) {
-      uri.port = "80";
+    if ((uri.port === "0") || (uri.port === "")) {
+      _uri.port = "80";
     } else {
-      uri.port = a.port;
+      _uri.port = uri.port;
     }
     
-    var query = a.search.replace(/^\?/, ''),
-        pairs = query ? query.split('&') : [],
-        n     = pairs.length,
-        data  = {},
-        parts;
-    
-    while (n--) {
-      parts = pairs[n].split('=');
-      data[decodeURIComponent(parts[0] || '')] = decodeURIComponent(parts[1] || '');
-    }
+    data = uri.queryKey
+  
     if (typeof params === 'object') Faye.extend(data, params);
     
-    uri.params = data;
-    
-    return uri;
+    _uri.params = data;
+        
+    return _uri;
   }
+  
 });
 
 
