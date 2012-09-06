@@ -27,7 +27,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
   
   # Process files as they are uploaded:
-  process :resize_to_fill => [100, 100]
+  process :resize_to_fill => [200, 200]
   process :convert => 'png'
 
   # Create different versions of your uploaded files:
