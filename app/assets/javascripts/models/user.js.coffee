@@ -67,6 +67,8 @@ class Cloudsdale.Models.User extends Backbone.Model
       obj.password = @get('password') 
     if @get('avatar_url')
       obj.avatar_url = @get('avatar_url')
+    if @get('remove_avatar')
+      obj.remove_avatar = @get('remove_avatar')
       
     return obj
   
