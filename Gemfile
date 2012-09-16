@@ -73,6 +73,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'user-agent'
 gem 'hashr', :require => 'hashr'
 gem 'yajl-ruby', :require => 'yajl'
+gem 'google-analytics-rails'
 
 # AMQP
 gem 'bunny'

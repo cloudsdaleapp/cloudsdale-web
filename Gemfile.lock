@@ -189,6 +189,7 @@ GEM
       thor (>= 0.13.6)
     formatador (0.2.3)
     gist (2.0.4)
+    google-analytics-rails (0.0.3)
     guard (0.10.0)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
@@ -454,6 +455,7 @@ DEPENDENCIES
   fog
   foreman
   gist
+  google-analytics-rails
   guard-livereload
   guard-rspec
   haml
