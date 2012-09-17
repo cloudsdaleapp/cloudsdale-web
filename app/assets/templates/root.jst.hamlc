@@ -1,12 +1,12 @@
-.watdiv
+.watdiv.laterwat
   %div{ itemscope: true, itemtype: "http://schema.org/Thing" }
     %span{ itemprop: 'name' }= "Explore"
     %span{ itemprop: 'description' }= "This is the place where you find new places or create one of your own."
-    %a{ itemprop: 'url', href: '/explore' }
+    %a{ itemprop: 'url', href: '/explore' }= "Take a tour..."
   %div{ itemscope: true, itemtype: "http://schema.org/Thing" }
     %span{ itemprop: 'name' }= "Info"
     %span{ itemprop: 'description' }= "Want to know about us? head here and we'll tell you more."
-    %a{ itemprop: 'url', href: '/info' }
+    %a{ itemprop: 'url', href: '/info' }= "Learn more..."
 
 .navbar.navbar-fixed-top
 
