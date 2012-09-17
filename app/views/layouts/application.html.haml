@@ -23,7 +23,7 @@
     %meta{ property: "og:description", content: "Cloudsdale, the best place in the sky. A fast, reliable and beautiful chat app exclusively for bronies." }
     %meta{ property: "og:type", content: "website" }
     %meta{ property: "og:url", content: "http://www.cloudsdale.org" }
-    %meta{ property: "og:image", content: Cloudsdale.config['url'] + image_path('logo/main_logo.png') }
+    %meta{ property: "og:image", content: Rails.env.development? ? (Cloudsdale.config['url'] + image_path('logo/main_logo.png')) : image_path('logo/main_logo.png')}
     
   %body{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
     .loading-content
