@@ -48,9 +48,30 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
     @drops = Kaminari.paginate_array(@drops).page(@page).per(10)
         
     render status: 200
+  end
+
+  # Private: Accepts request to destroy a drop.
+  #
+  # cloud_id - A BSON id of the cloud owning the drop (technically not necessary I guess)
+  # id    - A BSON id of the drop to kill.
+  #
+  # Returns the drop object with a status of 200 if successful & 422 if unsuccessful.
+  def destroy
+    
+    @cloud = Cloud.find(params[:cloud_id])
+    @drop = Drop.find(params[:id])
+    authorize! :destroy, @drop
+            
+    if @drop.destroy
+      render status: 200
+    else
+      set_flash_message message: "Could not delete this Drop, please contact a system administrator.", title: "I will destroy you!"
+      build_errors_from_model @drop
+      render status: 422
+    end
     
   end
-  
+
   # Returns a Drops collection with 10 results at a time.
   #
   #   headers - The headers you can use to modify your next request:

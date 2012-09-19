@@ -16,7 +16,7 @@ Cloudsdale::Application.routes.draw do
       
       end
       
-      resources :drops, :controller => "clouds/drops", only: [:index] do
+      resources :drops, :controller => "clouds/drops", only: [:index,:destroy] do
         
         get :search, on: :collection, as: :search
         
