@@ -70,6 +70,8 @@ class Ability
         end
         
         can [:start,:vote], Prosecution
+
+        can :destroy, Drop
         
       end
       
