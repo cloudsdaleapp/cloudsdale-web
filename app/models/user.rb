@@ -12,7 +12,7 @@ class User
   
   delegate :can?, :cannot?, :to => :ability
   
-  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar, :remote_avatar_url, :remove_avatar
+  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar, :remote_avatar_url, :remove_avatar, :skype_name
   attr_accessor :password, :confirm_registration
     
   embeds_one :character
@@ -30,6 +30,7 @@ class User
   
   field :name,                      type: String
   field :email,                     type: String
+  field :skype_name,                type: String
   field :auth_token,                type: String
   field :password_hash,             type: String
   field :password_salt,             type: String

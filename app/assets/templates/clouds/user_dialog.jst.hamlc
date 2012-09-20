@@ -15,6 +15,12 @@
           - else
             %i.icon-off
             = "Ban"
+            
+      - if session.get('user').get('skype_name')
+        %a.btn{ href: "skype:#{session.get('user').get('skype_name')}?call", 'data-action' => 'ban' } 
+          %i.icon-exclamation-sign
+          = "Call on Skype"
+        
 
               
 .cloud-sidebar-bottom

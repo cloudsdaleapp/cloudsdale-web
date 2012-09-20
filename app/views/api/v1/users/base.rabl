@@ -2,7 +2,7 @@ object @user
 
 node(:id) { |user| user._id.to_s }
 
-attributes :name, :time_zone, :member_since, :suspended_until, :reason_for_suspension
+attributes :name, :time_zone, :member_since, :suspended_until, :reason_for_suspension, :skype_name
 
 child :prosecutions => :prosecutions do
   extends 'api/v1/users/prosecutions/base', :view_path => 'app/views'

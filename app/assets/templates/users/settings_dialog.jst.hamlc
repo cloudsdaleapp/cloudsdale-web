@@ -31,6 +31,10 @@
           %label.control-label{ for: 'user_email' }= "Email"
           .controls
             %input#user_email{ type: 'text', name: 'email', placeholder: "Email", value: @user.get('email') }
+        .control-group
+          %label.control-label{ for: 'user_skype_name' }= "Skype Username"
+          .controls
+            %input#user_skype_name{ type: 'text', name: 'skype_name', value: @user.get('skype_name') }
     
       .tab-pane#settings-avatar
         %form#avatar-form{ enctype: "multipart/form-data" }
