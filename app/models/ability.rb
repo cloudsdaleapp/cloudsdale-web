@@ -64,8 +64,6 @@ class Ability
       
         # You can't ban users that have higher role than you
         can [:ban,:unban], User do |_user|
-          puts "Banner: #{user.role}"
-          puts "Banee: #{_user.role}"
           (_user.try(:_id) != user.try(:_id)) && user.role > _user.role
         end
         
