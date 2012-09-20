@@ -2,8 +2,10 @@
 %html{ lang: "en" }
   %head
     %title= @title || "Cloudsdale"
-    = stylesheet_link_tag "mobile"
-
+    
+    %link{ href: "/assets/mobile.css", media: "screen", rel: "stylesheet", type: "text/css" }
+    / = stylesheet_link_tag "mobile"
+    
     %meta{ name: "viewport", content: "user-scalable=no, width=device-width", id: "view" }
 
   %body
