@@ -70,7 +70,7 @@ class Cloudsdale.Models.User extends Backbone.Model
     if @get('remove_avatar')
       obj.remove_avatar = @get('remove_avatar')
     if @get('skype_name')
-      obj.remove_avatar = @get('skype_name')
+      obj.skype_name = @get('skype_name')
       
     return obj
   
