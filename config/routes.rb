@@ -86,7 +86,10 @@ Cloudsdale::Application.routes.draw do
   
   # Public: A place to explore Clouds
   get '/info' => "root#info", as: :info
-  
+
+  # Mobile: Terms and Conditions
+  match '/mobile/tncs' => 'mobile#tncs', as: :mobile_tncs
+
   # Resource: For clouds.
   resources :clouds, :only => [:show]
   resources :users, :only => [] do
