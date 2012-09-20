@@ -1,5 +1,5 @@
 #= require jquery
-#= require bootstrap-fix
+#= require bootstrap
 #= require jquery_ujs
 #= require jquery-ui.js
 #= require jquery.cookie
