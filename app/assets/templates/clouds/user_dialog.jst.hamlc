@@ -16,8 +16,8 @@
             %i.icon-off
             = "Ban"
             
-      - if session.get('user').get('skype_name')
-        %a.btn{ href: "skype:#{session.get('user').get('skype_name')}?call", 'data-action' => 'ban' } 
+      - if @model.get('skype_name')
+        %a.btn{ href: "skype:#{@model.get('skype_name')}?call", 'data-action' => 'skype:call' } 
           %i.icon-exclamation-sign
           = "Call on Skype"
         
