@@ -17,7 +17,7 @@
             = "Ban"
             
       - if @model.get('skype_name')
-        %a.btn{ href: "skype:#{@model.get('skype_name')}?call", 'data-action' => 'skype:call' } 
+        %a.btn{ href: "skype:#{@model.get('skype_name')}?call", 'data-action' => 'skype:call', target: "_blank" } 
           %i.icon-exclamation-sign
           = "Call on Skype"
         
