@@ -84,7 +84,22 @@ window.isMobile =
       
 $(window).bind 'resize', (e) ->
   resizeBottomWrapper()
-  
+
+jQuery.extend skype: (failureFunction) ->
+  $ = jQuery
+  if $.browser.safari or $.browser.opera
+    return true
+  else if $.browser.msie
+    try
+      return true  if new ActiveXObject("Skype.Detection")
+  else
+    return true  if typeof (navigator.mimeTypes["application/x-skype"]) is "object"
+  $("a[href^=\"skype:\"]").click ->
+    failureFunction()
+    false
+
+  false
+
 
 window.Cloudsdale =
   Models: {}
@@ -120,6 +135,10 @@ $(document).ready ->
   # Sets the session for the current user
   window.session = new Cloudsdale.Models.Session($('body').data().session)
   
+  $.skype ->
+    window.open("http://www.skype.com/", '_blank')
+    window.focus()
+
   $(document).bind "connected:nfc", ->
     
     # Changes an attribute to the document if focused
