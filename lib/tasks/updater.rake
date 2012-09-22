@@ -21,12 +21,14 @@ namespace :updater do
     
     puts "-> Sending update notification..."
     
-    @file_path = Rails.root.join(".git","logs","refs","heads","deploy")
-    @last_rev = File.open(@file_path,'r') do |f|
-      f.extend(Enumerable).inject { |_,ln| ln }
-    end.match(/^[a-f0-9]{40}\s(?<rev>[a-f0-9]{40})\s.*/i)
+    # @file_path = Rails.root.join(".git","logs","refs","heads","deploy")
+    # @last_rev = File.open(@file_path,'r') do |f|
+    #   f.extend(Enumerable).inject { |_,ln| ln }
+    # end.match(/^[a-f0-9]{40}\s(?<rev>[a-f0-9]{40})\s.*/i)
+    # 
+    # @version =  @last_rev[:rev][0..9]
     
-    @version =  @last_rev[:rev][0..9]
+    @version = SecureRandom.hex(5)
     
     Cloudsdale::Updater.new("web",{ version: @version })
     
