@@ -606,7 +606,63 @@ li.cloud-toggle
         line-height: 10px
         text-shadow: 1px 1px 0 rgba(0,0,0,.1)
         pointer-events: none
-          
+
+ul.notifications
+  position: absolute
+  top: 0
+  right: 0
+  margin: 10px
+  background: rgba(0,0,0,.7)
+  border: 1px solid rgba(255,255,255,.7)
+  z-index: 20
+  list-style: none
+  padding: 3px
+  +box-shadow(1px,1px,2px,rgba(0,0,0,.3))
+  @media (max-width: $phone)
+    width: auto
+    left: 0
+  @media (min-width: $ipad-min)
+    width: 300px
+    left: auto
+    
+  +border-radius(5px)
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+    
+li.notification
+  position: relative
+  padding: 5px
+  border-bottom: 1px dotted #B3B3B3
+  cursor: pointer
+  +opacity(.8)
+  .close
+    color: #E6E6E6
+    display: none
+  &:last-child
+    border-bottom: 0
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+  &:hover
+    +opacity(1)
+    .close
+      display: block
+
+.notification-header
+  font-weight: bold
+  color: #E6E6E6
+.notification-body
+  color: #CCCCCC
+
 .loading-controls
   padding-left: 33px
   position: relative

@@ -1,0 +1,4 @@
+%a.close{ href: '#', data: { dismiss: 'notification' } }
+  = "×"
+.notification-header
+.notification-body

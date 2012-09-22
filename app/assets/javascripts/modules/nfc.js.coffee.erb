@@ -58,11 +58,12 @@ do ($ = jQuery) ->
       
       subscription = @cli.subscribe '/web', (payload) ->
         if payload.version != window.version
-          IWantToReload = confirm("There is a new version of Cloudsdale (#{payload.version}) out, do you want to reload to receive the update?")
-          if IWantToReload
-            document.location.reload(true)
-          else
-            window.version = payload.version
+          $.event.trigger "notifications:add", {
+            header: "Site Update!",
+            body: "Cloudsdale version #{payload.version} is out, click here to activate it.",
+            callback: =>
+              document.location.reload(true)
+          }
             
       
       subscription.callback =>

@@ -39,6 +39,15 @@ class Cloudsdale.Views.Root extends Backbone.View
     $(@el).bind 'page:show', (event,page_id) =>
       @show(page_id) if page_id == "root"
     
+    $(@el).bind 'notifications:add', (event,args) =>
+      @addNotification(args)
+      
+    $(@el).bind 'notifications:remove', (event,args) =>
+      @removeNotification(args)
+    
+    $(@el).bind 'notifications:clear', (event,args) =>
+      @clearNotifications(args)
+    
     @.$(".cloud-list").mousewheel (event, delta) ->
       @scrollTop -= (delta * 30)
       event.preventDefault()
@@ -70,11 +79,7 @@ class Cloudsdale.Views.Root extends Backbone.View
           if prev.length > 0
             id = prev.attr('data-cloud-id')
             Backbone.history.navigate("/clouds/#{id}",true)
-          
-          
-          
-          
-        
+            
   refreshGfx: ->
     if session.isLoggedIn()
       $(@el).addClass('with-active-session')
@@ -123,10 +128,25 @@ class Cloudsdale.Views.Root extends Backbone.View
     @refreshListPositions()
     
   renderCloud: (cloud) ->
+            
     if @.$(".cloudbar > .cloud-list > li[data-cloud-id=#{cloud.id}]").length == 0
       view = new Cloudsdale.Views.CloudsToggle(model: cloud)
       @.$('.cloudbar > .cloud-list').append(view.el)
       cloud.announcePresence()
+  addNotification: (args) ->
+    if @.$('.main-container > ul.notifications').length <= 0
+      @.$('.main-container').append("<ul class='notifications'/>")
+        
+    view = new Cloudsdale.Views.RootNotification(args)
+    @.$('ul.notifications').append(view.el)
+    
+    this
+  
+  removeNotification: (args) ->
+    @.$('.main-container > ul.notifications').remove() if @.$('.main-container > ul.notifications > li').length <= 0
+  
+  clearNotifications: (args) ->
+    this
   
   getTweets: ->
     $.ajax
