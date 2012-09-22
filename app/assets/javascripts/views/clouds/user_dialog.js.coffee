@@ -9,6 +9,8 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
   events:
     'click a.close[data-dismiss="dialog"]' : "close"
     'click a[data-action="ban"]' : 'toggleUserBan'
+    'click a[data-action="skype:add"]' : 'skypeAdd'
+    'click a[data-action="skype:call"]' : 'skypeCall'
   
   initialize: (args) ->
     
@@ -47,4 +49,10 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
     else
       @model.ban
         success: (user) =>
-          @model.set(user)
+          @model.set(user)  skypeAdd: ->
+    window.open("skype:#{@model.get('skype_name')}?add")
+    false
+  
+  skypeCall: ->
+    window.open("skype:#{@model.get('skype_name')}?call")
+    false
