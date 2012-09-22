@@ -30,6 +30,8 @@ do ($ = jQuery) ->
       duration: 0
       interval: 1500
   
+  window.version = null
+  
   window.NotificationCentre = class NotificationCentre
   
     constructor: (args) ->
@@ -54,7 +56,14 @@ do ($ = jQuery) ->
       
       @cli.addExtension(ChannelNameExt)
       
-      subscription = @cli.subscribe('/')
+      subscription = @cli.subscribe '/web', (payload) ->
+        if payload.version != window.version
+          IWantToReload = confirm("There is a new version of Cloudsdale (#{payload.version}) out, do you want to reload to receive the update?")
+          if IWantToReload
+            document.location.reload(true)
+          else
+            window.version = payload.version
+            
       
       subscription.callback =>
         if @cli.getState() == 'CONNECTED'

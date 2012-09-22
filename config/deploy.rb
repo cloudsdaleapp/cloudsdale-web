@@ -38,8 +38,10 @@ default_environment["RUBY_VERSION"] = "ruby-1.9.3-p194"
 default_run_options[:shell] = 'bash'
 
 after 'deploy:assets:precompile', 'deploy:assets:upload', 'deploy:permissions:update'
+after "deploy:restart", "deploy:updater:web"
 
 namespace :deploy do
+  
   desc "Deploy your application"
   task :default do
     update
@@ -50,6 +52,13 @@ namespace :deploy do
     desc "Deploy assets to Rackspace CloudFiles"
     task :upload, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
       run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} assets:upload"
+    end
+  end
+  
+  namespace :updater do
+    desc "Sends an update notification to all web clients."
+    task :web, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
+      run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} updater:web"
     end
   end
   
@@ -132,7 +141,7 @@ namespace :deploy do
   desc "Stop unicorn"
   task :stop, :roles => :web, :except => { :no_release => true } do
     run "kill -s QUIT `cat /opt/pids/unicorn.pid`"
-  end  
+  end
 
   namespace :rollback do
     desc "Moves the repo back to the previous version of HEAD"
