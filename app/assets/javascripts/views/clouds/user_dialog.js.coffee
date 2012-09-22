@@ -49,12 +49,4 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
     else
       @model.ban
         success: (user) =>
-          @model.set(user)  skypeAdd: ->
-    window.open("skype:#{@model.get('skype_name')}?add")
-  skypeAdd: ->
-    window.open("skype:#{@model.get('skype_name')}?add").close()
-    false
-  
-  skypeCall: ->
-    window.open("skype:#{@model.get('skype_name')}?call").close()
-    false
+          @model.set(user)
