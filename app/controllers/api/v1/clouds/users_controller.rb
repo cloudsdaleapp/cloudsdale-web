@@ -36,8 +36,8 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       render status: 401
     else
       
-      @user.cloud_ids.push(@cloud.id)
-      @cloud.user_ids.push(@user.id)
+      @user.clouds.push(@cloud)
+      @cloud.users.push(@user)
     
       if @user.save && @cloud.save
         render status: 200
@@ -60,8 +60,8 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       render status: 401
     else
       
-      @user.cloud_ids.delete(@cloud.id)
-      @cloud.user_ids.delete(@user.id)
+      @user.clouds.delete(@cloud)
+      @cloud.users.delete(@user)
     
       if @user.save && @cloud.save 
         render status: 200
