@@ -46,7 +46,7 @@ class Cloud
   fulltext_search_in :search_string, :filters => {
     :public => lambda { |cloud| cloud.hidden == false },
     :hidden => lambda { |cloud| cloud.hidden == true }
-  }
+  },  :update_if => "name_changed? || description_changed?"
   
   before_validation do
     
