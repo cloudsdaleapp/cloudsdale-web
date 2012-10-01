@@ -112,9 +112,11 @@ $color-mod: #6666FF
   
 .cloud-sidebar-bottom
   overflow: auto
+  form
+    margin: 10px
   
   .controls
-    textarea, input[type=text], input[type=password]
+    textarea, input[type=text], input[type=password], select
       width: 100%
       +box-sizing(border-box)
       +box-shadow(0,0,0,rgba(0,0,0,0))
@@ -124,6 +126,16 @@ $color-mod: #6666FF
   .tab-content
     margin: 10px
     overflow: visible
+
+.cloud-sidebar-bottom-content
+  padding: 10px
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
 
 .cloud-sidebar-head
   margin: 0 10px 10px 10px
@@ -234,10 +246,10 @@ li.cloud-user
   right: 0
   z-index: 5
   
-  border-bottom: 1px solid rgba(0,0,0,.2)
-  
   @media (max-width: $phone)
     margin: 0
+  @media (min-width: $ipad-min)
+    border-bottom: 1px solid rgba(0,0,0,.2)
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     margin: 0 15px
   @media (min-width: $desktop-s-min)
@@ -260,25 +272,92 @@ li.cloud-user
 .cloud-head-inner
   
   position: relative
-
-  height: 80px
-  padding: 10px
-  
   z-index: 6
   
-  border-bottom: 1px solid white
-  
-  background: #F0F0F0 $bgNoise
+  @media (max-width: $phone)
+    height: 44px
+    margin: 0 -2px
+    padding: 0 2px
+    
+    background: #63a0d0 image-url("bg-noise-bar.png")
+    background: image-url("bg-noise-bar.png"), url(data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYzYTBkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZjg1YjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+    background: image-url("bg-noise-bar.png"), -moz-linear-gradient(top,  #63a0d0 0%, #3f85b3 100%)
+    background: image-url("bg-noise-bar.png"), -webkit-gradient(linear, left top, left bottom, color-stop(0%,#63a0d0), color-stop(100%,#3f85b3))
+    background: image-url("bg-noise-bar.png"), -webkit-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+    background: image-url("bg-noise-bar.png"), -o-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+    background: image-url("bg-noise-bar.png"), -ms-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+    background: image-url("bg-noise-bar.png"), linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63a0d0', endColorstr='#3f85b3',GradientType=0 )
+    
+    -moz-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+    -o-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+    -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
+    
+    border-bottom: 1px solid rgba(50,50,50,0.8)
 
-  .float-left
-    margin-bottom: 20px
-    img
-      height: 70px
-      width: 70px
-      +border-radius(10px)
+  @media (min-width: $ipad-min)
   
+    height: 92px
+    padding: 10px
+    
+    background: #F0F0F0 $bgNoise
+    border-bottom: 1px solid white
+  
+  
+  .float-left
+  
+    @media (max-width: $phone)
+      display: none
+    @media (min-width: $ipad-min)
+      display: block
+      
+      margin-bottom: 20px
+      border: 1px solid #222
+      +linear-gradient(#484848,#343434)
+      +border-radius(2px)
+      +box-shadow(1px,1px,2px,rgba(0,0,0,.2))
+      .cloud-head-avatar
+        height: 68px
+        width: 68px
+        margin: 5px
+        border: 1px solid #222
+        +border-radius(3px)
+        +box-shadow-inset(1px,1px,3px,rgba(0,0,0,.3))
+        background-position: center center
+        background-size: 68px 68px
+        @each $vendor in -webkit-, -moz-, -o-, ""
+          #{$vendor}box-shadow: 0 1px 0 rgba(255, 255, 255, .4), inset 1px 1px 2px rgba(0,0,0,.2)
+      
+  
+  h2
+    @media (max-width: $phone)
+      text-align: center
+      font-size: 18px
+      line-height: 42px
+      text-shadow: -1px -1px 0 rgba(0,0,0,.4)
+    @media (min-width: $ipad-min)
+      text-align: left
+      font-size: 20px
+      line-height: 24px
+      text-shadow: 1px 1px 1px #fff
+  
+  p
+    @media (max-width: $phone)
+      display: none
+    @media (min-width: $ipad-min)
+      display: block
+      
   p, h2
-    margin-left: 80px
+    margin: 0
+    
+    @media (max-width: $phone)
+      color: rgba(255,255,255,.9)
+    @media (min-width: $ipad-min)
+      display: block
+      margin-left: 80px
+      color: #555555
+
     word-wrap: break-word
     
 .cloud-head-actions
@@ -371,11 +450,11 @@ li.cloud-user
   left: 0
   right: 0
   @media (max-width: $phone)
-    padding: 102px 0 0 0
+    padding: 45px 0 0 0
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    padding: 102px 15px 0 15px
+    padding: 114px 15px 0 15px
   @media (min-width: $desktop-s-min)
-    padding: 102px 25px 0 25px    
+    padding: 114px 25px 0 25px    
   
 .chat-footer
   position: absolute

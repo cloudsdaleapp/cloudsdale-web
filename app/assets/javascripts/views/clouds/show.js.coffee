@@ -26,7 +26,10 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
   
   bindEvents: ->
     $(@el).bind 'page:show', (event,page_id) =>
-      @show() if page_id == @model.id
+      if page_id == @model.id
+        @show() 
+      else
+        @purgeOldDialog()
     
     @model.on 'change', (model) =>
       @refreshGfx()
@@ -41,18 +44,33 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     
     nfc.on "#{@model.type}s:#{@model.id}", (payload) =>
       @model.set(payload)
-    
+      
     $(@el).bind "#{@model.type}s:#{@model.id}:users:show", (event,_id) =>
       user = session.get('users').findOrInitialize { id: _id }
       @toggleUser(user)
+    
+    $(@el).bind "#{@model.type}s:#{@model.id}:users:prosecution", (event,_model) =>
+      @toggleProsecution(_model)
+      
+    $(@el).bind "#{@model.type}s:#{@model.id}:users:prosecute", (event,_id) =>
+      offender = session.get('users').findOrInitialize { id: _id }
+            
+      _model = if _model then _model else new Cloudsdale.Models.Prosecution({
+        crime_scene_id: @model.id,
+        crime_scene_type: @model.type,
+        offender_id: offender.id,
+        prosecutor_id: session.get('user').id
+      })
+            
+      @toggleProsecution(_model)
     
   unbindEvents: ->
     $(@el).unbind('page:show').unbind("clouds:leave")
   
   refreshGfx: () ->
-    @.$('.cloud-head img').attr('src',@model.get('avatar').normal)
-    @.$('.cloud-head > h2').text(@model.get('name'))
-    @.$('.cloud-head > p').text(@model.get('description'))
+    @.$('.cloud-head .cloud-head-avatar').css('background-image',"url(#{@model.get('avatar').normal})")
+    @.$('.cloud-head > .cloud-head-inner > h2').text(@model.get('name'))
+    @.$('.cloud-head > .cloud-head-inner > p').text(@model.get('description'))
     
     resizeBottomWrapper(@.$('.cloud-sidebar-bottom'))
   
@@ -74,27 +92,45 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     @refreshGfx()
   
   toggleSettings: (event) ->
-    view = new Cloudsdale.Views.CloudsSettingsDialog(cloud: @model).el
+    view = new Cloudsdale.Views.CloudsSettingsDialog(cloud: @model)
     @renderDialog(view)
     
   toggleRules: (event) ->
-    view = new Cloudsdale.Views.CloudsRulesDialog(model: @model).el
+    view = new Cloudsdale.Views.CloudsRulesDialog(model: @model)
     @renderDialog(view)
   
   toggleDrops: (event) ->
-    view = new Cloudsdale.Views.CloudsDropsDialog(model: @model).el
+    view = new Cloudsdale.Views.CloudsDropsDialog(model: @model)
     @renderDialog(view)
   
   toggleUser: (_model) ->
-    view = new Cloudsdale.Views.CloudsUserDialog(model: _model).el
+    view = new Cloudsdale.Views.CloudsUserDialog(model: _model, topic: @model)
     @renderDialog(view)
+  
+  toggleProsecution: (_model) ->    
+    view = new Cloudsdale.Views.CloudsProsecutionDialog(model: _model)
+    @renderDialog(view)
+  
+  purgeOldDialog: (args) ->
     
-  renderDialog: (view) ->
+    args = {} unless args
+    
     if @.$('.fixed-container > .container-inner.container-inner-secondary').length > 0
-      @.$('.container-inner.container-inner-secondary').replaceWith(view)
+      @.$('.fixed-container > .container-inner.container-inner-secondary').parent().removeClass('show-secondary')
+      setTimeout =>
+        @.$('.fixed-container > .container-inner.container-inner-secondary').remove()
+        args.callback() if args.callback
+      , 400
     else
-      @.$('.fixed-container').append(view)
-    @.$('.fixed-container').addClass('show-secondary')
+      args.callback() if args.callback
+  
+  renderDialog: (view) ->
+    @purgeOldDialog
+      callback: =>
+        @.$('.fixed-container').append(view.el)
+        @.$('.fixed-container').addClass('show-secondary')
+        resizeBottomWrapper()
+        
     false
     
   leaveCloud: (event) ->
