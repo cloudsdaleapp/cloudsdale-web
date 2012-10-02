@@ -283,7 +283,7 @@ class User
     if user.nil?
       
       if oauth && email && ["twitter","facebook"].include?(oauth[:provider])
-        user = User.where(email: /^#{email}$/i).first || User.build(email: email)
+        user = User.where(email: /^#{email}$/i).first || User.new(email: email)
         user.authentications.build(uid: oauth[:uid], provider: oauth[:provider])
       else
         user = User.new(email: email, password: password)
