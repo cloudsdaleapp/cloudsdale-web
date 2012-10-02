@@ -21,6 +21,8 @@ class Api::V1::SessionsController < Api::V1Controller
   #         :cli_type - String with the type of the client.
   #                     Currently supports "ios" or "android"
   #
+  #         :user -     Attributes to write on the user.
+  #
   # Returns the session template defined in 'views/api/v1/sessions/base.rabl'.
   def create
     
@@ -70,6 +72,7 @@ class Api::V1::SessionsController < Api::V1Controller
       )
       render_exception "You are banned from this service.", 401
     else
+      @current_user.write_attributes(params[:user])
       authenticate! @current_user
     end
       
