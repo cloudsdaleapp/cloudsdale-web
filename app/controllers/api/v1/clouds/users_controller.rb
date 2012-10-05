@@ -44,6 +44,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       else
         set_flash_message message: "You could not join this cloud.", title: "Say what now!?"
         build_errors_from_model @user
+        build_errors_from_model @cloud
         render status: 422
       end
     end
@@ -71,6 +72,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       else
         set_flash_message message: "You could not leave this cloud.", title: "Say what now!?"
         build_errors_from_model @user
+        build_errors_from_model @cloud
         render status: 422
       end
       
