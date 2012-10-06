@@ -170,5 +170,12 @@ $(document).ready ->
         if ("standalone" of window.navigator) and window.navigator.standalone
           $("body").addClass('device-ios-standalone')
             
-    ), 0
+    ), 5
+    
+    setTimeout (->
+      if (navigator.userAgent.match(/iPhone|iPod/i))
+        unless ("standalone" of window.navigator) and window.navigator.standalone
+          $('body').css('height',$(window).height() + 60)
+          window.scrollTo(0, 1)
+    ), 100
   
