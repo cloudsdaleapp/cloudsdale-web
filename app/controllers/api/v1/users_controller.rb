@@ -200,7 +200,7 @@ class Api::V1::UsersController < Api::V1Controller
   #
   # Returns nothing of interest.
   def assert_recently_created_account
-    if session[:last_created_account_at] #&& Rails.env.production?
+    if session[:last_created_account_at] && Rails.env.production?
       _t = session[:last_created_account_at]
       t = (_t.is_a?(DateTime) or _t.is_a?(Time)) ? _t : DateTime.parse(_t)
       if 24.hours.ago > t
