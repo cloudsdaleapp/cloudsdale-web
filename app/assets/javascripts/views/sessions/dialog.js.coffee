@@ -141,6 +141,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     t = "<ul style='text-align: left;'>"
     $.each errors, (index,error) ->
       t += "<li><strong>#{error.ref_node}</strong> #{error.message}</li>" if error.type == "field"
+      t += "<li><strong>#{error.message}</strong></li>" if error.type == "general"
     t += "</ul>"
 
   submitRestore: ->
