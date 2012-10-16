@@ -3,6 +3,7 @@
 # Cloudsdale::Application.config.session_store :mongo_store, key: '_cloudsdale_session', collection: lambda { Mongoid.master.collection('sessions') }
 
 Cloudsdale::Application.config.session_store :redis_store,
+  expire_in: 259200,
   :servers => {
     :host => Cloudsdale.config['redis']['host'],
     :port => Cloudsdale.config['redis']['port'],
