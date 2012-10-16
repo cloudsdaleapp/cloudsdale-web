@@ -1,5 +1,7 @@
 class Api::V1::UsersController < Api::V1Controller
-  
+
+  before_filter :assert_recently_created_account, only: [:create]
+
   # Public: Fetches all users that match the supplied ids.
   # will not return 404 if one of the supplied clouds cannot be found.
   #
@@ -8,16 +10,16 @@ class Api::V1::UsersController < Api::V1Controller
   #
   # Returns an array of User objects.
   def index
-    
+
     params[:ids] ||= []
     params[:ids] << params[:id]
     params[:ids].uniq!
-    
+
     @users = User.where(:_id.in => params[:ids])
     render status: 200
-    
+
   end
-  
+
   # Public: Fetches a user from supplised id parameter
   #
   # id    - A BSON id of the user to look up.
@@ -27,7 +29,7 @@ class Api::V1::UsersController < Api::V1Controller
     @user = User.find(params[:id])
     render status: 200
   end
-  
+
   # Public: Fetches or initiates a user based upon email and
   # tries to authenticate an already existing user using the
   # password if supplied. If the user is a new record or if
@@ -42,35 +44,36 @@ class Api::V1::UsersController < Api::V1Controller
   #
   # Returns a user object.
   def create
-    
-    @oauth = fetch_oauth_credentials
-    
-    @user = User.find_or_initialize_by(email: /^#{params[:user][:email]}$/i)
 
-    if @user.new_record? or @user.can_authenticate_with password: params[:user][:password]
-      
+    @oauth = fetch_oauth_credentials
+
+    @user = User.find_or_initialize_by(email: params[:user][:email].try(:downcase))
+
+    if @user.new_record? or @user.can_authenticate_with(password: params[:user][:password])
+
       @user.write_attributes(params[:user])
-      
+
       if @oauth && ['facebook','twitter'].include?(@oauth[:provider]) && @oauth[:token] == INTERNAL_TOKEN
         @user.authentications.find_or_initialize_by(@oauth.reject { |key,value| !["provider","uid"].include?(key) })
       end
-      
+
       if @user.save
+        created_account_this_session
         authenticate! @user
         render status: 200
       else
         set_flash_message message: "One or more of the fields were invalid.", title: "Field error."
         build_errors_from_model @user
-        render status: 422 
+        render status: 422
       end
-      
+
     else
       set_flash_message message: "A user with that email already exists. If this is your email you should try recovering your account.", title: "Who goes there!?", type: "warning"
       render status: 403
     end
-    
+
   end
-  
+
   # Private: Accepts parameters to update a user object.
   # matching the given ID.
   #
@@ -79,10 +82,10 @@ class Api::V1::UsersController < Api::V1Controller
   #
   # Returns the user object.
   def update
-    
+
     @user = User.find(params[:id])
     authorize! :update, @user
-    
+
     if @user.update_attributes(params[:user])
       render status: 200
     else
@@ -90,10 +93,10 @@ class Api::V1::UsersController < Api::V1Controller
       build_errors_from_model @user
       render status: 422
     end
-    
+
   end
-  
-  
+
+
   # Public: Sends a restore email to a user matching an email.
   #
   # email - The email of the user you'd like to
@@ -101,9 +104,9 @@ class Api::V1::UsersController < Api::V1Controller
   #
   # Returns an empty response with the status 200.
   def restore
-    
+
     @user = User.where(email: params[:email].downcase).first
-    
+
     if @user && cannot?(:restore, @user)
       set_flash_message message: "You were unable to restore this account as it is suspended."
       render status: 401
@@ -114,9 +117,9 @@ class Api::V1::UsersController < Api::V1Controller
     else
       render status: 200
     end
-    
+
   end
-  
+
   # Public: Ban a user
   #
   #   date_time - A String of until what time the user should be suspended.
@@ -127,12 +130,12 @@ class Api::V1::UsersController < Api::V1Controller
   # perform the action.
   def ban
     @user = User.find(params[:id])
-    
+
     @date_time  = params[:date_time]
     @reason     = params[:reason]
-    
+
     authorize! :ban, @user
-        
+
     if @user.ban!(@date_time,@reason)
       render status: 200
     else
@@ -141,7 +144,7 @@ class Api::V1::UsersController < Api::V1Controller
       render status: 422
     end
   end
-  
+
   # Public: Unban a user
   #
   # Returns an empty response with the status 200 if successful,
@@ -150,7 +153,7 @@ class Api::V1::UsersController < Api::V1Controller
   def unban
     @user = User.find(params[:id])
     authorize! :unban, @user
-        
+
     if @user.unban!
       render status: 200
     else
@@ -159,18 +162,18 @@ class Api::V1::UsersController < Api::V1Controller
       render status: 422
     end
   end
-  
+
   # Public: Accepts the TNC for a user
   #
   # Returns an empty response with the status 200 if successful
   # or 401 if you're not allowed to perform the action.
   def accept_tnc
-    
+
     @user = User.find(params[:id])
     authorize! :accept_tnc, @user
-    
+
     @user.tnc_last_accepted = Date.current
-    
+
     if @user.save
       render status: 200
     else
@@ -178,11 +181,11 @@ class Api::V1::UsersController < Api::V1Controller
       build_errors_from_model @user
       render status: 422
     end
-    
+
   end
-  
+
   private
-  
+
   # Private: Fetches the oauth credentials by looking
   # in the session but falls back to the :oauth key in
   # the parameters hash.
@@ -191,5 +194,31 @@ class Api::V1::UsersController < Api::V1Controller
   def fetch_oauth_credentials
     session[:oauth] || params[:oauth]
   end
-  
+
+  # Private: Stops you from registering more than one
+  # account per day, per session if app is in production.
+  #
+  # Returns nothing of interest.
+  def assert_recently_created_account
+    if session[:last_created_account_at] #&& Rails.env.production?
+      _t = session[:last_created_account_at]
+      t = (_t.is_a?(DateTime) or _t.is_a?(Time)) ? _t : DateTime.parse(_t)
+      if 24.hours.ago > t
+        session[:last_created_account_at] = nil
+      else
+        set_flash_message message: "You can not register any more accounts today.", title: "Whoa there, lover boy"
+        add_error message: "You can not register any more accounts today."
+        render status: 401
+      end
+    end
+  end
+
+  # Private: Lets the session object know an account
+  # was created this session.
+  #
+  # Returns the datetime of when the method as called.
+  def created_account_this_session
+    session[:last_created_account_at] = DateTime.now
+  end
+
 end
