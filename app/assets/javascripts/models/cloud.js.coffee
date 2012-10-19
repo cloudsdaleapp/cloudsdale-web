@@ -83,4 +83,18 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
         @announcePresence()
       , 27000)
     , 3000)
-    false
+    false  toJSON: ->
+    obj =
+      id: @id
+      name: @get('name')
+      description: @get('description')
+      hidden: @get('invisible')
+      time_zone: @get('time_zone')
+      rules: @get('rules')
+
+    if @get('avatar_url')
+      obj.avatar_url = @get('avatar_url')
+    if @get('remove_avatar')
+      obj.remove_avatar = @get('remove_avatar')
+
+    return obj
