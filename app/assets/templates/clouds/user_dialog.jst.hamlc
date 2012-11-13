@@ -1,36 +1,69 @@
-.cloud-sidebar-top.clearfix
-  .cloud-sidebar-inner.clearfix
-    %a.close{ href: '#', data: { dismiss: 'dialog' } }
-      = "×"
-    .cloud-sidebar-head.clearfix
-      %img{ src: @model.get('avatar').normal }
-      %h3= @model.get('name')
-    .cloud-actions
-      - if _.include(@topic.get('moderator_ids'), session.get('user').id) and _.include(@topic.get('moderator_ids'), @model.id) == false
-        %a.btn{ href: "#", 'data-action' => 'prosecute' } 
-          %i.icon-screenshot
-          = "Prosecute"
-      - if session.isModerator()
-        %a.btn{ href: "#", 'data-action' => 'ban' } 
-          - if @model.get('is_banned')
-            %i.icon-repeat
+.sidebar-header
+  %a.close{ href: '#', data: { dismiss: 'dialog' } }= "×"
+  = @model.get('name')
+%ul.sidebar-list
+  - if _.include(@topic.get('moderator_ids'), session.get('user').id) and _.include(@topic.get('moderator_ids'), @model.id) == false
+    %li.sidebar-item.sidebar-item-using-icon
+      %a{ href: "#", 'data-action' => 'prosecute' }
+        %span.sidebar-item-name= "Prosecute"
+          %i.icon-screenshot.icon-white
+  - if session.isModerator()
+    %li.sidebar-item.sidebar-item-using-icon
+      %a{ href: "#", 'data-action' => 'ban' }
+        - if @model.get('is_banned')
+          %span.sidebar-item-name
+            %i.icon-repeat.icon-white
             = "Unban"
-    
-          - else
-            %i.icon-off
+        - else
+          %span.sidebar-item-name
+            %i.icon-off.icon-white
             = "Ban"
-            
-      - if @model.get('skype_name')
-        %a.btn{ href: "skype:#{@model.get('skype_name')}?add", 'data-action' => 'skype:add', target: "_blank" } 
-          %i.icon-plus-sign
-          = "Add on Skype"
-          
-        %a.btn{ href: "skype:#{@model.get('skype_name')}?call", 'data-action' => 'skype:call', target: "_blank" } 
-          %i.icon-exclamation-sign
-          = "Call on Skype"
-        
 
-              
-.cloud-sidebar-bottom
-  %p{ style: "padding: 10px; font-weight: bold;" }= "Coming soon: Private Messages"
-  
+  - if @model.get('skype_name')
+    %li.sidebar-item.sidebar-item-using-icon
+      %a{ href: "skype:#{@model.get('skype_name')}?add", 'data-action' => 'skype:add', target: "_blank" }
+        %span.sidebar-item-name
+          %i.icon-plus-sign.icon-white
+          = "Add on Skype"
+    %li.sidebar-item.sidebar-item-using-icon
+      %a{ href: "skype:#{@model.get('skype_name')}?call", 'data-action' => 'skype:call', target: "_blank" }
+        %span.sidebar-item-name
+          %i.icon-exclamation-sign.icon-white
+          = "Call on Skype"
+
+/ .cloud-sidebar-top.clearfix
+/   .cloud-sidebar-inner.clearfix
+/     %a.close{ href: '#', data: { dismiss: 'dialog' } }
+/       = "×"
+/     .cloud-sidebar-head.clearfix
+/       %img{ src: @model.get('avatar').normal }
+/       %h3= @model.get('name')
+/     .cloud-actions
+/       - if _.include(@topic.get('moderator_ids'), session.get('user').id) and _.include(@topic.get('moderator_ids'), @model.id) == false
+/         %a.btn{ href: "#", 'data-action' => 'prosecute' }
+/           %i.icon-screenshot
+/           = "Prosecute"
+/       - if session.isModerator()
+/         %a.btn{ href: "#", 'data-action' => 'ban' }
+/           - if @model.get('is_banned')
+/             %i.icon-repeat
+/             = "Unban"
+
+/           - else
+/             %i.icon-off
+/             = "Ban"
+
+/       - if @model.get('skype_name')
+/         %a.btn{ href: "skype:#{@model.get('skype_name')}?add", 'data-action' => 'skype:add', target: "_blank" }
+/           %i.icon-plus-sign
+/           = "Add on Skype"
+
+/         %a.btn{ href: "skype:#{@model.get('skype_name')}?call", 'data-action' => 'skype:call', target: "_blank" }
+/           %i.icon-exclamation-sign
+/           = "Call on Skype"
+
+
+
+/ .cloud-sidebar-bottom
+/   %p{ style: "padding: 10px; font-weight: bold;" }= "Coming soon: Private Messages"
+
