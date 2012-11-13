@@ -10,13 +10,16 @@ class Api::V1::Users::ProsecutionsController < Api::V1Controller
   #
   # Returns the prosecution object with a 200 status.
   def create
-    
+        
     @prosecution = @user.prosecutions.build(params[:prosecution])
-    authorize! :start, @prosecution
+    @prosecution.prosecutor = current_user
     
+    authorize! :start, @prosecution
+        
     if @prosecution.save
       render status: 200
     else
+      build_errors_from_model @prosecution
       render status: 422
     end
     
@@ -37,6 +40,7 @@ class Api::V1::Users::ProsecutionsController < Api::V1Controller
     if @prosecution.update_attributes(params[:prosecution], as: :prosecutor)
       render status: 200
     else
+      build_errors_from_model @prosecution
       render status: 422
     end
     
@@ -59,7 +63,12 @@ class Api::V1::Users::ProsecutionsController < Api::V1Controller
       current_user.unvote(@prosecution)
     end
     
-    render status: 200
+    if @prosecution.save
+      render status: 200
+    else
+      build_errors_from_model @prosecution
+      render status: 422
+    end
     
   end
 

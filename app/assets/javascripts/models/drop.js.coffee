@@ -5,7 +5,7 @@ class Cloudsdale.Models.Drop extends Backbone.Model
   defaults:
     url: "http://www.cloudsdale.org"
     title: "Cloudsdale"
-    avatar: ""
+    preview: ""
     is_transient: true
   
   visit: ->

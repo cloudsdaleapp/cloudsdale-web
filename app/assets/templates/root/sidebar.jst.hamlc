@@ -1,0 +1,8 @@
+/ %ul.sidebar-list
+/   %li.sidebar-item
+/     %a{ href: "/clouds/new" }
+/       %span.sidebar-item-name{ style: 'margin-left: 0;'}
+/         %i.icon-plus-sign.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+/         %strong= "Create new Cloud"
+.sidebar-header= "Clouds"
+%ul#sidebar-clouds.sidebar-list

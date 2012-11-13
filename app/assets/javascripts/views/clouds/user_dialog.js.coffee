@@ -9,10 +9,13 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
   events:
     'click a.close[data-dismiss="dialog"]' : "close"
     'click a[data-action="ban"]' : 'toggleUserBan'
+    'click a[data-action="prosecute"]' : 'toggleProsecution'
     'click a[data-action="skype:add"]' : 'skypeAdd'
     'click a[data-action="skype:call"]' : 'skypeCall'
   
   initialize: (args) ->
+    
+    @topic = args.topic if args.topic
     
     @render()
     @bindEvents()
@@ -20,11 +23,11 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
     this
   
   render: ->
-    $(@el).html(@template(model: @model))
+    $(@el).html(@template(model: @model, topic: @topic))
     
     resizeBottomWrapper(@.$('.cloud-sidebar-bottom'))
     
-    this
+    this    
   
   bindEvents: ->
     @model.on 'change', (event,user) =>
@@ -50,6 +53,10 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
       @model.ban
         success: (user) =>
           @model.set(user)
+  
+  toggleProsecution: ->
+    $.event.trigger "#{@topic.type}s:#{@topic.id}:users:prosecute", { id: @model.id }
+    false
   
   skypeAdd: ->
     window.open("skype:#{@model.get('skype_name')}?add").close()

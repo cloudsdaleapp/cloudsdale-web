@@ -1,0 +1,67 @@
+//
+// Responsive: Tablet to desktop
+// --------------------------------------------------
+
+body:not(.with-active-session) {
+  @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max) {
+
+    // Fixed grid
+    @include grid-core($gridColumnWidth1200, $gridGutterWidth1200);
+
+    // Fluid grid
+    @include grid-fluid($fluidGridColumnWidth1200, $fluidGridGutterWidth1200);
+
+    // Input grid
+    @include grid-input($gridColumnWidth1200, $gridGutterWidth1200);
+
+    // Thumbnails
+    .thumbnails {
+      margin-left: -$gridGutterWidth1200;
+    }
+    .thumbnails > li {
+      margin-left: $gridGutterWidth1200;
+    }
+    .row-fluid .thumbnails {
+      margin-left: 0;
+    }
+
+  }
+}
+
+body.with-active-session {
+  @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max) {
+
+    // Fixed grid
+    @include grid-core($gridColumnWidth768, $gridGutterWidth768);
+
+    // Fluid grid
+    @include grid-fluid($fluidGridColumnWidth768, $fluidGridGutterWidth768);
+
+    // Input grid
+    @include grid-input($gridColumnWidth768, $gridGutterWidth768);
+
+    // No need to reset .thumbnails here since it's the same $gridGutterWidth
+    // Thumbnails
+    .thumbnails {
+
+      @include grid-core-spanX($gridColumns/2, $gridColumnWidth768*1.59, $gridGutterWidth768);
+      @include grid-core-offsetX($gridColumns/2, $gridColumnWidth768*1.59, $gridGutterWidth768);
+
+      // Fluid grid
+      @include grid-fluid($fluidGridColumnWidth768, $fluidGridGutterWidth768);
+
+      // Input grid
+      @include grid-input($gridColumnWidth768, $gridGutterWidth768);
+
+      margin-left: -$gridGutterWidth1200;
+    }
+    .thumbnails > li {
+      margin-left: $gridGutterWidth1200;
+
+    }
+    .row-fluid .thumbnails {
+      margin-left: 0;
+    }
+
+  }
+}

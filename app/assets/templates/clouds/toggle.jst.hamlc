@@ -1,4 +1,4 @@
-%a{ href: "#" }
-  .cloud-toggle-avatar{ style: "background-image: url(#{@model.get('avatar').preview})" }
-  %span.cloud-toggle-name= @model.get('name')
-  %span.cloud-toggle-notification= "123"
+%a{ href: "/clouds/#{@model.id}" }
+  .sidebar-item-avatar{ style: "background-image: url(#{@model.get('avatar').preview})" }
+  %span.sidebar-item-name
+  %span.sidebar-item-notification

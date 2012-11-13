@@ -1,592 +1,279 @@
-.fixed-container.explore-sidebar
-  .container-inner
-    overflow-y: auto
-    overflow-x: none
-    
-.explore-header
-  margin: 10px
-  border: 1px solid $color-border-heavy
-  +linear-gradient(#fefefe,#f8f8f8)
-  +border-radius(5px)
-  hgroup
-    padding: 15px
-    h2
-      margin-bottom: 10px
+$exploreColumnWidth: 180px
+$exploreGutterWidth: 20px
 
-.explore-header-menu
-  border-top: 1px solid $color-border-heavy
-  +linear-gradient(#fefefe,#f8f8f8)
-  +border-radius(0 0 5px 5px)
-  a
-    float: left
-    display: block
-    width: 50%
-    text-align: center
-    padding: 7px 0
-    font-weight: bold
-    font-size: 14px
-    
-    &:hover
-      text-decoration: none
-  &:after
-    content: "."
-    display: block
-    clear: both
-    visibility: hidden
-    line-height: 0
-    height: 0
-      
-ul.explore-card-list
-  list-style: none
-  margin: 10px
-  padding: 0
+body.with-active-session #explore-container
+  @for $i from 1 through 12
+    $iUnitWidth: ($exploreColumnWidth + $exploreGutterWidth)
+    $iMinWidth: ($i * $iUnitWidth) + 241px
+    $iMaxWidth: $iMinWidth + ($iUnitWidth - 1px)
+    @media (min-width: $ipad-min) and (min-width: $iMinWidth) and (max-width: $iMaxWidth)
+      .container,
+      .navbar-static-top .container,
+      .navbar-fixed-top .container,
+      .navbar-fixed-bottom .container
+        @include grid-core-span($i, $exploreColumnWidth, $exploreGutterWidth)
+      .thumbnails
+        @include grid-core-spanX($i, $exploreColumnWidth, $exploreGutterWidth)
+        @include grid-core-offsetX($i, $exploreColumnWidth, $exploreGutterWidth)
 
-li.explore-card
-  position: relative
-  height: 160px
-  padding: 10px
-  margin-bottom: 10px
-  border: 1px solid $color-border-heavy
-  +linear-gradient(#fefefe,#f8f8f8)
-  +border-radius(5px)
-  &:after
-    content: "."
-    display: block
-    clear: both
-    visibility: hidden
-    line-height: 0
-    height: 0
+body:not(.with-active-session) #explore-container
+  @for $i from 1 through 12
+    $iUnitWidth: ($exploreColumnWidth + $exploreGutterWidth)
+    $iMinWidth: ($i) * $iUnitWidth
+    $iMaxWidth: $iMinWidth + ($iUnitWidth - 1px)
+    @media (min-width: $ipad-min) and (min-width: $iMinWidth) and (max-width: $iMaxWidth)
+      .container,
+      .navbar-static-top .container,
+      .navbar-fixed-top .container,
+      .navbar-fixed-bottom .container
+        @include grid-core-span($i, $exploreColumnWidth, $exploreGutterWidth)
+      .thumbnails
+        @include grid-core-spanX($i, $exploreColumnWidth, $exploreGutterWidth)
+        @include grid-core-offsetX($i, $exploreColumnWidth, $exploreGutterWidth)
 
-.explore-card-actions
-  position: absolute
-  padding: 10px
-  bottom: 0
-  left: 0
-  right: 0
-  text-align: right
-  a
-    font-size: 14px
-    line-height: 14px
-    vertical-align: text-top
-    padding: 6px 8px
-    font-weight: bold
-    border: 1px solid $color-border-heavy
-    +border-radius(3px)
-    i
-      float: right
-      margin-left: 5px
-
-.explore-create-wrapper
-  @media (min-width: $ipad-min)
-    position: absolute
-    
-    overflow: hidden
-    
-    top: 0
-    height: 299px
-    width: 100%
-    
+#explore-container
+  .navbar-inner
+    background: 0
+    border: 0
+    +box-shadow(0,0,0,#000)
     padding: 0
+
+  .pull-right, .pull-left
+    position: absolute
+    height: 35px
+  .pull-right
+    width: 125px
+    right: 0
+    left: auto
     margin: 0
-    
-    border-bottom: 1px solid $color-border-heavy
-    
-    background-color: #f8f9fc
-    background-image: image-url("details/background_clouds.png")
-    background-image: asset-data-url("details/background_clouds.svg")
-    background-size: 1800px auto
-    background-repeat: repeat-x
-    background-position: center 20px
-
-.explore-create-inner
-  @media (min-width: $ipad-min)
-    position: absolute
-    top: 0
-    bottom: 0
-    left: 50%
-    width: 480px
-    margin-left: -240px
-    &.active
-      .explore-create-pony
-        +opacity(0)
-        left: -50px
-        right: 50px
-        pointer-events: none
-        
-      a.explore-create-start
-        +opacity(0)
-        right: -20px
-        pointer-events: none
-      
-      form.explore-create-form
-        +opacity(1)
-        top: 0
-        bottom: 0
-        pointer-events: all
-        
-.explore-create-pony
-  position: absolute
-  top: 0
-  bottom: 0
-  right: 0
-  left: 0
-  +opacity(1)
-  background-image: image-url("contributors/zeeraw.png")
-  background-repeat: no-repeat
-  background-size: auto 90%
-  background-position: 20px center
-  @each $vendor in "", -webkit-, -o-, -moz-
-    #{$vendor}transition-property: right, left, opacity
-    #{$vendor}transition-duration: .4s, .4s, .4s
-
-form.explore-create-form
-  position: absolute
-  top: 30px
-  bottom: -30px
-  right: 0
-  left: 0
-  margin: 40px 20px
-  background: #63A0D0 $bgStripes
-  border: 1px solid $color-border-light
-  pointer-events: none
-  +border-radius(5px 5px)
-  +opacity(0)
-  @each $vendor in "", -webkit-, -o-, -moz-
-    #{$vendor}transition-property: top, bottom, opacity
-    #{$vendor}transition-duration: .4s, .4s, .4s
-  
-  .control-group
-    position: absolute
-    top: 0
-    bottom: 71px
-    right: 0
-    left: 0
-    margin: 7px 7px 0 7px
-    background: #fefefe
-    border: 1px solid $color-border-heavy
-    +border-radius(5px 5px 0 0)
-    .controls
-      position: absolute
-      left: 0
-      right: 0 
-      top: 0
-      bottom: 0
-      margin: 40px
-      label
-        font-size: 14px
-        margin-bottom: 10px
-      input
-        padding: 10px
-        width: 100%
-        margin: 0
-        margin-left: -11px
-        font-size: 18px
-  
-  .form-actions
-    margin: 0 7px 7px 7px
-    position: absolute
-    bottom: 0
-    right: 0
-    left: 0
-    border: 1px solid $color-border-heavy
-    border-top: 0
-    +border-radius(0 0 5px 5px)
-    text-align: right
-
-    
-a.explore-create-start, a.explore-create-login
-  
-  position: absolute
-  right: 20px
-  top: 50%
-  
-  display: block
-  
-  padding: 5px
-  
-  color: #f8f8f8
-  font-size: 16px
-  line-height: 22px
-  font-weight: bold
-  text-align: center
-  text-shadow: -1px -1px 0 rgba(0,0,0,.3)
-  
-  +linear-gradient(#63a0d0,#3f85b3)
-  +opacity(1)
-  @each $vendor in "", -webkit-, -o-, -moz-
-    #{$vendor}transition-property: right, left, opacity, background
-    #{$vendor}transition-duration: .4s, .4s, .4s, .4s
-  
-  border: 1px solid $color-border-dark
-  +border-radius(3px)
-  &:hover
-    text-decoration: none
-  
-  &:focus, &:active
-    +linear-gradient(#63a0d0,lighten(#3f85b3,10%))
-
-
-.explore-search-wrapper
-  @media (min-width: $ipad-min)
-    position: absolute
-    
-    top: 300px
-    bottom: 0
-    width: 100%
-    
     padding: 0
-    margin: 0
-    
-    border-top: 1px solid #fff
-    
-    &:after
-      content: ""
-      position: absolute
-      top: 36px
-      bottom: 0
-      right: 0
-      left: 0
-      background-image: asset-data-url("bg-noise.png")
-      
+  .pull-left
+    left: 0
+    right: 135px
+
+  form#explore-search
+    position: relative
+    margin-right: 32px
     &:before
       content: ""
       position: absolute
-      top: 36px
-      bottom: 0
-      right: 0
-      left: 0
-      background: #e0e0e0 asset-data-url("details/wing_watermark.png")
-      background-position: center center
-      background-size: 50%
+      top: 11px
+      left: 9px
+      z-index: 1
+      display: inline-block
+      width: 14px
+      height: 14px
+      line-height: 14px
+      pointer-events: none
+      background-image: $iconSpritePath
+      background-position: 14px 14px
       background-repeat: no-repeat
-      +opacity(.2)
-    
-    &.with-search-results
-      form#explore-search > a.drop-close-search, .explore-search-sidefade, ul.explore-cloud-list
-        display: block
-    
-.explore-search-sidefade
-  position: absolute
-  top: 36px
-  bottom: 0
-  display: none
-  pointer-events: none
-  z-index: 1
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    width: 15px
-  @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
-    width: 45px
-  @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
-    width: 75px
-  @media (min-width: $desktop-l-min)
-    width: 105px
-    
-  &.right
-    left: auto
-    right: 0px
-    background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(254,254,254,0)), color-stop(100%,rgba(255,255,255,1)))
-    background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
-    background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
-    background: -ms-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
-    background: linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00fefefe', endColorstr='#ffffff',GradientType=1 )
-    
-    
-    @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      right: 10px
-    @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
-      right: 30px
-    @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
-      right: 50px
-    @media (min-width: $desktop-l-min)
-      right: 70px
-    
-  &.left
-    right: auto
-    left: 0px
-    background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)))
-    background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%)
-    background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%)
-    background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%)
-    background: linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%)
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#00ffffff',GradientType=1 )
-    
-    @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      left: 10px
-    @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
-      left: 30px
-    @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
-      left: 50px
-    @media (min-width: $desktop-l-min)
-      left: 70px
-    
-  
-form#explore-search
-  position: relative
-  padding: 5px 30px 5px 5px
-  margin: 0
-  float: none
-  border-bottom: 1px solid rgba(0,0,0,.3)
-  +linear-gradient(#f8f8f8,#EFEFEF)
-  i.icon-search
-    position: absolute
-    margin: 5px
-  a.drop-close-search
-    position: absolute
-    display: none
-    right: 5px
-    margin: 5px
-    height: 14px
-    width: 14px
-    line-height: 10px
-    font-weight: bold
-    text-align: center
-    background: rgba(0,0,0,.2)
-    color: rgba(255,255,255,.7)
-    +border-radius(7px)
-    &:hover
-      background: rgba(0,0,0,.4)
-      text-decoration: none
-      
-  input
-    width: 100%
-    padding: 3px 3px 0px 20px
-    font-size: 12px
-    resize: none
-    min-height: 20px
-    color: #404040
-    background: rgba(0, 0, 0, 0.05)
-    border: rgba(0, 0, 20, 0.2) solid 1px
-    margin-bottom: 0
-    +border-radius(3px)
-    +box-shadow-inset(0px,0px,1px,rgba(255,255,255,1))
-    height: auto
-    
-  &.with-search-results
-    a.drop-close-search
-      display: block
+      background-position: -48px  0
+      margin-top: 1px
+      +opacity(.35)
+    input[type=text]
+      padding-left: 26px
+      margin-left: 0
+      width: 100% !important
+      background: rgba(0,0,0,.05)
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}box-shadow: inset 1px 1px 2px rgba(0,0,0,.2), 0 1px 1px rgba(255,255,255,1)
+      &:active, &.active, &:focus
+        outline: none
+        border-color: $color-border-heavy
+        @each $vendor in -moz-, -o-, -webkit-, ""
+          #{$vendor}box-shadow: inset 1px 1px 2px rgba(0,0,0,.2), 0 1px 1px rgba(255,255,255,1)
 
-ul.explore-cloud-list
-  list-style: none
-  padding: 0
-  margin: 0
-  position: absolute
-  display: none
-  top: 36px
-  bottom: 0
-  left: 0
-  right: 0
-  overflow: auto
-  background: #ffffff
-  z-index: 1
-  
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    padding: 0 10px
-  @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
-    padding: 0 30px
-  @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
-    padding: 0 50px
-  @media (min-width: $desktop-l-min)
-    padding: 0 70px
+  .explore-tab-nav > li
+    margin-top: 5px
+    width: 60px
+    &:not(:last-child)
+      margin-right: 5px
+    a
+      font-size: 11px
+      padding: 4px 6px
+      +border-radius(3px)
+      line-height: 20px
+      border: solid 1px transparent
+      text-align: center
+    &:not(.active):hover > a
+      text-decoration: underline
+    &.active > a
+      // background: rgba(0,0,0,.1)
+      +linear-gradient(#FFF,#FAFAFA)
+      border-color: $color-border-light
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}box-shadow: 0 1px 1px rgba(255,255,255,1)
+      &:hover
+        border-color: $color-border-heavy
 
-li.explore-cloud-list-item
-  position: relative
-  border-bottom: 1px solid rgba(0,0,0,.2)
-  
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    padding: 10px 20px
-  @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
-    padding: 10px 50px
-  @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
-    padding: 10px 80px
-  @media (min-width: $desktop-l-min)
-    padding: 10px 110px
-    
-  &:hover
-    background-position: 50%
-    
-  &:after
-    content: "."
-    display: block
-    clear: both
-    visibility: hidden
-    line-height: 0
-    height: 0
 
-.explore-cloud-list-image
-  float: left
-  margin: 7px
-  padding: 3px
-  border: 1px solid $color-border-light
-  +border-radius(3px)
-  +box-shadow(1px,1px,2px,rgba(0,0,0,.2))
-  img
-    height: 70px
-    width: 70px
-    
-.explore-cloud-list-title
-  
-  font-size: 15px
-  line-height: 20px
-  font-weight: bold
-  
-  display: block
-  margin-left: 95px
-  padding: 10px 7px 0 0
 
-p.explore-cloud-list-description
-  margin-left: 95px
-  padding: 0 7px 0 0
-  word-wrap: break-word
-
-.explore-cloud-list-actions
-  float: right
-  margin: 35px 7px
-  a
-    font-size: 14px
-    line-height: 14px
-    vertical-align: text-top
-    padding: 8px 12px
-    font-weight: bold
-    border: 1px solid $color-border-heavy
-    +border-radius(3px)
-    i
-      float: right
-      margin-left: 5px
-    
-.explore-cloud-list-stats
-  position: absolute
-  margin:  0 10px 10px 95px
-  bottom: 0
-  right: 0
-  left: 0
-    
-  &:after
-    content: "."
-    display: block
-    clear: both
-    visibility: hidden
-    line-height: 0
-    height: 0
-    
-span.explore-cloud-list-stat
-  display: block
-  width: 33%
-  float: left
-  font-size: 12px
-  line-height: 14px
-
-  
-.explore-preview
-  
-  @media (max-width: $phone)
-    display: none
-    
-  @media (min-width: $ipad-min)
-    width: 320px
-    height: 360px
-  
-    background: #F0F0F0
-  
-    border-right: 1px solid #fff
-    
-    +border-radius(9px 0 0 9px)
-    // +box-shadow-inset(0,0,3px,rgba(0,0,0,.4))
-    
-    article, header, .explore-preview-nav
+  .container
+    @media (max-width: $phone)
+      margin-bottom: 0
+  .navbar
+    @media (max-width: $phone)
+      margin: 0
+    @media (min-width: $ipad-min)
+      margin: 20px 0
+  .thumbnails
+    @media (max-width: $phone)
+      margin: 0
+    @media (min-width: $ipad-min)
+      margin-left: -$exploreGutterWidth
+  .thumbnails > .loading-content
+    position: relative
+    min-height: 180px
+  .thumbnails > li
+    @media (max-width: $phone)
+      padding: 0
+      margin: 0
+    @media (min-width: $ipad-min)
+      padding: 0
+      margin-left: $exploreGutterWidth
+  .thumbnails > li > .thumbnail
+    +box-shadow(0,0,0,transparent)
+    border: 0
+    @media (max-width: $phone)
+      +border-radius(0)
+      border-bottom: 1px solid $color-border-light
       padding: 10px
-    
-    .explore-preview-nav
-      &:after
-        content: "."
-        display: block
-        clear: both
-        visibility: hidden
-        line-height: 0
-        height: 0
-    
-    .explore-preview-nav
+      +linear-gradient(#FFF,#F9F9F9)
+    @media (min-width: $ipad-min)
+      padding: 0
+      +border-radius(3px)
+
+  .thumb-head
+    @media (min-width: $ipad-min)
+      position: relative
+      height: 180px
+      width: 180px
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}perspective: 1000px
+      &:hover
+
+        .explore-cloud-list-image
+          @each $vendor in -moz-, -o-, -webkit-, ""
+            #{$vendor}transform: rotateY(180deg)
+            #{$vendor}box-shadow: 0 10px 15px rgba(0,0,0,.3)
+
+          z-index: 0
+        .explore-cloud-list-more
+          @each $vendor in -moz-, -o-, -webkit-, ""
+            #{$vendor}transform: rotateY(360deg)
+          z-index: 1
+
+  .explore-cloud-list-image, .explore-cloud-list-more
+    backface-visibility: hidden
+    @media (min-width: $ipad-min)
+      position: absolute
+      overflow: hidden
+      height: 178px
+      width: 178px
+      border: 1px solid $color-border-light
+      +border-radius(5px)
+      @each $vendor in -moz-, -webkit-, ""
+        #{$vendor}transform-style: preserve-3d
+        #{$vendor}transition: all .5s ease-in-out
+
+  .explore-cloud-list-image
+    background-size: 100% 100%
+    background-color: #FEFEFE
+    background-repeat: no-repeat
+    @media (max-width: $phone)
+      position: relative
+      float: left
       height: 100px
-      img
-        float: left
-        margin-right: 10px
-        height: 100px
-        width: 100px
-        +border-radius(5px)
-
-ul.explore-results
-  
-  list-style: none
-  margin: 0
-  padding: 0
-  
-  
-    
-  @media (max-width: $phone)
-    float: none
-    width: auto
-    
-    overflow: none
-      
-  @media (min-width: $ipad-min)
-    float: right
-    
-    width: 398px
-    height: 360px
-    
-    border-left: 1px solid $color-border-heavy
-    
-    overflow: auto
-    
-    +border-radius(0 9px 9px 0)  
-            
-  &:after
-    content: "."
-    display: block
-    clear: both
-    visibility: hidden
-    line-height: 0
-    height: 0
-
-
-li.explore-result
-  border-top: 1px solid rgba(255,255,255,1)
-  border-bottom: 1px solid $color-border-heavy
-  +linear-gradient(#fefefe,#f8f8f8)
-  
-  &:first-child
-    +linear-gradient(#f4f4f4,#eeeeee)
-  a
-    padding: 4px
-    color: inherit
-    display: block
-    
-    &:hover
-      text-decoration: none
-      color: inherit
-    &:after
-      content: "."
-      display: block
-      clear: both
-      visibility: hidden
-      line-height: 0
-      height: 0
-  
-  img
-    float: left
-    width: 40px
-    height: 40px
-    margin-right: 10px
-    +border-radius(3px)
+      width: 100px
+      margin-right: 10px
+      border: 1px solid $color-border-dark
+      +border-radius(3px)
+    @media (min-width: $ipad-min)
+      z-index: 1
+      cursor: pointer
     @each $vendor in -moz-, -o-, -webkit-, ""
-      #{$vendor}box-shadow: inset 0 0 1px rgba(0,0,0,.9)
-    
-  h4
-    line-height: 40px
+      #{$vendor}box-shadow: 0 2px 3px rgba(0,0,0,.2)
 
+    &:before, &:after
+      content: ""
+      position: absolute
+      height: 100%
+      width: 100%
+      top: 0
+      pointer-events: none
+    &:before
+      z-index: 3
+      background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 67%, rgba(0, 0, 0, 0.05) 90%, rgba(0, 0, 0, 0.15) 100%)
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(67%, rgba(0, 0, 0, 0)), color-stop(90%, rgba(0, 0, 0, 0.05)), color-stop(100%, rgba(0, 0, 0, 0.15)))
+      background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 67%, rgba(0, 0, 0, 0.05) 90%, rgba(0, 0, 0, 0.15) 100%)
+      background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 67%, rgba(0, 0, 0, 0.05) 90%, rgba(0, 0, 0, 0.15) 100%)
+      background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 67%, rgba(0, 0, 0, 0.05) 90%, rgba(0, 0, 0, 0.15) 100%)
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 67%, rgba(0, 0, 0, 0.05) 90%, rgba(0, 0, 0, 0.15) 100%)
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#26000000',GradientType=0 )
+    &:after
+      z-index: 4
+      background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 100%)
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.25)), color-stop(49%, rgba(255, 255, 255, 0.2)), color-stop(50%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 0.2)))
+      background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 100%)
+      background: -o-linear-gradient(top, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 100%)
+      background: -ms-linear-gradient(top, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 100%)
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 100%)
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#40ffffff', endColorstr='#33ffffff',GradientType=0 )
 
+  .explore-cloud-list-more
+    @media (max-width: $phone)
+      margin-left: 110px
+      .explore-cloud-list-title
+        display: block
+      .btn-join
+        margin-bottom: 5px
+    @media (min-width: $ipad-min)
+      z-index: 0
+      background: #63a0d0 image-url("bg-noise-bar.png")
+      background: image-url("bg-noise-bar.png"), url(data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYzYTBkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZjg1YjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+      background: image-url("bg-noise-bar.png"), -moz-linear-gradient(top,  #63a0d0 0%, #3f85b3 100%)
+      background: image-url("bg-noise-bar.png"), -webkit-gradient(linear, left top, left bottom, color-stop(0%,#63a0d0), color-stop(100%,#3f85b3))
+      background: image-url("bg-noise-bar.png"), -webkit-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+      background: image-url("bg-noise-bar.png"), -o-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+      background: image-url("bg-noise-bar.png"), -ms-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+      background: image-url("bg-noise-bar.png"), linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63a0d0', endColorstr='#3f85b3',GradientType=0 )
 
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}transform: rotateY(180deg)
+      .explore-cloud-list-title
+        display: none
+      .btn-join
+        position: absolute
+        display: block
+        bottom: 0
+        left: 0
+        right: 0
+        margin: 5px
+        padding-left: 30px
 
+  .explore-cloud-list-title
+    display: block
+    height: 48px
+    font-size: 14px
+    line-height: 24px
+    color: #444
+    text-shadow: 1px 1px 0 #fff
+    font-weight: bold
+    @media (max-width: $phone)
+      display: none
+      margin-bottom: 22px
+    @media (min-width: $ipad-min)
+      padding-top: 5px
+      text-align: center
 
+  .explore-cloud-list-subhead
+    @media (max-width: $phone)
+      display: none
+    padding: 5px 5px 0 5px
+    margin: 0
+    font-size: 13px
+    font-weight: bold
+    color: #FFFFFF
+    text-shadow: 1px 1px 1px rgba(0,0,0,.3)

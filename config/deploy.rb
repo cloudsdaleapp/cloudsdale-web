@@ -1,4 +1,4 @@
-# config/deploy.rb 
+# config/deploy.rb
 require "bundler/capistrano"
 require 'capistrano_colors'
 
@@ -41,27 +41,27 @@ after 'deploy:assets:precompile', 'deploy:assets:upload', 'deploy:permissions:up
 after "deploy:restart", "deploy:updater:web"
 
 namespace :deploy do
-  
+
   desc "Deploy your application"
   task :default do
     update
     restart
   end
-  
+
   namespace :assets do
     desc "Deploy assets to Rackspace CloudFiles"
     task :upload, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
       run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} assets:upload"
     end
   end
-  
+
   namespace :updater do
     desc "Sends an update notification to all web clients."
     task :web, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
       run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} updater:web"
     end
   end
-  
+
   namespace :permissions do
     task :update, :roles => :app, :except => { :no_release => true } do
       run "#{try_sudo} chown -R deploy:deploy /opt/app"
@@ -161,7 +161,7 @@ namespace :deploy do
       rollback.cleanup
     end
   end
-  
+
 end
 
 def run_rake(cmd)

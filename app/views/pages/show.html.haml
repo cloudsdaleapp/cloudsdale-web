@@ -1,0 +1,2 @@
+- if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{@static_page}.html.haml"))
+  = render partial: "#{@static_page}"

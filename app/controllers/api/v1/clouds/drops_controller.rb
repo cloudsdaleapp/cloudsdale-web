@@ -1,17 +1,17 @@
 class Api::V1::Clouds::DropsController < Api::V1Controller
-  
+
   #   headers - The headers you can use to modify your results:
   #
   #             X-Result-Page - An Integer used as an offset for the pagination.
   #             X-Result-Time - A DateTime timestamp of which you should fetch no records after.
   #
   before_filter only: [:index,:search] do
-    
+
     @page = request.headers["X_RESULT_PAGE"].to_i || 1
     @time = request.headers["X_RESULT_TIME"] ? Time.parse(request.headers["X_RESULT_TIME"]) : Time.now
-    
+
   end
-  
+
   # Fetches the the drops for the cloud with :cloud_id
   # this query can be paginated from a timestamp.
   #
@@ -19,17 +19,17 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
   #
   # Returns a Drops collection with 10 results at a time.
   def index
-    
+
     @cloud = Cloud.find(params[:cloud_id])
-    
+
     authorize! :read, @cloud
-    
+
     @drops = Drop.only_visable.after_on_topic(@time,@cloud).order_by_topic(@cloud).page(@page).per(10)
-        
+
     render status: 200
-    
+
   end
-  
+
   # Fetches the the drops for the cloud with :cloud_id
   # based on :q search query.
   #
@@ -38,15 +38,15 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
   #
   # Returns a Drops collection.
   def search
-    
+
     @cloud = Cloud.find(params[:cloud_id])
-    @query = params[:q]
-    
+    @query = params[:q] || ""
+
     authorize! :read, @cloud
-    
+
     @drops = Drop.only_visable.fulltext_search(@query, depositable_ids: { any: [@cloud.id.to_s] })
     @drops = Kaminari.paginate_array(@drops).page(@page).per(10)
-        
+
     render status: 200
   end
 
@@ -57,11 +57,11 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
   #
   # Returns the drop object with a status of 200 if successful & 422 if unsuccessful.
   def destroy
-    
+
     @cloud = Cloud.find(params[:cloud_id])
     @drop = Drop.find(params[:id])
     authorize! :destroy, @drop
-            
+
     if @drop.destroy
       render status: 200
     else
@@ -69,7 +69,7 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
       build_errors_from_model @drop
       render status: 422
     end
-    
+
   end
 
   # Returns a Drops collection with 10 results at a time.
@@ -78,18 +78,15 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
   #
   #             X-Result-Page - An Integer used as an offset for the pagination.
   #             X-Result-Time - A DateTime timestamp of which you should fetch no records after.
+  #
   after_filter only: [:index,:search] do
-    
+
     response.headers["X-Result-Page"] = @page.to_s
-    
     response.headers["X-Result-Next"] = (@page + 1).to_s unless @drops.last_page?
-    
     response.headers["X-Result-Prev"] = (@page - 1).to_s unless @drops.first_page?
-    
     response.headers["X-Result-Time"] = @time.to_s
-    
     response.headers["X-Result-Total"] = @drops.total_count.to_s
-    
+
   end
-  
+
 end

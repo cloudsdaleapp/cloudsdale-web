@@ -4,37 +4,82 @@
     %title= @title || "Cloudsdale"
     %meta{ name: "description", content: "Cloudsdale, the best place in the sky. A fast, reliable and beautiful chat app exclusively for bronies." }
     %meta{ name: "keywords", content: "Cloudsdale, MLP, MLP:FiM, FiM, My Little Pony, My Little Pony: Friendship is Magic, Friendship is Magic, Social Network, chat, web, app, desktop, mobile, Android, iOS, Windows Phone 7, Ruby On Rails, HTML5, CSS3, Javascript, Equestria, Cloud, raindrop, drop, pony, brony, Twilight Sparkle, Pinkie Pie, Fluttershy, Rarity, Applejack, Rainbow Dash, Zeeraw, Lisinge, Berwyn, Zimber Fuzz, Manearion, Xtux, Shansai, Aethe, Connorcpu, fansite, Nginx" }
-    
+
     %meta{ name: "google", content: "notranslate"}
     %meta{ name: "google-site-verification", content: "nIOB-knlcXNH0BO6YGcfXouYY2aL8XxcdkEG-nYcpYQ" }
-    
+
+  %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view" }
+
     %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
     %meta{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }
     %meta{ name: "apple-itunes-app", content: "app-id=567369714" }
-    
-    %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view"}
-    
+
     %link{ href: "/assets/application.css", media: "screen", rel: "stylesheet", type: "text/css" }
+    %link{ href: 'http://fonts.googleapis.com/css?family=Poiret+One', rel: 'stylesheet', type: 'text/css' }
     / = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = favicon_link_tag "favicons/48by48.ico"
     = csrf_meta_tags
     = analytics_init :local => Rails.env.development?
-    
+
     %meta{ property: "og:title", content: "Cloudsdale" }
     %meta{ property: "og:description", content: "Cloudsdale, the best place in the sky. A fast, reliable and beautiful chat app exclusively for bronies." }
     %meta{ property: "og:type", content: "website" }
     %meta{ property: "og:url", content: "http://www.cloudsdale.org" }
     %meta{ property: "og:image", content: Rails.env.development? ? (Cloudsdale.config['url'] + image_path('logo/main_logo.png')) : image_path('logo/main_logo.png')}
-    
-  %body{ "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
-    .loading-content
-    .watdiv
-      %div{ itemscope: true, itemtype: "http://schema.org/Thing" }
-        %span{ itemprop: 'name' }= "Explore"
-        %span{ itemprop: 'description' }= "This is the place where you find new places or create one of your own."
-        %a{ itemprop: 'url', href: '/explore' }= "Take a tour..."
-      %div{ itemscope: true, itemtype: "http://schema.org/Thing" }
-        %span{ itemprop: 'name' }= "Info"
-        %span{ itemprop: 'description' }= "Want to know about us? head here and we'll tell you more."
-        %a{ itemprop: 'url', href: '/info' }= "Learn more..."
+  %body{ "data-status" => response.status, "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
+    .topnav
+      .topnav-inner
+    .sidebar
+    .main-container
+      .view-container.scrolling-container#page-container
+        .container.paper-container
+          = yield
+        %footer.container.footer-container
+          .row-fluid
+            .span3.hidden-on-phone.hidden-on-tablet
+              %center{ style: "padding: 10px 30px;" }
+                = image_tag("logo/color-icon-small.png")
+            .span9
+              .row
+                .span12
+                  %p.lead= "My Little Pony: Friendship is Magic is © Hasbro. The Cloudsdale team is not affiliated to Hasbro, The Hub or its associates."
+              .row
+                .span4
+                  %ul.unstyled
+                    %lh= "Cloudsdale"
+                    %li
+                      %a{ href: "/privacy-policy" }= "Privacy Policy"
+
+                    %li
+                      %a{ href: "/terms-and-conditions" }= "Terms & Conditions"
+
+                    %li
+                      %a{ href: "/meet-the-crew" }= "Meet the Crew"
+
+                .span4
+                  %ul.unstyled
+                    %lh= "Other"
+                    %li
+                      %a{ href: "http://www.github.com", target: "_blank" }= "GitHub"
+
+                    %li
+                      %a{ href: "http://www.rubyonrails.org", target: "_blank" }= "Ruby on Rails"
+
+                    %li
+                      %a{ href: "http://www.nodejs.org", target: "_blank" }= "Node.js"
+
+                    %li
+                      %a{ href: "http://www.backbonejs.org", target: "_blank" }= "Backbone.js"
+
+                    %li
+                      %a{ href: "http://www.rackspace.com", target: "_blank" }= "Rackspace™"
+
+                .span4
+                  %ul.unstyled
+                    %lh= "Community"
+                    %li
+                      %a{ href: "/contribute" }= "Contribute"
+                    %li
+                      %a{ href: "/docs" }= "API Documentation"
+

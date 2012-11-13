@@ -11,7 +11,7 @@ window.railsRestSync = (method, model, options) ->
 
 window.renderErrorPageFrom = (response) ->
   status = response.status
-  
+
   if status == 404
     Backbone.history.navigate("/notfound",true)
   else if status == 403
@@ -33,7 +33,7 @@ window.getObjectClass = (obj) ->
   if obj and obj.constructor and obj.constructor.toString
     arr = obj.constructor.toString().match(/function\s*(\w+)/)
     return arr[1]  if arr and arr.length is 2
-    
+
   undefined
 
 window.escapeHTML = (html) ->
@@ -41,7 +41,7 @@ window.escapeHTML = (html) ->
   findReplace = [ [ /&/g, "&amp;" ], [ /</g, "&lt;" ], [ />/g, "&gt;" ], [ /"/g, "&quot;" ], [ /\\\\/g, "&#92;" ] ]
   for item of findReplace
     escaped = escaped.replace(findReplace[item][0], findReplace[item][1])
-  
+
   return escaped
 
 window.merge_options = (obj1, obj2) ->
@@ -66,6 +66,30 @@ window.resizeBottomWrapper = (elems) ->
           bottom: 0
       , 100
 
+window.parseUri = (str) ->
+  o = parseUri.options
+  m = o.parser[(if o.strictMode then "strict" else "loose")].exec(str)
+  uri = {}
+  i = 14
+  uri[o.key[i]] = m[i] or ""  while i--
+  uri[o.q.name] = {}
+  uri[o.key[12]].replace o.q.parser, ($0, $1, $2) ->
+    uri[o.q.name][$1] = $2  if $1
+
+  uri
+
+window.parseUri.options =
+  strictMode: false
+  key: ["source", "protocol", "authority", "userInfo", "user", "password", "host", "port", "relative", "path", "directory", "file", "query", "anchor"]
+  q:
+    name: "queryKey"
+    parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+
+  parser:
+    strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/
+    loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+
+
 window.isMobile =
   Android: ->
     (if navigator.userAgent.match(/Android/i) then true else false)
@@ -81,8 +105,8 @@ window.isMobile =
 
   any: ->
     isMobile.Android() or isMobile.BlackBerry() or isMobile.iOS() or isMobile.Windows()
-      
-$(window).bind 'resize', (e) ->
+
+$(window).bind 'resizestop', (e) ->
   resizeBottomWrapper()
 
 jQuery.extend skype: (failureFunction) ->
@@ -119,63 +143,72 @@ window.Cloudsdale =
   Routers: {}
   init: ->
     new Cloudsdale.Routers.Root()
+    new Cloudsdale.Routers.Explore()
     new Cloudsdale.Routers.Clouds()
     Backbone.history.start({pushState: true})
     window.app = Backbone.history
-    
+
 $('a[rel="safe"]').live 'click', (event,target) ->
   _href = @href.match /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i
-  
+
   protocol = _href[1]
   top_dom = _href[2]
   path = _href[3]
-  
+
   inhouse = (top_dom.match(/cloudsdale.org/i) != null)
-  
+
   if inhouse
     event.preventDefault()
     Backbone.history.navigate(path,true)
     return false
   else
     return @
-    
+
 $(document).ready ->
   # Initializes the notification centre
   window.nfc = new NotificationCentre()
-  
+
   # Sets the session for the current user
   window.session = new Cloudsdale.Models.Session($('body').data().session)
-  
+  if $('#page-container > .container.paper-container').children().length >= 1
+    window.page_src = new $('#page-container > .container.paper-container').html()
+  else
+    window.page_src = null
+  window.footer_src = $('#page-container > footer.container.footer-container').html()
+  window.statusCode = $('body').data().status
+
+  $('body').html('<div class="loading-content" />')
+
   $.skype ->
     window.open("http://www.skype.com/", '_blank')
     window.focus()
 
   $(document).bind "connected:nfc", ->
-    
+
     # Changes an attribute to the document if focused
     # Initializes as true
     window.window_focus = true
     $(window).focus(-> document.window_focus = true).blur(-> document.window_focus = false)
-  
+
     # Initializes the root view.
     view = new Cloudsdale.Views.Root()
     $('body').replaceWith(view.el)
-    
+
     Cloudsdale.init()
-    
+
     # iPad, iPhone & iPod installed web-app top margin correction.
     setTimeout (->
       if (navigator.userAgent.match(/iPhone|iPod|iPad/i))
         $("body").addClass('device-ios')
         if ("standalone" of window.navigator) and window.navigator.standalone
           $("body").addClass('device-ios-standalone')
-            
+
     ), 5
-    
+
     setTimeout (->
       if (navigator.userAgent.match(/iPhone|iPod/i))
         unless ("standalone" of window.navigator) and window.navigator.standalone
           $('body').css('height',$(window).height() + 60)
           window.scrollTo(0, 1)
     ), 100
-  
+

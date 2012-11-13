@@ -1,3 +1,12 @@
+.session-tooltip
+  @media (min-width: $ipad-min)
+    margin-top: -45px !important
+  
+  ul
+    list-style: none
+    padding: 5px
+    margin: 0
+        
 .modal.auth_dialog
   //background: $bgTexture //#63A0D0 asset-data-url("bg-noise-bar.png")
   // border: 1px solid #fff
@@ -12,6 +21,12 @@
   background: image-url("bg-noise-bar.png"), linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63a0d0', endColorstr='#3f85b3',GradientType=0 )
   
+  @media (max-width: $phone)
+    margin: 20px auto 0 auto
+  
+  @media (min-width: $ipad-min) and (max-width: $ipad-max)
+    margin: 150px auto 0 auto
+    
   width: 260px
   margin-left: -130px
 

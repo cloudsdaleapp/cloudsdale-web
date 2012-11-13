@@ -1,30 +1,51 @@
-class Cloudsdale.Views.CloudsPreview extends Backbone.View
-  
+class Cloudsdale.Views.CloudsCard extends Backbone.View
+
   template: JST['clouds/card']
-  
+
   model: 'cloud'
   tagName: 'li'
-  className: 'explore-card'
-  
+  className: 'span1'
+
   events:
     'click a[data-action=join-cloud]' : "joinCloud"
-  
+
   initialize: (args) ->
-    
+
     args = {} unless args
-    
+
     @model = args.model if args.model
-    
+
     @render()
     @bindEvents()
-          
+    setTimeout =>
+      @refreshGfx()
+    , 10
+
   render: ->
     $(@el).html(@template(view: @, model: @model))
+
+    @model.importantUsers
+      success: (users) =>
+        $.each users, (id,user) =>
+          @.$('.card-faces').append("<li class='span3'>
+            <div class='thumbnail'>
+              <img src='#{user.get('avatar').normal}', data-aspect-ratio=1 />
+            </div>
+          </li>")
+
+    @model.on 'change', => @refreshGfx()
+
     this
-  
+
+  refreshGfx: ->
+    @.$('.explore-cloud-list-image').css('background-image',"url(#{@model.get('avatar').normal})")
+    @.$('.explore-cloud-list-title').text(@model.get('name')).truncate({rows: 2})
+    # @.$('.explore-cloud-list-description').text(@model.get('description')).truncate({rows: 3})
+
   bindEvents: ->
-    # TODO
-  
+    @model.on 'change', => @refreshGfx()
+    $(window).bind 'resizestop', => @refreshGfx()
+
   joinCloud: (event) ->
     event.preventDefault()
     Backbone.history.navigate("/clouds/#{@model.id}",true)

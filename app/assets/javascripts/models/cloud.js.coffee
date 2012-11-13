@@ -1,4 +1,4 @@
-class Cloudsdale.Models.Cloud extends Backbone.GSModel
+class Cloudsdale.Models.Cloud extends Backbone.Model
 
   url: ->
     if @id
@@ -18,6 +18,7 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
     is_transient: true
     member_count: 0
     hidden: false
+    avatar_url: null
 
   initialize: (args) ->
     args = {} unless args
@@ -40,6 +41,9 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
     # collection.save()
 
   containsUser: (user) -> _.include @get('user_ids'), user.id
+
+  createdAt: ->
+    new Date(@get('created_at'))
 
   lastMessageAt: ->
     if @get('chat')
@@ -120,14 +124,16 @@ class Cloudsdale.Models.Cloud extends Backbone.GSModel
       id: @id
       name: @get('name')
       description: @get('description')
-      hidden: @get('invisible')
+      hidden: @get('hidden')
       time_zone: @get('time_zone')
       rules: @get('rules')
 
-    if @get('avatar_url')
-      obj.avatar_url = @get('avatar_url')
+    if @get('x_moderator_ids')
+      obj.x_moderator_ids = @get('x_moderator_ids')
+    if @get('remote_avatar_url')
+      obj.remote_avatar_url = @get('remote_avatar_url')
     if @get('remove_avatar')
       obj.remove_avatar = @get('remove_avatar')
 
-    return obj
+    return { cloud: obj }
 

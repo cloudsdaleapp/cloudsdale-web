@@ -1,0 +1,14 @@
+.page-header
+  %h2= "Meet the Crew"
+  %p.lead= "We're the ones behind cloudsdale who make your stay worthwhile."
+
+- @users = User.where(:role.in => [6,5,4]).order_by(role: :desc)
+%ul.thumbnails
+  - @users.each do |user|
+    %li.clearfix.span3
+      .thumbnail
+        = image_tag user.avatar.url, class: 'img-polaroid', style: 'max-width: 100px; margin: 25px auto 10px auto;'
+        .caption
+          %center
+            %h4= user.name
+            %span.badge= user.symbolic_role

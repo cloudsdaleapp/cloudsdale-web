@@ -21,13 +21,13 @@ Cloudsdale::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
-  
+
   # Which files are going to be precompiled
   # config.assets.precompile = %w(application.css application.js *.ttf *.svg *.woff *.eot *.jst *.png *.jpg .jpeg *.gif *.bmp *.ico)
 
   # Do not compress assets
   config.assets.compress = false
-  
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
   # config.assets.compile = true
 
@@ -37,14 +37,14 @@ Cloudsdale::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = false
   config.assets.logger = false
-  
+
   config.log_level = :debug
-  
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => "local.cloudsdale.org:3000" }
   config.action_mailer.smtp_settings = { :host => "localhost", :port => 1025 }
-  
+
 end
 
 silence_warnings do

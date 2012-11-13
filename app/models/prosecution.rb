@@ -14,12 +14,29 @@ class Prosecution
   
   attr_accessor :get_verdict
   
-  attr_accessible :get_verdict, as: [:prosecutor]
-  attr_accessible :argument, :sentence, :sentence_due
+  attr_accessible :argument, :sentence, :sentence_due, :crime_scene_type, :crime_scene_id
+  
+  # Public: Custom setter for Crime Scene Id which will properly convert it into a Moped::BSON::ObjectId
+  #
+  #   _val - The value as a Moped::BSON::ObjectId or String
+  #
+  # Returns crime_scene_id atribute as a Moped::BSON::ObjectId
+  def crime_scene_id=(_val)
+    self[:crime_scene_id] = _val.is_a?(Moped::BSON::ObjectId) ? _val : Moped::BSON::ObjectId(_val)
+  end
+  
+  # Public: Custom setter for Crime Scene Type which will capitalize the type.
+  #
+  #   _val - The value as a String
+  #
+  # Returns the crime_scene_type attribute as a string
+  def crime_scene_type=(_val)
+    self[:crime_scene_type] = _val.capitalize
+  end
   
   embedded_in :offender
   
-  belongs_to :prosecutor,   :class_name => "User"
+  belongs_to :prosecutor,   :class_name => "User", inverse_of: nil
   belongs_to :crime_scene,  polymorphic: true
   
   field :argument,      type: String
@@ -38,10 +55,13 @@ class Prosecution
   
   validates_presence_of [:argument, :sentence, :sentence_due]
   
-  before_update :calculate_judgement
+  # before_update :calculate_judgement
   
   after_update do
     enqueue! "faye", { channel: "/users/#{self.offender._id.to_s}/prosecutions", data: self.to_hash }
+  end
+  
+  after_create do
     enqueue! "faye", { channel: "/#{self.crime_scene_type.downcase}s/#{self.crime_scene_id.to_s}/prosecutions", data: self.to_hash }
   end
   
@@ -62,14 +82,14 @@ class Prosecution
   # is set to :guilty, otherwise :not_guilty .
   #
   # Returns the judgement Symbol.
-  def calculate_judgement
-    
-    if self.judgement.nil? && self.get_verdict
-      self.judgement = self.votes["up_count"] > self.votes["down_count"] ? :guilty : :not_guilty
-    end
-    
-    self.judgement
-    
-  end
-  
+  # def calculate_judgement
+  #   
+  #   if self.judgement.nil? && self.get_verdict
+  #     self.judgement = self.votes["up_count"] > self.votes["down_count"] ? :guilty : :not_guilty
+  #   end
+  #   
+  #   self.judgement
+  #   
+  # end
+  # 
 end

@@ -6,6 +6,10 @@
       %img{ src: @model.get('avatar').normal }
       %h3= @model.get('name')
     .cloud-actions
+      - if _.include(@topic.get('moderator_ids'), session.get('user').id) and _.include(@topic.get('moderator_ids'), @model.id) == false
+        %a.btn{ href: "#", 'data-action' => 'prosecute' } 
+          %i.icon-screenshot
+          = "Prosecute"
       - if session.isModerator()
         %a.btn{ href: "#", 'data-action' => 'ban' } 
           - if @model.get('is_banned')

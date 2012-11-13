@@ -1,39 +1,9 @@
-.watdiv.laterwat
-  %div{ itemscope: true, itemtype: "http://schema.org/Thing" }
-    %span{ itemprop: 'name' }= "Explore"
-    %span{ itemprop: 'description' }= "This is the place where you find new places or create one of your own."
-    %a{ itemprop: 'url', href: '/explore' }= "Take a tour..."
-  %div{ itemscope: true, itemtype: "http://schema.org/Thing" }
-    %span{ itemprop: 'name' }= "Info"
-    %span{ itemprop: 'description' }= "Want to know about us? head here and we'll tell you more."
-    %a{ itemprop: 'url', href: '/info' }= "Learn more..."
-
-.navbar.navbar-fixed-top
-
-.cloudbar
-  %ul.cloud-list
-
+.topnav
+  .topnav-inner
+.sidebar
 .main-container
-  .view-container.root{ 'data-page-id' => 'root' }
-    .float-container
-      .container-inner
-        .root-clouds
-        .root-ad
-        .root-logo
-        .root-ponies
-          .root-pony
-          .root-pony
-          .root-pony
-        
-        .root-get-started
-          .root-get-started-inner
-        
-        .root-tweets-wrapper
-          %a.root-twitter-logo{ href: "http://www.twitter.com/Cloudsdale_org", target: '_blank' }
-            %span= "Follow us on Twitter"
-          .root-tweets.loading-tweets
-            .carousel
-              .carousel-inner
-
+  .view-container.scrolling-container#page-container
+    .container.paper-container
+    %footer.container.footer-container
 
 / Counter-Boromir is trademarked and copyrighted 2012 Berwyn, all rights reserved. Counter-Boromir is permitted for use by all Cloudsdale members under the Creative Commons Attribution license

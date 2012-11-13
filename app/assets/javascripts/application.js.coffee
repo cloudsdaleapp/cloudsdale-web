@@ -1,5 +1,5 @@
-#= require jquery
-#= require bootstrap
+#= require jquery.js
+#= require bootstrap.js
 #= require jquery_ujs
 #= require jquery-ui.js
 #= require jquery.cookie
@@ -7,7 +7,11 @@
 #= require jquery.mousewheel
 #= require jquery.expanding
 #= require jquery.iframe-transport
+#= require jquery.liveready
+#= require jquery.resizestop
 #= require simply-scroll
+#= require bootstrap-datepicker
+#= require bootstrap-timepicker
 # require jquery.purr
 #= require hamlcoffee
 #= require date

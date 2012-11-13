@@ -1,21 +1,20 @@
-.fixed-container.explore-sidebar
-  .container-inner
-    .explore-header
-      %hgroup
-        %h2= "Explore"
-        %p= "Here you can explore our vast variety of Clouds. A Cloud is a gathering point for people on the site."
-      .explore-header-menu
-        %a{ href: '#explore-popular', data: { toggle: 'tab' } }= "Popular"
-        %a{ href: '#explore-recent', data: { toggle: 'tab' } }= "Recent"
-    
-    .tab-content
-      %ul#explore-popular.explore-card-list.tab-pane
-          
-      %ul#explore-recent.explore-card-list.tab-pane
-        
-.float-container.with-fixed-container
-  .container-inner
-    .explore-create-wrapper
-    .explore-search-wrapper
-      
-      
+.container
+  .navbar
+    .navbar-inner
+      .pull-left
+        %form#explore-search.navbar-form.hidden-on-phone
+          %input{ type: "text", name: "q", placeholder: 'Search...', value: if @view.params.q then decodeURI(@view.params.q) else "" }
+          / %button.btn{ type: "submit" }
+          /   %i.icon-search
+
+      %ul.nav.explore-tab-nav.pull-right
+        %li{ 'data-tab-id' => 'popular' }
+          %a{ href: '/explore/clouds/popular' }
+            = "Popular"
+
+        %li{ 'data-tab-id' => 'recent' }
+          %a{ href: '/explore/clouds/recent' }
+            = "Recent"
+
+  %ul#explore-results.thumbnails
+    .loading-content

@@ -1,8 +1,27 @@
-.explore-cloud-list-image
-  %img{ src: @model.get('avatar').normal }
-.explore-cloud-list-title= @model.get('name')
-%p.explore-cloud-list-description= @model.get('description')
-.explore-card-actions
-  %a.btn.btn-success{ href: "/clouds/#{@model.id}", data: { action: 'join-cloud' } }
-    %i.icon-white.icon-chevron-right
-    = "Join"
+.thumbnail
+  .thumb-head.clearfix
+    .explore-cloud-list-image
+    .explore-cloud-list-more
+      .explore-cloud-list-title
+      / %ul.card-thumbnails.thumbnails.card-drops.row-fluid{ 'data-aspect-ratio' => 0.47 }
+      / - @model.recentDrops.each (drop) ->
+      /   %li.span6
+      /     .thumbnail
+      /       %img{ src: drop.get('preview'),'data-aspect-ratio' => 0.69230 }
+
+      %p.explore-cloud-list-subhead
+        %i.icon-white.icon-user
+        = "#{@model.get('member_count')} people"
+
+      %p.explore-cloud-list-subhead
+        %i.icon-white.icon-tint
+        = "#{@model.get('drop_count')} drops"
+
+      %p.explore-cloud-list-subhead
+        %i.icon-white.icon-asterisk
+        = "#{@model.createdAt().toString('dd/MM/yyyy')}"
+
+      / %ul.card-thumbnails.thumbnails.card-faces.row-fluid{ 'data-aspect-ratio' => 0.65 }
+      %a.btn.btn-special.btn-join{ href: "/clouds/#{@model.id}", data: { action: 'join-cloud' } }= "Join"
+  .explore-cloud-list-title
+

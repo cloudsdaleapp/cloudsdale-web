@@ -2,7 +2,7 @@ class Cloudsdale.Views.TopBar extends Backbone.View
   
   template: JST['root/top_bar']
   
-  className: 'navbar navbar-fixed-top'
+  className: 'topnav'
   
   events:
     'click a' : 'performAction'

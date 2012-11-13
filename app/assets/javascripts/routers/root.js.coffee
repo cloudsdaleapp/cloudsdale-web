@@ -1,55 +1,58 @@
 class Cloudsdale.Routers.Root extends Backbone.Router
-  
+
   routes:
     ''                            : 'index'
     '_=_'                         : 'redirectIndex' # For facebook redirect.
-    'explore'                     : 'explore'
-    'info'                        : 'info'
-    'notfound'                    : 'notFound'
-    'error'                       : 'serverError'
-    'unauthorized'                : 'unauhorized'
-    'error/:error_id?:params'     : 'custom'
-    
+    ':pageId'                     : 'page'
+
   # Initializes the dynamic Interface
   index: ->
-    $.event.trigger 'page:show', "root"
-  
+    @renderPage 'root',
+      success: =>
+        $('#page-container .root-get-started').replaceWith(new Cloudsdale.Views.RootSession().el)
+
+  page: (pageId) ->
+    @renderPage(pageId)
+
   redirectIndex: -> Backbone.history.navigate("/",true)
-  
-  explore: ->
-        
-    if $(".view-container[data-page-id=explore]").size() == 0
-      $('.main-container').append new Cloudsdale.Views.Explore().el
-      
-    $.event.trigger 'page:show', "explore"
-    
-  info: ->
-        
-    if $(".view-container[data-page-id=info]").size() == 0
-      $('.main-container').append new Cloudsdale.Views.Info().el
-      
-    $.event.trigger 'page:show', "info"
-    
-  notFound: ->
-    @asserErrorContainerAndRender("notfound")
-    
-  serverError: ->
-    @asserErrorContainerAndRender("servererror")
-  
-  unauhorized: ->
-    @asserErrorContainerAndRender("unauthorized")
-  
-  custom: (error_id,params) ->
-    args = deparam(params)
-    @asserErrorContainerAndRender("custom",args.title,args.sub_title)
-    
-  asserErrorContainerAndRender: (id,title,subTitle) ->
-    
-    view = new Cloudsdale.Views.Error(errorType: id, title: title, subTitle: subTitle)
-        
-    if $('.main-container .view-container.error-container').length > 0
-      $('.main-container .view-container.error-container').replaceWith(view.el)
+
+  renderPage: (pageId,args) ->
+
+    args ||= {}
+
+    $("#page-container > .container.paper-container").html('<div class="loading-content" />')
+    $.event.trigger 'page:show', "page"
+
+    if window.page_src
+
+      if _.include([404,401,403,500],statusCode)
+        $("#page-container > .container.paper-container").html(@statusView(statusCode).el)
+        args.error() if args.error
+      else
+        $("#page-container > .container.paper-container").html(page_src)
+        args.success() if args.success
+
+      window.page_src = undefined
+
     else
-      $('.main-container').append(view.el)      
-      
-    $.event.trigger 'page:show', id
+      $.ajax
+        type: 'GET'
+        url: "/#{pageId}?layout=false"
+        success: (response) =>
+          $("#page-container > .container.paper-container").html(response)
+          args.success() if args.success
+        error: (response) =>
+          $("#page-container > .container.paper-container").html(@statusView(response.status).el)
+          args.error() if args.success
+
+  statusView: (status) ->
+    switch status
+      when 404
+        view = new Cloudsdale.Views.Error({errorType: "notfound"})
+      when 401
+        view = new Cloudsdale.Views.Error(errorType: "unauthorized")
+      when 403
+        view = new Cloudsdale.Views.Error(errorType: "unauthorized")
+      when 500
+        view = new Cloudsdale.Views.Error(errorType: "servererror")
+

@@ -1,10 +1,108 @@
 @charset "UTF-8"
 //*= require_self
 
+$phone: 520px
+$ipad-min: $phone + 1px
+$ipad-max: 960px
+$desktop-s-min: $ipad-max + 1px
+$desktop-s-max: 1230px
+$desktop-m-min: $desktop-s-max + 1px
+$desktop-m-max: 1420px
+$desktop-l-min: $desktop-m-max + 1px
+$desktop-l-max: 1730px
+
+body:not(.with-active-session)
+  .hidden-on-phone
+    @media (max-width: $phone)
+      display: none !important
+  .hidden-on-tablet
+    @media (min-width: $ipad-min) and (max-width: $ipad-max)
+      display: none !important
+  .hidden-on-desktop-small
+    @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
+      display: none !important
+  .hidden-on-desktop-medium
+    @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
+      display: none !important
+  .hidden-on-desktop-large
+    @media (min-width: $desktop-l-min)
+      display: none !important
+
+body.with-active-session
+  .hidden-on-phone
+    @media (max-width: $phone)
+      display: none !important
+  .hidden-on-tablet
+    @media (min-width: $ipad-min) and (max-width: $ipad-max)
+      display: none !important
+  .hidden-on-desktop-small
+    @media (min-width: $desktop-s-min) and (max-width: $desktop-s-max)
+      display: none !important
+  .hidden-on-desktop-medium
+    @media (min-width: $desktop-m-min) and (max-width: $desktop-m-max)
+      display: none !important
+  .hidden-on-desktop-large
+    @media (min-width: $desktop-l-min)
+      display: none !important
+
+@import "bootstrap/x_variables"
+
 $iconSpritePath: asset-data-url("glyphicons-halflings.png")
 $iconWhiteSpritePath: asset-data-url("glyphicons-halflings-white.png")
 
-@import "bootstrap"
+@import "bootstrap/mixins"
+
+// CSS Reset
+@import "bootstrap/reset"
+
+// Grid system and page structure
+@import "bootstrap/scaffolding"
+@import "bootstrap/grid"
+@import "bootstrap/layouts"
+
+// Base CSS
+@import "bootstrap/type"
+@import "bootstrap/code"
+@import "bootstrap/forms"
+@import "bootstrap/tables"
+
+// Components: common
+@import "bootstrap/sprites"
+@import "bootstrap/dropdowns"
+@import "bootstrap/wells"
+@import "bootstrap/component-animations"
+@import "bootstrap/close"
+
+// Components: Buttons & Alerts
+@import "bootstrap/buttons"
+@import "bootstrap/button-groups"
+@import "bootstrap/alerts"
+// Note: alerts share common CSS with buttons and thus have styles in _buttons.scss
+
+// Components: Nav
+@import "bootstrap/navs"
+@import "bootstrap/navbar"
+@import "bootstrap/breadcrumbs"
+@import "bootstrap/pagination"
+@import "bootstrap/pager"
+
+// Components: Popovers
+@import "bootstrap/modals"
+@import "bootstrap/tooltip"
+@import "bootstrap/popovers"
+
+// Components: Misc
+@import "bootstrap/thumbnails"
+@import "bootstrap/labels-badges"
+@import "bootstrap/progress-bars"
+@import "bootstrap/accordion"
+@import "bootstrap/carousel"
+@import "bootstrap/hero-unit"
+
+// Utility classes
+@import "bootstrap/utilities"
+// Has to be last to override when necessary
+@import "x_bootstrap-responsive"
 
 // Colors
 $color-dark-gray: rgb(77,78,80)
@@ -28,16 +126,8 @@ $borderColor: rgba(50, 90, 130, .5)
 $bgStripes: asset-data-url("bg-stripe.png")
 $bgNoise: asset-data-url("bg-noise.png")
 $bgTexture: asset-data-url("bg-texture-dark.png")
+$bgTileDots: asset-data-url("tiles/dot.png")
 
-$phone: 480px
-$ipad-min: $phone + 1px
-$ipad-max: 980px
-$desktop-s-min: $ipad-max + 1px
-$desktop-s-max: 1230px
-$desktop-m-min: $desktop-s-max + 1px
-$desktop-m-max: 1420px
-$desktop-l-min: $desktop-m-max + 1px
-$desktop-l-max: 1730px
 
 $media-height-s: 700px
 $media-height-l: 1080px
@@ -59,8 +149,8 @@ $color-green: rgb(128,206,0)
 $color-blue: rgb(0,165,255)
 $color-purple: rgb(105,70,255)
 
-$color-background-light: #f8f8f8
-$color-background-medium: #f1f1f1 
+$color-background-light: #f4f4f4
+$color-background-medium: #f1f1f1
 
 @import "token-input-facebook"
 @import "jquery-ui"
@@ -72,9 +162,14 @@ $color-background-medium: #f1f1f1
 @import "bootstrap-timepicker"
 @import "bootstrap-fixes"
 
+// @import "bootstrap/_responsive-1200px-min.scss"
+// @import "bootstrap/_responsive-767px-max.scss"
+// @import "bootstrap/_responsive-768px-979px.scss"
+
 html
   overflow-x: hidden
   background: #f8f8f8 $bgNoise
+
 body
   position: absolute
   background: transparent
@@ -82,17 +177,18 @@ body
   display: block !important
   margin-top: 0px
   margin-bottom: 0px
+  padding: 0 !important
   top: 0
   bottom: 0
   left: 0
   right: 0
   color: #666666
-  
+
   @media (max-width: $phone)
     top: 0px
   @media (min-width: $ipad-min)
     top: $height-bar + 1px
-  
+
   &.device-ios
     @media (max-width: $phone)
       @media all and (orientation: portrait)
@@ -103,88 +199,94 @@ body
       @media all and (orientation: landscape)
         zoom: .6
         -webkit-text-size-adjust: 60%
-      
+
     @media (min-width: $ipad-min) and (max-width: $ipad-max)
       @media all and (orientation: portrait)
         &.device-ios-standalone
           top: 65px
-          .navbar.navbar-fixed-top
+          .topnav
             top: 20px
           .main-container
             top: 65px
       @media all and (orientation: landscape)
         zoom: .8
         -webkit-text-size-adjust: 80%
-  
+
   & > .loading-content
     background: #f8f8f8 $bgNoise
-        
-  .main-container, .cloudbar
+
+  .main-container, .sidebar
     @each $vendor in -moz-, -o-, -webkit-, ""
       #{$vendor}transition-property: margin-right, margin-left
       #{$vendor}transition-duration: .3s
       #{$vendor}transition-timing-function: ease-in-out
-  
+
   &:not(.with-active-session)
     @media (max-width: $phone)
-      .cloudbar
-        margin-right: -100%
+      .sidebar
+        margin-left: -100%
       .main-container
-        margin-right: 0%
+        margin-left: 0%
     @media (min-width: $ipad-min)
       .main-container
-        margin-left: 0
-      .cloudbar
-        margin-right: -241px
-  
+        margin-right: 0
+      .sidebar
+        margin-left: -241px
+      @media (max-width: $ipad-max)
+        .container
+          padding: 40px 120px
+
   &.with-active-session
-    .cloudbar
-      ul
+    .sidebar
+      @media (max-width: $phone)
+        overflow: auto
+      @media (min-width: $ipad-min)
         overflow: hidden
+
     &.with-expanded-cloudbar
-      .cloudbar
-        ul
-          overflow: auto
-          
+      // .sidebar
+      //   ul
+      //     overflow: auto
+
     @media (max-width: $phone)
-      .cloudbar
-        margin-right: -100%
+      .sidebar
+        margin-left: -100%
       .main-container
         margin-right: 0%
-    
+
       &.with-expanded-cloudbar
-        .cloudbar
-          margin-right: 0%
+        .sidebar
+          margin-left: 0%
         .main-container
-          margin-right: 100%
-          margin-left: -100%
-    
+          margin-left: 100%
+          margin-right: -100%
+
     @media (min-width: $ipad-min)
-      .cloudbar
-        margin-right: -188px
+      .sidebar
+        margin-left: -0
       .main-container
-        margin-right: 53px
+        margin-left: 241px
         &:before
           +opacity(0)
           +transition(opacity .3s ease)
-    
+
       &.with-expanded-cloudbar
-        .cloudbar
-          margin-right: 0
-        .main-container
-          margin-right: 241px
-          @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
-            margin-left: -241px
-            &:before
-              content: ""
-              position: absolute
-              top: 0
-              bottom: 0
-              right: 0
-              left: 0
-              background: black
-              +opacity(.8)
-              z-index: 7
+        // .sidebar
+        //   margin-left: 0
+        // .main-container
+        //   margin-left: 241px
+        //   @media (min-width: $ipad-min) and (max-width: $desktop-s-max)
+        //     margin-right: -241px
+        //     &:before
+        //       content: ""
+        //       position: absolute
+        //       top: 0
+        //       bottom: 0
+        //       right: 0
+        //       left: 0
+        //       background: black
+        //       +opacity(.8)
+        //       z-index: 7
 
 .main-container
   left: 0px
@@ -202,7 +304,7 @@ body
     @media (max-width: $ipad-max)
       border-bottom: 1px rgba(50,50,50,.5) solid
       +box-shadow(0,2px,5px,rgba(0,0,0,.3))
-  
+
   @media (min-width: $desktop-s-min)
     // +box-shadow(2px,0,5px,rgba(0,0,0,.3))
 
@@ -213,6 +315,11 @@ body
   left: 0
   right: 0
   display: none
+  &.with-active-dialogue
+    .fixed-container
+      display: block
+  &.scrolling-container
+    overflow: auto
   &.active
     display: block
   &:after
@@ -223,102 +330,217 @@ body
     line-height: 0
     height: 0
 
-.fixed-container, .float-container
-  position: relative
-  height: 100%
-  background: rgba(0,0,0,.05)
-  
-  .container-inner
-    position: absolute
-    background: #F0F0F0 $bgNoise
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-
-.fixed-container
-  
-  position: relative
-  
-  z-index: 2
-  
-  @media (max-width: $phone)
-    overflow: auto
-  @media (min-width: $ipad-min)
-    float: left
-  @media (min-width: $ipad-min) and (max-width: $ipad-max)
-    margin-right: 0
-    width: 320px
-  @media (min-width: $desktop-s-min)
-    width: 320px
-  
-.float-container
-  
-  position: relative
-  
-  z-index: 3
-  
-  &.with-fixed-container
-    @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      margin-left: 320px
-    @media (min-width: $desktop-s-min) 
-      margin-left: 320px
-    
-    border-left: 1px solid rgba(0,0,0,.2)
-
-    &:before
-      content: ""
-      position: absolute
-      left: 0px
-      top: 0px
-      bottom: 0px
-      width: 100px
-      display: block
-      z-index: 0
-
-      +box-shadow(0,0,100px,rgba(0,0,0,.3))
-      background: transparent
-
-.cloudbar
-  padding: 0
-  overflow: visible
-  overflow: hidden
-  background: #333333 $bgNoise
-  
-  @media (max-width: $phone)
-    
-    position: relative
-    height: 100%
-    width: 100%
-    float: right
-    z-index: 1
-      
-  @media (min-width: $ipad-min)
-
-    position: relative
-    height: 100%
-    float: right
-    z-index: 5
-    
-    @each $vendor in -webkit-, -moz-, -o-, ""
-      #{$vendor}box-shadow: 0 2px 10px rgba(0, 0, 0, .2)
-    
-    border-left: 1px solid #222
-    
-    width: 240px
-  
-ul.cloud-list
-  display: block
-  position: static
-  list-style: none
-  margin: 0 0 0 0
-  padding: 0
+.fixed-container > .container-inner, .float-container > .container-inner
   position: absolute
   top: 0
   bottom: 0
   left: 0
   right: 0
-  
+  &.container-sidebar
+    background: #333A48
+    border-left: 1px solid #222
+  &.scroll-vertical
+    overflow-x: hidden
+    overflow-y: auto
+  &.scroll-horizontal
+    overflow-y: hidden
+    overflow-x: auto
+
+// .fixed-container > .container-inner
+//   @media (min-width: $ipad-min)
+//     background: #fff
+//     margin: 10px
+//     +box-shadow(1px,1px,3px,rgba(0,0,0,.2))
+
+//   background: rgba(255,255,255,.4)
+
+//   z-index: 500
+
+//   @media (max-width: $phone)
+//     overflow: auto
+//   @media (min-width: $ipad-min)
+//     position: absolute
+//     bottom: 40px
+//     left: 0
+//     right: 0
+//     top: 0
+//     margin: 20px
+//     +box-shadow(1px,1px,3px,rgba(0,0,0,.2))
+
+.fixed-container, .float-container
+  @each $vendor in -moz-, -o-, -webkit-, ""
+    #{$vendor}transition-property: margin-right, margin-left
+    #{$vendor}transition-duration: .4s
+    #{$vendor}transition-timing-function: ease-in-out
+
+.fixed-container
+  position: relative
+  height: 100%
+  float: right
+
+.float-container
+  position: relative
+  height: 100%
+  background: rgba(0,0,0,.05)
+
+  z-index: 3
+
+.sidebar
+  padding: 0
+  overflow: visible
+  overflow: hidden
+  background: #333A48
+
+  @media (max-width: $phone)
+
+    position: relative
+    height: 100%
+    width: 100%
+    float: left
+    z-index: 1
+
+  @media (min-width: $ipad-min)
+
+    position: relative
+    height: 100%
+    float: left
+    z-index: 50
+
+    // @each $vendor in -webkit-, -moz-, -o-, ""
+    //   #{$vendor}box-shadow: 0 2px 10px rgba(0, 0, 0, .2)
+
+    // &:before
+    //   @media (max-width: $phone)
+    //     content: ""
+    //     position: absolute
+    //     right: -100px
+    //     top: 0px
+    //     bottom: 0px
+    //     width: 100px
+    //     display: block
+    //     z-index: 5
+
+    //     +box-shadow(0,0,50px,rgba(0,0,0,.4))
+    //     background: transparent
+
+    // +box-shadow-inset(0,-4px,10px,rgba(0,0,0,.4))
+
+    border-right: 1px solid #222
+
+    width: 240px
+.sidebar-close-search
+  position: absolute
+  display: none
+  right: 5px
+  margin: 5px
+  height: 14px
+  width: 14px
+  line-height: 10px
+  font-weight: bold
+  text-align: center
+  background: rgba(0,0,0,.2)
+  color: rgba(255,255,255,.7)
+  +border-radius(7px)
+  &:hover
+    background: rgba(0,0,0,.4)
+    text-decoration: none
+
+.sidebar-header, .sidebar-block, .sidebar-input
+  color: #CCCCCC
+  p, label, input[type=file]
+    font-size: 12px
+  input[type=file]
+    line-height: 24px
+.sidebar-header
+
+  padding: 2px 7px
+
+  +linear-gradient(#434A5B,#3A4150)
+
+  border-bottom: 1px solid #29303C
+  border-top: 1px solid rgba(255,255,255,.05)
+
+  text-transform: uppercase
+  color: #7E8290
+  font-size: 11px
+  font-weight: bold
+  text-shadow: 1px 1px 0 rgba(0,0,0,.2)
+  a.close
+    position: absolute
+    right: 0
+    top: 0
+    margin: 0px 8px 0 0
+
+.sidebar-block
+  margin: 5px
+  padding: 4px 7px
+  border-bottom: 1px solid #29303C
+  border-top: 1px solid rgba(255,255,255,.05)
+  +linear-gradient(#434A5B,#3A4150)
+  color: #cccccc
+  font-size: 12px
+
+.sidebar-input
+  padding: 4px 7px
+  border-bottom: 1px solid #29303C
+  border-top: 1px solid rgba(255,255,255,.05)
+  background: #3A4150
+  // +linear-gradient(#434A5B,#3A4150)
+  // +linear-gradient(#333A48,darken(#333A48,1%))
+  // +linear-gradient(darken(#434A5B,5%),darken(#3A4150,5%))
+  form
+    padding: 0
+    margin: 0 10px 0 0
+
+    input[type=text], input[type=password], textarea
+      margin: 0 0 5px 0
+      width: 100% !important
+      background: rgba(0,0,0,.05)
+      color: #999999
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}box-shadow: inset 0 1px 1px rgba(0,0,0,.05), 0 1px 0 rgba(255,255,255,.1)
+      &:active, &.active, &:focus
+        outline: none
+        border-color: $color-border-heavy
+        @each $vendor in -moz-, -o-, -webkit-, ""
+          #{$vendor}box-shadow: inset 0 1px 1px rgba(0,0,0,.05), 0 1px 0 rgba(255,255,255,.1)
+      &:last-child
+        margin-bottom: 0
+
+    &.sidebar-input-search:before
+      content: ""
+      position: absolute
+      top: 11px
+      left: 9px
+      z-index: 1
+      display: inline-block
+      width: 14px
+      height: 14px
+      line-height: 14px
+      pointer-events: none
+      background-image: $iconSpritePath
+      background-position: 14px 14px
+      background-repeat: no-repeat
+      background-position: -48px  0
+      margin-top: 1px
+      +opacity(.35)
+
+  &.sidebar-input-file
+    form.sidebar-input-file-form
+      margin-right: 0
+      input[type=file]
+        width: 100%
+        background: 0
+        line-height: 13px
+        +box-shadow(0,0,0,transparent)
+
+ul.sidebar-list
+  display: block
+  position: static
+  list-style: none
+  margin: 0
+  padding: 0
+  z-index: 3
   &:after
     content: "."
     display: block
@@ -326,26 +548,25 @@ ul.cloud-list
     visibility: hidden
     line-height: 0
     height: 0
-      
-li.cloud-toggle
-  z-index: 999
+
+li.sidebar-item
   overflow: visible
   position: relative
   a
-    border-bottom: 1px solid #222
-    border-top: 1px solid rgba(255,255,255,.2)
+    border-bottom: 1px solid #29303C
+    border-top: 1px solid rgba(255,255,255,.05)
   &:first-child
     border-top: 0
-  
+
   &:not(.with-notifications)
-    a > span.cloud-toggle-notification
+    a > span.sidebar-item-notification
       display: none
-      
+
   a
     display: block
-    padding: 5px
-    +linear-gradient(#484848,#343434)
-      
+    padding: 7px
+    +linear-gradient(#333A48,darken(#333A48,1%))
+
     &:after
       content: "."
       display: block
@@ -353,84 +574,81 @@ li.cloud-toggle
       visibility: hidden
       line-height: 0
       height: 0
-    
-  span.cloud-toggle-name, span.cloud-toggle-notification
-    text-align: right
+
+  span.sidebar-item-name, span.sidebar-item-notification
     display: block
     margin-bottom: 3px
-    text-shadow: 1px 1px 0 rgba(0,0,0,.3)
-  
-  span.cloud-toggle-name
-    font-weight: bold
-    color: #f8f8f8
-    
-  span.cloud-toggle-notification
+    // text-shadow: 1px 1px 0 rgba(0,0,0,.3)
+
+  span.sidebar-item-name
+    text-align: left
+    margin-left: 38px
+    color: #C5CCD8
+    font-size: 12px
+    line-height: 26px
+
+  span.sidebar-item-notification
+    text-align: right
     font-weight: bold
     pointer-events: none
     position: absolute
-    left: 9px
-    top: 9px
-    color: #fff
-    background: #D00000
-    border: #fff 1px solid
+    right: 10px
+    top: 13px
+    color: #C5CCD8
+    // border: #C5CCD8 1px solid
+    background: #838692
     padding: 0 5px
-    +border-radius(10px)
     font-size: 11px
-      
-  .cloud-toggle-avatar
+    line-height: 16px
+    +border-radius(2px)
+
+  .sidebar-item-avatar
     float: left
     +transition(box-shadow .2s ease-in-out)
     +transition(opacity .2s ease-in-out)
     +opacity(.8)
-    width: 40px
-    height: 40px
+    width: 24px
+    height: 24px
     background-color: #4C4C4C
     background-position: center center
-    background-size: 40px 40px
+    background-size: 24px 24px
     border: 1px #222 solid
-    +border-radius(3px)
-    +box-shadow-inset(1px,1px,2px,rgba(0,0,0,.2))
-    @each $vendor in -webkit-, -moz-, -o-, ""
-      #{$vendor}box-shadow: 0 1px 0 rgba(255, 255, 255, .4), inset 1px 1px 2px rgba(0,0,0,.2)
-  
-  &.cloud-toggle-pinned
-    a
-      +linear-gradient(#CCCCCC,#999999)
-    &:hover
-      a
-        +linear-gradient(darken(#CCCCCC,5%),darken(#999999,5%))
-    
-    &.active
-      a
-        +linear-gradient(rgb(225,223,0),rgb(190,125,0))
-      &:hover
-        a
-          +linear-gradient(darken(rgb(225,223,0),5%),darken(rgb(190,125,0),5%))
+    // +border-radius(3px)
+    // +box-shadow-inset(1px,1px,2px,rgba(0,0,0,.2))
+    // @each $vendor in -webkit-, -moz-, -o-, ""
+    //   #{$vendor}box-shadow: 0 1px 0 rgba(255, 255, 255, .4), inset 1px 1px 2px rgba(0,0,0,.2)
+
   &.active
     a
-      .cloud-toggle-avatar
+      border-top-color: darken(#272D39,4%)
+      border-bottom-color: darken(#272D39,5%)
+      span.sidebar-item-name
+        color: #E9EAEB
+        text-shadow: 1px 1px 0 rgba(0,0,0,.3)
+      .sidebar-item-avatar
+        +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
         +opacity(1)
-        
-      +linear-gradient(#63a0d0,#3f85b3)
+
+      +linear-gradient(#272D39,darken(#272D39,1%))
     &:hover
       a
-        +linear-gradient(darken(#63a0d0,5%),darken(#3f85b3,5%))
-    
-    span.cloud-toggle-notification
+        +linear-gradient(darken(#272D39,1%),darken(#272D39,2%))
+
+    span.sidebar-item-notification
       display: none
-    
+
   &:hover
     a
-      +linear-gradient(darken(#484848,5%),darken(#343434,5%))
-         
+      +linear-gradient(darken(#333A48,1%),darken(#333A48,2%))
+
   &:hover
-    .cloud-toggle-avatar
+    .sidebar-item-avatar
       +opacity(1)
-      
+
     a, a:hover
       text-decoration: none
-    
-  
+
+
   &:after
     content: "."
     display: block
@@ -438,23 +656,28 @@ li.cloud-toggle
     visibility: hidden
     line-height: 0
     height: 0
-          
-.navbar.navbar-fixed-top
+
+.topnav
+  position: fixed
+  left: 0
+  right: 0
   margin: 0
-  z-index: 15
+  z-index: $zindexFixedNavbar
   @media (max-width: $phone)
     top: auto
     bottom: 0
-    .navbar-inner
+    .topnav-inner
       border-top: 1px rgba(50,50,50,0.8) solid
   @media (min-width: $ipad-min)
     top: 0
     bottom: auto
-    .navbar-inner
+    .topnav-inner
       border-bottom: 1px rgba(50,50,50,0.8) solid
-      
-  .navbar-inner
-  
+
+  .topnav-inner
+
+    height: 45px
+
     background: #63a0d0 image-url("bg-noise-bar.png")
     background: image-url("bg-noise-bar.png"), url(data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYzYTBkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZjg1YjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
     background: image-url("bg-noise-bar.png"), -moz-linear-gradient(top,  #63a0d0 0%, #3f85b3 100%)
@@ -464,25 +687,25 @@ li.cloud-toggle
     background: image-url("bg-noise-bar.png"), -ms-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
     background: image-url("bg-noise-bar.png"), linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63a0d0', endColorstr='#3f85b3',GradientType=0 )
-    
+
     -moz-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
     -o-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
     -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
     box-shadow: 0 2px 10px rgba(0, 0, 0, .2), inset 0 0 2px rgba(255,255,255,.7)
-    
+
     margin: 0 -2px
     padding: 0 2px
-      
+
     .container-fluid
       padding: 0
-      
+
       ul.nav > li
-        
+
         &.active, &.open
           & > a
             background: transparent
             +opacity(1)
-            
+
         &.open
           & > a
             +opacity(1)
@@ -493,7 +716,7 @@ li.cloud-toggle
           text-shadow: -1px -1px 1px rgba(0,0,0,.2)
           font-weight: bold
 
-.navbar
+.topnav
   a.brand
     float: left
     height: $height-bar - 2
@@ -506,53 +729,53 @@ li.cloud-toggle
     background-position: center center
     background-repeat: no-repeat
     overflow: hidden
-    
+
     @media (max-width: $phone)
       display: none
     @media (min-width: $ipad-min)
       display: block
-  
-.navbar ul.nav.pull-right
+
+.topnav ul.nav.pull-right
   padding: 0
   margin: 0
   height: $height-bar
-  
+
   @media (max-width: $phone)
     width: 100%
     li
       width: 20%
-  
+
   @media (min-width: $ipad-min)
     width: auto
     li
       width: 66px
-  
+
   li
     float: left
     position: relative
     height: $height-bar
-    // &:nth-child(3)
-    //   @media (min-width: $desktop-s-min)
-    //     display: none
-    
+    &:nth-child(3)
+      @media (min-width: $ipad-min)
+        display: none
+
     a
       position: absolute
-      
+
       background-color: transparent
       background-position: center 2px
       background-repeat: no-repeat
       background-size: auto 24px
-      
+
       padding: 0
       margin: 0
       top: 3px
       bottom: 3px
       left: 3px
       right: 3px
-      
+
       &.nav-trigger-noaction
         pointer-events: none
-            
+
       &.nav-trigger-home
         background-image: asset-data-url("icons/glyphicons/white/home.png")
         @media (min-width: $desktop-s-min)
@@ -576,7 +799,7 @@ li.cloud-toggle
         @media (min-width: $desktop-s-min)
           &:hover
             background-image: asset-data-url("icons/glyphicons/gold/lock.png")
-      
+
       &.nav-trigger-register
         background-image: asset-data-url("icons/glyphicons/white/pen.png")
         @media (min-width: $desktop-s-min)
@@ -588,13 +811,13 @@ li.cloud-toggle
         @media (min-width: $desktop-s-min)
           &:hover
             background-image: asset-data-url("icons/glyphicons/gold/cogwheels.png")
-      
+
       &.nav-trigger-info
         background-image: asset-data-url("icons/glyphicons/white/circle_info.png")
         @media (min-width: $desktop-s-min)
           &:hover
             background-image: asset-data-url("icons/glyphicons/gold/circle_info.png")
-          
+
       span
         position: absolute
         display: block
@@ -624,7 +847,7 @@ ul.notifications
   @media (min-width: $ipad-min)
     width: 300px
     left: auto
-    
+
   +border-radius(5px)
   &:after
     content: "."
@@ -633,7 +856,7 @@ ul.notifications
     visibility: hidden
     line-height: 0
     height: 0
-    
+
 li.notification
   position: relative
   padding: 5px
@@ -671,7 +894,7 @@ li.notification
     pointer-events: none
     cursor: wait
     position: relative
-  
+
   &:before
     content: ""
     position: absolute
@@ -715,17 +938,17 @@ li.notification
     line-height: 60px
     display: block
     +border-radius(7px)
-    
+
     margin-left: -70px
     margin-top: -30px
-  
+
   &.load-ok
     +opacity(0)
     visibility: hidden
     pointer-events: none
     @each $vendor in -webkit-, -moz-, -o-, ""
       #{$vendor}animation: removeLoadFrame .3s ease-in
-    
+
   &.load-error
     &:before
       content: 'error'
@@ -734,7 +957,7 @@ li.notification
 a.disabled-link
   +opacity(0.5)
   cursor: default
-  pointer-events: none  
+  pointer-events: none
 
 select, textarea, input
   &.disabled
@@ -798,50 +1021,95 @@ input[type=file]
   right: 0
   left: 0
 
-a.btn-special
+.container
   position: relative
-  +border-radius(3px)
-  font-weight: bold
-  border: 1px solid #000
-  margin: 0
-  font-size: 14px
-  line-height: 22px
-  +box-shadow-inset(0px,1px,0px,rgba(255,255,255,.4))
-  margin-bottom: 5px
-  text-align: center
-  color: #fff
-  padding: 4px 6px
-  +box-sizing(border-box)
-  text-shadow: -1px -1px 0 rgba(0,0,0,.3)
-  &:hover
-    color: #fff
-  &.root-trigger-connect
-    padding-left: 38px
-    +linear-gradient(#63a0d0,#3f85b3)
-    &:before
-      content: ""
+  margin-bottom: 20px
+
+  &.paper-container
+    background: white
+
+    min-height: 500px
+
+    border: 1px solid rgba(50,50,50,.3)
+    border-top: 0
+    +box-shadow(2px,2px,10px,rgba(0,0,0,.1))
+
+    @media (max-width: $phone)
+      margin: auto 10px
+      padding: 20px
+    @media (min-width: $ipad-min)
+      padding: 40px
+
+    h1, h2, h3, h4, h5
+      font-family: 'Poiret One', cursive
+      font-weight: normal
+
+    &:before, &:after
       position: absolute
-      top: 0
-      left: 0
-      bottom: 0
-      width: 30px
-      border-right: 1px solid $color-border-heavy
-      background-repeat: no-repeat
-      background-position: center
-      background-size: 24px auto
-    
-    &:hover:before
-      background-color: rgba(0,0,0,.2)
-      
-    &.twitter:before
-      background-image: asset-data-url("icons/glyphicons/white/twitter.png")
-    &.twitter:hover:before
-      background-color: rgba(139,222,227,.5)
-    
-    &.facebook:before
-      background-image: asset-data-url("icons/glyphicons/white/facebook.png")
-    &.facebook:hover:before
-      background-color: rgba(42,70,138,.5)
+      width: 40%
+      height: 10px
+      content: ' '
+      left: 12px
+      bottom: 16px
+      background: transparent
+      -webkit-transform: skew(-5deg) rotate(-5deg)
+      -moz-transform: skew(-5deg) rotate(-5deg)
+      -ms-transform: skew(-5deg) rotate(-5deg)
+      -o-transform: skew(-5deg) rotate(-5deg)
+      transform: skew(-5deg) rotate(-5deg)
+      +box-shadow(0,6px,15px,rgba(0, 0, 0, .2))
+      z-index: -1
+    &:after
+      left: auto
+      right: 0
+      -webkit-transform: skew(5deg) rotate(5deg)
+      -moz-transform: skew(5deg) rotate(5deg)
+      -ms-transform: skew(5deg) rotate(5deg)
+      -o-transform: skew(5deg) rotate(5deg)
+      transform: skew(5deg) rotate(5deg)
+
+    .row-fluid
+      margin-bottom: 40px
+      padding-bottom: 40px
+
+footer.footer-container
+  @media (max-width: $ipad-max)
+    padding: 20px
+  @media (min-width: $desktop-s-min)
+    padding: 0
+
+  ul
+    margin-bottom: 20px
+    &:li
+      margin-bottom: 5px
+
+  ul > lh, ul > li, ul > li > a
+    text-shadow: 1px 1px 1px rgba(255,255,255,1)
+  ul > lh
+    font-weight: bold
+    display: block
+    color: #AAA
+    border-bottom: 1px solid #DDD
+    margin-bottom: 5px
+  ul > li > a
+    color: #AAA
+    &:hover
+      color: #888
+      text-decoration: none
+
+.top-bar-menu-button-wrapper
+  @media (max-width: $phone)
+    position: absolute
+    right: 0
+    top: 0
+    margin: 7px
+    .btn
+      +linear-gradient(#63a0d0,#3f85b3)
+    .btn-group.open > .btn.dropdown-toggle, .btn.active
+      +linear-gradient(darken(#63a0d0,5%),darken(#3f85b3,5%))
+
+footer > div
+  float: left
 
 .watdiv
   position: fixed
