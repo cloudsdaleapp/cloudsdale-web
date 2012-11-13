@@ -2,11 +2,11 @@
   %a.close{ href: '#', data: { dismiss: 'dialog' } }= "×"
   = @model.get('name')
 %ul.sidebar-list
-  - if _.include(@topic.get('moderator_ids'), session.get('user').id) and _.include(@topic.get('moderator_ids'), @model.id) == false
-    %li.sidebar-item.sidebar-item-using-icon
-      %a{ href: "#", 'data-action' => 'prosecute' }
-        %span.sidebar-item-name= "Prosecute"
-          %i.icon-screenshot.icon-white
+  / - if _.include(@topic.get('moderator_ids'), session.get('user').id) and _.include(@topic.get('moderator_ids'), @model.id) == false
+  /   %li.sidebar-item.sidebar-item-using-icon
+  /     %a{ href: "#", 'data-action' => 'prosecute' }
+  /       %span.sidebar-item-name= "Prosecute"
+  /         %i.icon-screenshot.icon-white
   - if session.isModerator()
     %li.sidebar-item.sidebar-item-using-icon
       %a{ href: "#", 'data-action' => 'ban' }
