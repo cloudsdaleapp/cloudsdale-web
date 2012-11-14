@@ -12,12 +12,12 @@ class Urifetch::Strategy::CloudsdaleUser < Urifetch::Strategy::Base
       set_status ["500","Server Error"]
     end
   end
-  
+
   def process_request
-    
+
     set :url,           @uri.to_s
     set :match_id,      match_data['match_id']
-    
+
     set :title,               @user.name
     set :avatar,              @user.avatar.preview.url
     set :subscribers_count,   @user.subscribers_count
@@ -39,12 +39,12 @@ class Urifetch::Strategy::CloudsdaleCloud < Urifetch::Strategy::Base
       set_status ["500","Server Error"]
     end
   end
-  
+
   def process_request
-    
+
     set :url,           @uri.to_s
     set :match_id,      match_data['match_id']
-    
+
     set :title,         @cloud.name
     set :avatar,        @cloud.avatar.preview.url
     set :member_count,  @cloud.member_count
