@@ -1,27 +1,27 @@
 class Api::V1Controller < ActionController::Base
-  
+
   layout :determine_layout
-  
+
   before_filter :auth_token, :log_additional_data
   after_filter :build_response_headers
-  
+
   helper_method :current_user, :errors
-  
+
   # Rescues the error yielded from not finding requested document
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
     render_exception "#{message} You sure this was what you were looking for?", 404
   end
-  
+
   # Rescues the error from not being authorized to perform an action
   rescue_from CanCan::AccessDenied do |message|
     render_exception "You're not allowed to do this, GTFO. #{message}", 401
   end
-  
+
   # Rescues the errors yielded by supplying a faulty BSON id
   rescue_from Moped::Errors::InvalidObjectId do |message|
     render_exception "BSON #{message}", 500
   end
-  
+
   # Public: Used to set a session for the user if the persist_session parameter is available.
   # It will also save the user to the database to ensure any new SHIT added to the user model
   # is persisted.
@@ -31,7 +31,7 @@ class Api::V1Controller < ActionController::Base
     end
     user.save
   end
-  
+
   # Internal: Determines if the client doing the API call is an
   # authorized client - This means the client has access to inhouse
   # methods in the API.
@@ -51,7 +51,7 @@ class Api::V1Controller < ActionController::Base
   def authorized_client?
     request.env['X_AUTH_INTERNAL_TOKEN'] == INTERNAL_TOKEN
   end
-  
+
   # Internal: Determines the current user by using
   # sessions falling back on x-auth-token request header
   # initializing a new user if none of these are present.
@@ -60,10 +60,10 @@ class Api::V1Controller < ActionController::Base
   #
   # current_user
   # #=> #<User ...>
-  # 
+  #
   # Returns an inatance of the User model.
   def current_user
-        
+
     if session[:user_id]
       @current_user ||= User.find_or_initialize_by(_id: session[:user_id])
     elsif @auth_token
@@ -71,24 +71,24 @@ class Api::V1Controller < ActionController::Base
     else
       @current_user ||= User.new
     end
-    
+
   end
-  
-  
+
+
   # Public: Sets the auth token of the current request
   #
   # Returns the auth token.
   def auth_token
     @auth_token ||= request.headers['X-Auth-Token']
   end
-  
+
   # Internal: Determines which layout to use based on the
   # requested content type.
   #
   # Examples
   #
   # class SomeController < SomeOtherController
-  # 
+  #
   # layout :determine_layout
   #
   # end
@@ -104,7 +104,7 @@ class Api::V1Controller < ActionController::Base
       'api_v1.json'
     end
   end
-  
+
   # Public: Renders an exception back to the caller with a message and a status code.
   #
   # Examples
@@ -117,12 +117,12 @@ class Api::V1Controller < ActionController::Base
     render 'api/v1/exceptions/exception', status: status_code
     return
   end
-  
+
   # Public: Sets the instance variable @flash_message to a hash
   # hash which defaults to { message: "", type: "notice", title: "Note" }
   #
   # options -   A Hash of options which defaults to ({}):
-  #               
+  #
   #               :message - The content of the flash message
   #               :type - The type of the flash message
   #               :title - The title of the flash message
@@ -140,7 +140,7 @@ class Api::V1Controller < ActionController::Base
     default_options = { message: "", type: "notice", title: "Note" }
     @flash_message = default_options.merge(options)
   end
-  
+
   # Public: helper method to help determine how many records
   # to fetch when fetching a collection based on the "limit"
   # parameter sent by the client. If a negative value is supplied
@@ -172,20 +172,20 @@ class Api::V1Controller < ActionController::Base
     i = i > max ? max : i if max
     i > 0 ? i : fallback
   end
-  
+
   # Internal: Builds some generic response headers, among them
   # X-Auth-Token // If a current user is present
   #
   # Examples
   #
   # after_filter :build_response_headers
-  # 
+  #
   # Returns "ok".
   def build_response_headers
     response.headers['X-Auth-Token'] = current_user.auth_token unless current_user.new_record?
     "ok"
   end
-  
+
   # Public: Used to build an error
   #
   # args -  The attributes from which the method will build the error.
@@ -211,7 +211,7 @@ class Api::V1Controller < ActionController::Base
     errors << error
     return error
   end
-  
+
   # Public: Used to extract error messages from a errorous model
   # and compile them to be rendered in API responses.
   #
@@ -224,23 +224,23 @@ class Api::V1Controller < ActionController::Base
   #
   # Returns the array of error hashes which can be rendered in a response.
   def build_errors_from_model(_model)
-        
+
     unless _model.errors.empty?
-      
+
       _model.errors.messages.each do |field,messages|
         id    = _model._id.to_s
         type  = _model.try(:_type) || _model.to_s || ""
         node  = field.to_s
         message = messages.join(', ')
-        
+
         add_error type: :field, ref_type: type.downcase, ref_id: id, ref_node: node, message: message
       end
-      
+
     end
-    
+
     return errors
   end
-  
+
   # Public: Accessor for the errors variable.
   #
   # Returns the errors array.
@@ -249,12 +249,12 @@ class Api::V1Controller < ActionController::Base
   end
 
 protected
-  
+
   def log_additional_data
     # request.env["exception_notifier.exception_data"] = {
     #   :document => @document,
     #   :person => @person
     # }
   end
-  
+
 end
