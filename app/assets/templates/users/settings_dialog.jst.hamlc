@@ -39,12 +39,12 @@
       .tab-pane#settings-avatar
         %form#avatar-form{ enctype: "multipart/form-data" }
           .control-group
-            %label.control-label{ for: 'user_avatar_file' }= "Upload from File"
+            %label.control-label{ for: 'user_avatar_file' }= "Upload from a File"
             .controls
               %input#user_avatar_file{ type: 'file', name: 'user[avatar]', data: { preventAjax: true } }
               %p.help-block
                 %strong.badge.badge-important= "Known bug"
-                = "Browsers like Opera or older versions of IE might want you to download a"
+                = "Browsers like Opera or older versions of Internet Explorer might want you to download a"
                 %strong=".json"
                 = "file. The upload still works, you just have to cancel the download."
           
@@ -54,7 +54,7 @@
               %input#user_avatar_url{ type: 'text', name: 'remote_avatar_url' }
               %p.help-block
                 %strong= "Note: "
-                = "It can take up to a minute before the avatar image has propagated on the CDN."
+                = "It can take up to a minute before the new avatar image is visible."
               
           .well
             %a.btn.btn-danger.remove-avatar{ href: "#" }
