@@ -32,7 +32,7 @@ module ApplicationHelper
   def page_title; @page_title || "Cloudsdale"; end
 
   def page_image
-    @page_image || Rails.env.development? ? (Cloudsdale.config['url'] + image_path('logo/main_logo.png')) : image_path('logo/main_logo.png')
+    @page_image || image_path('logo/main_logo.png')
   end
 
   def page_url
