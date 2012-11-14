@@ -31,6 +31,12 @@
           %i.icon-exclamation-sign.icon-white
           = "Call on Skype"
 
+.sidebar-header
+  = "Avatar"
+.sidebar-block
+  %center
+    %img{ src: @model.get('avatar').normal, style: 'max-width: 100%; margin: 47px auto' }
+
 / .cloud-sidebar-top.clearfix
 /   .cloud-sidebar-inner.clearfix
 /     %a.close{ href: '#', data: { dismiss: 'dialog' } }
