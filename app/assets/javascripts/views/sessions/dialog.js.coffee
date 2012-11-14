@@ -252,14 +252,13 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
 
   showTooltip: (message,html) =>
     @.$('.input-group').tooltip(
-      placement: ->
-        $(@.$tip).addClass('session-tooltip')
-        'top'
+      placement: 'top'
       trigger: 'manual'
       animation: false
       html: html
       title: message
     ).tooltip('show')
+    $('.tooltip:last-child').addClass('session-tooltip')
 
   hideTooltip: => @.$('.input-group').tooltip('hide')
 

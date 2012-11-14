@@ -13,7 +13,7 @@
           .control-group.auth-field-group-password
             .controls
               %input#session_password{ type: "password", placeholder: "Password" }
-      
+
       .form-actions
         %button.auth-submit
         %a.facebook-auth{ href: '/auth/facebook' }= "Facebook"
