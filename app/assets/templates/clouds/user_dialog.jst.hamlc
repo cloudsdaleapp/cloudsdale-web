@@ -35,7 +35,8 @@
   = "Avatar"
 .sidebar-block
   %center
-    %img{ src: @model.get('avatar').normal, style: 'max-width: 100%; margin: 47px auto' }
+    %a{ href: @model.get('avatar').normal, target: '_blank' }
+      %img{ src: @model.get('avatar').normal, style: 'max-width: 100%; margin: 47px auto' }
 
 / .cloud-sidebar-top.clearfix
 /   .cloud-sidebar-inner.clearfix
