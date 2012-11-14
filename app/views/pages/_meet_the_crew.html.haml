@@ -7,8 +7,8 @@
   - @users.each do |user|
     %li.clearfix.span3
       .thumbnail
-        = image_tag user.avatar.url, class: 'img-polaroid', style: 'max-width: 100px; margin: 25px auto 10px auto;'
+        = image_tag user.avatar.url, class: 'img-polaroid', style: 'max-width: 100px; height: 100px; margin: 25px auto 10px auto;'
         .caption
           %center
-            %h4= user.name
+            %h4{ style: 'height: 40px;'}= user.name
             %span.badge= user.symbolic_role

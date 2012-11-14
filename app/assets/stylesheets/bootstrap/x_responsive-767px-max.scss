@@ -46,13 +46,15 @@
     width: 100%;
   }
   // Undo negative margin on rows and thumbnails
-  .row,
-  .thumbnails {
-    margin-left: 0;
-  }
-  .thumbnails > li {
-    float: none;
-    margin-left: 0; // Reset the default margin for all li elements when no .span* classes are present
+  @media (max-width: $phone) {
+    .row,
+    .thumbnails {
+      margin-left: 0;
+    }
+    .thumbnails > li {
+      float: none;
+      margin-left: 0; // Reset the default margin for all li elements when no .span* classes are present
+    }
   }
   // Make all grid-sized elements block level again
   [class*="span"],
@@ -112,8 +114,8 @@
 
   .thumbnails {
 
-    @include grid-core-spanX($gridColumns/4, $gridColumnWidth768*1, $gridGutterWidth768);
-    @include grid-core-offsetX($gridColumns/4, $gridColumnWidth768*1, $gridGutterWidth768);
+    @include grid-core-spanX($gridColumns/3, $gridColumnWidth768*2, $gridGutterWidth768*2);
+    @include grid-core-offsetX($gridColumns/3, $gridColumnWidth768*2, $gridGutterWidth768*2);
 
     // Fluid grid
     @include grid-fluid($fluidGridColumnWidth768, $fluidGridGutterWidth768);

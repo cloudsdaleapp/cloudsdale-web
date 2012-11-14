@@ -44,14 +44,14 @@ body.with-active-session {
     // Thumbnails
     .thumbnails {
 
-      @include grid-core-spanX($gridColumns/2, $gridColumnWidth768*1.59, $gridGutterWidth768);
-      @include grid-core-offsetX($gridColumns/2, $gridColumnWidth768*1.59, $gridGutterWidth768);
+      @include grid-core-spanX($gridColumns/2, $gridColumnWidth768*2, $gridGutterWidth768*2);
+      @include grid-core-offsetX($gridColumns/2, $gridColumnWidth768*2, $gridGutterWidth768*2);
 
       // Fluid grid
-      @include grid-fluid($fluidGridColumnWidth768, $fluidGridGutterWidth768);
+      @include grid-fluid($fluidGridColumnWidth768*2, $fluidGridGutterWidth768);
 
       // Input grid
-      @include grid-input($gridColumnWidth768, $gridGutterWidth768);
+      @include grid-input($gridColumnWidth768*2, $gridGutterWidth768);
 
       margin-left: -$gridGutterWidth1200;
     }
