@@ -25,6 +25,8 @@ class Message
   validates :content,     :presence => true
   validates :author,      :presence => true
 
+  default_scope -> { includes(:author,:drops) }
+
   scope :old, -> { order_by([:timestamp,:desc]).skip(50) }
 
   after_save do
