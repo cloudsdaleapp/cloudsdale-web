@@ -96,7 +96,7 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns a collection of Clouds.
   def popular
 
-    @clouds = Cloud.visible.popular.page(@page).per(@per)
+    @clouds = Cloud.visible.popular.without(:user_ids,:moderator_ids,:owner_id,'chat.messages').page(@page).per(@per)
     render status: 200
 
   end
@@ -105,7 +105,7 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns a collection of Clouds.
   def recent
 
-    @clouds = Cloud.visible.recent.page(@page).per(@per)
+    @clouds = Cloud.visible.recent.without(:user_ids,:moderator_ids,:owner_id,'chat.messages').page(@page).per(@per)
     render status: 200
 
   end
