@@ -12,7 +12,6 @@
 #= require simply-scroll
 #= require bootstrap-datepicker
 #= require bootstrap-timepicker
-# require jquery.purr
 #= require hamlcoffee
 #= require date
 #= require faye
