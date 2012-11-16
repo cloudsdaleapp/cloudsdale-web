@@ -23,16 +23,6 @@ class Cloudsdale.Views.CloudsCard extends Backbone.View
 
   render: ->
     $(@el).html(@template(view: @, model: @model))
-
-    @model.importantUsers
-      success: (users) =>
-        $.each users, (id,user) =>
-          @.$('.card-faces').append("<li class='span3'>
-            <div class='thumbnail'>
-              <img src='#{user.get('avatar').normal}', data-aspect-ratio=1 />
-            </div>
-          </li>")
-
     @model.on 'change', => @refreshGfx()
 
     this

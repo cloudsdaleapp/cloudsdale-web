@@ -3,12 +3,6 @@
     .explore-cloud-list-image
     .explore-cloud-list-more
       .explore-cloud-list-title
-      / %ul.card-thumbnails.thumbnails.card-drops.row-fluid{ 'data-aspect-ratio' => 0.47 }
-      / - @model.recentDrops.each (drop) ->
-      /   %li.span6
-      /     .thumbnail
-      /       %img{ src: drop.get('preview'),'data-aspect-ratio' => 0.69230 }
-
       %p.explore-cloud-list-subhead
         %i.icon-white.icon-user
         = "#{@model.get('member_count')} people"
@@ -21,7 +15,6 @@
         %i.icon-white.icon-asterisk
         = "#{@model.createdAt().toString('dd/MM/yyyy')}"
 
-      / %ul.card-thumbnails.thumbnails.card-faces.row-fluid{ 'data-aspect-ratio' => 0.65 }
       %a.btn.btn-special.btn-join{ href: "/clouds/#{@model.id}", data: { action: 'join-cloud' } }= "Join"
   .explore-cloud-list-title
 
