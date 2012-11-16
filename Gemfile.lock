@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/Zeeraw/Urifetch.git
-  revision: ffa1a59564319b61d494cb09022fce6a257f0b6a
+  revision: 995b2843e21841c4758dcb0286b8c82c3b8953b0
   specs:
-    urifetch (0.1.1.rc2)
+    urifetch (0.1.1.rc6)
       actionpack
       activesupport
       addressable
