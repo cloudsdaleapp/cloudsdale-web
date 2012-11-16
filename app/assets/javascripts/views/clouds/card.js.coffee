@@ -34,7 +34,7 @@ class Cloudsdale.Views.CloudsCard extends Backbone.View
 
   bindEvents: ->
     @model.on 'change', => @refreshGfx()
-    $(window).bind 'resizestop', => @refreshGfx()
+    # $(window).bind 'resizestop', => @refreshGfx()
 
   joinCloud: (event) ->
     event.preventDefault()
