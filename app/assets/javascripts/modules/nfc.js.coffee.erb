@@ -1,61 +1,61 @@
 do ($ = jQuery) ->
-  
+
   window.globalNotifications = 0
-  
+
   $(window).blur =>
     window.addGlobalNotification(0) if window.globalNotifications > 0
-  
+
   window.clearGlobalNotification = ->
     window.globalNotifications = 0
     window.setGlobalNotification()
-  
+
   window.addGlobalNotification = (num) ->
     window.globalNotifications += num
     if window.globalNotifications > 0
       window.setGlobalNotification()
     else
       window.clearGlobalNotification()
-  
+
   window.subtractGlobalNotification = (num) ->
     window.globalNotifications -= num
     if window.globalNotifications > 0
       window.setGlobalNotification()
     else
       window.clearGlobalNotification()
-  
+
   window.setGlobalNotification = ->
     $.titleAlert "(#{window.globalNotifications}) new event(s)",
       requireBlur: true
       stopOnFocus: true
       duration: 0
       interval: 1500
-  
+
   window.version = null
-  
+
   window.NotificationCentre = class NotificationCentre
-  
+
     constructor: (args) ->
-      
+
       ChannelNameExt = {
-        
+
         incoming: (message,callback) ->
           message.data = {} unless message.data
-          
+
           if m = /^\/clouds\/(.*)\/users\/(.{24})$/ig.exec(message.channel)
             message.data.id = m[2]
-            
+
           callback(message)
       }
-      
+
       @cli = new Faye.Client("<%=Cloudsdale.faye_path(:client)%>", {
         timeout: 120,
         endpoints: {
           websocket: "<%=Cloudsdale.faye_path(:client)%>"
         }
       })
-      
+
       @cli.addExtension(ChannelNameExt)
-      
+
       subscription = @cli.subscribe '/web', (payload) ->
         if payload.version != window.version
           $.event.trigger "notifications:add", {
@@ -64,8 +64,8 @@ do ($ = jQuery) ->
             callback: =>
               document.location.reload(true)
           }
-            
-      
+
+
       subscription.callback =>
         if @cli.getState() == 'CONNECTED'
           $.event.trigger "connected:nfc"
@@ -73,33 +73,33 @@ do ($ = jQuery) ->
       subscription.errback =>
         if @cli.getState() == 'CONNECTED'
           $.event.trigger "connected:nfc"
-    
+
     state: ->
       @cli.getState()
-    
+
     # Use this to start listening to a specific channel
     on: (event,f) ->
-      
+
       channel = "/#{event.replace(/\:/ig,"/")}" # The event name translated to Faye channel
-      
+
       if @cli._channels._channels[channel] == undefined
         subscription = @cli.subscribe channel, (payload) ->
           $.event.trigger "#{event}", payload
-      
+
       $(document).bind "#{event}", (event,payload) ->
         f(payload)
-        
+
       this
-    
+
     off: (event) ->
-      
+
       channel = "/#{event.replace(/\:/ig,"/")}"
-      
+
       @cli.unsubscribe channel
-      
+
       $(document).unbind("#{event}")
-      
+
       this
-    
+
     # Use this to simulate an incomming payload
     t: (event,data) -> $.event.trigger "#{event}", data
