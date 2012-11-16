@@ -24,12 +24,6 @@
 # require jquery.tokeninput
 # require jquery.daterangepicker
 # require best_in_place
-# require rails.validations
-# require rails.validations.custom
-# require rails.validations.formbuilder
-# require farbtastic
-# require showdown
-# require highcharts
 #
 # require underscore
 #= require underscore-1.3.3
