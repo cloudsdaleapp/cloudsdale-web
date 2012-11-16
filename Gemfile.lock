@@ -272,8 +272,6 @@ GEM
     pdf-reader (1.0.0)
       Ascii85 (~> 1.0.0)
       ruby-rc4
-    pjax_rails (0.1.10)
-      jquery-rails
     polyglot (0.3.3)
     pry (0.9.8.2)
       coderay (~> 1.0.5)
@@ -465,7 +463,6 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-twitter
   pdf-reader
-  pjax_rails
   pry
   rabl
   rails (~> 3.2.2)

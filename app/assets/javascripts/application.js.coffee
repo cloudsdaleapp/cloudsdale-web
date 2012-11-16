@@ -19,7 +19,6 @@
 #= require autolink
 #= require select2
 #= require konami-1.3.3
-# require pjax
 #
 # require underscore
 #= require underscore-1.3.3

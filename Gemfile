@@ -33,7 +33,6 @@ gem 'haml_coffee_assets'
 gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
-gem 'pjax_rails'
 gem 'rabl'
 
 # Frontend
