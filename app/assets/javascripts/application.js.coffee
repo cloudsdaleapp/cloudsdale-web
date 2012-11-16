@@ -19,6 +19,7 @@
 #= require twitter-text
 #= require autolink
 #= require select2
+#= require konami-1.3.3
 # require pjax
 # require jquery.tokeninput
 # require jquery.daterangepicker
@@ -44,5 +45,3 @@
 #= require_tree ./views
 #= require_tree ./routers
 #= require_tree ./modules
-#
-#= require konami-1.3.3
