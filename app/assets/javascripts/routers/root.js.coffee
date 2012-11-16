@@ -33,6 +33,7 @@ class Cloudsdale.Routers.Root extends Backbone.Router
         args.success() if args.success
 
       window.page_src = undefined
+      @prependSocial()
 
     else
       $.ajax
@@ -40,6 +41,7 @@ class Cloudsdale.Routers.Root extends Backbone.Router
         url: "/#{pageId}?layout=false"
         success: (response) =>
           $("#page-container > .container.paper-container").html(response)
+          @prependSocial()
           args.success() if args.success
         error: (response) =>
           $("#page-container > .container.paper-container").html(@statusView(response.status).el)
@@ -55,4 +57,14 @@ class Cloudsdale.Routers.Root extends Backbone.Router
         view = new Cloudsdale.Views.Error(errorType: "unauthorized")
       when 500
         view = new Cloudsdale.Views.Error(errorType: "servererror")
+
+  prependSocial: ->
+    $("#page-container > .container.paper-container").prepend('<ul class="social-connect"><ul>')
+    $('.social-connect').append("<li class='social-connect-facebook'>#{Facebook.likeButton()}</li>")
+    twt = $('.social-connect').append("<li class='social-connect-twitter'></li>").find('li.social-connect-twitter')
+    twt.twitterButton()
+
+
+
+
 

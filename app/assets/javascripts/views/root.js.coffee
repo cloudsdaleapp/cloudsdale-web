@@ -23,10 +23,6 @@ class Cloudsdale.Views.Root extends Backbone.View
   render: ->
     $(@el).html(@template())
 
-    $(@el).find('.social-connect')
-    .append("<li class='social-connect-twitter'>#{Twitter.tweetButton()}</li>")
-    .append("<li class='social-connect-facebook'>#{Facebook.likeButton()}</li>")
-
     this
 
   bindEvents: ->

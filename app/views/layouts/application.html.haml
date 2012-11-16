@@ -1,33 +1,39 @@
 !!! 5
 %html{ lang: "en" }
   %head
+    = csrf_meta_tags
+
+    // METADATA
     %title= page_title
     %meta{ name: "description", content: page_description }
     %meta{ name: "keywords", content: page_keywords }
-
-    %meta{ name: "google", content: "notranslate"}
-    %meta{ name: "google-site-verification", content: "nIOB-knlcXNH0BO6YGcfXouYY2aL8XxcdkEG-nYcpYQ" }
-
-    %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view" }
-
-    %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
-    %meta{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }
-    %meta{ name: "apple-itunes-app", content: "app-id=567369714" }
-
-    = stylesheet_link_tag "application"
-    / %link{ href: "/assets/application.css", media: "screen", rel: "stylesheet", type: "text/css" }
-    %link{ href: 'http://fonts.googleapis.com/css?family=Poiret+One', rel: 'stylesheet', type: 'text/css' }
-
-    = javascript_include_tag "application"
-    = favicon_link_tag "favicons/48by48.ico"
-    = csrf_meta_tags
-    = analytics_init :local => Rails.env.development?
-
     %meta{ property: "og:title", content: page_title }
     %meta{ property: "og:description", content: page_description }
     %meta{ property: "og:type", content: page_type }
     %meta{ property: "og:url", content: page_url }
     %meta{ property: "og:image", content: page_image }
+    = favicon_link_tag "favicons/48by48.ico"
+
+    // ANALYTICS
+    %meta{ name: "google", content: "notranslate" }
+    %meta{ name: "google-site-verification", content: "nIOB-knlcXNH0BO6YGcfXouYY2aL8XxcdkEG-nYcpYQ" }
+    = analytics_init :local => Rails.env.development?
+
+    // MOBILE
+    %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view" }
+
+    // APPLE META
+    %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
+    %meta{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }
+    %meta{ name: "apple-itunes-app", content: "app-id=567369714" }
+
+    // STYLESHEETS
+    = stylesheet_link_tag "application"
+    %link{ href: 'http://fonts.googleapis.com/css?family=Poiret+One', rel: 'stylesheet', type: 'text/css' }
+
+    // JAVASCRIPT
+    = javascript_include_tag "application"
+
   %body{ "data-status" => response.status, "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
     .topnav
       .topnav-inner
