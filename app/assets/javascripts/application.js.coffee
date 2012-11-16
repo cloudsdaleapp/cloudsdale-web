@@ -23,7 +23,6 @@
 # require pjax
 # require jquery.tokeninput
 # require jquery.daterangepicker
-# require best_in_place
 #
 # require underscore
 #= require underscore-1.3.3

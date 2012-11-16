@@ -99,9 +99,6 @@ GEM
       jquery-rails
       railties (>= 3.1)
     bcrypt-ruby (3.0.1)
-    best_in_place (1.0.6)
-      jquery-rails
-      rails (~> 3.1)
     bootstrap-sass (2.1.0.0)
     bson (1.6.4)
     bson_ext (1.6.4)
@@ -428,7 +425,6 @@ PLATFORMS
 DEPENDENCIES
   backbone-on-rails
   bcrypt-ruby
-  best_in_place
   bootstrap-sass (~> 2.1.0.0)
   bson_ext
   bunny
