@@ -8,7 +8,7 @@ Cloudsdale::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  # 
+  #
   config.assets.precompile = %w(application.css application.js mobile.css mobile.js *.ttf *.svg *.woff *.eot *.jst *.png *.jpg .jpeg *.gif *.bmp *.ico)
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
@@ -60,28 +60,22 @@ Cloudsdale::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => "www.cloudsdale.org" }
   config.action_mailer.smtp_settings = {
-    
+
     address: "smtp.gmail.com",
     port: 587,
     domain: "cloudsdale.org",
-    
+
     enable_starttls_auto: true,
     authentication: :plain,
-    
+
     user_name: "info@cloudsdale.org",
     password: "secret1234"
-    
+
   }
-  
-  # config.middleware.use ExceptionNotifier,
-  #   :email_prefix => "[SERVER EXCEPTION] ",
-  #   :sender_address => %{"Cloudsdale Notifier" <notifier@cloudsdale.org>},
-  #   :exception_recipients => %w{zeeraw@cloudsdale.org}
-  # 
-  
+
 end
