@@ -343,12 +343,10 @@ a.cloud-settings-toggle
 
   border: 1px solid #555
 
-  overflow: hidden
-
   @media (max-width: $phone)
     margin-right: 10px
 
-    +border-radius(1px)
+    // +border-radius(1px)
     +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
     &, img
       width: 30px
@@ -357,7 +355,7 @@ a.cloud-settings-toggle
   @media (min-width: $ipad-min)
     margin-right: 10px
 
-    +border-radius(5px)
+    // +border-radius(5px)
     +box-shadow(1px,1px,3px,rgba(0,0,0,.2))
     &, img
       width: 50px
@@ -522,18 +520,41 @@ a.drop-preview
   //     content: "admin"
   //     color: #669966
 
-  &.role-developer
-    .chat-message-head > a:after
-      content: "[ dev ]"
+  &.role-developer, &.role-founder, &.role-donor
+    .chat-message-avatar
+      position: relative
+      &:before
+        padding: 0
+        margin: 0 -3px 2px -3px
+        z-index: 2
+        display: block
+        position: absolute
+        bottom: 0
+        right: 0
+        left: 0
+        right: 0
+        height: 13px
+        line-height: 13px
+        font-size: 10px
+        text-align: center
+        color: #ffffff
+        text-shadow: -1px -1px 0 rgba(0,0,0,.2)
+        border: 1px solid $color-border-heavy
+        +box-shadow(0,2px,2px,rgba(0,0,0,.2))
+        +border-radius(2px)
+        pointer-events: none
 
   &.role-founder
-    .chat-message-head > a:after
-      content: "[ founder ]"
+    .chat-message-avatar:before
+      content: "founder"
+      +linear-gradient(#efc713,darken(#efad19,3%))
+
+  &.role-developer
+    .chat-message-avatar:before
+      content: "dev"
+      +linear-gradient(#ffbde8,darken(#ffbde8,3%))
 
   &.role-donor
-    .chat-message-head > a:after
-      content: "[ donor ]"
-
 .chat-message.device-mobile
   .chat-message-head > a:before
     content: ""
