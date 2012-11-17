@@ -1,6 +1,7 @@
 class Cloud
 
   include AMQPConnector
+  include Jurisdiction
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -8,7 +9,8 @@ class Cloud
 
   include Droppable
 
-  embeds_one :chat, as: :topic
+  embeds_one  :chat,  as: :topic
+  embeds_many :bans,  as: :jurisdiction
 
   attr_accessor :user_invite_tokens
 
