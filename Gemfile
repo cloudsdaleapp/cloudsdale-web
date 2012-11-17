@@ -11,8 +11,8 @@ gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
 gem 'voteable_mongo'
 gem 'kaminari'
 
-gem 'redis'
-gem 'em-hiredis', :require => ["redis", "redis/connection/hiredis"]
+gem "hiredis", "~> 0.3.1"
+gem "redis", "~> 2.2.0", :require => ["redis/connection/hiredis", "redis"]
 
 # CANT HAVE ASSETS GROUP!
 gem 'sass', '~> 3.2.1'

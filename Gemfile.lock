@@ -135,8 +135,6 @@ GEM
       execjs
     eco-source (1.1.0.rc.1)
     ejs (1.0.0)
-    em-hiredis (0.1.1)
-      hiredis (~> 0.4.0)
     em-websocket (0.3.6)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
@@ -194,7 +192,7 @@ GEM
     hashr (0.0.19)
     highline (1.6.2)
     hike (1.2.1)
-    hiredis (0.4.5)
+    hiredis (0.3.2)
     httmultiparty (0.3.6)
       httparty (>= 0.7.3)
       multipart-post
@@ -411,7 +409,6 @@ DEPENDENCIES
   cloudfiles (= 1.4.18)
   coffee-script
   database_cleaner
-  em-hiredis
   execjs
   factory_girl_rails
   fog
@@ -424,6 +421,7 @@ DEPENDENCIES
   haml-rails
   haml_coffee_assets
   hashr
+  hiredis (~> 0.3.1)
   imagesize
   jquery-rails
   kaminari
@@ -442,7 +440,7 @@ DEPENDENCIES
   rails (~> 3.2.2)
   rails3-generators
   redcarpet
-  redis
+  redis (~> 2.2.0)
   redis-rails (~> 3.2.1)
   rmagick
   rspec-rails
