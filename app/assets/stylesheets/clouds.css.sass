@@ -550,18 +550,30 @@ a.drop-preview
       width: 10px
       height: 10px
       margin: 5px 5px 0 2px
-      // background: asset-data-url("icons/tools/phone.gif") center center no-repeat
-      // background-size: auto 16px
       background: #666666
       +border-radius(5px)
       +opacity(.4)
 
   &.device-mobile
-    .chat-message-head > a:before
-      font-size: 10px
-  &:not(.device-mobile)
-    .chat-message-head > a:before
-      font-size: 18px
+    .chat-message-meta
+      padding-right: 20px
+      position: relative
+      &:after
+        content: ""
+        display: block
+        position: absolute
+        margin: 2px 0 0 0
+        top: 0
+        right: 0
+        height: 16px
+        width: 16px
+        background: asset-data-url("icons/glyphicons/halflings/phone.png") center center no-repeat
+        background-size: auto 16px
+        +opacity(.7)
+
+  // &:not(.device-mobile)
+  //   .chat-message-meta > a:before
+  //     font-size: 18px
 
 .chat-message
   &.status-online
