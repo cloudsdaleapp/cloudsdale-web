@@ -488,44 +488,13 @@ a.drop-preview
     +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
 
 .chat-message
-
-  .chat-message-head > a:after
-    color: #B3B3B3
-
-  &.role-mod
-    $color-mod: #6666FF
-    .chat-message-head > a
-      color: $color-mod
-      &:after
-        color: lighten($color-mod,5%)
-      &:hover
-        color: darken($color-mod,10%)
-
-  &.role-owner
-    $color-owner: #8000FF
-    .chat-message-head > a
-      color: $color-owner
-      &:after
-        color: lighten($color-owner,5%)
-      &:hover
-        color: darken($color-owner,10%)
-
-  // &.role-moderator
-  //   .chat-message-head > a:after
-  //     content: "mod"
-  //     color: #CC9900
-  //
-  // &.role-admin
-  //   .chat-message-head > a:after
-  //     content: "admin"
-  //     color: #669966
-
   &.role-developer, &.role-founder, &.role-donor
+    padding-bottom: 26px
     .chat-message-avatar
       position: relative
       &:before
         padding: 0
-        margin: 0 -3px -3px -3px
+        margin: 0 -1px -20px -1px
         z-index: 2
         display: block
         position: absolute
@@ -547,23 +516,19 @@ a.drop-preview
   &.role-founder
     .chat-message-avatar:before
       content: "founder"
-      +linear-gradient(#efc713,darken(#efad19,3%))
+      +linear-gradient(#ffbde8,darken(#ffbde8,3%))
 
   &.role-developer
     .chat-message-avatar:before
       content: "dev"
-      +linear-gradient(#ffbde8,darken(#ffbde8,3%))
+      +linear-gradient(#9649ff,darken(#9649ff,3%))
 
   &.role-donor
-.chat-message.device-mobile
-  .chat-message-head > a:before
-    content: ""
-    float: left
-    width: 16px
-    height: 18px
-    background: asset-data-url("icons/tools/phone.png") center center no-repeat
-    background-size: auto 16px
-    +opacity(.4)
+    .chat-message-avatar:before
+      content: "donor"
+      +linear-gradient(#efc713,darken(#efad19,3%))
+
+
 
 .chat-inspect
   position: relative
