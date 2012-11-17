@@ -43,10 +43,6 @@ Cloudsdale::Application.routes.draw do
 
       resources :clouds, :controller => "users/clouds", only: [:index]
 
-      resources :prosecutions, :controller => "users/prosecutions", only: [:create,:update] do
-        put "/vote" => 'users/prosecutions#vote', on: :member, as: :vote
-      end
-
     end
 
     # Post update method for user.

@@ -59,27 +59,6 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
       view = new Cloudsdale.Views.CloudsToggle(model: conversation)
       @.$('#sidebar-clouds.sidebar-list').append(view.el)
 
-      # nfc.on "#{cloud.type}s:#{cloud.id}:prosecutions", (payload) =>
-      #
-      #   if payload.prosecutor_id != session.get('user').id
-      #     _model = new Cloudsdale.Models.Prosecution(payload)
-      #
-      #     if _model.get('offender_id') == session.get('user').id
-      #       _header = "You're under trial in #{_model.crimeScene().get('name')}"
-      #       _body = "Click to follow the trial that will determine your sentence."
-      #
-      #     else
-      #       _header = "#{_model.offender().get('name')} is under trial in #{_model.crimeScene().get('name')}"
-      #       _body = "Click to participate in the trial and voice your opinion."
-      #
-      #     $.event.trigger "notifications:add", {
-      #       header: _header,
-      #       body: _body,
-      #       callback: =>
-      #         Backbone.history.navigate("/clouds/#{cloud.id}",true)
-      #         $.event.trigger "#{cloud.type}s:#{cloud.id}:users:prosecution", _model
-      #     }
-
   refreshListPositions: ->
     @.$("ul#sidebar-clouds > li").each (index,elem) =>
       _pos = @.$(elem).prevAll().length

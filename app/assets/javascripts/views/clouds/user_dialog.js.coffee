@@ -9,7 +9,6 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
   events:
     'click a.close[data-dismiss="dialog"]' : "close"
     'click a[data-action="ban"]' : 'toggleUserBan'
-    'click a[data-action="prosecute"]' : 'toggleProsecution'
     'click a[data-action="skype:add"]' : 'skypeAdd'
     'click a[data-action="skype:call"]' : 'skypeCall'
 
@@ -53,10 +52,6 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
       @model.ban
         success: (user) =>
           @model.set(user)
-
-  toggleProsecution: ->
-    $.event.trigger "#{@topic.type}s:#{@topic.id}:users:prosecute", { id: @model.id }
-    false
 
   skypeAdd: ->
     window.open("skype:#{@model.get('skype_name')}?add").close()

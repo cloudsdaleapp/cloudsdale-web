@@ -167,11 +167,6 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
     @.$('textarea.chat-message-content').val("").trigger('input')
     false
 
-  startProsecution: () ->
-    prosecution = new Cloudsdale.Models.Prosecution(offender: session.get('user'))
-    view = new Cloudsdale.Views.CloudsProsecutionDialog(model: prosecution)
-    @.$('.chat-wrapper').append(view.el)
-
   toggleUserInspect: (user) ->
     view = new Cloudsdale.Views.CloudsChatUserInspect(model: user, topic: @model).el
     if @.$(".chat-inspect > .chat-inspect-content[data-user-id='#{user.id}']").length > 0

@@ -53,21 +53,6 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
       user = session.get('users').findOrInitialize { id: _id }
       @toggleUser(user)
 
-    $(@el).bind "#{@model.type}s:#{@model.id}:users:prosecution", (event,_model) =>
-      @toggleProsecution(_model)
-
-    $(@el).bind "#{@model.type}s:#{@model.id}:users:prosecute", (event,_id) =>
-      offender = session.get('users').findOrInitialize { id: _id }
-
-      _model = if _model then _model else new Cloudsdale.Models.Prosecution({
-        crime_scene_id: @model.id,
-        crime_scene_type: @model.type,
-        offender_id: offender.id,
-        prosecutor_id: session.get('user').id
-      })
-
-      @toggleProsecution(_model)
-
     $(window).bind 'resizestop', (e) => @refreshGfx()
 
   unbindEvents: ->
@@ -109,10 +94,6 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
 
   toggleUser: (_model) ->
     view = new Cloudsdale.Views.CloudsUserDialog(model: _model, topic: @model)
-    @renderDialog(view)
-
-  toggleProsecution: (_model) ->
-    view = new Cloudsdale.Views.CloudsProsecutionDialog(model: _model)
     @renderDialog(view)
 
   purgeOldDialog: (args) ->
