@@ -39,10 +39,25 @@ do ($ = jQuery) ->
       ChannelNameExt = {
 
         incoming: (message,callback) ->
-          message.data = {} unless message.data
 
-          if m = /^\/clouds\/(.*)\/users\/(.{24})$/ig.exec(message.channel)
+          message.data ||= {}
+
+          if m = /^\/clouds\/(.{24})\/users\/(.{24})$/ig.exec(message.channel)
+            # console.log message
+            # console.log message.data
             message.data.id = m[2]
+
+          callback(message)
+      }
+
+      UserAuthExt = {
+
+        outgoing: (message,callback) ->
+          message.ext = {} unless message.ext
+
+          if /^\/meta\/subscribe/ig.exec(message.channel)
+            if /^\/users\/(.{24})\/private/ig.exec(message.subscription)
+              message.ext.auth_token = session.get('user').get('auth_token')
 
           callback(message)
       }
@@ -55,6 +70,7 @@ do ($ = jQuery) ->
       })
 
       @cli.addExtension(ChannelNameExt)
+      @cli.addExtension(UserAuthExt)
 
       subscription = @cli.subscribe '/web', (payload) ->
         if payload.version != window.version

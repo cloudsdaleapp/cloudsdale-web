@@ -24,6 +24,10 @@ module Cloudsdale
     @ytClient = YouTubeIt::Client.new(:dev_key => config['youtube']['dev_key'])
   end
 
+  def self.redisClient
+    @redisClient = Redis.new(:host => config['redis']['host'], :port => config['redis']['port'])
+  end
+
   def self.soundcloud
     @soundcloud = Soundcloud.new(:client_id => config['soundcloud']['client_id'])
   end

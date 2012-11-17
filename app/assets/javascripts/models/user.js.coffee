@@ -14,6 +14,7 @@ class Cloudsdale.Models.User extends Backbone.Model
     invisible: false
     is_transient: true
     avatar_url: null
+    status: "offline"
 
   acceptTnc: (attr) ->
     attr ||= {}

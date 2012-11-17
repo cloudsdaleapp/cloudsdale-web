@@ -81,20 +81,6 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
       error: (resp, xhr,_options) =>
         options.error(resp, xhr,_options) if options.error
 
-
-  # Announces your chat presence in the chat room periodicly
-  # every 27 seconds with a 3 second delay before restarting the timer
-  #
-  # Returns false.
-  announcePresence: ->
-    setTimeout( =>
-      nfc.cli.publish "/clouds/#{@id}/users/#{session.get('user').id}", {}
-      setTimeout( =>
-        @announcePresence()
-      , 27000)
-    , 3000)
-    false
-
   importantUsers: (options) ->
     options = {} unless options
 

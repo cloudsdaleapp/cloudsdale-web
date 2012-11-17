@@ -1,6 +1,7 @@
 class User
 
   ROLES = { normal: 0, donor: 1, moderator: 2, contributor: 3, admin: 4, developer: 5, founder: 6 }
+  STATUSES = { offline: 0, online: 1, away: 2, busy: 3 }
 
   include AMQPConnector
 
@@ -44,6 +45,7 @@ class User
   field :confirmed_registration_at, type: DateTime,   default: nil
   field :suspended_until,           type: DateTime,   default: nil
   field :reason_for_suspension,     type: String,     default: nil
+  field :preferred_status,          type: Symbol,     default: :online
 
   mount_uploader :avatar, AvatarUploader
 
@@ -96,6 +98,20 @@ class User
   # Returns the name String.
   def name=(val=nil)
     self[:name] = val.gsub(/^\s*/i,"").split(/\s/).each{|w|w.capitalize!}.join(" ") if val.present?
+  end
+
+  # Public: Fetches the users status
+  #
+  # Returns the user status as a symbol, can be:
+  # :online, :offline, :away, :busy
+  def status
+    status_timestamp = Cloudsdale.redisClient.get("cloudsdale/users/#{self.id.to_s}").try(:to_i) || 0
+    minimum_time_threshold = 25.seconds.ago.to_ms
+    if status_timestamp > minimum_time_threshold
+      return self.preferred_status || :online
+    else
+      return :offline
+    end
   end
 
   # Public: Translates the User object to a HASH string using RABL

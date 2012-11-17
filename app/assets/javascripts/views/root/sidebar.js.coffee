@@ -59,8 +59,6 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
       view = new Cloudsdale.Views.CloudsToggle(model: conversation)
       @.$('#sidebar-clouds.sidebar-list').append(view.el)
 
-      conversation.announcePresence()
-
       # nfc.on "#{cloud.type}s:#{cloud.id}:prosecutions", (payload) =>
       #
       #   if payload.prosecutor_id != session.get('user').id

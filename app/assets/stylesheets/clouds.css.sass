@@ -541,6 +541,38 @@ a.drop-preview
       +linear-gradient(#efc713,darken(#efad19,3%))
 
 
+.chat-message
+  .chat-message-head > a
+    &:before
+      content: ""
+      // color: #666666
+      float: left
+      width: 10px
+      height: 10px
+      margin: 5px 5px 0 2px
+      // background: asset-data-url("icons/tools/phone.gif") center center no-repeat
+      // background-size: auto 16px
+      background: #666666
+      +border-radius(5px)
+      +opacity(.4)
+
+  &.device-mobile
+    .chat-message-head > a:before
+      font-size: 10px
+  &:not(.device-mobile)
+    .chat-message-head > a:before
+      font-size: 18px
+
+.chat-message
+  &.status-online
+    .chat-message-head > a:before
+      background: #3f8c07
+  &.status-busy
+    .chat-message-head > a:before
+      background: #80201e
+  &.status-away
+    .chat-message-head > a:before
+      background: #b99f34
 
 .chat-inspect
   position: relative
