@@ -577,6 +577,25 @@ a.drop-preview
   //     font-size: 18px
 
 .chat-message
+
+  &.role-mod
+    $color-mod: #6666FF
+    .chat-message-head > a
+      color: $color-mod
+      &:after
+        color: lighten($color-mod,5%)
+      &:hover
+        color: darken($color-mod,10%)
+
+  &.role-owner
+    $color-owner: #8000FF
+    .chat-message-head > a
+      color: $color-owner
+      &:after
+        color: lighten($color-owner,5%)
+      &:hover
+        color: darken($color-owner,10%)
+
   &.status-online
     .chat-message-head > a:before
       background: #3f8c07
