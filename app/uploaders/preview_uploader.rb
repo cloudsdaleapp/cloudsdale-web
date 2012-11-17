@@ -33,10 +33,17 @@ class PreviewUploader < CarrierWave::Uploader::Base
   
   version :thumb do
     process :convert => 'png'
-    process :resize_to_fit_x => 120
-    process :crop_y => 90
+    process :resize_to_fill => [120, 90]
   end
   
+  def convert(format)
+    cache_stored_file! if !cached?
+    image = ::Magick::Image.read(current_path)
+    frames = image.first
+    frames.write("#{format}:#{current_path}")
+    destroy_image(frames)
+  end
+
   def crop_y(desired_height)
     manipulate! do |img|   
       h = img.rows
