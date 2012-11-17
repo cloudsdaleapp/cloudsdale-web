@@ -16,13 +16,13 @@ development:
   redis:
     host: 127.0.0.1
     port: 6379
-      
+
   rackspace_cloudfiles:
     username: zeeraw
     api_key: fb02d3d2336d887b81c7401d522ea393
     fog_directory: cloudsdale_development_uploads
     fog_host: http://c775851.r51.cf2.rackcdn.com
-    
+
   faye:
     path: push
     schema: http
@@ -30,7 +30,7 @@ development:
     port: 8000
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
     inhouse_host: 127.0.0.1
-    
+
   soundcloud:
     client_id: 3897d7c3ae5a3178c8626d7b51ce370a
     client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
@@ -43,22 +43,22 @@ development:
 production:
   url: http://web01.cloudsdale.org
   asset_url: http://assets.cloudsdale.org
-  
+
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
-    
+
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA
     consumer_secret: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
-    
+
   facebook:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
-    
+
   tire:
     host: db.s.cloudsdale.org
     port: 9200
-    
+
   redis:
     host: db.s.cloudsdale.org
     port: 6379
@@ -68,7 +68,7 @@ production:
     api_key: fb02d3d2336d887b81c7401d522ea393
     fog_directory: cloudsdale_production_uploads
     fog_host: http://c775850.r50.cf2.rackcdn.com
-    
+
   faye:
     path: push
     schema: http
@@ -76,18 +76,18 @@ production:
     port: 80
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
     inhouse_host: push01.snet.cloudsdale.org
-    
+
   soundcloud:
     client_id: 3897d7c3ae5a3178c8626d7b51ce370a
     client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
-  
+
   rabbit:
     host: push01.snet.cloudsdale.org
     user: guest
-    pass: guest 
-   
+    pass: guest
+
   # rabbit:
   #   host: push01.snet.cloudsdale.org
   #   user: cloudsdale
   #   pass: a73eb7270e283e9777a7e7d7124c4a3e
-    
+
