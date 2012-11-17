@@ -14,7 +14,7 @@ class User
   delegate :can?, :cannot?, :to => :ability
 
   attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar, :remote_avatar_url, :remove_avatar, :skype_name
-  attr_accessor :password, :confirm_registration
+  attr_accessor :password, :confirm_registration, :status
 
   embeds_one :character
   embeds_one :restoration
@@ -103,10 +103,11 @@ class User
   # Public: Fetches the users status
   #
   # Returns the user status as a symbol, can be:
-  # :online, :offline, :away, :busy
+  # :online, :offline, :away or :busy
   def status
+    return @status if @status.present?
     status_timestamp = Cloudsdale.redisClient.get("cloudsdale/users/#{self.id.to_s}").try(:to_i) || 0
-    minimum_time_threshold = 60.seconds.ago.to_ms
+    minimum_time_threshold = 35.seconds.ago.to_ms
     if status_timestamp > minimum_time_threshold
       return self.preferred_status || :online
     else
