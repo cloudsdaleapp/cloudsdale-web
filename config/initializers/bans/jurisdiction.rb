@@ -1,4 +1,4 @@
-class Jurisdiction
+module Jurisdiction
 
   def has_banned?(user)
    self.bans_on(user).active.count >= 1
