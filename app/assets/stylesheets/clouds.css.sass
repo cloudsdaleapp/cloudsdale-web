@@ -554,7 +554,7 @@ a.drop-preview
       +border-radius(5px)
       +opacity(.4)
 
-  &.device-mobile
+  &.device-robot, &.device-mobile
     .chat-message-meta
       padding-right: 18px
       margin-right: 4px
@@ -563,14 +563,25 @@ a.drop-preview
         content: ""
         display: block
         position: absolute
-        margin: 2px 0 0 0
         top: 0
         right: 0
         height: 16px
         width: 16px
+        +opacity(.7)
+
+  &.device-robot
+    .chat-message-meta
+      &:after
+        margin: 2px 0 0 0
+        background: asset-data-url("icons/glyphicons/halflings/cog.png") center center no-repeat
+        background-size: 12px 12px
+
+  &.device-mobile
+    .chat-message-meta
+      &:after
+        margin: 2px 0 0 0
         background: asset-data-url("icons/glyphicons/halflings/phone.png") center center no-repeat
         background-size: 8px 12px
-        +opacity(.7)
 
   // &:not(.device-mobile)
   //   .chat-message-meta > a:before
