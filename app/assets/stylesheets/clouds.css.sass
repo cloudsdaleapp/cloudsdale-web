@@ -489,12 +489,14 @@ a.drop-preview
 
 .chat-message
   &.role-developer, &.role-founder, &.role-donor
-    padding-bottom: 26px
     .chat-message-avatar
       position: relative
+      @media (max-width: $phone)
+        margin-bottom: 16px
+      @media (min-width: $ipad-min)
+        margin-bottom: 18px
       &:before
         padding: 0
-        margin: 0 -1px -20px -1px
         z-index: 2
         display: block
         position: absolute
@@ -502,16 +504,26 @@ a.drop-preview
         right: 0
         left: 0
         right: 0
-        height: 13px
-        line-height: 13px
-        font-size: 10px
         text-align: center
         color: #ffffff
-        text-shadow: -1px -1px 0 rgba(0,0,0,.2)
         border: 1px solid $color-border-heavy
         +box-shadow(0,2px,2px,rgba(0,0,0,.2))
         +border-radius(2px)
         pointer-events: none
+        @media (max-width: $phone)
+          margin: 0 -1px -16px -1px
+          height: 10px
+          line-height: 10px
+          font-size: 7px
+          text-shadow: -0 -0 1px rgba(0,0,0,.2)
+          font-weight: bold
+        @media (min-width: $ipad-min)
+          margin: 0 -1px -20px -1px
+          height: 13px
+          line-height: 13px
+          font-size: 10px
+          text-shadow: -1px -1px 0 rgba(0,0,0,.2)
+
 
   &.role-founder
     .chat-message-avatar:before
