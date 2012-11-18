@@ -98,7 +98,7 @@ class Cloudsdale.Models.User extends Backbone.Model
   # @param {cloud} an instance of {Cloud}
   # @return {number} 0 is not a member, 1 is a normal member, 2 is a moderator and 3 is the owner
   rankOn: (cloud) ->
-    if cloud.owner_id == @id
+    if cloud.get('owner_id') == @id
       return 3
     else if _.include(cloud.get('moderator_ids'), @id)
       return 2
