@@ -82,3 +82,28 @@ class Cloudsdale.Models.User extends Backbone.Model
 
   toSelectable: ->
     return { id: @id, text: @get('name'), avatar: @get('avatar').mini }
+
+  # Checks if @this outranks a {User} on a {Cloud}
+  #
+  # @this {User}
+  # @param {user} an instance of {User}
+  # @param {cloud} an instance of {Cloud}
+  # @return {boolean} about if the statement is true or false
+  outRanksOn: (user,cloud) ->
+    @rankOn(cloud) > user.rankOn(cloud)
+
+  # Checks what rank @this has in relation to {Cloud}
+  #
+  # @this {User}
+  # @param {cloud} an instance of {Cloud}
+  # @return {number} 0 is not a member, 1 is a normal member, 2 is a moderator and 3 is the owner
+  rankOn: (cloud) ->
+    if cloud.owner_id == @id
+      return 3
+    else if _.include(cloud.get('moderator_ids'), @id)
+      return 2
+    else if _.include(cloud.get('user_ids'), @id)
+      return 1
+    else
+      return 0
+
