@@ -37,7 +37,7 @@ class Api::V1::Clouds::BansController < Api::V1Controller
         render status: 200
         set_flash_message message: "Your target was sent to the moon.", title: "TO THE MOON!"
       else
-        set_flash_message message: "You used the wrong kind of magic and the canon broke.", title: "Moon canon Malfunction"
+        set_flash_message message: "You used the wrong kind of magic and the canon broke.", title: "Moon canon malfunction"
         build_errors_from_model @ban
         render status: 422
       end
@@ -67,14 +67,13 @@ class Api::V1::Clouds::BansController < Api::V1Controller
     if can? :update, @ban
       if @ban.save
         render status: 200
-        set_flash_message message: "Your target was sent to the moon.", title: "TO THE MOON!"
       else
-        set_flash_message message: "You used the wrong kind of magic and the canon broke.", title: "Moon canon Malfunction"
+        set_flash_message message: "You used the wrong kind of magic and the canon broke.", title: "Moon canon malfunction"
         build_errors_from_model @ban
         render status: 422
       end
     else
-      set_flash_message message: "You are not authorized to operate the moon-canon.", title: "TO THE... what now?"
+      set_flash_message message: "Only supreme rulers are authorized to operate the moon-canon.", title: "No banana bag?"
       build_errors_from_model @ban
       render status: 401
     end
