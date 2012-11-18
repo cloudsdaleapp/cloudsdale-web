@@ -74,7 +74,7 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
     @.$(':checkbox').change ->
       unless $(@).data('preventAjax') == true
         submitData = {}
-        submitData[@name] = if (@value == "on") then true else false
+        submitData[@name] = if @checked then true else false
         $.event.trigger 'change:field:cloud', { element: @, submitData: submitData }
 
     @.$(':file').on 'change', => @submitAvatar()
