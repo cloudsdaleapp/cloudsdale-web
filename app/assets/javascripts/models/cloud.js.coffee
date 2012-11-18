@@ -123,3 +123,6 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
 
     return { cloud: obj }
 
+  isModerator: (user) ->
+    _.include(@get('moderator_ids'), user.id)
+
