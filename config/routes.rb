@@ -22,6 +22,8 @@ Cloudsdale::Application.routes.draw do
 
       end
 
+      resources :bans, :controller => "clouds/bans", only: [:index,:create,:update]
+
       namespace :chat, module: 'clouds/chat' do
         resources :messages, only: [:index,:create]
       end
