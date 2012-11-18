@@ -504,8 +504,35 @@ body
         border-color: $color-border-heavy
         @each $vendor in -moz-, -o-, -webkit-, ""
           #{$vendor}box-shadow: inset 0 1px 1px rgba(0,0,0,.05), 0 1px 0 rgba(255,255,255,.1)
+
+    input[type=submit], button
+      width: 100% !important
+      padding: 5px 4px
+      +linear-gradient(#485164,#3e4757)
+      +border-radius(3px)
+      text-align: center
+      font-size: 11px
+      color: #999999
+      font-weight: bold
+      display: block
+      outline: none
+      border: $color-border-dark 1px solid
+      +box-sizing(content-box)
+      @each $vendor in -moz-, -o-, -webkit-, ""
+        #{$vendor}box-shadow: 0 1px 0 rgba(255,255,255,.1)
+      &:hover
+        +linear-gradient(darken(#485164,1%),darken(#3e4757,1%))
+      &:focus, &.active, &:active
+        +linear-gradient(darken(#485164,2%),darken(#3e4757,3%))
+
+      &:hover, &:focus, &.active, &:active
+        @each $vendor in -moz-, -o-, -webkit-, ""
+          #{$vendor}box-shadow: 0 1px 0 rgba(255,255,255,.1)
+
+    input[type=text], input[type=password], textarea, input[type=submit]
       &:last-child
         margin-bottom: 0
+
 
     &.sidebar-input-search:before
       content: ""
@@ -663,6 +690,11 @@ li.sidebar-item
     visibility: hidden
     line-height: 0
     height: 0
+
+.sidebar-dropdown
+  display: none
+.active > .sidebar-dropdown
+  display: block
 
 .topnav
   position: fixed
