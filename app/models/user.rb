@@ -13,7 +13,8 @@ class User
 
   delegate :can?, :cannot?, :to => :ability
 
-  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar, :remote_avatar_url, :remove_avatar, :skype_name
+  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar
+  attr_accessible :remote_avatar_url, :remove_avatar, :skype_name, :preferred_status
   attr_accessor :password, :confirm_registration, :status
 
   embeds_one :character
