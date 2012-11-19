@@ -13,7 +13,7 @@ class Cloudsdale.Models.Session extends Backbone.Model
 
 
     @get('users').add(@get('user'))
-    @get('user').set('status','online')
+    @get('user').set('status',@get('user').get('preferred_status'))
     @listenToPrivateChannel()
 
     @bindEvents()
@@ -27,7 +27,7 @@ class Cloudsdale.Models.Session extends Backbone.Model
   bindEvents: ->
 
     @get('user').on 'change', (user) =>
-      user.set('status','online')
+      user.set('status',@get('user').get('preferred_status'))
       window.location.replace("/logout") if user.get('is_banned')
       @listenToPrivateChannel()
 
