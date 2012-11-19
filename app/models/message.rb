@@ -26,7 +26,7 @@ class Message
   validates :author,      :presence => true
 
   scope :old, -> { order_by([:timestamp,:desc]).skip(50) }
-  
+
   after_save do
     enqueue! "faye", { channel: "/#{self.topic_type}s/#{self.topic_id}/chat/messages", data: self.to_hash } 
   end
@@ -59,7 +59,7 @@ class Message
     
     # CAPSLOCK DAY
     # msg.upcase! if (Date.today.day == 28 && Date.today.month == 6) || (Date.today.day == 22 && Date.today.month == 10)
-    
+    msg = msg.truncate(750, :separator => ' ')
     msg.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n"
     msg.gsub! /<br\/><br\/>/,"\\n"
     msg.gsub! /^\s*$/, ""
