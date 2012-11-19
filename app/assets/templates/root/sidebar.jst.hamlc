@@ -1,8 +1,41 @@
-/ %ul.sidebar-list
-/   %li.sidebar-item
-/     %a{ href: "/clouds/new" }
-/       %span.sidebar-item-name{ style: 'margin-left: 0;'}
-/         %i.icon-plus-sign.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-/         %strong= "Create new Cloud"
+.sidebar-header= "Status"
+%ul.sidebar-list#status-select
+  %li.sidebar-item#status-current
+    %a{ href: '#' }
+      %span.sidebar-item-name.status-online{ style: 'margin-left: 0;'}
+        %i.icon-signal.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+        %strong= "Online"
+      %span.sidebar-item-name.status-away{ style: 'margin-left: 0;'}
+        %i.icon-time.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+        %strong= "Away"
+      %span.sidebar-item-name.status-busy{ style: 'margin-left: 0;'}
+        %i.icon-minus-sign.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+        %strong= "Busy"
+      %span.sidebar-item-name.status-offline{ style: 'margin-left: 0;'}
+        %i.icon-eye-close.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+        %strong= "Invisible"
+
+  .sidebar-dropdown
+    %li.sidebar-item#status-online
+      %a{ href: '#' }
+        %span.sidebar-item-name{ style: 'margin-left: 0;'}
+          %i.icon-signal.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+          %span= "Online"
+    %li.sidebar-item#status-away
+      %a{ href: '#' }
+        %span.sidebar-item-name{ style: 'margin-left: 0;'}
+          %i.icon-time.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+          %span= "Away"
+    %li.sidebar-item#status-busy
+      %a{ href: '#' }
+        %span.sidebar-item-name{ style: 'margin-left: 0;'}
+          %i.icon-minus-sign.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+          %span= "Busy"
+    %li.sidebar-item#status-offline
+      %a{ href: '#' }
+        %span.sidebar-item-name{ style: 'margin-left: 0;'}
+          %i.icon-eye-close.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+          %span= "Invisible"
+
 .sidebar-header= "Clouds"
 %ul#sidebar-clouds.sidebar-list

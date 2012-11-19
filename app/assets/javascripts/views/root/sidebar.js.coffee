@@ -7,15 +7,27 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
   tagName: 'div'
   className: 'sidebar'
 
+  events:
+    'click #status-online'  : -> @toggleStatus('online')
+    'click #status-offline' : -> @toggleStatus('offline')
+    'click #status-away'    : -> @toggleStatus('away')
+    'click #status-busy'    : -> @toggleStatus('busy')
+
   initialize: (args) ->
     @render()
     @bindEvents()
+    @refreshGfx()
     @initializeConversations()
     this
 
   render: ->
     $(@el).html(@template(model: @model))
     this
+
+  refreshGfx: ->
+    @.$('#status-select').removeClass("status-busy").removeClass("status-away")
+    .removeClass("status-online").removeClass("status-offline")
+    .addClass("status-#{session.get('user').get('preferred_status')}")
 
   bindEvents: ->
     $(@el).mousewheel (event, delta) ->
@@ -25,6 +37,12 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
       axis: 'y'
       stop: (event, ui) =>
         @refreshListPositions()
+
+    session.get('user').on 'change', (e) =>
+      @refreshGfx()
+
+    @.$('#status-current').bind 'click', (e) =>
+      @.$('#status-select').toggleClass('active')
 
     $(@el).bind 'clouds:join', (event,conversation) => @renderConversation(conversation)
 
@@ -45,6 +63,11 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
           if prev.length > 0
             id = prev.attr('data-entity-id')
             Backbone.history.navigate("/clouds/#{id}",true)
+
+  toggleStatus: (status) ->
+    session.get('user').set('preferred_status',status)
+    session.get('user').save()
+    @.$('#status-select').removeClass('active')
 
   initializeConversations: ->
     session.get('clouds').each (cloud) =>
