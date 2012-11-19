@@ -1158,6 +1158,31 @@ footer > div
     top: -500px
     right: -500px
 
+.status-online #status-online
+  display: none
+.status-away #status-away
+  display: none
+.status-busy #status-busy
+  display: none
+.status-offline #status-offline
+  display: none
+
+.status-online
+  .status-offline, .status-away, .status-busy
+    display: none !important
+
+.status-offline
+  .status-online, .status-away, .status-busy
+    display: none !important
+
+.status-away
+  .status-online, .status-offline, .status-busy
+    display: none !important
+
+.status-busy
+  .status-online, .status-offline, .status-away
+    display: none !important
+
 @import "users"
 @import "main"
 @import "sessions"

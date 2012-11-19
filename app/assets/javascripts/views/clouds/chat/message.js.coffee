@@ -39,11 +39,10 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
       @refreshGfx()
 
   refreshGfx: ->
-    $(@el).removeClass('status-online').removeClass('status-offline')
-    if @model.user().get('status') == "online"
-      $(@el).addClass('status-online')
-    else if @model.user().get('status') == "offline"
-      $(@el).addClass('status-offline')
+    $(@el).removeClass('status-away').removeClass('status-busy')
+    .removeClass('status-online').removeClass('status-offline')
+
+    $(@el).addClass("status-#{@model.user().get('status')}")
 
     @.$('.chat-message-avatar a img').attr('src',@model.user().get('avatar').thumb)
     @.$('.chat-message-head a').text(@model.user().get('name'))
