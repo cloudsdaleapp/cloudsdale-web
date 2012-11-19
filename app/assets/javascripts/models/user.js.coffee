@@ -64,6 +64,7 @@ class Cloudsdale.Models.User extends Backbone.Model
       email: @get('email')
       invisible: @get('invisible')
       time_zone: @get('time_zone')
+      preferred_status: @get('preferred_status')
 
     if @get('password')
       obj.password = @get('password')
