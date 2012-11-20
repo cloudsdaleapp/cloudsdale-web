@@ -43,7 +43,7 @@ class Ability
         can [:create,:update], Ban do |ban|
           i_am_a_moderator        = ban.jurisdiction.moderator_ids.include?(user.id)
           prosecuting_myself      = ban.offender.id == user.id
-          offender_was_there      = ban.jurisdiction.user_ids.include?(offender.id)
+          offender_was_there      = ban.jurisdiction.user_ids.include?(ban.offender.id)
 
           i_am_a_moderator and offender_was_there and not prosecuting_myself
         end
