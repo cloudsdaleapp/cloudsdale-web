@@ -58,7 +58,7 @@ private
   # Used to validate due date
   # Returns errors if you fucked up.
   def validate_due
-    errors.add("due", "is invalid.") unless due_in_future
+    errors.add("due", "must be in the future") unless due_in_future
   end
 
 end
