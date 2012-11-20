@@ -28,7 +28,7 @@ class Api::V1::Clouds::BansController < Api::V1Controller
     @offender = User.find(params[:offender_id])
     @enforcer = current_user
 
-    @ban = Cloud.bans.build params[:ban], as: :enforcer
+    @ban = @cloud.bans.build params[:ban], as: :enforcer
     @ban.enforcer = @enforcer
     @ban.offender = @offender
 
