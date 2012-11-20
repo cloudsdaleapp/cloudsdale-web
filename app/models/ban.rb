@@ -18,8 +18,8 @@ class Ban
   attr_accessible :revoke,  as: [:editor]
   attr_accessible :reason,  as: [:enforcer]
 
-  validates :reason, presence: true,   length: { within: 1..140 }
-  validates :due,    presence: true
+  validates :reason, length: { within: 1..140 }
+  validates :due
   validate :validate_due
 
   scope :active, where(:due.gt => DateTime.current, :revoke => false)
