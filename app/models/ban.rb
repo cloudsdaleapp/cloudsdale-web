@@ -26,7 +26,7 @@ class Ban
   scope :expired, where(:due.lt => DateTime.current)
 
   after_save do
-    enqueue! "faye", { channel: "/#{jurisdiction._type}s/#{jurisdiction._id.to_s}/bans", data: self.to_hash }
+    enqueue! "faye", { channel: "/users/#{self.offender_id}/bans", data: self.to_hash }
   end
 
   # Public: Translates the Ban object to a HASH string using RABL
