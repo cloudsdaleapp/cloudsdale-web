@@ -490,7 +490,14 @@ body
   // +linear-gradient(darken(#434A5B,5%),darken(#3A4150,5%))
   form
     padding: 0
-    margin: 0 10px 0 0
+    margin: 3px 10px 5px 0
+
+    label
+      margin: 3px 0 0 3px
+      font-weight: bold
+      letter-spacing: .06em
+      color: #7E8290
+      text-shadow: 1px 1px 0 rgba(0,0,0,.2)
 
     input[type=text], input[type=password], textarea
       margin: 0 0 5px 0
@@ -560,6 +567,18 @@ body
         background: 0
         line-height: 13px
         +box-shadow(0,0,0,transparent)
+
+  .sidebar-form-errors
+    margin: 0 -10px 6px 0
+    padding: 5px 0
+    border-bottom: 1px solid #29303C
+    border-left: 1px solid lighten(#29303C,2%)
+    border-right: 1px solid lighten(#29303C,2%)
+    border-top: 1px solid lighten(#29303C,4%)
+    +linear-gradient(#8a8ea0,#7E8290)
+    color: #333A48
+    font-size: 12px
+    +border-radius(2px)
 
 ul.sidebar-list
   display: block
