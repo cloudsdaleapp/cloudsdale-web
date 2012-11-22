@@ -2,22 +2,21 @@
   %a.close{ href: '#', data: { dismiss: 'dialog' } }= "×"
   = @model.get('name')
 %ul.sidebar-list
-  / - if _.include(@topic.get('moderator_ids'), session.get('user').id) and _.include(@topic.get('moderator_ids'), @model.id) == false
-  /   %li.sidebar-item.sidebar-item-using-icon
-  /     %a{ href: "#", 'data-action' => 'prosecute' }
-  /       %span.sidebar-item-name= "Prosecute"
-  /         %i.icon-screenshot.icon-white
-  - if session.isModerator()
+  - if @topic.isModerator(session.get('user')) and session.get('user').outRanksOn(@model,@topic)
     %li.sidebar-item.sidebar-item-using-icon
-      %a{ href: "#", 'data-action' => 'ban' }
-        - if @model.get('is_banned')
-          %span.sidebar-item-name
-            %i.icon-repeat.icon-white
-            = "Unban"
-        - else
-          %span.sidebar-item-name
-            %i.icon-off.icon-white
-            = "Ban"
+      %a{ href: "#", 'data-action' => 'moderate' }
+        %span.sidebar-item-name= "Moderate"
+          %i.icon-hand-right.icon-white
+      .sidebar-input.sidebar-dropdown
+        %form#ban_form
+          #ban_errors
+          %label{ for: 'ban_reason' }= "Reason for banning"
+          %textarea#ban_reason{ name: 'reason' }
+            = @newBan.get('reason')
+          %label= "Ban will last until..."
+          %input#ban_due_date{ type: 'text', name: 'due_date', value: @newBan.dueDate() }
+          %input#ban_due_time{ type: 'text', name: 'due_time', value: @newBan.dueTime() }
+          %input{ type: 'submit', name: 'ban', value: 'Ban' }
 
   - if @model.get('skype_name')
     %li.sidebar-item.sidebar-item-using-icon

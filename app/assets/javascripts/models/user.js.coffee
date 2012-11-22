@@ -7,6 +7,7 @@ class Cloudsdale.Models.User extends Backbone.Model
     name: ""
     avatar: {}
     clouds: []
+    bans: undefined
     email: ""
     time_zone: ""
     role: "normal"
@@ -15,6 +16,17 @@ class Cloudsdale.Models.User extends Backbone.Model
     is_transient: true
     avatar_url: null
     status: "offline"
+
+  initialize: (args,options) ->
+
+    @bans = new Cloudsdale.Collections.Bans()
+
+    if args.bans
+      @bans.add(args.bans)
+      delete @attributes['bans']
+
+    this
+
 
   acceptTnc: (attr) ->
     attr ||= {}

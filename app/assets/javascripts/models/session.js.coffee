@@ -6,7 +6,6 @@ class Cloudsdale.Models.Session extends Backbone.Model
     users: []
 
   initialize: (attr) ->
-
     @set 'user', new Cloudsdale.Models.User(@get('user'))
     @set 'users', new Cloudsdale.Collections.Users()
     @set 'clouds', new Cloudsdale.Collections.Clouds()
@@ -30,6 +29,26 @@ class Cloudsdale.Models.Session extends Backbone.Model
       user.set('status',@get('user').get('preferred_status'))
       window.location.replace("/logout") if user.get('is_banned')
       @listenToPrivateChannel()
+
+    nfc.on "users:#{@get('user').id}:bans", (payload) =>
+
+      ban = new Cloudsdale.Models.Ban(payload)
+
+      session.get('user').bans.add(ban)
+
+      $.event.trigger "notifications:add", {
+        header: "Attention!",
+        body: "You have been banned from #{ban.jurisdiction().get('name')} by
+              #{ban.enforcer().get('name')}. Reason: #{ban.get('reason')}",
+        callback: (e) ->
+          false
+        afterRender: (e) ->
+          false
+      }
+
+      $.event.trigger "clouds:disable", ban.jurisdiction()
+
+      return false
 
   # Returns true if the user is not a new user.
   isRegistered: -> @get('user').get('is_registered')

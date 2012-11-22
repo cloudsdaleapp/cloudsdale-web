@@ -126,3 +126,10 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
   isModerator: (user) ->
     _.include(@get('moderator_ids'), user.id)
 
+  # Bans {User} from @this
+  #
+  # @param {user}
+  # @return false
+  ban: (user,args) ->
+    args ||= {}
+

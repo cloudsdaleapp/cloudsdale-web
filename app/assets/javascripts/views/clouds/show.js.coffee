@@ -41,10 +41,8 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     session.get('user').on 'change', (model) =>
       @refreshGfx()
 
-    $(@el).bind "clouds:leave", (event,cloud) =>
-      if cloud.id == @model.id
-        @unbindEvents()
-        $(@el).remove()
+    $(@el).bind "clouds:leave", (event,cloud) => @closeIfCloudMatch(cloud)
+    $(@el).bind "clouds:disable", (event,cloud) => @closeIfCloudMatch(cloud)
 
     nfc.on "#{@model.type}s:#{@model.id}", (payload) =>
       @model.set(payload)
@@ -126,6 +124,17 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
       $.event.trigger "clouds:leave", @model
       Backbone.history.navigate("/",true)
       @model.destroy()
+
+  close: ->
+    if $(@el).addClass('active')
+      Backbone.history.navigate("/",true)
+
+    @unbindEvents()
+    $(@el).remove()
+
+  closeIfCloudMatch: (cloud) ->
+    @close() if cloud.id == @model.id
+
 
   # toggleDropdown: (event) ->
   #   $(event.target).next().dropdown('show')

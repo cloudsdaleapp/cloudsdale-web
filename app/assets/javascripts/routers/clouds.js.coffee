@@ -22,10 +22,16 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
 
         success: (cloud) =>
           if cloud.containsUser(session.get('user'))
-            @renderCloudPage(args,cloud)
+            @allowedToShow cloud,
+              callback: =>
+                @renderCloudPage(args,cloud)
           else
             session.get('user').addCloud cloud,
-              success: () => @renderCloudPage(args,cloud)
+              success: () =>
+                @allowedToShow cloud,
+                  callback: =>
+                    @renderCloudPage(args,cloud)
+
               error: => fail_to_load(id)
 
         error: => fail_to_load(id)
@@ -57,4 +63,26 @@ class Cloudsdale.Routers.Clouds extends Backbone.Router
       $('.main-container').append new Cloudsdale.Views.CloudsShow(model: cloud).el
 
     $.event.trigger 'page:show', cloud.id
+
+  allowedToShow: (cloud,args) ->
+    args ||= {}
+    args.callback = if args.callback then args.callback else (->)
+
+    if session.get('user').bans.activeOn(cloud).length >= 1
+
+      $.event.trigger "notifications:add", {
+        header: "Warning!",
+        body: "You are banned from this Cloud.",
+        callback: (e) ->
+          false
+        afterRender: (e) ->
+          false
+      }
+
+      $(".loading-content.loader-cloud[data-entity-id='#{cloud.id}']").remove()
+      Backbone.history.navigate("/",true)
+
+    else
+      args.callback()
+
 

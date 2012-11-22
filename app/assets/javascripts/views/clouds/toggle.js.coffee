@@ -28,6 +28,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     this
 
   bindEvents: ->
+
     $(@el).bind 'page:show', (event,page_id) =>
       if page_id == @model.id
         @active = true
@@ -42,6 +43,10 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
         @unbindEvents()
         $(@el).remove()
 
+    $(@el).bind "clouds:disable", (event,cloud) =>
+      if cloud.id == @model.id
+        @disable()
+
     nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
       @addNotification()
 
@@ -54,7 +59,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     $(window).bind 'resizestop', => @refreshGfx()
 
   unbindEvents: ->
-    $(@el).unbind('page:show').unbind('clouds:leave')
+    $(@el).unbind('page:show').unbind('clouds:leave').unbind('clouds:disable')
     nfc.off("#{@model.type}s:#{@model.id}:chat:messages")
 
   refreshGfx: ->
@@ -68,9 +73,15 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
 
     @.$('.sidebar-item-name').text(@model.get('name')).truncate()
 
+    if session.get('user').bans.activeOn(@model).length >= 1
+      @disable()
+
   activate: ->
     $("body").removeClass('with-expanded-cloudbar')
     true
+
+  disable: ->
+    $(@el).addClass('disabled')
 
   # Clears Cloud of all notifications and refreshes the notification plate
   clearNotifications: ->
