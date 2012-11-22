@@ -12,3 +12,5 @@ node(:jurisdiction_type) { |ban| ban.jurisdiction._type.to_s.downcase }
 
 node(:has_expired) { |ban| ban.due < DateTime.current }
 node(:is_active) { |ban| (ban.due > DateTime.current) && !ban.revoke }
+
+node(:is_transient) { |ban| ban.new_record? }
