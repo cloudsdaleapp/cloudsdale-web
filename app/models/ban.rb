@@ -24,6 +24,7 @@ class Ban
   scope :active, where(:due.gt => DateTime.current, :revoke => false)
   scope :revoked, where(revoke: true)
   scope :expired, where(:due.lt => DateTime.current)
+  scope :on_user, -> user { where(:offender_id => user.id) }
 
   after_save do
     enqueue! "faye", { channel: "/users/#{self.offender_id}/bans", data: self.to_hash }
