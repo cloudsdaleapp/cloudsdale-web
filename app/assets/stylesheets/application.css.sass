@@ -615,6 +615,12 @@ li.sidebar-item
     a > span.sidebar-item-notification
       display: none
 
+  &.disabled
+    pointer-events: none
+    +opacity(.5)
+    span.sidebar-item-name
+      text-decoration: line-through
+
   a
     display: block
     padding: 7px
