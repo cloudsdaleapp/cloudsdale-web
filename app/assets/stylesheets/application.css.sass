@@ -451,8 +451,17 @@ body
     font-size: 12px
   input[type=file]
     line-height: 24px
-.sidebar-header
 
+.sidebar-header, .sidebar-block-header
+  color: #7E8290
+  font-weight: bold
+  text-shadow: 1px 1px 0 rgba(0,0,0,.2)
+
+.sidebar-block-header
+  font-size: 12px
+  margin-bottom: 5px
+
+.sidebar-header
   padding: 2px 7px
 
   +linear-gradient(#434A5B,#3A4150)
@@ -460,11 +469,8 @@ body
   border-bottom: 1px solid #29303C
   border-top: 1px solid rgba(255,255,255,.05)
 
-  text-transform: uppercase
-  color: #7E8290
   font-size: 11px
-  font-weight: bold
-  text-shadow: 1px 1px 0 rgba(0,0,0,.2)
+  text-transform: uppercase
   a.close
     position: absolute
     right: 0
@@ -479,6 +485,40 @@ body
   +linear-gradient(#434A5B,#3A4150)
   color: #cccccc
   font-size: 12px
+
+.sidebar-note
+  background-color: #434A5B
+  padding: 3px 5px
+  margin-bottom: 5px
+  +border-radius(1px)
+  +box-shadow(0,1px,3px,rgba(0,0,0,.05))
+
+.sidebar-lead
+  padding: 10px 40px 10px 40px
+  margin: 0 0 5px 0
+  color: #434A5B
+  text-align: center
+  font-weight: bold
+  font-size: 15px
+  line-height: 20px
+  text-shadow: 1px 1px 1px rgba(0,0,0,.2)
+
+.sidebar-data-list
+  list-style: none
+  padding: 0 2px
+  margin: 0
+  margin-bottom: 5px
+  li
+    font-size: 11px
+    line-height: 18px
+    i
+      margin-top: -1px
+      margin-right: 3px
+
+.sidebar-loader
+  background-image: asset-data-url("details/loader-sidebar.gif")
+  background-position: center center
+  background-repeat: no-repeat
 
 .sidebar-input
   padding: 4px 7px
