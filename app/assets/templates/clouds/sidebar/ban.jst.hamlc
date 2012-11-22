@@ -1,0 +1,15 @@
+%p.sidebar-note= @model.get('reason')
+%ul.sidebar-data-list
+  - unless @model.get('is_transient')
+    %li
+      %i.icon-hand-right.icon-white
+      = "Issued on #{@model.createdAt().toString("MM/dd/yyyy")} by #{@model.enforcer().get('name')}"
+
+  - if @model.get('is_active')
+    %li
+      %i.icon-time.icon-white
+      = "Expires on #{@model.due().toString("MM/dd/yyyy - HH:mm:ss")}"
+
+- if @model.get('is_active')
+  %form
+    %button{ 'data-action' => 'ban-revoke' }= "Revoke Ban"

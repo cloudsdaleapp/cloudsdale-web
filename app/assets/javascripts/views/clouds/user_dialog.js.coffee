@@ -20,13 +20,36 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
       enforcer: session.get('user')
       jurisdiction: @topic
 
+    @currentBans = new Cloudsdale.Collections.Bans [], {
+      url: "/v1/#{@topic.type}s/#{@topic.id}/bans.json?offender_id=#{@model.id}"
+    }
+
     @render()
     @bindEvents()
+
+    if @topic.isModerator(session.get('user'))
+      @currentBans.fetch
+        add: true
+        success: (_collection) =>
+          @.$('.sidebar-bans').removeClass('sidebar-loader')
+          if _collection.length == 0
+            @.$('.sidebar-bans').append("
+              <p class='sidebar-lead'>
+                This user's record for this cloud is spotless. If this user has been misbehaving, you have tools below to help you.
+              </p>
+            ")
 
     this
 
   render: ->
     $(@el).html(@template(model: @model, topic: @topic, newBan: @newBan))
+    this
+
+  bindEvents: ->
+
+    @currentBans.on 'add', (ban) =>
+      view = new Cloudsdale.Views.CloudsSidebarBan { model: ban }
+      @.$('.sidebar-bans').append(view.el)
 
     @.$('#ban_due_date').datepicker
       weekStart: 1
@@ -37,8 +60,6 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
       showInputs: false
       minuteStep: 1
       secondStep: 30
-
-    this
 
     @.$('#ban_form').bind 'submit', (e) =>
       @newBan.set(@fetchBanFormData())
@@ -56,10 +77,6 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
 
     @.$('#ban_form > :input[type=text], #ban_form > textarea').on 'focus', =>
       @.$('#ban_errors').html("")
-
-  bindEvents: ->
-    @model.on 'change', (event,user) =>
-      @render()
 
   close: ->
     $(@el).parent().parent().removeClass('with-open-drawer')
