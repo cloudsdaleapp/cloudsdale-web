@@ -32,21 +32,30 @@ class Cloudsdale.Models.Session extends Backbone.Model
 
     nfc.on "users:#{@get('user').id}:bans", (payload) =>
 
-      ban = new Cloudsdale.Models.Ban(payload)
+      ban = session.get('user').bans.findOrInitialize(payload)
 
-      session.get('user').bans.add(ban)
+      if ban.get('is_active')
+        body = "You have been banned from #{ban.jurisdiction().get('name')} by
+                #{ban.enforcer().get('name')}. Reason: #{ban.get('reason')}"
+        callback = ->
+          false
+      else
+        body = "Your ban from #{ban.jurisdiction().get('name')} has been revoked."
+        callback = ->
+          window.location.replace("/")
 
       $.event.trigger "notifications:add", {
         header: "Attention!",
-        body: "You have been banned from #{ban.jurisdiction().get('name')} by
-              #{ban.enforcer().get('name')}. Reason: #{ban.get('reason')}",
-        callback: (e) ->
-          false
+        body: body,
+        callback: callback
         afterRender: (e) ->
           false
       }
 
-      $.event.trigger "clouds:disable", ban.jurisdiction()
+      if ban.get('is_active')
+        $.event.trigger "clouds:disable", ban.jurisdiction()
+      else
+        $.event.trigger "clouds:enable", ban.jurisdiction()
 
       return false
 

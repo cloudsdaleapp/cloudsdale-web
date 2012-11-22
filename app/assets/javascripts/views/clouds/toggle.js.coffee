@@ -47,6 +47,10 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
       if cloud.id == @model.id
         @disable()
 
+    $(@el).bind "clouds:enable", (event,cloud) =>
+      if cloud.id == @model.id
+        @enable()
+
     nfc.on "#{@model.type}s:#{@model.id}:chat:messages", (payload) =>
       @addNotification()
 
@@ -59,7 +63,8 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     $(window).bind 'resizestop', => @refreshGfx()
 
   unbindEvents: ->
-    $(@el).unbind('page:show').unbind('clouds:leave').unbind('clouds:disable')
+    $(@el).unbind('page:show').unbind('clouds:leave')
+    .unbind('clouds:disable').unbind('clouds:enable')
     nfc.off("#{@model.type}s:#{@model.id}:chat:messages")
 
   refreshGfx: ->
@@ -82,6 +87,9 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
 
   disable: ->
     $(@el).addClass('disabled')
+
+  enable: ->
+    $(@el).removeClass('disabled')
 
   # Clears Cloud of all notifications and refreshes the notification plate
   clearNotifications: ->
