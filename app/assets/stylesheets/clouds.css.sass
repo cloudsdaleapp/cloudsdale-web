@@ -488,7 +488,7 @@ a.drop-preview
     +box-shadow(1px,1px,2px,rgba(0,0,0,.1))
 
 .chat-message
-  &.role-developer, &.role-founder, &.role-donor
+  &.role-developer, &.role-founder, &.role-donor, &.role-admin, &.role-affiliate, &.role-legacy
     .chat-message-avatar
       position: relative
       @media (max-width: $phone)
@@ -539,6 +539,21 @@ a.drop-preview
     .chat-message-avatar:before
       content: "donor"
       +linear-gradient(#efc713,darken(#efad19,3%))
+
+  &.role-admin
+    .chat-message-avatar:before
+      content: "admin"
+      +linear-gradient(#679d41,darken(#679d41,3%))
+
+  &.role-affiliate
+    .chat-message-avatar:before
+      content: "affiliate"
+      +linear-gradient(#65849d,darken(#65849d,3%))
+
+  &.role-legacy
+    .chat-message-avatar:before
+      content: "legacy"
+      +linear-gradient(#bbbdc7,darken(#bbbdc7,7%))
 
 
 .chat-message
