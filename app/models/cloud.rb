@@ -59,6 +59,12 @@ class Cloud
       :"bans.revoke" => true
     )
   }
+  scope :unavailable_to, -> user {
+    where(
+      :"bans.due".gt => DateTime.current,
+      :"bans.revoke" => false
+    )
+  }
 
   fulltext_search_in :search_string, :filters => {
     :public => lambda { |cloud| cloud.hidden == false },
