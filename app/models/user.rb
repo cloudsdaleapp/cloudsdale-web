@@ -148,6 +148,17 @@ class User
     ROLES[sym] ? (self[:role] >= ROLES[sym]) : false
   end
 
+  # Public: Lists the active bans for a user
+  #
+  # Returns an array of the bans.
+  def bans
+    bans ||= []
+    self.clouds.map do |cloud|
+      cloud.bans.active.on_user(self).each { |ban| bans.push(ban) }
+    end
+    return bans.uniq
+  end
+
   # Public: An Alias for the ´ban´ method with a bang to also save
   # the user record to the database.
   #
