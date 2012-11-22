@@ -40,8 +40,6 @@ class Cloudsdale.Models.Ban extends Backbone.Model
     args ||= {}
     args.fetch = if args.fetch then args.fetch else false
 
-    console.log @
-
     return session.get('users').findOrInitialize { id: @get('enforcer_id') },
       fetch: args.fetch
 
