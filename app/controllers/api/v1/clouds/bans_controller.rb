@@ -14,7 +14,7 @@ class Api::V1::Clouds::BansController < Api::V1Controller
 
     @bans = @cloud.bans.where(
       params.select { |k,v| [:offender_id,:enforcer_id].include?(k.to_sym) }
-    )
+    ).order_by(due: :desc)
 
     render status: 200
   end
