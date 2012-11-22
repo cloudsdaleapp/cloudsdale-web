@@ -3,7 +3,8 @@ class Cloudsdale.Collections.Bans extends Backbone.Collection
   model: Cloudsdale.Models.Ban
 
   initialize: (models,options) ->
-    # wat
+    options ||= {}
+    @url = options.url if options.url
 
   activeOn: (jurisdiction) ->
     @filter (ban) ->
