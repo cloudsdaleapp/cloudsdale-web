@@ -16,6 +16,7 @@ class Cloudsdale.Models.Ban extends Backbone.Model
     jurisdiction_type: undefined
     offender_id: undefined
     enforcer_id: undefined
+    created_at: undefined
     is_transient: true
 
   initialize: (args,options) ->
@@ -53,6 +54,8 @@ class Cloudsdale.Models.Ban extends Backbone.Model
   dueDate: -> @due().toString("MM/dd/yyyy")
   dueTime: -> @due().toString("HH:mm:ss")
   due: -> new Date(@get('due'))
+
+  createdAt: -> new Date(@get('created_at'))
 
   toJSON: ->
     obj =
