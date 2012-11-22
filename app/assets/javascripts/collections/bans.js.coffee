@@ -12,3 +12,14 @@ class Cloudsdale.Collections.Bans extends Backbone.Collection
       isActive = ban.get('is_active')
       return isActive && idMatch
 
+  findOrInitialize: (args,options) ->
+    args ||= {}
+
+    ban = @get(args.id)
+    if ban
+      ban.set(args)
+      return ban
+    else
+      ban = new Cloudsdale.Models.Ban(args)
+      @add(ban)
+      return ban

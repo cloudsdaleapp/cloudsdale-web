@@ -36,21 +36,21 @@ class Ability
         can :create, Message do |message|
           i_can_communicate_in_topic  = user.cloud_ids.include?(message.chat.topic.id)
           topic_is_not_locked         = !message.chat.topic.locked?
+          i_am_not_banned_from_topic  = !message.chat.topic.has_banned?(user)
 
-          i_can_communicate_in_topic or topic_is_not_locked
+          (i_can_communicate_in_topic || topic_is_not_locked) && i_am_not_banned_from_topic
         end
 
         can [:list], Ban do |ban|
-          i_am_a_moderator = ban.jurisdiction.moderator_ids.include?(user.id)
-          i_am_moderator
+          ban.jurisdiction.moderator_ids.include?(user.id)
         end
 
         can [:create,:update], Ban do |ban|
           i_am_a_moderator        = ban.jurisdiction.moderator_ids.include?(user.id)
-          prosecuting_myself      = ban.offender.id == user.id
+          not_prosecuting_myself  = ban.offender.id != user.id
           offender_was_there      = ban.jurisdiction.user_ids.include?(ban.offender.id)
 
-          i_am_a_moderator and offender_was_there and not prosecuting_myself
+          (i_am_a_moderator || offender_was_there) && not_prosecuting_myself
         end
 
       end
