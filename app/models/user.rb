@@ -1,6 +1,6 @@
 class User
 
-  ROLES = { normal: 0, donor: 1, legacy: 2, affiliate: 3, admin: 4, developer: 5, founder: 6 }
+  ROLES = { normal: 0, donor: 1, legacy: 2, associate: 3, admin: 4, developer: 5, founder: 6 }
   STATUSES = { offline: 0, online: 1, away: 2, busy: 3 }
 
   include AMQPConnector
