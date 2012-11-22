@@ -40,6 +40,11 @@ class Ability
           i_can_communicate_in_topic or topic_is_not_locked
         end
 
+        can [:list], Ban do |ban|
+          i_am_a_moderator = ban.jurisdiction.moderator_ids.include?(user.id)
+          i_am_moderator
+        end
+
         can [:create,:update], Ban do |ban|
           i_am_a_moderator        = ban.jurisdiction.moderator_ids.include?(user.id)
           prosecuting_myself      = ban.offender.id == user.id
