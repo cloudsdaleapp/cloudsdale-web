@@ -42,7 +42,8 @@ class Cloudsdale.Models.Session extends Backbone.Model
       else
         body = "Your ban from #{ban.jurisdiction().get('name')} has been revoked."
         callback = ->
-          window.location.replace("/")
+          Backbone.history.navigate("/clouds/#{ban.jurisdiction().id}",true)
+          false
 
       $.event.trigger "notifications:add", {
         header: "Attention!",
