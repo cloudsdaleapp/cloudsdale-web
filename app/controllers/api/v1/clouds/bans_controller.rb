@@ -4,12 +4,17 @@ class Api::V1::Clouds::BansController < Api::V1Controller
 
   # Fetches all bans for specified cloud.
   #
-  #   cloud_id - Id of the jurisdiction to what this cloud belongs
+  #   cloud_id    - Id of the jurisdiction to what this cloud belongs
+  #   offender_id - Id of what offender to filter the result by
+  #   enforcer_id - Id of what enforcer to filter the result by
   #
   # Returns a Bans collection
   def index
+    authorize! :list, Ban
 
-    @bans = @cloud.bans
+    @bans = @cloud.bans.where(
+      params.select { |k,v| [:offender_id,:enforcer_id].include?(k.to_sym) }
+    )
 
     render status: 200
   end
