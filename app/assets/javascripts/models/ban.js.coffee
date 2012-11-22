@@ -64,5 +64,6 @@ class Cloudsdale.Models.Ban extends Backbone.Model
       sentence: @get('sentence')
       due: @due()
       offender_id: @get('offender_id')
+      revoke: @get('revoke')
 
     return obj
