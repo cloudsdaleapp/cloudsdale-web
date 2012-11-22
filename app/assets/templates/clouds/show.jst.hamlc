@@ -1,33 +1,3 @@
-/ .fixed-container
-/   .container-inner
-/     .cloud-sidebar-top.clearfix
-/       .cloud-sidebar-inner
-/         .cloud-ad
-/           %a{ href: "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ask%40cloudsdale%2eorg&lc=US&item_name=Cloudsdale%20Servers&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3a94016_maline_webbintervju%2ejpg%3aNonHostedGuest", target: '_blank' }
-/         .cloud-actions
-/           - if @model.get('owner_id') == session.get('user').id
-/             %a.btn{ href: '#', data: { action: 'settings' } }
-/               %i.icon-cog
-/               = "Settings"
-
-/           %a.btn{ href: '#', data: { action: 'drops' } }
-/             %i.icon-tint
-/             = "Drops"
-
-/           %a.btn{ href: '#', data: { action: 'rules' } }
-/             %i.icon-list
-/             = "Rules"
-
-/           - if @model.get('owner_id') == session.get('user').id
-/             %a.btn{ href: '/', data: { action: 'destroy' } }
-/               %i.icon-trash
-/               = "Remove Cloud"
-/           - else
-/             %a.btn{ href: '#', data: { action: 'leave' } }
-/               %i.icon-share-alt
-/               = "Leave Cloud"
-/     .cloud-sidebar-bottom
-/
 .fixed-container
 .float-container
   .container-inner
