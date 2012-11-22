@@ -47,6 +47,18 @@ class Cloud
   scope :recent, order_by([:created_at, :desc])
   scope :visible, where(hidden: false)
   scope :hidden, where(hidden: true)
+  scope :available_to, -> user {
+    queryable.or(
+      :"bans.offender_id".ne => user.id,
+    ).or(
+      :"bans.offender_id" => user.id,
+      :"bans.due".lt => DateTime.current,
+      :"bans.revoke" => false
+    ).or(
+      :"bans.offender_id" => user.id,
+      :"bans.revoke" => true
+    )
+  }
 
   fulltext_search_in :search_string, :filters => {
     :public => lambda { |cloud| cloud.hidden == false },
