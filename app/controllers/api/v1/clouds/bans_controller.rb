@@ -66,8 +66,8 @@ class Api::V1::Clouds::BansController < Api::V1Controller
   # Returns an updated Ban resource
   def update
 
-    @ban = Cloud.bans.find(params[:id])
-    @ban.set_attributes params[:ban], as: :editor
+    @ban = @cloud.bans.find(params[:id])
+    @ban.assign_attributes params[:ban], as: :editor
 
     if can? :update, @ban
       if @ban.save
