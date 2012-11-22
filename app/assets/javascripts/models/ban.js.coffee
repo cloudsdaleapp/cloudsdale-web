@@ -1,6 +1,10 @@
 class Cloudsdale.Models.Ban extends Backbone.Model
 
-  url: -> "/v1/#{@get('jurisdiction_type')}s/#{@get('jurisdiction_id')}/bans"
+  url: ->
+    if @get('is_transient') == false && @id
+      "/v1/#{@get('jurisdiction_type')}s/#{@get('jurisdiction_id')}/bans/#{@id}.json"
+    else
+      "/v1/#{@get('jurisdiction_type')}s/#{@get('jurisdiction_id')}/bans.json"
 
   defaults:
     reason: ""
