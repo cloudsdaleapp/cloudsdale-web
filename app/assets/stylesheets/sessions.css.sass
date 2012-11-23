@@ -1,12 +1,12 @@
 .session-tooltip
   @media (min-width: $ipad-min)
     margin-top: -45px !important
-  
+
   ul
     list-style: none
     padding: 5px
     margin: 0
-        
+
 .modal.auth_dialog
   //background: $bgTexture //#63A0D0 asset-data-url("bg-noise-bar.png")
   // border: 1px solid #fff
@@ -20,82 +20,90 @@
   background: image-url("bg-noise-bar.png"), -ms-linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
   background: image-url("bg-noise-bar.png"), linear-gradient(top,  #63a0d0 0%,#3f85b3 100%)
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63a0d0', endColorstr='#3f85b3',GradientType=0 )
-  
+
   @media (max-width: $phone)
     margin: 20px auto 0 auto
-  
+
   @media (min-width: $ipad-min) and (max-width: $ipad-max)
     margin: 150px auto 0 auto
-    
+
   width: 260px
   margin-left: -130px
 
   .modal-body
     padding: 15px 15px 0 15px
-  
+
   .img-wrap.color-icon
     background-position: center center
     background-repeat: no-repeat
-    
+
     @media (max-width: $phone)
       margin-bottom: 0
       height: 70px
       background-size: 90% auto
       background-image: image-url("logo/sub_logo_SMALLER.png")
-      
+
     @media (min-width: $ipad-min)
       margin-bottom: 20px
       height: 155px
       background-size: auto 100%
       background-image: image-url("logo/color_icon.png")
-    
+
   form
     margin: 0
+    &.loading-session
+      fieldset
+        background-image: asset-data-url("details/loader-session.gif")
+        background-position: center center
+        background-repeat: no-repeat
+        .control-group
+          +opacity(0)
+
     &.auth-form-complete
       .form-actions
         a.twitter-auth, a.facebook-auth, a.auth-dialog-help
           display: none
-          
+
       .control-group:not(:last-child)
         border-bottom: 1px solid $color-border-light
-          
+
     &.auth-form-restore
       .control-group.auth-field-group-password, .control-group.auth-field-group-displayname
         height: 0
-        
+
       .form-actions
         a.twitter-auth, a.facebook-auth, a.auth-dialog-cancel
           +opacity(0)
           pointer-events: none
           margin-bottom: -32px
-    
+
     &.auth-form-login
       .control-group.auth-field-group-displayname
         height: 0
-        
+
       .control-group.auth-field-group-email
         border-bottom: 1px solid $color-border-light
-        
+
       .form-actions
         a.twitter-auth, a.facebook-auth
           +opacity(1)
           pointer-events: auto
-          
+
         a.auth-dialog-cancel
           +opacity(0)
           pointer-events: none
           margin-bottom: -32px
-    
+
     &.auth-form-register
       .form-actions
         a.twitter-auth, a.facebook-auth, a.auth-dialog-cancel
           +opacity(0)
           pointer-events: none
           margin-bottom: -32px
-          
+
       .control-group:not(:last-child)
         border-bottom: 1px solid $color-border-light
-        
+
     .form-actions
       background: 0
       padding: 5px 4px
@@ -116,16 +124,16 @@
         padding: 4px
         +box-sizing(border-box)
         text-shadow: -1px -1px 0 rgba(0,0,0,.3)
-          
+
       button
         +linear-gradient($color-green,darken($color-green,5%))
         &:focus, &:active
           +linear-gradient($color-green,darken($color-green,0%))
-      
+
       button, a.auth-dialog-cancel
         float: left
         width: 100%
-        
+
       a.twitter-auth, a.facebook-auth, a.auth-dialog-cancel
         +linear-gradient(#63a0d0,#3f85b3)
         +opacity(1)
@@ -133,7 +141,7 @@
         &:focus, &:active
           background-position: auto 10px
           +linear-gradient(#63a0d0,lighten(#3f85b3,10%))
-          
+
       a.twitter-auth, a.facebook-auth
         float: left
         width: 109px
@@ -141,7 +149,7 @@
           margin-left: 2px
         &.facebook-auth
           margin-right: 2px
-          
+
       a.auth-dialog-help
         float: left
         width: 220px
@@ -157,7 +165,7 @@
         text-align: center
         &:hover
           text-decoration: none
-        
+
     .input-group
       background: $color-background-light
       width: 220px
@@ -169,7 +177,7 @@
     fieldset
       +border-radius(9px)
       +box-shadow-inset(0px,1px,3px,rgba(0,0,0,.3))
-      
+
     .control-group
       margin: 0
       height: 38px
@@ -183,13 +191,13 @@
       width: 200px
       display: block
       padding: 10px
-      
+
       font-weight: bold
       line-height: 18px
-      
+
       border: 0
       outline: none
       margin: 0
-      
+
       color: #666666
-        
+
