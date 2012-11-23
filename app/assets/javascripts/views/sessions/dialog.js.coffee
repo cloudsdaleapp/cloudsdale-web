@@ -141,7 +141,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     t = "<ul style='text-align: left;'>"
     $.each errors, (index,error) ->
       t += "<li><strong>#{error.ref_node}</strong> #{error.message}</li>" if error.type == "field"
-      t += "<li><strong>#{error.message}</strong></li>" if error.type == "general"
+      t += "<li><strong>#{error.message}</strong></li>" unless error.type == "field"
     t += "</ul>"
 
   submitRestore: ->
@@ -183,17 +183,15 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         @hide(logout: false, callback: true)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
-
         switch resp.status
-          when 422
-            @showTooltip(@buildErrors(resp.errors),true)
           when 401
+            @showTooltip((resp.flash.title + " " + resp.flash.message),false)
+          when 422
             @showTooltip(@buildErrors(resp.errors),true)
           when 403
             @logoutUser()
           else
             @logoutUser()
-
 
 
   submitLogin: ->
@@ -215,10 +213,11 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         @hide(logout: false, callback: true)
       error: (response) =>
         resp = $.parseJSON(response.responseText)
-
         switch resp.status
           when 401
             @showTooltip((resp.flash.title + " " + resp.flash.message),false)
+          when 422
+            @showTooltip(@buildErrors(resp.errors),true)
           when 403
             @logoutUser()
 
@@ -243,6 +242,8 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
         resp = $.parseJSON(response.responseText)
 
         switch resp.status
+          when 401
+            @showTooltip((resp.flash.title + " " + resp.flash.message),false)
           when 422
             @showTooltip(@buildErrors(resp.errors),true)
           when 403
@@ -251,7 +252,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
           #   # do stuff
 
   showTooltip: (message,html) =>
-    @.$('.input-group').tooltip(
+    @.$('.auth-form-register').tooltip(
       placement: 'top'
       trigger: 'manual'
       animation: false
@@ -260,6 +261,6 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     ).tooltip('show')
     $('.tooltip:last-child').addClass('session-tooltip')
 
-  hideTooltip: => @.$('.input-group').tooltip('hide')
+  hideTooltip: => @.$('.auth-form-register').tooltip('hide')
 
 
