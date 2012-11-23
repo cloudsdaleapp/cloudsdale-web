@@ -35,7 +35,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
 
   bindEvents: ->
     @.$('.modal').modal().bind 'hide', =>
-      @.$('.input-group').tooltip('hide')
+      @hideTooltip()
       window.setTimeout =>
         @logoutUser() if @logoutOnHide
         @callback(@callbackArgs) if @callback && @callbackOnHide
@@ -171,6 +171,8 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     submitData.user.confirm_registration = true
     submitData.persist_session = true
 
+    @disableInput()
+
     $.ajax
       type: 'POST'
       url: "/v1/users.json"
@@ -192,6 +194,8 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
             @logoutUser()
           else
             @logoutUser()
+      complete: (response) =>
+        @enableInput()
 
 
   submitLogin: ->
@@ -200,6 +204,8 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     submitData.email = @.$('#session_email').val()
     submitData.password = @.$('#session_password').val()
     submitData.persist_session = true
+
+    @disableInput()
 
     $.ajax
       type: 'POST'
@@ -220,6 +226,8 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
             @showTooltip(@buildErrors(resp.errors),true)
           when 403
             @logoutUser()
+      complete: (response) =>
+        @enableInput()
 
   submitComplete: ->
     submitData = {}
@@ -228,6 +236,8 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     submitData.user.email = @.$('#session_email').val()
     submitData.user.password = @.$('#session_password').val()
     submitData.user.confirm_registration = true
+
+    @disableInput()
 
     $.ajax
       type: 'PUT'
@@ -250,17 +260,24 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
             @logoutUser()
           # when 500
           #   # do stuff
+      complete: (response) =>
+        @enableInput()
 
   showTooltip: (message,html) =>
-    @.$('.auth-form-register').tooltip(
+    @.$('form').tooltip(
       placement: 'top'
       trigger: 'manual'
       animation: false
       html: html
       title: message
     ).tooltip('show')
-    $('.tooltip:last-child').addClass('session-tooltip')
+    setTimeout =>
+      $('.tooltip').addClass('session-tooltip')
+    , 1
 
-  hideTooltip: => @.$('.auth-form-register').tooltip('hide')
+  hideTooltip: =>
+    # @.$('form').tooltip('hide')
+    $('.tooltip').remove()
 
-
+  disableInput: => @.$('form').addClass('loading-session')
+  enableInput: => @.$('form').removeClass('loading-session')
