@@ -25,25 +25,24 @@ class Api::V1::SessionsController < Api::V1Controller
   #
   # Returns the session template defined in 'views/api/v1/sessions/base.rabl'.
   def create
-    
     # EXCEPTION HANDLING - TODO: MAKE PRETTY
     if params[:oauth].present? && params[:oauth].try(:fetch, :token) != BCrypt::Engine.hash_secret("#{params[:oauth][:uid]}#{params[:oauth][:provider]}",INTERNAL_TOKEN)
-    
+
       render_exception("You don't have access to this service.", 403)
-    
+
     elsif (params[:password].nil? && params[:email].nil?) && ( params[:oauth].try(:fetch, :provider).nil? && params[:oauth].try(:fetch, :uid).nil? )
-      
+
       set_flash_message message: "You did not supply valid credentials.", title: "Login error!", type: "error"
       render_exception "You need to specify a valid authentication method. With either oAuth or Email/Password", 400
-      
+
     end
-    
+
     @current_user = User.authenticate(
       email: params[:email],
       password: params[:password],
       oauth: params[:oauth]
     )
-    
+
     # MORE EXCEPTION HANDLING - TODO: MAKE EVEN PRETTIER
     if !@current_user.has_a_valid_authentication_method? && params[:oauth]
       if params[:oauth][:provider] == "cloudsdale"
@@ -63,7 +62,7 @@ class Api::V1::SessionsController < Api::V1Controller
           title: "Login error!"
       )
       render_exception "Could not authenticate your account please look over your credentials", 401
-    
+
     elsif @current_user.banned?
       set_flash_message(
           message: "Your suspension ends on #{@current_user.suspended_until.strftime('%Y-%m-%d %H:%M')}. To appeal your case contact us at info@cloudsdale.org",
@@ -75,14 +74,14 @@ class Api::V1::SessionsController < Api::V1Controller
       @current_user.write_attributes(params[:user])
       authenticate! @current_user
     end
-      
+
   end
-  
+
   # Public: Destroy the session
   #
   # Returns the the session template defined in 'views/api/v1/sessions/base.rabl'.
   #def destroy
     # destroy session and return session data
   #end
-  
+
 end
