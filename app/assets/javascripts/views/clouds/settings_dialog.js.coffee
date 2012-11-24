@@ -65,9 +65,12 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
 
   bindEvents: ->
 
-    @cloud.on 'change', (cloud) =>
+    @cloud.on 'change', (cloud,meta) =>
       @refreshGfx()
       @renderModerators()
+      changes = if meta.changes then meta.changes else { short_name: false }
+      if changes.short_name
+        Backbone.history.navigate(@cloud.link(),true) if @cloud.get('short_name')
 
     $("body").on "click.tab.data-api", "[data-toggle=\"tab\"], [data-toggle=\"pill\"]", (e) ->
       e.preventDefault()
