@@ -1,10 +1,11 @@
 class Cloudsdale.Models.Cloud extends Backbone.Model
 
   url: ->
-    if @id
-      "/v1/clouds/#{@id}.json"
+    if @id or @get('short_name')
+      cid = @id || @get('short_name')
+      "/v1/clouds/#{cid}.json"
     else
-      "v1/clouds.json"
+      "/v1/clouds.json"
 
   type: 'cloud'
 
