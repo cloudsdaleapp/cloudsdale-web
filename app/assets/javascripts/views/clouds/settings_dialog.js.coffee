@@ -18,6 +18,7 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
 
     @render()
     @bindEvents()
+    @refreshGfx()
 
     this
 
@@ -49,6 +50,12 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
 
     this
 
+  refreshGfx: ->
+    @.$('img.cloud-avatar').attr('src',@cloud.get('avatar').normal)
+    @.$('h2.cloud-name').text(@cloud.get('name'))
+    if @cloud.get('short_name')
+      @.$('#cloud_short_name').attr('value',"/clouds/#{@cloud.get('short_name')}").attr('disabled','disabled')
+
   close: ->
     $(@el).parent().parent().removeClass('with-open-drawer')
     setTimeout =>
@@ -59,8 +66,7 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
   bindEvents: ->
 
     @cloud.on 'change', (cloud) =>
-      @.$('img.cloud-avatar').attr('src',cloud.get('avatar').normal)
-      @.$('h2.cloud-name').text(cloud.get('name'))
+      @refreshGfx()
       @renderModerators()
 
     $("body").on "click.tab.data-api", "[data-toggle=\"tab\"], [data-toggle=\"pill\"]", (e) ->
