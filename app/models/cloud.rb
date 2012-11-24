@@ -14,10 +14,11 @@ class Cloud
 
   attr_accessor :user_invite_tokens
 
-  attr_accessible :name, :description, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :owner_id, :x_moderator_ids
+  attr_accessible :name, :description, :short_name, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :owner_id, :x_moderator_ids
 
   field :name,          type: String
   field :description,   type: String
+  field :short_name,    type: String
   field :rules,         type: String
   field :hidden,        type: Boolean,        default: false
   field :locked,        type: Boolean,        default: false
@@ -35,6 +36,10 @@ class Cloud
 
   validates :name, presence: true, uniqueness: true, length: { within: 3..64 }
   validates :description, length: { maximum: 140 }
+  validates :short_name, length: { maximum: 16 }
+
+  validates_uniqueness_of :short_name, :case_sensitive => false, if: :short_name?
+  validates_format_of :short_name,  with: /^[a-zA-Z0-9_]*/i, message: "must be alphanumeric and underscore only", if: :name
 
   belongs_to :owner, polymorphic: true, index: true
 

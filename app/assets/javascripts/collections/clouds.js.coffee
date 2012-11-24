@@ -32,7 +32,8 @@ class Cloudsdale.Collections.Clouds extends Backbone.Collection
     args = {} unless args
     options = {} unless options
 
-    cloud = @get(args.id)
+    cloud = @get(args.id) or (@where
+      short_name: @get(args.id))[0]
 
     if cloud
       if options.fetch

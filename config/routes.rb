@@ -75,8 +75,11 @@ Cloudsdale::Application.routes.draw do
   # Mobile: Terms and Conditions
   match '/mobile/tncs' => 'mobile#tncs', as: :mobile_tncs
 
+  # Clouds
+  match '/clouds/:id_or_short_name' => "clouds#show", as: :cloud
+
   # Resource: For clouds.
-  resources :clouds, :only => [:show]
+  # resources :clouds, :only => [:show]
   resources :users, :only => [] do
     match "/restore/:token" => "users#restore", as: :restore, on: :collection
   end

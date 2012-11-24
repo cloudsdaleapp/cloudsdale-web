@@ -6,6 +6,7 @@
     %input#cloud_name{ type: 'text', name: 'name', value: @cloud.get('name'), placeholder: 'Name...' }
     %textarea#cloud_description{ name: 'description' }
       = @cloud.get('description')
+    %input#cloud_short_name{ type: 'text', name: 'short_name', value: @cloud.get('short_name'), placeholder: 'Short name...'}
 
 .sidebar-header
   = "Avatar"

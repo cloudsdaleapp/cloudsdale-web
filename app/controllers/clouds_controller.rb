@@ -1,8 +1,9 @@
 class CloudsController < ApplicationController
 
   def show
-    @cloud = Cloud.find(params[:id])
-
+    # @cloud = Cloud.find(params[:id_or_short_name]) or Cloud.where( short_name: params[:id_or_short_name]).first
+    id_or_short_name = params[:id_or_short_name]
+    @cloud = Cloud.where("$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]).first
     @page_title = "Cloudsdale - #{@cloud.name}"
     @page_image = @cloud.avatar.url
     @page_description = @cloud.description
