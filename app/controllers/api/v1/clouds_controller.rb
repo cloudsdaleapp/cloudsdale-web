@@ -13,11 +13,12 @@ class Api::V1::CloudsController < Api::V1Controller
 
   end
 
-  # Public: Fetches a cloud from supplised id parameter
+  # Public: Fetches a cloud from supplied id OR short name parameter
   # Returns the cloud.
   def show
 
-    @cloud = Cloud.find(params[:id])
+    id_or_short_name = params[:id]
+    @cloud = Cloud.where("$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]).first
     authorize! :read, @cloud
     render status: 200
 

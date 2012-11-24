@@ -528,16 +528,23 @@ body
   // +linear-gradient(#434A5B,#3A4150)
   // +linear-gradient(#333A48,darken(#333A48,1%))
   // +linear-gradient(darken(#434A5B,5%),darken(#3A4150,5%))
+
   form
     padding: 0
     margin: 3px 10px 5px 0
 
-    label
+    label, .field-error-message
       margin: 3px 0 0 3px
       font-weight: bold
       letter-spacing: .06em
       color: #7E8290
       text-shadow: 1px 1px 0 rgba(0,0,0,.2)
+      font-size: 12px
+      &.field-error-message
+        color: #905260
+        text-align: left
+        padding: 0
+        display: block
 
     input[type=text], input[type=password], textarea
       margin: 0 0 5px 0
@@ -551,6 +558,14 @@ body
         border-color: $color-border-heavy
         @each $vendor in -moz-, -o-, -webkit-, ""
           #{$vendor}box-shadow: inset 0 1px 1px rgba(0,0,0,.05), 0 1px 0 rgba(255,255,255,.1)
+
+      &:disabled
+        border: 0
+        background: 0
+        @each $vendor in -moz-, -o-, -webkit-, ""
+          #{$vendor}box-shadow: 0 0 0 transparent
+        +opacity(.9)
+
 
     input[type=submit], button
       width: 100% !important

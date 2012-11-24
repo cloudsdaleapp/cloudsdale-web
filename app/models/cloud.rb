@@ -14,10 +14,11 @@ class Cloud
 
   attr_accessor :user_invite_tokens
 
-  attr_accessible :name, :description, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :owner_id, :x_moderator_ids
+  attr_accessible :name, :description, :short_name, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :owner_id, :x_moderator_ids
 
   field :name,          type: String
   field :description,   type: String
+  field :short_name,    type: String
   field :rules,         type: String
   field :hidden,        type: Boolean,        default: false
   field :locked,        type: Boolean,        default: false
@@ -31,10 +32,18 @@ class Cloud
     self.moderators = User.where(:_id.in => mod_ids.uniq )
   end
 
+  def short_name=(_short_name)
+    self[:short_name] = _short_name.to_s.parameterize unless self[:short_name]
+  end
+
   mount_uploader :avatar, AvatarUploader
 
   validates :name, presence: true, uniqueness: true, length: { within: 3..64 }
   validates :description, length: { maximum: 140 }
+  validates :short_name, length: { maximum: 16 }
+
+  validates_uniqueness_of :short_name, :case_sensitive => true, if: :short_name?, message: "used by another cloud"
+  validates_format_of :short_name,  with: /^[a-z0-9\_\-]*$/i, message: "must be alphanumeric, underscore and dashes only", if: :name?
 
   belongs_to :owner, polymorphic: true, index: true
 

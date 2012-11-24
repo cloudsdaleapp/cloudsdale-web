@@ -1,4 +1,4 @@
-%a{ href: "/clouds/#{@model.id}" }
+%a.toggle_link{ href: "#{@model.link()}" }
   .sidebar-item-avatar{ style: "background-image: url(#{@model.get('avatar').preview})" }
   %span.sidebar-item-name
   %span.sidebar-item-notification

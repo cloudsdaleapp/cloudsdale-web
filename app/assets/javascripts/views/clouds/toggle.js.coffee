@@ -29,6 +29,8 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
 
   bindEvents: ->
 
+    @model.on 'change', => @refreshGfx()
+
     $(@el).bind 'page:show', (event,page_id) =>
       if page_id == @model.id
         @active = true
@@ -76,7 +78,9 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     else
       $(@el).removeClass('with-notifications')
 
+    @.$('.sidebar-item-avatar').css('background-image',"url(#{@model.get('avatar').preview})")
     @.$('.sidebar-item-name').text(@model.get('name')).truncate()
+    @.$('.toggle-link').attr('href',@model.link())
 
     if session.get('user').bans.activeOn(@model).length >= 1
       @disable()

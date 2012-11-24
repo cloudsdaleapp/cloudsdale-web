@@ -11,6 +11,7 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
   defaults:
     name: ""
     description: ""
+    short_name: ""
     avatar: {}
     owner_id: null
     moderator_ids: []
@@ -50,6 +51,12 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
       new Date(@get('chat').last_message_at)
     else
       new Date(0)
+
+  link: ->
+    if @get('short_name')
+      return "/clouds/#{@get('short_name')}"
+    else
+      return "/clouds/#{@id}"
 
   owner: ->
     return session.get('users').findOrInitialize { id: @owner_id },
@@ -110,6 +117,7 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
       id: @id
       name: @get('name')
       description: @get('description')
+      short_name: @get('short_name')
       hidden: @get('hidden')
       time_zone: @get('time_zone')
       rules: @get('rules')
