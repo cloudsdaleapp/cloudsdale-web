@@ -10,8 +10,10 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     'click a[data-action="settings"]' : 'toggleSettings'
     'click a[data-action="rules"]'    : 'toggleRules'
     'click a[data-action="drops"]'    : 'toggleDrops'
+    'click a[data-action="users"]'    : 'toggleUsers'
     'click a[data-action="leave"]'    : 'leaveCloud'
     'click a[data-action="destroy"]'  : 'destroyCloud'
+    'click a[data-action="showUser"]' : 'openUserDialog'
 
   initialize: ->
 
@@ -71,10 +73,25 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
       @chat_view = new Cloudsdale.Views.CloudsChat(model: @model)
       @.$('.float-container > .container-inner > .chat-wrapper').replaceWith(@chat_view.el)
 
+    @model.users().cachedFetch()
+    @model.users().listen()
 
-    if @.$('.cloud-sidebar-bottom').children().length == 0
-      @users_view = new Cloudsdale.Views.CloudsUsers(model: @model)
-      @.$('.cloud-sidebar-bottom').append(@users_view.el)
+    # if @.$('.cloud-sidebar-bottom').children().length == 0
+    #   @users_view = new Cloudsdale.Views.CloudsUsers(model: @model)
+    #   @.$('.cloud-sidebar-bottom').append(@users_view.el)
+
+    #   refreshPresence: (payload) ->
+    #     user = session.get('users').findOrInitialize(payload)
+
+    #     if @.$("ul.cloud-user-list > li.cloud-user[data-entity-id='#{payload.id}']").length > 0
+    #       $.event.trigger "#{@model.type}s:#{@model.id}:users:#{payload.id}", payload
+    #     else
+    #       view = new Cloudsdale.Views.CloudsUsersUser(model: user, topic: @model, parentView: this)
+    #       @.$('ul.cloud-user-list').append(view.el)
+
+    #     @reorderList()
+
+    #     this
 
     @refreshGfx()
 
@@ -88,6 +105,10 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
 
   toggleDrops: (event) ->
     view = new Cloudsdale.Views.CloudsDropsDialog(model: @model)
+    @renderDialog(view)
+
+  toggleUsers: (event) ->
+    view = new Cloudsdale.Views.CloudsUsersSidebar(model: @model, collection: @model.users())
     @renderDialog(view)
 
   toggleUser: (_model) ->
@@ -135,6 +156,11 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
   closeIfCloudMatch: (cloud) ->
     @close() if cloud.id == @model.id
 
+  openUserDialog: (e,t) ->
+    userId = $(e.currentTarget).attr('data-entity-id')
+    user = session.get('users').findOrInitialize({ id: userId })
+    @toggleUser(user)
+    false
 
   # toggleDropdown: (event) ->
   #   $(event.target).next().dropdown('show')

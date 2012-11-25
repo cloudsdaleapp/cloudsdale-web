@@ -471,11 +471,39 @@ body
 
   font-size: 11px
   text-transform: uppercase
+
+  position: relative
+
   a.close
     position: absolute
     right: 0
     top: 0
     margin: 0px 8px 0 0
+
+.sidebar-header-link
+  position: absolute
+  right: 0
+  top: 0
+  margin: 3px 5px 0 0
+  height: 16px
+  width: 16px
+  float: right
+  font-size: 16px
+  font-weight: bold
+  line-height: 16px
+  color: black
+  text-shadow: 0 1px 0 white
+  +opacity(.3)
+  text-decoration: none
+  .show-while-active
+    display: block
+  .hide-while-active
+    display: none
+  &.active
+    .show-while-active
+      display: none
+    .hide-while-active
+      display: block
 
 .sidebar-block
   margin: 5px

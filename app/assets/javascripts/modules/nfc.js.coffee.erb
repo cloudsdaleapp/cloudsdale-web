@@ -43,8 +43,6 @@ do ($ = jQuery) ->
           message.data ||= {}
 
           if m = /^\/clouds\/(.{24})\/users\/(.{24})$/ig.exec(message.channel)
-            # console.log message
-            # console.log message.data
             message.data.id = m[2]
 
           callback(message)

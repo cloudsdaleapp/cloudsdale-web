@@ -26,6 +26,8 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
     args = {} unless args
 
     @recentDrops = new Cloudsdale.Collections.Clouds(@get('recent_drops')) if @get('recent_drops')
+    @_users_ = new Cloudsdale.Collections.CloudsUsers [],
+      topic: this
 
     this
 
@@ -63,18 +65,7 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
     return session.get('users').findOrInitialize { id: @owner_id },
       fetch: false
 
-  users: (options) ->
-    options = {} unless options
-    session.get('users').findOrInitialize @get('user_ids'),
-      specific_endpoint: true
-      url: "/v1/clouds/#{@id}/users.json"
-      success: (resp, status, xhr) =>
-        _users = resp.filter (_user) =>
-          return _.include(@get('user_ids'),_user.id)
-        options.success(_users, status, xhr) if options.success
-
-      error: (resp, xhr,_options) =>
-        options.error(resp, xhr,_options) if options.error
+  users: (options) -> @_users_
 
   moderators: (options) ->
     options = {} unless options

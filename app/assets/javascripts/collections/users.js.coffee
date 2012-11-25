@@ -32,7 +32,7 @@ class Cloudsdale.Collections.Users extends Backbone.Collection
 
         users.push(user)
 
-      if ids.length > 0
+      if ids.length > 0 or ((users.length <= 0) and (ids.length <= 0) and (options.specific_endpoint == true))
 
         if (options.specific_endpoint == true)
           url = if options.url then options.url else @url()

@@ -10,20 +10,24 @@
               %i.icon-list.hidden-phone
             %ul.dropdown-menu.special-dropdown{ 'data-aria-labelledby' => "cloudMenu#{@model.id}", role: 'menu', style: 'right: 0; left: auto;' }
               .special-dropdown-inner
-                - if @model.get('owner_id') == session.get('user').id
-                  %li
-                    %a{ data: { action: 'settings', target: '#' } }
-                      %i.icon-cog
-                      = "Settings"
+                %li
+                  %a{ data: { action: 'users', target: '#' } }
+                    %i.icon-user
+                    = "Users"
                 %li
                   %a{ data: { action: 'drops', target: '#' } }
                     %i.icon-tint
                     = "Drops"
-
                 %li
                   %a{ data: { action: 'rules', target: '#' } }
                     %i.icon-list
                     = "Rules"
+                - if @model.get('owner_id') == session.get('user').id
+                  %li.divider
+                  %li
+                    %a{ data: { action: 'settings', target: '#' } }
+                      %i.icon-cog
+                      = "Settings"
                 %li.divider
                 - if @model.get('owner_id') == session.get('user').id
                   %li

@@ -149,34 +149,6 @@ $color-mod: #6666FF
   left: 0
   right: 0
 
-.chat-container
-  &.expanded-sidebar
-    a.sidebar-toggle
-      background-image: image-url("icons/glyphicons/black/step_forward.png")
-      background-image: none, image-url("icons/glyphicons/black/step_forward.svg"), image-url("icons/glyphicons/black/step_forward.png")
-    @media (min-width: $ipad-min) and (max-width: $ipad-max)
-      .chat-wrapper
-        display: none
-      .chat-sidebar
-        display: block
-        float: none
-        width: auto
-        border-left: 0
-        margin-left: 1px
-        background: #F8F8F8
-      .chat-sidebar-header
-        span.chat-sidebar-online-count
-          display: inline-block
-      ul.chat-online-list
-        overflow: auto
-        li a
-          padding: 3px
-          span
-            display: inline-block
-            font-size: 15px
-          img
-            +border-radius(3px)
-
 .chat-wrapper
   position: relative
   height: 100%
@@ -187,41 +159,6 @@ $color-mod: #6666FF
     bottom: 0
     right: 0
     left: 0
-
-.chat-dialog
-  position: absolute
-  left: 0
-  right: 0
-
-  padding: 10px
-
-  background: rgb(229,232,239)
-  +linear-gradient(rgb(229,232,239),rgb(199,207,216))
-
-  border-bottom: 1px solid $color-border-heavy
-
-  z-index: 1
-
-  background-size: 100% auto
-  background-position: center center
-  background-repeat: repeat-x
-
-  @media (max-width: $ipad-max)
-    img
-      display: none
-  @media (min-width: $desktop-s-min)
-    img
-      float: left
-      border: 1px solid $color-border-dark
-      margin-right: 10px
-
-  h2
-    text-shadow: 1px 1px 0 rgba(255,255,255,.7)
-
-  h2, p
-    color: #444
-    span
-      font-weight: bold
 
 .chat-messages
   position: absolute
@@ -707,8 +644,24 @@ ul.special-dropdown
     +border-radius(3px)
     +box-shadow-inset(0px,0px,2px,rgba(0,0,0,.3))
 
+.sidebar-item
+  &.status-offline > a
+    +opacity(.5)
+  &.status-online > a
+    +opacity(1)
 
+.cloud-moderator-list, .cloud-member-list
+  &.active
+    .status-offline
+      display: block
+  &:not(.active)
+    .status-offline
+      display: none
 
-
+  &.search-in-progress
+    .sidebar-item.search-matching
+      display: block !important
+    .sidebar-item:not(.search-matching)
+      display: none
 
 

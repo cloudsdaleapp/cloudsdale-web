@@ -120,3 +120,10 @@ class Cloudsdale.Models.User extends Backbone.Model
     else
       return 0
 
+  numericStatus: ->
+    switch @get('status')
+      when 'online' then 0
+      when 'away' then 0
+      when 'busy' then 0
+      when 'offline' then 1
+

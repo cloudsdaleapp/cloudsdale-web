@@ -1,0 +1,24 @@
+.sidebar-header
+  %a.close{ href: '#', data: { dismiss: 'dialog' } }= "×"
+  = "Users"
+  %span.cloud-user-sidebar-online-count= "(#{0})"
+
+.sidebar-input
+  %form{ id: "user-search-form-#{@model.id}" }
+    %a.sidebar-close-search{ href: '#' }= "×"
+    %input{ type: 'text', name: 'q', placeholder: 'Filter users...' }
+
+.sidebar-header
+  %a.sidebar-header-link{ href: '#', data: { action: 'expandMods' } }
+    %i.icon-chevron-right.icon-white.show-while-active
+    %i.icon-chevron-down.icon-white.hide-while-active
+  = "Moderators"
+%ul.cloud-moderator-list.sidebar-list
+
+.sidebar-header
+  %a.sidebar-header-link{ href: '#', data: { action: 'expandMembers' } }
+    %i.icon-chevron-right.icon-white.show-while-active
+    %i.icon-chevron-down.icon-white.hide-while-active
+  = "Members"
+%ul.cloud-member-list.sidebar-list
+/ %a.drop-load-more{ href: '#' }= "load more..."

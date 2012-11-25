@@ -1,0 +1,3 @@
+%a.active{ href: '#', data: { entityId: @model.get('id') } }
+  .sidebar-item-avatar{ style: "background-image: url(#{@model.get('avatar').mini});" }
+  %span.sidebar-item-name{ data: { originalText: @model.get('name') } }= @model.get('name')
