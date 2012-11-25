@@ -26,7 +26,7 @@ development:
   faye:
     path: push
     schema: http
-    host: 127.0.0.1
+    host: local.cloudsdale.org
     port: 8000
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
     inhouse_host: 127.0.0.1
