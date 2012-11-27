@@ -1,2 +1,2 @@
-extends 'api/v1/clouds/base'
+extends 'api/v1/clouds/mini'
 collection @clouds
