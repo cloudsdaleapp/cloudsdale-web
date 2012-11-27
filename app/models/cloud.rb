@@ -33,7 +33,9 @@ class Cloud
   end
 
   def short_name=(_short_name)
-    self[:short_name] = _short_name.to_s.parameterize unless self.short_name.present?
+    if _short_name.present? && !self.short_name.present?
+      self[:short_name] = _short_name.to_s.parameterize
+    end
   end
 
   mount_uploader :avatar, AvatarUploader
