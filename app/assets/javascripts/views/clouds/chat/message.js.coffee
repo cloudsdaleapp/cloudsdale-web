@@ -60,16 +60,12 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     # Greentext
     content = content.replace(/((^&gt;|\\n&gt;)[\w\d\s\!\'\"\'\.\,\-\_\/\?\:\&\^\<\>\=\#\%\+\*\~\\√\◊\(\)\[\]\{\}]*\\n)/ig,"<span style='color: green;'>$1</span>")
 
-    # Zee text.
-    # if @model.get('user').get('role') == 'founder'
-    #   content = content.replace(/^\[ZEE\](.*)/ig,"<span style='color: orange; font-weight: bold;'>$1</span>")
-
     elem = $("<p></p>")
 
     if message.selfReference()
-      content = content.replace(/\\n$/ig,"").replace(/\\n/ig,"")
-      content = message.get('content').replace(/^\/me/i,message.user().get('name'))
-      elem.html(escapeHTML(content))
+      content = content.replace(/\\n$/ig,"").replace(/\\n/ig," ")
+      content = content.replace(/^\/me/i,message.user().get('name'))
+      elem.html(content)
     else
       content = content.replace(/\\n$/ig,"").replace(/\\n/ig,"<br/>")
       elem.html(content)
