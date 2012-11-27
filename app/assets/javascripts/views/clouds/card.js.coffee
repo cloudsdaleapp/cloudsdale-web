@@ -38,5 +38,5 @@ class Cloudsdale.Views.CloudsCard extends Backbone.View
 
   joinCloud: (event) ->
     event.preventDefault()
-    Backbone.history.navigate("/clouds/#{@model.id}",true)
+    Backbone.history.navigate(@model.link(),true)
     false

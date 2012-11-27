@@ -15,6 +15,6 @@
         %i.icon-white.icon-asterisk
         = "#{@model.createdAt().toString('dd/MM/yyyy')}"
 
-      %a.btn.btn-special.btn-join{ href: "/clouds/#{@model.id}", data: { action: 'join-cloud' } }= "Join"
+      %a.btn.btn-special.btn-join{ href: @model.link() , data: { action: 'join-cloud' } }= "Join"
   .explore-cloud-list-title
 
