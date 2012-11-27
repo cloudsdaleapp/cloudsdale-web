@@ -58,18 +58,20 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     content = content.replace(/\\t/ig,"&nbsp;&nbsp;&nbsp;&nbsp;")
 
     # Greentext
-    content = content.replace(/((^&gt;|\\n&gt;)[\w\d\s\!\'\"\.\,\-\_\/\?\:\&\^\<\>\=\#\%\+\*\~\\√\◊\(\)]*\\n)/ig,"<span style='color: green;'>$1</span>")
+    content = content.replace(/((^&gt;|\\n&gt;)[\w\d\s\!\'\"\'\.\,\-\_\/\?\:\&\^\<\>\=\#\%\+\*\~\\√\◊\(\)\[\]\{\}]*\\n)/ig,"<span style='color: green;'>$1</span>")
 
     # Zee text.
     # if @model.get('user').get('role') == 'founder'
     #   content = content.replace(/^\[ZEE\](.*)/ig,"<span style='color: orange; font-weight: bold;'>$1</span>")
 
-    content = content.replace(/\\n$/ig,"").replace(/\\n/ig,"<br/>")
-
     elem = $("<p></p>")
+
     if message.selfReference()
-      elem.html(message.get('content').replace(/^\/me/i,message.user().get('name')))
+      content = content.replace(/\\n$/ig,"").replace(/\\n/ig,"")
+      content = message.get('content').replace(/^\/me/i,message.user().get('name'))
+      elem.html(escapeHTML(content))
     else
+      content = content.replace(/\\n$/ig,"").replace(/\\n/ig,"<br/>")
       elem.html(content)
 
     @.$('.chat-message-content').append(elem)
