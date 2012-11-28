@@ -104,7 +104,7 @@ class User
       val = val.split(/\s/)
 
       val.each do |w|
-        w.capitalize!
+        w.downcase.capitalize!
       end
 
       val = val[0..4].join(" ")
