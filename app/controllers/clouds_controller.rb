@@ -9,7 +9,7 @@ class CloudsController < ApplicationController
     @page_image = @cloud.avatar.url
     @page_description = @cloud.description
     @page_type = "cloudsdale:cloud"
-    @page_url = @cloud.short_name.present? cloud_url(@cloud.short_name) : cloud_url(@cloud.id)
+    @page_url = @cloud.short_name.present? ? cloud_url(@cloud.short_name) : cloud_url(@cloud.id)
 
     authorize! :read, @cloud
     render status: 200
