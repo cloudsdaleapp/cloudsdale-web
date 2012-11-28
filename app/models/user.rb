@@ -96,7 +96,22 @@ class User
   #
   # Returns the name String.
   def name=(val=nil)
-    self[:name] = val.gsub(/^\s*/i,"").split(/\s/).each{|w|w.capitalize!}.join(" ") if val.present?
+    if val.present?
+
+      val = val.gsub(/^\s*/i,"")
+      val = val.gsub(/[^a-z]/i," ")
+      val = val.gsub(/\s\s+/," ")
+      val = val.split(/\s/)
+
+      val.each do |w|
+        w.capitalize!
+      end
+
+      val = val[0..4].join(" ")
+
+    end
+
+    self[:name] = val if val.present?
   end
 
   # Public: Fetches the users status
