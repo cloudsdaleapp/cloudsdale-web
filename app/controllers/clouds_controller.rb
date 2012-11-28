@@ -5,7 +5,7 @@ class CloudsController < ApplicationController
     id_or_short_name = params[:id_or_short_name]
     @cloud = Cloud.where("$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]).first
 
-    @page_title = "Cloudsdale - #{@cloud.name}"
+    @page_title = @cloud.name
     @page_image = @cloud.avatar.url
     @page_description = @cloud.description
     @page_type = "cloudsdale:cloud"
