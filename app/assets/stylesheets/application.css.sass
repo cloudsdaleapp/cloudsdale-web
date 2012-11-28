@@ -574,7 +574,7 @@ body
         padding: 0
         display: block
 
-    input[type=text], input[type=password], textarea
+    input[type=text], input[type=password], input[type=email], textarea
       margin: 0 0 5px 0
       width: 100% !important
       background: rgba(0,0,0,.05)
@@ -619,7 +619,7 @@ body
         @each $vendor in -moz-, -o-, -webkit-, ""
           #{$vendor}box-shadow: 0 1px 0 rgba(255,255,255,.1)
 
-    input[type=text], input[type=password], textarea, input[type=submit]
+    input[type=text], input[type=password], input[type=email], textarea, input[type=submit]
       &:last-child
         margin-bottom: 0
 

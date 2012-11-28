@@ -9,7 +9,7 @@
               %input#session_display_name{ type: "text", placeholder: "Display Name", value: @user.get('name') }
           .control-group.auth-field-group-email
             .controls
-              %input#session_email{ type: "text", placeholder: "Email", value: @user.get('email') }
+              %input#session_email{ type: "email", placeholder: "Email", value: @user.get('email') }
           .control-group.auth-field-group-password
             .controls
               %input#session_password{ type: "password", placeholder: "Password" }
