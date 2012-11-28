@@ -18,16 +18,24 @@ class AuthenticationsController < ApplicationController
 
     @provider = omniauth.provider
     @uid      = omniauth.uid
+    @token    = omniauth.credentials.token
+    @secret   = omniauth.credentials.secret
 
     @name   = omniauth.info.nickname
     @email  = omniauth.info.email
+    if (omniauth.provider == "facebook") && omniauth.info.image
+      @image = "http://graph.facebook.com/#{@uid}/picture?type=large"
+    elsif (omniauth.provider == "twitter") && omniauth.info.image
+      @image = omniauth.info.image
+    end
+
 
     # if omniauth.info.location
     #   ActiveSupport::TimeZone.zones_map.keys.each do |allowed_time_zone|
     #     @time_zone = allowed_time_zone if omniauth.info.location.match(/#{allowed_time_zone}/i)
     #   end
     # end
-    #
+
     @user = User.where('authentications.provider' => @provider, 'authentications.uid' => @uid).first
 
     if @user
@@ -45,12 +53,18 @@ class AuthenticationsController < ApplicationController
       end
 
       @user.authentications.find_or_initialize_by(provider: @provider, uid: @uid)
-      @user.save
     end
 
     @user.name      = @name       unless @user.name.present? or (User.where(name: /^#{@name}$/).count >= 1)
     @user.email     = @email      unless @user.email.present?
+
+    @user.remote_avatar_url   = @image if (!@user.avatar? && @image.present?)
     # @user.time_zone = @time_zone  unless @user.time_zone.present?
+
+    @authentication = @user.authentications.find_or_initialize_by(provider: @provider, uid: @uid)
+
+    @authentication.token  = @token if @token.present?
+    @authentication.secret = @secret if @secret.present?
 
     @user.save
 
