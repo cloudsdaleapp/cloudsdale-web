@@ -1,27 +1,50 @@
 - base_url = "http://#{request.host_with_port}"
+- lasmod = DateTime.now.beginning_of_month.strftime("%Y-%m-%d")
 !!! XML
 %urlset{ :xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9" }
   %url
     %loc= "#{base_url}"
-    %lastmod= "2012-06-04"
+    %lastmod= lasmod
     %changefreq= "monthly"
     %priority= "1"
-  
+
   %url
     %loc= "#{base_url}/explore"
-    %lastmod= "2012-06-04"
+    %lastmod= lasmod
     %changefreq= "monthly"
     %priority= "0.7"
-  
+
   %url
     %loc= "#{base_url}/info"
-    %lastmod= "2012-06-04"
+    %lastmod= lasmod
     %changefreq= "monthly"
     %priority= "0.7"
-    
+
+  %url
+    %loc= "#{base_url}/privacy-policy"
+    %lastmod= lasmod
+    %changefreq= "monthly"
+    %priority= "0.7"
+
+  %url
+    %loc= "#{base_url}/terms-and-conditions"
+    %lastmod= lasmod
+    %changefreq= "monthly"
+    %priority= "0.7"
+
+  %url
+    %loc= "#{base_url}/meet-the-crew"
+    %lastmod= lasmod
+    %changefreq= "monthly"
+    %priority= "0.7"
+
   - @clouds.each do |cloud|
     %url
-      %loc= "#{base_url}/clouds/#{cloud.id}"
+      %loc
+        - if cloud.short_name.present?
+          = "#{base_url}/clouds/#{cloud.short_name}"
+        - else
+          = "#{base_url}/clouds/#{cloud.id}"
       %lastmod= cloud.updated_at.strftime("%Y-%m-%d")
       %changefreq= "monthly"
       %priority= "0.3"
