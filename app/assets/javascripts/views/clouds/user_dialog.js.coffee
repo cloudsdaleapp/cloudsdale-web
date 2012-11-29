@@ -11,6 +11,8 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
     'click a[data-action="moderate"]' : 'toggleUserModeration'
     'click a[data-action="skype:add"]' : 'skypeAdd'
     'click a[data-action="skype:call"]' : 'skypeCall'
+    'click a[data-action="modPromote"]' : 'modPromote'
+    'click a[data-action="modDemote"]' : 'modDemote'
 
   initialize: (args) ->
 
@@ -27,6 +29,11 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
     @render()
     @bindEvents()
 
+    this
+
+  render: ->
+    $(@el).html(@template(model: @model, topic: @topic, newBan: @newBan))
+
     if @topic.isModerator(session.get('user'))
       @currentBans.fetch
         add: true
@@ -39,10 +46,6 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
               </p>
             ")
 
-    this
-
-  render: ->
-    $(@el).html(@template(model: @model, topic: @topic, newBan: @newBan))
     this
 
   bindEvents: ->
@@ -61,7 +64,7 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
       minuteStep: 1
       secondStep: 30
 
-    @.$('#ban_form').bind 'submit', (e) =>
+    @.$('#ban_form').on 'submit', (e) =>
       @newBan.set(@fetchBanFormData())
       @newBan.save {},
         success: =>
@@ -113,3 +116,33 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
       t += "<li><strong>#{error.ref_node}</strong> #{error.message}</li>" if error.type == "field"
       t += "<li><strong>#{error.message}</strong></li>" if error.type == "general"
     t += "</ul>"
+
+  modDemote: ->
+    moderator_ids = _.reject( @topic.get('moderator_ids'), (mod_id) =>
+      return mod_id == @model.id
+    )
+
+    @saveTopic({ x_moderator_ids: moderator_ids }
+      success: (resp) =>
+        @render()
+        @bindEvents()
+    )
+
+    false
+
+  modPromote: ->
+    moderator_ids = @topic.get('moderator_ids')
+    moderator_ids.push(@model.id)
+
+    @saveTopic({ x_moderator_ids: moderator_ids },
+      success: =>
+        @render()
+        @bindEvents()
+    )
+    false
+
+  saveTopic: (attr,options) ->
+    attr ||= {}
+    options ||= {}
+    options.wait = true
+    @topic.save(attr,options)
