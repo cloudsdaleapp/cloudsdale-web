@@ -33,56 +33,6 @@
     %textarea#cloud_rules{ name: 'rules', placeholder: 'Rules...' }
       = @cloud.get('rules')
 
-.sidebar-header
-  = "Moderators"
-.sidebar-input
-  #cloud_moderators{ name: 'moderator_ids', placeholder: "Search by name...", multiple: "multiple", style: "width: 100%;" }
-%ul.sidebar-list.moderator_list
-
-/ .cloud-sidebar-bottom
-/   .tab-content
-/     .tab-pane#settings-avatar
-
-/         .control-group
-/           %label.control-label{ for: 'cloud_avatar_file' }= "Upload from File"
-/           .controls
-
-/             %p.help-block
-/               %strong.badge.badge-important= "Known bug"
-/               = "Browsers like Opera or older versions of IE might want you to download a"
-/               %strong=".json"
-/               = "file. The upload still works, you just have to cancel the download."
-
-/         .control-group
-/           %label.control-label{ for: 'cloud_avatar_url' }= "Upload from URL"
-/           .controls
-
-/             %p.help-block
-/               %strong= "Note: "
-/               = "It can take up to a minute before the avatar image has propagated on the CDN."
-
-/         .well
-/           %a.btn.btn-danger.remove-avatar{ href: "#" }
-/             %i.icon-white.icon-remove
-/             = "Remove Avatar"
-
-/     .tab-pane#settings-security
-
-/       .control-group
-/         .controls
-
-
-/     .tab-pane#settings-rules
-/       .control-group
-/         %label.control-label{ for: 'cloud_name' }= "Rules for #{@cloud.get('name')}"
-/         .controls
-/           %textarea#cloud_rules{ name: 'rules' }
-/             = @cloud.get('rules')
-
-/     .tab-pane#settings-moderators
-/       .control-group
-/         %label.control-label{ for: 'cloud_moderators' }= "Select your moderators"
-/         .controls
-/           #cloud_moderators{ name: 'moderator_ids', placeholder: "Search by name...", multiple: "multiple", style: "width: 100%;" }
-/
+.sidebar-header= "Moderators"
+%ul.sidebar-list.moderator_list.sidebar-loader{ style: 'position: relative; min-height: 100px;'}
 

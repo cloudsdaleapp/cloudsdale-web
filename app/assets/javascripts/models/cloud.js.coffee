@@ -126,6 +126,9 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
   isModerator: (user) ->
     _.include(@get('moderator_ids'), user.id)
 
+  isOwner: (user) ->
+    @get('owner_id') == user.id
+
   # Bans {User} from @this
   #
   # @param {user}

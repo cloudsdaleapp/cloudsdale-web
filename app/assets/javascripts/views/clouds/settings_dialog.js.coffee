@@ -27,26 +27,10 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
 
     @fixCheckboxes()
 
-    @cloud.users
+    @cloud.moderators
       success: (resp) =>
+        @.$('.moderator_list').removeClass('sidebar-loader')
         @renderModerators()
-
-        @.$('#cloud_moderators').select2
-          data: _.map(resp, (_user) ->
-            return _user.toSelectable()
-          )
-          multiple: false
-          formatResult: @formatSelectResults
-          formatSelection: @formatSelectResults
-          initSelection: (element,callback) ->
-            return callback(element)
-
-        .on "change", (e) =>
-          ids = @cloud.get('moderator_ids')
-          ids.push(e.val)
-          @saveCloud({ x_moderator_ids: ids },
-            success: => @.$('#cloud_moderators').select2("val", "")
-          )
 
     this
 
@@ -119,15 +103,22 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
     this
 
   renderModerators: ->
-    @.$("ul.moderator_list > li").remove()
+    @.$(".moderator_list").children().remove()
+
     $.each @cloud.moderators(), (i,user) =>
-      @.$("ul.moderator_list").append("<li class='sidebar-item' data-userId='#{user.id}'>
-        <a class='close remove-mod' href='#'>×</a>
-        <a>
-          <div class='sidebar-item-avatar' style='background-image: url(#{user.get('avatar').mini});' />
-          <span class='sidebar-item-name'>#{user.get('name')}</span>
-        </a>
-      </li>")
+      unless @cloud.isOwner(user)
+        @.$("ul.moderator_list").append("<li class='sidebar-item' data-userId='#{user.id}'>
+          <a class='close remove-mod' href='#'>×</a>
+          <a>
+            <div class='sidebar-item-avatar' style='background-image: url(#{user.get('avatar').mini});' />
+            <span class='sidebar-item-name'>#{user.get('name')}</span>
+          </a>
+        </li>")
+
+    unless @.$('.moderator_list').children().length >= 1
+      @.$('.moderator_list').html("<p class='sidebar-lead'>
+        You do not have any moderators, if you need some help enforce your rules. We suggest you appoint some moderators by clicking their name and promoting them.
+      </p>")
 
   removeMod: (e) ->
     user_id = @.$(e.target).parent().attr('data-userId')
@@ -184,9 +175,6 @@ class Cloudsdale.Views.CloudsSettingsDialog extends Backbone.View
     controls = field.parent().parent()
     controls.removeClass('error')
     controls.find("span.help-inline.field-error-message").remove()
-
-  formatSelectResults: (user) ->
-    return "<img src='#{user.avatar}'/> <strong>#{user.text}</strong>"
 
 
 
