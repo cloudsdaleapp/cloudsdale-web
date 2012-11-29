@@ -13,6 +13,19 @@
         %span.sidebar-item-name
           %i.icon-exclamation-sign.icon-white
           = "Call on Skype"
+  - if @topic.isOwner(session.get('user'))
+    - if @topic.isModerator(@model)
+      %li.sidebar-item.sidebar-item-using-icon
+        %a{ href: '#', 'data-action' => 'modDemote' }
+          %span.sidebar-item-name
+            %i.icon-eye-close.icon-white
+            = "Demote Moderator"
+    - else
+      %li.sidebar-item.sidebar-item-using-icon
+        %a{ href: '#', 'data-action' => 'modPromote' }
+          %span.sidebar-item-name
+            %i.icon-eye-open.icon-white
+            = "Promote to Moderator"
 
 .sidebar-header
   = "Avatar"
