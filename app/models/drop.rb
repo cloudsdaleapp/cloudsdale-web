@@ -108,7 +108,7 @@ class Drop
     self[:status]     = response.status
     self[:src_meta]   = response.data
 
-    self[:title]      = response.data['title']
+    self[:title]      = response.data['title'] || self[:match_id]
 
     self[:url]        = self[:match_id]
 
