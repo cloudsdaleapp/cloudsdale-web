@@ -23,7 +23,7 @@ namespace :updater do
 
     puts "-> Sending update notification... '#{@message}'"
 
-    Cloudsdale::Updater.new("web",{ version: @message })
+    Cloudsdale::Updater.new("web",{ message: @message })
 
     puts "-> Update notification successfully sent to all clients."
 
