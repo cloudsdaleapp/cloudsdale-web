@@ -38,7 +38,7 @@ default_environment["RUBY_VERSION"] = "ruby-1.9.3-p194"
 default_run_options[:shell] = 'bash'
 
 after 'deploy:assets:precompile', 'deploy:assets:upload', 'deploy:permissions:update'
-after "deploy:restart", "deploy:updater:web"
+# after "deploy:restart", "deploy:updater:web"
 
 namespace :deploy do
 
