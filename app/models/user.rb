@@ -45,6 +45,7 @@ class User
   field :suspended_until,           type: DateTime,   default: nil
   field :reason_for_suspension,     type: String,     default: nil
   field :preferred_status,          type: Symbol,     default: :online
+  field :also_known_as,             type: Array,      default: []
 
   mount_uploader :avatar, AvatarUploader
 
@@ -76,6 +77,7 @@ class User
     self[:_type] = "User"
     self[:email] = self[:email].downcase if email.present?
 
+    add_known_name
     generate_auth_token
     encrypt_password
     enable_account_on_password_change
@@ -320,6 +322,16 @@ class User
 
     return user
 
+  end
+
+  # Public: Adds the previously used name to the "also_known_as" array
+  #
+  # Returns the "also_known_as" array.
+  def add_known_name
+    if self.name_changed?
+      self.also_known_as.unshift(self.name_was) if self.name_was
+      self.also_known_as.uniq!
+    end
   end
 
   # Public: Checks if the user can be authenticated
