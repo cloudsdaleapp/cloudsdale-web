@@ -16,6 +16,7 @@ class Cloudsdale.Models.User extends Backbone.Model
     is_transient: true
     avatar_url: null
     status: "offline"
+    also_known_as: []
 
   initialize: (args,options) ->
 

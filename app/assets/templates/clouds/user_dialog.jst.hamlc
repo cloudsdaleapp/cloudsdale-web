@@ -27,6 +27,13 @@
             %i.icon-eye-open.icon-white
             = "Promote to Moderator"
 
+- if @model.get('also_known_as').length >= 1
+  .sidebar-header
+    = "Also Known As"
+  - $.each @model.get('also_known_as'), (i,name) ->
+    .sidebar-block
+      %span= name
+
 .sidebar-header
   = "Avatar"
 .sidebar-block
