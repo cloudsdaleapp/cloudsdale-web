@@ -2,7 +2,7 @@ object @user
 
 node(:id) { |user| user._id.to_s }
 
-attributes :name, :time_zone, :member_since, :suspended_until, :reason_for_suspension, :skype_name
+attributes :name, :time_zone, :member_since, :suspended_until, :reason_for_suspension, :skype_name, :also_known_as
 
 node(:avatar) { |user| user.avatar_versions }
 
