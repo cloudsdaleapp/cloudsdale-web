@@ -330,6 +330,7 @@ class User
   def add_known_name
     if self.name_changed?
       self.also_known_as.unshift(self.name_was) if self.name_was
+      self.also_known_as.reject! { |n| n == self.name }
       self.also_known_as.uniq!
     end
   end
