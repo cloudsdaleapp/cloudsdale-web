@@ -2,7 +2,7 @@ jQuery.fn.fitsTruncationSpecs = (content,maxHeight,settings) ->
 
   old = if settings.html then @html() else @text()
 
-  truncateWrapper = @html("<span class='jquery-truncate' style='display: block; float: none;'></span>").find('.jquery-truncate')
+  truncateWrapper = @html("<span class='jquery-truncate' style='display: block; float: none;'></span>").find('span.jquery-truncate')
 
   if settings.html
     truncateWrapper.html(content)
@@ -58,7 +58,14 @@ jQuery.fn.truncate = (options) ->
     # Set up some current state variables
     text = $(el).text()
     width = $(el).width()
-    lheight = parseInt($(el).css('line-height'),0)
+
+    if el.currentStyle
+      _lheight = el.currentStyle['line-height']
+    else
+      _lheight = document.defaultView.getComputedStyle(el, null).getPropertyValue('line-height')  if window.getComputedStyle
+
+    lheight = if parseInt(_lheight,18) then parseInt(_lheight,18) else 18
+
     maxHeight = lheight * settings.rows
 
     $(el).performTruncation(text,width,lheight,maxHeight,settings) unless $(el).fitsTruncationSpecs(text,maxHeight,settings)

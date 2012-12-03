@@ -30,7 +30,7 @@ class Cloudsdale.Views.CloudsDropsListItem extends Backbone.View
     this
 
   refreshGfx: ->
-    @.$('a.drop-big-title').text(@model.get('title')).truncate({rows: 4})
+    @.$('a.drop-big-title span').text(@model.get('title')).truncate({rows: 4})
 
   bindEvents: ->
     $(window).bind 'resizestop', => @refreshGfx()
