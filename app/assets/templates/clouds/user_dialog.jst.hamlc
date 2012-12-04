@@ -13,7 +13,7 @@
         %span.sidebar-item-name
           %i.icon-exclamation-sign.icon-white
           = "Call on Skype"
-  - if @topic.isOwner(session.get('user'))
+  - if @topic.isOwner(session.get('user')) and not @topic.isOwner(@model)
     - if @topic.isModerator(@model)
       %li.sidebar-item.sidebar-item-using-icon
         %a{ href: '#', 'data-action' => 'modDemote' }
