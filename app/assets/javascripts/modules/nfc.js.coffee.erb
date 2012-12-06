@@ -53,9 +53,9 @@ do ($ = jQuery) ->
         outgoing: (message,callback) ->
           message.ext = {} unless message.ext
 
-          if /^\/meta\/subscribe/ig.exec(message.channel)
-            if /^\/users\/(.{24})\/private/ig.exec(message.subscription)
-              message.ext.auth_token = session.get('user').get('auth_token')
+          if window.session
+            authToken = window.session.get('user').get('auth_token')
+            message.ext.auth_token = authToken
 
           callback(message)
       }
