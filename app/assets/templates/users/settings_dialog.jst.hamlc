@@ -30,7 +30,7 @@
         .control-group
           %label.control-label{ for: 'user_email' }= "Email"
           .controls
-            %input#user_email{ type: 'text', name: 'email', placeholder: "Email", value: @user.get('email') }
+            %input#user_email{ type: 'email', name: 'email', placeholder: "Email", value: @user.get('email') }
         .control-group
           %label.control-label{ for: 'user_skype_name' }= "Skype Username"
           .controls
