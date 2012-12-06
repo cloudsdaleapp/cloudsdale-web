@@ -21,8 +21,10 @@ class AuthenticationsController < ApplicationController
     @token    = omniauth.credentials.token
     @secret   = omniauth.credentials.secret
 
-    @name   = omniauth.info.nickname
+    @name   = omniauth.info.name || omniauth.info.nickname
+    @nick   = omniauth.info.nickname || omniauth.info.name
     @email  = omniauth.info.email
+
     if (omniauth.provider == "facebook") && omniauth.info.image
       @image = "http://graph.facebook.com/#{@uid}/picture?type=large"
     elsif (omniauth.provider == "twitter") && omniauth.info.image
@@ -65,6 +67,7 @@ class AuthenticationsController < ApplicationController
 
     @authentication.token  = @token if @token.present?
     @authentication.secret = @secret if @secret.present?
+    @authentication.nickname = @nick if @nick.present?
 
     @user.save
 
