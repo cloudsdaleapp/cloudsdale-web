@@ -8,6 +8,6 @@ node(:needs_to_confirm_registration) { |user| user.needs_to_confirm_registration
 node(:needs_password_change) { |user| user.needs_password_change? }
 node(:needs_name_change) { |user| user.needs_name_change? }
 
-child :authentications => :authentications do |authentications|
-  extends 'api/v1/users/authentications/base', :view_path => 'app/views'
-end
+# child :authentications => :authentications do |authentications|
+#   extends 'api/v1/users/authentications/base', :view_path => 'app/views'
+# end
