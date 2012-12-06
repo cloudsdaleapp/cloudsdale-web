@@ -13,7 +13,7 @@
         %span.sidebar-item-name
           %i.icon-exclamation-sign.icon-white
           = "Call on Skype"
-  - if @topic.isOwner(session.get('user'))
+  - if @topic.isOwner(session.get('user')) and not @topic.isOwner(@model)
     - if @topic.isModerator(@model)
       %li.sidebar-item.sidebar-item-using-icon
         %a{ href: '#', 'data-action' => 'modDemote' }
@@ -27,6 +27,13 @@
             %i.icon-eye-open.icon-white
             = "Promote to Moderator"
 
+- if @model.get('also_known_as').length >= 1
+  .sidebar-header
+    = "Also Known As"
+  - $.each @model.get('also_known_as'), (i,name) ->
+    .sidebar-block
+      %span= name
+
 .sidebar-header
   = "Avatar"
 .sidebar-block
@@ -36,24 +43,32 @@
 
 - if @topic.isModerator(session.get('user'))
   .sidebar-header
-    = "Permanent Record"
-  .sidebar-bans.sidebar-loader{ style: 'position: relative; min-height: 100px;'}
-  - if @topic.isModerator(session.get('user')) and session.get('user').outRanksOn(@model,@topic)
-    .sidebar-header
-      = "Moderate"
-    %ul.sidebar-list
+    - if @model.get('role') == "founder"
+      = "Oh, you thought you could ban me?"
+    - else
+      = "Permanent Record"
 
-      %li.sidebar-item.sidebar-item-using-icon
-        %a{ href: "#", 'data-action' => 'moderate' }
-          %span.sidebar-item-name= "Ban"
-            %i.icon-hand-right.icon-white
-        .sidebar-input.sidebar-dropdown
-          %form#ban_form
-            #ban_errors
-            %label{ for: 'ban_reason' }= "Reason for banning"
-            %textarea#ban_reason{ name: 'reason' }
-              = @newBan.get('reason')
-            %label= "Ban will last until..."
-            %input#ban_due_date{ type: 'text', name: 'due_date', value: @newBan.dueDate() }
-            %input#ban_due_time{ type: 'text', name: 'due_time', value: @newBan.dueTime() }
-            %input{ type: 'submit', name: 'ban', value: 'Ban' }
+  - if @model.get('role') == "founder"
+    %center
+      %img{ src: "http://images.wikia.com/theregularshow/images/7/73/Trollface.png", style: "width: 280px; margin: 10px auto; text-align: center;"}
+  - else
+    .sidebar-bans.sidebar-loader{ style: 'position: relative; min-height: 100px;'}
+    - if @topic.isModerator(session.get('user')) and session.get('user').outRanksOn(@model,@topic)
+      .sidebar-header
+        = "Moderate"
+      %ul.sidebar-list
+
+        %li.sidebar-item.sidebar-item-using-icon
+          %a{ href: "#", 'data-action' => 'moderate' }
+            %span.sidebar-item-name= "Ban"
+              %i.icon-hand-right.icon-white
+          .sidebar-input.sidebar-dropdown
+            %form#ban_form
+              #ban_errors
+              %label{ for: 'ban_reason' }= "Reason for banning"
+              %textarea#ban_reason{ name: 'reason' }
+                = @newBan.get('reason')
+              %label= "Ban will last until..."
+              %input#ban_due_date{ type: 'text', name: 'due_date', value: @newBan.dueDate() }
+              %input#ban_due_time{ type: 'text', name: 'due_time', value: @newBan.dueTime() }
+              %input{ type: 'submit', name: 'ban', value: 'Ban' }

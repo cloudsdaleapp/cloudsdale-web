@@ -38,7 +38,7 @@ default_environment["RUBY_VERSION"] = "ruby-1.9.3-p194"
 default_run_options[:shell] = 'bash'
 
 after 'deploy:assets:precompile', 'deploy:assets:upload', 'deploy:permissions:update'
-after "deploy:restart", "deploy:updater:web"
+# after "deploy:restart", "deploy:updater:web"
 
 namespace :deploy do
 
@@ -57,8 +57,9 @@ namespace :deploy do
 
   namespace :updater do
     desc "Sends an update notification to all web clients."
-    task :web, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
-      run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} updater:web"
+    task :web, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do |args,t|
+      message = ENV['message'] ? ENV['message'] : "Some things were probably fixed"
+      run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} updater:web['#{message}']"
     end
   end
 

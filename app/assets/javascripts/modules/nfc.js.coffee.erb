@@ -74,7 +74,7 @@ do ($ = jQuery) ->
         if payload.version != window.version
           $.event.trigger "notifications:add", {
             header: "Site Update!",
-            body: "Cloudsdale version #{payload.version} is out, click here to activate it.",
+            body: "#{payload.message}, click here to activate update.",
             callback: =>
               document.location.reload(true)
           }

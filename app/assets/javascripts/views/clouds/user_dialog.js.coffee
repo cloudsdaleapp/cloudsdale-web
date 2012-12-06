@@ -18,16 +18,19 @@ class Cloudsdale.Views.CloudsUserDialog extends Backbone.View
 
     @topic = args.topic if args.topic
 
-    @newBan = new Cloudsdale.Models.Ban
-      enforcer: session.get('user')
-      jurisdiction: @topic
+    $(@el).html('<div style="height: 100%;" class="sidebar-loader"></div>')
+    @model.fetch
+      success: =>
+        @newBan = new Cloudsdale.Models.Ban
+          enforcer: session.get('user')
+          jurisdiction: @topic
 
-    @currentBans = new Cloudsdale.Collections.Bans [], {
-      url: "/v1/#{@topic.type}s/#{@topic.id}/bans.json?offender_id=#{@model.id}"
-    }
+        @currentBans = new Cloudsdale.Collections.Bans [], {
+          url: "/v1/#{@topic.type}s/#{@topic.id}/bans.json?offender_id=#{@model.id}"
+        }
 
-    @render()
-    @bindEvents()
+        @render()
+        @bindEvents()
 
     this
 
