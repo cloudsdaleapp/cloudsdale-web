@@ -98,18 +98,20 @@ class User
   #
   # Returns the name String.
   def name=(val=nil)
+
     if val.present?
 
       val = val.gsub(/^\s*/i,"")
       val = val.gsub(/[^a-z]/i," ")
       val = val.gsub(/\s\s+/," ")
-      val = val.split(/\s/)
+      words = val.split(/\s/)
 
-      val.each do |w|
-        w.downcase.capitalize!
+      words.each do |word|
+        word.downcase!
+        word.capitalize!
       end
 
-      val = val[0..4].join(" ")
+      val = words[0..4].join(" ")
 
     end
 
