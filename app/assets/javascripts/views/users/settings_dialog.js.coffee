@@ -45,7 +45,7 @@ class Cloudsdale.Views.UsersSettingsDialog extends Backbone.View
     
     @.$(':file').change => @submitAvatar()
     
-    @.$(':text,:password,textarea').on 'change', (event) ->
+    @.$(':text,:password,textarea,[type=email]').on 'change', (event) ->
       unless $(@).data('preventAjax') == true
         submitData = {}
         submitData[@name] = @value
