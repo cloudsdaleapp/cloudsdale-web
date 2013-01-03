@@ -1,6 +1,6 @@
 .page-header
   %h2= "Meet the Crew"
-  %p.lead= "We're the ones behind cloudsdale who make your stay worthwhile."
+  %p.lead= "We're the ones behind Cloudsdale who make your stay worthwhile."
 
 - @users = User.where(:role.in => [6,5,4,3]).order_by(role: :desc)
 %ul.thumbnails
