@@ -69,7 +69,7 @@ class Ability
     # end
 
     if user.is_of_role?(:admin)
-      can :destroy, Cloud
+      # can :destroy, Cloud
       can :create, Message
     end
 
