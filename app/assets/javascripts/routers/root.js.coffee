@@ -60,9 +60,12 @@ class Cloudsdale.Routers.Root extends Backbone.Router
 
   prependSocial: ->
     $("#page-container > .container.paper-container").prepend('<ul class="social-connect"><ul>')
+
     $('.social-connect').append("<li class='social-connect-facebook'>#{Facebook.likeButton()}</li>")
     twt = $('.social-connect').append("<li class='social-connect-twitter'></li>").find('li.social-connect-twitter')
     twt.twitterButton()
+    ftr = $('.social-connect').append("<li class='social-connect-flattr'></li>").find('li.social-connect-flattr')
+    ftr.flattrButton()
 
 
 
