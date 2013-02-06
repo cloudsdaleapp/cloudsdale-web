@@ -51,15 +51,20 @@ class Drop
   end
 
   def self.find_or_initialize_from_matched_url(url)
-    response  = Urifetch.fetch(url)
-    match_id  = response.data['match_id'] || url
+    begin
+      response  = Urifetch.fetch(url)
+    
+      match_id  = response.data['match_id'] || url
 
-    drop = Drop.find_or_initialize_by(match_id: match_id)
+      drop = Drop.find_or_initialize_by(match_id: match_id)
 
-    if response.status.include?("200")
-      drop.set_data(response)
-    else
-      drop.status = response.status
+      if response.status.include?("200")
+        drop.set_data(response)
+      else
+        drop.status = response.status
+      end
+    rescue OpenURI::HTTPError
+      return nil
     end
 
     drop
