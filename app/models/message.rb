@@ -81,7 +81,11 @@ class Message
       end
     end
 
-    self[:content] = msg
+    if msg.present? && msg.length > 1000
+      self[:content] = msg[0..999] + "\n\n\nMessage exceeded the 1000 character limit and has been trimmed..."
+    else
+      self[:content] = msg
+    end
 
   end
 
