@@ -24,3 +24,5 @@ doc/*
 .yardoc
 
 *.dump
+/config/cert/cloudsdale.org.key
+/config/cert/cloudsdale.org.cert
