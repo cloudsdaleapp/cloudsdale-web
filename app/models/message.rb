@@ -66,6 +66,8 @@ class Message
     msg.gsub! /<br\/><br\/>/,"\\n"
     msg.gsub! /^\s*$/, ""
 
+    msg.gsub! /(https\:\/\/www.cloudsdale.org)/i, "http://www.cloudsdale.org"
+
     if (m = msg.match(/^(.*)/i))
       msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i do
 
