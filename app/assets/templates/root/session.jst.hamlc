@@ -4,7 +4,7 @@
   .row
     .span7.offset1
       .root-plateau
-        %img{ src: "http://#{document.location.host}/assets/details/movie-clip-test.png" }
+        %img{ src: "#{location.protocol}//#{document.location.host}/assets/details/movie-clip-test.png" }
     .span3
       %p.lead.slogan= "Meet new friends, chat & play; all in realtime. This is truly the best place in the sky."
       .actions
@@ -68,7 +68,7 @@
                   %i.icon-search
                   = "Go on Cloud Safari"
         - else
-          %img{ src: "http://#{document.location.host}/assets/details/movie-clip-test.png" }
+          %img{ src: "#{location.protocol}//#{document.location.host}/assets/details/movie-clip-test.png" }
 
     .span3
       .root-session-info
