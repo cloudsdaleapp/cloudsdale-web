@@ -60,10 +60,10 @@ do ($ = jQuery) ->
           callback(message)
       }
 
-      secure_server = "<%=Cloudsdale.faye_path(:client)%>"
-      normal_server = "<%=Cloudsdale.faye_path(:client,true)%>"
+      secure_server = "<%=Cloudsdale.faye_path(:client,true)%>"
+      normal_server = "<%=Cloudsdale.faye_path(:client)%>"
 
-      server_path = if location.protocol is "https:" then secure_server else normal_server
+      server_path = if isSecure() then secure_server else normal_server
 
       @cli = new Faye.Client(server_path, {
         timeout: 120,
