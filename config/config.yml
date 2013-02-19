@@ -44,7 +44,7 @@ development:
 
 production:
   url: http://web01.cloudsdale.org
-  asset_url: http://assets.cloudsdale.org
+  asset_url: https://c776950.ssl.cf2.rackcdn.com
 
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
