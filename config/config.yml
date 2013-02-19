@@ -21,7 +21,7 @@ development:
     username: zeeraw
     api_key: fb02d3d2336d887b81c7401d522ea393
     fog_directory: cloudsdale_development_uploads
-    fog_host: http://c775851.r51.cf2.rackcdn.com
+    fog_host: https://c775851.ssl.cf2.rackcdn.com
 
   faye:
     path: push
@@ -69,7 +69,7 @@ production:
     username: zeeraw
     api_key: fb02d3d2336d887b81c7401d522ea393
     fog_directory: cloudsdale_production_uploads
-    fog_host: http://c775850.r50.cf2.rackcdn.com
+    fog_host: https://c775850.ssl.cf2.rackcdn.com
 
   faye:
     path: push
