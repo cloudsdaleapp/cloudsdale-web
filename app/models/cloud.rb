@@ -119,9 +119,9 @@ class Cloud
   end
 
   after_save do
+    _attributes = essential_attributes + (self.changed - ["user_ids"])
 
-    enqueue! "faye", { channel: "/clouds/#{self._id.to_s}", data: self.to_hash }
-
+    enqueue! "faye", { channel: "/clouds/#{self._id.to_s}", data: self.to_hash(only: _attributes) }
   end
 
   # Public: Translates the Cloud object to a HASH string using RABL
@@ -135,10 +135,13 @@ class Cloud
   #
   # Returns a Hash.
   def to_hash(args={})
-    defaults = { template: "api/v1/clouds/base", view_path: 'app/views' }
+    defaults = { template: "api/v1/clouds/base", view_path: 'app/views', only: [] }
     options = defaults.merge(args)
 
-    Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
+    _hash = Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
+    _hash = _hash.select { |k,_| options[:only].include? k.to_s } if options[:only].present?
+
+    return _hash
   end
 
   # Public: Determines which role a user has on an instance of a Cloud.
@@ -226,6 +229,15 @@ class Cloud
     rescue Fog::Storage::Rackspace::NotFound
       @previous_model_for_avatar = nil
     end
+  end
+
+private
+
+  # Private: Attributes essential to clients
+  #
+  # Returns an Array with those attribute names
+  def essential_attributes
+    ["is_transient","id"]
   end
 
 end
