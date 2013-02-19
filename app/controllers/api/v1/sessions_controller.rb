@@ -71,9 +71,11 @@ class Api::V1::SessionsController < Api::V1Controller
       )
       render_exception "You are banned from this service.", 401
     else
-      _params = @current_user.new_record? ? params[:user] : params[:user].reject { |k,_| @current_user[k].present? }
 
-      @current_user.write_attributes(_params)
+      if params[:user]
+        _params = @current_user.new_record? ? params[:user] : params[:user].reject { |k,_| @current_user[k].present? }
+        @current_user.write_attributes(_params)
+      end
 
       authenticate! @current_user
     end
