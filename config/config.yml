@@ -26,8 +26,10 @@ development:
   faye:
     path: push
     schema: http
+    secure_schema: https
     host: local.cloudsdale.org
     port: 8000
+    secure_port: 443
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
     inhouse_host: 127.0.0.1
 
@@ -72,8 +74,10 @@ production:
   faye:
     path: push
     schema: http
+    secure_schema: https
     host: push01.cloudsdale.org
     port: 80
+    secure_port: 443
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
     inhouse_host: push01.snet.cloudsdale.org
 

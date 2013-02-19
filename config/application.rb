@@ -46,9 +46,11 @@ module Cloudsdale
     @bunny
   end
 
-  def self.faye_path(connection=nil)
-    host = (connection == :inhouse) ? config['faye']['inhouse_host'] : config['faye']['host']
-    @faye_path = "#{config['faye']['schema']}://#{host}:#{config['faye']['port']}/#{config['faye']['path']}"
+  def self.faye_path(type = nil, secure == false)
+    host    = (type == :inhouse) ? config['faye']['inhouse_host']  : config['faye']['host']
+    port    = (secure == true)   ? config['faye']['secure_port']   : config['faye']['port']
+    schema  = (secure == true)   ? config['faye']['secure_schema'] : config['faye']['schema']
+    @faye_path = "#{schema}://#{host}:#{port}/#{config['faye']['path']}"
   end
 
   class Application < Rails::Application
