@@ -101,6 +101,7 @@ class User
 
     if val.present?
 
+      val = val.gsub(/[^a-z]/i," ")
       val = val.gsub(/^\s*/i,"")
       val = val.gsub(/[^a-z]/i," ")
       val = val.gsub(/\s\s+/," ")
