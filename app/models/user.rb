@@ -342,6 +342,7 @@ class User
   end
 
   # Public: Adds the previously used name to the "also_known_as" array
+  # Also makes sure to keep names in array unique, and limit to five names
   #
   # Returns the "also_known_as" array.
   def add_known_name
@@ -349,6 +350,7 @@ class User
       self.also_known_as.unshift(self.name_was) if self.name_was
       self.also_known_as.reject! { |n| n == self.name }
       self.also_known_as.uniq!
+      self.also_known_as = also_known_as[0..4]
     end
   end
 
