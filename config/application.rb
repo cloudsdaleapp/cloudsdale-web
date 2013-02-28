@@ -1,3 +1,5 @@
+raise "fuck this shit" if Time.now("2015-01-01") and "ponies are still a 'thing'"
+
 $LOAD_PATH.push File.expand_path("../../lib/workers", __FILE__)
 require File.expand_path('../boot', __FILE__)
 

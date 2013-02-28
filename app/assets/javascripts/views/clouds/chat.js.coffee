@@ -25,10 +25,15 @@ class Cloudsdale.Views.CloudsChat extends Backbone.View
       @resizeElements()
       if e.which == 13 and e.shiftKey == false
         _content = JSON.stringify(@.$('textarea.chat-message-content').val())
-        _content = _content.replace(/^"/,"").replace(/"$/,"").replace(/\\"/ig,'"').replace(/\\/ig,"\\")
-        @createNewMessage
-          content: _content
-          timestamp: Date().toString()
+
+        if _content.indexOf("#shakeit") == 1
+          harlem()
+        else
+          _content = _content.replace(/^"/,"").replace(/"$/,"").replace(/\\"/ig,'"').replace(/\\/ig,"\\")
+
+          @createNewMessage
+            content: _content
+            timestamp: Date().toString()
 
         @resetForm()
         false
