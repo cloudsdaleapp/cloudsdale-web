@@ -20,6 +20,9 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     @render()
     @bindEvents()
 
+    @model.users().cachedFetch()
+    @model.users().listen()
+
     @refreshGfx()
 
   render: ->
@@ -72,9 +75,6 @@ class Cloudsdale.Views.CloudsShow extends Backbone.View
     else
       @chat_view = new Cloudsdale.Views.CloudsChat(model: @model)
       @.$('.float-container > .container-inner > .chat-wrapper').replaceWith(@chat_view.el)
-
-    @model.users().cachedFetch()
-    @model.users().listen()
 
     # if @.$('.cloud-sidebar-bottom').children().length == 0
     #   @users_view = new Cloudsdale.Views.CloudsUsers(model: @model)
