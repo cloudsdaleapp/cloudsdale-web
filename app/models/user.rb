@@ -50,11 +50,11 @@ class User
   mount_uploader :avatar, AvatarUploader
 
   scope :visable, where(:invisible => false)
-  scope :online_on, -> cloud do
+  scope :online_on, -> _cloud do
     ids = []
-    user_statuses = Cloudsdale.redisClient.hgetall("cloudsdale/clouds/#{cloud.id.to_s}/users")
+    user_statuses = Cloudsdale.redisClient.hgetall("cloudsdale/clouds/#{_cloud.id.to_s}/users")
     user_statuses.each { |uid,t| t = t.try(:to_i) || 0; min = 35.seconds.ago.to_ms; ids << uid if t > min }
-    where(:_id.in => ids)
+    where(:_id.in => ids, :preferred_status.ne => :offline)
   end
 
   accepts_nested_attributes_for :character, :allow_destroy => true
