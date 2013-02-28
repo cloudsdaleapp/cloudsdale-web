@@ -19,9 +19,9 @@ class Cloudsdale.Collections.CloudsUsers extends Backbone.Collection
     session.get('users').findOrInitialize [],
       specific_endpoint: true
       url: @url()
-      success: (_users, status, xhr) =>
-        @add(_users.models)
-        options.success(_users, status, xhr) if options.success
+      success: (collection, resp, xhr) =>
+        $.each resp.result, (i,user) => @findOrInitialize(user)
+        options.success(collection, resp, xhr) if options.success
 
       error: (resp, xhr,_options) =>
         options.error(resp, xhr,_options) if options.error
