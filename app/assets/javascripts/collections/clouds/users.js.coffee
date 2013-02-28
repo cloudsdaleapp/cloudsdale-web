@@ -1,7 +1,7 @@
 class Cloudsdale.Collections.CloudsUsers extends Backbone.Collection
 
   model: Cloudsdale.Models.User
-  url: -> "/v1/#{@topic.type}s/#{@topic.id}/users.json"
+  url: -> "/v1/#{@topic.type}s/#{@topic.id}/users/online.json"
 
   topic: 'cloud'
 
