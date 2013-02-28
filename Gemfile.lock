@@ -236,6 +236,7 @@ GEM
     net-ssh (2.5.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    newrelic_moped (0.0.3)
     newrelic_rpm (3.4.1)
     nokogiri (1.5.5)
     oauth (0.4.5)
@@ -430,6 +431,7 @@ DEPENDENCIES
   mongoid_fulltext!
   mongoid_rails_migrations
   moped!
+  newrelic_moped
   newrelic_rpm
   omniauth
   omniauth-facebook
