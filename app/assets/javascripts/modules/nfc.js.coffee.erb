@@ -103,6 +103,7 @@ do ($ = jQuery) ->
 
       if @cli._channels._channels[channel] == undefined
         subscription = @cli.subscribe channel, (payload) ->
+          console.log event, payload if session.get('user').get('role') == "founder"
           $.event.trigger "#{event}", payload
 
       $(document).bind "#{event}", (event,payload) ->
