@@ -13,6 +13,7 @@ Cloudsdale::Application.routes.draw do
       resources :users, :controller => "clouds/users", only: [:destroy,:update,:index] do
 
         get :moderators, on: :collection, as: :moderators
+        get :online,     on: :collection, as: :online
 
       end
 
