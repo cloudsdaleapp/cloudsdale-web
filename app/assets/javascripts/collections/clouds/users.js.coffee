@@ -1,7 +1,11 @@
 class Cloudsdale.Collections.CloudsUsers extends Backbone.Collection
 
   model: Cloudsdale.Models.User
-  url: -> "/v1/#{@topic.type}s/#{@topic.id}/users/online.json"
+  url: ->
+    if @topic.get('member_count') > 100
+      return "/v1/#{@topic.type}s/#{@topic.id}/users/online.json"
+    else
+      return "/v1/#{@topic.type}s/#{@topic.id}/users.json"
 
   topic: 'cloud'
 
