@@ -50,6 +50,12 @@ class User
   mount_uploader :avatar, AvatarUploader
 
   scope :visable, where(:invisible => false)
+  scope :online_on, -> cloud do
+    ids = []
+    user_statuses = Cloudsdale.redisClient.hgetall("cloudsdale/clouds/#{cloud.id.to_s}/users")
+    user_statuses.each { |uid,t| t = t.try(:to_i) || 0; min = 35.seconds.ago.to_ms; ids << uid if t > min }
+    where(:_id.in => ids)
+  end
 
   accepts_nested_attributes_for :character, :allow_destroy => true
   accepts_nested_attributes_for :authentications, :allow_destroy => true
@@ -92,7 +98,6 @@ class User
       enqueue! "faye", { channel: "/clouds/#{cloud_id.to_s}/users/#{self._id.to_s}", data: self.to_hash( template: "api/v1/users/mini" ) }
     end
   end
-
 
   # Public: Customer setter for the name attribute.
   #

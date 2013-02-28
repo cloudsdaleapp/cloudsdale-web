@@ -124,6 +124,18 @@ class Cloud
     enqueue! "faye", { channel: "/clouds/#{self._id.to_s}", data: self.to_hash(only: _attributes) }
   end
 
+  # Public: List all online users for this Cloud.
+  #
+  # Examples
+  #
+  # @cloud.online_users
+  # => <Mongoid::Criteria>
+  #
+  # Returns mongoid criteria for User.
+  def online_users
+    User.online_on(self)
+  end
+
   # Public: Translates the Cloud object to a HASH string using RABL
   #
   #   args - A Hash of arguments to be sent to the rabl, renderer.
