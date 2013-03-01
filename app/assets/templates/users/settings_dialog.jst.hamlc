@@ -1,25 +1,25 @@
 .modal.fade.base-modal.settings-dialog
   .modal-header
     %a{ href: "#settings-avatar", "data-toggle" => "pill" }
-      %img.user-avatar{ src: @user.get('avatar').normal }      
+      %img.user-avatar{ src: @user.get('avatar').normal }
     %h2.user-name= @user.get('name')
-    
+
     %ul.nav.nav-pills
       %li
         %a{ href: "#settings-general", "data-toggle" => "pill" }
           %i.icon-cog.icon-white
           = "General"
-          
+
       %li
         %a{ href: "#settings-avatar", "data-toggle" => "pill" }
           %i.icon-picture.icon-white
           = "Avatar"
-          
+
       %li
         %a{ href: "#settings-security", "data-toggle" => "pill" }
           %i.icon-lock.icon-white
           = "Security"
-        
+
   .modal-body
     .tab-content
       .tab-pane#settings-general
@@ -35,7 +35,7 @@
           %label.control-label{ for: 'user_skype_name' }= "Skype Username"
           .controls
             %input#user_skype_name{ type: 'text', name: 'skype_name', value: @user.get('skype_name') }
-    
+
       .tab-pane#settings-avatar
         %form#avatar-form{ enctype: "multipart/form-data" }
           .control-group
@@ -47,7 +47,7 @@
                 = "Browsers like Opera or older versions of Internet Explorer might want you to download a"
                 %strong=".json"
                 = "file. The upload still works, you just have to cancel the download."
-          
+
           .control-group
             %label.control-label{ for: 'user_avatar_url' }= "Upload from URL"
             .controls
@@ -55,24 +55,24 @@
               %p.help-block
                 %strong= "Note: "
                 = "It can take up to a minute before the new avatar image is visible."
-              
+
           .well
             %a.btn.btn-danger.remove-avatar{ href: "#" }
               %i.icon-white.icon-remove
               = "Remove Avatar"
-    
+
       .tab-pane#settings-security
         .control-group
           %label.control-label{ for: 'user_password' }= "Password"
           .controls
             %input#user_password{ type: 'password', name: 'password', placeholder: "New Password" }
-        
+
   .modal-footer
-    
+
     %a.btn.btn-info{ href: '#', data: { dismiss: 'modal' } }
       %i.icon-remove.icon-white
       %span= "Cancel"
-    
+
     %a.btn.btn-danger{ href: '/logout' }
       %i.icon-off.icon-white
       %span= "Logout"
