@@ -9,6 +9,16 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
 
     @cloud = fetch_cloud()
     @users = @cloud.users
+
+    threshold = 35.seconds.ago.to_ms
+    statuses  = Cloudsdale.redisClient.hgetall("cloudsdale/clouds/#{@cloud.id.to_s}/users")
+
+    @users.each do |user|
+      last_seen = statuses[user.id.to_s].try(:to_i) || 0
+      status    = (last_seen > threshold) ? user.preferred_status : :offline
+      user.instance_variable_set(:@status,status)
+    end
+
     render status: 200
 
   end
@@ -35,6 +45,8 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
 
     @cloud = fetch_cloud()
     @users = @cloud.online_users
+    @users.each { |u| u.instance_variable_set(:@status,:online) }
+
     render :index, status: 200
 
   end

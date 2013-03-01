@@ -133,9 +133,9 @@ class User
     status_timestamp = Cloudsdale.redisClient.get("cloudsdale/users/#{self.id.to_s}").try(:to_i) || 0
     minimum_time_threshold = 35.seconds.ago.to_ms
     if status_timestamp > minimum_time_threshold
-      return self.preferred_status || :online
+      return @status = self.preferred_status || :online
     else
-      return :offline
+      return @status = :offline
     end
   end
 
