@@ -106,6 +106,7 @@ gem 'yard-tomdoc', git: 'git://github.com/rubyworks/yard-tomdoc.git'
 # Profiling
 gem 'newrelic_rpm'
 gem 'newrelic_moped'
+gem 'newrelic-redis'
 
 gem 'capistrano'
 gem 'capistrano_colors', :require => nil
