@@ -29,7 +29,7 @@ gem 'haml_coffee_assets'
 gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
-gem 'rabl'
+gem 'rabl', '~> 0.6.10'
 
 # Frontend
 gem 'backbone-on-rails'

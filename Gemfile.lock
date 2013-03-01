@@ -198,7 +198,7 @@ GEM
       multipart-post
     httparty (0.7.8)
       crack (= 0.1.8)
-    i18n (0.6.1)
+    i18n (0.6.4)
     imagesize (0.1.1)
     journey (1.0.4)
     jquery-rails (2.0.2)
@@ -442,7 +442,7 @@ DEPENDENCIES
   omniauth-twitter
   pdf-reader
   pry
-  rabl
+  rabl (~> 0.6.10)
   rails (~> 3.2.2)
   rails3-generators
   redcarpet
