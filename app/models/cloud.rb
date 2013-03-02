@@ -20,7 +20,7 @@ class Cloud
   field :description,   type: String
   field :short_name,    type: String
   field :rules,         type: String
-  field :hidden,        type: Boolean,        default: false
+  field :hidden,        type: Boolean,        default: true
   field :locked,        type: Boolean,        default: false
   field :featured,      type: Boolean,        default: false
   field :member_count,  type: Integer,        default: 0

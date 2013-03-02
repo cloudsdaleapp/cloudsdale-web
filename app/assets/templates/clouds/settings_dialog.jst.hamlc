@@ -17,14 +17,14 @@
   %form
     %input#cloud_avatar_url{ type: 'text', name: 'remote_avatar_url', placeholder: 'Upload from URL...' }
 
-.sidebar-header
-  = "Security"
-.sidebar-input
-  %form
-    %label.checkbox{ for: 'cloud_hidden' }
-      %input#cloud_hidden{ type: 'checkbox', name: 'hidden' }
-      %strong= "Hidden - "
-      = "Use this feature to hide cloud from appearing in search."
+/ .sidebar-header
+/   = "Security"
+/ .sidebar-input
+/   %form
+/     %label.checkbox{ for: 'cloud_hidden' }
+/       %input#cloud_hidden{ type: 'checkbox', name: 'hidden' }
+/       %strong= "Hidden - "
+/       = "Use this feature to hide cloud from appearing in search."
 
 .sidebar-header
   = "Rules"

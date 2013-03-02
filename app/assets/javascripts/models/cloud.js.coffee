@@ -19,7 +19,7 @@ class Cloudsdale.Models.Cloud extends Backbone.Model
     user_ids: []
     is_transient: true
     member_count: 0
-    hidden: false
+    hidden: true
     avatar_url: null
 
   initialize: (args) ->
