@@ -37,7 +37,7 @@ class Api::V1::Clouds::BansController < Api::V1Controller
     @ban.enforcer = @enforcer
     @ban.offender = @offender
 
-    if can? :create, @ban
+    if authorize_create(current_user,@ban)
       if @ban.save
         render status: 200
         set_flash_message message: "Your target was sent to the moon.", title: "TO THE MOON!"
@@ -69,7 +69,7 @@ class Api::V1::Clouds::BansController < Api::V1Controller
     @ban = @cloud.bans.find(params[:id])
     @ban.assign_attributes params[:ban], as: :editor
 
-    if can? :update, @ban
+    if authorize_update(current_user,@ban)
       if @ban.save
         render status: 200
       else
@@ -91,6 +91,18 @@ private
   def fetch_cloud
     @cloud ||= Cloud.find(params[:cloud_id])
     authorize! :read, @cloud
+  end
+
+  def authorize_create(user,ban)
+    i_am_a_moderator        = ban.jurisdiction.moderator_ids.include?(user.id)
+    not_prosecuting_myself  = ban.offender.id != user.id
+    offender_was_there      = ban.jurisdiction.user_ids.include?(ban.offender.id)
+
+    (i_am_a_moderator || offender_was_there) && not_prosecuting_myself
+  end
+
+  def authorize_update(user,ban)
+    authorize_create(user,ban)
   end
 
 end
