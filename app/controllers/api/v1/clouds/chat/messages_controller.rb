@@ -76,7 +76,7 @@ private
     topic_is_not_locked         = !message.chat.topic.locked?
     i_am_not_banned_from_topic  = !message.chat.topic.has_banned?(user)
 
-    allow_access = (i_can_communicate_in_topic || topic_is_not_locked) && i_am_not_banned_from_topic
+    allow_access = (i_can_communicate_in_topic || topic_is_not_locked) && i_am_not_banned_from_topic && user.is_registered?
 
     raise CanCan::AccessDenied unless allow_access
   end
