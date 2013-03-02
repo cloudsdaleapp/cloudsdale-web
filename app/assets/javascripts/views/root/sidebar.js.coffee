@@ -33,7 +33,7 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
     $(@el).mousewheel (event, delta) ->
       @scrollTop -= (delta * 30)
       event.preventDefault()
-    @.$('.sidebar-list').sortable
+    @.$('.sidebar-list#sidebar-clouds').sortable
       axis: 'y'
       stop: (event, ui) =>
         @refreshListPositions()
