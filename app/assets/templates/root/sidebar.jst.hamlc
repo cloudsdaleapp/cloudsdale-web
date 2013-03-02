@@ -40,16 +40,17 @@
 .sidebar-header= "Clouds"
 %ul#sidebar-clouds.sidebar-list
 
-.sidebar-header= "Tools"
-%ul.sidebar-list#sidebar-tools
-  %li.sidebar-item
-    %a#cloud-new{ href: '#' }
-      %span.sidebar-item-name{ style: 'margin-left: 0;'}
-        %i.icon-plus.icon-white{ style: 'margin: 5px 16px 6px 6px; float: left;'}
-        %strong= "Create new Cloud"
-    .sidebar-input.sidebar-dropdown
-      %form#new_cloud
-        #new_cloud_errors
-        %label{ for: 'new_cloud_name' }= "Name your Cloud"
-        %input#new_cloud_name{ type: 'text', name: 'name', value: "" }
-        %input{ type: 'submit', name: 'create', value: 'Start Chatting' }
+- if (((10).days().ago() > session.get('user').memberSince()) and session.get('clouds').where({"owner_id":session.get('user').id}).length < 1) or _.include(["founder","developer"],session.get('user').get('role'))
+  .sidebar-header#sidebar-header-tools= "Tools"
+  %ul.sidebar-list#sidebar-tools
+    %li.sidebar-item
+      %a#cloud-new{ href: '#' }
+        %span.sidebar-item-name{ style: 'margin-left: 0;'}
+          %i.icon-plus.icon-white{ style: 'margin: 5px 16px 6px 6px; float: left;'}
+          %strong= "Create new Cloud"
+      .sidebar-input.sidebar-dropdown
+        %form#new_cloud
+          #new_cloud_errors
+          %label{ for: 'new_cloud_name' }= "Name your Cloud"
+          %input#new_cloud_name{ type: 'text', name: 'name', value: "" }
+          %input{ type: 'submit', name: 'create', value: 'Start Chatting' }

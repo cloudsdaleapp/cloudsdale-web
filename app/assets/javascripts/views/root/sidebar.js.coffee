@@ -127,8 +127,13 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
       success: (cloud) =>
         session.get('clouds').add(cloud)
         Backbone.history.navigate("/clouds/#{cloud.id}",true)
-        @.$('#new_cloud_name').val("")
-        @toggleNewCloud()
+        if (((10).days().ago() > session.get('user').memberSince()) and session.get('clouds').where({"owner_id":session.get('user').id}).length < 1) or _.include(["founder","developer"],session.get('user').get('role'))
+          @.$('#new_cloud_name').val("")
+          @toggleNewCloud()
+        else
+          @.$('#sidebar-tools').remove()
+          @.$('#sidebar-header-tools').remove()
+
       error: (model,resp) =>
         response = $.parseJSON(resp.responseText)
         @.$('#new_cloud_errors').html("<div class='sidebar-form-errors'>

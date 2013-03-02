@@ -15,8 +15,9 @@ class Ability
 
     if user.is_registered? and not user.banned?
 
-      # Normal users can create clouds.
-      can :create, Cloud
+      can :create, Cloud do |cloud|
+        ((10.days.ago > user.created_at) and user.owned_clouds.count < 1) or [:founder,:developer].include?(user.symbolic_role)
+      end
 
       # Normal users can destroy clouds they own.
       can [:update,:destroy], Cloud, :owner_id => user.id
