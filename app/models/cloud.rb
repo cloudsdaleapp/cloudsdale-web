@@ -14,7 +14,7 @@ class Cloud
 
   attr_accessor :user_invite_tokens
 
-  attr_accessible :name, :description, :short_name, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :owner_id, :x_moderator_ids
+  attr_accessible :name, :description, :short_name, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :x_moderator_ids
 
   field :name,          type: String
   field :description,   type: String
