@@ -12,6 +12,8 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
     'click #status-offline' : -> @toggleStatus('offline')
     'click #status-away'    : -> @toggleStatus('away')
     'click #status-busy'    : -> @toggleStatus('busy')
+    'click #cloud-new'      : 'toggleNewCloud'
+    'submit #new_cloud'     : 'saveCloud'
 
   initialize: (args) ->
     @render()
@@ -103,3 +105,35 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
   moveToggleFirst: (cloud) ->
     toggle = @.$("ul#sidebar-clouds > li.sidebar-item[data-entity-id=#{cloud.id}]")
     @.$('.sidebar > ul#sidebar-clouds').prepend(toggle)
+
+  toggleNewCloud: ->
+    @.$('a#cloud-new').parent().toggleClass('active')
+    @.$('#new_cloud_name').focus()
+    false
+
+  buildErrors: (errors) ->
+    t = "<ul style='text-align: left;'>"
+    $.each errors, (index,error) ->
+      t += "<li><strong>#{error.ref_node}</strong> #{error.message}</li>" if error.type == "field"
+      t += "<li><strong>#{error.message}</strong></li>" if error.type == "general"
+    t += "</ul>"
+
+  saveCloud: ->
+
+    newCloud = new Cloudsdale.Models.Cloud()
+
+    newCloud.set 'name', @.$('#new_cloud_name').val()
+    newCloud.save {},
+      success: (cloud) =>
+        session.get('clouds').add(cloud)
+        Backbone.history.navigate("/clouds/#{cloud.id}",true)
+        @.$('#new_cloud_name').val("")
+        @toggleNewCloud()
+      error: (model,resp) =>
+        response = $.parseJSON(resp.responseText)
+        @.$('#new_cloud_errors').html("<div class='sidebar-form-errors'>
+          #{@buildErrors(response.errors)}
+        </div>")
+
+    false
+
