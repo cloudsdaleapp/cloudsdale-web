@@ -336,9 +336,22 @@ class User
 
       if oauth && email && ["twitter","facebook"].include?(oauth[:provider])
         user = User.where(email: /^#{email}$/i).first || User.new(email: email)
-        user.authentications.build(uid: oauth[:uid], provider: oauth[:provider])
+        user.authentications.build(
+          uid:      oauth[:uid],
+          provider: oauth[:provider],
+          token:    oauth[:auth_token],
+          secret:   oauth[:auth_secret]
+        )
       else
         user = User.new(email: email, password: password)
+      end
+
+    else
+
+      if oauth && ["twitter","facebook"].include?(oauth[:provider])
+        auth = user.authentications.find_or_initialize_by(provider: oauth[:provider], uid: oauth[:uid])
+        auth.token  = oauth[:auth_token]  if oauth[:auth_token]
+        auth.secret = oauth[:auth_secret] if oauth[:auth_secret]
       end
 
     end
