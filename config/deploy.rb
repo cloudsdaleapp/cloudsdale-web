@@ -30,9 +30,6 @@ role :db,   "ovh.cloudsdale.org"
 role :web,  "ovh.cloudsdale.org"
 role :app,  "ovh.cloudsdale.org", :primary => true
 
-default_environment["RAILS_ENV"] = 'production'
-default_environment["RUBY_VERSION"] = "ruby-1.9.3-p125@#{application}"
-
 after 'deploy', 'deploy:permissions:correct'
 
 namespace :deploy do
