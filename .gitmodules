@@ -1,3 +1,0 @@
-[submodule "vendor/submodules/cloudsdale-faye"]
-	path = vendor/submodules/cloudsdale-faye
-	url = git@github.com:IOMUSE/Cloudsdale-Faye.git
