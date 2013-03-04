@@ -108,7 +108,7 @@ gem 'newrelic_rpm'
 gem 'newrelic_moped'
 gem 'newrelic-redis'
 
-gem 'capistrano'
+gem 'capistrano', git: 'git://github.com/capistrano/capistrano.git'
 gem 'capistrano_colors', :require => nil
 gem 'unicorn'
 gem 'thin'

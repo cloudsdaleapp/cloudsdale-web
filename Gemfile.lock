@@ -19,6 +19,17 @@ GIT
       unicode_utils (~> 1.0.0)
 
 GIT
+  remote: git://github.com/capistrano/capistrano.git
+  revision: ef1c3a6fd8777ddf8a8372c45a506249a08a703e
+  specs:
+    capistrano (2.14.2)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
+
+GIT
   remote: git://github.com/mongoid/mongoid.git
   revision: f5622e6f779154ab9eba79c693d88db0754f4f59
   specs:
@@ -98,12 +109,6 @@ GEM
     builder (3.0.4)
     bunny (0.8.0)
     cancan (1.6.5)
-    capistrano (2.14.2)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
     capistrano_colors (0.5.5)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -404,7 +409,7 @@ DEPENDENCIES
   bson_ext
   bunny
   cancan
-  capistrano
+  capistrano!
   capistrano_colors
   capybara
   carrierwave
