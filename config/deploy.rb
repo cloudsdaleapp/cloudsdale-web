@@ -25,12 +25,8 @@ role :db,   "ovh.cloudsdale.org"
 role :web,  "ovh.cloudsdale.org"
 role :app,  "ovh.cloudsdale.org", :primary => true
 
-# default_environment["RAILS_ENV"] = 'production'
-
-# default_environment["PATH"]         = "/usr/local/rvm/gems/ruby-1.9.3-p125/bin:/usr/local/rvm/gems/ruby-1.9.3-p125@cloudsdale-web/bin:/usr/local/rvm/rubies/ruby-1.9.3-p125/bin:/usr/local/rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
-# default_environment["GEM_HOME"]     = "/usr/local/rvm/gems/ruby-1.9.3-p125"
-# default_environment["GEM_PATH"]     = "/usr/local/rvm/gems/ruby-1.9.3-p125:/usr/local/rvm/gems/ruby-1.9.3-p125@cloudsdale-web"
-# default_environment["RUBY_VERSION"] = "ruby-1.9.3-p125@cloudsdale-web"
+default_environment["RAILS_ENV"] = 'production'
+default_environment["RUBY_VERSION"] = "ruby-1.9.3-p125@#{application}"
 
 after 'deploy', 'deploy:permissions:correct'
 
