@@ -6,7 +6,7 @@ set :application, "cloudsdale-web"
 
 set :scm,             :git
 set :repository,      "git@github.com:IOMUSE/Cloudsdale.git"
-set :branch,          "origin/deploy"
+set :branch,          "ovh-migration"
 
 set :migrate_target,  :current
 set :ssh_options,     { :forward_agent => true }
