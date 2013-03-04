@@ -11,7 +11,7 @@ gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
 gem 'voteable_mongo'
 gem 'kaminari'
 
-gem "hiredis", "~> 0.3.1"
+gem "hiredis", '~> 0.4.5'
 gem "redis", "~> 2.2.0", :require => ["redis/connection/hiredis", "redis"]
 
 # CANT HAVE ASSETS GROUP!
@@ -96,7 +96,7 @@ group :test do
 end
 
 group :production, :assets do
-  gem 'therubyracer'
+  gem 'therubyracer', '~> 0.11.4'
   gem 'execjs'
 end
 
