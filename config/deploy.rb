@@ -8,9 +8,7 @@ set :application, "cloudsdale-web"
 set :scm,             :git
 set :scm_verbose,     true
 
-set :rvm_ruby_string, "ruby-1.9.3-p125@#{application}"
-set :rvm_install_pkgs, %w[libyaml openssl]
-set :rvm_install_ruby_params, '--with-opt-dir=/usr/local/rvm/usr'
+set :rvm_ruby_string, :local
 
 set :repository,      'git@github.com:IOMUSE/Cloudsdale.git'
 set :remote,          'origin'
