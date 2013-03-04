@@ -110,7 +110,6 @@ gem 'newrelic-redis'
 
 gem 'capistrano', git: 'git://github.com/capistrano/capistrano.git'
 gem 'capistrano_colors', :require => nil
-gem 'rvm-capistrano'
 
 gem 'unicorn'
 gem 'thin'

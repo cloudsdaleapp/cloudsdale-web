@@ -1,14 +1,12 @@
 # config/deploy.rb
 require "bundler/capistrano"
 require 'capistrano_colors'
-require "rvm/capistrano"
 
-set :application, "cloudsdale-web"
+set :application,   "cloudsdale-web"
+set :ruby_version,  "ruby-1.9.3-p125"
 
 set :scm,             :git
 set :scm_verbose,     true
-
-set :rvm_ruby_string, :local
 
 set :repository,      'git@github.com:IOMUSE/Cloudsdale.git'
 set :remote,          'origin'
@@ -29,6 +27,13 @@ role :web,  "ovh.cloudsdale.org"
 role :app,  "ovh.cloudsdale.org", :primary => true
 
 after 'deploy', 'deploy:permissions:correct'
+
+# Default Environment
+default_environment["RAILS_ENV"]    = 'production'
+default_environment["PATH"]         = "/usr/local/rvm/gems/#{ruby_version}/bin:/usr/local/rvm/gems/#{ruby_version}@global/bin:/usr/local/rvm/rubies/#{ruby_version}/bin:/usr/local/rvm/gems/#{ruby_version}@#{application}/bin:/usr/local/rvm/gems/#{ruby_version}@global/bin:/usr/local/rvm/rubies/#{ruby_version}/bin:/usr/local/rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+default_environment["GEM_HOME"]     = "/usr/local/rvm/gems/#{ruby_version}"
+default_environment["GEM_PATH"]     = "/usr/local/rvm/gems/#{ruby_version}@#{application}:/usr/local/rvm/gems/#{ruby_version}@global"
+default_environment["RUBY_VERSION"] = "#{ruby_version}"
 
 namespace :deploy do
 
