@@ -35,7 +35,8 @@
     / %link{ href: 'http://fonts.googleapis.com/css?family=Poiret+One', rel: 'stylesheet', type: 'text/css' }
 
     // JAVASCRIPT
-    = javascript_include_tag "application"
+    / = javascript_include_tag "application"
+    %script{ src: 'assets/application.js', type: 'text/javascript' }
 
   %body{ "data-status" => response.status, "data-session" => with_format(:json) { render(template: "api/v1/sessions/base") } }
     .topnav
