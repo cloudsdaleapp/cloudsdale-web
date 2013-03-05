@@ -56,7 +56,7 @@ namespace :deploy do
 
   desc "Zero-downtime restart of Unicorn"
   task :restart, :roles => :web, :except => { :no_release => true } do
-    run "kill -s USR2 `cat /var/run/unicorn-web.pid`"
+    run "kill -s USR2 `cat /var/run/unicorn/web.pid`"
   end
 
   desc "Start unicorn"
@@ -66,7 +66,7 @@ namespace :deploy do
 
   desc "Stop unicorn"
   task :stop, :roles => :web, :except => { :no_release => true } do
-    run "kill -s QUIT `cat /var/run/unicorn-web.pid`"
+    run "kill -s QUIT `cat /var/run/unicorn/web.pid`"
   end
 
 end
