@@ -5,6 +5,8 @@ require 'capistrano_colors'
 set :application,   "cloudsdale-web"
 set :ruby_version,  "ruby-1.9.3-p125"
 
+set :rake, "#{rake} --trace"
+
 set :scm,             :git
 set :scm_verbose,     true
 
@@ -50,6 +52,21 @@ namespace :deploy do
     task :upload, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
       run "cd #{deploy_to}/current && /usr/bin/env rake assets:upload RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path}"
     end
+  end
+
+  desc "Zero-downtime restart of Unicorn"
+  task :restart, :roles => :web, :except => { :no_release => true } do
+    run "kill -s USR2 `cat /var/run/unicorn-web.pid`"
+  end
+
+  desc "Start unicorn"
+  task :start, :roles => :web, :except => { :no_release => true } do
+    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E production -D"
+  end
+
+  desc "Stop unicorn"
+  task :stop, :roles => :web, :except => { :no_release => true } do
+    run "kill -s QUIT `cat /var/run/unicorn-web.pid`"
   end
 
 end
