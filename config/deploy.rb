@@ -29,7 +29,7 @@ role :web,  "ovh.cloudsdale.org"
 role :app,  "ovh.cloudsdale.org", :primary => true
 
 after 'deploy', 'deploy:permissions:correct'
-# after 'deploy:assets:precompile', 'deploy:assets:upload'
+after 'deploy:assets:precompile', 'deploy:assets:upload'
 
 # Default Environment
 default_environment["RAILS_ENV"]    = rails_env
