@@ -14,7 +14,7 @@ preload_app true
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
-pid "/opt/pids/unicorn.pid"
+pid "/var/run/unicorn-web.pid"
 
 if env == 'production'
   # Help ensure your application will always spawn in the symlinked
@@ -37,7 +37,7 @@ before_fork do |server, worker|
 
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
-  old_pid = "/opt/pids/unicorn.pid.oldbin"
+  old_pid = "/var/run/unicorn-web.pid.old"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
