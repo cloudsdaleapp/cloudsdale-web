@@ -4,9 +4,11 @@ development:
 
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
+
   twitter:
     consumer_key: mHnUVYK5NUfk0IHbqruZcA
     consumer_secret: Jlz13rBFDrPMKvr5EcWmNHaB6YwYHH1FCCASGFdOSkY
+
   facebook:
     app_key: 213007855430354
     app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
@@ -41,7 +43,7 @@ development:
 
 
 production:
-  url: http://web01.cloudsdale.org
+  url: http://ovh.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
 
   youtube:
@@ -56,7 +58,7 @@ production:
     app_secret: 4151911ea59e2aa64276089189157f00
 
   redis:
-    host: db.s.cloudsdale.org
+    host: ovh.cloudsdale.org
     port: 6379
 
   rackspace_cloudfiles:
@@ -69,18 +71,18 @@ production:
     path: push
     schema: http
     secure_schema: https
-    host: push01.cloudsdale.org
+    host: ovh.cloudsdale.org
     port: 80
     secure_port: 443
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
-    inhouse_host: push01.snet.cloudsdale.org
+    inhouse_host: ovh.cloudsdale.org
 
   soundcloud:
     client_id: 3897d7c3ae5a3178c8626d7b51ce370a
     client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
 
   rabbit:
-    host: push01.snet.cloudsdale.org
+    host: ovh.cloudsdale.org
     user: guest
     pass: guest
 
