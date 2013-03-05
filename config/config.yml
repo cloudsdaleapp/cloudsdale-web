@@ -71,11 +71,11 @@ production:
     path: push
     schema: http
     secure_schema: https
-    host: ovh.cloudsdale.org
+    host: push01.cloudsdale.org
     port: 80
     secure_port: 443
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
-    inhouse_host: ovh.cloudsdale.org
+    inhouse_host: push01.cloudsdale.org
 
   soundcloud:
     client_id: 3897d7c3ae5a3178c8626d7b51ce370a
