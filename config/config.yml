@@ -10,9 +10,7 @@ development:
   facebook:
     app_key: 213007855430354
     app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
-  tire:
-    host: 127.0.0.1
-    port: 9200
+
   redis:
     host: 127.0.0.1
     port: 6379
@@ -56,10 +54,6 @@ production:
   facebook:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
-
-  tire:
-    host: db.s.cloudsdale.org
-    port: 9200
 
   redis:
     host: db.s.cloudsdale.org
