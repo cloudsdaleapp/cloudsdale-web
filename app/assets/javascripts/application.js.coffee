@@ -15,7 +15,6 @@
 #= require hamlcoffee
 #= require date
 #= require faye
-#= require twitter-text
 #= require autolink
 #= require select2
 #= require konami-1.3.3
@@ -35,5 +34,3 @@
 #= require_tree ./views
 #= require_tree ./routers
 #= require_tree ./modules
-#
-#
