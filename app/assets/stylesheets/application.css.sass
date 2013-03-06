@@ -753,7 +753,7 @@ li.sidebar-item
     //   #{$vendor}box-shadow: 0 1px 0 rgba(255, 255, 255, .4), inset 1px 1px 2px rgba(0,0,0,.2)
 
   &.active
-    a
+    & > a
       border-top-color: darken(#272D39,4%)
       border-bottom-color: darken(#272D39,5%)
       span.sidebar-item-name
@@ -765,10 +765,10 @@ li.sidebar-item
 
       +linear-gradient(#272D39,darken(#272D39,1%))
     &:hover
-      a
+      & > a
         +linear-gradient(darken(#272D39,1%),darken(#272D39,2%))
 
-    span.sidebar-item-notification
+    & > span.sidebar-item-notification
       display: none
 
   &:hover
@@ -795,6 +795,8 @@ li.sidebar-item
   display: none
 .active > .sidebar-dropdown
   display: block
+  list-style: none
+  margin: 0
 
 .topnav
   position: fixed

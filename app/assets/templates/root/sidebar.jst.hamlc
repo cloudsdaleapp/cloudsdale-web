@@ -1,50 +1,45 @@
-.sidebar-header= "Status"
-%ul.sidebar-list#status-select
+.sidebar-header= "Tools"
+%ul.sidebar-list#sidebar-tools
   %li.sidebar-item#status-current
     %a{ href: '#' }
       %span.sidebar-item-name.status-online{ style: 'margin-left: 0;'}
         %i.icon-signal.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-        %strong= "Online"
+        %strong= "Status"
       %span.sidebar-item-name.status-away{ style: 'margin-left: 0;'}
         %i.icon-time.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-        %strong= "Away"
+        %strong= "Status"
       %span.sidebar-item-name.status-busy{ style: 'margin-left: 0;'}
         %i.icon-minus-sign.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-        %strong= "Busy"
+        %strong= "Status"
       %span.sidebar-item-name.status-offline{ style: 'margin-left: 0;'}
         %i.icon-eye-close.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-        %strong= "Invisible"
+        %strong= "Status"
 
-  .sidebar-dropdown
-    %li.sidebar-item#status-online
-      %a{ href: '#' }
-        %span.sidebar-item-name{ style: 'margin-left: 0;'}
-          %i.icon-signal.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-          %span= "Online"
-    %li.sidebar-item#status-away
-      %a{ href: '#' }
-        %span.sidebar-item-name{ style: 'margin-left: 0;'}
-          %i.icon-time.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-          %span= "Away"
-    %li.sidebar-item#status-busy
-      %a{ href: '#' }
-        %span.sidebar-item-name{ style: 'margin-left: 0;'}
-          %i.icon-minus-sign.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-          %span= "Busy"
-    %li.sidebar-item#status-offline
-      %a{ href: '#' }
-        %span.sidebar-item-name{ style: 'margin-left: 0;'}
-          %i.icon-eye-close.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
-          %span= "Invisible"
+    %ul.sidebar-dropdown
+      %li.sidebar-item#status-online
+        %a{ href: '#' }
+          %span.sidebar-item-name{ style: 'margin-left: 0;'}
+            %i.icon-signal.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+            %span= "Online"
+      %li.sidebar-item#status-away
+        %a{ href: '#' }
+          %span.sidebar-item-name{ style: 'margin-left: 0;'}
+            %i.icon-time.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+            %span= "Away"
+      %li.sidebar-item#status-busy
+        %a{ href: '#' }
+          %span.sidebar-item-name{ style: 'margin-left: 0;'}
+            %i.icon-minus-sign.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+            %span= "Busy"
+      %li.sidebar-item#status-offline
+        %a{ href: '#' }
+          %span.sidebar-item-name{ style: 'margin-left: 0;'}
+            %i.icon-eye-close.icon-white{ style: 'margin: 6px 16px 6px 6px; float: left;'}
+            %span= "Invisible"
 
-.sidebar-header= "Clouds"
-%ul#sidebar-clouds.sidebar-list
-
-- if (((10).days().ago() > session.get('user').memberSince()) and session.get('clouds').where({"owner_id":session.get('user').id}).length < 1) or _.include(["founder","developer"],session.get('user').get('role'))
-  .sidebar-header#sidebar-header-tools= "Tools"
-  %ul.sidebar-list#sidebar-tools
-    %li.sidebar-item
-      %a#cloud-new{ href: '#' }
+  - if (((10).days().ago() > session.get('user').memberSince()) and session.get('clouds').where({"owner_id":session.get('user').id}).length < 1) or _.include(["founder","developer"],session.get('user').get('role'))
+    %li.sidebar-item#cloud-new
+      %a{ href: '#' }
         %span.sidebar-item-name{ style: 'margin-left: 0;'}
           %i.icon-plus.icon-white{ style: 'margin: 5px 16px 6px 6px; float: left;'}
           %strong= "Create new Cloud"
@@ -54,3 +49,6 @@
           %label{ for: 'new_cloud_name' }= "Name your Cloud"
           %input#new_cloud_name{ type: 'text', name: 'name', value: "" }
           %input{ type: 'submit', name: 'create', value: 'Start Chatting' }
+
+.sidebar-header= "Clouds"
+%ul#sidebar-clouds.sidebar-list

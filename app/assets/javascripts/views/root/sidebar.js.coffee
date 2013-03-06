@@ -12,7 +12,7 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
     'click #status-offline' : -> @toggleStatus('offline')
     'click #status-away'    : -> @toggleStatus('away')
     'click #status-busy'    : -> @toggleStatus('busy')
-    'click #cloud-new'      : 'toggleNewCloud'
+    'click #cloud-new > a'      : 'toggleNewCloud'
     'submit #new_cloud'     : 'saveCloud'
 
   initialize: (args) ->
@@ -27,7 +27,7 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
     this
 
   refreshGfx: ->
-    @.$('#status-select').removeClass("status-busy").removeClass("status-away")
+    @.$('#status-current').removeClass("status-busy").removeClass("status-away")
     .removeClass("status-online").removeClass("status-offline")
     .addClass("status-#{session.get('user').get('preferred_status')}")
 
@@ -44,7 +44,7 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
       @refreshGfx()
 
     @.$('#status-current').bind 'click', (e) =>
-      @.$('#status-select').toggleClass('active')
+      @.$('#status-current').toggleClass('active')
 
     $(@el).bind 'clouds:join', (event,conversation) => @renderConversation(conversation)
 
@@ -69,7 +69,7 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
   toggleStatus: (status) ->
     session.get('user').set('preferred_status',status)
     session.get('user').save()
-    @.$('#status-select').removeClass('active')
+    @.$('#status-current').removeClass('active')
 
   initializeConversations: ->
     session.get('clouds').each (cloud) =>
@@ -107,7 +107,7 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
     @.$('.sidebar > ul#sidebar-clouds').prepend(toggle)
 
   toggleNewCloud: ->
-    @.$('a#cloud-new').parent().toggleClass('active')
+    @.$('#cloud-new').toggleClass('active')
     @.$('#new_cloud_name').focus()
     false
 
@@ -125,14 +125,14 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
     newCloud.set 'name', @.$('#new_cloud_name').val()
     newCloud.save {},
       success: (cloud) =>
+        console.log cloud
         session.get('clouds').add(cloud)
         Backbone.history.navigate("/clouds/#{cloud.id}",true)
         if (((10).days().ago() > session.get('user').memberSince()) and session.get('clouds').where({"owner_id":session.get('user').id}).length < 1) or _.include(["founder","developer"],session.get('user').get('role'))
           @.$('#new_cloud_name').val("")
           @toggleNewCloud()
         else
-          @.$('#sidebar-tools').remove()
-          @.$('#sidebar-header-tools').remove()
+          @.$('#cloud-new').remove()
 
       error: (model,resp) =>
         response = $.parseJSON(resp.responseText)
