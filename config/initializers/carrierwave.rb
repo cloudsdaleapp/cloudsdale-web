@@ -5,7 +5,7 @@ CarrierWave.configure do |config|
     :provider           => 'Rackspace',
     :rackspace_username => Cloudsdale.config['rackspace_cloudfiles']['username'],
     :rackspace_api_key  => Cloudsdale.config['rackspace_cloudfiles']['api_key'],
-    :rackspace_servicenet => Rails.env.production?
+    :rackspace_servicenet => false
   }
   config.fog_directory = Cloudsdale.config['rackspace_cloudfiles']['fog_directory']
   config.fog_host = Cloudsdale.config['rackspace_cloudfiles']['fog_host']
