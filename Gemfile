@@ -10,6 +10,7 @@ gem 'mongoid_rails_migrations'
 gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
 gem 'voteable_mongo'
 gem 'kaminari'
+gem 'dalli'
 
 gem "hiredis", '~> 0.4.5'
 gem "redis", "~> 2.2.0", :require => ["redis/connection/hiredis", "redis"]
