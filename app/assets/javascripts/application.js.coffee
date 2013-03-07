@@ -14,6 +14,7 @@
 #= require bootstrap-timepicker
 #= require hamlcoffee
 #= require date
+#= require date.extensions
 #= require faye
 #= require autolink
 #= require select2
