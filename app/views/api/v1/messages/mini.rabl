@@ -1,5 +1,4 @@
 object @message
-cache @message
 
 node(:id) { |message| message._id.to_s }
 node(:author_id) { |message| message.author_id.to_s }
