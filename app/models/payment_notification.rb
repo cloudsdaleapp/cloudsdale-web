@@ -20,10 +20,15 @@ class PaymentNotification
 
   field :params,            type: String
 
+  validates_uniqueness_of :transaction_id
+  validates_presence_of :amount, :currency, :item, :params, :transaction_id, :transaction_type
+
   before_save do
     if self.user
-      self.user.role = 1 if user.symbolic_role == :normal
-      self.user.save
+      if user.symbolic_role == :normal
+        self.user.role = 1
+        self.user.save
+      end
     end
   end
 
