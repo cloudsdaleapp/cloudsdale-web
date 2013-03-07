@@ -5,6 +5,7 @@ class Message
   include AMQPConnector
 
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   attr_accessible :client_id, :content, :device
 
