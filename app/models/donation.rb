@@ -10,7 +10,7 @@ class Donation
     amount = PaymentNotification.where(
       :created_at.gt => begins,
       :created_at.lt => deadline
-    ).sum(:amount)
+    ).sum(:amount) || 0.0
 
     count = PaymentNotification.where(
       :created_at.gt => begins,
