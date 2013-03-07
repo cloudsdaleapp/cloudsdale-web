@@ -38,22 +38,25 @@ class Donation
       business = 'seller_1362637130_biz@vallin.se'
       url_base = "https://www.sandbox.paypal.com/cgi-bin/webscr?"
       notify_url = "http://requestb.in/1kjevtc1"
-      return_url = "http://local.cloudsdale.org:3000/"
+      return_url = "http://local.cloudsdale.org:3000/donations/success"
+      cancel_url = "http://local.cloudsdale.org:3000/donations/cancel"
     else
       business = 'ask@cloudsdale.org'
       url_base = "https://www.paypal.com/cgi-bin/webscr?"
       notify_url = "http://www.cloudsdale.org/donations/paypal_ipn"
-      return_url = "http://www.cloudsdale.org/"
+      return_url = "http://www.cloudsdale.org/donations/success"
+      cancel_url = "http://www.cloudsdale.org/donations/cancel"
     end
 
     vals = {
-      :business     => business,
-      :cmd          => '_donations',
-      :return       => return_url,
-      :notify_url   => notify_url,
-      :item_name    => 'Cloudsdale Server Donation',
-      :item_number  => 'donation',
-      :custom       => user.id }
+      :business       => business,
+      :cmd            => '_donations',
+      :return         => return_url,
+      :cancel_return  => cancel_url,
+      :notify_url     => notify_url,
+      :item_name      => 'Cloudsdale Server Donation',
+      :item_number    => 'donation',
+      :custom         => user.id }
 
     url_base + vals.to_query
 
