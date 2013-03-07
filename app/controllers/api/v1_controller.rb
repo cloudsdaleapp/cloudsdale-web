@@ -14,7 +14,7 @@ class Api::V1Controller < ActionController::Base
 
   # Rescues the error from not being authorized to perform an action
   rescue_from CanCan::AccessDenied do |message|
-    render_exception "You're not allowed to do this, GTFO. #{message}", 401
+    render_exception "You're not allowed to do this. #{message}", 401
   end
 
   # Rescues the errors yielded by supplying a faulty BSON id
