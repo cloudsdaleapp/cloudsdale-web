@@ -44,7 +44,7 @@ class PaymentNotification
     payment_fee   = params[:payment_fee].try(:to_f)   || 0.0
     payment_gross = params[:payment_gross].try(:to_f) || 0.0
 
-    amount   = (payment_gross - payment_fee).to_f
+    amount   = payment_gross.to_f
     currency = params[:mc_currency]
     item     = params[:item_number]
 
