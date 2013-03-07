@@ -13,6 +13,7 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
     'click #status-away'    : -> @toggleStatus('away')
     'click #status-busy'    : -> @toggleStatus('busy')
     'click #cloud-new > a'      : 'toggleNewCloud'
+    'click #donation-new > a'   : 'toggleNewDonation'
     'submit #new_cloud'     : 'saveCloud'
 
   initialize: (args) ->
@@ -109,6 +110,36 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
   toggleNewCloud: ->
     @.$('#cloud-new').toggleClass('active')
     @.$('#new_cloud_name').focus()
+    false
+
+  toggleNewDonation: ->
+    @.$('#donation-new').toggleClass('active')
+    $.ajax
+      type: 'GET'
+      url: '/v1/donations.json'
+      dataType: "json"
+      success: (resp) =>
+
+        statistics = resp.result.donation_statistics
+
+        @.$('.donation-statistics-amount').text("$ #{statistics.amount}")
+        @.$('.donation-statistics-goal').text("#{statistics.goal}")
+
+        @.$('.donation-statistics-supporters').text(statistics.supporters)
+        supporters_label = "supporter"
+        supporters_label << "s" if statistics.supporters > 1
+        @.$('.donation-statistics-supporters-label').text(supporters_label)
+        deadline = new Date(statistics.deadline).toRelativeTime()
+        @.$('.donation-statistics-deadline').text(deadline)
+
+        @.$('.donation-progress > .bar').css('width',"#{statistics.complete}%")
+        if statistics.complete >= 19
+          @.$('.donation-progress > .bar').text("#{statistics.complete}%")
+
+        @.$('#new_donation > a.submit').attr('href',resp.result.donation_url)
+      error: (resp) =>
+        console.log resp
+
     false
 
   buildErrors: (errors) ->

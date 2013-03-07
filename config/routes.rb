@@ -4,6 +4,8 @@ Cloudsdale::Application.routes.draw do
 
     resources :sessions, only: [:create]
 
+    resources :donations, only: [:index]
+
     resources :clouds, only: [:show,:update,:create,:destroy] do
 
       get   :search,  on: :collection,  as: :search
@@ -83,6 +85,12 @@ Cloudsdale::Application.routes.draw do
   # resources :clouds, :only => [:show]
   resources :users, :only => [] do
     match "/restore/:token" => "users#restore", as: :restore, on: :collection
+  end
+
+  resources :donations, only: [] do
+    get :success, on: :collection, as: :success
+    get :cancel,  on: :collection, as: :cancel
+    post :paypal_ipn, on: :collection, as: :paypal_ipn
   end
 
   get '/sitemap' => 'sitemap#index', as: :sitemap

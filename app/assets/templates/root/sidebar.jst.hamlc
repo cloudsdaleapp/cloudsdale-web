@@ -50,5 +50,32 @@
           %input#new_cloud_name{ type: 'text', name: 'name', value: "" }
           %input{ type: 'submit', name: 'create', value: 'Start Chatting' }
 
+  %li.sidebar-item#donation-new
+    %a{ href: '#' }
+      %span.sidebar-item-name{ style: 'margin-left: 0;'}
+        %i.icon-heart.icon-white{ style: 'margin: 5px 16px 6px 6px; float: left;'}
+        %strong= "Support Cloudsdale"
+    .sidebar-dropdown
+      .sidebar-input
+        %p= "To pay for Cloudsdale and everything it entails we need your help raising enough money each month."
+        %h4{ style: 'text-align: right;' }
+          %span.donation-statistics-amount
+          = "/"
+          %span.donation-statistics-goal
+        .progress.progress-info.donation-progress{ style: 'margin-bottom: 5px; height: 20px;'}
+          .bar
+        %ul.sidebar-data-list
+          %li
+            %i.icon-user.icon-white
+            %span.donation-statistics-supporters
+            %span.donation-statistics-supporters-label
+          %li
+            %i.icon-time.icon-white
+            %span.donation-statistics-deadline-label= "ends in"
+            %span.donation-statistics-deadline
+        %form#new_donation
+          %a.submit{ href: '#', target: '_blank' }= "Donate"
+
 .sidebar-header= "Clouds"
 %ul#sidebar-clouds.sidebar-list
+

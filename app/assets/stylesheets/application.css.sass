@@ -587,7 +587,7 @@ body
         +opacity(.9)
 
 
-    input[type=submit], button
+    input[type=submit], button, a.submit
       width: 100% !important
       padding: 5px 4px
       +linear-gradient(#485164,#3e4757)
@@ -673,7 +673,7 @@ ul.sidebar-list
 li.sidebar-item
   overflow: visible
   position: relative
-  a
+  & > a
     border-bottom: 1px solid #29303C
     border-top: 1px solid rgba(255,255,255,.05)
   &:first-child
@@ -687,7 +687,7 @@ li.sidebar-item
         float: left !important
 
   &:not(.with-notifications)
-    a > span.sidebar-item-notification
+    & > a > span.sidebar-item-notification
       display: none
 
   &.disabled
@@ -696,7 +696,7 @@ li.sidebar-item
     span.sidebar-item-name
       text-decoration: line-through
 
-  a
+  & > a
     display: block
     padding: 7px
     +linear-gradient(#333A48,darken(#333A48,1%))
@@ -772,7 +772,7 @@ li.sidebar-item
       display: none
 
   &:hover
-    a
+    & > a
       +linear-gradient(darken(#333A48,1%),darken(#333A48,2%))
 
   &:hover
