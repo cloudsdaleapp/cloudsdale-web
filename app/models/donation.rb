@@ -1,6 +1,6 @@
 class Donation
 
-  MONTHLY_GOAL = 250.00
+  MONTHLY_GOAL = 250.0
 
   def self.monthly_statistics
 
@@ -22,8 +22,8 @@ class Donation
     statistics = OpenStruct.new(
       begins:     begins,
       deadline:   deadline,
-      amount:     amount,
-      goal:       MONTHLY_GOAL,
+      amount:     amount.round(2),
+      goal:       MONTHLY_GOAL.round(2),
       complete:   percent.round(1),
       supporters: count
     )
