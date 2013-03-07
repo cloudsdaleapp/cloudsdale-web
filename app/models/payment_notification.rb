@@ -18,7 +18,7 @@ class PaymentNotification
   field :currency,          type: String
   field :item,              type: String
 
-  field :params,            type: String
+  field :params,            type: Hash
 
   validates_uniqueness_of :transaction_id
   validates_presence_of :amount, :currency, :item, :params, :transaction_id, :transaction_type
