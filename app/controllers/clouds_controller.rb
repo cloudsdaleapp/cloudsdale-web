@@ -2,8 +2,9 @@ class CloudsController < ApplicationController
 
   def show
 
-    id_or_short_name = params[:id_or_short_name]
-    @cloud = Cloud.where("$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]).first
+    @cloud = Cloud.agnostic_fetch(params[:id_or_short_name])
+
+    authorize! :read, @cloud
 
     @page_title = @cloud.name
     @page_image = @cloud.avatar.url
@@ -11,7 +12,6 @@ class CloudsController < ApplicationController
     @page_type = "cloudsdale:cloud"
     @page_url = @cloud.short_name.present? ? cloud_url(@cloud.short_name) : cloud_url(@cloud.id)
 
-    authorize! :read, @cloud
     render status: 200
 
   end

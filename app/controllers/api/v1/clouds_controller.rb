@@ -17,8 +17,7 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns the cloud.
   def show
 
-    id_or_short_name = params[:id]
-    @cloud = Cloud.where("$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]).first
+    @cloud = Cloud.agnostic_fetch(params[:id])
     authorize! :read, @cloud
     render status: 200
 

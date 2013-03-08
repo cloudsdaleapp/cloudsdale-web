@@ -124,6 +124,27 @@ class Cloud
     enqueue! "faye", { channel: "/clouds/#{self._id.to_s}", data: self.to_hash(only: _attributes) }
   end
 
+  # Public: Find record matching either ID or short name.
+  # renders a Mongoid::Errors::DocumentNotFound if no cloud
+  # is present.
+  #
+  # Examples
+  #
+  # Cloud.agnostic_fetch("short-name")
+  # => <Cloud ...>
+  #
+  # Cloud.agnostic_fetch(BSON::ObjectId.new)
+  # => <Cloud ...>
+  #
+  # Returns a Cloud record.
+  def self.agnostic_fetch(id_or_short_name)
+    cloud = where(
+      "$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]
+    ).first
+    raise Mongoid::Errors::DocumentNotFound if cloud.nil?
+    return cloud
+  end
+
   # Public: List all online users for this Cloud.
   #
   # Examples
