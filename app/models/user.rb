@@ -30,6 +30,7 @@ class User
 
   field :name,                      type: String
   field :email,                     type: String
+  field :email_verified_at,         type: DateTime
   field :skype_name,                type: String
   field :auth_token,                type: String
   field :password_hash,             type: String
@@ -68,7 +69,7 @@ class User
   validates_format_of :name,  with: /^([a-z]*\s?){1,5}$/i, message: "must use a-z and max five words", if: :name
   validates_format_of :email, with: /^.+@.+$/i, :message => "invalid email", if: :email
 
-  validates_uniqueness_of :name, :case_sensitive => false, if: :name?
+  validates_uniqueness_of :name,  :case_sensitive => false, if: :name?
   validates_uniqueness_of :email, :case_sensitive => false, if: :email?
 
   validates_presence_of [:email,:password,:name], :if => :confirm_registration
