@@ -11,7 +11,7 @@ Cloudsdale::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = true
+  config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -41,7 +41,7 @@ Cloudsdale::Application.configure do
   config.log_level = :debug
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store
+  # config.cache_store = :dalli_store
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
