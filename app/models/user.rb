@@ -159,7 +159,7 @@ class User
 
   # Public: Gets the symbolic name of the users role.
   #
-  # Returns a Symbol, eg. :normal, :donor, :moderator, :placeholder or :admin
+  # Returns a Symbol, eg. :normal, :donor, :legacy, :associate, :admin, :developer, :verified, :founder
   def symbolic_role
     ROLES.invert[self[:role]]
   end
@@ -167,7 +167,7 @@ class User
   # Public: Use a symbol to check if the user is of a specific role.
   #
   #   sym - The symbolic version of a role.
-  #         Defaults to :normal and accepts :normal, :donor, :moderator, :placeholder, :admin
+  #         Defaults to :normal, :donor, :legacy, :associate, :admin, :developer, :verified, :founder
   #
   # Returns true of the user is can act as one of these roles otherwise false.
   def is_of_role?(sym=:normal)
