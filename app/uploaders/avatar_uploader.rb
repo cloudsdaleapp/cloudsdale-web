@@ -59,7 +59,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-     "avatar.png"
+     "#{secure_token(10)}_avatar.png"
   end
 
   def default_url
