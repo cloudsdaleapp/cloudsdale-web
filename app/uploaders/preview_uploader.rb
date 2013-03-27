@@ -72,7 +72,7 @@ class PreviewUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-     "#{secure_token(10)}_preview.png"
+     "#{secure_token(10)}_preview.png" if original_filename.present?
   end
 
   def store_geometry_and_filetype
