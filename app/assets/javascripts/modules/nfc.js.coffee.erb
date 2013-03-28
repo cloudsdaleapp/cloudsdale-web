@@ -84,6 +84,26 @@ do ($ = jQuery) ->
               document.location.reload(true)
           }
 
+      @cli.subscribe '/announcements/web', (payload) ->
+        if payload.version != window.version
+          $.event.trigger "notifications:add", {
+            header: payload.title,
+            body:   payload.message,
+            callback: =>
+              if payload.url
+                sameHost =   payload.url.match(document.location.hostname) != null
+                notAuth =    payload.url.match(/\/auth\/.*/ig) == null
+                notLogout =  payload.url.match(/\/logout/ig) == null
+
+                if sameHost && notAuth && notLogout
+                  Backbone.history.navigate(@pathname,true)
+                else
+                  win = window.open(payload.url, '_blank')
+                  win.focus()
+              else
+                document.location.reload(true)
+          }
+
 
       subscription.callback =>
         if @cli.getState() == 'CONNECTED'
