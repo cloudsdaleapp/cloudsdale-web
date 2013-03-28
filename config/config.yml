@@ -43,7 +43,7 @@ development:
 
 
 production:
-  url: http://ovh.cloudsdale.org
+  url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
 
   youtube:

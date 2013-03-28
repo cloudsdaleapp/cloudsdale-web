@@ -12,7 +12,7 @@ set :scm_verbose,     true
 
 set :repository,      'git@github.com:IOMUSE/Cloudsdale.git'
 set :remote,          'origin'
-set :branch,          'ovh-migration'
+set :branch,          'master'
 
 set :migrate_target,  :current
 set :ssh_options,     { :forward_agent => true }
@@ -24,9 +24,9 @@ set :user,            "deploy"
 set :group,           "deploy"
 set :use_sudo,        false
 
-role :db,   "ovh.cloudsdale.org"
-role :web,  "ovh.cloudsdale.org"
-role :app,  "ovh.cloudsdale.org", :primary => true
+role :db,   "www.cloudsdale.org"
+role :web,  "www.cloudsdale.org"
+role :app,  "www.cloudsdale.org", :primary => true
 
 after 'deploy', 'deploy:permissions:correct'
 after 'deploy:create_symlink', 'deploy:assets:upload'
