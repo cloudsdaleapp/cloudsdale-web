@@ -64,7 +64,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     content = content.replace(/(\[REDACTED\])/ig,"<span style='color: red; font-weight: bold;'>[REDACTED]</span>")
 
     # Italic
-    content = content.replace(/\s\/([^\/]+)\/\s/ig,"<span style='font-style: italic;'>$1</span>")
+    content = content.replace(/(\A|\s)\/([^\/]+)\/(\z|\s)/ig,"<span style='font-style: italic;'>$2</span>")
 
     elem = $("<p></p>")
 
