@@ -1,5 +1,9 @@
 Cloudsdale::Application.routes.draw do
 
+  namespace :admin do
+    match '/',  to: 'root#index',  via: :get,  as: :root
+  end
+
   namespace "v1", module: "api/v1" do
 
     resources :sessions, only: [:create]

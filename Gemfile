@@ -24,6 +24,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'sprockets'
 gem 'haml_coffee_assets'
+gem 'zurb-foundation'
 
 
 # Markup

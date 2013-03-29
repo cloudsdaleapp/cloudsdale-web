@@ -1,40 +1,14 @@
-body.admin
-  &.index
-    ul.nav.nav-tabs
-      li:first-child
-        margin-left: 20px
-    
-    #users_chart
-      width:  100%
-      height:  300px
-    
-    ul.unstyled
-      li.agent
-        margin-bottom: 10px
-        +linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.5))
-        -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-        -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-        -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-        box-shadow: 0 2px 5px rgba(0, 0, 0, .1), inset 0 0 2px rgba(255,255,255,.7)
-        border: 1px rgba(50, 50, 50, 0.3) solid
-        +border-radius(2px)
-        h5.agent-name
-          text-align: right
-          background: transparent no-repeat 3px center image-url('icons/iconic/gray_dark/denied_32x32.png')
-          line-height: 36px
-          border-bottom: rgba(0,0,0,.3) 1px solid
-          padding: 3px 10px
-          margin-bottom: 3px
-        span.agent-usage
-          padding: 3px
-        
-        &.chrome > h5
-          background-image: image-url('icons/browser/chrome_32x32.png')
-        &.safari > h5
-          background-image: image-url('icons/browser/safari_32x32.png')
-        &.firefox > h5
-          background-image: image-url('icons/browser/firefox_32x32.png')
-        &.opera > h5
-          background-image: image-url('icons/browser/opera_32x32.png')
-        &.ie > h5
-          background-image: image-url('icons/browser/ie_32x32.png')
+@import "mixins"
+@import "cloudsdale_foundation"
+
+.content-panel, .content-panel-inner
+  @include border-radius(2px)
+  @include clearfix
+.content-panel
+  background: #efefef
+
+.content-panel-inner
+  background: #fff
+  margin: 4px
+  padding: 20px
+  border: 1px solid #d8d8d8
