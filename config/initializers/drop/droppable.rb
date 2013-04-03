@@ -1,5 +1,5 @@
 module Droppable
-  
+
   def create_drop_deposit_from_url_by_user(url,user)
     d = Drop.find_or_initialize_from_matched_url(url)
     i = self[:_id]
@@ -11,5 +11,5 @@ module Droppable
     end
     d
   end
-  
+
 end
