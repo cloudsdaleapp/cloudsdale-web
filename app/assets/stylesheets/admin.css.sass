@@ -1,5 +1,18 @@
+@import url(http://fonts.googleapis.com/css?family=Londrina+Solid)
+
 @import "mixins"
 @import "cloudsdale_foundation"
+
+body
+  background: #FAFAFA
+
+.logo
+  background-size: 32px 32px
+  background-position: center center
+  background-repeat: no-repeat
+  background-image: asset-data-url('icon/icon_topbar_gray.png')
+  &:hover
+    background-image: asset-data-url('icon/icon_topbar_color.png')
 
 .content-panel, .content-panel-inner
   @include border-radius(2px)
@@ -12,3 +25,8 @@
   margin: 4px
   padding: 20px
   border: 1px solid #d8d8d8
+  &.panel-thin
+    padding: 5px
+
+.chart-dashboard
+  min-height: 250px

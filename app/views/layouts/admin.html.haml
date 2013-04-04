@@ -26,19 +26,21 @@
               %li.name
                 %h1
                   = link_to admin_root_path, style: 'display: block;' do
-                    = image_tag 'icon/icon_topbar_color.png', style: 'display: inline; height: 32px; width: 32px; float: left; margin: 6px 10px 7px 0px;'
-                    %span{ style: 'font-style: italic; '}= "Cloudsdale Admin"
+                    .logo{ style: 'display: inline; height: 32px; width: 32px; float: left; margin: 6px 0px 7px 8px;' }
               %li.toggle-topbar.menu-icon
-                %a{:href => "#"}
-                  %span Menu
+                %a{:href => "#", style: 'min-width: 100px;' }
+                  %span= "Menu"
             %section.top-bar-section
               %ul.left
-                %li
-                  = link_to "Dashboard", admin_root_path
+                %li.divider
+                %li= link_to "Dashboard", admin_root_path
+                %li.divider
+
             %section.top-bar-section
               %ul.right
                 %li
-                  = link_to "Back to Site", root_path
+                  = link_to "← Back to Site", root_path
 
-    .row= yield
+    .container#wrapper= yield
 
+    = javascript_include_tag "admin"

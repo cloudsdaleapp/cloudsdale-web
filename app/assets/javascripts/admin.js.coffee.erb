@@ -1,6 +1,78 @@
-#= require jquery.js
-#= require bootstrap.js
+#= require jquery
 #= require jquery_ujs
 #= require foundation
+#= require highcharts
+#= require underscore-1.3.3
 
 $(document).foundation()
+
+$ ->
+
+  firstDate = jQuery.parseJSON($('#chart-users').attr('data-first'))
+  userData = jQuery.parseJSON($('#chart-users').attr('data-values'))
+  usersChart = generateChartIn('chart-users',firstDate)
+
+  usersChart.addSeries {
+    name: "New"
+    data: _.map userData, (value) -> value.new
+  }
+
+  usersChart.addSeries {
+    name: "Total"
+    data: _.map userData, (value) -> value.total
+  }
+
+  usersChart.addSeries {
+    name: "Active"
+    data: _.map userData, (value) -> value.active
+  }
+
+  cloudData = jQuery.parseJSON($('#chart-clouds').attr('data-values'))
+  cloudsChart = generateChartIn('chart-clouds',firstDate)
+
+  cloudsChart.addSeries {
+    name: "New"
+    data: _.map cloudData, (value) -> value.new
+  }
+
+  cloudsChart.addSeries {
+    name: "Total"
+    data: _.map cloudData, (value) -> value.total
+  }
+
+  dropData = jQuery.parseJSON($('#chart-drops').attr('data-values'))
+  dropdsChart = generateChartIn('chart-drops',firstDate)
+
+  dropdsChart.addSeries {
+    name: "New"
+    data: _.map dropData, (value) -> value.new
+  }
+
+  dropdsChart.addSeries {
+    name: "Total"
+    data: _.map dropData, (value) -> value.total
+  }
+
+generateChartIn = (container,first_date) ->
+
+  defaultOptions = {
+    title: null
+    chart:
+      renderTo: container
+      backgroundColor: 'transparent'
+    yAxis:
+      title:
+        text: null
+      labels:
+        formatter: -> Math.floor(@value)
+    xAxis:
+      type: 'datetime'
+
+    plotOptions:
+      series:
+        pointInterval: (24 * 3600 * 1000)
+        pointStart: first_date
+  }
+
+  new Highcharts.Chart(defaultOptions)
+

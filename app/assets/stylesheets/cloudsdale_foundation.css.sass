@@ -970,7 +970,7 @@ $primary-bright-color: lighten($primary-color,20%)
 //
 
 // Background color for the top bar
-$topbar-bg: #FFF
+$topbar-bg: #FAFAFA
 
 // Height and margin
 // $topbar-height: 45px
@@ -981,7 +981,7 @@ $topbar-margin-bottom: emCalc(20px)
 
 // Controlling the styles for the title in the top bar
 // $topbar-title-weight: bold
-$topbar-title-font-size: emCalc(15px)
+$topbar-title-font-size: emCalc(18px)
 
 // Set the link colors and styles for top-level nav
 $topbar-link-color: #000
@@ -1000,8 +1000,8 @@ $topbar-dropdown-bg: $primary-bright-color
 // $topbar-menu-link-transform: uppercase
 // $topbar-menu-link-font-size: emCalc(13px)
 // $topbar-menu-link-weight: bold
-// $topbar-menu-link-color: #fff
-// $topbar-menu-icon-color: #fff
+$topbar-menu-link-color: #333
+$topbar-menu-icon-color: #333
 // $topbar-menu-link-color-toggled: #888
 // $topbar-menu-icon-color-toggled: #888
 
@@ -1015,13 +1015,16 @@ nav.top-bar
   margin-top: 10px !important
   li.name > h1 > a
     padding-left: 4px
+    font-family: 'Londrina Solid', cursive
   ul
     background-color: transparent
   ul li
     & > a
-      +border-radius(5px)
       overflow: hidden
+      color: #4D4D4D
+      text-shadow: 1px 1px 1px #FFF
       &:hover
-        color: #FFF
+        background-color: transparent !important
+        color: $primary-dark-color
 
 @import 'foundation'

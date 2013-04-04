@@ -1,6 +1,42 @@
-.large-12.columns
-  .content-panel
-    .content-panel-inner
-      %h3= "Cloudsdale Dashboard"
-      %h5.subheader= "Here you can find Cloudsdale administration tools and find out interesting statistics."
+.row
+  .large-12.columns
+    .content-panel
+      .content-panel-inner
+        %h3= "Cloudsdale Dashboard"
+        %h5.subheader= "Here you can find Cloudsdale administration tools and find out interesting statistics."
+        %hr
+%br
+.row
+  .large-12.columns
+    %h6= "Users"
+    .content-panel
+      .content-panel-inner.panel-thin
+        %h4.panel{ style: 'margin: 0 0 10px 0;'}
+          = User.count
+          = "registered users"
+        #chart-users.chart-dashboard{ data: { values: @samples.map(&:user_statistics).to_json, first: @first_date } }
+
+%br
+.row
+  .large-12.columns
+    %h6= "Clouds"
+    .content-panel
+      .content-panel-inner.panel-thin
+        %h4.panel{ style: 'margin: 0 0 10px 0;'}
+          = Cloud.count
+          = "spawned clouds"
+        #chart-clouds.chart-dashboard{ data: { values: @samples.map(&:cloud_statistics).to_json, first: @first_date } }
+
+%br
+.row
+  .large-12.columns
+    %h6= "Drops"
+    .content-panel
+      .content-panel-inner.panel-thin
+        %h4.panel{ style: 'margin: 0 0 10px 0;'}
+          = Drop.count
+          = "submitted drops"
+        #chart-drops.chart-dashboard{ data: { values: @samples.map(&:drop_statistics).to_json, first: @first_date } }
+
+%br
 
