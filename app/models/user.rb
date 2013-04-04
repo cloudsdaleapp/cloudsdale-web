@@ -47,6 +47,8 @@ class User
   field :reason_for_suspension,     type: String,     default: nil
   field :preferred_status,          type: Symbol,     default: :online
   field :also_known_as,             type: Array,      default: []
+  field :last_seen_at,              type: DateTime
+  field :dates_seen,                type: Array,      default: []
 
   mount_uploader :avatar, AvatarUploader
 
@@ -100,6 +102,20 @@ class User
     end
   end
 
+  # Public: Atomic setter for when the user was last seen in action
+  #
+  # Returns the timestamp
+  def seen!
+    timestamp = DateTime.now
+    self.set(:last_seen_at, timestamp)
+
+    datestamp = timestamp.to_date.to_s
+    unless self.dates_seen.include?(datestamp)
+      self.push(:dates_seen, datestamp)
+    end
+
+    return timestamp
+  end
   # Public: Customer setter for the name attribute.
   #
   # Returns the name String.
