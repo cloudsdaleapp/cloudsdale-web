@@ -54,20 +54,9 @@ class Ability
 
     end
 
-    # if user.is_of_role?(:moderator)
-
-    #   if !user.banned?
-
-    #     # You can't ban users that have higher role than you
-    #     can [:ban,:unban], User do |_user|
-    #       (_user.try(:_id) != user.try(:_id)) && user.role > _user.role
-    #     end
-
-    #     can :destroy, Drop
-
-    #   end
-
-    # end
+    if [:admin,:developer,:founder].include?(user.symbolic_role)
+      can :reach, :admin_panel
+    end
 
     if user.is_of_role?(:admin)
       # can :destroy, Cloud

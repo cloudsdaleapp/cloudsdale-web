@@ -26,3 +26,5 @@ doc/*
 *.dump
 /config/cert/cloudsdale.org.key
 /config/cert/cloudsdale.org.cert
+*.psd
+*.ai

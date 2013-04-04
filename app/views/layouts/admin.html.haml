@@ -1,0 +1,46 @@
+!!! 5
+/[if lt IE 7] <html class="ie6" lang="en">
+/[if IE 7]    <html class="ie7" lang="en">
+/[if IE 8]    <html class="ie8" lang="en">
+/[if IE 9]    <html class="ie9" lang="en">
+<!--[if (gte IE 9)|!(IE)]><!-->
+%html.modern{ lang: 'en' }<>
+  <!--<![endif]-->
+
+  %head
+    %title FanBuilt
+    = favicon_link_tag "favicons/48by48.ico"
+    %meta{ charset: "utf-8" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+
+    = stylesheet_link_tag    "admin", media: "all"
+    = javascript_include_tag "vendor/custom.modernizr"
+    = csrf_meta_tags
+
+  %body
+    .row
+      .large-12.columns
+        .contain-to-grid
+          %nav.top-bar
+            %ul.title-area
+              %li.name
+                %h1
+                  = link_to admin_root_path, style: 'display: block;' do
+                    .logo{ style: 'display: inline; height: 32px; width: 32px; float: left; margin: 6px 0px 7px 8px;' }
+              %li.toggle-topbar.menu-icon
+                %a{:href => "#", style: 'min-width: 100px;' }
+                  %span= "Menu"
+            %section.top-bar-section
+              %ul.left
+                %li.divider
+                %li= link_to "Dashboard", admin_root_path
+                %li.divider
+
+            %section.top-bar-section
+              %ul.right
+                %li
+                  = link_to "← Back to Site", root_path
+
+    .container#wrapper= yield
+
+    = javascript_include_tag "admin"

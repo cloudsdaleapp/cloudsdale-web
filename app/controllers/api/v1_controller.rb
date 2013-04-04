@@ -3,6 +3,7 @@ class Api::V1Controller < ActionController::Base
   layout :determine_layout
 
   before_filter :auth_token
+  before_filter :record_user_activity
   after_filter :build_response_headers
 
   helper_method :current_user, :errors
@@ -246,6 +247,15 @@ class Api::V1Controller < ActionController::Base
   # Returns the errors array.
   def errors
     @errors ||= []
+  end
+
+private
+
+  # Private: Used to set an activity timestamp of a user
+  #
+  # Returns nothing of interest.
+  def record_user_activity
+    current_user.seen! unless current_user.new_record?
   end
 
 end

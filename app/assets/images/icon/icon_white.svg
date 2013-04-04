@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="395.34px" height="395.333px" viewBox="73.847 40.521 395.34 395.333"
+	 enable-background="new 73.847 40.521 395.34 395.333" xml:space="preserve">
+<g id="Layer_2" display="none">
+	<rect x="73.847" y="40.521" display="inline" fill="#2099D5" width="395.34" height="395.333"/>
+</g>
+<g id="Layer_1_copy">
+	<path fill="#FFFFFF" d="M271.515,46.917c-105.637,0-191.271,85.633-191.271,191.27s85.634,191.271,191.271,191.271
+		c105.635,0,191.27-85.635,191.27-191.271C462.784,132.549,377.148,46.917,271.515,46.917z M271.515,383.896
+		c-80.473,0-145.71-65.236-145.71-145.709c0-80.472,65.236-145.707,145.71-145.707c80.471,0,145.708,65.236,145.708,145.708
+		C417.223,318.66,351.985,383.896,271.515,383.896z"/>
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="163.083" y="130.558" width="234.378" height="197.527">
+			
+				<feColorMatrix  type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0" color-interpolation-filters="sRGB" result="source"/>
+			<feFlood  style="flood-color:white;flood-opacity:1" result="back"/>
+			<feBlend  in="source" in2="back" mode="normal"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="163.083" y="130.558" width="234.378" height="197.527" id="outer_feathers_2_">
+		<g filter="url(#Adobe_OpacityMaskFilter)">
+			<path id="inner_feathers_2_" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" d="M218.886,210.247
+				c0,0,17.221-24.498,31.768-18.655c14.551,5.843-6.95,44.809-17.06,55.487c0,0,10.761-5.452,23.44-5.031
+				c12.691,0.423,28.462,25.385-41.149,56.601c0,0,26.523,14.991-12.609,32.709"/>
+		</g>
+	</mask>
+	<path id="outer_feathers_1_" mask="url(#outer_feathers_2_)" fill="#FFFFFF" enable-background="new    " d="M173.109,324.175
+		c0,0,47.661,10.422,82.215-2.771c34.563-13.192,0.531-32.053,0.531-32.053c3.615-2.738,33.368-5.277,40.288-6.082
+		c6.921-0.806,64.107,4.795,57.455-17.602c-6.654-22.395-60.977-24.121-60.977-24.121s32.262-18.746,54.283-27.397
+		c22.023-8.648,67.125-27.881,44.255-43.429c-22.879-15.548-114.402,26.846-114.402,26.846c3.247-9.103,20.908-21.498,20.908-21.498
+		c58.162-40.863,32.479-57.349-9.449-36.429c-41.925,20.918-67.167,72.787-81.657,101.214
+		c-14.493,28.426-35.586,46.742-35.586,46.742C161.748,295.749,158.46,319.588,173.109,324.175z"/>
+	<path id="inner_feathers_1_" display="none" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" d="
+		M221.794,211.997c0,0,16.803-23.439,30.955-17.878c14.155,5.562-6.835,42.837-16.693,53.057c0,0,10.483-5.228,22.827-4.844
+		c12.354,0.385,27.668,24.217-40.146,54.159c0,0,25.796,14.286-12.327,31.279"/>
+	<g>
+		<g>
+			<path display="none" fill="#F8F8F8" stroke="#456BAF" stroke-width="6" stroke-miterlimit="10" d="M271.521,43.521
+				c-107.513,0-194.667,87.154-194.667,194.666c0,107.513,87.155,194.667,194.667,194.667c107.511,0,194.667-87.154,194.667-194.667
+				C466.188,130.674,379.03,43.521,271.521,43.521z M271.521,386.483c-81.9,0-148.296-66.395-148.296-148.296
+				c0-81.901,66.394-148.294,148.296-148.294c81.9,0,148.296,66.394,148.296,148.295
+				C419.816,320.088,353.421,386.483,271.521,386.483z"/>
+		</g>
+	</g>
+</g>
+</svg>
