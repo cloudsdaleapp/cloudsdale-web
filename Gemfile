@@ -4,9 +4,9 @@ gem 'rails', '~> 3.2.2'
 
 # Database NO-SQL
 gem 'bson_ext'
-gem 'mongoid', :git => 'git://github.com/mongoid/mongoid.git'
-gem 'moped', git: 'git://github.com/mongoid/moped.git'
-gem 'mongoid_rails_migrations'
+gem 'mongoid', '~> 3.1.0'
+gem 'moped',   '~> 1.4.0'
+gem 'mongoid_rails_migrations', '~> 0.0.14'
 gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
 gem 'voteable_mongo'
 gem 'kaminari'
