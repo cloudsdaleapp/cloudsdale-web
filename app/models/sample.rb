@@ -21,6 +21,18 @@ class Sample
     Sample.find_or_initialize_by date: date.to_date.to_s
   end
 
+  def self.generate_statistics_for_date_range(first_date,last_date)
+    first_date ||= 1.day.ago
+    last_date  ||= Date.today
+    (first_date.to_date..last_date.to_date).each do |date|
+      puts "-> Generating Sample for #{date}"
+      sample = Sample.build_for_date(date)
+      sample.generate_statistics
+      sample.save
+      puts "-> Proccessed Sample for #{date}, successfully"
+    end
+  end
+
   def date=(_date)
     self.start_time = _date.to_datetime
     self.stop_time  = _date.to_datetime
