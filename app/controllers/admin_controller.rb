@@ -4,7 +4,7 @@ class AdminController < ApplicationController
   before_filter :assert_basic_authorization
 
   rescue_from CanCan::AccessDenied do |message|
-    render status: 403, layout: 'application'
+    redirect_to root_path
   end
 
 private
