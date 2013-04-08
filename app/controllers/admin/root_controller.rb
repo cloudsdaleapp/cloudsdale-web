@@ -2,11 +2,11 @@ class Admin::RootController < AdminController
 
   def index
 
-    start_at = 30.days.ago.utc.beginning_of_day
-    end_at   = DateTime.now.utc.end_of_day
+    start_at = 30.days.ago
+    end_at   = Date.today
 
     @first_date = (start_at.to_i * 1000)
-    @samples = Sample.where(:start_time.gte => start_at, :stop_time.lte => end_at)
+    @samples = Sample.where(:date.gte => start_at.to_date.to_s, :date.lte => end_at.to_date.to_s).order_by(date: :asc)
 
   end
 
