@@ -89,6 +89,7 @@ end
 group :development do
   gem 'gist'
   gem 'foreman'
+  gem 'mailcatcher'
 end
 
 group :test do
