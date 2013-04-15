@@ -88,15 +88,13 @@ class Cloudsdale.Views.RootSidebar extends Backbone.View
   refreshListPositions: ->
     @.$("ul#sidebar-clouds > li").each (index,elem) =>
       _pos = @.$(elem).prevAll().length
-      $.cookie "cloud:#{@.$(elem).attr('data-entity-id')}:toggle:pos", _pos,
-        expires: 365
-        path: "/"
+      localStorage["cloud:#{@.$(elem).attr('data-entity-id')}:toggle:pos"] = _pos
 
   reorderClouds: ->
     _elements = @.$("ul#sidebar-clouds > li")
     _elements.sort (a,b) ->
-      posA = $.cookie("cloud:#{$(a).attr('data-entity-id')}:toggle:pos")
-      posB = $.cookie("cloud:#{$(b).attr('data-entity-id')}:toggle:pos")
+      posA = localStorage["cloud:#{$(a).attr('data-entity-id')}:toggle:pos"]
+      posB = localStorage["cloud:#{$(b).attr('data-entity-id')}:toggle:pos"]
       compA = if typeof posA == 'string' then parseInt(posA) else 1000
       compB = if typeof posB == 'string' then parseInt(posB) else 1000
       return (if (compA < compB) then -1 else (if (compA > compB) then 1 else 0))
