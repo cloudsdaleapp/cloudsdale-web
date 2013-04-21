@@ -33,6 +33,10 @@ set :sidekiq_role,      :app
 set :sidekiq_pid,       "/var/run/sidekiq.pid"
 set :sidekiq_processes, 8
 
+# Unicorn
+set :unicorn_pid ,      "/var/run/unicorn/web.pid"
+set :unicorn_role,      :web
+
 role :db,   "www.cloudsdale.org"
 role :web,  "www.cloudsdale.org"
 role :app,  "www.cloudsdale.org", :primary => true
@@ -64,18 +68,18 @@ namespace :deploy do
   end
 
   desc "Zero-downtime restart of Unicorn"
-  task :restart, :roles => :web, :except => { :no_release => true } do
-    run "kill -s USR2 `cat /var/run/unicorn/web.pid`"
+  task :restart, :roles => unicorn_role, :except => { :no_release => true } do
+    run "kill -s USR2 `cat #{unicorn_pid}`"
   end
 
   desc "Start unicorn"
-  task :start, :roles => :web, :except => { :no_release => true } do
-    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E production -D"
+  task :start, :roles => unicorn_role, :except => { :no_release => true } do
+    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E #{rails_env} -D"
   end
 
   desc "Stop unicorn"
-  task :stop, :roles => :web, :except => { :no_release => true } do
-    run "kill -s QUIT `cat /var/run/unicorn/web.pid`"
+  task :stop, :roles => unicorn_role, :except => { :no_release => true } do
+    run "kill -s QUIT `cat #{unicorn_pid}`"
   end
 
 end
