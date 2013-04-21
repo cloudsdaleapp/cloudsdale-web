@@ -63,14 +63,6 @@ namespace :deploy do
     end
   end
 
-  namespace :updater do
-    desc "Sends an update notification to all web clients."
-    task :web, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do |args,t|
-      message = ENV['message'] ? ENV['message'] : "Some things were probably fixed"
-      run "cd #{current_path} ; #{rake} RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} updater:web['#{message}']"
-    end
-  end
-
   desc "Zero-downtime restart of Unicorn"
   task :restart, :roles => :web, :except => { :no_release => true } do
     run "kill -s USR2 `cat /var/run/unicorn/web.pid`"
