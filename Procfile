@@ -3,4 +3,4 @@ mail: bundle exec mailcatcher -f
 mongo: mongod --port 52331 --dbpath ./db/data/mongodb/
 queue: rabbitmq-server
 cache: memcached
-# rails: env RAILS_ENV=development rails s
+workers: bundle exec sidekiq -C ./config/sidekiq.yml
