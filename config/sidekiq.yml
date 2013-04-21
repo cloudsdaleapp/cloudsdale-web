@@ -1,0 +1,20 @@
+verbose: false
+queues:
+  - [high, 10]
+  - [medium, 5]
+  - [default, 5]
+  - [low, 1]
+
+test:
+  verbose: true
+  concurrency:  25
+  pidfile: tmp/pids/sidekiq-test.pid
+
+development:
+  verbose: true
+  concurrency:  25
+  pidfile: tmp/pids/sidekiq-development.pid
+
+production:
+  concurrency:  50
+  pidfile: /var/run/sidekiq.pid

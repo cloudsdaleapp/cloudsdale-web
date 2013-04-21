@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Cloudsdale::Application.routes.draw do
 
   namespace :admin do
@@ -115,4 +117,6 @@ Cloudsdale::Application.routes.draw do
   # route for it. This NEEDS to be last so that it's a "catch all" route.
   match '/:page_id' => 'pages#show', as: :page
 
+  # Engines
+  mount Sidekiq::Web, at: '/admin/workers'
 end

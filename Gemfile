@@ -71,8 +71,11 @@ gem 'hashr', :require => 'hashr'
 gem 'yajl-ruby', :require => 'yajl'
 gem 'google-analytics-rails'
 
-# AMQP
+# Queueing
 gem 'bunny'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'

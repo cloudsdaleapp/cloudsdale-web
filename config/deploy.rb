@@ -1,5 +1,6 @@
 # config/deploy.rb
 require "bundler/capistrano"
+require 'sidekiq/capistrano'
 require 'capistrano_colors'
 
 set :application,   "cloudsdale-web"
@@ -23,6 +24,14 @@ set :deploy_to,       "/opt/app/#{application}"
 set :user,            "deploy"
 set :group,           "deploy"
 set :use_sudo,        false
+
+# Sidekiq
+set :sidekiq_cmd,       "#{bundle_cmd} exec sidekiq"
+set :sidekiqctl_cmd,    "#{bundle_cmd} exec sidekiqctl"
+set :sidekiq_timeout,   10
+set :sidekiq_role,      :app
+set :sidekiq_pid,       "/var/run/sidekiq.pid"
+set :sidekiq_processes, 8
 
 role :db,   "www.cloudsdale.org"
 role :web,  "www.cloudsdale.org"
