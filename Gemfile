@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.2'
+gem 'rails', '~> 3.2.13'
 
 # Database NO-SQL
 gem 'bson_ext'
@@ -37,7 +37,7 @@ gem 'rabl', '~> 0.6.10'
 gem 'backbone-on-rails'
 
 # Authentication & Authorization
-gem 'redis-rails', '~> 3.2.1'
+gem 'redis-rails', '~> 3.2.3'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
@@ -92,7 +92,6 @@ end
 group :development do
   gem 'gist'
   gem 'foreman'
-  gem 'mailcatcher'
 end
 
 group :test do
