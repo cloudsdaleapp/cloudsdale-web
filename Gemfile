@@ -12,8 +12,8 @@ gem 'voteable_mongo'
 gem 'kaminari'
 gem 'dalli'
 
+gem "redis", "~> 3.0.1"
 gem "hiredis", '~> 0.4.5'
-gem "redis", "~> 2.2.0", :require => ["redis/connection/hiredis", "redis"]
 
 # CANT HAVE ASSETS GROUP!
 gem 'sass', '~> 3.2.1'
@@ -28,6 +28,7 @@ gem 'zurb-foundation'
 
 
 # Markup
+gem 'slim'
 gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
@@ -73,9 +74,7 @@ gem 'google-analytics-rails'
 
 # Queueing
 gem 'bunny'
-gem 'sidekiq'
-gem 'sinatra', require: false
-gem 'slim'
+gem 'sidekiq', '~> 2.10.1'
 
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
@@ -112,9 +111,11 @@ gem 'yard-tomdoc', git: 'git://github.com/rubyworks/yard-tomdoc.git'
 gem 'newrelic_rpm'
 gem 'newrelic_moped'
 gem 'newrelic-redis'
+gem 'ruby-prof'
 
 gem 'capistrano', git: 'git://github.com/capistrano/capistrano.git'
 gem 'capistrano_colors', :require => nil
 
 gem 'unicorn'
 gem 'thin'
+gem 'sinatra', require: false

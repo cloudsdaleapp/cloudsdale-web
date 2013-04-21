@@ -1,20 +1,14 @@
-verbose: false
+# Sample configuration file for Sidekiq.
+# Options here can still be overridden by cmd line args.
+#   sidekiq -C config.yml
+---
 queues:
   - [high, 10]
   - [medium, 5]
   - [default, 5]
   - [low, 1]
 
-test:
-  verbose: true
-  concurrency:  25
-  pidfile: tmp/pids/sidekiq-test.pid
-
-development:
-  verbose: true
-  concurrency:  25
-  pidfile: tmp/pids/sidekiq-development.pid
-
 production:
-  concurrency:  50
+  verbose: false
+  concurrency:  25
   pidfile: /var/run/sidekiq.pid

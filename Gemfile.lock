@@ -104,7 +104,9 @@ GEM
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    celluloid (0.10.0)
+    celluloid (0.12.4)
+      facter (>= 1.6.12)
+      timers (>= 1.0.0)
     childprocess (0.2.3)
       ffi (~> 1.0.6)
     client_side_validations (3.1.4)
@@ -115,7 +117,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.2)
-    connection_pool (0.9.3)
+    connection_pool (1.0.0)
     crack (0.1.8)
     daemons (1.1.8)
     dalli (2.6.2)
@@ -135,6 +137,7 @@ GEM
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    facter (1.7.0)
     factory_girl (2.3.2)
       activesupport
     factory_girl_rails (1.4.0)
@@ -300,7 +303,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redcarpet (1.17.2)
-    redis (2.2.2)
+    redis (3.0.3)
     redis-actionpack (3.2.3)
       actionpack (~> 3.2.3)
       redis-rack (~> 1.4.0)
@@ -308,8 +311,8 @@ GEM
     redis-activesupport (3.2.3)
       activesupport (~> 3.2.3)
       redis-store (~> 1.1.0)
-    redis-namespace (1.1.0)
-      redis (< 3.0.0)
+    redis-namespace (1.2.1)
+      redis (~> 3.0.0)
     redis-rack (1.4.2)
       rack (~> 1.4.1)
       redis-store (~> 1.1.0)
@@ -335,6 +338,7 @@ GEM
       railties (~> 3.0)
       rspec (~> 2.7.0)
     ruby-hmac (0.4.0)
+    ruby-prof (0.13.0)
     ruby-rc4 (0.1.3)
     rubyzip (0.9.5)
     sass (3.2.1)
@@ -347,11 +351,11 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
-    sidekiq (1.2.1)
-      celluloid (~> 0.10.0)
-      connection_pool (~> 0.9.0)
+    sidekiq (2.10.1)
+      celluloid (~> 0.12.0)
+      connection_pool (~> 1.0)
       multi_json (~> 1)
-      redis
+      redis (~> 3)
       redis-namespace
     simple_oauth (0.1.5)
     sinatra (1.3.6)
@@ -383,6 +387,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.14.6)
     tilt (1.3.7)
+    timers (1.1.0)
     tomparse (0.2.0)
     treetop (1.4.12)
       polyglot
@@ -468,13 +473,14 @@ DEPENDENCIES
   rails (~> 3.2.13)
   rails3-generators
   redcarpet
-  redis (~> 2.2.0)
+  redis (~> 3.0.1)
   redis-rails (~> 3.2.3)
   rmagick
   rspec-rails
+  ruby-prof
   sass (~> 3.2.1)
   sass-rails (~> 3.2.5)
-  sidekiq
+  sidekiq (~> 2.10.1)
   sinatra
   slim
   soundcloud
