@@ -7,10 +7,6 @@ class Ability
     can :read, User
     can :read, Cloud
 
-    can :restore, User do |u|
-      !u.banned?
-    end
-
     can [:accept_tnc,:update], User, _id: user.id
 
     if user.is_registered? and not user.banned?
