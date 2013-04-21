@@ -5,8 +5,8 @@ class SamplesWorker
   sidekiq_options :retry => false
 
   def perform(starts,stops)
-    starts = DateTime.parse(starts)
-    stops  = DateTime.parse(stops)
+    starts = Date.parse(starts)
+    stops  = Date.parse(stops)
     Sample.generate_statistics_for_date_range(starts,stops)
   end
 
