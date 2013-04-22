@@ -4,6 +4,7 @@ Cloudsdale::Application.routes.draw do
 
   namespace :admin do
     match '/',  to: 'root#index',  via: :get,  as: :root
+    resources :dispatches, only: [:index,:show,:create,:update]
   end
 
   namespace "v1", module: "api/v1" do
