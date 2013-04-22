@@ -19,6 +19,11 @@ class Cloudsdale.Views.Root extends Backbone.View
 
       if session.get('user').get('needs_to_confirm_registration')
         @openSessionDialog('complete')
+      else if session.get('user').get('needs_password_change')
+        @openSessionDialog('password_change')
+      else if session.get('user').get('needs_name_change')
+        @openSessionDialog('name_change')
+
 
   render: ->
     $(@el).html(@template())

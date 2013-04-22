@@ -14,7 +14,12 @@ class UsersController < ApplicationController
 
     if @user
 
-      unless @user.restoration.expired?
+      if @user.restoration.expired?
+
+        @user.restoration = nil
+        @user.save
+
+      else
 
         @user.email_verified_at = DateTime.now
         @user.force_password_change = true
