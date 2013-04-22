@@ -76,6 +76,7 @@ gem 'google-analytics-rails'
 # Queueing
 gem 'bunny'
 gem 'sidekiq', '~> 2.10.1'
+gem 'kiqstand', '~> 1.1.0'
 
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
