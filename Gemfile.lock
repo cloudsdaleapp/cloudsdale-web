@@ -307,7 +307,7 @@ GEM
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
-    redcarpet (1.17.2)
+    redcarpet (2.2.2)
     redis (3.0.3)
     redis-actionpack (3.2.3)
       actionpack (~> 3.2.3)
