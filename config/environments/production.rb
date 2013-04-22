@@ -9,7 +9,7 @@ Cloudsdale::Application.configure do
   config.action_controller.perform_caching = true
 
   #
-  config.assets.precompile = %w(application.css application.js mobile.css mobile.js *.ttf *.svg *.woff *.eot *.jst *.png *.jpg .jpeg *.gif *.bmp *.ico)
+  config.assets.precompile = %w(application.css application.js mobile.css mobile.js admin.css admin.js *.ttf *.svg *.woff *.eot *.jst *.png *.jpg .jpeg *.gif *.bmp *.ico)
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = true
@@ -63,7 +63,7 @@ Cloudsdale::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => "www.cloudsdale.org" }
+  config.action_mailer.default_url_options = { :host => "www.cloudsdale.org", port: 80 }
   config.action_mailer.smtp_settings = {
 
     address: "smtp.gmail.com",

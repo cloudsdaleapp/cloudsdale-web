@@ -3,55 +3,72 @@
 #= require foundation
 #= require highcharts
 #= require underscore-1.3.3
+#= require ace/ace
+#= require ace/theme-textmate
+#= require ace/mode-markdown
 
 $(document).foundation()
 
 $ ->
 
-  firstDate = jQuery.parseJSON($('#chart-users').attr('data-first'))
-  userData = jQuery.parseJSON($('#chart-users').attr('data-values'))
-  usersChart = generateChartIn('chart-users',firstDate)
+  if $("#editor").length >= 1
+    editor = ace.edit("editor")
+    editor.setTheme('ace/theme/textmate')
+    MarkdownMode = require("ace/mode/markdown").Mode
+    editor.getSession().setMode(new MarkdownMode())
 
-  usersChart.addSeries {
-    name: "New"
-    data: _.map userData, (value) -> value.new
-  }
+    textarea = $('textarea[name="dispatch[body]"]').hide()
+    editor.getSession().setValue(textarea.val())
+    editor.getSession().on 'change', ->
+      textarea.val(editor.getSession().getValue())
 
-  usersChart.addSeries {
-    name: "Total"
-    data: _.map userData, (value) -> value.total
-  }
+  if $('#chart-users').length >= 1
+    firstDate = jQuery.parseJSON($('#chart-users').attr('data-first'))
+    userData = jQuery.parseJSON($('#chart-users').attr('data-values'))
+    usersChart = generateChartIn('chart-users',firstDate)
 
-  usersChart.addSeries {
-    name: "Active"
-    data: _.map userData, (value) -> value.active
-  }
+    usersChart.addSeries {
+      name: "New"
+      data: _.map userData, (value) -> value.new
+    }
 
-  cloudData = jQuery.parseJSON($('#chart-clouds').attr('data-values'))
-  cloudsChart = generateChartIn('chart-clouds',firstDate)
+    usersChart.addSeries {
+      name: "Total"
+      data: _.map userData, (value) -> value.total
+    }
 
-  cloudsChart.addSeries {
-    name: "New"
-    data: _.map cloudData, (value) -> value.new
-  }
+    usersChart.addSeries {
+      name: "Active"
+      data: _.map userData, (value) -> value.active
+    }
 
-  cloudsChart.addSeries {
-    name: "Total"
-    data: _.map cloudData, (value) -> value.total
-  }
+  if $('#chart-clouds').length >= 1
+    cloudData = jQuery.parseJSON($('#chart-clouds').attr('data-values'))
+    cloudsChart = generateChartIn('chart-clouds',firstDate)
 
-  dropData = jQuery.parseJSON($('#chart-drops').attr('data-values'))
-  dropdsChart = generateChartIn('chart-drops',firstDate)
+    cloudsChart.addSeries {
+      name: "New"
+      data: _.map cloudData, (value) -> value.new
+    }
 
-  dropdsChart.addSeries {
-    name: "New"
-    data: _.map dropData, (value) -> value.new
-  }
+    cloudsChart.addSeries {
+      name: "Total"
+      data: _.map cloudData, (value) -> value.total
+    }
 
-  dropdsChart.addSeries {
-    name: "Total"
-    data: _.map dropData, (value) -> value.total
-  }
+  if $('#chart-drops').length >= 1
+    dropData = jQuery.parseJSON($('#chart-drops').attr('data-values'))
+    dropdsChart = generateChartIn('chart-drops',firstDate)
+
+    dropdsChart.addSeries {
+      name: "New"
+      data: _.map dropData, (value) -> value.new
+    }
+
+    dropdsChart.addSeries {
+      name: "Total"
+      data: _.map dropData, (value) -> value.total
+    }
 
 generateChartIn = (container,first_date) ->
 

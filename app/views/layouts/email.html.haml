@@ -1,0 +1,24 @@
+!!! 5
+%html
+  %head
+    %link{ rel: "stylesheet", type:"text/css", href: "/assets/email.css" }
+  %body
+    %table#email-wrap
+      %tr
+        %td{ align: 'left' }
+        %td#email_container{ width: "602px" }
+          #header
+            #logo
+            #subject= subject
+          - if content_for? :banner
+            #banner
+              #banner-inner= yield :banner
+          #article
+            #article-inner= yield
+          #footer
+            %a{ href: "http://www.cloudsdale.org/privacy-policy" }= "Privacy Policy"
+            %span= "|"
+            %a{ href: "http://www.cloudsdale.org/meet-the-crew" }= "Staff"
+            %span= "|"
+            %a{ href: "http://www.cloudsdale.org/" }= "Website"
+        %td{ align: 'right' }

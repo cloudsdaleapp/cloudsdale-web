@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.2'
+gem 'rails', '~> 3.2.13'
 
 # Database NO-SQL
 gem 'bson_ext'
@@ -12,8 +12,8 @@ gem 'voteable_mongo'
 gem 'kaminari'
 gem 'dalli'
 
+gem "redis", "~> 3.0.1"
 gem "hiredis", '~> 0.4.5'
-gem "redis", "~> 2.2.0", :require => ["redis/connection/hiredis", "redis"]
 
 # CANT HAVE ASSETS GROUP!
 gem 'sass', '~> 3.2.1'
@@ -25,19 +25,21 @@ gem 'jquery-rails'
 gem 'sprockets'
 gem 'haml_coffee_assets'
 gem 'zurb-foundation'
-
+gem 'ace-rails-ap'
 
 # Markup
+gem 'slim'
 gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
 gem 'rabl', '~> 0.6.10'
+gem 'roadie'
 
 # Frontend
 gem 'backbone-on-rails'
 
 # Authentication & Authorization
-gem 'redis-rails', '~> 3.2.1'
+gem 'redis-rails', '~> 3.2.3'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
@@ -71,8 +73,10 @@ gem 'hashr', :require => 'hashr'
 gem 'yajl-ruby', :require => 'yajl'
 gem 'google-analytics-rails'
 
-# AMQP
+# Queueing
 gem 'bunny'
+gem 'sidekiq', '~> 2.10.1'
+gem 'kiqstand', '~> 1.1.0'
 
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
@@ -109,9 +113,11 @@ gem 'yard-tomdoc', git: 'git://github.com/rubyworks/yard-tomdoc.git'
 gem 'newrelic_rpm'
 gem 'newrelic_moped'
 gem 'newrelic-redis'
+gem 'ruby-prof'
 
 gem 'capistrano', git: 'git://github.com/capistrano/capistrano.git'
 gem 'capistrano_colors', :require => nil
 
 gem 'unicorn'
 gem 'thin'
+gem 'sinatra', require: false

@@ -1,0 +1,28 @@
+.row
+  .large-12.columns
+    .content-panel
+      .content-panel-inner
+        %h3= "Dispatches"
+        %h5.subheader= "Here you can dispatch email updates to registered Cloudsdale users."
+        %hr
+        %table{ width: "100%" }
+          %thead
+            %tr
+              %td= "Subject"
+              %td{ width: "220px" }= "Target Groups"
+              %td{ width: "50px" }= "Status"
+          %tbody
+            - @dispatches.each do |dispatch|
+              %tr
+                %td= link_to dispatch.subject, admin_dispatch_path(dispatch)
+                %td
+                %td
+                  %span.keystroke= dispatch.status
+
+
+%br
+.row
+  .large-12.columns
+    .content-panel
+      .content-panel-inner
+        = link_to "Create new Dispatch", admin_dispatches_path, method: :post, class: 'button', style: 'margin: 0;'

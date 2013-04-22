@@ -8,7 +8,7 @@
   <!--<![endif]-->
 
   %head
-    %title FanBuilt
+    %title Cloudsdale Admin
     = favicon_link_tag "favicons/48by48.ico"
     %meta{ charset: "utf-8" }
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
@@ -34,6 +34,8 @@
               %ul.left
                 %li.divider
                 %li= link_to "Dashboard", admin_root_path
+                %li.divider
+                %li= link_to "Dispatches", admin_dispatches_path
                 %li.divider
 
             %section.top-bar-section

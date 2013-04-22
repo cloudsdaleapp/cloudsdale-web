@@ -1,0 +1,5 @@
+- if dispatch.banner.try(:url).try(:present?)
+  = content_for :banner do
+    = image_tag dispatch.banner.url
+
+= dispatch.formatted_body

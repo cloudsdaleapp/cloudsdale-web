@@ -1,0 +1,14 @@
+# Sample configuration file for Sidekiq.
+# Options here can still be overridden by cmd line args.
+#   sidekiq -C config.yml
+---
+queues:
+  - [high, 10]
+  - [medium, 5]
+  - [default, 5]
+  - [low, 1]
+
+production:
+  verbose: false
+  concurrency:  25
+  pidfile: /var/run/sidekiq.pid

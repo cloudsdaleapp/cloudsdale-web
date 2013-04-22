@@ -2,6 +2,9 @@ development:
   url: http://local.cloudsdale.org:3000
   asset_url: http://local.cloudsdale.org:3000
 
+  uploader:
+    storage: 'file'
+
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
 
@@ -45,6 +48,9 @@ development:
 production:
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
+
+  uploader:
+    storage: 'fog'
 
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g

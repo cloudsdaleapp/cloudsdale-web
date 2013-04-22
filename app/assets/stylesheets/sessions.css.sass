@@ -59,18 +59,27 @@
         .control-group
           +opacity(0)
 
-    &.auth-form-complete
+    &.auth-form-email-change, &.auth-form-password-change,
+    &.auth-form-name-change, &.auth-form-complete
       .form-actions
         a.twitter-auth, a.facebook-auth, a.auth-dialog-help
           display: none
-
       .control-group:not(:last-child)
         border-bottom: 1px solid $color-border-light
 
-    &.auth-form-restore
-      .control-group.auth-field-group-password, .control-group.auth-field-group-displayname
+    &.auth-form-email-change, &.auth-form-restore
+      .auth-field-group-password, .auth-field-group-displayname
         height: 0
 
+    &.auth-form-password-change
+      .auth-field-group-email, .auth-field-group-displayname
+        height: 0
+
+    &.auth-form-name-change
+      .auth-field-group-email, .auth-field-group-password
+        height: 0
+
+    &.auth-form-restore
       .form-actions
         a.twitter-auth, a.facebook-auth, a.auth-dialog-cancel
           +opacity(0)

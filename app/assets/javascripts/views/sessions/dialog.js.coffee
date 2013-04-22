@@ -44,6 +44,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
 
   refreshGfx: ->
     @clearLastState()
+
     if @state == 'restore'
       @.$("button.auth-submit").text("Restore")
       @.$("a.auth-dialog-help-one").text("Register an account").data('auth-dialog-state','register')
@@ -57,6 +58,15 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     else if @state == 'complete'
       @.$("button.auth-submit").text("Complete Registration")
       @.$("a.auth-dialog-cancel").text("Cancel")
+
+    else if @state == 'name_change'
+      @.$("button.auth-submit").text("Change Name")
+
+    else if @state == 'password_change'
+      @.$("button.auth-submit").text("Change Password")
+
+    else if @state == 'email_change'
+      @.$("button.auth-submit").text("Change Email")
 
     else
       @.$("button.auth-submit").text("Login")
@@ -75,6 +85,9 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       when "register"         then @toggleRegister()
       when "login"            then @toggleLogin()
       when "complete"         then @toggleComplete()
+      when "name_change"      then @toggleNameChange()
+      when "password_change"  then @togglePasswordChange()
+      when "email_change"     then @toggleEmailChange()
 
     false
 
@@ -107,9 +120,30 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     @.$('form').addClass('auth-form-complete')
     false
 
+  toggleNameChange: ->
+    @state = 'name_change'
+    @logoutOnHide = true
+    @refreshGfx()
+    @.$('form').addClass('auth-form-name-change')
+    false
+
+  togglePasswordChange: ->
+    @state = 'password_change'
+    @logoutOnHide = true
+    @refreshGfx()
+    @.$('form').addClass('auth-form-password-change')
+    false
+
+  toggleEmailChange: ->
+    @state = 'email_change'
+    @logoutOnHide = true
+    @refreshGfx()
+    @.$('form').addClass('auth-form-email-change')
+    false
+
 
   cancelDialog: () ->
-    @hide() if $.inArray(@state, ["complete","password_change","name_change"]) >= 0
+    @hide() if $.inArray(@state, ["complete","email_change","password_change","name_change"]) >= 0
 
   logoutUser: ->
     window.location.replace('/logout')
@@ -133,6 +167,9 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
       when "register"         then @submitRegister()
       when "login"            then @submitLogin()
       when "complete"         then @submitComplete()
+      when "name_change"      then @submitComplete()
+      when "password_change"  then @submitComplete()
+      when "email_change"     then @submitComplete()
 
     e.preventDefault()
     false
@@ -232,9 +269,14 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
   submitComplete: ->
     submitData = {}
     submitData.user = {}
-    submitData.user.name = @.$('#session_display_name').val()
-    submitData.user.email = @.$('#session_email').val()
-    submitData.user.password = @.$('#session_password').val()
+
+    if (@state == 'complete') or (@state == 'name_change')
+      submitData.user.name = @.$('#session_display_name').val()
+    if (@state == 'complete') or (@state == 'email_change')
+      submitData.user.email = @.$('#session_email').val()
+    if (@state == 'complete') or (@state == 'password_change')
+      submitData.user.password = @.$('#session_password').val()
+
     submitData.user.confirm_registration = true
 
     @disableInput()
