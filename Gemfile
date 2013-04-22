@@ -33,6 +33,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
 gem 'rabl', '~> 0.6.10'
+gem 'roadie'
 
 # Frontend
 gem 'backbone-on-rails'
