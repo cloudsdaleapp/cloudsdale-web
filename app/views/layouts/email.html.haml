@@ -6,10 +6,13 @@
     %table#email-wrap
       %tr
         %td{ align: 'left' }
-        %td#email_container{ width: "600px" }
+        %td#email_container{ width: "602px" }
           #header
             #logo
             #subject= subject
+          - if content_for? :banner
+            #banner
+              #banner-inner= yield :banner
           #article
             #article-inner= yield
           #footer
