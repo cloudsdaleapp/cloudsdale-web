@@ -51,6 +51,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     Ascii85 (1.0.1)
+    ace-rails-ap (2.0.0)
     actionmailer (3.2.13)
       actionpack (= 3.2.13)
       mail (~> 2.5.3)
@@ -434,6 +435,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ace-rails-ap
   backbone-on-rails
   bcrypt-ruby
   bootstrap-sass (~> 2.1.0.0)
