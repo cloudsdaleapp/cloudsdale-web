@@ -19,19 +19,6 @@ GIT
       unicode_utils (~> 1.0.0)
 
 GIT
-  remote: git://github.com/Zeeraw/rspec-rails.git
-  revision: 905cf09902fd946b3446d0398e26d3e208d61a41
-  branch: master
-  specs:
-    rspec-rails (2.13.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
-
-GIT
   remote: git://github.com/capistrano/capistrano.git
   revision: ef1c3a6fd8777ddf8a8372c45a506249a08a703e
   specs:
@@ -49,14 +36,6 @@ GIT
     yard-tomdoc (0.4.0)
       tomparse
       yard
-
-GIT
-  remote: git://github.com/sahilm/spork-rails.git
-  revision: 8b49e3d6ea85b2f1d23eb3fb148b7e971eb4e614
-  branch: rails-4
-  specs:
-    spork-rails (3.2.1)
-      spork (>= 1.0rc0)
 
 GIT
   remote: git@github.com:Zeeraw/carrierwave-mongoid.git
@@ -364,6 +343,13 @@ GEM
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.1)
+    rspec-rails (2.13.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
     ruby-hmac (0.4.0)
     ruby-prof (0.13.0)
     ruby-rc4 (0.1.3)
@@ -401,6 +387,9 @@ GEM
       httmultiparty (~> 0.3.0)
       httparty (~> 0.7.3)
     spork (1.0.0rc3)
+    spork-rails (3.2.1)
+      rails (>= 3.0.0, < 3.3.0)
+      spork (>= 1.0rc0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -514,7 +503,7 @@ DEPENDENCIES
   redis-rails (~> 3.2.3)
   rmagick
   roadie
-  rspec-rails!
+  rspec-rails
   ruby-prof
   sass (~> 3.2.1)
   sass-rails (~> 3.2.5)
@@ -524,7 +513,7 @@ DEPENDENCIES
   sinatra
   slim
   soundcloud
-  spork-rails!
+  spork-rails
   sprockets
   therubyracer (~> 0.11.4)
   thin

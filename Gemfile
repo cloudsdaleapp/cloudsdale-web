@@ -90,8 +90,8 @@ group :development, :test do
   gem 'pry'
 
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
-  gem 'spork-rails', git: 'git://github.com/sahilm/spork-rails.git', branch: 'rails-4'
-  gem 'rspec-rails', git: 'git://github.com/Zeeraw/rspec-rails.git',  branch: 'master'
+  gem 'spork-rails'
+  gem 'rspec-rails'
 
   gem 'guard'
   gem 'guard-spork'
