@@ -14,7 +14,7 @@ class Api::V1Controller < ActionController::Base
   end
 
   # Rescues the error from not being authorized to perform an action
-  rescue_from CanCan::AccessDenied do |message|
+  rescue_from Pundit::NotAuthorizedError do |message|
     render_exception "You're not allowed to do this. #{message}", 401
   end
 

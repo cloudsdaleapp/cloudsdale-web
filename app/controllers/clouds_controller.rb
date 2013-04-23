@@ -4,7 +4,7 @@ class CloudsController < ApplicationController
 
     @cloud = Cloud.agnostic_fetch(params[:id_or_short_name])
 
-    authorize! :read, @cloud
+    authorize @cloud, :show?
 
     @page_title = @cloud.name
     @page_image = @cloud.avatar.url

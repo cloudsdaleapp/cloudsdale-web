@@ -84,7 +84,8 @@ class Api::V1::UsersController < Api::V1Controller
   def update
 
     @user = User.find(params[:id])
-    authorize! :update, @user
+
+    authorize @user, :update?
 
     if @user.update_attributes(params[:user])
       render status: 200
@@ -135,7 +136,7 @@ class Api::V1::UsersController < Api::V1Controller
     @date_time  = params[:date_time]
     @reason     = params[:reason]
 
-    authorize! :ban, @user
+    authorize @user, :ban?
 
     if @user.ban!(@date_time,@reason)
       render status: 200
@@ -153,7 +154,7 @@ class Api::V1::UsersController < Api::V1Controller
   # perform the action.
   def unban
     @user = User.find(params[:id])
-    authorize! :unban, @user
+    authorize @user, :unban?
 
     if @user.unban!
       render status: 200
@@ -171,7 +172,8 @@ class Api::V1::UsersController < Api::V1Controller
   def accept_tnc
 
     @user = User.find(params[:id])
-    authorize! :accept_tnc, @user
+
+    authorize @user, :update?
 
     @user.tnc_last_accepted = Date.current
 
@@ -185,7 +187,7 @@ class Api::V1::UsersController < Api::V1Controller
 
   end
 
-  private
+private
 
   # Private: Fetches the oauth credentials by looking
   # in the session but falls back to the :oauth key in

@@ -1,15 +1,15 @@
 class Api::V1::Users::CloudsController < Api::V1Controller
-  
+
   before_filter :fetch_user
-  
+
   # Public: Fetches all clouds in the collection
   # Returns an array of clouds.
   def index
     @clouds = @user.clouds.limit(record_limit)
-    authorize! :read, Cloud
+    authorize Cloud, :index?
     render status: 200
   end
-  
+
   # Private: Fetch user
   # Examples
   #
@@ -22,5 +22,5 @@ class Api::V1::Users::CloudsController < Api::V1Controller
   def fetch_user
     @user = User.find(params[:user_id])
   end
-  
+
 end

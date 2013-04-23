@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Rescues the error from not being authorized to perform an action
-  rescue_from CanCan::AccessDenied do |message|
+  rescue_from Pundit::NotAuthorizedError do |message|
     render status: 403
   end
 

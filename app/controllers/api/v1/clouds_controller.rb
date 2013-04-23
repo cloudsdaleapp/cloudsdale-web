@@ -18,7 +18,7 @@ class Api::V1::CloudsController < Api::V1Controller
   def show
 
     @cloud = Cloud.agnostic_fetch(params[:id])
-    authorize! :read, @cloud
+    authorize @cloud, :show?
     render status: 200
 
   end
@@ -33,7 +33,7 @@ class Api::V1::CloudsController < Api::V1Controller
   def update
 
     @cloud = Cloud.find(params[:id])
-    authorize! :update, @cloud
+    authorize @cloud, :update?
 
     @cloud.write_attributes(params[:cloud], as: @cloud.get_role_for(current_user))
 
@@ -56,7 +56,8 @@ class Api::V1::CloudsController < Api::V1Controller
   def create
 
     @cloud = Cloud.new(params[:cloud])
-    authorize! :create, @cloud
+
+    authorize @cloud, :create?
 
     @cloud.owner = current_user
     @cloud.users << current_user
@@ -80,7 +81,8 @@ class Api::V1::CloudsController < Api::V1Controller
   def destroy
 
     @cloud = Cloud.find(params[:id])
-    authorize! :destroy, @cloud
+
+    authorize @cloud, :destroy?
 
     if @cloud.destroy
       render status: 200

@@ -119,7 +119,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
   def fetch_user
     id = params[:id] || params[:user].try(:fetch,:id)
     user = User.find(params[:id])
-    authorize! :update, user
+    authorize user, :update?
     return user
   end
 
@@ -134,7 +134,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
   # Returns the user if a user is present otherwise renders a 404 error
   def fetch_cloud
     cloud = Cloud.find(params[:cloud_id])
-    authorize! :read, cloud
+    authorize cloud, :show?
     return cloud
   end
 
