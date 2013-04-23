@@ -4,13 +4,13 @@ html
 body
   background-color: #fafafa
   font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif
-  font-size: 100%
-  padding: 0
-  margin: 0
 
 #header
+  position: relative
+
+  height: 37px
+
   margin-bottom: 5px
-  padding: 6px 0
 
   text-align: left
   color: #222222
@@ -19,19 +19,20 @@ body
 
   color: #4d4d4d
 
-#logo
-  float: left
+#logo, #subject
+  position: absolute
+  top: 5px
+  bottom: 0px
 
+#logo
+  left: 4px
   width: 32px
   height: 32px
-
-  background-size: 32px 32px
-  background-position: center center
-  background-repeat: no-repeat
   background-image: asset-data-url('icon/icon_email_gray.png')
 
 #subject
-  margin-left: 38px
+  left: 42px
+  right: 4px
 
 #email-wrap
   width: 100%
@@ -47,11 +48,14 @@ body
 #article-inner, #banner-inner
   background: #fff
   margin: 0 4px
-  padding: 20px
   border: 1px solid #d8d8d8
+
+#article-inner
+  padding: 20px
 
 #banner-inner
   padding: 0
+
 #banner-inner > img
   max-width: 100%
   display: block
