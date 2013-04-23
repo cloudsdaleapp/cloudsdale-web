@@ -10,7 +10,7 @@ class Api::V1::Clouds::BansController < Api::V1Controller
   #
   # Returns a Bans collection
   def index
-    authorize! :list, Ban
+    authorize Ban, :index?
 
     @bans = @cloud.bans.where(
       params.select { |k,v| [:offender_id,:enforcer_id].include?(k.to_sym) }
@@ -90,7 +90,7 @@ private
   # Returns a Cloud model instance if one is found.
   def fetch_cloud
     @cloud ||= Cloud.find(params[:cloud_id])
-    authorize! :read, @cloud
+    authorize @cloud, :show?
   end
 
   def authorize_create(user,ban)

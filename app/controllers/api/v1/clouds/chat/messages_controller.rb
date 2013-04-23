@@ -40,7 +40,7 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
     @message = @cloud.chat.messages.build params[:message]
     @message.author = current_user
 
-    authorize_create(current_user,@message)
+    authorize @message, :create?
 
     @message.urls.each do |url|
       @message.drops << @cloud.create_drop_deposit_from_url_by_user(url,current_user)
@@ -69,16 +69,6 @@ private
   # Returns the user if a user is present
   def fetch_cloud(id)
     @cloud ||= Cloud.unscoped.find(id)
-  end
-
-  def authorize_create(user,message)
-    i_can_communicate_in_topic  = user.cloud_ids.include?(message.chat.topic.id)
-    topic_is_not_locked         = !message.chat.topic.locked?
-    i_am_not_banned_from_topic  = !message.chat.topic.has_banned?(user)
-
-    allow_access = (i_can_communicate_in_topic || topic_is_not_locked) && i_am_not_banned_from_topic && user.is_registered?
-
-    raise CanCan::AccessDenied unless allow_access
   end
 
 end

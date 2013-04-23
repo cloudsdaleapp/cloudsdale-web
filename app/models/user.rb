@@ -11,8 +11,6 @@ class User
 
   include Droppable
 
-  delegate :can?, :cannot?, :to => :ability
-
   attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar
   attr_accessible :remote_avatar_url, :remove_avatar, :skype_name, :preferred_status
   attr_accessor :password, :confirm_registration, :status
@@ -508,12 +506,7 @@ class User
     email.present? && has_a_valid_authentication_method?
   end
 
-  # Public: Can be used to access CanCan on a specific user.
-  def ability
-    @ability ||= Ability.new(self)
-  end
-
-  protected
+protected
 
   # Internal: Override to silently ignore trying to remove missing
   # previous avatar when destroying a User.
