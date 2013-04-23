@@ -30,3 +30,4 @@ doc/*
 *.ai
 
 /profile.html
+*.sublime-workspace
