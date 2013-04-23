@@ -2,7 +2,7 @@
   .modal-header
     %h2= "Terms & Agreements"
     %h5= "Last Updated: 2012-07-28"
-        
+
   .modal-body
     %article
       %hgroup
@@ -12,14 +12,14 @@
 
       %h5 Copyright
       %p= "The entire content of this site (including, but not limited to, text, graphics, and code), excluding user generated content, is copyrighted as a collective work under the copyright laws of the United States and other countries. All of the aforementioned material is copyrighted © 2011, 2012 Cloudsdale.org, all rights reserved."
-      %p= "My Little Pony: Friendship is Magic is the property of Hasbo inc."
+      %p= "My Little Pony: Friendship is Magic is the property of Hasbro inc."
 
       %h5 Trademarks
       %p= "All trademarks, service marks and trade names of Cloudsdale.org are trademarks of Cloudsdale.org."
-    
+
       %h5 Warranty disclaimer
       %p= "This site and the materials and products on this site are provided \"as is\" and without warranties of any kind, whether express or implied. To the fullest extent permissible pursuant to applicable law, Cloudsdale.org disclaims all warranties, expressed or implied, including, but not limited to, implied warranties of merchantability and fitness for a particular purpose and non-infringement. Cloudsdale.org does not represent or warrant that the functions contained in the site will be uninterrupted or error-free, that the defects will be corrected, or that this site or the server that makes the site available are free of viruses or other harmful components. Cloudsdale.org does not make any warranties or representations regarding the use of the materials in this site in terms of their correctness, accuracy, adequacy, usefulness, timeliness, reliability or otherwise. Some countries do not permit limitations or exclusions on warranties, so the above limitations may not apply to you. "
-      
+
       %h5 Limitations of Liability
       %p= "Cloudsdale.org shall not be liable for any special or consequential damage that results from the use of, or the inability to use, the services and products offered on this site, or the performance of these services and products."
 
@@ -46,16 +46,16 @@
 
       %h5 Third-Party Links
       %p= "In an attempt to provide increased value to our visitors, Cloudsdale.org may link to sites operated by third parties. However, even if the third party is affiliated with Cloudsdale.org, Cloudsdale.org has no control over these linked sites, all of which have separate privacy and data collection practices, independent of Cloudsdale.org. These linked sites are only for your convenience and therefore you access them at your own risk. Nonetheless, Cloudsdale.org seeks to protect the integrity of its website and the links placed upon it and therefore requests any feedback on not only its own site, but for sites it links to as well (including if a specific link does not work)."
-      
+
       %h5 Changes to our Terms and Conditions
       %p= "If we decide to change our Terms and Conditions, you'll be automatically logged out and are prompted to accept the edited Terms and Conditions. If you don't want to accept the new Terms and Conditions you're given the option to delete your account."
-        
+
   .modal-footer
-    
+
     %a.btn.btn-danger{ href: '#', data: { dismiss: 'modal' } }
       %i.icon-remove.icon-white
       %span= "Cancel"
-    
+
     %a.btn.btn-success.accept_tnc{ href: '#' }
       %i.icon-ok.icon-white
       %span= "I have read and understood the Terms & Agreements"
