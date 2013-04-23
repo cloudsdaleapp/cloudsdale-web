@@ -43,7 +43,7 @@ gem 'redis-rails', '~> 3.2.3'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'cancan'
+gem 'pundit'
 
 # Forms
 gem 'client_side_validations'
@@ -81,24 +81,33 @@ gem 'kiqstand', '~> 1.1.0'
 # Cloudsdale Specific
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
 
-group :development, :test do
-  gem 'pry'
-  gem 'rails3-generators'
-  gem 'rspec-rails'
-  # gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'guard-rspec'
-  gem 'guard-livereload'
-end
-
 group :development do
   gem 'gist'
   gem 'foreman'
 end
 
-group :test do
-  gem 'capybara'
+group :development, :test do
+  gem 'pry'
+
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'spork-rails'
+  gem 'rspec-rails'
+
+  gem 'guard'
+  gem 'guard-spork'
+  gem 'guard-rspec'
+  gem 'guard-bundler'
+
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+end
+
+group :test do
+  gem "timecop"
+  gem 'shoulda-context'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'email_spec'
 end
 
 group :production, :assets do
