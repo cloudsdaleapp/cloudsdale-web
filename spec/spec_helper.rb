@@ -1,10 +1,5 @@
 # encoding: utf-8
 require 'rubygems'
-require 'spork'
-require 'rspec'
-require 'database_cleaner'
-require 'capybara/rspec'
-require "email_spec"
 
 ENV["RAILS_ENV"] ||= 'test'
 
@@ -14,6 +9,11 @@ require 'rspec/autorun'
 
 require 'shoulda/matchers'
 require 'shoulda/context'
+
+require 'database_cleaner'
+require 'capybara/rspec'
+require "email_spec"
+require 'spork'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 

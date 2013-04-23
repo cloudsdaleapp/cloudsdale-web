@@ -1,4 +1,4 @@
-guard 'spork', :runner => :cli, :rspec_env => { 'RAILS_ENV' => 'test' }, :cli => "--tty" do
+guard 'spork', :runner => :cli, :rspec_env => { 'RAILS_ENV' => 'test' }, :cli => "--drb --tty --color" do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch(%r{^config/environments/.*\.rb$})
