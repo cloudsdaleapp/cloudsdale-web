@@ -2,7 +2,6 @@
 
 class ApplicationUploader < CarrierWave::Uploader::Base
 
-  include CarrierWave::MiniMagick
   include Sprockets::Helpers::RailsHelper
   include Sprockets::Helpers::IsolatedHelper
 

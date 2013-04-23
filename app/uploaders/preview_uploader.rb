@@ -2,6 +2,8 @@
 
 class PreviewUploader < ApplicationUploader
 
+  include CarrierWave::RMagick
+
   process :store_geometry_and_filetype
 
   version :thumb do
