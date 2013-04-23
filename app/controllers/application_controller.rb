@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  include Pundit
+
   helper_method :current_user
 
   before_filter :redirect_on_maintenance!, :set_time_zone_for_user!, :assert_user_ban!

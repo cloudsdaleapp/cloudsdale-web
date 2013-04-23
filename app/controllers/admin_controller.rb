@@ -1,5 +1,7 @@
 class AdminController < ApplicationController
 
+  include Pundit
+
   layout :determine_layout
 
   rescue_from Pundit::NotAuthorizedError do |message|

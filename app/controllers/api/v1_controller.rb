@@ -1,5 +1,7 @@
 class Api::V1Controller < ActionController::Base
 
+  include Pundit
+
   layout :determine_layout
 
   before_filter :auth_token
