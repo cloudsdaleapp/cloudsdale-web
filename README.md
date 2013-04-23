@@ -1,4 +1,4 @@
-# ![CloudsdaleApp](https://secure.gravatar.com/avatar/006b4dec507eaac9967970a1cd967167?s=32) Cloudsdale
+# ![CloudsdaleApp](https://secure.gravatar.com/avatar/006b4dec507eaac9967970a1cd967167?s=22) Cloudsdale
 
 Cloudsdale is a realtime chat application for the Web, iOS, Android and Windows Phone, primarily designed for bronies.
 
