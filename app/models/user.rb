@@ -17,7 +17,6 @@ class User
 
   embeds_one :restoration
   embeds_many :authentications
-  embeds_many :notifications
 
   has_many :owned_clouds, class_name: "Cloud", as: :owner
 
