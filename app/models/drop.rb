@@ -15,7 +15,6 @@ class Drop
   voteable self, :up => +1, :down => -1
 
   embeds_many :deposits
-  embeds_many :reflections
 
   field :url,                 type: String
   field :match_id,            type: String
