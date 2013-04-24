@@ -17,7 +17,6 @@ class User
 
   embeds_one :character
   embeds_one :restoration
-  embeds_one :checklist
   embeds_many :authentications
   embeds_many :notifications
 
