@@ -15,7 +15,6 @@ class User
   attr_accessible :remote_avatar_url, :remove_avatar, :skype_name, :preferred_status
   attr_accessor :password, :confirm_registration, :status
 
-  embeds_one :character
   embeds_one :restoration
   embeds_many :authentications
   embeds_many :notifications
@@ -57,7 +56,6 @@ class User
     where(:_id.in => ids, :preferred_status.ne => :offline)
   end
 
-  accepts_nested_attributes_for :character, :allow_destroy => true
   accepts_nested_attributes_for :authentications, :allow_destroy => true
 
   validates :auth_token,  uniqueness: true
