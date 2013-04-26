@@ -1,21 +1,29 @@
 class Admin::DispatchesController < AdminController
 
   def index
-    @dispatches = Dispatch.all
+    @dispatches = Dispatch.order_by(:published_at => :desc, :created_at => :desc).all
+    authorize @dispatches
   end
 
   def show
     @dispatch = Dispatch.find(params[:id])
+    authorize @dispatch, :show?
   end
 
   def create
     @dispatch = Dispatch.new
+
+    authorize @dispatch, :create?
+
     @dispatch.save
     redirect_to admin_dispatch_path(@dispatch)
   end
 
   def update
     @dispatch = Dispatch.find(params[:id])
+
+    authorize @dispatch, :update?
+
     @dispatch.update_attributes(params[:dispatch])
 
     case params[:commit].parameterize
