@@ -49,6 +49,13 @@ production:
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
 
+  sendgrid:
+    user_name: cloudsdale
+    password: secret1234
+    host: smtp.sendgrid.net
+    domain: cloudsdale.org
+    port: 587
+
   uploader:
     storage: 'fog'
 
