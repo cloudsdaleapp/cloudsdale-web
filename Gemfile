@@ -114,9 +114,6 @@ group :production, :assets do
   gem 'execjs'
 end
 
-gem 'yard'
-gem 'yard-tomdoc', git: 'git://github.com/rubyworks/yard-tomdoc.git'
-
 # Profiling
 gem 'newrelic_rpm'
 gem 'newrelic_moped'
