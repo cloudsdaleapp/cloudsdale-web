@@ -32,3 +32,5 @@ doc/*
 /profile.html
 *.sublime-workspace
 *.sublime-project
+
+/.rspec
