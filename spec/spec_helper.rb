@@ -5,10 +5,13 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'shoulda/matchers'
 require 'shoulda/context'
+
 require 'database_cleaner'
-require 'capybara/rspec'
-require 'email_spec'
 require 'spork'
+
+require 'capybara/rspec'
+require 'pundit/rspec'
+require 'email_spec'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
