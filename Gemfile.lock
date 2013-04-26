@@ -413,7 +413,6 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    voteable_mongo (0.9.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
     yajl-ruby (1.1.0)
@@ -510,7 +509,6 @@ DEPENDENCIES
   uglifier
   unicorn
   urifetch!
-  voteable_mongo
   yajl-ruby
   youtube_it
   zurb-foundation
