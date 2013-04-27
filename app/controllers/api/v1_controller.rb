@@ -34,6 +34,8 @@ protected
     if params[:persist_session] == "true"
       session[:user_id]    = user.id.to_s
       cookies[:auth_token] = auth_token
+      @auth_token          = auth_token
+      @current_user        = user
     end
     user.save
   end
