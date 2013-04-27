@@ -25,6 +25,8 @@ class Api::V1Controller < ActionController::Base
     render_exception "BSON #{message}", 500
   end
 
+protected
+
   # Public: Used to set a session for the user if the persist_session parameter is available.
   # It will also save the user to the database to ensure any new SHIT added to the user model
   # is persisted.
@@ -35,7 +37,7 @@ class Api::V1Controller < ActionController::Base
     user.save
   end
 
-  # Internal: Determines if the client doing the API call is an
+  # Protected: Determines if the client doing the API call is an
   # authorized client - This means the client has access to inhouse
   # methods in the API.
   #
@@ -55,7 +57,7 @@ class Api::V1Controller < ActionController::Base
     request.env['X_AUTH_INTERNAL_TOKEN'] == INTERNAL_TOKEN
   end
 
-  # Internal: Determines the current user by using
+  # Protected: Determines the current user by using
   # sessions falling back on x-auth-token request header
   # initializing a new user if none of these are present.
   #
@@ -85,7 +87,7 @@ class Api::V1Controller < ActionController::Base
     @auth_token ||= request.headers['X-Auth-Token']
   end
 
-  # Internal: Determines which layout to use based on the
+  # Protected: Determines which layout to use based on the
   # requested content type.
   #
   # Examples
@@ -108,7 +110,7 @@ class Api::V1Controller < ActionController::Base
     end
   end
 
-  # Public: Renders an exception back to the caller with a message and a status code.
+  # Protected: Renders an exception back to the caller with a message and a status code.
   #
   # Examples
   #
@@ -121,7 +123,7 @@ class Api::V1Controller < ActionController::Base
     return
   end
 
-  # Public: Sets the instance variable @flash_message to a hash
+  # Protected: Sets the instance variable @flash_message to a hash
   # hash which defaults to { message: "", type: "notice", title: "Note" }
   #
   # options -   A Hash of options which defaults to ({}):
@@ -144,7 +146,7 @@ class Api::V1Controller < ActionController::Base
     @flash_message = default_options.merge(options)
   end
 
-  # Public: helper method to help determine how many records
+  # Protected: helper method to help determine how many records
   # to fetch when fetching a collection based on the "limit"
   # parameter sent by the client. If a negative value is supplied
   # or if the limit parameter is nil, the method will return
@@ -176,7 +178,7 @@ class Api::V1Controller < ActionController::Base
     i > 0 ? i : fallback
   end
 
-  # Internal: Builds some generic response headers, among them
+  # Protected: Builds some generic response headers, among them
   # X-Auth-Token // If a current user is present
   #
   # Examples
@@ -189,7 +191,7 @@ class Api::V1Controller < ActionController::Base
     "ok"
   end
 
-  # Public: Used to build an error
+  # Protected: Used to build an error
   #
   # args -  The attributes from which the method will build the error.
   #           :type     - The type of error, should be: :general, :field
@@ -215,7 +217,7 @@ class Api::V1Controller < ActionController::Base
     return error
   end
 
-  # Public: Used to extract error messages from a errorous model
+  # Protected: Used to extract error messages from a errorous model
   # and compile them to be rendered in API responses.
   #
   # model - The model to extract the errors from.
@@ -244,7 +246,7 @@ class Api::V1Controller < ActionController::Base
     return errors
   end
 
-  # Public: Accessor for the errors variable.
+  # Protected: Accessor for the errors variable.
   #
   # Returns the errors array.
   def errors

@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     flash[:error] = str
   end
 
-  protected
+protected
 
   # Internal: Forces users that are not of role moderator or higher to get redirected to
   # the maintenence page. The site will still work as normal even though maintenance
