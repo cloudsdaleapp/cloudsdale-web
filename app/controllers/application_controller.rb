@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  before_filter :auth_token
   before_filter :redirect_on_maintenance!, :set_time_zone_for_user!, :assert_user_ban!
 
   # Rescues the error yielded from not finding requested document
@@ -25,6 +26,8 @@ class ApplicationController < ActionController::Base
 
     if session[:user_id]
       @current_user ||= User.find_or_initialize_by(_id: session[:user_id])
+    elsif auth_token
+      @current_user ||= User.find_or_initialize_by(auth_token: auth_token)
     else
       @current_user ||= User.new
     end
@@ -62,5 +65,10 @@ protected
       redirect_to logout_path
     end
   end
+
+  def auth_token
+    @auth_token ||= cookies[:auth_token] || request.headers['X-Auth-Token']
+  end
+
 
 end

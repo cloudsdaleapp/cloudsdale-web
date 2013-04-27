@@ -32,7 +32,8 @@ protected
   # is persisted.
   def authenticate!(user)
     if params[:persist_session] == "true"
-      session[:user_id] = user.id.to_s
+      session[:user_id]    = user.id.to_s
+      cookies[:auth_token] = auth_token
     end
     user.save
   end
@@ -71,20 +72,12 @@ protected
 
     if session[:user_id]
       @current_user ||= User.find_or_initialize_by(_id: session[:user_id])
-    elsif @auth_token
+    elsif auth_token
       @current_user ||= User.find_or_initialize_by(auth_token: auth_token)
     else
       @current_user ||= User.new
     end
 
-  end
-
-
-  # Public: Sets the auth token of the current request
-  #
-  # Returns the auth token.
-  def auth_token
-    @auth_token ||= request.headers['X-Auth-Token']
   end
 
   # Protected: Determines which layout to use based on the
@@ -252,6 +245,14 @@ protected
   def errors
     @errors ||= []
   end
+
+  # Protected: Sets the auth token of the current request
+  #
+  # Returns the auth token.
+  def auth_token
+    @auth_token ||= cookies[:auth_token] || request.headers['X-Auth-Token']
+  end
+
 
 private
 
