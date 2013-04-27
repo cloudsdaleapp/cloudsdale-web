@@ -26,6 +26,7 @@ class User
   field :email,                     type: String
   field :email_token,               type: String
   field :email_verified_at,         type: DateTime
+  field :email_subscriber,          type: Boolean,    default: true
   field :skype_name,                type: String
   field :auth_token,                type: String
   field :password_hash,             type: String

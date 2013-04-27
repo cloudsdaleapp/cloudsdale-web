@@ -110,6 +110,12 @@ Cloudsdale::Application.routes.draw do
     post :paypal_ipn, on: :collection, as: :paypal_ipn
   end
 
+  # Endpoints for email links.
+  resources :email, only: [] do
+    get :unsubscribe, on: :member
+    get :verify,      on: :member
+  end
+
   # The XML sitemap that google uses to index the Cloudsdale site. Currently
   # lists all know pages as well as automatically listing all public Clouds.
   get '/sitemap' => 'sitemap#index', as: :sitemap
