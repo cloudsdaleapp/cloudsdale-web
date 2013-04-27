@@ -24,6 +24,7 @@ class User
 
   field :name,                      type: String
   field :email,                     type: String
+  field :email_token,               type: String
   field :email_verified_at,         type: DateTime
   field :skype_name,                type: String
   field :auth_token,                type: String
@@ -82,7 +83,10 @@ class User
     self[:email] = self[:email].downcase if email.present?
 
     add_known_name
-    generate_auth_token
+
+    generate_auth_token  unless auth_token.present?
+    generate_email_token unless email_token.present?
+
     encrypt_password
     enable_account_on_password_change
     set_confirmed_registration_date
@@ -409,9 +413,16 @@ class User
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 
-  # Internal: Generates an auth token unless an auth token is already set
+  # Public: Generates a new auth token and invalidates the old one,
+  # this might have some reprocussions if you're not careful.
   def generate_auth_token
-    self[:auth_token] = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
+    self[:auth_token] = SecureRandom.hex(16)
+  end
+
+  # Public: Renews the email token and makes the old one unusable.
+  # Good idea to do this when an email token has been consumed.
+  def generate_email_token
+    self[:email_token] = SecureRandom.hex(4)
   end
 
   # Internal: Sets the creation date of the User unless
