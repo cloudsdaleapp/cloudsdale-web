@@ -38,6 +38,9 @@ class Admin::DispatchesController < AdminController
       )
       redirect_to admin_dispatch_path(@dispatch)
     when "save-publish"
+      @dispatch.published_at = Time.now
+      @dispatch.save
+      DispatchesWorker.perform_async(@dispatch.id.to_s)
       redirect_to admin_dispatch_path(@dispatch)
     else
       redirect_to admin_dispatch_path(@dispatch)

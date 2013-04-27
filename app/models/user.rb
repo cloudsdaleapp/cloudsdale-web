@@ -54,6 +54,8 @@ class User
     where(:_id.in => ids, :preferred_status.ne => :offline)
   end
 
+  scope :available_for_mass_email, where(:email.ne => nil).only(:id)
+
   accepts_nested_attributes_for :authentications, :allow_destroy => true
 
   validates :auth_token,  uniqueness: true
