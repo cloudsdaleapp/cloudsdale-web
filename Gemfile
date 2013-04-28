@@ -89,7 +89,6 @@ end
 group :development, :test do
   gem 'pry'
 
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'spork-rails'
   gem 'rspec-rails'
 
@@ -100,6 +99,10 @@ group :development, :test do
 
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+end
+
+group :test, :darwin do
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
 end
 
 group :test do

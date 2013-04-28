@@ -25,6 +25,8 @@ set :user,            "deploy"
 set :group,           "deploy"
 set :use_sudo,        false
 
+set :bundle_without, [:darwin, :development, :test]
+
 # Sidekiq
 set :sidekiq_cmd,       "bundle exec sidekiq"
 set :sidekiqctl_cmd,    "bundle exec sidekiqctl"
