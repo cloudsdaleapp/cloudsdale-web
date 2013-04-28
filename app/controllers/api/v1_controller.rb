@@ -228,8 +228,8 @@ protected
     unless _model.errors.empty?
 
       _model.errors.messages.each do |field,messages|
-        id    = _model._id.to_s
-        type  = _model.try(:_type).try(:to_s) || _model.class.to_s.downcase || ""
+        id    = _model[:_id].to_s
+        type  = _model[:_type].try(:to_s) || _model.class.to_s.downcase || ""
         node  = field.to_s
         message = messages.join(', ')
 

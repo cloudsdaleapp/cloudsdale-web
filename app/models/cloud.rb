@@ -82,6 +82,10 @@ class Cloud
     :hidden => lambda { |cloud| cloud.hidden == true }
   }
 
+  after_initialize do
+    self[:_type] = "Cloud"
+  end
+
   before_validation do
 
     # Sets a new Owner from among the moderators if owner id is nil.
@@ -112,7 +116,6 @@ class Cloud
   before_save do
 
     self[:member_count] = self.user_ids.count
-    self[:_type] = "Cloud"
 
     build_chat unless chat.present?
 

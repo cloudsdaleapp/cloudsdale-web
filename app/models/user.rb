@@ -79,8 +79,11 @@ class User
     self[:clouds_moderated_ids].uniq! if self[:clouds_moderated_ids]
   end
 
-  before_save do
+  after_initialize do
     self[:_type] = "User"
+  end
+
+  before_save do
     self[:email] = self[:email].downcase if email.present?
 
     add_known_name
