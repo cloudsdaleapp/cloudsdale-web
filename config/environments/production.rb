@@ -8,7 +8,7 @@ Cloudsdale::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  #
+  # Which files are going to be precompiled
   config.assets.precompile = %w(application.css application.js mobile.css mobile.js admin.css admin.js *.ttf *.svg *.woff *.eot *.jst *.png *.jpg .jpeg *.gif *.bmp *.ico)
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
@@ -27,8 +27,8 @@ Cloudsdale::Application.configure do
   # config.assets.manifest = YOUR_PATH
 
   # Specifies the header that your server uses for sending files
-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile"     # apache
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
