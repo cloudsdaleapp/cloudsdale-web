@@ -5,64 +5,62 @@ body
   background-color: #fafafa
   font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif
 
-#header
-  position: relative
+table
+  width: 100%
+  border: 0
 
-  height: 37px
+img
+  max-width: 100%
 
-  margin-bottom: 5px
+.email-wrap
+  width: 600px
+  max-width: 100%
 
-  text-align: left
-  color: #222222
+tr.separator
+  td
+    min-height: 10px
+    div
+      min-height: 10px
+      max-height: 10px
+
+.header-table
+  tr
+    height: 32px
+    td
+      height: 32px
+
+.header-logo
+  width: 38px
+
+.header-subject
+  width: auto
   line-height: 32px
+  color: #5E5E5E
   font-size: 18px
 
-  color: #4d4d4d
-
-#logo, #subject
-  position: absolute
-  top: 5px
-  bottom: 0px
-
-#logo
-  left: 4px
-  width: 32px
-  height: 32px
-  background-image: image-url('icon/icon_email_gray.png')
-
-#subject
-  left: 42px
-  right: 4px
-
-#email-wrap
-  width: 100%
-
-#article, #article-inner
-  border-radius: 2px
-
-#article, #banner
+table.panel > tr > td
   background: #efefef
-  padding: 4px 0
-  margin-bottom: 5px
+  border-radius: 2px
+table.panel-inner > tr > td
+  background: #d8d8d8
+  div
+    background: #fff
+    display: block
+    margin-bottom: 1px
+  img
+    display: block
 
-#article-inner, #banner-inner
-  background: #fff
-  margin: 0 4px
-  border: 1px solid #d8d8d8
+table.content > tr > td
+  background-color: #fff
 
-#article-inner
-  padding: 20px
+table.notification > tr > td
+  background-color: #BF5E5B
+  a
+    font-size: 14px
+    color: #FFFFFF
+    text-decoration: none
 
-#banner-inner
-  padding: 0
-
-#banner-inner > img
-  max-width: 100%
-  display: block
-  margin: 0
-  padding: 0
-
-#footer
+.footer
   text-align: left
   font-size: 12px
   a
@@ -71,9 +69,6 @@ body
 
   span
     padding: 0 5px
-
-  a, span
-    line-height: 20px
 
 .button
   font-size: 16px
