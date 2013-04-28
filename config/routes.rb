@@ -111,7 +111,7 @@ Cloudsdale::Application.routes.draw do
   end
 
   # Endpoints for email links.
-  resources :email, only: [] do
+  resources :emails, only: [], path: :email do
     get :unsubscribe, on: :member
     get :verify,      on: :member
   end
