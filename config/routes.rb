@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require "constraints/admin_constraints"
 
 Cloudsdale::Application.routes.draw do
 
@@ -125,5 +126,5 @@ Cloudsdale::Application.routes.draw do
   match '/:page_id' => 'pages#show', as: :page
 
   # Engines
-  mount Sidekiq::Web, at: '/admin/workers'
+  mount Sidekiq::Web,   at: '/admin/workers',   constraints: AdminConstraints.new
 end
