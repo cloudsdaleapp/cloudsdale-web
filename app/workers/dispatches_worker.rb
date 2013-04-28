@@ -11,7 +11,8 @@ class DispatchesWorker
     user_ids.map(&:id).each do |user_id|
       DispatchMailer.delay(
         :queue => :low,
-        :retry => 1
+        :retry => false,
+        :backtrace => true
       ).default_mail(
         dispatch_id.to_s,
         user_id.to_s,
