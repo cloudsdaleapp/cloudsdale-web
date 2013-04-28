@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require "constraints/admin_constraints"
 
 Cloudsdale::Application.routes.draw do
 
@@ -110,6 +111,12 @@ Cloudsdale::Application.routes.draw do
     post :paypal_ipn, on: :collection, as: :paypal_ipn
   end
 
+  # Endpoints for email links.
+  resources :emails, only: [], path: :email do
+    get :unsubscribe, on: :member
+    get :verify,      on: :member
+  end
+
   # The XML sitemap that google uses to index the Cloudsdale site. Currently
   # lists all know pages as well as automatically listing all public Clouds.
   get '/sitemap' => 'sitemap#index', as: :sitemap
@@ -119,5 +126,5 @@ Cloudsdale::Application.routes.draw do
   match '/:page_id' => 'pages#show', as: :page
 
   # Engines
-  mount Sidekiq::Web, at: '/admin/workers'
+  mount Sidekiq::Web,   at: '/admin/workers',   constraints: AdminConstraints.new
 end

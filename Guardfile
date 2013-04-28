@@ -1,4 +1,4 @@
-guard 'spork', :runner => :cli, :rspec_env => { 'RAILS_ENV' => 'test' }, :cli => "--drb --tty --color" do
+guard 'spork', :runner => :cli, :rspec_env => { 'RAILS_ENV' => 'test' }, :cli => "--color --format documentation --fail-fast --drb" do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch(%r{^config/environments/.*\.rb$})
@@ -7,7 +7,7 @@ guard 'spork', :runner => :cli, :rspec_env => { 'RAILS_ENV' => 'test' }, :cli =>
   watch('spec/spec_helper.rb') { :rspec }
 end
 
-guard 'rspec', :cli => "--drb --tty --color", :runner => :cli do
+guard 'rspec', :cli => "--color --format documentation --fail-fast --drb", :runner => :cli do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})                { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')             { "spec" }

@@ -1,3 +1,5 @@
+require 'sidekiq/testing/inline'
+
 Cloudsdale::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -45,8 +47,15 @@ Cloudsdale::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => "local.cloudsdale.org", port: 3000 }
-  config.action_mailer.smtp_settings = { :host => "localhost", :port => 1025 }
+  config.action_mailer.default_url_options   = {
+    host: Cloudsdale.config['email']['url']['host'],
+    port: Cloudsdale.config['email']['url']['port'].to_i
+  }
+
+  config.action_mailer.smtp_settings = {
+    :host => Cloudsdale.config['email']['host'],
+    :port => Cloudsdale.config['email']['port'].to_i
+  }
 
 end
 

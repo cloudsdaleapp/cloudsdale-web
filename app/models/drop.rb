@@ -5,14 +5,11 @@ class Drop
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::FullTextSearch
-  include Mongo::Voteable
 
   ## Preview Uploader specific
   mount_uploader :preview, PreviewUploader
   field :preview_dimensions,    type: Hash,       default: { width: 0, height: 0 }
   field :preview_file_type,     type: String,     default: ""
-
-  voteable self, :up => +1, :down => -1
 
   embeds_many :deposits
 

@@ -63,19 +63,22 @@ Cloudsdale::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => "www.cloudsdale.org", port: 80 }
+  config.action_mailer.default_url_options   = {
+    host: Cloudsdale.config['email']['url']['host'],
+    port: Cloudsdale.config['email']['url']['port'].to_i
+  }
+
   config.action_mailer.smtp_settings = {
+    domain:  Cloudsdale.config['email']['domain'],
+    address: Cloudsdale.config['email']['host'],
 
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "cloudsdale.org",
+    port:    Cloudsdale.config['email']['port'].to_i,
 
-    enable_starttls_auto: true,
     authentication: :plain,
+    enable_starttls_auto: true,
 
-    user_name: "info@cloudsdale.org",
-    password: "secret1234"
-
+    user_name: Cloudsdale.config['email']['user_name'],
+    password:  Cloudsdale.config['email']['password']
   }
 
 end

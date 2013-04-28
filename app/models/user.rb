@@ -1,13 +1,12 @@
 class User
 
-  ROLES = { normal: 0, donor: 1, legacy: 2, associate: 3, admin: 4, developer: 5, verified: 6, founder: 7 }
+  ROLES = { normal: 0, donor: 1, legacy: 2, associate: 3, verified: 4, admin: 5, developer: 6, founder: 7 }
   STATUSES = { offline: 0, online: 1, away: 2, busy: 3 }
 
   include AMQPConnector
 
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongo::Voter
 
   include Droppable
 
@@ -25,7 +24,9 @@ class User
 
   field :name,                      type: String
   field :email,                     type: String
+  field :email_token,               type: String
   field :email_verified_at,         type: DateTime
+  field :email_subscriber,          type: Boolean,    default: true
   field :skype_name,                type: String
   field :auth_token,                type: String
   field :password_hash,             type: String
@@ -55,6 +56,8 @@ class User
     where(:_id.in => ids, :preferred_status.ne => :offline)
   end
 
+  scope :available_for_mass_email, where(:email.ne => nil).only(:id)
+
   accepts_nested_attributes_for :authentications, :allow_destroy => true
 
   validates :auth_token,  uniqueness: true
@@ -81,7 +84,10 @@ class User
     self[:email] = self[:email].downcase if email.present?
 
     add_known_name
-    generate_auth_token
+
+    generate_auth_token  unless auth_token.present?
+    generate_email_token unless email_token.present?
+
     encrypt_password
     enable_account_on_password_change
     set_confirmed_registration_date
@@ -408,9 +414,16 @@ class User
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 
-  # Internal: Generates an auth token unless an auth token is already set
+  # Public: Generates a new auth token and invalidates the old one,
+  # this might have some reprocussions if you're not careful.
   def generate_auth_token
-    self[:auth_token] = -> n { SecureRandom.hex(n) }.call(16) unless auth_token.present?
+    self[:auth_token] = SecureRandom.hex(16)
+  end
+
+  # Public: Renews the email token and makes the old one unusable.
+  # Good idea to do this when an email token has been consumed.
+  def generate_email_token
+    self[:email_token] = SecureRandom.hex(4)
   end
 
   # Internal: Sets the creation date of the User unless

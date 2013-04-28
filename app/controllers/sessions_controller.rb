@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
   # Returns you to the root page.
   def destroy
     session[:user_id] = nil
+    cookies.delete(:auth_token)
     redirect_to root_path
   end
 

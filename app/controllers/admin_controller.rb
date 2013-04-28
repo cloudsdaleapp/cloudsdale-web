@@ -4,11 +4,17 @@ class AdminController < ApplicationController
 
   layout :determine_layout
 
+  before_filter :assert_admin
+
   rescue_from Pundit::NotAuthorizedError do |message|
     redirect_to root_path
   end
 
 private
+
+  def assert_admin
+    raise Pundit::NotAuthorizedError unless current_user.is_of_role? :admin
+  end
 
   def determine_layout
     'admin'

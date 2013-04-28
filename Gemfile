@@ -8,7 +8,6 @@ gem 'mongoid', '~> 3.1.0'
 gem 'moped',   '~> 1.4.0'
 gem 'mongoid_rails_migrations', '~> 1.0.0'
 gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
-gem 'voteable_mongo'
 gem 'kaminari'
 gem 'dalli'
 
@@ -113,9 +112,6 @@ group :production, :assets do
   gem 'therubyracer', '~> 0.11.4'
   gem 'execjs'
 end
-
-gem 'yard'
-gem 'yard-tomdoc', git: 'git://github.com/rubyworks/yard-tomdoc.git'
 
 # Profiling
 gem 'newrelic_rpm'

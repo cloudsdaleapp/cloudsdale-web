@@ -1,9 +1,14 @@
-development:
-  url: http://local.cloudsdale.org:3000
-  asset_url: http://local.cloudsdale.org:3000
+defaults: &defaults
 
   uploader:
     storage: 'file'
+
+  email:
+    host: localhost
+    port: 1025
+    url:
+      host: local.cloudsdale.org
+      port: 3000
 
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
@@ -16,15 +21,18 @@ development:
     app_key: 213007855430354
     app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
 
+  soundcloud:
+    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
+    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
+
   redis:
     host: 127.0.0.1
     port: 6379
 
-  rackspace_cloudfiles:
-    username: zeeraw
-    api_key: fb02d3d2336d887b81c7401d522ea393
-    fog_directory: cloudsdale_development_uploads
-    fog_host: https://c775851.ssl.cf2.rackcdn.com
+  rabbit:
+    host: localhost
+    user: guest
+    pass: guest
 
   faye:
     path: push
@@ -36,18 +44,37 @@ development:
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
     inhouse_host: 127.0.0.1
 
-  soundcloud:
-    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
-    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
-  rabbit:
-    host: localhost
-    user: guest
-    pass: guest
+development:
+  <<: *defaults
+
+  url: http://local.cloudsdale.org:3000
+  asset_url: http://local.cloudsdale.org:3000
+
+  rackspace_cloudfiles:
+    username: zeeraw
+    api_key: fb02d3d2336d887b81c7401d522ea393
+    fog_directory: cloudsdale_development_uploads
+    fog_host: https://c775851.ssl.cf2.rackcdn.com
+
+test:
+  <<: *defaults
 
 
 production:
+  <<: *defaults
+
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
+
+  email:
+    user_name: cloudsdale
+    password: secret1234
+    address: smtp.sendgrid.net
+    domain: cloudsdale.org
+    port: 587
+    url:
+      host: www.cloudsdale.org
+      port: 80
 
   uploader:
     storage: 'fog'
@@ -63,9 +90,9 @@ production:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
 
-  redis:
-    host: 127.0.0.1
-    port: 6379
+  soundcloud:
+    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
+    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
 
   rackspace_cloudfiles:
     username: zeeraw
@@ -83,17 +110,4 @@ production:
     token: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
     inhouse_host: push.cloudsdale.org
 
-  soundcloud:
-    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
-    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
-
-  rabbit:
-    host: 127.0.0.1
-    user: guest
-    pass: guest
-
-  # rabbit:
-  #   host: push01.snet.cloudsdale.org
-  #   user: cloudsdale
-  #   pass: a73eb7270e283e9777a7e7d7124c4a3e
 
