@@ -3,7 +3,7 @@
 #   sidekiq -C config.yml
 ---
 :verbose: true
-:concurrency: 2
+:concurrency: 25
 :pidfile: /var/run/sidekiq.pid
 :queues:
   - [high, 10]
