@@ -101,8 +101,8 @@ group :development, :test do
   gem 'factory_girl_rails'
 end
 
-group :test, :darwin do
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+group :test, :darwin, :development do
+  gem 'rb-fsevent', :require => false
 end
 
 group :test do
