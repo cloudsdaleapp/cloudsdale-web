@@ -57,7 +57,8 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
     @cloud = fetch_cloud()
     @user = fetch_user()
 
-    if @user.cannot? :add, @cloud
+
+    if not CloudPolicy.new(@user,@cloud).join?
       render status: 401
     else
 
@@ -82,7 +83,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
     @cloud = fetch_cloud()
     @user = fetch_user()
 
-    if @user.cannot? :deduct, @cloud
+    if not CloudPolicy.new(@user,@cloud).leave?
       render status: 401
     else
 
