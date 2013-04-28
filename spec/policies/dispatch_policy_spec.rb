@@ -13,7 +13,7 @@ describe DispatchPolicy do
         should permit(user,dispatch)
       end
     end
-    [:normal,:donor,:legacy,:associate].each do |role|
+    [:normal,:donor,:legacy,:associate,:verified].each do |role|
       it "does not permit a user of role :#{role}" do
         user.role = User::ROLES[role]
         should_not permit(user,dispatch)
