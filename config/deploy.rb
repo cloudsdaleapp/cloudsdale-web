@@ -59,7 +59,7 @@ namespace :deploy do
   desc 'Correct permission on all application files to the deploy user.'
   namespace :permissions do
     task :correct, :roles => :app, :except => { :no_release => true } do
-      run "#{try_sudo} chown -R #{user}:#{group} /opt/app/#{application}"
+      run "sudo chown -R #{user}:#{group} /opt/app/#{application}"
     end
   end
 
