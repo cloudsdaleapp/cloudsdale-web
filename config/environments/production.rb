@@ -70,7 +70,7 @@ Cloudsdale::Application.configure do
 
   config.action_mailer.smtp_settings = {
     domain:  Cloudsdale.config['email']['domain'],
-    address: Cloudsdale.config['email']['host'],
+    address: Cloudsdale.config['email']['address'],
 
     port:    Cloudsdale.config['email']['port'].to_i,
 
