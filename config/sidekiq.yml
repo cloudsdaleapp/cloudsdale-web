@@ -9,6 +9,6 @@ queues:
   - [low, 1]
 
 production:
-  verbose: false
+  verbose: true
   concurrency:  25
   pidfile: /var/run/sidekiq.pid
