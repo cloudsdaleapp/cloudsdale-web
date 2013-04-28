@@ -82,6 +82,8 @@ gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
 group :development do
   gem 'gist'
   gem 'foreman'
+  gem 'capistrano'
+  gem 'capistrano_colors', :require => nil
 end
 
 group :development, :test do
@@ -118,9 +120,6 @@ gem 'newrelic_rpm'
 gem 'newrelic_moped'
 gem 'newrelic-redis'
 gem 'ruby-prof'
-
-gem 'capistrano', git: 'git://github.com/capistrano/capistrano.git'
-gem 'capistrano_colors', :require => nil
 
 gem 'unicorn'
 gem 'thin'
