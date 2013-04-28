@@ -45,6 +45,7 @@ role :app,  "www.cloudsdale.org", :primary => true
 
 after 'deploy', 'deploy:permissions:correct'
 after 'deploy:create_symlink', 'deploy:assets:upload'
+after 'deploy:create_symlink', 'sidekiq:link_assets'
 
 # Default Environment
 default_environment["RAILS_ENV"]    = rails_env
@@ -82,6 +83,19 @@ namespace :deploy do
   desc "Stop unicorn"
   task :stop, :roles => unicorn_role, :except => { :no_release => true } do
     run "kill -s QUIT `cat #{unicorn_pid}`"
+  end
+
+end
+
+namespace :sidekiq do
+
+  desc "Moves the sidekiq assets in to the project folder so they can be served."
+  task :link_assets, roles: :web do
+    bundle_path = capture "cd #{current_path}; bundle show sidekiq"
+    bundle_path = "#{bundle_path.strip}/web/assets"
+    run "mkdir -p #{current_path}/public/admin"
+    run "ln -fs #{bundle_path} #{current_path}/public/admin"
+    run "mv #{current_path}/public/admin/assets #{current_path}/public/admin/workers"
   end
 
 end
