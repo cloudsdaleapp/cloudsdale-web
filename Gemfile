@@ -47,7 +47,7 @@ gem 'pundit'
 # Forms
 gem 'client_side_validations'
 
-# Storage
+# Third-party
 gem 'fog'
 gem 'cloudfiles', '1.4.18'
 
