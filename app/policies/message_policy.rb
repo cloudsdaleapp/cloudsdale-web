@@ -13,6 +13,10 @@ class MessagePolicy < ApplicationPolicy
     user.is_of_role? :admin
   end
 
+  def update?
+    create?
+  end
+
 private
 
   def user_is_member_of_topic?
