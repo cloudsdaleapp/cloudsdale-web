@@ -8,7 +8,6 @@ queues:
   - [default, 5]
   - [low, 1]
 
-production:
-  verbose: true
-  concurrency:  25
-  pidfile: /var/run/sidekiq.pid
+verbose: true
+concurrency: 4
+pidfile: /var/run/sidekiq.pid

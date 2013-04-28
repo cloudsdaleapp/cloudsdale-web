@@ -33,7 +33,7 @@ set :sidekiqctl_cmd,    "bundle exec sidekiqctl"
 set :sidekiq_timeout,   10
 set :sidekiq_role,      :app
 set :sidekiq_pid,       "/var/run/sidekiq.pid"
-set :sidekiq_processes, 8
+set :sidekiq_processes, 2
 
 # Unicorn
 set :unicorn_pid ,      "/var/run/unicorn/web.pid"
