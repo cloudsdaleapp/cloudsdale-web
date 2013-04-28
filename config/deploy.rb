@@ -26,8 +26,8 @@ set :group,           "deploy"
 set :use_sudo,        false
 
 # Sidekiq
-set :sidekiq_cmd,       "#{bundle_cmd} exec sidekiq"
-set :sidekiqctl_cmd,    "#{bundle_cmd} exec sidekiqctl"
+set :sidekiq_cmd,       "bundle exec sidekiq"
+set :sidekiqctl_cmd,    "bundle exec sidekiqctl"
 set :sidekiq_timeout,   10
 set :sidekiq_role,      :app
 set :sidekiq_pid,       "/var/run/sidekiq.pid"
