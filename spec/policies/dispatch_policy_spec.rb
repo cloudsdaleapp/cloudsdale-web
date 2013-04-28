@@ -5,7 +5,7 @@ describe DispatchPolicy do
   let(:dispatch) { build(:dispatch) }
   let(:user)     { build(:user) }
 
-  permissions :create?, :update?, :index?, :show? do
+  permissions :create?, :update?, :index?, :show?, :destroy? do
 
     [:admin,:developer,:founder].each do |role|
       it "does permit a user of role :#{role}" do
