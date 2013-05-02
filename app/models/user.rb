@@ -27,6 +27,7 @@ class User
   field :email_token,               type: String
   field :email_verified_at,         type: DateTime
   field :email_subscriber,          type: Boolean,    default: true
+  field :email_bounces,             type: Integer,    default: 0
   field :skype_name,                type: String
   field :auth_token,                type: String
   field :password_hash,             type: String
@@ -162,6 +163,7 @@ class User
     if val.present? && (val != self[:email])
       generate_email_token
       self.email_verified_at = nil
+      self.email_bounces     = 0
       self[:email] = val
     end
   end
