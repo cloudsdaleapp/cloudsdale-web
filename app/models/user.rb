@@ -138,7 +138,7 @@ class User
   # Returns the name String.
   def name=(val=nil)
 
-    if val.present?
+    if val.present? && (val != self[:name])
 
       val = val.gsub(/[^a-z]/i," ")
       val = val.gsub(/^\s*/i,"")
@@ -159,7 +159,7 @@ class User
   end
 
   def email=(val=nil)
-    if val.present?
+    if val.present? && (val != self[:email])
       generate_email_token
       self.email_verified_at = nil
       self[:email] = val
