@@ -27,10 +27,6 @@ module Cloudsdale
     @redisClient = Redis.new(:host => config['redis']['host'], :port => config['redis']['port'])
   end
 
-  def self.soundcloud
-    @soundcloud = Soundcloud.new(:client_id => config['soundcloud']['client_id'])
-  end
-
   def self.bunny
     unless @bunny
       @bunny ||= Bunny.new(

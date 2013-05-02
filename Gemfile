@@ -62,9 +62,6 @@ gem 'pdf-reader'
 # Video
 gem 'youtube_it'
 
-# Sound
-gem 'soundcloud'
-
 # Others
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'hashr', :require => 'hashr'

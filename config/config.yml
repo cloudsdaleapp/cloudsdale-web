@@ -21,10 +21,6 @@ defaults: &defaults
     app_key: 213007855430354
     app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
 
-  soundcloud:
-    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
-    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
-
   redis:
     host: 127.0.0.1
     port: 6379
@@ -89,10 +85,6 @@ production:
   facebook:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
-
-  soundcloud:
-    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
-    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
 
   rackspace_cloudfiles:
     username: zeeraw
