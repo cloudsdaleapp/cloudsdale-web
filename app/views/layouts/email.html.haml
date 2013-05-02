@@ -46,7 +46,7 @@
                   %tr
                     %td
                       %table.panel-inner{ border: "0", cellpadding: "1", cellspacing: "0",  align: "center" }
-                        - unless user.email_verified_at.present?
+                        - if !user.email_verified_at.present? && (controller.instance_variable_get(:@_action_name).to_sym == :default_mail)
                           %tr
                             %td
                               %table.notification{ border: "0", cellpadding: "10", cellspacing: "0",  align: "center" }
