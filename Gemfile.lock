@@ -225,9 +225,6 @@ GEM
     net-ssh (2.6.6)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic-redis (1.4.0)
-      newrelic_rpm (~> 3.0)
-      redis (< 4.0)
     newrelic_moped (0.0.6)
       moped
       newrelic_rpm (~> 3.6.0)
@@ -458,7 +455,6 @@ DEPENDENCIES
   mongoid_fulltext!
   mongoid_rails_migrations (~> 1.0.0)
   moped (~> 1.4.0)
-  newrelic-redis
   newrelic_moped
   newrelic_rpm
   omniauth

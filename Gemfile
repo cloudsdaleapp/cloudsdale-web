@@ -118,7 +118,6 @@ end
 # Profiling
 gem 'newrelic_rpm'
 gem 'newrelic_moped'
-gem 'newrelic-redis'
 gem 'ruby-prof'
 
 gem 'unicorn'
