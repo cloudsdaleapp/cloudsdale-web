@@ -15,27 +15,27 @@ gem "redis", "~> 3.0.1"
 gem "hiredis", '~> 0.4.5'
 
 # CANT HAVE ASSETS GROUP!
-gem 'sass', '~> 3.2.1'
-gem 'sass-rails', '~> 3.2.5'
+gem 'sass',           '~> 3.2.1'
+gem 'sass-rails',     '~> 3.2.5'
 gem 'bootstrap-sass', '~> 2.1.0.0'
+gem 'jquery-rails',   '~> 2.0.2'
 gem 'coffee-script'
 gem 'uglifier'
-gem 'jquery-rails'
 gem 'sprockets'
-gem 'haml_coffee_assets'
+gem 'haml_coffee_assets', '~> 1.6.0'
 gem 'zurb-foundation'
 gem 'ace-rails-ap'
 
+
 # Markup
 gem 'slim'
-gem 'haml'
-gem 'haml-rails'
+gem 'haml-rails', '~> 0.3.4'
 gem 'redcarpet'
-gem 'rabl', '~> 0.6.10'
+gem 'rabl',       '~> 0.6.10'
 gem 'roadie'
 
 # Frontend
-gem 'backbone-on-rails'
+gem 'backbone-on-rails', '~> 0.9.2.0'
 
 # Authentication & Authorization
 gem 'redis-rails', '~> 3.2.3'

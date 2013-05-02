@@ -419,7 +419,7 @@ PLATFORMS
 
 DEPENDENCIES
   ace-rails-ap
-  backbone-on-rails
+  backbone-on-rails (~> 0.9.2.0)
   bcrypt-ruby
   bootstrap-sass (~> 2.1.0.0)
   bson_ext
@@ -445,13 +445,12 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-spork
-  haml
-  haml-rails
-  haml_coffee_assets
+  haml-rails (~> 0.3.4)
+  haml_coffee_assets (~> 1.6.0)
   hashr
   hiredis (~> 0.4.5)
   imagesize
-  jquery-rails
+  jquery-rails (~> 2.0.2)
   kaminari
   kiqstand (~> 1.1.0)
   mini_magick
