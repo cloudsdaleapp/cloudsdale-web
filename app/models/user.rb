@@ -100,9 +100,23 @@ class User
   after_save do
     enqueue! "faye", { channel: "/users/#{self._id.to_s}", data: self.to_hash }
     enqueue! "faye", { channel: "/users/#{self._id.to_s}/private", data: self.to_hash( template: "api/v1/users/private" ) }
+
     if name_changed? or preferred_status_changed? or role_changed? or avatar_changed?
       self.cloud_ids.each { |cloud_id| enqueue!("faye", { channel: "/clouds/#{cloud_id.to_s}/users/#{self._id.to_s}", data: self.to_hash( template: "api/v1/users/mini") }) }
     end
+
+    if confirmed_registration_at_changed? && confirmed_registration_at.present? && email.present?
+      UserMailer.delay(
+        :queue => :high,
+        :retry => false
+      ).welcome_mail(self.id.to_s)
+    elsif email_changed? && email.present? && !confirmed_registration_at_changed? && !email_verified_at.present?
+      UserMailer.delay(
+        :queue => :high,
+        :retry => false
+      ).verification_mail(self.id.to_s)
+    end
+
   end
 
   # Public: Atomic setter for when the user was last seen in action
@@ -142,6 +156,14 @@ class User
     end
 
     self[:name] = val if val.present?
+  end
+
+  def email=(val=nil)
+    if val.present?
+      generate_email_token
+      self.email_verified_at = nil
+      self[:email] = val
+    end
   end
 
   # Public: Fetches the users status
