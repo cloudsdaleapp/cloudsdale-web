@@ -22,7 +22,7 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     @session = window.session
     @user = @session.get('user')
 
-    @logoutOnHide = false
+    @logoutOnHide   = false
     @callbackOnHide = false
 
     @render()
@@ -270,12 +270,12 @@ class Cloudsdale.Views.SessionsDialog extends Backbone.View
     submitData = {}
     submitData.user = {}
 
-    if (@state == 'complete') or (@state == 'name_change')
-      submitData.user.name = @.$('#session_display_name').val()
-    if (@state == 'complete') or (@state == 'email_change')
-      submitData.user.email = @.$('#session_email').val()
-    if (@state == 'complete') or (@state == 'password_change')
-      submitData.user.password = @.$('#session_password').val()
+    # if (@state == 'complete') or (@state == 'name_change')
+    submitData.user.name = @.$('#session_display_name').val()
+    # if (@state == 'complete') or (@state == 'email_change')
+    submitData.user.email = @.$('#session_email').val()
+    # if (@state == 'complete') or (@state == 'password_change')
+    submitData.user.password = @.$('#session_password').val()
 
     submitData.user.confirm_registration = true
 

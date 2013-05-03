@@ -38,6 +38,7 @@ class User
   field :invisible,                 type: Boolean,    default: false
   field :force_password_change,     type: Boolean,    default: false
   field :force_name_change,         type: Boolean,    default: false
+  field :force_email_change,        type: Boolean,    default: false
   field :tnc_last_accepted,         type: Date,       default: nil
   field :confirmed_registration_at, type: DateTime,   default: nil
   field :suspended_until,           type: DateTime,   default: nil
@@ -75,6 +76,10 @@ class User
   validates_presence_of [:email,:password,:name], :if => :confirm_registration
   validates_presence_of [:email,:name], :unless => :new_record?
 
+  validate :forced_password_change, if: :force_password_change_changed?
+  validate :forced_name_change,     if: :force_name_change_changed?
+  validate :forced_email_change,    if: :force_email_change_changed?
+
   before_validation do
     self[:cloud_ids].uniq! if self[:cloud_ids]
     self[:clouds_moderated_ids].uniq! if self[:clouds_moderated_ids]
@@ -92,8 +97,6 @@ class User
     generate_auth_token  unless auth_token.present?
     generate_email_token unless email_token.present?
 
-    encrypt_password
-    enable_account_on_password_change
     set_confirmed_registration_date
     set_creation_date
   end
@@ -138,8 +141,8 @@ class User
   #
   # Returns the name String.
   def name=(val=nil)
-
-    if val.present? && (val != self[:name])
+    if val.present?
+      self.force_name_change = false if self.force_name_change
 
       val = val.gsub(/[^a-z]/i," ")
       val = val.gsub(/^\s*/i,"")
@@ -153,18 +156,40 @@ class User
       end
 
       val = words[0..4].join(" ")
-
     end
 
-    self[:name] = val if val.present?
+    if val.present?
+      self[:name] = val
+      @name       = val
+      super(val)
+    end
   end
 
   def email=(val=nil)
-    if val.present? && (val != self[:email])
+    if val.present?
+      self.force_email_change = false if self.force_email_change
+
       generate_email_token
+
       self.email_verified_at = nil
       self.email_bounces     = 0
+
       self[:email] = val
+      @email       = val
+      super(val)
+    end
+  end
+
+  def password=(val=nil)
+    if val.present? && (@password != val)
+
+      self.force_password_change = false if self.force_password_change
+
+      self.password_salt = BCrypt::Engine.generate_salt unless password_salt.present?
+      self.password_hash = BCrypt::Engine.hash_secret(val, password_salt)
+
+      @password = val
+
     end
   end
 
@@ -470,14 +495,6 @@ class User
     end
   end
 
-  # Internal: Changes the state of force_password_change to true
-  # if the password_hash has recently been changed.
-  def enable_account_on_password_change
-    if password_hash_changed?
-      self[:force_password_change] = false if force_password_change?
-    end
-  end
-
   # Public: Determines wether the user has to change it's password
   # depending on if the :force_password_change attribute is true
   # or if :password_hash and :password_salt is not present.
@@ -493,9 +510,9 @@ class User
     self.force_password_change || (!self.password_hash.present? || !self.password_salt.present?)
   end
 
-  # Public: Determines wether the user has to change it's password
-  # depending on if the :force_password_change attribute is true
-  # or if :password_hash and :password_salt is not present.
+  # Public: Determines wether the user has to change it's name
+  # depending on if the :force_name_change attribute is true
+  # or if :name is not present.
   #
   # Examples
   #
@@ -503,9 +520,24 @@ class User
   # # => true
   #
   # Returns true or false depending on if the users has
-  # to change it's password.
+  # to change it's name.
   def needs_name_change?
     self[:force_name_change] || !self.name.present?
+  end
+
+  # Public: Determines wether the user has to change it's email
+  # depending on if the :force_email_change attribute is true
+  # or if :email is not present.
+  #
+  # Examples
+  #
+  # @user.force_password_change
+  # # => true
+  #
+  # Returns true or false depending on if the users has
+  # to change it's email.
+  def needs_email_change?
+    self[:force_email_change] || !self.email.present?
   end
 
   # Public: Determines wether the user has completed it's
@@ -542,6 +574,41 @@ class User
     email.present? && has_a_valid_authentication_method?
   end
 
+  # Private: Validation for when password is changed while forced password
+  # equates to true.
+  #
+  # Returns false if validation fails
+  def forced_password_change
+    if force_password_change_was == true
+      if password_hash_was == BCrypt::Engine.hash_secret(@password,password_salt)
+        errors.add(:password, "cannot be the same")
+        return false
+      end
+    end
+  end
+
+  # Private: Validation for when name is changed while forced name
+  # equates to true.
+  #
+  # Returns false if validation fails
+  def forced_name_change
+    if (name_was == name) && force_name_change_was == true
+      errors.add(:name, "cannot be the same")
+      return false
+    end
+  end
+
+  # Private: Validation for when password is changed while forced passowrd
+  # equates to true.
+  #
+  # Returns false if validation fails
+  def forced_email_change
+    if (email_was == email) && force_email_change_was == true
+      errors.add(:email, "cannot be the same")
+      return false
+    end
+  end
+
 protected
 
   # Internal: Override to silently ignore trying to remove missing
@@ -560,18 +627,6 @@ protected
       super
     rescue Fog::Storage::Rackspace::NotFound
       @previous_model_for_avatar = nil
-    end
-  end
-
-  private
-
-  # Private: Encrypts the users password using a password salt & pepper
-  #
-  # Returns the password hash.
-  def encrypt_password
-    if password.present? == true
-      self.password_salt = BCrypt::Engine.generate_salt
-      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
 

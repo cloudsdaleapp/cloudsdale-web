@@ -64,20 +64,30 @@
       .form-actions
         a.twitter-auth, a.facebook-auth, a.auth-dialog-help
           display: none
+
+    &.auth-form-complete
       .control-group:not(:last-child)
         border-bottom: 1px solid $color-border-light
 
-    &.auth-form-email-change, &.auth-form-restore
+    &.auth-form-restore
       .auth-field-group-password, .auth-field-group-displayname
         height: 0
+
+    &.auth-form-email-change
+      .auth-field-group-displayname
+        height: 0
+      .control-group:not(:first-child), .control-group:not(:last-child)
+        border-bottom: 1px solid $color-border-light
 
     &.auth-form-password-change
       .auth-field-group-email, .auth-field-group-displayname
         height: 0
 
     &.auth-form-name-change
-      .auth-field-group-email, .auth-field-group-password
+      .auth-field-group-email
         height: 0
+      .control-group:first-child
+        border-bottom: 1px solid $color-border-light
 
     &.auth-form-restore
       .form-actions
