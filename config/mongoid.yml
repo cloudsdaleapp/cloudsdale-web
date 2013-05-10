@@ -6,7 +6,7 @@ development:
       database: cloudsdale_development
 
       hosts:
-        - local.cloudsdale.org:52331
+        - www.cloudsdale.dev:52331
 
       options:
         safe: false
@@ -25,7 +25,7 @@ test:
       database: cloudsdale_test
 
       hosts:
-        - local.cloudsdale.org:52331
+        - www.cloudsdale.dev:52331
 
       options:
         safe: true

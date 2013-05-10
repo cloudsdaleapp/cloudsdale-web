@@ -7,8 +7,8 @@ defaults: &defaults
     host: localhost
     port: 1025
     url:
-      host: local.cloudsdale.org
-      port: 3000
+      host: www.cloudsdale.dev
+      port: 80
 
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
@@ -34,17 +34,17 @@ defaults: &defaults
     path: push
     schema: http
     secure_schema: https
-    host: local.cloudsdale.org
+    host: push.cloudsdale.dev
     port: 8000
-    secure_port: 44300
+    secure_port: 443
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
-    inhouse_host: 127.0.0.1
+    inhouse_host: push.cloudsdale.dev
 
 development:
   <<: *defaults
 
-  url: http://local.cloudsdale.org:3000
-  asset_url: http://local.cloudsdale.org:3000
+  url: http://www.cloudsdale.dev
+  asset_url: http://www.cloudsdale.dev
 
   rackspace_cloudfiles:
     username: zeeraw

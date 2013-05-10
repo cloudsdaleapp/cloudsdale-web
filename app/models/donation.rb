@@ -38,8 +38,8 @@ class Donation
       business = 'seller_1362637130_biz@vallin.se'
       url_base = "https://www.sandbox.paypal.com/cgi-bin/webscr?"
       notify_url = "http://requestb.in/1kjevtc1"
-      return_url = "http://local.cloudsdale.org:3000/donations/success"
-      cancel_url = "http://local.cloudsdale.org:3000/donations/cancel"
+      return_url = "http://www.cloudsdale.dev/donations/success"
+      cancel_url = "http://www.cloudsdale.dev/donations/cancel"
     else
       business = 'ask@cloudsdale.org'
       url_base = "https://www.paypal.com/cgi-bin/webscr?"
