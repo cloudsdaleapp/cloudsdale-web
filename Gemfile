@@ -8,6 +8,7 @@ gem 'mongoid', '~> 3.1.0'
 gem 'moped',   '~> 1.4.0'
 gem 'mongoid_rails_migrations', '~> 1.0.0'
 gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
+gem "active_model_serializers", '~> 0.7.0'
 gem 'kaminari'
 gem 'dalli'
 
