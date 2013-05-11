@@ -19,6 +19,13 @@ GIT
       unicode_utils (~> 1.0.0)
 
 GIT
+  remote: git://github.com/Zeeraw/pundit.git
+  revision: 97e5efd2ee6328bf7f6266a7e33df9b68e56e394
+  specs:
+    pundit (0.2.0)
+      rails (>= 3.0.0)
+
+GIT
   remote: git@github.com:Zeeraw/carrierwave-mongoid.git
   revision: 1a46bf48a242e80a82b5cc392c771894fb238662
   branch: mongoid-3.0
@@ -255,8 +262,6 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.4, < 3)
-    pundit (0.2.0)
-      rails (~> 3.0)
     rabl (0.6.10)
       activesupport (>= 2.3.14)
       multi_json (~> 1.0)
@@ -463,7 +468,7 @@ DEPENDENCIES
   omniauth-twitter
   pdf-reader
   pry
-  pundit
+  pundit!
   rabl (~> 0.6.10)
   rails (~> 3.2.13)
   rb-fsevent
