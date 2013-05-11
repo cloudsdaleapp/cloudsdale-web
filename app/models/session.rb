@@ -22,9 +22,13 @@ class Session
   end
 
   def user
-    @user ||= User.or(username: /#{self.identifier}/i)
-              .or(email: /#{self.identifier}/i)
-              .first
+    if self.identifier.present?
+      @user ||= User.or(username: /^#{self.identifier}$/i)
+                .or(email: /^#{self.identifier}$/i)
+                .first
+    else
+      @user ||= nil
+    end
   end
 
   validates :user, password_combination: true
