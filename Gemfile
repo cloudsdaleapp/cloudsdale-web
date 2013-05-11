@@ -43,8 +43,7 @@ gem 'redis-rails', '~> 3.2.3'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'pundit'
-
+gem 'pundit', git: 'git://github.com/Zeeraw/pundit.git'
 
 # Third-party
 gem 'fog'
