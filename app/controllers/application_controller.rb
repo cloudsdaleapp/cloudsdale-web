@@ -48,9 +48,10 @@ class ApplicationController < ActionController::Base
 
 protected
 
-  # Internal: Forces users that are not of role moderator or higher to get redirected to
-  # the maintenence page. The site will still work as normal even though maintenance
-  # mode is activated for the users with sufficient rights.
+  # Internal: Forces users that are not of role moderator or
+  # higher to get redirected to the maintenence page. The site
+  # will still work as normal even though maintenance mode is
+  # activated for the users with sufficient rights.
   #
   # Returns nothing of intrest.
   def redirect_on_maintenance!
@@ -58,6 +59,19 @@ protected
       unless current_user and current_user.role >= 2
         redirect_to maintenance_path
       end
+    end
+  end
+
+  # Internal: Redirects user to the root path if he or she
+  # is already registered. This is most likely to be used on
+  # on authentication endpoints to make sure an authenticated
+  # user does not authenticate twice.
+  #
+  # Returns nothing of interest.
+  def redirect_if_registered!
+    unless current_user.new_record?
+      flash[:error] = "You are already logged in, please log out if you want to use another account."
+      redirect_to root_path
     end
   end
 
