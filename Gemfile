@@ -23,7 +23,7 @@ gem 'coffee-script'
 gem 'uglifier'
 gem 'sprockets'
 gem 'haml_coffee_assets', '~> 1.6.0'
-gem 'zurb-foundation',    '~> 4.0.9'
+gem 'zurb-foundation',    '~> 4.1.6'
 gem 'ace-rails-ap'
 
 
