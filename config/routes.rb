@@ -44,7 +44,9 @@ Cloudsdale::Application.routes.draw do
   root to: 'root#index'
 
   # Use this endpoint to end a users session through the webapp.
-  match '/logout' => 'sessions#destroy', as: :logout
+  get  '/logout' => 'sessions#destroy', as: :logout
+  get  '/login'  => 'sessions#new',     as: :login
+  post '/login'  => 'sessions#create',  as: :login
 
   # A maintenence page hosted by the Cloudsdale app itself, this is rarely
   # used as Cloudsdale never has scheduled maintenences.

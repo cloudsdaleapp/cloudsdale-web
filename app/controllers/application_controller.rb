@@ -88,4 +88,18 @@ protected
     session[:redirect_url] = nil
     redirect_to url
   end
+
+private
+
+  # Private: Used to set a session for the user if the persist_session parameter is available.
+  # It will also save the user to the database to ensure any new SHIT added to the user model
+  # is persisted.
+  def authenticate!(user)
+    session[:user_id]    = user.id.to_s
+    cookies[:auth_token] = auth_token
+    @auth_token          = auth_token
+    @current_user        = user
+    user.save
+  end
+
 end
