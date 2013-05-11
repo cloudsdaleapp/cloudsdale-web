@@ -44,6 +44,13 @@ Cloudsdale::Application.routes.draw do
     skip_controllers :applications, :authorized_applications
   end
 
+  api version: 2 do
+    root to: 'root#index'
+
+    match '*path', to: 'root#not_found', via: [:post,:get,:put,:patch,:delete]
+  end
+
+
   # The root path where users will land when entering our url.
   root to: 'root#index'
 
