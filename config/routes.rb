@@ -8,64 +8,34 @@ Cloudsdale::Application.routes.draw do
     resources :dispatches, only: [:index,:show,:create,:update]
   end
 
-  namespace "v1", module: "api/v1" do
-
+  api version: 1, subdomain: /(api|www)/ do
     resources :sessions, only: [:create]
-
     resources :donations, only: [:index]
-
     resources :clouds, only: [:show,:update,:create,:destroy] do
-
       get   :search,  on: :collection,  as: :search
       get   :recent,  on: :collection,  as: :recent
       get   :popular, on: :collection,  as: :popular
-
       resources :users, :controller => "clouds/users", only: [:destroy,:update,:index] do
-
         get :moderators, on: :collection, as: :moderators
         get :online,     on: :collection, as: :online
-
       end
-
       resources :drops, :controller => "clouds/drops", only: [:index,:destroy] do
-
         get :search, on: :collection, as: :search
-
       end
-
       resources :bans, :controller => "clouds/bans", only: [:index,:create,:update]
-
       namespace :chat, module: 'clouds/chat' do
         resources :messages, only: [:index,:create]
       end
-
     end
-
-    # To do a form encoded request to update clouds we need to add a specific
-    # POST request to the clouds update path.
     match "/clouds/:id" => "clouds#update", via: :post, as: :cloud
-
-
     resources :users, only: [:show,:create,:update,:index] do
-
       post "/restore" => 'users#restore', on: :collection, as: :restore
-
       put "/ban"    => 'users#ban',   on: :member, as: :ban
       put "/unban"  => 'users#unban', on: :member, as: :unban
-
       put "/accept_tnc" => 'users#accept_tnc', on: :member, as: :accept_tnc
-
       resources :clouds, :controller => "users/clouds", only: [:index]
-
     end
-
-    # To do a form encoded request to update users we need to add a specific
-    # POST request to the users update path.
     match "/users/:id" => "users#update", via: :post, as: :user
-
-    # The API has it's own 404 response. This is here so that 404's will not
-    # be picked up by the website catch-all response and can return with
-    # Cloudsdale API's specific JSON response wrapper.
     match '*path', to: 'exceptions#routing_error'
 
   end
