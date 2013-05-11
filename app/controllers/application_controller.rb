@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
     render status: 500
   end
 
+  rescue_from ActionController::ParameterMissing do |message|
+    flash[:error] = "Invalid parameters, please try again."
+    redirect_to root_path, status: 422
+  end
+
   def current_user
 
     if session[:user_id]
@@ -70,5 +75,8 @@ protected
     @auth_token ||= cookies[:auth_token] || request.headers['X-Auth-Token']
   end
 
+  def permitted_params
+    PermittedParams.new(params,current_user)
+  end
 
 end

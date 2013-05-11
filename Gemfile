@@ -45,6 +45,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'pundit', git: 'git://github.com/Zeeraw/pundit.git'
+gem 'strong_parameters', '~> 0.2.1'
 
 # Third-party
 gem 'fog'
