@@ -61,6 +61,7 @@ module Cloudsdale
     end
 
     # Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths += %W(#{config.root}/app/concerns)
     config.autoload_paths += %W(#{config.root}/app/serializers)
     config.autoload_paths += %W(#{config.root}/lib/validators)
 

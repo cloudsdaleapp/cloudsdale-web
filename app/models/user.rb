@@ -1,16 +1,20 @@
 class User
 
-  ROLES = { normal: 0, donor: 1, legacy: 2, associate: 3, verified: 4, admin: 5, developer: 6, founder: 7 }
+  ROLES    = { normal: 0, donor: 1, legacy: 2, associate: 3, verified: 4, admin: 5, developer: 6, founder: 7 }
   STATUSES = { offline: 0, online: 1, away: 2, busy: 3 }
 
   include AMQPConnector
 
+  # Mongoid
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  # Concerns
+  include User::Emailable
+
   include Droppable
 
-  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar
+  attr_accessible :name, :password, :invisible, :time_zone, :confirm_registration, :avatar
   attr_accessible :remote_avatar_url, :remove_avatar, :skype_name, :preferred_status
   attr_accessor :password, :confirm_registration, :status
 
@@ -24,11 +28,6 @@ class User
 
   field :name,                      type: String
   field :username,                  type: String
-  field :email,                     type: String
-  field :email_token,               type: String
-  field :email_verified_at,         type: DateTime
-  field :email_subscriber,          type: Boolean,    default: true
-  field :email_bounces,             type: Integer,    default: 0
   field :skype_name,                type: String
   field :auth_token,                type: String
   field :password_hash,             type: String
@@ -39,7 +38,6 @@ class User
   field :invisible,                 type: Boolean,    default: false
   field :force_password_change,     type: Boolean,    default: false
   field :force_name_change,         type: Boolean,    default: false
-  field :force_email_change,        type: Boolean,    default: false
   field :tnc_last_accepted,         type: Date,       default: nil
   field :confirmed_registration_at, type: DateTime,   default: nil
   field :suspended_until,           type: DateTime,   default: nil
@@ -69,17 +67,14 @@ class User
   validates_length_of :password,  minimum: 6, :too_short => "pick a longer password, at least 6 characters", if: :password
 
   validates_format_of :name,  with: /^([a-z]*\s?){1,5}$/i, message: "must use a-z and max five words", if: :name
-  validates_format_of :email, with: /^.+@.+$/i, :message => "invalid email", if: :email
 
   validates_uniqueness_of :name,  :case_sensitive => false, if: :name?
-  validates_uniqueness_of :email, :case_sensitive => false, if: :email?
 
-  validates_presence_of [:email,:password,:name], :if => :confirm_registration
-  validates_presence_of [:email,:name], :unless => :new_record?
+  validates_presence_of [:password,:name], :if => :confirm_registration
+  validates_presence_of [:name], :unless => :new_record?
 
   validate :forced_password_change, if: :force_password_change_changed?
   validate :forced_name_change,     if: :force_name_change_changed?
-  validate :forced_email_change,    if: :force_email_change_changed?
 
   before_validation do
     self[:cloud_ids].uniq! if self[:cloud_ids]
@@ -91,12 +86,9 @@ class User
   end
 
   before_save do
-    self[:email] = self[:email].downcase if email.present?
-
     add_known_name
 
     generate_auth_token  unless auth_token.present?
-    generate_email_token unless email_token.present?
 
     set_confirmed_registration_date
     set_creation_date
@@ -162,21 +154,6 @@ class User
     if val.present?
       self[:name] = val
       @name       = val
-      super(val)
-    end
-  end
-
-  def email=(val=nil)
-    if val.present?
-      self.force_email_change = false if self.force_email_change
-
-      generate_email_token
-
-      self.email_verified_at = nil
-      self.email_bounces     = 0
-
-      self[:email] = val
-      @email       = val
       super(val)
     end
   end
@@ -473,12 +450,6 @@ class User
     self[:auth_token] = SecureRandom.hex(16)
   end
 
-  # Public: Renews the email token and makes the old one unusable.
-  # Good idea to do this when an email token has been consumed.
-  def generate_email_token
-    self[:email_token] = SecureRandom.hex(4)
-  end
-
   # Internal: Sets the creation date of the User unless
   # a creation date is already set.
   def set_creation_date
@@ -524,21 +495,6 @@ class User
   # to change it's name.
   def needs_name_change?
     self[:force_name_change] || !self.name.present?
-  end
-
-  # Public: Determines wether the user has to change it's email
-  # depending on if the :force_email_change attribute is true
-  # or if :email is not present.
-  #
-  # Examples
-  #
-  # @user.force_password_change
-  # # => true
-  #
-  # Returns true or false depending on if the users has
-  # to change it's email.
-  def needs_email_change?
-    self[:force_email_change] || !self.email.present?
   end
 
   # Public: Determines wether the user has completed it's
@@ -595,17 +551,6 @@ class User
   def forced_name_change
     if (name_was == name) && force_name_change_was == true
       errors.add(:name, "cannot be the same")
-      return false
-    end
-  end
-
-  # Private: Validation for when password is changed while forced passowrd
-  # equates to true.
-  #
-  # Returns false if validation fails
-  def forced_email_change
-    if (email_was == email) && force_email_change_was == true
-      errors.add(:email, "cannot be the same")
       return false
     end
   end
