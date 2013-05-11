@@ -37,7 +37,11 @@ Cloudsdale::Application.routes.draw do
     end
     match "/users/:id" => "users#update", via: :post, as: :user
     match '*path', to: 'exceptions#routing_error'
+  end
 
+  use_doorkeeper do
+    controllers      authorizations: 'oauth/authorizations'
+    skip_controllers :applications, :authorized_applications
   end
 
   # The root path where users will land when entering our url.

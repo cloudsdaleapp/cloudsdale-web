@@ -1,0 +1,46 @@
+%br
+.row
+  .large-6.large-centered.columns
+    .row.auth-header
+      .large-5.small-5.columns
+        .auth-icon{ style: 'float: left;' }= image_tag "eqbeats.png"
+      .large-5.small-5.columns
+        .auth-icon{ style: 'float: right;' }= image_tag current_user.avatar.url
+
+%br
+.row
+  .large-6.large-centered.columns
+    .content-panel
+      .content-panel-inner
+        %h3= @pre_auth.client.name
+        %h5.subheader= "Wants access to your account, click Permit to let #{@pre_auth.client.name} use your account to authenticate with their service."
+        %hr
+        .row
+          .large-12.columns
+            - if @pre_auth.scopes
+              %p= "This application will be able to:"
+              %ul.circle{ style: 'padding-left: 20px;' }
+                - @pre_auth.scopes.each do |scope|
+                  %li= t scope, :scope => [:doorkeeper, :scopes]
+
+        %br
+        %br
+        .row
+          .large-6.small-12.columns
+            .inline_block
+              = form_tag oauth_authorization_path, :method => :post do
+                = hidden_field_tag :client_id, @pre_auth.client.uid
+                = hidden_field_tag :redirect_uri, @pre_auth.redirect_uri
+                = hidden_field_tag :state, @pre_auth.state
+                = hidden_field_tag :response_type, @pre_auth.response_type
+                = hidden_field_tag :scope, @pre_auth.scope
+                = submit_tag "Permit", :class => "button success", style: 'display: block; width: 100%;'
+          .large-6.small-12.columns
+            .inline_block
+              = form_tag oauth_authorization_path, :method => :delete do
+                = hidden_field_tag :client_id, @pre_auth.client.uid
+                = hidden_field_tag :redirect_uri, @pre_auth.redirect_uri
+                = hidden_field_tag :state, @pre_auth.state
+                = hidden_field_tag :response_type, @pre_auth.response_type
+                = hidden_field_tag :scope, @pre_auth.scope
+                = submit_tag "Deny", :class => "button secondary", style: 'display: block; width: 100%;'

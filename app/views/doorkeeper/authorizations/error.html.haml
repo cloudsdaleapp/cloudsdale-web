@@ -1,0 +1,6 @@
+.row
+  .large-12.colums
+    .content-panel
+      .content-panel-inner
+        %h3= "An error has occurred"
+        %h5.subheader= @pre_auth.error_response.body[:error_description]
