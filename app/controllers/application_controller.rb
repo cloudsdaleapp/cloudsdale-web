@@ -79,4 +79,13 @@ protected
     PermittedParams.new(params,current_user)
   end
 
+  def redirect_url
+    @redirect_url ||= session[:redirect_url] || params[:redirect_url] || root_path
+  end
+
+  def redirect_to_stored_url
+    url = redirect_url
+    session[:redirect_url] = nil
+    redirect_to url
+  end
 end
