@@ -23,6 +23,7 @@ class User
   has_and_belongs_to_many :clouds_moderated,  :inverse_of => :moderators, dependent: :nullify,  class_name: "Cloud",  index: true
 
   field :name,                      type: String
+  field :username,                  type: String
   field :email,                     type: String
   field :email_token,               type: String
   field :email_verified_at,         type: DateTime
