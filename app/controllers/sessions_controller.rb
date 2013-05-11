@@ -26,12 +26,16 @@ class SessionsController < ApplicationController
     end
   end
 
-  # Public: Terminates the session for the current user.
+  # Public: Terminates the session for the current user,
+  # as well as auth token saved in cookies.
   #
-  # Returns you to the root page.
+  # Returns him to the root path with a flash message.
   def destroy
+    flash[:notice]    = "You have successfully logged out."
+
     session[:user_id] = nil
     cookies.delete(:auth_token)
+
     redirect_to root_path
   end
 
