@@ -33,6 +33,7 @@ gem 'haml-rails', '~> 0.3.4'
 gem 'redcarpet'
 gem 'rabl',       '~> 0.6.10'
 gem 'roadie'
+gem 'simple_form', '~> 2.1.0'
 
 # Frontend
 gem 'backbone-on-rails', '~> 0.9.2.0'
