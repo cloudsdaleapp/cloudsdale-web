@@ -44,8 +44,6 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'pundit'
 
-# Forms
-gem 'client_side_validations'
 
 # Third-party
 gem 'fog'
