@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
 
   layout 'auth',  only: [:new,:create]
 
+  before_filter :redirect_if_registered!, only: [:new,:create]
   skip_before_filter :assert_user_ban!
 
   # Public: View for creating a new session.
