@@ -65,6 +65,9 @@ module Cloudsdale
     config.autoload_paths += %W(#{config.root}/app/serializers)
     config.autoload_paths += %W(#{config.root}/lib/validators)
 
+    # Multiple Route Files
+    config.paths["config/routes"] += Dir[Rails.root.join('config', 'routes', '*.rb').to_s]
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
