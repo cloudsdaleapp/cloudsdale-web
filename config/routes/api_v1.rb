@@ -1,3 +1,6 @@
+# encoding: utf-8
+require 'routing/api_version_mapper'
+
 Cloudsdale::Application.routes.draw do
 
   api version: 1, subdomain: /(api|www)/ do
