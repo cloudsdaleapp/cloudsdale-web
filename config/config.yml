@@ -45,6 +45,7 @@ development:
 
   url: http://www.cloudsdale.dev
   asset_url: http://www.cloudsdale.dev
+  session_key: .cloudsdale.dev
 
   rackspace_cloudfiles:
     username: zeeraw
@@ -61,6 +62,7 @@ production:
 
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
+  session_key: .cloudsdale.org
 
   email:
     user_name: cloudsdale
