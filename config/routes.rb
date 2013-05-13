@@ -4,26 +4,26 @@ require 'routing/site_mapper'
 
 Cloudsdale::Application.routes.draw do
 
+  # Use this endpoint to end a users session through the webapp.
+  get  '/logout' => 'sessions#destroy', as: :logout
+  get  '/login'  => 'sessions#new',     as: :login
+  post '/login'  => 'sessions#create',  as: :login
+
+  use_doorkeeper do
+    controllers      authorizations: 'oauth/authorizations'
+    skip_controllers :applications, :authorized_applications
+  end
+
+  # Omniauth routes to connect users to different services oAuth2 services
+  # like Twitter and Facebook. This has nothing to do with Cloudsdale's own
+  # oAuth2 provider.
+  match '/auth/:provider/callback' => 'authentications#create'
+  match '/auth/failure' => 'authentications#failure'
+
   scope :web, constraints: { subdomain: /www/ } do
 
     # The root path where users will land when entering our url.
     root to: 'root#index'
-
-    # Use this endpoint to end a users session through the webapp.
-    get  '/logout' => 'sessions#destroy', as: :logout
-    get  '/login'  => 'sessions#new',     as: :login
-    post '/login'  => 'sessions#create',  as: :login
-
-    use_doorkeeper do
-      controllers      authorizations: 'oauth/authorizations'
-      skip_controllers :applications, :authorized_applications
-    end
-
-    # Omniauth routes to connect users to different services oAuth2 services
-    # like Twitter and Facebook. This has nothing to do with Cloudsdale's own
-    # oAuth2 provider.
-    match '/auth/:provider/callback' => 'authentications#create'
-    match '/auth/failure' => 'authentications#failure'
 
     namespace :admin do
       match '/',  to: 'root#index',  via: :get,  as: :root
