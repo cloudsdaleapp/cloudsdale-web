@@ -1,0 +1,6 @@
+- if flash[:success].present?
+  .row
+    .large-12.columns
+      .alert-box.success{ 'data-alert' => true }
+        %span= flash[:success]
+        = link_to '&times;'.html_safe, '#', :class => :close, style: 'margin-top: 3px;'

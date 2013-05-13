@@ -23,10 +23,17 @@ $em-base: 16px !default
 //// Various global styles
 
 $body-bg: #FAFAFA
+$body-bg-head: #FCFCFC
 $body-font-color: #222
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
 // $body-font-weight: normal
 // $body-font-style: normal
+$border-primary-color: #d8d8d8
+
+#head-wrap
+  background-color: $body-bg-head
+  border-bottom: 1px solid $border-primary-color
+  margin-bottom: 20px
 
 #body-wrap
   background-color: $body-bg
@@ -954,8 +961,8 @@ $button-function-factor: 10%
 
 //// Padding and hover factor
 
-// $section-padding: emCalc(15px)
-// $section-function-factor: 10%
+$section-padding: emCalc(15px)
+$section-function-factor: 10%
 
 //// Titles
 
@@ -1154,7 +1161,7 @@ $button-function-factor: 10%
 
 //// Background color for the top bar
 
-$topbar-bg: $body-bg
+$topbar-bg: $body-bg-head
 
 //// Height and margin
 
@@ -1203,13 +1210,24 @@ $topbar-menu-icon-color-toggled: #888
 // $topbar-media-query: "only screen and (min-width "#{$topbar-breakpoint}")"
 
 nav.top-bar
-  margin-bottom: 10px !important
-  margin-top: 10px !important
+  margin-bottom: 0 !important
   li.name > h1 > a
-    padding-left: 4px
-    font-family: 'Londrina Solid', cursive
-    color: $primary-color
-    text-shadow: -1px -1px 0px lighten(#4b6d29,10%)
+    padding-left: 0
+    font-size: 14px
+    span
+      padding-left: 5px
+      color: #646464
+    .logo
+      background-size: 32px 32px
+      background-position: center center
+      background-repeat: no-repeat
+      background-image: asset-data-url('icon/icon_topbar_gray.png')
+
+    &:hover
+      span
+        color: #539AC0
+      .logo
+        background-image: asset-data-url('icon/icon_topbar_color.png')
   ul
     background-color: transparent
   ul li

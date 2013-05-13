@@ -1,0 +1,52 @@
+!!! 5
+/[if lt IE 7 ] <html class=\"ie6\" lang=\"en\">
+/[if IE 7 ]    <html class=\"ie7\" lang=\"en\">
+/[if IE 8 ]    <html class=\"ie8\" lang=\"en\">
+/[if IE 9 ]    <html class=\"ie9\" lang=\"en\">
+/[if (gt IE 9)|!(IE)] <!--> <html lang=\"en\">
+
+%head
+  %meta{ :charset => "utf-8" }
+  %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+  %title= content_for?(:title) ? yield(:title) : "Cloudsdale Developer"
+  = favicon_link_tag "favicons/48by48.ico"
+
+  = stylesheet_link_tag "admin"
+  = javascript_include_tag "vendor/custom.modernizr"
+  = csrf_meta_tag
+
+%body
+  #head-wrap
+    .row.top-bar-wrapper
+      .large-12.columns
+        .contain-to-grid
+          %nav.top-bar
+            %ul.title-area
+              %li.name
+                %h1
+                  = link_to root_path, style: 'display: block;' do
+                    .logo{ style: 'display: inline; height: 32px; width: 32px; float: left; margin: 6px 0px 7px 8px;' }
+                    %span= "Developers"
+              %li.toggle-topbar.menu-icon
+                %a{:href => "#", style: 'min-width: 100px;' }
+                  %span= "Menu"
+            %section.top-bar-section
+              %ul.left
+                %li.divider
+                %li= link_to "Apps", applications_path
+                %li.divider
+
+            %section.top-bar-section
+              %ul.right
+                %li
+                  = link_to "← Back to Cloudsdale", root_url(subdomain: 'www')
+  #body-wrap
+    = render 'layouts/flash_error'
+    = render 'layouts/flash_notice'
+    = render 'layouts/flash_success'
+    = yield
+
+  = javascript_include_tag "developer"
+
+:plain
+  </html>
