@@ -64,6 +64,10 @@ module Cloudsdale
     config.autoload_paths += %W(#{config.root}/app/concerns)
     config.autoload_paths += %W(#{config.root}/app/serializers)
     config.autoload_paths += %W(#{config.root}/lib/validators)
+    config.autoload_paths += %W(#{config.root}/lib/middleware)
+
+    # Middlewares
+    config.middleware.insert_before 0, "AvatarDispatch"
 
     # Multiple Route Files
     config.paths["config/routes"] += Dir[Rails.root.join('config', 'routes', '*.rb').to_s]
