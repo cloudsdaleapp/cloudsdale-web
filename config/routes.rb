@@ -75,6 +75,12 @@ Cloudsdale::Application.routes.draw do
 
   site :developer, subdomain: 'dev' do
     root to: 'root#index'
+
+    resources :applications, path: 'apps', path_names: { edit: 'settings' } do
+      post  '/new'      => 'applications#create', on: :collection, as: :new
+      match '/settings' => 'applications#update', on: :member, as: :edit, via: [:put,:patch]
+    end
+
     match '*path', to: 'root#not_found'
   end
 

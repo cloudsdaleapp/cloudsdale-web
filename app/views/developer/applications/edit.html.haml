@@ -1,0 +1,29 @@
+.row
+  .large-3.columns
+    = render 'application_sidebar'
+  .large-9.columns
+    %ul.breadcrumbs
+      %li= link_to "Applications", applications_path
+      %li= link_to @application.name, application_path(@application)
+      %li.current= "Settings"
+    = simple_form_for @application, url: edit_application_path(@application) do |f|
+      .content-panel
+        .content-panel-inner
+          .row
+            .large-6.columns
+              = f.input :name
+              = f.input :redirect_uri
+          %hr
+          .row
+            .large-6.columns
+              = f.input :website
+              = f.input :description, as: :text, input_html: { style: 'min-height: 140px;' }
+            .large-6.columns
+              %br
+              %p.subheader= "Please fill out this additional information to make it easier for users to learn more about your app."
+
+      %br
+      .content-panel
+        .content-panel-inner.panel-expand
+          = f.submit 'Update Application', :class => "button expand", :style => 'margin: 0;'
+

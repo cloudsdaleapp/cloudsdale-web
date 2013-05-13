@@ -1,0 +1,30 @@
+.row
+  .large-3.columns
+    = render 'application_sidebar'
+    .content-panel
+      .content-panel-inner.panel-expand
+        = link_to 'New Application', new_application_path, class: 'button small primary expand', style: 'margin: 0;'
+
+  .large-9.columns
+    %ul.breadcrumbs
+      %li.current= "Applications"
+    - if @applications.empty?
+    - else
+      %hr
+      - @applications.each do |application|
+        .row{ :id => "application_#{application.id}" }
+          .large-12.columns
+            .left{ style: 'margin-right: 20px;'}
+              = link_to application_path(application) do
+                .auth-icon= image_tag "eqbeats.png"
+            %br
+            %h5.compact
+              %div= link_to application.name, application_path(application)
+              - if application.website.present?
+                %small
+                  = "Website at"
+                  = link_to application.formatted_website, application.website
+            - if application.description.present?
+              %p.subheader= application.description
+            .right
+        %hr
