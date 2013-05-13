@@ -9,22 +9,24 @@ class ApplicationController < ActionController::Base
 
   # Rescues the error yielded from not finding requested document
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
-    render status: 404
+    flash[:error] = "Page not found."
+    render 'exceptions/not_found', status: 404
   end
 
   # Rescues the error from not being authorized to perform an action
   rescue_from Pundit::NotAuthorizedError do |message|
-    render status: 403
+    flash[:error] = "Unauthorized access! #{message}"
+    render 'exceptions/unauthorized', status: 403
   end
 
   # Rescues the errors yielded by supplying a faulty BSON id
   rescue_from Moped::Errors::InvalidObjectId do |message|
-    render status: 500
+    render 'exceptions/server_error', status: 500
   end
 
   rescue_from ActionController::ParameterMissing do |message|
     flash[:error] = "Invalid parameters, please try again."
-    redirect_to root_path, status: 422
+    render 'exceptions/unproccessable_entry', status: 422
   end
 
   def current_user
