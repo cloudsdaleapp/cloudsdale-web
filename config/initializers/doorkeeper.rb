@@ -64,3 +64,6 @@ Doorkeeper.configure do
   #   resource_owner.is_of_role(:admin)
   # end
 end
+
+# Extend Doorkeeper models
+Doorkeeper::Application.send(:include, Doorkeeper::Application::CloudsdaleExtention)
