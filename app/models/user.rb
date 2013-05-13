@@ -42,12 +42,16 @@ class User
   field :suspended_until,           type: DateTime,   default: nil
   field :reason_for_suspension,     type: String,     default: nil
   field :preferred_status,          type: Symbol,     default: :online
+  field :developer,                 type: Boolean,    default: false
   field :last_seen_at,              type: DateTime
   field :dates_seen,                type: Array,      default: []
 
   mount_uploader :avatar, AvatarUploader
 
+  scope :developers, self.or(:developer => true).or(:role.gte => ROLES[:developer])
+
   scope :visable, where(:invisible => false)
+
   scope :online_on, -> _cloud do
     ids = []
     user_statuses = Cloudsdale.redisClient.hgetall("cloudsdale/clouds/#{_cloud.id.to_s}/users")
@@ -85,6 +89,7 @@ class User
   end
 
   after_save do
+
     enqueue! "faye", { channel: "/users/#{self._id.to_s}", data: self.to_hash }
     enqueue! "faye", { channel: "/users/#{self._id.to_s}/private", data: self.to_hash( template: "api/v1/users/private" ) }
 
