@@ -47,7 +47,6 @@ class AvatarDispatch
         else
           [ 404,
             {
-              "Last-Modified"  => HTTP_TIMESTAMP,
               "MIME-Version"   => "1.0",
               "Content-Type"   => "text/plain",
               "Content-Length" => "0"
@@ -58,7 +57,6 @@ class AvatarDispatch
       else
         [ 204,
           {
-            "Last-Modified"  => HTTP_TIMESTAMP,
             "MIME-Version"   => "1.0",
             "Content-Type"   => "text/plain",
             "Content-Length" => "0"
