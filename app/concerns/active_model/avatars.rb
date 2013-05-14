@@ -6,15 +6,17 @@ module ActiveModel
 
     included do
 
-      mount_uploader :avatar, AvatarUploader
+      attr_accessible :avatar, :remote_avatar_url, :remove_avatar
 
       field :avatar_uploaded_at,   type: DateTime
+
+      mount_uploader :avatar, AvatarUploader
+
+      before_save :set_avatar_uploaded_at!
 
       def avatar_uploaded_at
         self[:avatar_uploaded_at] || self.updated_at
       end
-
-      before_save :set_avatar_uploaded_at!
 
     end
 

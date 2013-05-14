@@ -47,8 +47,6 @@ class User
   field :last_seen_at,              type: DateTime
   field :dates_seen,                type: Array,      default: []
 
-  mount_uploader :avatar, AvatarUploader
-
   scope :developers, self.or(:developer => true).or(:role.gte => ROLES[:developer])
 
   scope :visable, where(:invisible => false)

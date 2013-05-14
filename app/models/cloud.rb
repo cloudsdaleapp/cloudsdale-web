@@ -41,8 +41,6 @@ class Cloud
     end
   end
 
-  mount_uploader :avatar, AvatarUploader
-
   validates :name, presence: true, uniqueness: true, length: { within: 3..64 }
   validates :description, length: { maximum: 140 }
   validates :short_name, length: { maximum: 16 }
