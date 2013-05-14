@@ -87,6 +87,10 @@ class Api::V1::UsersController < Api::V1Controller
 
     authorize @user, :update?
 
+    if params['X-Requested-With'] == "IFrame"
+      response.headers["Content-Type"] = "text/html"
+    end
+
     if @user.update_attributes(params[:user])
       render status: 200
     else
