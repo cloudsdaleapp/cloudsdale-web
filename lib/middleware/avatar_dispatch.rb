@@ -105,7 +105,7 @@ private
   end
 
   def scope(options)
-    @scope ||= case options[:model]
+    @scope = case options[:model]
       when :user  then User
       when :cloud then Cloud
       when :app   then Doorkeeper::Application
