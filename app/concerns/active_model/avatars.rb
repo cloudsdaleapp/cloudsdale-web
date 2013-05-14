@@ -84,7 +84,7 @@ module ActiveModel
     #
     # Returns the date the avatar was uploaded.
     def set_avatar_uploaded_at!
-      self.avatar_uploaded_at = DateTime.now
+      self.avatar_uploaded_at = DateTime.now if avatar_changed?
     end
 
   end
