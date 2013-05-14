@@ -90,7 +90,7 @@ private
 
       if record.present? && record.avatar.present?
         timestamp = record.avatar_uploaded_at.to_i
-        file_path = record.full_file_path
+        file_path = record.avatar.full_file_path
       else
         timestamp = TIMESTAMP
         file_path = Rails.root.join(
