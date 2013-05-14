@@ -6,6 +6,9 @@ class Doorkeeper::Application
 
     included do
 
+      # Concerns
+      include ActiveModel::Avatars
+
       attr_accessible :website, :description,
       :terms_of_use, :privacy_policy
 
