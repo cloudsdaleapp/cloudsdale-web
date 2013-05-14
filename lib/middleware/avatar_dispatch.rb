@@ -89,7 +89,7 @@ private
                   ).first
 
       if record.present? && record.avatar.present?
-        timestamp = record.avatar_uploaded_at.to_i
+        timestamp = record.avatar_uploaded.to_i
         file_path = record.avatar.full_file_path
       else
         timestamp = TIMESTAMP

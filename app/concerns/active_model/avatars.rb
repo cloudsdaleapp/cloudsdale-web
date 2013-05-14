@@ -14,8 +14,8 @@ module ActiveModel
 
       before_save :set_avatar_uploaded_at!
 
-      def avatar_uploaded_at
-        self[:avatar_uploaded_at] || self.updated_at
+      def avatar_uploaded
+        self[:avatar_uploaded_at] || self.updated_at || self.created_at
       end
 
     end
