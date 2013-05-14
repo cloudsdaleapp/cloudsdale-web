@@ -80,9 +80,9 @@ private
     time_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:timestamp"
 
     file_path   = Cloudsdale.redisClient.get(path_query).try(:to_s) || nil
-    timestamp   = Cloudsdale.redisClient.get(time_query).try(:to_i) || TIMESTAMP
+    timestamp   = Cloudsdale.redisClient.get(time_query).try(:to_i) || nil
 
-    unless file_path
+    unless file_path.present? && timestamp.present?
 
       record    = scope(options).where(
                     options[:type] => options[:id]
