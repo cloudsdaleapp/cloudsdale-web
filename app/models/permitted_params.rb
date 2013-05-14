@@ -31,7 +31,10 @@ class PermittedParams < Struct.new(:params, :user)
     end
 
     def update
-      self.permitted([:name, :redirect_uri, :website, :description])
+      self.permitted([
+        :name, :redirect_uri, :website, :description,
+        :avatar, :remote_avatar_url, :remove_avatar
+      ])
     end
 
     def permitted(attributes)

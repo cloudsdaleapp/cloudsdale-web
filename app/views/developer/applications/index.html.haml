@@ -16,7 +16,7 @@
           .large-12.columns
             .left{ style: 'margin-right: 20px;'}
               = link_to application_path(application) do
-                .auth-icon= image_tag "eqbeats.png"
+                .auth-icon= image_tag application.dynamic_avatar_url(128)
             %br
             %h5.compact
               %div= link_to application.name, application_path(application)

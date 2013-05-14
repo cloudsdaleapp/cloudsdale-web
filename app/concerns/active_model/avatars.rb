@@ -65,7 +65,19 @@ module ActiveModel
     def dynamic_avatar_url(size=256)
       tld = Rails.env.production? ? 'org'       : 'dev'
       sub = Rails.env.production? ? 'avatar.cf' : 'avatar'
-      "http://#{sub}.cloudsdale.#{tld}/#{self.class.to_s.downcase}/#{self.id}.png?s=#{size}"
+      "http://#{sub}.cloudsdale.#{tld}/#{avatar_namespace}/#{self.id}.png?s=#{size}"
+    end
+
+    # Public: Determines which namespace the avatar
+    # should use. Defaults to the class name downcased.
+    #
+    # Returns a string.
+    def avatar_namespace
+      if self.class.respond_to?(:avatar_namespace)
+        self.class.avatar_namespace
+      else
+        self.class.to_s.downcase
+      end
     end
 
     # Private: Sets the avatar upload date.

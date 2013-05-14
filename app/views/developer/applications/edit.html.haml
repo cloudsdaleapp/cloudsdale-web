@@ -6,7 +6,7 @@
       %li= link_to "Applications", applications_path
       %li= link_to @application.name, application_path(@application)
       %li.current= "Settings"
-    = simple_form_for @application, url: edit_application_path(@application) do |f|
+    = simple_form_for @application, url: edit_application_path(@application), multipart: true do |f|
       .content-panel
         .content-panel-inner
           .row
@@ -21,6 +21,13 @@
             .large-6.columns
               %br
               %p.subheader= "Please fill out this additional information to make it easier for users to learn more about your app."
+          %hr
+          .row
+            .large-6.columns
+              = f.input :avatar,  as: :file
+            .large-6.columns
+              %br
+              %p.subheader= "Uploading an avatar will make it easier for a lot of users recognize your app."
 
       %br
       .content-panel

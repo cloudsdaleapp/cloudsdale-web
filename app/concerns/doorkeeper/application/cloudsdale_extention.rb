@@ -39,6 +39,16 @@ class Doorkeeper::Application
         "Doorkeeper::ApplicationPolicy"
       end
 
+      # Public: Used by the avatar uploader to determine
+      # the avatar path. Usually defaults to the image class
+      # downcased. But in this case we need to specify it
+      # further.
+      #
+      # Returns a string.
+      def avatar_namespace
+        "app"
+      end
+
     end
 
     # Public: Transforms privacy policy to html
