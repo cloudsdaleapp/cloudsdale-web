@@ -12,6 +12,7 @@ class User
   # Concerns
   include User::Emailable
   include User::Named
+  include ActiveModel::Avatars
 
   include Droppable
 
@@ -243,45 +244,6 @@ class User
     else
       false
     end
-  end
-
-  # Public: Fetches the URL's for the avatar versions
-  #
-  # args - A hash of arguments of what to do with the avatar versions.
-  #
-  #   :except - Array of the version keys to be omitted from the hash
-  #
-  #   :only   - An array of specific keys you want to include.
-  #             will be overridden by any values from except.
-  #
-  # Examples
-  #
-  # @user.avatar_versions([:normal,:mini,:thumb,:preview])
-  # # => { chat: "http://..." }
-  #
-  # Returns a hash of keys pointing at url values.
-  def avatar_versions(args={})
-
-    args = { except: [], only: nil }.merge(args)
-
-    allowed_keys = [:normal,:thumb,:mini,:preview,:chat]
-
-    allowed_keys.select! { |value| args[:only].include? value } if args[:only]
-    allowed_keys -= args[:except]
-
-    {
-      normal: avatar.url,
-      mini: avatar.mini.url,
-      thumb: avatar.thumb.url,
-      preview: avatar.preview.url,
-      chat: avatar.chat.url
-
-    }.delete_if do |key,value|
-
-      !allowed_keys.include? key
-
-    end
-
   end
 
   # Public: Takes authentication options and tries to

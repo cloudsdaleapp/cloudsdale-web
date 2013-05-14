@@ -1,7 +1,12 @@
 class AvatarDispatch
 
-  PATH_MATCH   = /\/(?<model>user|app|cloud)\/((?<md5>[0-9a-f]{32})|(?<bson>[0-9a-fA-F]{24}))\.(?<format>png)/
-  DOMAIN_MATCH = /^(avatar)\..*$/
+  BASE_SIZES    = Array.new(10){ |n| 2 ** (n + 1) }
+  SPECIAL_SIZES = [24,40,50,70,200]
+  ALLOWED_SIZES = (BASE_SIZES + SPECIAL_SIZES).uniq.sort
+  PATH_MATCH    = /\/(?<model>user|app|cloud)\/((?<md5>[0-9a-f]{32})|(?<bson>[0-9a-fA-F]{24}))\.(?<format>png)/
+  DOMAIN_MATCH  = /^(avatar)\..*$/
+  TIMESTAMP      = DateTime.parse("2012-01-01").to_i
+  HTTP_TIMESTAMP = DateTime.parse("2012-01-01").httpdate
 
   def initialize(app)
     @app = app
@@ -23,20 +28,18 @@ class AvatarDispatch
         end
 
         options[:model] = path_match[:model].to_sym
-        options[:size]  = request.params["s"].try(:to_i) || 100
-        options[:size]  = 200 if options[:size] > 200
+        options[:size]  = request.params["s"].try(:to_i) || 256
 
-        file_path = resolve_file(options)
-        unless Rails.env.production?
-          file_path = Rails.root.join('public',file_path.gsub(/^\//,"")).to_s
-        end
+        file_path, timestamp = ALLOWED_SIZES.include?(options[:size]) ? resolve_file(options) : nil
 
-        image = proccess(file_path, options[:size])
+        image = file_path.present? ? proccess(file_path, options[:size]) : nil
 
         if image
           f = File.read(image.path)
           [ 200,
             {
+              "Last-Modified"  => timestamp.httpdate,
+              "MIME-Version"   => "1.0",
               "Content-Type"   => "image/png",
               "Content-Length" => f.length.to_s
             }, [f]
@@ -44,14 +47,23 @@ class AvatarDispatch
         else
           [ 404,
             {
-              "Content-Type"   => "image/png",
+              "Last-Modified"  => HTTP_TIMESTAMP,
+              "MIME-Version"   => "1.0",
+              "Content-Type"   => "text/plain",
               "Content-Length" => "0"
-            }, [nil]
+            }, [""]
           ]
         end
 
       else
-        @app.call(env)
+        [ 204,
+          {
+            "Last-Modified"  => HTTP_TIMESTAMP,
+            "MIME-Version"   => "1.0",
+            "Content-Type"   => "text/plain",
+            "Content-Length" => "0"
+          }, [""]
+        ]
       end
 
     else
@@ -63,8 +75,35 @@ class AvatarDispatch
 private
 
   def resolve_file(options)
-    record = scope(options).where(options[:type] => options[:id]).first
-    record.avatar.url
+
+    path_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}"
+    time_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:timestamp"
+
+    file_path   = Cloudsdale.redisClient.get(path_query).try(:to_s) || nil
+    timestamp   = Cloudsdale.redisClient.get(time_query).try(:to_i) || TIMESTAMP
+
+    unless file_path
+
+      record    = scope(options).where(
+                    options[:type] => options[:id]
+                  ).first
+
+      if record.present? && record.avatar.present?
+        timestamp = record.avatar_uploaded_at.to_i
+        file_path = record.full_file_path
+      else
+        timestamp = TIMESTAMP
+        file_path = Rails.root.join(
+          'app', 'assets', 'images', 'fallback', 'avatar', "#{options[:model]}.png"
+        ).to_s
+      end
+
+      Cloudsdale.redisClient.set(time_query,timestamp)
+      Cloudsdale.redisClient.set(path_query,file_path)
+
+    end
+
+    return file_path, Time.at(timestamp).to_datetime
   end
 
   def scope(options)
@@ -106,7 +145,7 @@ private
       end
 
       cmd.gravity 'Center'
-      cmd.background "rgba(255,255,255,0.0)"
+      cmd.background "rgba(255,255,255,1.0)"
       cmd.extent "#{width}x#{height}" if cols != width || rows != height
 
     end
