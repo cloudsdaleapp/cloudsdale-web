@@ -35,14 +35,14 @@ class AvatarDispatch
         image = file_path.present? ? proccess(file_path, options[:size]) : nil
 
         if image
-          f = File.read(image.path)
+          file = File.read(image.path)
           [ 200,
             {
               "Last-Modified"  => timestamp.httpdate,
               "MIME-Version"   => "1.0",
               "Content-Type"   => "image/png",
-              "Content-Length" => f.length.to_s
-            }, [f]
+              "Content-Length" => StringIO.new(file).size.to_s
+            }, [file]
           ]
         else
           [ 404,
@@ -116,21 +116,21 @@ private
 
   def proccess(file_path, size)
 
-    width   = size
-    height  = size
+    width   = size.to_i
+    height  = size.to_i
 
     image   = MiniMagick::Image.open(file_path)
 
-    image.format "png"
-
     cols, rows = image[:dimensions]
+
+    image.format "png"
 
     image.combine_options do |cmd|
 
       if width != cols || height != rows
 
-        scale_x = width  / cols.to_f
-        scale_y = height / rows.to_f
+        scale_x = width.to_f  / cols.to_f
+        scale_y = height.to_f / rows.to_f
 
         if scale_x >= scale_y
           cols = (scale_x * (cols + 0.5)).round
