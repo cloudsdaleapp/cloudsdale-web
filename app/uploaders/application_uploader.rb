@@ -73,15 +73,11 @@ protected
   #
   # Returns true
   def cache_upload_metadata(file)
-    if model[:"#{mounted_as}_uploaded_at"].present?
-      timestamp   = model[:"#{mounted_as}_uploaded_at"]
+    path_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(:"{#{mounted_as}_namesace}")}:#{model.id}"
+    time_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(:"{#{mounted_as}_namesace}")}:#{model.id}:timestamp"
 
-      path_query  = "cloudsdale:#{mounted_as.downcase}:#{model.class.to_s.downcase}:#{model.id}"
-      time_query  = "cloudsdale:#{mounted_as.downcase}:#{model.class.to_s.downcase}:#{model.id}:timestamp"
-
-      Cloudsdale.redisClient.set(time_query,timestamp.to_i)
-      Cloudsdale.redisClient.set(path_query,full_file_path)
-    end
+    Cloudsdale.redisClient.del(time_query)
+    Cloudsdale.redisClient.del(path_query)
 
     return true
   end
