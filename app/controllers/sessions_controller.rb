@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
     @session = Session.new(permitted_params.session.create)
     if @session.valid?
       authenticate! @session.user
+      flash[:success] = "Welcome #{@session.user.name}, you're now logged in to Cloudsdale."
       redirect_to_stored_url
     else
       render :new
