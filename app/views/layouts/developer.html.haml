@@ -50,13 +50,21 @@
                 - else
                   %li= link_to "Logout", logout_path, rel: :nofollow
                 %li.divider
+
   #body-wrap
-    = render 'layouts/flash_error'
-    = render 'layouts/flash_notice'
-    = render 'layouts/flash_success'
+    - if content_for?(:legend)
+      #legend.developer-legend
+        = render 'layouts/flash_error'
+        = render 'layouts/flash_notice'
+        = render 'layouts/flash_success'
+        = yield(:legend)
+    - else
+      = render 'layouts/flash_error'
+      = render 'layouts/flash_notice'
+      = render 'layouts/flash_success'
     = yield
     / = AvatarDispatch::ALLOWED_SIZES.join(", ")
-
+  = render 'layouts/page_footer'
   = javascript_include_tag "developer"
 
 :plain

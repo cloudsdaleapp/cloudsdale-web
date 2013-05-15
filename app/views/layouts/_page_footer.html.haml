@@ -1,0 +1,40 @@
+%br
+%br
+%hr
+#foot
+  .row
+    .large-2.small-6.columns.push-2
+      %br
+      %ul.no-bullet
+        %lh= "Meta"
+        %li= link_to "Website",     root_url(subdomain: "www"),            title: 'Cloudsdale brony chat site'
+        %li= link_to "Developers",  root_url(subdomain: "dev"),            title: 'Cloudsdale brony developer portal'
+        %li= link_to "Twitter",  "https://www.twitter.com/cloudsdaleapp",  title: 'Cloudsdale on Twitter', target: :_blank
+        %li= link_to "Facebook", "https://www.facebook.com/cloudsdaleapp", title: 'Cloudsdale on Facebook', target: :_blank
+    .large-2.small-6.columns.push-2
+      %br
+      %ul.no-bullet
+        %lh= "Cloudsdale"
+        %li= link_to "About Us", "https://www.cloudsdale.org/info", target: :_blank, title: "Info About Cloudsdale Chat Apps"
+        %li= link_to "The Crew", "https://www.cloudsdale.org/meet-the-crew", target: :_blank, title: "The Cloudsdale Chat Team"
+    .large-2.small-6.columns.push-2
+      %br
+      %ul.no-bullet
+        %lh= "Apps"
+        %li= link_to "Cloudsdale iOS",  "https://itunes.apple.com/app/cloudsdale/id567369714", title: 'Cloudsdale iOS, iPhone iPod brony chat app', target: :_blank
+        %li= link_to "Cloudsdale WP7",  "http://www.windowsphone.com/en-us/store/app/cloudsdale/38602a94-899d-45a2-83b1-3b97260e0297",  title: 'Cloudsdale Windows Phone chat app', target: :_blank
+    .large-2.small-6.columns.push-2
+      %br
+      %ul.no-bullet
+        %lh= "Help"
+        %li= mail_to "ask@cloudsdale.org", "Email Support"
+        %li= link_to "Chat Support", "https://www.cloudsdale.org/clouds/ask-the-staff", title: "Cloudsdale Chat Support, Help and Questions", target: :_blank
+    .large-2.small-6.columns.push-2
+      %br
+      %ul.no-bullet
+        %lh= "Community Links"
+        %li= link_to "FiM:Fiction",  "http://www.fimfiction.net/", title: 'My Little Pony Fanfiction', target: :_blank
+        %li= link_to "Equestria Daily",  "http://www.equestriadaily.com/",  title: 'My Little Pony News', target: :_blank
+        %li= link_to "EqBeats", "https://eqbeats.org/", title: 'Brony and My Little Pony Music Library', target: :_blank
+    .large-2.hide-for-small.columns.pull-10
+      %center= image_tag "icon/icon_footer_gray.png", title: 'Cloudsdale Footer Logo Icon'

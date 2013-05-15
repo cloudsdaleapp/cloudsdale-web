@@ -108,3 +108,31 @@ body
   background-size: 100% auto
   min-height: 1100px
   @include opacity(.3)
+
+#legend
+  margin-top: -20px
+  padding-top: 50px
+  padding-bottom: 50px
+  min-height: 400px
+
+.developer-legend
+  background-color: #0E121D
+  background-image: image-url("bg/twilight-zone.png")
+  background-position: center center
+  border-bottom: 1px solid #333
+  border-top: 1px solid #333
+  h1, h2, h3, h4, h5, h6, p
+    color: #FEFEFE !important
+  .alert-box
+    border-color: #FEFEFE !important
+
+#foot
+  color: $body-font-color-light
+  lh, li
+    font-size: emCalc(13px)
+  lh
+    display: block
+    border-bottom: 1px dotted $body-font-color-light
+    margin-bottom: 5px
+  li
+    margin-bottom: 3px

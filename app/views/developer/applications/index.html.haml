@@ -1,9 +1,13 @@
 .row
   .large-9.columns.push-3
-    %ul.breadcrumbs
-      %li.current= "Applications"
     - if @applications.empty?
+      %center
+        %br
+        %br
+        %h3.subheader= "You don't have any applications..."
     - else
+      %ul.breadcrumbs
+        %li.current= "Applications"
       %hr
       - @applications.each do |application|
         .row{ :id => "application_#{application.id}" }
