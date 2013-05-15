@@ -45,3 +45,38 @@
 /   .large-4.columns
 /     .content-panel
 /       .content-panel-inner.panel-expand
+%br
+%br
+.row
+  .large-12.columns
+    %h3= "Core Features"
+    %hr
+.row
+  .small-12.large-4.columns
+    %h5= "oAuth Gateway"
+    .panel
+      %p= "Are you an app or web developer and want to get started quickly without having to worry about authentication?"
+      %p= "We know what a hassle it is to write and maintain authentication logic. Why not use our gateway?"
+      %p= "Make your application connect with our oAuth provider and focus on your own features."
+      %p
+        %br= link_to "Get started...", '/docs', :class => ['button','expand','secondary']
+
+  .small-12.large-4.columns
+    %h5
+      = "Object Graph"
+      %small= "(coming soon)"
+    .panel
+      %p= "Do you want to share your public data across other applications or use data created by others?"
+      %p= "We help map the brony fandom. We house data types for Fiction, Music, Videos, Images, Games and much more."
+      %p= "Be a hero and join this large scale collaboration, use our, or provide publically available data."
+      %p
+        %br= link_to "Coming Soon...", '#', :class => ['button','expand','secondary','disabled'], disabled: :disabled
+
+  .small-12.large-4.columns
+    %h5= "Universal Avatars"
+    .panel
+      %p= "Have you found it hard to maintain avatar uploads, storage and distribution? We solve that for you!"
+      %p= "Cloudsdale user, cloud and app avatars are accessible in a wide variety of sizes through our API's."
+      %p= "Using pattern recognition you only need to have the user ID or the users email address and you're good to go."
+      %p
+        %br= link_to "Get started...", '/docs', :class => ['button','expand','secondary']
