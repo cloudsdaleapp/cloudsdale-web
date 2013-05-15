@@ -9,8 +9,8 @@
         .content-panel-inner
           .row
             .large-6.columns
-              = f.input :name
-              = f.input :redirect_uri
+              = f.input :name,           label: 'App Name'
+              = f.input :redirect_uri,   label: 'Callback URL',     placeholder: "http://www.yourdomain.com/auth/callback"
           %hr
           .row
             .large-6.columns

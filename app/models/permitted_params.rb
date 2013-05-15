@@ -27,7 +27,9 @@ class PermittedParams < Struct.new(:params, :user)
   class PermittedApplicationParams < Struct.new(:params, :user)
 
     def create
-      self.permitted([:name, :redirect_uri])
+      self.permitted([
+        :name, :redirect_uri, :website, :description
+      ])
     end
 
     def update

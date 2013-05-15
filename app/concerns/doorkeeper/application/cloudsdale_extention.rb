@@ -19,13 +19,13 @@ class Doorkeeper::Application
 
       validates :website,
                 :url => true,
-                :allow_blank => true
+                :presence => true
 
       validates :description,
                 :length => {
                   :within => 0..500
                 },
-                :allow_blank => true
+                :presence => true
 
     end
 

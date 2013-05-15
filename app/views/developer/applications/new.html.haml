@@ -15,6 +15,14 @@
               %p.subheader
                 = "Minimum requirements for your app is a name and a valid redirect URI."
                 = "Without these your App cannot function properly."
+          %hr
+          .row
+            .large-6.columns
+              = f.input :website
+              = f.input :description, as: :text, input_html: { style: 'min-height: 140px;' }
+            .large-6.columns
+              %br
+              %p.subheader= "Please fill out this additional information to make it easier for users to learn more about your app."
 
       %br
       .content-panel
