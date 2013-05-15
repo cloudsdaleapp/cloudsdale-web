@@ -31,7 +31,7 @@
             - else
               %p.subheader= "Welcome back #{current_user.name}, how have you been? What do you want to do today?"
               %br
-              = link_to "Manage my #{@app_count} Apps", applications_path, :class => ['button','secondary','expand','small']
+              = link_to "Manage my #{pluralize(@app_count,'app','apps')}", applications_path, :class => ['button','secondary','expand','small']
               %br
               = link_to "Read Documentation", "/docs", :class => ['button','secondary','expand','small']
 
