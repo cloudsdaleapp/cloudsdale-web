@@ -1,7 +1,5 @@
 .row
-  .large-3.columns
-    = render 'application_sidebar'
-  .large-9.columns
+  .large-9.columns.push-3
     %ul.breadcrumbs
       %li= link_to "Applications", applications_path
       %li.current= "New"
@@ -22,4 +20,7 @@
       .content-panel
         .content-panel-inner.panel-expand
           = f.submit 'Create Application', :class => "button expand", :style => 'margin: 0;'
+      %br
 
+  .large-3.columns.pull-9
+    = render 'application_sidebar'
