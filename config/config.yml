@@ -13,6 +13,10 @@ defaults: &defaults
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
 
+  github:
+    client_id: b47fc28f752aaa49c583
+    client_secret: b31ba47d6d555cea720ce7493192879f61f6162a
+
   twitter:
     consumer_key: mHnUVYK5NUfk0IHbqruZcA
     consumer_secret: Jlz13rBFDrPMKvr5EcWmNHaB6YwYHH1FCCASGFdOSkY
@@ -79,6 +83,10 @@ production:
 
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
+
+  github:
+    client_id: 631174526c743d4a9f51
+    client_secret: 0e3cae3a8b61f3c4536c33f6c3e38bb297e0712d
 
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA

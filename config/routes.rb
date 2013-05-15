@@ -17,8 +17,9 @@ Cloudsdale::Application.routes.draw do
   # Omniauth routes to connect users to different services oAuth2 services
   # like Twitter and Facebook. This has nothing to do with Cloudsdale's own
   # oAuth2 provider.
+  match '/auth/github/callback'    => 'authentications#github'
   match '/auth/:provider/callback' => 'authentications#create'
-  match '/auth/failure' => 'authentications#failure'
+  match '/auth/failure'            => 'authentications#failure'
 
   scope :web, constraints: { subdomain: /www/ } do
 
