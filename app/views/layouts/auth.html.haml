@@ -23,6 +23,13 @@
 %body
   #body-wrap
     .container#wrapper
+      .row
+        .large-6.large-centered.columns
+          %br
+          = render 'layouts/flash_error'
+          = render 'layouts/flash_notice'
+          = render 'layouts/flash_success'
+
       = yield
       %br
       .row

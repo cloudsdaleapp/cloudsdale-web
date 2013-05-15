@@ -8,9 +8,15 @@ class Developer::ApplicationsController < DeveloperController
   end
 
   def index
-    unless Doorkeeper::ApplicationPolicy.new(current_user,nil).index?
-      raise Pundit::NotAuthorizedError, "you have not yet signed up to be a developer."
+    if current_user.new_record?
+      flash[:notice] = "You must be signed in to see and manage your apps."
+      redirect_to login_path
+    elsif not Doorkeeper::ApplicationPolicy.new(current_user,nil).index?
+      raise Pundit::NotAuthorizedError, "You are not a Cloudsdale developer, please connect with GitHub to become one."
     end
+  rescue Pundit::NotAuthorizedError => message
+    flash[:error] = message
+    redirect_to root_path
   end
 
   def new

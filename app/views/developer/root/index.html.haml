@@ -1,7 +1,32 @@
 .row
   .large-7.columns
+    %br
+    %br
     %h2= "Cloudsdale Developer Portal"
-    %h4.subheader= "Welcome to the most sophisticated app developer community for bronies. Here you can integrate your service with Cloudsdale and make use of our API's to make your app better!"
+    %h4.subheader= "Welcome to the most sophisticated app developer community for bronies. Here you can integrate your service with Cloudsdale and make use of our API's to make your pony app better!"
+  .large-5.columns
+    .row
+      .large-8.large-centered.small-10.small-centered.columns
+        %center
+          %br
+          %br
+          %br
+          %br
+          - if current_user.new_record?
+            %p.subheader= "To become a developer, you must first have a Cloudsdale account."
+            = link_to "Login to Cloudsdale", login_path, :class => ['button','secondary','expand']
+          - elsif not current_user.developer?
+            %p.subheader= "To verify you as a Cloudsdale developer, we need you to connect your GitHub account."
+            = link_to "Connect with GitHub", '/auth/github', :class => ['button','secondary','expand']
+          - elsif @app_count.zero?
+            %p.subheader= "You do not have any apps yet, to get started why not create one?"
+            = link_to "Get Started!", new_application_path, :class => ['button','primary','expand']
+          - else
+            %p.subheader= "Welcome back #{current_user.name}, how have you been? What do you want to do today?"
+            %br
+            = link_to "Manage my Apps", applications_path, :class => ['button','secondary','expand','small']
+            %br
+            = link_to "Read Documentation", "/docs", :class => ['button','secondary','expand','small']
 
 / .row
 /   .large-4.columns

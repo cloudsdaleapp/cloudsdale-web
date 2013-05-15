@@ -35,6 +35,10 @@
                 %li.divider
                 %li= link_to "Apps", applications_path
                 %li.divider
+                %li= link_to "Docs", ""
+                %li.divider
+                / %li= link_to "Libraries", ""
+                / %li.divider
 
             %section.top-bar-section
               %ul.right
@@ -51,6 +55,7 @@
     = render 'layouts/flash_notice'
     = render 'layouts/flash_success'
     = yield
+    / = AvatarDispatch::ALLOWED_SIZES.join(", ")
 
   = javascript_include_tag "developer"
 
