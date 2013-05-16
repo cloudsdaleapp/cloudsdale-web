@@ -53,7 +53,7 @@
     %hr
 .row
   .small-12.large-4.columns
-    %h5= "oAuth Gateway"
+    %h5.subheader= "oAuth Gateway"
     .panel
       %p= "Are you an app or web developer and want to get started quickly without having to worry about authentication?"
       %p= "We know what a hassle it is to write and maintain authentication logic. Why not use our gateway?"
@@ -62,8 +62,50 @@
         %br= link_to "Get started...", '/docs', :class => ['button','expand','secondary']
 
   .small-12.large-4.columns
-    %h5
-      = "Object Graph"
+    %h5.subheader= "Embedable Clouds"
+    .panel
+      %p= "Do you run a website, blog or forum where you want your users to communicate realtime?"
+      %p= "By following modern web convention, our embedable clouds works on handheld devices as well as your laptop browser."
+      %p= "Drop the old IRC client, join the modern era and use our fun and easy embedable clouds."
+      %p
+        %br= link_to "Get started...", '/docs', :class => ['button','expand','secondary']
+
+  .small-12.large-4.columns
+    %h5.subheader= "Universal Avatars"
+    .panel
+      %p= "Have you found it hard to maintain avatar uploads, storage and distribution? We solve that for you!"
+      %p= "Cloudsdale user, cloud and app avatars are accessible in a wide variety of sizes through our API's."
+      %p= "Using pattern recognition you only need to have the user ID or the users email address and you're good to go."
+      %p
+        %br= link_to "Get started...", '/docs', :class => ['button','expand','secondary']
+
+%br
+.row
+  .small-12.large-4.columns
+    %h5.subheader
+      = "Realtime API"
+      %small= "(coming soon)"
+    .panel
+      %p= "Cloudsdale is built on a basic principle, every aspect of our service can be interacted with realtime."
+      %p= "Using our API's you can access and interact with live discussions and streams of content."
+      %p= "Hook in to Cloudsdale using libraries available for most major platforms including the browser."
+      %p
+        %br= link_to "Coming soon...", '#', :class => ['button','expand','secondary','disabled'], disabled: :disabled
+
+  .small-12.large-4.columns
+    %h5.subheader
+      = "Message API"
+      %small= "(coming soon)"
+    .panel
+      %p= "Want to broadcast messages or share content to Cloudsdale on the behalf of your users."
+      %p= "Using our Messaging API's, you can publish or retreive messages straight from or to your users Cloudsdale conversations."
+      %p= "Make your app more social and use our lean but powerful messaging API."
+      %p
+        %br= link_to "Coming soon...", '#', :class => ['button','expand','secondary','disabled'], disabled: :disabled
+
+  .small-12.large-4.columns
+    %h5.subheader
+      = "Content API"
       %small= "(coming soon)"
     .panel
       %p= "Do you want to share your public data across other applications or use data created by others?"
@@ -72,11 +114,3 @@
       %p
         %br= link_to "Coming Soon...", '#', :class => ['button','expand','secondary','disabled'], disabled: :disabled
 
-  .small-12.large-4.columns
-    %h5= "Universal Avatars"
-    .panel
-      %p= "Have you found it hard to maintain avatar uploads, storage and distribution? We solve that for you!"
-      %p= "Cloudsdale user, cloud and app avatars are accessible in a wide variety of sizes through our API's."
-      %p= "Using pattern recognition you only need to have the user ID or the users email address and you're good to go."
-      %p
-        %br= link_to "Get started...", '/docs', :class => ['button','expand','secondary']
