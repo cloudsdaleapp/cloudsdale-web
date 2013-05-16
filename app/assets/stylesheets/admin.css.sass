@@ -22,6 +22,14 @@ body
   &.panel-expand
     padding: 0px
 
+.panel-header
+  padding: 6px 10px
+  border-bottom: 1px solid $border-primary-color
+  @include linear-gradient(#FFFFFF,#EEEEEE)
+  text-shadow: 1px 1px 1px #FFF
+  font-weight: bold
+  font-size: emCalc(13px)
+
 .panel-side-nav
   $panel-side-nav-bg: $body-bg
   $panel-side-nav-font-size: emCalc(12px)
@@ -30,8 +38,9 @@ body
   li
     padding: emCalc(14px) $section-padding
     margin-bottom: 0
-    border-top: 1px solid $border-primary-color
     border-left: 2px solid $border-primary-color
+    &:not(:first-child)
+      border-top: 1px solid $border-primary-color
     &:hover
       border-left-color: $primary-color
 
@@ -89,9 +98,6 @@ body
     width: 112px
     margin: 0
 
-.auth-icon-default
-  border: 0
-
 .auth-header
   background-image: asset-data-url("details/arrow.png")
   background-repeat: no-repeat
@@ -136,3 +142,5 @@ body
     margin-bottom: 5px
   li
     margin-bottom: 3px
+
+@import "coderay"

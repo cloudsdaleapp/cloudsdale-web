@@ -7,9 +7,11 @@ class ApplicationController < ActionController::Base
   before_filter :auth_token
   before_filter :redirect_on_maintenance!, :set_time_zone_for_user!, :assert_user_ban!
 
-  # Rescues the error yielded from not finding requested document
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
-    flash[:error] = "Page not found."
+    render 'exceptions/not_found', status: 404
+  end
+
+  rescue_from ActionController::RoutingError do |message|
     render 'exceptions/not_found', status: 404
   end
 
