@@ -30,7 +30,7 @@ gem 'ace-rails-ap'
 
 # Markup
 gem 'slim'
-gem 'haml-rails', '~> 0.3.4'
+gem 'haml-rails', '~> 0.4'
 gem 'redcarpet'
 gem 'rabl',       '~> 0.6.10'
 gem 'roadie'

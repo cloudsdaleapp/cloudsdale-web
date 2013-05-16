@@ -171,12 +171,13 @@ GEM
     guard-spork (0.8.0)
       guard (>= 0.10.0)
       spork (>= 0.8.4)
-    haml (3.1.4)
-    haml-rails (0.3.4)
-      actionpack (~> 3.0)
-      activesupport (~> 3.0)
-      haml (~> 3.0)
-      railties (~> 3.0)
+    haml (4.0.2)
+      tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     haml_coffee_assets (1.6.0)
       coffee-script (>= 1.0.0)
       sprockets (>= 2.0.3)
@@ -461,7 +462,7 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-spork
-  haml-rails (~> 0.3.4)
+  haml-rails (~> 0.4)
   haml_coffee_assets (~> 1.6.0)
   hashr
   hiredis (~> 0.4.5)
