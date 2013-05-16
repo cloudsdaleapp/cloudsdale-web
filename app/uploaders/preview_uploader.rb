@@ -34,7 +34,7 @@ class PreviewUploader < ApplicationUploader
   # Public: Set default URL for preview images to
   # be served with the assets pipeline
   def default_url
-    image_path("#{Cloudsdale.config['asset_url']}/assets/fallback/" + [mounted_as, version_name, "#{model._type.try(:downcase)}.png"].compact.join('_'))
+    image_path("#{Cloudsdale.config['asset_url']}/assets/fallback/" + [mounted_as, version_name, "#{model[:_type].try(:downcase)}.png"].compact.join('_'))
   end
 
   # Public: Make sure to not whitelist, any file goes.
