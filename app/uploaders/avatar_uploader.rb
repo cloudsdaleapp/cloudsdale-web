@@ -5,7 +5,7 @@ class AvatarUploader < ApplicationUploader
   include CarrierWave::MiniMagick
 
   # Process files as they are uploaded:
-  process :resize_to_fill => [1024, 1024]
+  process :resize_to_fill => [512, 512]
   process :convert => 'png'
 
   def filename
