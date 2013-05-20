@@ -1,2 +1,91 @@
 .content-panel
   .content-panel-inner
+    :markdown
+      ### Introduction
+      Cloudsdale is it's own oAuth 2 provider, you can set up
+      your application to allow users to log in to Cloudsdale
+      and send back tokens to your own service granting you access
+      to talk with Cloudsdale on that user's behalf. It consists
+      of an exchange of an authorization token for an access token.
+      For more detailed info, check out the
+      [RFC spec here](http://tools.ietf.org/html/rfc6749#section-4.1)
+
+%br
+%h3= "Getting Started"
+%hr
+%h4.subheader= "Registering a Client"
+:markdown
+  Once you're logged in to the Cloudsdale developer portal, you can visit
+  #{new_application_url}. Fill in the corrent credentials to match your
+  application.
+
+.content-panel
+  .content-panel-inner.panel-expand
+    = image_tag "tut/oauth_register.png"
+%br
+
+:markdown
+  Once you've registered your app it will appear in the on the list of the
+  apps front page found at #{applications_url} for easy access in the future.
+
+%hr
+%h4.subheader= "Request Authorization Token"
+
+:markdown
+  When your application is set up. You can now start requesting authorization
+  tokens by redirecting your users to our authorization path for your app
+  with a few parameters like this:
+
+.content-panel
+  .content-panel-inner.panel-expand
+    :markdown
+      ```
+        #{oauth_authorization_url(subdomain: "www")}?client_id=YOUR_CLIENT_ID&redirect_uri=http://example.com/oauth/callback&response_type=code
+      ```
+%br
+
+:markdown
+  Once you are there, you should sign in and click on **Permit**.
+
+  You'll see this page:
+
+.content-panel
+  .content-panel-inner.panel-expand
+    = image_tag "tut/oauth_permit_access.png"
+%br
+
+:markdown
+  You can test authorization by clicking the **Test Authorize** button located
+  on your application page. It's a link to the same page with pre-generated
+  parameters for your app.
+
+
+%hr
+%h4.subheader= "Requesting the Access Token"
+
+:markdown
+  To request the access token, you should use the returned code and exchange
+  it for an access token. To do that you can use any HTTP client. In this case,
+  we used the ruby `rest-client` gem:
+
+.content-panel
+  .content-panel-inner.panel-expand
+    :markdown
+
+      ```ruby
+      parameters = 'client_id=THE_ID&client_secret=THE_SECRET&code=RETURNED_CODE&grant_type=authorization_code&redirect_uri=http://example.com/oauth/callback'
+      RestClient.post '#{oauth_token_url(subdomain: "www")}', parameters
+
+      # The response will be, but with values specific for your application.
+      {
+       "access_token": "de6780bc506a0446309bd9362820ba8aed28aa506c71eedbe1c5c4f9dd350e54",
+       "token_type": "bearer",
+       "expires_in": 7200,
+       "refresh_token": "8257e65c97202ed1726cf9571600918f3bffb2544b26e00a61df9897668c33a1"
+      }
+      ```
+%br
+
+:markdown
+  You can now make requests to the API with the access token on behalf
+  of that user. Have fun using our powerful API's.
