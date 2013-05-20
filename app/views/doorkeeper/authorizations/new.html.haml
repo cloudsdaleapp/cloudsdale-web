@@ -3,7 +3,7 @@
   .large-6.large-centered.columns
     .row.auth-header
       .large-5.small-5.columns
-        .auth-icon{ style: 'float: left;' }= image_tag "eqbeats.png"
+        .auth-icon{ style: 'float: left;' }= image_tag @pre_auth.client.application.avatar.url
       .large-5.small-5.columns
         .auth-icon{ style: 'float: right;' }= image_tag current_user.avatar.url
 
