@@ -12,7 +12,7 @@ class Developer::ApplicationsController < DeveloperController
       flash[:notice] = "You must be signed in to see and manage your apps."
       redirect_to login_path
     elsif not Doorkeeper::ApplicationPolicy.new(current_user,nil).index?
-      raise Pundit::NotAuthorizedError, "You are not a Cloudsdale developer, please connect with GitHub to become one."
+      raise Pundit::NotAuthorizedError "You are not a Cloudsdale developer, please connect with GitHub to become one."
     end
   rescue Pundit::NotAuthorizedError => message
     flash[:error] = message
@@ -21,7 +21,7 @@ class Developer::ApplicationsController < DeveloperController
 
   def new
     @application = Doorkeeper::Application.new
-    authorize @application, :new?
+    authorize @application, :new?, "You're not allowed to create a new application."
   end
 
   def create
@@ -29,7 +29,7 @@ class Developer::ApplicationsController < DeveloperController
     @application = Doorkeeper::Application.new(permitted_params.application.create)
     @application.owner = current_user
 
-    authorize @application, :create?
+    authorize @application, :create?, "You're not allowed to create a new application"
 
     if @application.save
       flash[:success] = "Application #{@application.name} created successfully."
@@ -42,17 +42,17 @@ class Developer::ApplicationsController < DeveloperController
 
   def show
     @application = Doorkeeper::Application.find(params[:id])
-    authorize @application, :show?
+    authorize @application, :show?, "You're not allowed to see this application."
   end
 
   def edit
     @application = Doorkeeper::Application.find(params[:id])
-    authorize @application, :edit?
+    authorize @application, :edit?, "You're not allowed to edit this application."
   end
 
   def update
     @application = Doorkeeper::Application.find(params[:id])
-    authorize @application, :update?
+    authorize @application, :update?, "You're not allowed to edit this application."
 
     if @application.update_attributes(permitted_params.application.update)
       flash[:success] = "Application #{@application.name} updated successfully."
@@ -64,7 +64,7 @@ class Developer::ApplicationsController < DeveloperController
 
   def destroy
     @application = Doorkeeper::Application.find(params[:id])
-    authorize @application, :destroy?
+    authorize @application, :destroy?, "You're not allowed to remove this application."
 
     flash[:notice] = "Application #{@application.name} was removed." if @application.destroy
     redirect_to applications_path
