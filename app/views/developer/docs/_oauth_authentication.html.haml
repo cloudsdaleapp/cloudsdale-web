@@ -65,11 +65,15 @@
 
 :markdown
   To request the access token, you should use the returned code and exchange
-  it for an access token. To do that you can use any HTTP client. In this case,
-  we used the ruby `rest-client` gem:
+  it for an access token. To do that you can use any HTTP client. In this example,
+  we used the ruby `rest-client` gem.
+
+  We have also released an official library for `Ruby on Rails` and `Sinatra` using
+  omniauth to handle Cloudsdale authentication. Find it [here](http://rubygems.org/gems/omniauth-cloudsdale).
 
 .content-panel
   .content-panel-inner.panel-expand
+    .panel-header= "Ruby Example"
     :markdown
 
       ```ruby
