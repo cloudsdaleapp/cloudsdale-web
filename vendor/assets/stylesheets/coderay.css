@@ -4,7 +4,7 @@
   color: #000;
   line-height: 1.2em;
   height: auto;
-  overflow: hidden;
+  overflow: auto;
   display: block;
   padding: 1em 1em 1em 1em;
 }
