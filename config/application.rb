@@ -41,6 +41,14 @@ module Cloudsdale
     @bunny
   end
 
+  def self.cdn
+    @cdn ||= NetDNARWS::NetDNA.new(
+      Cloudsdale.config['cdn']['alias'],
+      Cloudsdale.config['cdn']['key'],
+      Cloudsdale.config['cdn']['secret']
+    )
+  end
+
   def self.faye_path(type = nil, secure = false)
     host    = (type == :inhouse) ? config['faye']['inhouse_host']  : config['faye']['host']
     port    = (secure == true)   ? config['faye']['secure_port']   : config['faye']['port']

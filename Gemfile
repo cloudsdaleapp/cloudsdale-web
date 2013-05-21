@@ -53,6 +53,7 @@ gem 'strong_parameters', '~> 0.2.1'
 # Third-party
 gem 'fog'
 gem 'cloudfiles', '1.4.18'
+gem 'netdnarws',  '~> 0.2.6'
 
 # Images
 gem 'mini_magick'

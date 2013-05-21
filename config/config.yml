@@ -1,5 +1,13 @@
 defaults: &defaults
 
+  cdn:
+    alias: cloudsdale
+    secret: a2a1710c0803a98faacb370e297a5a7a
+    key: 34e6b64511c260329d44927bcd4a09b90519be1ff
+    avatar_zone:
+      id: 96822
+      type: pull
+
   uploader:
     storage: 'file'
 
