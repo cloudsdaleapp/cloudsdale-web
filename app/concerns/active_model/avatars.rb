@@ -69,6 +69,7 @@ module ActiveModel
               when :https  then Cloudsdale.config['avatar']['https']
               when :ssl    then Cloudsdale.config['avatar']['https']
               else Cloudsdale.config['avatar']['http']
+              end
 
       "#{url}#{dynamic_avatar_path(size,url_type)}"
     end
