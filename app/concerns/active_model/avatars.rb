@@ -70,9 +70,6 @@ module ActiveModel
               when :ssl    then Cloudsdale.config['avatar']['https']
               else Cloudsdale.config['avatar']['http']
 
-      tld = Rails.env.production? ? 'org'        : 'dev'
-      sub = Rails.env.production? ? 'avatar.cdn' : 'avatar'
-
       "#{url}#{dynamic_avatar_path(size,url_type)}"
     end
 
