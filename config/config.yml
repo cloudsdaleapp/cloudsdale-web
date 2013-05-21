@@ -1,5 +1,13 @@
 defaults: &defaults
 
+  url: http://www.cloudsdale.dev
+  asset_url: http://www.cloudsdale.dev
+  session_key: .cloudsdale.dev
+
+  avatar:
+    http:   http://avatar.cloudsdale.dev
+    https:  https://avatar.cloudsdale.dev
+
   cdn:
     alias: cloudsdale
     secret: a2a1710c0803a98faacb370e297a5a7a
@@ -55,10 +63,6 @@ defaults: &defaults
 development:
   <<: *defaults
 
-  url: http://www.cloudsdale.dev
-  asset_url: http://www.cloudsdale.dev
-  session_key: .cloudsdale.dev
-
   rackspace_cloudfiles:
     username: zeeraw
     api_key: fb02d3d2336d887b81c7401d522ea393
@@ -75,6 +79,10 @@ production:
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
   session_key: .cloudsdale.org
+
+  avatar:
+    http:   http://avatar.cdn.cloudsdale.org
+    https:  https://avatar-cloudsdale.netdna-ssl.com
 
   email:
     user_name: cloudsdale

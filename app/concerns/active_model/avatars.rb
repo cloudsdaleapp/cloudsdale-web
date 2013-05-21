@@ -64,19 +64,22 @@ module ActiveModel
     # Public: Generates the new type of avatar URL on demand
     #
     # Returns the full image path.
-    def dynamic_avatar_url(size=256,url_type=:id)
+    def dynamic_avatar_url(size = 256, url_type = :id, schema = :http)
+      url =   case schema
+              when :https  then Cloudsdale.config['avatar']['https']
+              when :ssl    then Cloudsdale.config['avatar']['https']
+              else Cloudsdale.config['avatar']['http']
 
       tld = Rails.env.production? ? 'org'        : 'dev'
       sub = Rails.env.production? ? 'avatar.cdn' : 'avatar'
 
-      "http://#{sub}.cloudsdale.#{tld}#{dynamic_avatar_path(size,url_type)}"
-
+      "#{url}#{dynamic_avatar_path(size,url_type)}"
     end
 
     # Public: Generates the new type of avatar path on demand
     #
     # Returns the relative avatar path.
-    def dynamic_avatar_path(size=256,url_type=:id)
+    def dynamic_avatar_path(size = 256, url_type = :id)
 
       avatar_id = case url_type
                   when :hash       then self.email_hash
