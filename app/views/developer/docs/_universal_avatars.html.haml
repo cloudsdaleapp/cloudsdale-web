@@ -2,3 +2,55 @@
   .content-panel-inner
     :markdown
       ### Universal Avatars
+      All user avatar url's on Cloudsdale are based on a hashed value of
+      the users current email-address. Using email hashes that are not in
+      our system or does not belong to any of our users will just result
+      a fallback avatar being used.
+
+%br
+%h3= "Getting Started"
+%hr
+%h4.subheader= "Creating the Hash"
+:markdown
+  We store all emails downcased and sanitized from whitespace, so before
+  you create your hash you must make sure the email is both lower case
+  and does not contain and whitespace before or after the address string.
+  Otherwise we will not be able to match the email and and the default avatar
+  will be used insted.
+
+.content-panel
+  .content-panel-inner.panel-expand
+    .panel-header= "Ruby Example"
+    :markdown
+      ```ruby
+      require 'digest/md5'
+
+      email_address = "Ask@Cloudsdale.org".downcase
+      hash = Digest::MD5.hexdigest(email_address)
+      image_source = "#{root_url(subdomain: 'avatar')}user/\#{hash}"
+      ```
+
+%hr
+%h4.subheader= "Requesting the Avatar"
+:markdown
+  The avatar can be requested by a regular HTTP GET request to this path.
+  It accepts the parameter `s`, which can be used to determine what size
+  of the image you want, if no size is defined, the default size will be
+  `256`.
+
+  Currently we only support a select few sizes from the base 2 sequence,
+  in the future we aim to support all sizes between 8 and 1024. Requesting
+  an unavailable size will result in a complete blank response as we don't
+  want to cache too many url's in the CDN.
+
+%ul.inline-list
+  - AvatarDispatch::BASE_SIZES.each do |size|
+    %li
+      %span.keystroke{ style: 'padding: 0 7px;' }= size.to_s
+
+.content-panel
+  .content-panel-inner
+    .left{ style: 'margin-right: 20px;'}
+      = image_tag current_user.dynamic_avatar_url(128), class: 'auth-icon'
+    %h6.subheader= "Here is an example of how the finished url might actually look:"
+    = link_to current_user.dynamic_avatar_url(128), class: 'subheader'
