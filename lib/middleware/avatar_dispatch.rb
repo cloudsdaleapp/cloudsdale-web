@@ -1,6 +1,6 @@
 class AvatarDispatch
 
-  BASE_SIZES    = Array.new(9){ |n| 2 ** (n + 1) }
+  BASE_SIZES    = Array.new(9){ |n| 2 ** (n + 1) }.last(7)
   SPECIAL_SIZES = [24,40,50,70,200]
   ALLOWED_SIZES = (BASE_SIZES + SPECIAL_SIZES).uniq.sort
   PATH_MATCH    = /\/(?<model>user|app|cloud)\/((?<md5>[0-9a-f]{32})|(?<bson>[0-9a-fA-F]{24}))\.(?<format>png)/
