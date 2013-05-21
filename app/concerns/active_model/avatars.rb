@@ -6,6 +6,8 @@ module ActiveModel
 
     included do
 
+      attr_accessor :avatar_purged
+
       attr_accessible :avatar, :remote_avatar_url, :remove_avatar
 
       field :avatar_uploaded_at,   type: DateTime
@@ -62,10 +64,31 @@ module ActiveModel
     # Public: Generates the new type of avatar URL on demand
     #
     # Returns the full image path.
-    def dynamic_avatar_url(size=256)
-      tld = Rails.env.production? ? 'org'       : 'dev'
-      sub = Rails.env.production? ? 'avatar.cf' : 'avatar'
-      "http://#{sub}.cloudsdale.#{tld}/#{avatar_namespace}/#{self.id}.png?s=#{size}"
+    def dynamic_avatar_url(size=256,url_type=:id)
+
+      tld = Rails.env.production? ? 'org'        : 'dev'
+      sub = Rails.env.production? ? 'avatar.cdn' : 'avatar'
+
+      "http://#{sub}.cloudsdale.#{tld}#{dynamic_avatar_path(size,url_type)}"
+
+    end
+
+    # Public: Generates the new type of avatar path on demand
+    #
+    # Returns the relative avatar path.
+    def dynamic_avatar_path(size=256,url_type=:id)
+
+      avatar_id = case url_type
+                  when :hash       then self.email_hash
+                  when :email      then self.email_hash
+                  when :email_hash then self.email_hash
+                  else self.id
+                  end
+
+      size = !size.nil? ? "?s=#{size}" : ""
+
+      "/#{avatar_namespace}/#{avatar_id}.png#{size}"
+
     end
 
     # Public: Determines which namespace the avatar

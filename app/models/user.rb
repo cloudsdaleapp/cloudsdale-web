@@ -92,7 +92,7 @@ class User
     enqueue! "faye", { channel: "/users/#{self._id.to_s}", data: self.to_hash }
     enqueue! "faye", { channel: "/users/#{self._id.to_s}/private", data: self.to_hash( template: "api/v1/users/private" ) }
 
-    if name_changed? or preferred_status_changed? or role_changed? or avatar_changed?
+    if name_changed? or preferred_status_changed? or role_changed? or avatar_changed? or avatar_purged
       self.cloud_ids.each { |cloud_id| enqueue!("faye", { channel: "/clouds/#{cloud_id.to_s}/users/#{self._id.to_s}", data: self.to_hash( template: "api/v1/users/mini") }) }
     end
 

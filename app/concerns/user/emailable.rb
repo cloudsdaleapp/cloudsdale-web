@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'digest/md5'
 
 class User
   module Emailable
@@ -10,6 +11,7 @@ class User
       attr_accessible :email
 
       field :email,                     type: String
+      field :email_hash,                type: String
       field :email_token,               type: String
       field :email_verified_at,         type: DateTime
       field :email_subscriber,          type: Boolean,    default: true
@@ -26,7 +28,6 @@ class User
       validate :forced_email_change,    if: :force_email_change_changed?
 
       before_save do
-        self[:email] = self[:email].downcase if email.present?
         generate_email_token unless email_token.present?
       end
 
@@ -38,6 +39,10 @@ class User
         if val.present?
           self.force_email_change = false if self.force_email_change
 
+          val.downcase!
+          val.strip!
+
+          generate_email_hash
           generate_email_token
 
           self.email_verified_at = nil
@@ -55,6 +60,12 @@ class User
     # Good idea to do this when an email token has been consumed.
     def generate_email_token
       self[:email_token] = SecureRandom.hex(4)
+    end
+
+    # Public: Generates an MD5 hexdigest hash out of the email address.
+    # Good idea to do this whenever the email address has changed.
+    def generate_email_hash
+      self.email_hash = Digest::MD5.hexdigest(self.email) if self.email.present?
     end
 
     # Public: Determines wether the user has to change it's email
