@@ -27,7 +27,8 @@
 
       email_address = "Ask@Cloudsdale.org".downcase
       hash = Digest::MD5.hexdigest(email_address)
-      image_source = "#{root_url(subdomain: 'avatar')}user/\#{hash}"
+      image_source = "#{user_avatar_url('#{hash}', nil)}"
+      secure_image_source = "#{user_avatar_url('#{hash}', nil, :ssl)}"
       ```
 
 %hr
@@ -53,5 +54,5 @@
     .left{ style: 'margin-right: 20px;'}
       = image_tag current_user.dynamic_avatar_url(128), class: 'auth-icon'
     %h6.subheader= "Here is an example of how the finished url might actually look:"
-    = link_to current_user.dynamic_avatar_url(128), class: 'subheader'
+    = link_to current_user.dynamic_avatar_url(128), current_user.dynamic_avatar_url(128), class: 'subheader', target: :_blank
 %br

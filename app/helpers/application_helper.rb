@@ -58,4 +58,16 @@ module ApplicationHelper
     Connorcpu, fansite, Nginx"
   end
 
+  def user_avatar_url(avatar_id, size = 256, schema = :http)
+    url = case schema
+          when :https  then Cloudsdale.config['avatar']['https']
+          when :ssl    then Cloudsdale.config['avatar']['https']
+          else Cloudsdale.config['avatar']['http']
+          end
+
+    size = !size.nil? ? "?s=#{size}" : ""
+
+    "#{url}/user/#{avatar_id}.png#{size}"
+  end
+
 end
