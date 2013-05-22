@@ -15,13 +15,7 @@ class AvatarPurgeWorker
     version_types << :email if record.respond_to?(:email_hash)
 
     version_types.each do |version|
-
       versions << record.dynamic_avatar_path(nil, version)
-
-      AvatarDispatch::ALLOWED_SIZES.map do |size|
-        versions << record.dynamic_avatar_path(size, version)
-      end
-
     end
 
     cdn = NetDNARWS::NetDNA.new(
