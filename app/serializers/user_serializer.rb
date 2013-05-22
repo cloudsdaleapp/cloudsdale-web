@@ -6,7 +6,8 @@ class UserSerializer < ApplicationSerializer
   attributes :username, :status, :role, :avatar, :activity, :suspended
 
   def avatar
-    Rails.env.development? ? Cloudsdale.config['url'] + object.avatar.url : object.avatar.url
+    avatar_id_type = object.email_hash.present? :email_hash : :id
+    return object.dynamic_avatar_url(nil, avatar_id_type, :https)
   end
 
   def activity
