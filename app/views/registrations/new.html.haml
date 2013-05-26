@@ -1,0 +1,25 @@
+%br
+.row
+  .large-6.large-centered.columns
+    .row.auth-header
+      .large-5.small-5.columns
+        .auth-icon{ style: 'float: left;' }= image_tag current_user.avatar.url
+      .large-5.small-5.columns
+        .auth-icon.auth-icon-default{ style: 'float: right;' }= image_tag "icon/icon_auth_gray.png"
+%br
+.row
+  .large-6.large-centered.columns
+    .content-panel
+      .content-panel-inner
+        .row
+          .large-8.small-12.large-centered.columns
+            %br
+            %h3= "Register"
+            %br
+            = simple_form_for @registration, url: register_path, method: :post do |f|
+              = f.input :display_name,                 label: false, placeholder: "Display Name"
+              = f.input :username,                     label: false, placeholder: "Username"
+              = f.input :email,         as: :email,    label: false, placeholder: "Email"
+              = f.input :password,      as: :password, label: false, placeholder: "Password"
+              %br
+              = f.submit "Register", class: 'button success', style: 'width: 100%;'

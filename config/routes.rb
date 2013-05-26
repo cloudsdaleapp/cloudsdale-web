@@ -9,6 +9,12 @@ Cloudsdale::Application.routes.draw do
   get  '/login'  => 'sessions#new',     as: :login
   post '/login'  => 'sessions#create',  as: :login
 
+  get  '/register' => 'registrations#new',    as: :register
+  post '/register' => 'registrations#create', as: :register
+
+  get  '/register/verify' => 'registrations#edit',   as: :register_verification
+  put  '/register/verify' => 'registrations#update', as: :register_verification
+
   use_doorkeeper do
     controllers      authorizations: 'oauth/authorizations'
     skip_controllers :applications, :authorized_applications
