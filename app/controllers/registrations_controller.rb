@@ -12,6 +12,9 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new
   end
 
+  # Public: View for verifying your registration
+  #
+  # Renders the verify page.
   def edit
     @registration = Registration.new
   end
