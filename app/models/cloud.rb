@@ -210,25 +210,6 @@ class Cloud
     Drop.after_on_topic(Time.now,self).only_visable.order_by_topic(self).with_preview_image.limit(2)
   end
 
-  # Override to silently ignore trying to remove missing
-  # previous avatar when destroying a User.
-  def remove_avatar!
-    begin
-      super
-    rescue Fog::Storage::Rackspace::NotFound
-    end
-  end
-
-  # Override to silently ignore trying to remove missing
-  # previous avatar when saving a new one.
-  def remove_previously_stored_avatar
-    begin
-      super
-    rescue Fog::Storage::Rackspace::NotFound
-      @previous_model_for_avatar = nil
-    end
-  end
-
 private
 
   # Private: Attributes essential to clients

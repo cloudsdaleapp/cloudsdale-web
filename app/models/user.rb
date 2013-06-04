@@ -444,25 +444,4 @@ class User
     end
   end
 
-protected
-
-  # Internal: Override to silently ignore trying to remove missing
-  # previous avatar when destroying a User.
-  def remove_avatar!
-    begin
-      super
-    rescue Fog::Storage::Rackspace::NotFound
-    end
-  end
-
-  # Internal: Override to silently ignore trying to remove missing
-  # previous avatar when saving a new one.
-  def remove_previously_stored_avatar
-    begin
-      super
-    rescue Fog::Storage::Rackspace::NotFound
-      @previous_model_for_avatar = nil
-    end
-  end
-
 end
