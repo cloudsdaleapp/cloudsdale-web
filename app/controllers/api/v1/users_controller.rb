@@ -59,7 +59,16 @@ class Api::V1::UsersController < Api::V1Controller
 
       if @user.save
         created_account_this_session
+
+        if @user.confirmed_registration_at.present? && @user.email.present?
+          UserMailer.delay(
+            :queue => :high,
+            :retry => false
+          ).welcome_mail(@user.id.to_s)
+        end
+
         authenticate! @user
+
         render status: 200
       else
         set_flash_message message: "One or more of the fields were invalid.", title: "Field error."
