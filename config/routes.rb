@@ -12,8 +12,9 @@ Cloudsdale::Application.routes.draw do
   get  '/register' => 'registrations#new',    as: :register
   post '/register' => 'registrations#create', as: :register
 
-  get  '/register/verify' => 'registrations#edit',   as: :register_verification
-  put  '/register/verify' => 'registrations#update', as: :register_verification
+  get  '/register/verify'        => 'registrations#edit',   as: :register_verification
+  put  '/register/verify'        => 'registrations#update', as: :register_verification
+  get  '/register/verify/:token' => 'registrations#update', as: :direct_register_verification
 
   use_doorkeeper do
     controllers      authorizations: 'oauth/authorizations'

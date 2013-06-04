@@ -1,6 +1,6 @@
 class RegistrationsController < ApplicationController
 
-  layout 'auth',  only: [:new,:create]
+  layout 'auth',  only: [:new,:create,:edit,:update]
 
   before_filter :redirect_if_registered!, only: [:new,:create]
   skip_before_filter :assert_user_ban!
@@ -9,6 +9,7 @@ class RegistrationsController < ApplicationController
   #
   # Renders the login page.
   def new
+    session[:registration_token] = nil
     @registration = Registration.new
   end
 
@@ -16,7 +17,12 @@ class RegistrationsController < ApplicationController
   #
   # Renders the verify page.
   def edit
-    @registration = Registration.new
+    if session[:registration_token].present?
+      @registration = Registration.find(session[:registration_token])
+    else
+      flash[:error] = "You need to start a registration before you can verify it."
+      redirect_to register_path
+    end
   end
 
   # Public: Endpoint for creating a session.
@@ -25,15 +31,61 @@ class RegistrationsController < ApplicationController
   # to the site root if there is no stored path.
   def create
     @registration = Registration.new(permitted_params.registration.create)
-    if @registration.valid?
+
+    if @registration.save
+      session[:registration_token] = @registration.token
+      send_verification_email_for @registration
       flash[:notice] = "Please check your inbox at #{@registration.email} for a verification email."
-      edit_registe
+      redirect_to register_verification_path
     else
       render :new
     end
   end
 
   def update
+    if session[:registration_token].present?
+      @registration = Registration.find(session[:registration_token])
+      if params[:commit].parameterize == "resend-code"
+        send_verification_email_for(@registration)
+        render :edit
+      else
+        @registration.verify_token = params[:registration][:verify_token] || params[:token]
+
+        if @registration.valid?
+          @user = @registration.user
+
+          timestamp = DateTime.current
+          @user.email_verified_at         = timestamp
+          @user.confirmed_registration_at = timestamp
+
+          @registration.destroy
+          session[:registration_token] = nil
+
+          if @user.save
+            authenticate! @user
+            flash[:notice] = "Welcome to Cloudsdale, your registration has been verified."
+            redirect_to root_path
+          else
+            flash[:error] = "We're really sorry, it seems has been a huge error. Please go through the proccess again."
+            redirect_to register_path
+          end
+        else
+          render :edit
+        end
+      end
+    else
+      flash[:error] = "You need to start a registration before you can verify it."
+      redirect_to register_path
+    end
+  end
+
+private
+
+  def send_verification_email_for(registration)
+    RegistrationMailer.delay(
+      :queue => :high,
+      :retry => true
+    ).verification_mail(registration.token)
   end
 
 end

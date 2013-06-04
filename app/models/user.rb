@@ -96,11 +96,8 @@ class User
       self.cloud_ids.each { |cloud_id| enqueue!("faye", { channel: "/clouds/#{cloud_id.to_s}/users/#{self._id.to_s}", data: self.to_hash( template: "api/v1/users/mini") }) }
     end
 
-    if email_changed? && email.present? && !confirmed_registration_at_changed? && !email_verified_at.present?
-      UserMailer.delay(
-        :queue => :high,
-        :retry => false
-      ).verification_mail(self.id.to_s)
+    if email_changed? && email.present? && !confirmed_registration_at_changed? && !email_verified_at.present? && !new_record?
+      UserMailer.delay(:queue => :high, :retry => false).verification_mail(self.id.to_s)
     end
 
   end

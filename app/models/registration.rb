@@ -1,45 +1,18 @@
 class Registration
 
-  include ActiveModel::Validations
-  include ActiveModel::Conversion
-  extend  ActiveModel::Naming
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Token
 
-  attr_accessor :display_name, :username, :email, :password
-  attr_accessor :verification_code, :awaits_verification
+  attr_accessor :password, :verify_token
 
-  # Public: Initializes the model according to
-  # regular active model convention.
-  #
-  # attributes - The model attributes
-  #              :username     - The Username for the user.
-  #              :password     - The Password for the user.
-  #              :email        - The Email for user.
-  #              :display_name - The display name for the user.
-  #
-  # Returns self for command chaining.
-  def initialize(attributes = {})
-    attributes.each do |name, value|
-      send("#{name}=", value)
-    end
-    return self
-  end
+  field :display_name
+  field :username
+  field :email
+  field :password_salt
+  field :password_hash
 
-  # Public: Converts self to a set of parameters
-  # which can be used to create a new user.
-  def to_user_parameters
-    user_params = Hash.new
-    user_params.email         = self.email
-    user_params.username      = self.username
-    user_params.display_name  = self.display_name
-    user_params.password      = self.password
-    return user_params
-  end
-
-  # Public: Returns a new user based on own
-  # user paramaters.
-  def user
-    @user ||= User.new(self.to_user_parameters)
-  end
+  token length: 5,  contains: :fixed_numeric
 
   validates :email,         presence: true,   email: true
 
@@ -58,9 +31,44 @@ class Registration
   }, format: {
     with: /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/,
     message: "must contain both letters and numbers"
-  }
+  }, :if => :new_record?
 
-  validates :verification_code,   presence: true,   :if => :awaits_verification
+  validates :verify_token,  presence: true,   matches_field: {
+      field: :token,
+      message: "does not match the registration code"
+  }, :unless => :new_record?
+
+  # Public: Custom setter for the password
+  # attribute. Converting it to a password
+  # hash and a password salt for security
+  # measures.
+  #
+  # Returns the password string.
+  def password=(val)
+    if val.present?
+      self.password_salt = BCrypt::Engine.generate_salt unless password_salt.present?
+      self.password_hash = BCrypt::Engine.hash_secret(val, password_salt)
+    end
+    @password = val
+  end
+
+  # Public: Converts self to a set of parameters
+  # which can be used to create a new user.
+  def to_user
+    @user               = User.new
+    @user.email         = self.email
+    @user.username      = self.username
+    @user.name          = self.display_name
+    @user.password_salt = self.password_salt
+    @user.password_hash = self.password_hash
+    return @user
+  end
+
+  # Public: Returns a new user based on own
+  # user paramaters.
+  def user
+    @user ||= self.to_user
+  end
 
   def persisted?
     false

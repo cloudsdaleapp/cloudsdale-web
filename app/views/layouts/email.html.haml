@@ -70,8 +70,9 @@
                 %a{ href: "http://www.cloudsdale.org/meet-the-crew" }= "Staff"
                 %span= "|"
                 %a{ href: "http://www.cloudsdale.org/" }= "Website"
-                %span= "|"
-                = link_to "Unsubscribe from our newsletter", unsubscribe_email_url(user.email_token)
+                - if user.email_token.present?
+                  %span= "|"
+                  = link_to "Unsubscribe from our newsletter", unsubscribe_email_url(user.email_token)
 
         %td.email-wrap-right{ align: 'right' }
           %span= ""
