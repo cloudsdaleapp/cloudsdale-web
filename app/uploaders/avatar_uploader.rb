@@ -26,7 +26,7 @@ protected
   #
   # Returns nothing of interest.
   def purge_from_cdn(file)
-    if Rails.env.production? or
+    if Rails.env.production?
       AvatarPurgeWorker.perform_async(model.id.to_s, model.class.to_s)
     end
   end
