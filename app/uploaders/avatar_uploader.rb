@@ -25,7 +25,7 @@ protected
   # uploaded avatar for the model.
   #
   # Returns nothing of interest.
-  def purge_from_cdn(file)
+  def purge_from_cdn(file=nil)
     if Rails.env.production?
       AvatarPurgeWorker.perform_async(model.id.to_s, model.class.to_s)
     end
