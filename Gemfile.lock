@@ -26,6 +26,14 @@ GIT
       rails (>= 3.0.0)
 
 GIT
+  remote: git://github.com/thetron/mongoid_token.git
+  revision: 70049745cc4baa4136601368033d06a955225dc3
+  branch: patch/collisions-define-method
+  specs:
+    mongoid_token (2.0.0)
+      mongoid (~> 3.0)
+
+GIT
   remote: git@github.com:Zeeraw/carrierwave-mongoid.git
   revision: 1a46bf48a242e80a82b5cc392c771894fb238662
   branch: mongoid-3.0
@@ -490,6 +498,7 @@ DEPENDENCIES
   mongoid (~> 3.1.0)
   mongoid_fulltext!
   mongoid_rails_migrations (~> 1.0.0)
+  mongoid_token!
   moped (~> 1.4.0)
   netdnarws (~> 0.2.6)
   newrelic_moped
