@@ -6,7 +6,7 @@ class Registration
 
   attr_accessor :password, :verify_token
 
-  after_save :schedule_for_expiration
+  after_create :schedule_for_expiration
 
   field :display_name
   field :username
