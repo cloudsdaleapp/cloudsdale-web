@@ -7,6 +7,7 @@ class AvatarDispatch
   DOMAIN_MATCH  = /^(avatar)\..*$/
   TIMESTAMP      = DateTime.parse("2012-01-01").to_i
   HTTP_TIMESTAMP = DateTime.parse("2012-01-01").httpdate
+  REDIS_EXPIRE   = 12.hours
 
   def initialize(app)
     @app = app
@@ -96,8 +97,10 @@ private
         ).to_s
       end
 
-      Cloudsdale.redisClient.set(time_query,timestamp)
-      Cloudsdale.redisClient.set(path_query,file_path)
+      Cloudsdale.redisClient.set(time_query, timestamp)
+      Cloudsdale.redisClient.set(path_query, file_path)
+      Cloudsdale.redisClient.expire(time_query,REDIS_EXPIRE)
+      Cloudsdale.redisClient.expire(path_query,REDIS_EXPIRE)
 
     end
 
