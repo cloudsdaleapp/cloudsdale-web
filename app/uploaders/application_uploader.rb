@@ -6,6 +6,7 @@ class ApplicationUploader < CarrierWave::Uploader::Base
   include Sprockets::Helpers::IsolatedHelper
 
   after :store, :cache_upload_metadata
+  after :cache, :cache_upload_metadata
 
   storage Cloudsdale.config['uploader']['storage'].to_sym
 
@@ -72,7 +73,7 @@ protected
   # Protected: Saves upload Metadata in redis
   #
   # Returns true
-  def cache_upload_metadata(file)
+  def cache_upload_metadata(file=nil)
     _namespace  = :"#{mounted_as}_namespace"
     path_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}"
     time_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}:timestamp"
