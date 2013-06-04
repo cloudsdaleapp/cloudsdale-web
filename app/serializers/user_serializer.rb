@@ -6,7 +6,7 @@ class UserSerializer < ApplicationSerializer
   attributes :username, :status, :role, :avatar, :activity, :suspended
 
   def avatar
-    avatar_id_type = object.email_hash.present? :email_hash : :id
+    avatar_id_type = object.email_hash.present? ? :email_hash : :id
     return object.dynamic_avatar_url(nil, avatar_id_type, :https)
   end
 
