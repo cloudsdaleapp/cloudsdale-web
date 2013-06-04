@@ -6,6 +6,8 @@ class Registration
 
   attr_accessor :password, :verify_token
 
+  after_save :schedule_for_expiration
+
   field :display_name
   field :username
   field :email
@@ -72,6 +74,12 @@ class Registration
 
   def persisted?
     false
+  end
+
+private
+
+  def schedule_for_expiration
+    RegistrationExpirationWorker.perform_in(48.hours,self.id.to_s)
   end
 
 end
