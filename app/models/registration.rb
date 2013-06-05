@@ -79,7 +79,7 @@ class Registration
 private
 
   def schedule_for_expiration
-    RegistrationExpirationWorker.perform_in(48.hours,self.id.to_s)
+    RecordExpirationWorker.perform_in(48.hours, *[self.class.to_s, self.id.to_s])
   end
 
 end
