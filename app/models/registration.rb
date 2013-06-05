@@ -16,16 +16,27 @@ class Registration
 
   token length: 5,  contains: :fixed_numeric
 
-  validates :email,         presence: true,   email: true
+  validates :email,         presence: true,   email: true, remote_uniqueness: {
+    with: { "email" => User },
+  }
 
   validates :username,      presence: true,   username: true, length: {
     maximum: 20,
     minimum: 1,
     too_long: "must not be longer than 20 characters.",
     too_short: "must contain characters."
+  }, remote_uniqueness: {
+    with: {
+      "username"   => User,
+      "short_name" => Cloud
+    },
   }
 
-  validates :display_name,  presence: true
+  validates :display_name,  presence: true, remote_uniqueness: {
+    with: {
+      "name" => User
+    },
+  }
 
   validates :password,      presence: true,   length: {
     minimum: 6,
