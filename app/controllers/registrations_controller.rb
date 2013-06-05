@@ -43,13 +43,18 @@ class RegistrationsController < ApplicationController
   end
 
   def update
-    if session[:registration_token].present?
-      @registration = Registration.find(session[:registration_token])
-      if params[:commit].parameterize == "resend-code"
+    token = params[:token] || session[:registration_token]
+
+    if token.present?
+
+      @registration = Registration.find(token)
+
+      if params[:commit].try(:parameterize) == "resend-code"
         send_verification_email_for(@registration)
+        flash[:notice] = "Please check your inbox at #{@registration.email} for a verification email."
         render :edit
       else
-        @registration.verify_token = params[:registration][:verify_token] || params[:token]
+        @registration.verify_token = params[:token] || params[:registration][:verify_token]
 
         if @registration.valid?
           @user = @registration.user
@@ -69,10 +74,13 @@ class RegistrationsController < ApplicationController
             flash[:error] = "We're really sorry, it seems has been a huge error. Please go through the proccess again."
             redirect_to register_path
           end
+
         else
           render :edit
         end
+
       end
+
     else
       flash[:error] = "You need to start a registration before you can verify it."
       redirect_to register_path
