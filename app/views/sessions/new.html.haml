@@ -10,14 +10,21 @@
 .row
   .large-6.large-centered.columns
     .content-panel
-      .content-panel-inner
+      .content-panel-inner.panel-expand
+        .row
+          %br
+          %br
+          %center
+            %h3.subheader= "Login"
+
+        %br
         .row
           .large-8.small-12.large-centered.columns
-            %br
-            %h3= "Login"
-            %br
-            = simple_form_for @session, url: login_path, method: :post do |f|
-              = f.input :identifier, as: :email,    label: false, placeholder: "Email or Username"
-              = f.input :password,   as: :password, label: false, placeholder: "Password"
-              %br
-              = f.submit "Login", class: 'button success', style: 'width: 100%;'
+            %div{ style: 'margin: 20px;' }
+              = simple_form_for @session, url: login_path, method: :post do |f|
+                = f.input :identifier, as: :email,    label: false, placeholder: "Email or Username"
+                = f.input :password,   as: :password, label: false, placeholder: "Password"
+                %br
+                = f.submit "Login", class: 'button success', style: 'width: 100%;'
+
+        = render 'layouts/auth_nav', show_register: true, show_forgot_password: true

@@ -18,33 +18,36 @@
     = csrf_meta_tags
 
   %body
-    .row
-      .large-12.columns
-        .contain-to-grid
-          %nav.top-bar
-            %ul.title-area
-              %li.name
-                %h1
-                  = link_to admin_root_path, style: 'display: block;' do
-                    .logo{ style: 'display: inline; height: 32px; width: 32px; float: left; margin: 6px 0px 7px 8px;' }
-              %li.toggle-topbar.menu-icon
-                %a{:href => "#", style: 'min-width: 100px;' }
-                  %span= "Menu"
-            %section.top-bar-section
-              %ul.left
-                %li.divider
-                %li= link_to "Dashboard", admin_root_path
-                %li.divider
-                %li= link_to "Dispatches", admin_dispatches_path
-                %li.divider
-                %li= link_to "Workers", "/admin/workers"
-                %li.divider
+    #head-wrap
+      .row.top-bar-wrapper
+        .large-12.columns
+          .contain-to-grid
+            %nav.top-bar
+              %ul.title-area
+                %li.name
+                  %h1
+                    = link_to admin_root_path, style: 'display: block;' do
+                      .logo{ style: 'display: inline; height: 32px; width: 32px; float: left; margin: 6px 0px 7px 8px;' }
+                      %span= "Admin"
+                %li.toggle-topbar.menu-icon
+                  %a{:href => "#", style: 'min-width: 100px;' }
+                    %span= "Menu"
+              %section.top-bar-section
+                %ul.left
+                  %li.divider
+                  %li= link_to "Dashboard", admin_root_path
+                  %li.divider
+                  %li= link_to "Dispatches", admin_dispatches_path
+                  %li.divider
+                  %li= link_to "Workers", "/admin/workers"
+                  %li.divider
 
-            %section.top-bar-section
-              %ul.right
-                %li
-                  = link_to "← Back to Site", root_path
+                %ul.right
+                  %li.divider
+                  %li
+                    = link_to "← Back to Cloudsdale", root_path
+                  %li.divider
 
-    .container#wrapper= yield
-
+    .container#body-wrap= yield
+    = render 'layouts/page_footer'
     = javascript_include_tag "admin"

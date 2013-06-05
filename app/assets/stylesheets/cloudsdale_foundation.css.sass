@@ -88,16 +88,30 @@ $success-color: #5a961b
 
 //// Media Queries
 
-// $small-screen: emCalc(768px)
-// $medium-screen: emCalc(1280px)
-// $large-screen: emCalc(1440px)
+$small-screen: emCalc(768px)
+$tablet-screen: emCalc(939px)
+$medium-screen: emCalc(1280px)
+$large-screen: emCalc(1440px)
 
-// $screen: "only screen"
-// $small: "only screen and (min-width:"#{$small-screen}")"
-// $medium: "only screen and (min-width:"#{$medium-screen}")"
-// $large: "only screen and (min-width:"#{$large-screen}")"
-// $landscape: "only screen and (orientation: landscape)"
-// $portrait: "only screen and (orientation: portrait)"
+$screen: "only screen"
+
+$until-small: "screen and (max-width:"#{$small-screen}")"
+$until-tablet: "screen and (max-width:"#{$tablet-screen}")"
+$until-medium: "screen and (max-width:"#{$medium-screen}")"
+$until-large: "screen and (max-width:"#{$large-screen}")"
+
+$after-small: "screen and (min-width:"#{$small-screen}")"
+$after-tablet: "screen and (min-width: "#{$tablet-screen}")"
+$after-medium: "screen and (min-width:"#{$medium-screen}")"
+$after-large: "screen and (min-width:"#{$large-screen}")"
+
+$only-small: "screen and (max-width:"#{$small-screen}")"
+$only-tablet: "screen and (min-width: "#{$small-screen}") and (max-width:"#{$tablet-screen}")"
+$only-medium: "screen and (min-width: "#{$tablet-screen}") and (max-width:"#{$medium-screen}")"
+$only-large: "screen and (min-width: "#{$medium-screen}") and (max-width:"#{$large-screen}")"
+
+$landscape: "#{$screen} and (orientation: landscape)"
+$portrait: "#{$screen} and (orientation: portrait)"
 
 //
 // Grid Variables
@@ -1212,6 +1226,9 @@ $topbar-menu-icon-color-toggled: #888
 
 nav.top-bar
   margin-bottom: 0 !important
+  &.expanded
+    ul.title-area
+      border-bottom: $border-primary-color 1px solid
   li.name > h1 > a
     padding-left: 0
     font-size: 14px
@@ -1230,12 +1247,26 @@ nav.top-bar
       .logo
         background-image: asset-data-url('icon/icon_topbar_color.png')
   ul
-    background-color: transparent
+    background-color: $body-bg-head
+    &:first-child
+      li.divider:first-child
+        @media #{$until-tablet}
+          display: none !important
+
+    li.divider:last-child
+      @media #{$until-tablet}
+        display: none !important
+    li.divider
+      @media #{$until-tablet}
+        border-top: #FFF 1px solid
+        border-bottom: $border-primary-color 1px solid
+
   ul li
     & > a
       overflow: hidden
       color: #4D4D4D
       text-shadow: 1px 1px 1px #FFF
+      background-color: transparent !important
       &:hover
         background-color: transparent !important
         color: $topbar-link-color

@@ -10,14 +10,21 @@
 .row
   .large-6.large-centered.columns
     .content-panel
-      .content-panel-inner
+      .content-panel-inner.panel-expand
+        .row
+          %br
+          %br
+          %center
+            %h3.subheader= "Verify Registration"
+
+        %br
         .row
           .large-8.small-12.large-centered.columns
-            %br
-            %h3= "Vertify Registration"
-            %br
-            = simple_form_for @registration, url: register_verification_path, method: :put do |f|
-              = f.input :verify_token, label: false, placeholder: "Verification Code", input_html: { style: 'text-align: center;'}
-              %br
-              = f.submit "Verify", class: 'button notice expand'
-              = f.submit "Resend Code", class: 'button secondary expand'
+            %div{ style: 'margin: 20px;' }
+              = simple_form_for @registration, url: register_verification_path, method: :put do |f|
+                = f.input :verify_token, label: false, placeholder: "Verification Code", input_html: { style: 'text-align: center;'}
+                %br
+                = f.submit "Verify", class: 'button notice expand'
+                = f.submit "Resend Code", class: 'button secondary expand'
+
+        = render 'layouts/auth_nav', show_login: true, show_forgot_password: true

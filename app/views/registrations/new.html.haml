@@ -10,16 +10,23 @@
 .row
   .large-6.large-centered.columns
     .content-panel
-      .content-panel-inner
+      .content-panel-inner.panel-expand
+        .row
+          %br
+          %br
+          %center
+            %h3.subheader= "Register New Account"
+
+        %br
         .row
           .large-8.small-12.large-centered.columns
-            %br
-            %h3= "Register"
-            %br
-            = simple_form_for @registration, url: register_path, method: :post do |f|
-              = f.input :display_name,                 label: false, placeholder: "Display Name"
-              = f.input :username,                     label: false, placeholder: "Username"
-              = f.input :email,         as: :email,    label: false, placeholder: "Email"
-              = f.input :password,      as: :password, label: false, placeholder: "Password"
-              %br
-              = f.submit "Register", class: 'button success', style: 'width: 100%;'
+            %div{ style: 'margin: 20px;' }
+              = simple_form_for @registration, url: register_path, method: :post do |f|
+                = f.input :display_name,                 label: false, placeholder: "Display Name"
+                = f.input :username,                     label: false, placeholder: "Username"
+                = f.input :email,         as: :email,    label: false, placeholder: "Email"
+                = f.input :password,      as: :password, label: false, placeholder: "Password"
+                %br
+                = f.submit "Register", class: 'button success', style: 'width: 100%;'
+
+        = render 'layouts/auth_nav', show_login: true, show_forgot_password: true

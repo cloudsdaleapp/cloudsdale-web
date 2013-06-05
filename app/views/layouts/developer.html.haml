@@ -37,16 +37,15 @@
                 %li.divider
                 %li= link_to "Docs", docs_path
                 %li.divider
-
-            %section.top-bar-section
               %ul.right
-                %li
-                  = link_to "← Back to Cloudsdale", root_url(subdomain: 'www')
                 %li.divider
                 - if current_user.new_record?
                   %li= link_to "Login",  login_path
                 - else
                   %li= link_to "Logout", logout_path, rel: :nofollow
+                %li.divider
+                %li
+                  = link_to "← Back to Cloudsdale", root_url(subdomain: 'www')
                 %li.divider
 
   #body-wrap
