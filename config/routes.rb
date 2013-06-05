@@ -16,6 +16,16 @@ Cloudsdale::Application.routes.draw do
   put  '/register/verify'        => 'registrations#update', as: :register_verification
   get  '/register/verify/:token' => 'registrations#update', as: :direct_register_verification
 
+  get  '/password/reset'         => 'passwords#new',        as: :password_reset
+  post '/password/reset'         => 'passwords#create',     as: :password_reset
+
+  get  '/password/:token/change' => 'passwords#edit',       as: :password_change
+  put  '/password/:token/change' => 'passwords#update',     as: :password_change
+
+  get  '/password/verify'        => 'passwords#show',       as: :password_verify
+  put  '/password/verify'        => 'passwords#verify',     as: :password_verify
+  get  '/password/verify/:token' => 'passwords#verify',     as: :direct_password_verify
+
   use_doorkeeper do
     controllers      authorizations: 'oauth/authorizations'
     skip_controllers :applications, :authorized_applications

@@ -18,6 +18,28 @@ class PermittedParams < Struct.new(:params, :user)
     PermittedRegistrationParams.new(self.params, self.user)
   end
 
+  # Public: Permitted Password Reset parameters
+  # Returns an instance of strong parameters
+  def password_reset
+    PermittedPasswordResetParams.new(self.params, self.user)
+  end
+
+  class PermittedPasswordResetParams < Struct.new(:params, :user)
+
+    def update
+      self.permitted([:password])
+    end
+
+    def create
+      self.permitted([:identifier])
+    end
+
+    def permitted(attributes)
+      params.require(:password_reset).permit(*attributes)
+    end
+
+  end
+
   class PermittedRegistrationParams < Struct.new(:params, :user)
 
     def update

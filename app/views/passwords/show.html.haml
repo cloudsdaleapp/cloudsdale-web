@@ -1,0 +1,22 @@
+%br
+.row
+  .large-6.large-centered.columns
+    .content-panel
+      .content-panel-inner.panel-expand
+        .row
+          %br
+          %br
+          %center
+            %h3.subheader= "Verify Password Reset"
+
+        %br
+        .row
+          .large-8.small-12.large-centered.columns
+            %div{ style: 'margin: 20px;' }
+              = simple_form_for @password_reset, url: password_verify_path, method: :put do |f|
+                = f.input :verify_token, label: false, placeholder: "Password Reset Code", input_html: { style: 'text-align: center;' }
+                %br
+                = f.submit "Verify Code", class: 'button notice expand'
+                = f.submit "Resend Code", class: 'button secondary expand'
+
+        = render 'layouts/auth_nav', show_login: true, show_register: true
