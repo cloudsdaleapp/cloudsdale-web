@@ -83,10 +83,6 @@ class Registration
     @user ||= self.to_user
   end
 
-  def persisted?
-    false
-  end
-
 private
 
   def schedule_for_expiration
