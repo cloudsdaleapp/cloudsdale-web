@@ -86,9 +86,12 @@ module ActiveModel
                   else self.id
                   end
 
-      size = !size.nil? ? "?s=#{size}" : ""
+      params = []
+      params << "s=#{size}" if size
+      params << "mtime=#{self.avatar_uploaded_at.to_i}" if avatar_uploaded_at && (avatar_uploaded_at > 15.seconds.ago)
+      params = !params.empty? ? "?" + params.join("&") : ""
 
-      "/#{avatar_namespace}/#{avatar_id}.png#{size}"
+      "/#{avatar_namespace}/#{avatar_id}.png#{params}"
 
     end
 

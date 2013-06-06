@@ -8,8 +8,18 @@ class AvatarUploader < ApplicationUploader
   process :resize_to_fill => [512, 512]
   process :convert => 'png'
 
+  storage :file
+
+  def store_dir
+    if Rails.env.production?
+      "/store/uploads/#{mounted_as}/#{model.avatar_namespace}/"
+    else
+      "#{Rails.root}/public/uploads/#{mounted_as}/#{model.avatar_namespace}/"
+    end
+  end
+
   def filename
-     "#{secure_token(10)}_avatar.png" if original_filename.present?
+     "#{mounted_as}_#{model.id}.png" if original_filename.present?
   end
 
   def default_url
