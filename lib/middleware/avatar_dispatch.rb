@@ -5,8 +5,6 @@ class AvatarDispatch
   ALLOWED_SIZES = (BASE_SIZES + SPECIAL_SIZES).uniq.sort
   PATH_MATCH    = /\/(?<model>user|app|cloud)\/((?<md5>[0-9a-f]{32})|(?<bson>[0-9a-fA-F]{24}))\.(?<format>png)/
   DOMAIN_MATCH  = /^(avatar)\..*$/
-  TIMESTAMP      = DateTime.parse("2012-01-01").to_i
-  HTTP_TIMESTAMP = DateTime.parse("2012-01-01").httpdate
   REDIS_EXPIRE   = 12.hours
 
   def initialize(app)
