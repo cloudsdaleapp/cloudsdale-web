@@ -85,13 +85,15 @@ private
                     options[:type] => options[:id]
                   ).first
 
-      if record.present? && record.avatar.present?
+      fallback_path = file_path = Rails.root.join(
+        'app', 'assets', 'images', 'fallback', 'avatar', "#{options[:model]}.png"
+      ).to_s
+
+      if record.present?
+        file_path = record.avatar.present? ? record.avatar.full_file_path : fallback_path
         timestamp = record.avatar_uploaded.to_i
-        file_path = record.avatar.full_file_path
       else
-        file_path = Rails.root.join(
-          'app', 'assets', 'images', 'fallback', 'avatar', "#{options[:model]}.png"
-        ).to_s
+        file_path = fallback_path
         timestamp = File.mtime(file_path).to_i
       end
 
