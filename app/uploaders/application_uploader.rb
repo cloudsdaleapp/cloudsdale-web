@@ -75,11 +75,13 @@ protected
   # Returns true
   def cache_upload_metadata(file=nil)
     _namespace  = :"#{mounted_as}_namespace"
-    path_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}"
-    time_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}:timestamp"
+    if model.respond_to?(_namespace)
+      path_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}"
+      time_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}:timestamp"
 
-    Cloudsdale.redisClient.del(time_query)
-    Cloudsdale.redisClient.del(path_query)
+      Cloudsdale.redisClient.del(time_query)
+      Cloudsdale.redisClient.del(path_query)
+    end
 
     return true
   end
