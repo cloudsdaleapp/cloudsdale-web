@@ -3,7 +3,7 @@ class AvatarPurgeWorker
   include Sidekiq::Worker
 
   sidekiq_options :queue => :high
-  sidekiq_options :retry => true
+  sidekiq_options :retry => false
 
   def perform(record_id,klass)
     _klass = klass.constantize
@@ -24,10 +24,7 @@ class AvatarPurgeWorker
       Cloudsdale.config['cdn']['secret']
     )
 
-    cdn.purge(
-      Cloudsdale.config['cdn']['avatar_zone']['id'],
-      versions
-    )
+    cdn.purge(Cloudsdale.config['cdn']['avatar_zone']['id'],versions)
 
     record.avatar_purged = true
     record.save
