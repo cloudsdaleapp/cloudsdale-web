@@ -43,13 +43,6 @@ Cloudsdale::Application.routes.draw do
     # The root path where users will land when entering our url.
     root to: 'root#index'
 
-    namespace :admin do
-      match '/',  to: 'root#index',  via: :get,  as: :root
-      resources :dispatches, only: [:index,:show,:create,:update]
-    end
-
-    mount Sidekiq::Web,   at: '/admin/workers',   constraints: AdminConstraints.new
-
     # The explore page is devided up in to three tiers where the front-end will
     # automatically take you up to the default tier if you're requesting it at
     # at a lower level.
@@ -100,6 +93,15 @@ Cloudsdale::Application.routes.draw do
       post  '/new'      => 'applications#create', on: :collection, as: :new
       match '/settings' => 'applications#update', on: :member, as: :edit, via: [:put,:patch]
     end
+
+    match '*path', to: 'root#not_found'
+  end
+
+  site :admin, subdomain: 'admin' do
+    root to: 'root#index'
+
+    resources :dispatches, only: [:index,:show,:create,:update]
+    mount Sidekiq::Web,   at: '/workers',   constraints: AdminConstraints.new
 
     match '*path', to: 'root#not_found'
   end

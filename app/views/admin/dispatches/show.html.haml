@@ -21,7 +21,7 @@
 
     %br
 - elsif @dispatch.status == :draft
-  = form_for @dispatch, url: admin_dispatch_path(@dispatch), multipart: true do |f|
+  = form_for @dispatch, url: dispatch_path(@dispatch), multipart: true do |f|
     .row
       .large-12.columns
         .content-panel
