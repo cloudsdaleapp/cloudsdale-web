@@ -64,7 +64,7 @@ module ActiveModel
     # Public: Generates the new type of avatar URL on demand
     #
     # Returns the full image path.
-    def dynamic_avatar_url(size = 256, url_type = :id, schema = :http)
+    def dynamic_avatar_url(size = 256, url_type = :id, schema = :https)
       url =   case schema
               when :https  then Cloudsdale.config['avatar']['https']
               when :ssl    then Cloudsdale.config['avatar']['https']
