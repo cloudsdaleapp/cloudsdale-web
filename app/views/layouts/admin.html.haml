@@ -48,6 +48,18 @@
                     = link_to "← Back to Cloudsdale", root_url(subdomain: 'www')
                   %li.divider
 
-    .container#body-wrap= yield
+    .container#body-wrap
+      - if content_for?(:legend)
+        #legend.developer-legend
+          = render 'layouts/flash_error'
+          = render 'layouts/flash_notice'
+          = render 'layouts/flash_success'
+          = yield(:legend)
+      - else
+        = render 'layouts/flash_error'
+        = render 'layouts/flash_notice'
+        = render 'layouts/flash_success'
+      = yield
+      / = AvatarDispatch::ALLOWED_SIZES.join(", ")
     = render 'layouts/page_footer'
     = javascript_include_tag "admin"
