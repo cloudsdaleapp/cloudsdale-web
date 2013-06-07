@@ -3,9 +3,9 @@
   .large-6.large-centered.columns
     .row.auth-header
       .large-5.small-5.columns
-        .auth-icon{ style: 'float: left;' }= image_tag @pre_auth.client.application.avatar.url
+        .auth-icon{ style: 'float: left;' }= image_tag @pre_auth.client.application.dynamic_avatar_url
       .large-5.small-5.columns
-        .auth-icon{ style: 'float: right;' }= image_tag current_user.avatar.url
+        .auth-icon{ style: 'float: right;' }= image_tag current_user.dynamic_avatar_url
 
 %br
 .row
