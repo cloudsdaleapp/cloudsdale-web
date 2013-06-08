@@ -12,7 +12,7 @@ class Developer::ApplicationsController < DeveloperController
       flash[:notice] = "You must be signed in to see and manage your apps."
       redirect_to login_path
     elsif not Doorkeeper::ApplicationPolicy.new(current_user,nil).index?
-      raise Pundit::NotAuthorizedError "You are not a Cloudsdale developer, please connect with GitHub to become one."
+      raise Pundit::NotAuthorizedError, "You are not a Cloudsdale developer, please connect with GitHub to become one."
     end
   rescue Pundit::NotAuthorizedError => message
     flash[:error] = message
