@@ -20,15 +20,14 @@ class User
   attr_accessible :remote_avatar_url, :remove_avatar, :skype_name, :preferred_status
   attr_accessor :password, :confirm_registration, :status
 
-  embeds_one :restoration
-  embeds_many :authentications
+  embeds_one :restoration,      :validate => false
+  embeds_many :authentications, :validate => false
 
-  has_many :owned_clouds, class_name: "Cloud", as: :owner
+  has_many :owned_clouds, class_name: "Cloud", as: :owner, :validate => false
 
-  has_and_belongs_to_many :clouds,            :inverse_of => :users,      dependent: :nullify,  index: true
-  has_and_belongs_to_many :clouds_moderated,  :inverse_of => :moderators, dependent: :nullify,  class_name: "Cloud",  index: true
+  has_and_belongs_to_many :clouds,            :inverse_of => :users,      dependent: :nullify,  index: true, :validate => false
+  has_and_belongs_to_many :clouds_moderated,  :inverse_of => :moderators, dependent: :nullify,  class_name: "Cloud",  index: true, :validate => false
 
-  field :username,                  type: String
   field :skype_name,                type: String
   field :auth_token,                type: String
   field :password_hash,             type: String
