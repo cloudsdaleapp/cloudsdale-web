@@ -69,7 +69,7 @@ class RegistrationsController < ApplicationController
           if @user.save
             authenticate! @user
             flash[:notice] = "Welcome to Cloudsdale, your registration has been verified."
-            redirect_to root_path
+            redirect_to redirect_to_stored_url
           else
             flash[:error] = "We're really sorry, it seems has been a huge error. Please go through the proccess again."
             redirect_to register_path

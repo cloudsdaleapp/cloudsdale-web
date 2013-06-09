@@ -37,7 +37,7 @@ class PasswordsController < ApplicationController
       if authenticate!(@user)
         send_confirmation_mail(@user.id)
         flash[:success] = "Password has been changed successfully and you can now use Cloudsdale as usual. Have fun!"
-        redirect_to root_path
+        redirect_to redirect_to_stored_url
       else
         flash[:error] = "We're sorry, something went horribly wrong. Please try and contact staff through ask@cloudsdale.org"
         redirect_to password_reset_path
