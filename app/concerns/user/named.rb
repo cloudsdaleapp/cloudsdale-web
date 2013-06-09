@@ -82,6 +82,7 @@ class User
     # Returns the username String.
     def username=(val=nil)
       if val.present?
+        val = val.strip
         self.force_username_change = false if self.force_username_change
         self.username_changed_at   = DateTime.now
         self[:username]            = val
@@ -121,24 +122,26 @@ class User
     # Public: Generates a unique username based on the name
     # if none is provided and a username is not already set.
     def generate_unique_username
-      sanitized_name  = name.strip.gsub(" ","").downcase.first(20)
-      records_found   = 0
-      begin
-        iteration = "#{records_found}"
-        if records_found.zero?
-          new_username = sanitized_name
-        else
-          if (sanitized_name + iteration).length >= USERNAME_MAX_LENGTH
-            new_username = (sanitized_name + " ").truncate(USERNAME_MAX_LENGTH, omission: iteration, separator: "")
+      if name.present?
+        sanitized_name  = name.strip.gsub(" ","").downcase.first(20)
+        records_found   = 0
+        begin
+          iteration = "#{records_found}"
+          if records_found.zero?
+            new_username = sanitized_name
           else
-            new_username = sanitized_name + iteration
+            if (sanitized_name + iteration).length >= USERNAME_MAX_LENGTH
+              new_username = (sanitized_name + " ").truncate(USERNAME_MAX_LENGTH, omission: iteration, separator: "")
+            else
+              new_username = sanitized_name + iteration
+            end
           end
-        end
-        records_found += 1
-      end while User.where(username: /^#{new_username}$/i).only(:username).exists? or
-                Cloud.where(short_name: /^#{new_username}$/i).only(:short_name).exists?
+          records_found += 1
+        end while User.where(username: /^#{new_username}$/i).only(:username).exists? or
+                  Cloud.where(short_name: /^#{new_username}$/i).only(:short_name).exists?
 
-      self.username = new_username
+        self.username = new_username
+      end
     end
 
   end
