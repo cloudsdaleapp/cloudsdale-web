@@ -147,7 +147,7 @@ class Cloud
     cloud = where(
       "$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]
     ).first
-    raise Mongoid::Errors::DocumentNotFound if cloud.nil?
+    raise Mongoid::Errors::DocumentNotFound.new( User, { identifier: id_or_short_name } ) if cloud.nil?
     return cloud
   end
 
