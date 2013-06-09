@@ -4,27 +4,46 @@ class User
   module Named
 
     extend ActiveSupport::Concern
+    USERNAME_MAX_LENGTH = 20
 
     included do
 
-      attr_accessible :name
+      attr_accessible :name, :username
 
       field :name,                      type: String
       field :force_name_change,         type: Boolean,    default: false
+      field :name_changed_at,           type: DateTime
+
+      field :username,                  type: String
+      field :force_username_change,     type: Boolean,    default: false
+      field :username_changed_at,       type: DateTime
+
       field :also_known_as,             type: Array,      default: []
 
-      validates_length_of     :name,  within: 3..30, message: "must be between 3 and 30 characters", if: :name?
-      validates_format_of     :name,  with: /^([a-z]*\s?){1,5}$/i, message: "must use a-z and max five words", if: :name?
-      validates_uniqueness_of :name,  case_sensitive: false, if: :name?
+      validates :name,     presence: true, variety: true, format: {
+        with: /^([a-z]*\s?){1,5}$/i,
+        message: "must use a-z and max five words"
+      }, length: {
+        maximum: 30,
+        minimum: 3,
+        too_long:  "must not be longer than 30 characters.",
+        too_short: "must contain at least 3 characters."
+      }
 
-      validates_presence_of   :name,  :unless => :new_record?
-      validates_presence_of   :name,  :if => :confirm_registration
+      validates :username, presence: true, variety: true, username: true, length: {
+        maximum: USERNAME_MAX_LENGTH,
+        minimum: 1,
+        too_long:  "must not be longer than 20 characters.",
+        too_short: "must contain characters."
+      }, remote_uniqueness: {
+        with: {
+          "username"   => User,
+          "short_name" => Cloud
+        },
+      }
 
-      validate :forced_name_change,     if: :force_name_change_changed?
-
-      before_save do
-        add_known_name
-      end
+      before_save :add_known_name
+      before_validation :generate_unique_username, :unless => :username?
 
       # Public: Customer setter for the name attribute.
       #
@@ -33,6 +52,7 @@ class User
         if val.present?
           self.force_name_change = false if self.force_name_change
 
+          val = val.strip
           val = val.gsub(/[^a-z]/i," ")
           val = val.gsub(/^\s*/i,"")
           val = val.gsub(/[^a-z]/i," ")
@@ -48,12 +68,26 @@ class User
         end
 
         if val.present?
+          self.name_changed_at = DateTime.now
           self[:name] = val
           @name       = val
           super(val)
         end
       end
 
+    end
+
+    # Public: Customer setter for the username attribute.
+    #
+    # Returns the username String.
+    def username=(val=nil)
+      if val.present?
+        self.force_username_change = false if self.force_username_change
+        self.username_changed_at   = DateTime.now
+        self[:username]            = val
+        @username                  = val
+        super(val)
+      end
     end
 
     # Public: Adds the previously used name to the "also_known_as" array
@@ -84,17 +118,27 @@ class User
       self[:force_name_change] || !self.name.present?
     end
 
-  private
+    # Public: Generates a unique username based on the name
+    # if none is provided and a username is not already set.
+    def generate_unique_username
+      sanitized_name  = name.strip.gsub(" ","").downcase.first(20)
+      records_found   = 0
+      begin
+        iteration = "#{records_found}"
+        if records_found.zero?
+          new_username = sanitized_name
+        else
+          if (sanitized_name + iteration).length >= USERNAME_MAX_LENGTH
+            new_username = (sanitized_name + " ").truncate(USERNAME_MAX_LENGTH, omission: iteration, separator: "")
+          else
+            new_username = sanitized_name + iteration
+          end
+        end
+        records_found += 1
+      end while User.where(username: /^#{new_username}$/).only(:username).exists? or
+                Cloud.where(short_name: /^#{new_username}$/).only(:short_name).exists?
 
-    # Private: Validation for when name is changed while forced name
-    # equates to true.
-    #
-    # Returns false if validation fails
-    def forced_name_change
-      if (name_was == name) && force_name_change_was == true
-        errors.add(:name, "cannot be the same")
-        return false
-      end
+      self.username = new_username
     end
 
   end
