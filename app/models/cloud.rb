@@ -12,12 +12,14 @@ class Cloud
   # Concerns
   include ActiveModel::Avatars
 
-  embeds_one  :chat,  as: :topic
-  embeds_many :bans,  as: :jurisdiction
+  embeds_one  :chat,  as: :topic,        :validate => false
+  embeds_many :bans,  as: :jurisdiction, :validate => false
 
   attr_accessor :user_invite_tokens
 
-  attr_accessible :name, :description, :short_name, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :x_moderator_ids
+  attr_accessible :name, :description, :short_name, :hidden, :locked,
+                  :remove_avatar, :avatar, :remote_avatar_url, :rules,
+                  :x_moderator_ids
 
   field :name,          type: String
   field :description,   type: String
@@ -48,10 +50,10 @@ class Cloud
   validates_uniqueness_of :short_name, :case_sensitive => true, if: :short_name?, message: "used by another cloud"
   validates_format_of :short_name,  with: /^[a-z0-9\_\-]*$/i, message: "must be alphanumeric, underscore and dashes only", if: :name?
 
-  belongs_to :owner, polymorphic: true, index: true
+  belongs_to :owner, polymorphic: true, index: true, :validate => false
 
-  has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true
-  has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true
+  has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true,  :validate => false
+  has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true,  :validate => false
 
   default_scope -> { without("chat.messages") }
 
