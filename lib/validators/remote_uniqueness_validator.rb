@@ -9,7 +9,7 @@ class RemoteUniquenessValidator < ActiveModel::EachValidator
     matches = 0
 
     options[:with].each do |field, klass|
-      matches += 1 if klass.to_s.constantize.where(field.to_sym => /^#{value}$/i).exists?
+      matches += 1 if klass.to_s.constantize.where(field.to_sym => /^#{value}$/i, :id.ne => record.id.to_s).exists?
     end
 
     if matches >= 1
