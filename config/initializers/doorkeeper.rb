@@ -3,6 +3,7 @@ Doorkeeper.configure do
 
   resource_owner_authenticator do
     if current_user.new_record?
+      session[:redirect_url] = request.fullpath
       redirect_to(login_path)
     else
       current_user

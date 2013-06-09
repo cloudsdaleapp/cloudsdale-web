@@ -98,7 +98,7 @@ protected
   end
 
   def redirect_url
-    @redirect_url ||= session[:redirect_url] || params[:redirect_url] || root_path
+    @redirect_url = session[:redirect_url] || params[:redirect_url] || root_path
   end
 
   def redirect_to_stored_url
