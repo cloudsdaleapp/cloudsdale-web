@@ -45,7 +45,7 @@ class Cloud
 
   validates :name, presence: true, uniqueness: true, length: { within: 3..64 }
   validates :description, length: { maximum: 140 }
-  validates :short_name, length: { maximum: 20, minimum: 5 }
+  validates :short_name, length: { maximum: 20, minimum: 1 }
 
   validates_uniqueness_of :short_name, :case_sensitive => true, if: :short_name?, message: "used by another cloud"
   validates_format_of :short_name,  with: /^[a-z0-9\_\-]*$/i, message: "must be alphanumeric, underscore and dashes only", if: :name?
