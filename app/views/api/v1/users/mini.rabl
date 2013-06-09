@@ -2,7 +2,7 @@ object @user
 
 node(:id) { |user| user._id.to_s }
 
-attributes :name, :status
+attributes :name, :status, :username
 
 node(:avatar) { |user| user.avatar_versions }
 
