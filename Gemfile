@@ -90,6 +90,7 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem 'pry-rails'
 
   gem 'spork-rails'
   gem 'rspec-rails'
