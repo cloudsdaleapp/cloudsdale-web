@@ -135,8 +135,8 @@ class User
           end
         end
         records_found += 1
-      end while User.where(username: /^#{new_username}$/).only(:username).exists? or
-                Cloud.where(short_name: /^#{new_username}$/).only(:short_name).exists?
+      end while User.where(username: /^#{new_username}$/i).only(:username).exists? or
+                Cloud.where(short_name: /^#{new_username}$/i).only(:short_name).exists?
 
       self.username = new_username
     end
