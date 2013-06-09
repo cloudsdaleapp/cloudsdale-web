@@ -6,7 +6,7 @@ defaults: &defaults
 
   avatar:
     http:   http://avatar.cloudsdale.dev
-    https:  https://avatar.cloudsdale.dev
+    https:  http://avatar.cloudsdale.dev
 
   cdn:
     alias: cloudsdale
