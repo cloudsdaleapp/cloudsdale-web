@@ -2,7 +2,7 @@
 
 class UsernameValidator < ActiveModel::EachValidator
 
-  USERNAME_REGEX = /\A[a-zA-Z0-9]+\z/i
+  USERNAME_REGEX = /\A[a-zA-Z0-9\_]+\z/i
 
   def validate_each(record, attribute, value)
     unless value =~ USERNAME_REGEX
