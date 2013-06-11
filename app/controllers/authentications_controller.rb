@@ -120,7 +120,7 @@ class AuthenticationsController < ApplicationController
   #
   # Retruns a redirect straight to hell.
   def failure
-    redirect_to server_error_path
+    render 'exceptions/auth_failure.html.haml', status: 404, layout: 'auth'
   end
 
 end
