@@ -105,6 +105,8 @@ protected
     url = redirect_url
     session[:redirect_url] = nil
     redirect_to url
+  rescue AbstractController::DoubleRenderError
+    redirect_to url
   end
 
 private
