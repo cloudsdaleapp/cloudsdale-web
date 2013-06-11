@@ -32,6 +32,8 @@ class AvatarPurgeWorker
     return true
   rescue Curl::Err::ConnectionFailedError
     return false
+  rescue Mongoid::Errors::DocumentNotFound
+    return false
   end
 
 end
