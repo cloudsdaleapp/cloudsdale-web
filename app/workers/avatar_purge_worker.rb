@@ -28,6 +28,10 @@ class AvatarPurgeWorker
 
     record.avatar_purged = true
     record.save
+
+    return true
+  rescue Curl::Err::ConnectionFailedError
+    return false
   end
 
 end
