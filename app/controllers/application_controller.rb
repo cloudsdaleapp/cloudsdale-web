@@ -97,16 +97,13 @@ protected
     PermittedParams.new(params,current_user)
   end
 
-  def redirect_url
-    @redirect_url = session[:redirect_url] || params[:redirect_url] || root_path
-  end
-
   def redirect_to_stored_url
-    url = redirect_url
+    redirect_uri = session[:redirect_url] || params[:redirect_url] || root_path
+
     session[:redirect_url] = nil
-    redirect_to url and return
-  rescue AbstractController::DoubleRenderError
-    redirect_to url and return
+    params[:redirect_url]  = nil
+
+    redirect_to (redirect_uri) and return if redirect_uri.present?
   end
 
 private
