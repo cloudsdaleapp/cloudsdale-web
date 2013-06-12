@@ -27,7 +27,7 @@ class Cloudsdale.Views.Root extends Backbone.View
     $(@el).bind 'clouds:initialize', => @renderSidebar()
 
     $('a').live 'click', (e) ->
-      if @hostname.match(document.location.hostname) != null && @pathname.match(/\/auth\/.*/ig) == null && @pathname.match(/\/logout/ig) == null
+      if (@hostname == document.location.hostname) && (@pathname.match(/^\/(auth|logout|login|register|password|oauth\/.*/ig) == null)
         Backbone.history.navigate(@pathname,true)
         e.preventDefault()
         false
