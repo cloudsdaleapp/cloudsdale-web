@@ -32,11 +32,7 @@ class Registration
     },
   }
 
-  validates :display_name,  presence: true, remote_uniqueness: {
-    with: {
-      "name" => User
-    },
-  }
+  validates :display_name,  presence: true
 
   validates :password,      presence: true,   length: {
     minimum: 6,
