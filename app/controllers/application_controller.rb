@@ -104,9 +104,9 @@ protected
   def redirect_to_stored_url
     url = redirect_url
     session[:redirect_url] = nil
-    redirect_to url
+    redirect_to url and return
   rescue AbstractController::DoubleRenderError
-    redirect_to url
+    redirect_to url and return
   end
 
 private
