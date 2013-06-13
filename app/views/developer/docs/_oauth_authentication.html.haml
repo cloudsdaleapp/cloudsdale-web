@@ -61,15 +61,23 @@
 
 
 %hr
-%h4.subheader= "Requesting the Access Token"
+%h4.subheader= "Requesting the Access Token (Authorization Code)"
 
 :markdown
   To request the access token, you should use the returned code and exchange
-  it for an access token. To do that you can use any HTTP client. In this example,
-  we used the ruby `rest-client` gem.
+  it for an access token. To do that you can use any HTTP client.
 
-  We have also released an official library for `Ruby on Rails` and `Sinatra` using
-  omniauth to handle Cloudsdale authentication. Find it [here](http://rubygems.org/gems/omniauth-cloudsdale).
+
+%h6= "End Point:"
+.panel
+  %code= "http://api.cloudsdale.dev/oauth/token"
+
+%h6= "Accepted Parameters:"
+%ul.inline-list
+  - [:client_id,:client_secret,:code,:grant_type,:redirect_uri].each do |param|
+    %li
+      %span.keystroke{ style: 'padding: 0 7px;' }= param
+%br
 
 .content-panel
   .content-panel-inner.panel-expand
@@ -77,19 +85,79 @@
     :markdown
 
       ```ruby
-      parameters = 'client_id=THE_ID&client_secret=THE_SECRET&code=RETURNED_CODE&grant_type=authorization_code&redirect_uri=http://example.com/oauth/callback'
-      RestClient.post '#{oauth_token_url(subdomain: "www")}', parameters
+      require 'rest-client'
 
-      # The response will be, but with values specific for your application.
-      {
-       "access_token": "de6780bc506a0446309bd9362820ba8aed28aa506c71eedbe1c5c4f9dd350e54",
-       "token_type": "bearer",
-       "expires_in": 7200,
-       "refresh_token": "8257e65c97202ed1726cf9571600918f3bffb2544b26e00a61df9897668c33a1"
-      }
+      parameters = "
+        client_id=THE_ID
+        &client_secret=THE_SECRET
+        &code=RETURNED_CODE
+        &grant_type=authorization_code
+        &redirect_uri=http://example.com/oauth/callback
+      ".chomp
+
+      RestClient.post '#{oauth_token_url(subdomain: "api")}', parameters
+      # {
+      #   "refresh_token": nil,
+      #   "access_token": "access token",
+      #   "token_type": "bearer",
+      #   "expires_in": nil,
+      #   "scope":"read"
+      # }
       ```
+%hr
+%h4.subheader= "Requesting the Access Token (User Credentials)"
+:markdown
+  To Official Cloudsdale applications (certified by Cloudsdale staff),
+  you can also request access tokens by providing our endpoint with the
+  user's Cloudsdale Account password with username or email combination.
+
+  This is highly useful writing native applications without having to bring
+  in web views to let people login in order to permit access. You can now
+  create your own login and forward the credentials to our API's.
+
+%h6= "End Point:"
+.panel
+  %code= "http://api.cloudsdale.dev/oauth/token"
+
+%h6= "Accepted Parameters:"
+%ul.inline-list
+  - [:client_id,:client_secret,:username,:password,:grant_type,:redirect_uri].each do |param|
+    %li
+      %span.keystroke{ style: 'padding: 0 7px;' }= param
 %br
 
-:markdown
-  You can now make requests to the API with the access token on behalf
-  of that user. Have fun using our powerful API's.
+.content-panel
+  .content-panel-inner.panel-expand
+    .panel-header= "Ruby Example"
+    :markdown
+      ```ruby
+      require 'rest-client'
+
+      parameters = "
+        client_id=THE_ID
+        &client_secret=THE_SECRET
+        &password=PASSOWRD
+        &identifier=EMAIL/USERNAME
+        &grant_type=password
+      ".chomp
+
+      RestClient.post '#{oauth_token_url(subdomain: "api")}', parameters
+      # {
+      #   "refresh_token": nil,
+      #   "access_token": "access token",
+      #   "token_type": "bearer",
+      #   "expires_in": nil,
+      #   "scope":"read"
+      # }
+      ```
+
+%hr
+%h4.subheader= "oAuth Libraries"
+%br
+
+%h6.subheader= "Ruby"
+%ul{ style: 'padding-left: 20px;'}
+  %li
+    = link_to "Cloudsdale Omniauth Strategy (Official)", "http://rubygems.org/gems/omniauth-cloudsdale", target: :_blank, title: 'Cloudsdale Omniauth Strategy (Ruby)'
+    %span{ style: 'width: 14px; display: inline-block; text-align: center;' }= "–"
+    = link_to "GitHub", "https://github.com/cloudsdaleapp/omniauth-cloudsdale", target: :_blank, title: 'Cloudsdale Omniauth Strategy (Ruby)'
