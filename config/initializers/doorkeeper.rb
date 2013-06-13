@@ -1,4 +1,5 @@
 Doorkeeper.configure do
+
   orm :mongoid3
 
   resource_owner_authenticator do
@@ -15,6 +16,16 @@ Doorkeeper.configure do
       current_user
     else
       redirect_to(root_path)
+    end
+  end
+
+  # Allow for Official Cloudsdale applications to use user credentials to receive
+  # oAuth access tokens. Especially good to keep phone and desktop apps consistant,
+  # with the oAuth spec.
+  resource_owner_from_credentials do |routes|
+    if @server.client.application.official?
+      @session = Session.new(identifier: params[:username], password: params[:password])
+      @session.user if @session.valid?
     end
   end
 
