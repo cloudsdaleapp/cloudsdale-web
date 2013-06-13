@@ -1,3 +1,31 @@
+module Doorkeeper
+  module Errors
+    class UnsupportedGrantType < DoorkeeperError
+    end
+  end
+
+  module Helpers
+    module Controller
+
+      def get_error_response_from_exception(exception)
+        error_name = case exception
+        when Errors::InvalidTokenStrategy
+          :unsupported_grant_type
+        when Errors::InvalidAuthorizationStrategy
+          :unsupported_response_type
+        when Errors::MissingRequestStrategy
+          :invalid_request
+        when Errors::UnsupportedGrantType
+          :unsupported_grant_type
+        end
+
+        OAuth::ErrorResponse.new :name => error_name, :state => params[:state]
+      end
+
+    end
+  end
+end
+
 Doorkeeper.configure do
 
   orm :mongoid3
@@ -23,9 +51,13 @@ Doorkeeper.configure do
   # oAuth access tokens. Especially good to keep phone and desktop apps consistant,
   # with the oAuth spec.
   resource_owner_from_credentials do |routes|
-    if @server.client.application.official?
-      @session = Session.new(identifier: params[:username], password: params[:password])
-      @session.user if @session.valid?
+    if @server.client
+      if @server.client.application.try(:official?)
+        @session = Session.new(identifier: params[:username], password: params[:password])
+        @session.user if @session.valid?
+      else
+        raise Doorkeeper::Errors::UnsupportedGrantType
+      end
     end
   end
 
