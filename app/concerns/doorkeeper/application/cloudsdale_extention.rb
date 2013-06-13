@@ -16,6 +16,8 @@ class Doorkeeper::Application
       field :description,     type: String
       field :terms_of_use,    type: String
       field :privacy_policy,  type: String
+      field :official,        type: Boolean,    default: false
+      field :main_app,        type: Boolean,    default: false
 
       validates :website,
                 :url => true,
@@ -27,6 +29,18 @@ class Doorkeeper::Application
                 },
                 :presence => true
 
+    end
+
+    def main_app=(value=nil)
+      if value == true && !new_record?
+        Doorkeeper::Application.where(
+          :main_app => true,
+          :id.nin => [self.id]
+        ).set(:main_app,false)
+        self.set(:main_app,true)
+        self.set(:official,true)
+      end
+      super(value)
     end
 
     module ClassMethods

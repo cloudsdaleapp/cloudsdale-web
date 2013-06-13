@@ -61,9 +61,10 @@ Doorkeeper.configure do
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
   # For example if dealing with trusted a application.
-  # skip_authorization do |resource_owner, client|
-  #   resource_owner.is_of_role(:admin)
-  # end
+  skip_authorization do |resource_owner, client|
+    client.official?
+  end
+
 end
 
 # Extend Doorkeeper models
