@@ -10,15 +10,16 @@ class User
 
       attr_accessible :name, :username
 
-      field :name,                      type: String
-      field :force_name_change,         type: Boolean,    default: false
-      field :name_changed_at,           type: DateTime
+      field :name,                        type: String
+      field :force_name_change,           type: Boolean,    default: false
+      field :name_changed_at,             type: DateTime
 
-      field :username,                  type: String
-      field :force_username_change,     type: Boolean,    default: false
-      field :username_changed_at,       type: DateTime
+      field :username,                    type: String
+      field :force_username_change,       type: Boolean,    default: false
+      field :username_changed_at,         type: DateTime
+      field :username_changes_allowed,    type: Integer,    default: 1
 
-      field :also_known_as,             type: Array,      default: []
+      field :also_known_as,               type: Array,      default: []
 
       validates :name,     presence: true, variety: true, format: {
         with: /^([a-z]*\s?){1,5}$/i,
@@ -40,10 +41,14 @@ class User
           "username"   => User,
           "short_name" => Cloud
         },
+      }, :change => {
+        :allow => -> { self.username_changes_allowed >= 1 },
+        :message => "has been changed too many times"
       }
 
       before_save :add_known_name
-      before_validation :generate_unique_username, :unless => :username?
+      before_validation :generate_unique_username,  :unless => :username?
+      after_validation  :decrease_username_changes, :if => :username_changed?
 
       # Public: Customer setter for the name attribute.
       #
@@ -141,6 +146,19 @@ class User
                   Cloud.where(short_name: /^#{new_username}$/i).only(:short_name).exists?
 
         self.username = new_username
+      end
+    end
+
+    # Public: Decreas the allowed user name changes by one
+    # if username is changed manually by the user. Stop
+    # decrement if value has reached zero.
+    #
+    # Returns the remaining changes.
+    def decrease_username_changes
+      unless self.new_record?
+        current_value = self.username_changes_allowed || 1
+        new_value     = current_value >= 1 ? current_value - 1 : 0
+        self.username_changes_allowed = new_value
       end
     end
 
