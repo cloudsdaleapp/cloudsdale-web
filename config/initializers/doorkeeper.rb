@@ -53,7 +53,8 @@ Doorkeeper.configure do
   resource_owner_from_credentials do |routes|
     if @server.client
       if @server.client.application.try(:official?)
-        @session = Session.new(identifier: params[:username], password: params[:password])
+        identifier = params[:identifier] || params[:username] || params[:password]
+        @session = Session.new(identifier: identifier, password: params[:password])
         @session.user if @session.valid?
       else
         raise Doorkeeper::Errors::UnsupportedGrantType
