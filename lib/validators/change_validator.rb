@@ -4,20 +4,22 @@ class ChangeValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
 
-    defaults = HashWithIndifferentAccess.new({
-      :allow   => true,
-      :message => "cannot be changed"
-    })
+    if record.send("#{attribute}_changed?") == true
+      defaults = HashWithIndifferentAccess.new({
+        :allow   => true,
+        :message => "cannot be changed"
+      })
 
-    opts = self.options.with_indifferent_access
-    if self.options.is_a? Hash
-      opts[:allow] = evaluate_condition(opts[:allow], record) if opts[:allow]
-    else
-      opts[:allow] = evaluate_condition(self.options,record)
+      opts = self.options.with_indifferent_access
+      if self.options.is_a? Hash
+        opts[:allow] = evaluate_condition(opts[:allow], record) if opts[:allow]
+      else
+        opts[:allow] = evaluate_condition(self.options,record)
+      end
+      settings = defaults.merge(opts)
+
+      record.errors[attribute] << settings[:message] unless settings[:allow]
     end
-    settings = defaults.merge(opts)
-
-    record.errors[attribute] << settings[:message] unless settings[:allow]
 
   end
 
