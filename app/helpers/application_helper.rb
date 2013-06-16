@@ -32,7 +32,7 @@ module ApplicationHelper
   def page_title; @page_title || "Cloudsdale"; end
 
   def page_image
-    @page_image || image_path('logo/main_logo.png')
+    @page_image || image_path('icon/icon_avatar_color.png')
   end
 
   def page_url
@@ -44,8 +44,7 @@ module ApplicationHelper
   end
 
   def page_description
-    @page_description || "Cloudsdale, the best place in the sky. A fast,
-    reliable and beautiful chat app exclusively for bronies."
+    @page_description || "Connect in Realtime. Meet new Friends."
   end
 
   def page_keywords
@@ -55,7 +54,7 @@ module ApplicationHelper
     HTML5, CSS3, Javascript, Equestria, Cloud, raindrop, drop, pony, brony,
     Twilight Sparkle, Pinkie Pie, Fluttershy, Rarity, Applejack, Rainbow Dash,
     Zeeraw, Lisinge, Berwyn, Zimber Fuzz, Manearion, Xtux, Shansai, Aethe,
-    Connorcpu, fansite, Nginx"
+    Connorcpu, fansite, Nginx, Hammock, Equestria Gaming, My Little Game Dev"
   end
 
   def user_avatar_url(avatar_id, size = 256, schema = :http)

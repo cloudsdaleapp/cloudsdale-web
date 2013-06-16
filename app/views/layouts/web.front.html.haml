@@ -7,8 +7,31 @@
 
 %head
   %meta{ :charset => "utf-8" }
-  %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
-  %title= content_for?(:title) ? yield(:title) : "Cloudsdale Developer"
+  %meta{ name: "viewport", :content => "user-scalable=no, width=device-width, initial-scale=1.0", :id => "view" }
+
+  %title= page_title
+  %meta{ name: "description",         content: page_description }
+  %meta{ name: "keywords",            content: page_keywords }
+  %meta{ property: "og:title",        content: page_title }
+  %meta{ property: "og:description",  content: page_description }
+  %meta{ property: "og:type",         content: page_type }
+  %meta{ property: "og:url",          content: page_url }
+  %meta{ property: "og:image",        content: page_image }
+
+  // ANALYTICS
+  %meta{ name: "google", content: "notranslate" }
+  %meta{ name: "google-site-verification", content: "nIOB-knlcXNH0BO6YGcfXouYY2aL8XxcdkEG-nYcpYQ" }
+  = analytics_init :local => Rails.env.development?
+
+  // FACEBOOK META
+  %meta{ property: 'fb:app_id', content: Cloudsdale.config['facebook']['app_key'] }
+
+  // APPLE META
+  %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
+  %meta{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }
+  %meta{ name: "apple-itunes-app", content: "app-id=567369714" }
+  %meta{ name: "apple-touch-icon", content: image_path("icon/icon_black.png") }
+
   = favicon_link_tag "favicons/48by48.ico"
 
   = stylesheet_link_tag "web.front"
