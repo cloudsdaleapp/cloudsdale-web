@@ -1,12 +1,12 @@
 = content_for(:legend) do
   .row
-    .large-5.columns
+    .large-6.columns
       .row
         %br
         %br
-        .large-8.columns.large-centered
+        .large-8.small-10.columns.large-centered.small-centered
           .row
-            .large-12.small-12.columns
+            .large-10.small-8.columns.large-centered.small-centered
               = image_tag 'icon/icon_front_color.png'
           /     / = image_tag 'http://th00.deviantart.net/fs71/PRE/f/2013/166/4/d/chibi_zeeraw_by_xtux345-d6973kg.png'
           %br
@@ -14,13 +14,10 @@
           %h4.subheader{ style: 'margin-top: 0; padding: 0; color: #ECECEC;'}= "Find new Friends."
           = link_to "Sign up", register_path, :class => ['button','expand']
           %br
-          .row
-            .large-10.small-10.columns.large-centered.small-centered
-              / = image_tag 'icon/icon_color_v3.png'
-              / = image_tag 'http://th00.deviantart.net/fs71/PRE/f/2013/166/4/d/chibi_zeeraw_by_xtux345-d6973kg.png'
-    .large-7.columns.centered
-      = image_tag 'http://th00.deviantart.net/fs71/PRE/f/2013/166/4/d/chibi_zeeraw_by_xtux345-d6973kg.png'
-      / = image_tag 'icon/icon_color_v3.png'
+
+    .large-6.columns.centered.hide-for-small
+      = image_tag "ponies/#{rand(1..4)}.png"
+
 .legend.color.deep{ style: 'background-color: #295673;' }
   .row
     .large-12.columns.centered
