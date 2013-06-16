@@ -54,7 +54,7 @@ module ApplicationHelper
     HTML5, CSS3, Javascript, Equestria, Cloud, raindrop, drop, pony, brony,
     Twilight Sparkle, Pinkie Pie, Fluttershy, Rarity, Applejack, Rainbow Dash,
     Zeeraw, Lisinge, Berwyn, Zimber Fuzz, Manearion, Xtux, Shansai, Aethe,
-    Connorcpu, fansite, Nginx, Hammock, Equestria Gaming, My Little Game Dev"
+    Connorcpu, fansite, Nginx, Hammock, Equestria Gaming, My Little Game Dev".strip.chomp
   end
 
   def user_avatar_url(avatar_id, size = 256, schema = :http)
