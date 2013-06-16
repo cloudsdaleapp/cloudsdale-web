@@ -59,7 +59,9 @@
         = render 'layouts/flash_error'
         = render 'layouts/flash_notice'
         = render 'layouts/flash_success'
+        %br
       = yield
-      / = AvatarDispatch::ALLOWED_SIZES.join(", ")
-    = render 'layouts/page_footer'
+      %br
+      %br
+      = render 'layouts/page_footer'
     = javascript_include_tag "admin"

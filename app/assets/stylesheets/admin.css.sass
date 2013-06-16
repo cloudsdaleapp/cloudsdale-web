@@ -4,80 +4,7 @@
 @import "cloudsdale_foundation"
 
 body
-  background: #FAFAFA
-
-.content-panel, .content-panel-inner
-  @include border-radius(2px)
-  @include clearfix
-.content-panel
-  background: #efefef
-
-.content-panel-inner
-  background: #fff
-  margin: 4px
-  padding: 20px
-  border: 1px solid #d8d8d8
-  &.panel-thin
-    padding: 5px
-  &.panel-expand
-    padding: 0px
-
-.panel-header
-  padding: 6px 10px
-  border-bottom: 1px solid $border-primary-color
-  @include linear-gradient(#FFFFFF,#EEEEEE)
-  text-shadow: 1px 1px 1px #FFF
-  font-weight: bold
-  font-size: emCalc(13px)
-
-.panel-side-nav
-  $panel-side-nav-bg: $body-bg
-  $panel-side-nav-font-size: emCalc(12px)
-  $panel-side-nav-color: $body-font-color
-  @include side-nav($panel-side-nav-bg, $panel-side-nav-font-size, $panel-side-nav-color)
-  li
-    padding: emCalc(14px) $section-padding
-    margin-bottom: 0
-    border-left: 2px solid $border-primary-color
-    &:not(:first-child)
-      border-top: 1px solid $border-primary-color
-    &:hover
-      border-left-color: $primary-color
-
-    &.active
-      border-left: 2px solid $primary-color
-      background-color: darken($section-content-bg,5%)
-    &.active a
-      color: $panel-side-nav-color
-      font-weight: bold
-
-.panel-accordion
-  @include section-container($section-type:accordion)
-  border: 0 !important
-  margin-bottom: 0
-  & > section
-    @include section($section-type:accordion, $title-selector:".title", $content-selector:".content")
-    .title
-      background-color: $body-bg-head
-      font-size: emCalc(14px)
-      font-weight: bold
-      a
-        padding: emCalc(14px) $section-padding !important
-        border-left: 2px solid transparent
-      &:hover
-        background-color: darken($body-bg-head,1%)
-    .content
-      background-color: darken($body-bg-head,5%)
-
-    &.active
-      .title
-        background-color: darken($body-bg-head,1%)
-        a
-          color: $primary-color
-          border-left: 2px solid $primary-color
-
-.chart-dashboard
-  min-height: 250px
+  background: #37464F
 
 #editor
   position: relative
@@ -103,44 +30,15 @@ body
   background-repeat: no-repeat
   background-position: center center
 
-.compact
-  margin-top: 0px
-  margin-bottom: 5px
-
-.exception-bg
-  background-image: asset-data-url("details/wing_watermark.png")
-  background-repeat: no-repeat
-  background-position: center top
-  background-size: 100% auto
-  min-height: 1100px
-  @include opacity(.3)
-
-#legend
-  margin-top: -20px
-  padding-top: 50px
-  padding-bottom: 50px
-  min-height: 400px
-
 .developer-legend
   background-color: #0E121D
   background-image: image-url("bg/twilight-zone.png")
   background-position: center center
-  border-bottom: 1px solid #333
-  border-top: 1px solid #333
+  border-bottom: 1px solid $border-secondary-color
   h1, h2, h3, h4, h5, h6, p
     color: #FEFEFE !important
   .alert-box
     border-color: #FEFEFE !important
 
-#foot
-  color: $body-font-color-light
-  lh, li
-    font-size: emCalc(13px)
-  lh
-    display: block
-    border-bottom: 1px dotted $body-font-color-light
-    margin-bottom: 5px
-  li
-    margin-bottom: 3px
 
 @import "coderay"

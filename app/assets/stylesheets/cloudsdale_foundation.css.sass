@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Poiret+One")
+@import url("https://fonts.googleapis.com/css?family=Londrina+Solid")
+@import "mixins"
 //
 // Foundation Variables
 //
@@ -30,15 +33,39 @@ $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
 // $body-font-weight: normal
 // $body-font-style: normal
 $border-primary-color: #d8d8d8
+$border-secondary-color: #666
 
 #head-wrap
   background-color: $body-bg-head
-  border-bottom: 1px solid $border-primary-color
-  margin-bottom: 20px
+  border-bottom: 1px solid $border-secondary-color
 
 #body-wrap
   background-color: $body-bg
-  margin-bottom: 20px
+
+#foot
+  background: #37464F
+  padding: 20px 0
+  color: #89949b
+  lh, li
+    font-size: emCalc(13px)
+  lh
+    display: block
+    border-bottom: 1px solid #89949b
+    margin-bottom: 5px
+  li
+    margin-bottom: 3px
+    a
+      color: lighten(#89949b,0%)
+      font-weight: normal
+      &:hover
+        text-decoration: underline
+        color: lighten(#89949b,25%)
+
+#copyright
+  background: #37464F
+  padding: 40px 0
+  font-size: emCalc(12px)
+  color: #89949b
 
 //// Font-smoothing
 
@@ -1224,6 +1251,11 @@ $topbar-menu-icon-color-toggled: #888
 // $topbar-breakpoint: emCalc(940px) // Change to 9999px for always mobile layout
 // $topbar-media-query: "only screen and (min-width "#{$topbar-breakpoint}")"
 
+@import "foundation"
+
+.centered
+  text-align: center
+
 nav.top-bar
   margin-bottom: 0 !important
   &.expanded
@@ -1271,4 +1303,94 @@ nav.top-bar
         background-color: transparent !important
         color: $topbar-link-color
 
-@import "foundation"
+.content-panel, .content-panel-inner
+  @include border-radius(2px)
+  @include clearfix
+.content-panel
+  background: #efefef
+
+.content-panel-inner
+  background: #fff
+  margin: 4px
+  padding: 20px
+  border: 1px solid #d8d8d8
+  &.panel-thin
+    padding: 5px
+  &.panel-expand
+    padding: 0px
+
+.panel-header
+  padding: 6px 10px
+  border-bottom: 1px solid $border-primary-color
+  @include linear-gradient(#FFFFFF,#EEEEEE)
+  text-shadow: 1px 1px 1px #FFF
+  font-weight: bold
+  font-size: emCalc(13px)
+
+.panel-side-nav
+  $panel-side-nav-bg: $body-bg
+  $panel-side-nav-font-size: emCalc(12px)
+  $panel-side-nav-color: $body-font-color
+  @include side-nav($panel-side-nav-bg, $panel-side-nav-font-size, $panel-side-nav-color)
+  li
+    padding: emCalc(14px) $section-padding
+    margin-bottom: 0
+    border-left: 2px solid $border-primary-color
+    &:not(:first-child)
+      border-top: 1px solid $border-primary-color
+    &:hover
+      border-left-color: $primary-color
+
+    &.active
+      border-left: 2px solid $primary-color
+      background-color: darken($section-content-bg,5%)
+    &.active a
+      color: $panel-side-nav-color
+      font-weight: bold
+
+.panel-accordion
+  @include section-container($section-type:accordion)
+  border: 0 !important
+  margin-bottom: 0
+  & > section
+    @include section($section-type:accordion, $title-selector:".title", $content-selector:".content")
+    .title
+      background-color: $body-bg-head
+      font-size: emCalc(14px)
+      font-weight: bold
+      a
+        padding: emCalc(14px) $section-padding !important
+        border-left: 2px solid transparent
+      &:hover
+        background-color: darken($body-bg-head,1%)
+    .content
+      background-color: darken($body-bg-head,5%)
+
+    &.active
+      .title
+        background-color: darken($body-bg-head,1%)
+        a
+          color: $primary-color
+          border-left: 2px solid $primary-color
+
+.chart-dashboard
+  min-height: 250px
+
+.compact
+  margin-top: 0px
+  margin-bottom: 5px
+
+.exception-bg
+  background-image: asset-data-url("details/wing_watermark.png")
+  background-repeat: no-repeat
+  background-position: center top
+  background-size: 100% auto
+  min-height: 1100px
+  @include opacity(.3)
+
+#legend
+  padding-top: 50px
+  padding-bottom: 50px
+  min-height: 400px
+
+

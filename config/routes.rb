@@ -84,6 +84,14 @@ Cloudsdale::Application.routes.draw do
 
   end
 
+  site :web, subdomain: 'beta' do
+
+    root to: 'root#index'
+
+    match '*path', to: 'root#not_found'
+
+  end
+
   site :developer, subdomain: 'dev' do
     root to: 'root#index'
 

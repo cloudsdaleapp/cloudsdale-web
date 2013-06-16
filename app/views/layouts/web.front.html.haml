@@ -11,7 +11,7 @@
   %title= content_for?(:title) ? yield(:title) : "Cloudsdale Developer"
   = favicon_link_tag "favicons/48by48.ico"
 
-  = stylesheet_link_tag "admin"
+  = stylesheet_link_tag "web.front"
   = javascript_include_tag "vendor/custom.modernizr"
   = csrf_meta_tag
 
@@ -26,31 +26,28 @@
                 %h1
                   = link_to root_path, style: 'display: block;' do
                     .logo{ style: 'display: inline; height: 32px; width: 32px; float: left; margin: 6px 0px 7px 8px;' }
-                    %span= "Developers"
+                    %span= "Cloudsdale"
               %li.toggle-topbar.menu-icon
                 %a{:href => "#", style: 'min-width: 100px;' }
                   %span= "Menu"
             %section.top-bar-section
               %ul.left
                 %li.divider
-                %li= link_to "Apps", applications_path
-                %li.divider
-                %li= link_to "Docs", docs_path
+                %li= link_to "Blog",  "http://blog.cloudsdale.org/", target: :_blank
                 %li.divider
               %ul.right
                 %li.divider
-                - if current_user.new_record?
-                  %li= link_to "Login",  login_path
-                - else
-                  %li= link_to "Logout", logout_path, rel: :nofollow
+                %li= link_to "Login",  login_path
                 %li.divider
-                %li
-                  = link_to "← Back to Cloudsdale", root_url(subdomain: 'www')
+                %li= link_to "Register",  register_path
                 %li.divider
 
   #body-wrap
     - if content_for?(:legend)
-      #legend.developer-legend
+      - flash_class = 'legend-notice'
+      - flash_class = 'legend-error' if flash[:error]
+      - flash_class = 'legend-success' if flash[:success]
+      .legend.color{ :class => flash_class }
         = render 'layouts/flash_error'
         = render 'layouts/flash_notice'
         = render 'layouts/flash_success'
@@ -59,12 +56,9 @@
       = render 'layouts/flash_error'
       = render 'layouts/flash_notice'
       = render 'layouts/flash_success'
-      %br
     = yield
-    %br
-    %br
-    = render 'layouts/page_footer'
-  = javascript_include_tag "developer"
+    / = AvatarDispatch::ALLOWED_SIZES.join(", ")
+  = render 'layouts/page_footer'
 
 :plain
   </html>
