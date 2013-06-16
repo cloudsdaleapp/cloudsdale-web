@@ -6,9 +6,7 @@ class Api::V2::MeController < Api::V2Controller
 
   def show
     respond_with current_resource_owner, status: 200, serializer: MeSerializer, root: 'user', meta: {
-      status: 200,
-      errors: [],
-      notice: ""
+      status: 200
     }
   end
 

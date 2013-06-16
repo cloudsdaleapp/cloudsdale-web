@@ -26,7 +26,6 @@ class Api::V2::RootController < Api::V2Controller
     resp = {
       meta: {
         status: 404,
-        errors: [],
         notice: "Resource does not exist."
       }
     }
