@@ -53,7 +53,7 @@ Doorkeeper.configure do
   resource_owner_from_credentials do |routes|
     if @server.client
       if @server.client.application.try(:official?)
-        identifier = params[:identifier] || params[:username] || params[:password]
+        identifier = params[:identifier] || params[:username] || params[:email]
         @session = Session.new(identifier: identifier, password: params[:password])
         @session.user if @session.valid?
       else
