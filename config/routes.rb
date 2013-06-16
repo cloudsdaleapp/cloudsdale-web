@@ -40,9 +40,6 @@ Cloudsdale::Application.routes.draw do
 
   scope :web, constraints: { subdomain: /www/ } do
 
-    # The root path where users will land when entering our url.
-    root to: 'root#index'
-
     # The explore page is devided up in to three tiers where the front-end will
     # automatically take you up to the default tier if you're requesting it at
     # at a lower level.
@@ -82,6 +79,10 @@ Cloudsdale::Application.routes.draw do
     # route for it. This NEEDS to be last so that it's a "catch all" route.
     match '/:page_id' => 'pages#show', as: :page
 
+  end
+
+  site :web, subdomain: 'www' do
+    root to: 'root#index'
   end
 
   site :web, subdomain: 'beta' do

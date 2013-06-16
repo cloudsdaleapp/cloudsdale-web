@@ -1,7 +1,11 @@
 class Web::RootController < WebController
 
   def index
-    render "index.#{determine_template}"
+    if !current_user.new_record? && request.subdomain.match(/www/)
+      render layout: 'application', template: 'pages/_root.html.haml'
+    else
+      render "index.#{determine_template}"
+    end
   end
 
   def not_found
