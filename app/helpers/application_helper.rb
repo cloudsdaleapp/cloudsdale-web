@@ -48,4 +48,21 @@ module ApplicationHelper
     "#{url}/user/#{avatar_id}.png#{size}"
   end
 
+  def social_button_for(media_type,url,text=nil)
+    case media_type.to_sym
+    when :facebook
+      content_tag(:span, "", :class => 'fb-like', data: { font: 'arial', href: url, layout: :button_count, send: false, 'show-faces' => false, width: 'auto' }).html_safe
+    when :google
+      content_tag(:span, "", :class => 'g-plusone', data: { size: 'medium', href: url } ).html_safe
+    when :twitter
+      text      ||= "Check out @cloudsdaleapp it's a pretty cool place"
+      style     = 'line-height: 20px; height: 20px; font-size: 12px;'
+      css_class = 'twitter-share-button'
+      html_data = { text: text, url: url }
+      content_tag(:a, "Tweet",:class => css_class, style: style, data: html_data, href: "https://twitter.com/share" ).html_safe
+    when :flattr
+      content_tag(:a, "",:class => 'FlattrButton', href: url, style: "display:none;", rev: "flattr;button:compact;" ).html_safe
+    end
+  end
+
 end

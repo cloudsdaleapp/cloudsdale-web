@@ -57,18 +57,16 @@
                 %li= link_to "Blog",  "http://blog.cloudsdale.org/", target: :_blank
                 %li.divider
                 %li{ style: 'padding: 12px 15px 0px 15px;' }
-                  .fb-like{"data-font" => "arial", "data-href" => "https://www.cloudsdale.org", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450"}
+                  = social_button_for :facebook, "http://www.cloudsdale.org"
                 %li.divider
                 %li{ style: 'padding: 12px 0px 0px 22px;' }
-                  .g-plusone{"data-href" => "http://www.cloudsdale.org", "data-size" => "medium"}
+                  = social_button_for :google, "http://www.cloudsdale.org"
                 %li.divider
                 %li{ style: 'padding: 12px 0px 0px 18px;' }
-                  %a.twitter-share-button{ "data-text" => "Check out @cloudsdaleapp it's a pretty cool place", "data-url" => "http://www.cloudsdale.org", :href => "https://twitter.com/share"}= "Tweet"
-                  :javascript
-                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+                  = social_button_for :twitter, "http://www.cloudsdale.org"
                 %li.divider
                 %li{ style: 'padding: 12px 15px 0px 15px;' }
-                  %a.FlattrButton{:href => "http://www.cloudsdale.org", :rev => "flattr;button:compact;", :style => "display:none;"}
+                  = social_button_for :flattr, "http://www.cloudsdale.org"
                 %li.divider
 
               %ul.right
@@ -95,25 +93,8 @@
     = yield
     / = AvatarDispatch::ALLOWED_SIZES.join(", ")
   = render 'layouts/page_footer'
+  = render 'layouts/social_include'
   = javascript_include_tag :admin
-  %script{:src => "https://apis.google.com/js/plusone.js", :type => "text/javascript"}
-  #fb-root
-  :javascript
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=255258867845902";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  :javascript
-    (function() {
-        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-        t.parentNode.insertBefore(s, t);
-    })();
 
 :plain
   </html>
