@@ -32,10 +32,13 @@ protected
   # is persisted.
   def authenticate!(user)
     if params[:persist_session] == "true"
-      session[:user_id]    = user.id.to_s
-      cookies[:auth_token] = auth_token
-      @auth_token          = auth_token
-      @current_user        = user
+      cookies.signed[:auth_token] = {
+        :domain =>  Cloudsdale.config['session_key'],
+        :value =>   user.auth_token,
+        :expires => 20.years.from_now
+      }
+      @auth_token   = user.auth_token
+      @current_user = user
     end
     user.save
   end
@@ -71,15 +74,11 @@ protected
   #
   # Returns an inatance of the User model.
   def current_user
-
-    if session[:user_id]
-      @current_user ||= User.find_or_initialize_by(_id: session[:user_id])
-    elsif auth_token
+    if auth_token
       @current_user ||= User.find_or_initialize_by(auth_token: auth_token)
     else
       @current_user ||= User.new
     end
-
   end
 
   # Protected: Determines which layout to use based on the
@@ -252,7 +251,7 @@ protected
   #
   # Returns the auth token.
   def auth_token
-    @auth_token ||= cookies[:auth_token] || request.headers['X-Auth-Token']
+    @auth_token ||= cookies.signed[:auth_token] || request.headers['X-Auth-Token']
   end
 
 
