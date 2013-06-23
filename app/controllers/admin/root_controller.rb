@@ -2,7 +2,7 @@ class Admin::RootController < AdminController
 
   def index
 
-    start_at = 30.days.ago
+    start_at = 60.days.ago
     end_at   = Date.today
 
     @first_date = (start_at.to_i * 1000)
