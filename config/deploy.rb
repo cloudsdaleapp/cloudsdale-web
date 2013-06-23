@@ -11,7 +11,7 @@ set :rake, "#{rake} --trace"
 set :scm,             :git
 set :scm_verbose,     true
 
-set :repository,      'git@github.com:IOMUSE/Cloudsdale.git'
+set :repository,      'git@github.com:cloudsdaleapp/cloudsdale.git'
 set :remote,          'origin'
 set :branch,          'master'
 
