@@ -11,9 +11,9 @@ class Api::V1::Clouds::BansController < Api::V1Controller
   # Returns a Bans collection
   def index
 
-    ban_params = params.select { |k,v| [:offender_id,:enforcer_id].include?(k.to_sym) }
-    ban_params.merge! { :due.ne => nil, :revoke.ne => nil }
-    @bans = @cloud.bans.where(ban_params).order_by(due: :desc)
+    @bans = @cloud.bans.where(
+      params.select { |k,v| [:offender_id,:enforcer_id].include?(k.to_sym) }
+    ).order_by(due: :desc)
 
     render status: 200
   end
