@@ -59,7 +59,16 @@ class Api::V1::UsersController < Api::V1Controller
 
       if @user.save
         created_account_this_session
+
+        if @user.confirmed_registration_at.present? && @user.email.present?
+          UserMailer.delay(
+            :queue => :high,
+            :retry => false
+          ).welcome_mail(@user.id.to_s)
+        end
+
         authenticate! @user
+
         render status: 200
       else
         set_flash_message message: "One or more of the fields were invalid.", title: "Field error."
@@ -86,6 +95,10 @@ class Api::V1::UsersController < Api::V1Controller
     @user = User.find(params[:id])
 
     authorize @user, :update?
+
+    if params['X-Requested-With'] == "IFrame"
+      response.headers["Content-Type"] = "text/html"
+    end
 
     if @user.update_attributes(params[:user])
       render status: 200

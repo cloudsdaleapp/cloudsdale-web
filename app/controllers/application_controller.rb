@@ -7,26 +7,33 @@ class ApplicationController < ActionController::Base
   before_filter :auth_token
   before_filter :redirect_on_maintenance!, :set_time_zone_for_user!, :assert_user_ban!
 
-  # Rescues the error yielded from not finding requested document
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
-    render status: 404
+    render 'exceptions/not_found', status: 404
+  end
+
+  rescue_from ActionController::RoutingError do |message|
+    render 'exceptions/not_found', status: 404
   end
 
   # Rescues the error from not being authorized to perform an action
   rescue_from Pundit::NotAuthorizedError do |message|
-    render status: 403
+    flash[:error] = "Unauthorized access! #{message}"
+    render 'exceptions/unauthorized', status: 403
   end
 
   # Rescues the errors yielded by supplying a faulty BSON id
   rescue_from Moped::Errors::InvalidObjectId do |message|
-    render status: 500
+    render 'exceptions/server_error', status: 500
+  end
+
+  rescue_from ActionController::ParameterMissing do |message|
+    flash[:error] = "Invalid parameters, please try again."
+    render 'exceptions/unproccessable_entry', status: 422
   end
 
   def current_user
 
-    if session[:user_id]
-      @current_user ||= User.find_or_initialize_by(_id: session[:user_id])
-    elsif auth_token
+    if auth_token
       @current_user ||= User.find_or_initialize_by(auth_token: auth_token)
     else
       @current_user ||= User.new
@@ -43,9 +50,10 @@ class ApplicationController < ActionController::Base
 
 protected
 
-  # Internal: Forces users that are not of role moderator or higher to get redirected to
-  # the maintenence page. The site will still work as normal even though maintenance
-  # mode is activated for the users with sufficient rights.
+  # Internal: Forces users that are not of role moderator or
+  # higher to get redirected to the maintenence page. The site
+  # will still work as normal even though maintenance mode is
+  # activated for the users with sufficient rights.
   #
   # Returns nothing of intrest.
   def redirect_on_maintenance!
@@ -53,6 +61,19 @@ protected
       unless current_user and current_user.role >= 2
         redirect_to maintenance_path
       end
+    end
+  end
+
+  # Internal: Redirects user to the root path if he or she
+  # is already registered. This is most likely to be used on
+  # on authentication endpoints to make sure an authenticated
+  # user does not authenticate twice.
+  #
+  # Returns nothing of interest.
+  def redirect_if_registered!
+    unless current_user.new_record?
+      flash[:error] = "You are already logged in, please log out if you want to use another account."
+      redirect_to root_path
     end
   end
 
@@ -67,8 +88,36 @@ protected
   end
 
   def auth_token
-    @auth_token ||= cookies[:auth_token] || request.headers['X-Auth-Token']
+    @auth_token ||= cookies.signed[:auth_token] || request.headers['X-Auth-Token']
   end
 
+  def permitted_params
+    PermittedParams.new(params,current_user)
+  end
+
+  def redirect_to_stored_url
+    redirect_uri = session[:redirect_url] || params[:redirect_url] || root_path
+
+    session[:redirect_url] = nil
+    params[:redirect_url]  = nil
+
+    redirect_to (redirect_uri) and return if redirect_uri.present?
+  end
+
+private
+
+  # Private: Used to set a session for the user if the persist_session parameter is available.
+  # It will also save the user to the database to ensure any new SHIT added to the user model
+  # is persisted.
+  def authenticate!(user)
+    cookies.signed[:auth_token] = {
+      :domain =>  Cloudsdale.config['session_key'],
+      :value =>   user.auth_token,
+      :expires => 20.years.from_now
+    }
+    @auth_token   = user.auth_token
+    @current_user = user
+    user.save
+  end
 
 end

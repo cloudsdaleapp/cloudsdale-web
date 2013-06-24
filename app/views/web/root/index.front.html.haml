@@ -1,0 +1,136 @@
+= content_for(:legend) do
+  .row
+    .large-6.columns
+      .row
+        %br
+        %br
+        .large-8.small-10.columns.large-centered.small-centered
+          .row
+            .large-10.small-8.columns.large-centered.small-centered
+              = image_tag 'icon/icon_front_color.png'
+          /     / = image_tag 'http://th00.deviantart.net/fs71/PRE/f/2013/166/4/d/chibi_zeeraw_by_xtux345-d6973kg.png'
+          %br
+          %h3.subheader{ style: 'margin: 0; padding: 0;'}= "Connect in Realtime."
+          %h4.subheader{ style: 'margin-top: 0; padding: 0; color: #ECECEC;'}= "Find new Friends."
+          = link_to "Sign up", register_path, :class => ['button','expand']
+          %br
+
+    .large-6.columns.centered.hide-for-small
+      = image_tag "ponies/#{rand(1..5)}.png"
+
+.legend.color.deep{ style: 'background-color: #295673;' }
+  .row
+    .large-12.columns.centered
+      %h1.subheader= "Cloudsdale is..."
+  .row
+    .large-4.columns.centered
+      %h3.subheader= "Accessible"
+      .row
+        .large-6.small-6.columns.large-centered.small-centered
+          = image_tag "icons/front/accessible.png", :class => 'icon-opaque'
+      .row
+        .large-10.small-10.columns.large-centered.small-centered
+          %hr
+          %p.subtext
+            Cloudsdale provides realtime communication around the clock
+            for most devices and platforms available.
+          %p.subtext
+            We deliver the power of modern technologies with grace,
+            tempered by good design, to you our beolved users.
+          %br
+          %br
+
+    .large-4.columns.centered
+      %h3.subheader= "Diverse"
+      .row
+        .large-6.small-6.columns.large-centered.small-centered
+          = image_tag "icons/front/diverse.png", :class => 'icon-opaque'
+      .row
+        .large-10.small-10.columns.large-centered.small-centered
+          %hr
+          %p.subtext
+            Join over thousands of diverse and interesting people,
+            some of whom may be very similar to you.
+          %p.subtext
+            Cloudsdale is all about embracing the community and
+            allows you to effectively gather as a group of people.
+          %br
+          %br
+
+    .large-4.columns.centered
+      %h3.subheader= "Fun"
+      .row
+        .large-6.small-6.columns.large-centered.small-centered
+          = image_tag "icons/front/fun.png", :class => 'icon-opaque'
+      .row
+        .large-10.small-10.columns.large-centered.small-centered
+          %hr
+          %p.subtext
+            Here we want to ensure that you, our users, can rely on
+            always being able to join or bring your friends when you're
+            on the go.
+          %p.subtext
+            We provide beautiful, easy to use mobile applications for
+            the platform of your choice.
+          %br
+          %br
+.legend.color{ style: 'background-color: #3f85b3;' }
+  .row
+    .large-12.columns.centered
+      %h1.subheader= "Always with you."
+  .row
+    .large-5.columns
+      %h3.subheader.centered= "In your home"
+      %br
+      .row
+        .large-5.small-6.columns
+          = image_tag "icons/front/desktop.png"
+        .large-5.small-6.columns
+          = image_tag "icons/front/laptop.png"
+      %p.subtext.centered
+        %br= "Web Browser and Desktop clients."
+
+    .large-5.columns
+      %h3.subheader.centered= "On the go"
+      %br
+      %br
+      .row
+        .large-4.small-4.columns.centered
+          = link_to "https://itunes.apple.com/app/cloudsdale/id567369714", title: 'Cloudsdale iOS, iPhone iPod brony chat app', target: :_blank do
+            = image_tag "icons/front/iphone.png"
+            %p.subtext.label-icon
+              %br= "iPhone and iPod Touch"
+
+        .large-4.small-4.columns.centered
+          = link_to "http://www.windowsphone.com/en-us/store/app/cloudsdale/38602a94-899d-45a2-83b1-3b97260e0297",  title: 'Cloudsdale Windows Phone chat app', target: :_blank do
+            = image_tag "icons/front/windows.png"
+            %p.subtext.label-icon
+              %br= "Windows Phone 7 and 8"
+
+        .large-4.small-4.columns.centered
+          = link_to '#', title: 'Coming Soon', :class => ['has-tip','tip-bottom'], data: { tooltip: true, options: 'disable-for-touch:true' }, style: 'display: block; border: 0; cursor: inherit;' do
+            = image_tag "icons/front/android.png"
+            %p.subtext.label-icon
+              %br= "Android"
+  %br
+  %br
+
+.legend.color{ style: 'background-color: #aeacc6;' }
+  %br
+  .row
+    .large-3.small-6.columns.centered
+      = link_to "https://www.twitter.com/cloudsdaleapp", target: :_blank do
+        .icon-backdrop= image_tag "icons/social/twitter.png"
+        %p.label-icon= "Follow us on Twitter"
+    .large-3.small-6.columns.centered
+      = link_to "https://www.facebook.com/cloudsdaleapp", target: :_blank do
+        .icon-backdrop= image_tag "icons/social/facebook.png"
+        %p.label-icon= "Like us on Facebook"
+    .large-3.small-6.columns.centered
+      = link_to "http://cloudsdaleapp.tumblr.com/", target: :_blank do
+        .icon-backdrop= image_tag "icons/social/tumblr.png"
+        %p.label-icon= "Ask us on Tumblr"
+    .large-3.small-6.columns.centered
+      = link_to "https://www.github.com/cloudsdaleapp", target: :_blank do
+        .icon-backdrop= image_tag "icons/social/github.png"
+        %p.label-icon= "Fork us on Github"

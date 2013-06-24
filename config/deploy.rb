@@ -4,14 +4,14 @@ require 'sidekiq/capistrano'
 require 'capistrano_colors'
 
 set :application,   "cloudsdale-web"
-set :ruby_version,  "ruby-1.9.3-p125"
+set :ruby_version,  "ruby-1.9.3-p392"
 
 set :rake, "#{rake} --trace"
 
 set :scm,             :git
 set :scm_verbose,     true
 
-set :repository,      'git@github.com:IOMUSE/Cloudsdale.git'
+set :repository,      'git@github.com:cloudsdaleapp/cloudsdale.git'
 set :remote,          'origin'
 set :branch,          'master'
 
@@ -25,13 +25,16 @@ set :user,            "deploy"
 set :group,           "deploy"
 set :use_sudo,        false
 
+set :bundle_without, [:darwin, :development, :test]
+
 # Sidekiq
-set :sidekiq_cmd,       "#{bundle_cmd} exec sidekiq"
-set :sidekiqctl_cmd,    "#{bundle_cmd} exec sidekiqctl"
-set :sidekiq_timeout,   10
+set :sidekiq_cmd,       "bundle exec sidekiq"
+set :sidekiqctl_cmd,    "bundle exec sidekiqctl"
+set :sidekiq_timeout,   100
 set :sidekiq_role,      :app
 set :sidekiq_pid,       "/var/run/sidekiq.pid"
-set :sidekiq_processes, 8
+set :sidekiq_processes, 2
+set :sidekiq_concurrency, 25
 
 # Unicorn
 set :unicorn_pid ,      "/var/run/unicorn/web.pid"
@@ -43,6 +46,7 @@ role :app,  "www.cloudsdale.org", :primary => true
 
 after 'deploy', 'deploy:permissions:correct'
 after 'deploy:create_symlink', 'deploy:assets:upload'
+after 'deploy:create_symlink', 'sidekiq:link_assets'
 
 # Default Environment
 default_environment["RAILS_ENV"]    = rails_env
@@ -56,7 +60,7 @@ namespace :deploy do
   desc 'Correct permission on all application files to the deploy user.'
   namespace :permissions do
     task :correct, :roles => :app, :except => { :no_release => true } do
-      run "#{try_sudo} chown -R #{user}:#{group} /opt/app/#{application}"
+      run "sudo chown -R #{user}:#{group} /opt/app/#{application}"
     end
   end
 
@@ -80,6 +84,19 @@ namespace :deploy do
   desc "Stop unicorn"
   task :stop, :roles => unicorn_role, :except => { :no_release => true } do
     run "kill -s QUIT `cat #{unicorn_pid}`"
+  end
+
+end
+
+namespace :sidekiq do
+
+  desc "Moves the sidekiq assets in to the project folder so they can be served."
+  task :link_assets, roles: :web do
+    bundle_path = capture "cd #{current_path}; bundle show sidekiq"
+    bundle_path = "#{bundle_path.strip}/web/assets"
+    run "mkdir -p #{current_path}/public/admin"
+    run "ln -fs #{bundle_path} #{current_path}/public/admin"
+    run "mv #{current_path}/public/admin/assets #{current_path}/public/admin/workers"
   end
 
 end

@@ -1,0 +1,72 @@
+@charset "UTF-8"
+//*= require_self
+@import "cloudsdale_foundation"
+
+body
+  background: #37464F
+
+.subheader
+  font-family: 'Poiret One', cursive
+  font-weight: normal
+
+.subtext
+  // font-family: 'Poiret One', cursive
+  font-weight: lighter
+  word-wrap: break-word
+
+.legend
+  padding: 40px 0
+
+.legend.color
+  &, h1, h2, h3, h4, h5, h6, p
+    color: #FFF
+  .subtext
+    color: lighten($primary-color,30%)
+
+.legend.color.deep
+  &, h1, h2, h3, h4, h5, h6, p
+    color: #eeeeee
+  .subtext
+    color: saturate(lighten($primary-color,25%),20%)
+  hr
+    border-color: transparent
+
+.legend-error
+  background-color: $alert-color
+.legend-success
+  background-color: $success-color
+.legend-notice
+  background-color: $primary-color
+
+.starry
+  background-image: image-url("tiles/stars.png")
+  background-position: top center
+
+.icon-opaque
+  +opacity(.8)
+  +transition(opacity .3s ease)
+  &:hover
+    +opacity(1)
+
+.icon-backdrop
+  background-color: rgba(0,0,0,.2)
+  +border-radius(50%)
+  +transition(background-color .2s ease)
+  padding: 10px
+  display: inline-block
+  img
+    +border-radius(50%)
+  &:hover
+    background-color: rgba(255,255,255,.5)
+
+.label-icon
+  padding: 20px 0
+  font-size: emCalc(15px)
+  line-height: emCalc(17px)
+
+.alert-box
+  margin: 0
+  border: 0
+  color: #FFF
+  border-bottom: 1px dashed rgba(0,0,0,.3)
+

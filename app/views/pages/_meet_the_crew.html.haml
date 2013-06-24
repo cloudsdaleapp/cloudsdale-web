@@ -2,12 +2,12 @@
   %h2= "Meet the Crew"
   %p.lead= "We're the ones behind Cloudsdale who make your stay worthwhile."
 
-- @users = User.where(:role.in => [7,5,4,3]).order_by(role: :desc)
+- @users = User.where(:role.in => [7,6,5,3]).order_by(role: :desc)
 %ul.thumbnails
   - @users.each do |user|
     %li.clearfix.span3
       .thumbnail
-        = image_tag user.avatar.url, class: 'img-polaroid', style: 'max-width: 100px; height: 100px; margin: 25px auto 10px auto;'
+        = image_tag user.dynamic_avatar_url, class: 'img-polaroid', style: 'max-width: 100px; height: 100px; margin: 25px auto 10px auto;'
         .caption
           %center
             %h4{ style: 'height: 40px;'}= user.name

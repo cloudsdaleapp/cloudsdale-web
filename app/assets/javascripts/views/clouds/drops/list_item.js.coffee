@@ -45,7 +45,7 @@ class Cloudsdale.Views.CloudsDropsListItem extends Backbone.View
     top_dom = _href[2]
     path = _href[3]
 
-    inhouse = (top_dom.match(/cloudsdale.org/i) != null)
+    inhouse = (top_dom.match(/www\.cloudsdale\.org/i) != null)
 
     if inhouse
       event.preventDefault()

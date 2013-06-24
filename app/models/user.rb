@@ -1,32 +1,33 @@
 class User
 
-  ROLES = { normal: 0, donor: 1, legacy: 2, associate: 3, verified: 4, admin: 5, developer: 6, founder: 7 }
+  ROLES    = { normal: 0, donor: 1, legacy: 2, associate: 3, verified: 4, admin: 5, developer: 6, founder: 7 }
   STATUSES = { offline: 0, online: 1, away: 2, busy: 3 }
 
   include AMQPConnector
 
+  # Mongoid
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  # Concerns
+  include User::Emailable
+  include User::Named
+  include ActiveModel::Avatars
+
   include Droppable
 
-  attr_accessible :name, :email, :password, :invisible, :time_zone, :confirm_registration, :avatar
+  attr_accessible :password, :invisible, :time_zone, :confirm_registration, :avatar
   attr_accessible :remote_avatar_url, :remove_avatar, :skype_name, :preferred_status
   attr_accessor :password, :confirm_registration, :status
 
-  embeds_one :restoration
-  embeds_many :authentications
+  embeds_one :restoration,      :validate => false
+  embeds_many :authentications, :validate => false
 
-  has_many :owned_clouds, class_name: "Cloud", as: :owner
+  has_many :owned_clouds, class_name: "Cloud", as: :owner, :validate => false
 
-  has_and_belongs_to_many :clouds,            :inverse_of => :users,      dependent: :nullify,  index: true
-  has_and_belongs_to_many :clouds_moderated,  :inverse_of => :moderators, dependent: :nullify,  class_name: "Cloud",  index: true
+  has_and_belongs_to_many :clouds,            :inverse_of => :users,      dependent: :nullify,  index: true, :validate => false
+  has_and_belongs_to_many :clouds_moderated,  :inverse_of => :moderators, dependent: :nullify,  class_name: "Cloud",  index: true, :validate => false
 
-  field :name,                      type: String
-  field :email,                     type: String
-  field :email_token,               type: String
-  field :email_verified_at,         type: DateTime
-  field :email_subscriber,          type: Boolean,    default: true
   field :skype_name,                type: String
   field :auth_token,                type: String
   field :password_hash,             type: String
@@ -36,19 +37,19 @@ class User
   field :member_since,              type: Time
   field :invisible,                 type: Boolean,    default: false
   field :force_password_change,     type: Boolean,    default: false
-  field :force_name_change,         type: Boolean,    default: false
   field :tnc_last_accepted,         type: Date,       default: nil
   field :confirmed_registration_at, type: DateTime,   default: nil
   field :suspended_until,           type: DateTime,   default: nil
   field :reason_for_suspension,     type: String,     default: nil
   field :preferred_status,          type: Symbol,     default: :online
-  field :also_known_as,             type: Array,      default: []
+  field :developer,                 type: Boolean,    default: false
   field :last_seen_at,              type: DateTime
   field :dates_seen,                type: Array,      default: []
 
-  mount_uploader :avatar, AvatarUploader
+  scope :developers, self.or(:developer => true).or(:role.gte => ROLES[:developer])
 
   scope :visable, where(:invisible => false)
+
   scope :online_on, -> _cloud do
     ids = []
     user_statuses = Cloudsdale.redisClient.hgetall("cloudsdale/clouds/#{_cloud.id.to_s}/users")
@@ -62,44 +63,42 @@ class User
 
   validates :auth_token,  uniqueness: true
 
-  validates_length_of :name,      within: 3..30, message: "must be between 3 and 30 characters", if: :name?
   validates_length_of :password,  minimum: 6, :too_short => "pick a longer password, at least 6 characters", if: :password
+  validates_presence_of :password, :if => :confirm_registration
 
-  validates_format_of :name,  with: /^([a-z]*\s?){1,5}$/i, message: "must use a-z and max five words", if: :name
-  validates_format_of :email, with: /^.+@.+$/i, :message => "invalid email", if: :email
-
-  validates_uniqueness_of :name,  :case_sensitive => false, if: :name?
-  validates_uniqueness_of :email, :case_sensitive => false, if: :email?
-
-  validates_presence_of [:email,:password,:name], :if => :confirm_registration
-  validates_presence_of [:email,:name], :unless => :new_record?
+  validate :forced_password_change, if: :force_password_change_changed?
 
   before_validation do
     self[:cloud_ids].uniq! if self[:cloud_ids]
     self[:clouds_moderated_ids].uniq! if self[:clouds_moderated_ids]
   end
 
-  before_save do
+  after_initialize do
     self[:_type] = "User"
-    self[:email] = self[:email].downcase if email.present?
+  end
 
+  before_save do
     add_known_name
 
     generate_auth_token  unless auth_token.present?
-    generate_email_token unless email_token.present?
 
-    encrypt_password
-    enable_account_on_password_change
     set_confirmed_registration_date
     set_creation_date
   end
 
   after_save do
+
     enqueue! "faye", { channel: "/users/#{self._id.to_s}", data: self.to_hash }
     enqueue! "faye", { channel: "/users/#{self._id.to_s}/private", data: self.to_hash( template: "api/v1/users/private" ) }
-    if name_changed? or preferred_status_changed? or role_changed? or avatar_changed?
+
+    if name_changed? or preferred_status_changed? or role_changed? or avatar_changed? or username_changed? or avatar_purged
       self.cloud_ids.each { |cloud_id| enqueue!("faye", { channel: "/clouds/#{cloud_id.to_s}/users/#{self._id.to_s}", data: self.to_hash( template: "api/v1/users/mini") }) }
     end
+
+    if email_changed? && email.present? && !confirmed_registration_at_changed? && !email_verified_at.present? && !new_record?
+      UserMailer.delay(:queue => :high, :retry => false).verification_mail(self.id.to_s)
+    end
+
   end
 
   # Public: Atomic setter for when the user was last seen in action
@@ -116,29 +115,18 @@ class User
 
     return timestamp
   end
-  # Public: Customer setter for the name attribute.
-  #
-  # Returns the name String.
-  def name=(val=nil)
 
-    if val.present?
+  def password=(val=nil)
+    if val.present? && (@password != val)
 
-      val = val.gsub(/[^a-z]/i," ")
-      val = val.gsub(/^\s*/i,"")
-      val = val.gsub(/[^a-z]/i," ")
-      val = val.gsub(/\s\s+/," ")
-      words = val.split(/\s/)
+      self.force_password_change = false if self.force_password_change
 
-      words.each do |word|
-        word.downcase!
-        word.capitalize!
-      end
+      self.password_salt = BCrypt::Engine.generate_salt unless password_salt.present?
+      self.password_hash = BCrypt::Engine.hash_secret(val, password_salt)
 
-      val = words[0..4].join(" ")
+      @password = val
 
     end
-
-    self[:name] = val if val.present?
   end
 
   # Public: Fetches the users status
@@ -247,45 +235,6 @@ class User
     end
   end
 
-  # Public: Fetches the URL's for the avatar versions
-  #
-  # args - A hash of arguments of what to do with the avatar versions.
-  #
-  #   :except - Array of the version keys to be omitted from the hash
-  #
-  #   :only   - An array of specific keys you want to include.
-  #             will be overridden by any values from except.
-  #
-  # Examples
-  #
-  # @user.avatar_versions([:normal,:mini,:thumb,:preview])
-  # # => { chat: "http://..." }
-  #
-  # Returns a hash of keys pointing at url values.
-  def avatar_versions(args={})
-
-    args = { except: [], only: nil }.merge(args)
-
-    allowed_keys = [:normal,:thumb,:mini,:preview,:chat]
-
-    allowed_keys.select! { |value| args[:only].include? value } if args[:only]
-    allowed_keys -= args[:except]
-
-    {
-      normal: avatar.url,
-      mini: avatar.mini.url,
-      thumb: avatar.thumb.url,
-      preview: avatar.preview.url,
-      chat: avatar.chat.url
-
-    }.delete_if do |key,value|
-
-      !allowed_keys.include? key
-
-    end
-
-  end
-
   # Public: Takes authentication options and tries to
   # resolve and return a user record.
   #
@@ -377,19 +326,6 @@ class User
 
   end
 
-  # Public: Adds the previously used name to the "also_known_as" array
-  # Also makes sure to keep names in array unique, and limit to five names
-  #
-  # Returns the "also_known_as" array.
-  def add_known_name
-    if self.name_changed?
-      self.also_known_as.unshift(self.name_was) if self.name_was
-      self.also_known_as.reject! { |n| n == self.name }
-      self.also_known_as.uniq!
-      self.also_known_as = also_known_as[0..4]
-    end
-  end
-
   # Public: Checks if the user can be authenticated
   # with the supplied parameters.
   #
@@ -420,12 +356,6 @@ class User
     self[:auth_token] = SecureRandom.hex(16)
   end
 
-  # Public: Renews the email token and makes the old one unusable.
-  # Good idea to do this when an email token has been consumed.
-  def generate_email_token
-    self[:email_token] = SecureRandom.hex(4)
-  end
-
   # Internal: Sets the creation date of the User unless
   # a creation date is already set.
   def set_creation_date
@@ -440,14 +370,6 @@ class User
   def set_confirmed_registration_date
     if confirm_registration.present? && confirmed_registration_at.nil? && has_a_valid_authentication_method? && email.present?
       self[:confirmed_registration_at] = -> { DateTime.current }.call
-    end
-  end
-
-  # Internal: Changes the state of force_password_change to true
-  # if the password_hash has recently been changed.
-  def enable_account_on_password_change
-    if password_hash_changed?
-      self[:force_password_change] = false if force_password_change?
     end
   end
 
@@ -466,19 +388,19 @@ class User
     self.force_password_change || (!self.password_hash.present? || !self.password_salt.present?)
   end
 
-  # Public: Determines wether the user has to change it's password
-  # depending on if the :force_password_change attribute is true
-  # or if :password_hash and :password_salt is not present.
+  # Public: Determines wether the user has to change it's username
+  # depending on if the :force_username_change attribute is true
+  # or the username is not set.
   #
   # Examples
   #
-  # @user.force_password_change
+  # @user.force_username_change?
   # # => true
   #
   # Returns true or false depending on if the users has
-  # to change it's password.
-  def needs_name_change?
-    self[:force_name_change] || !self.name.present?
+  # to change it's username.
+  def needs_username_change?
+    self.force_username_change? || !self.username.present?
   end
 
   # Public: Determines wether the user has completed it's
@@ -515,36 +437,16 @@ class User
     email.present? && has_a_valid_authentication_method?
   end
 
-protected
-
-  # Internal: Override to silently ignore trying to remove missing
-  # previous avatar when destroying a User.
-  def remove_avatar!
-    begin
-      super
-    rescue Fog::Storage::Rackspace::NotFound
-    end
-  end
-
-  # Internal: Override to silently ignore trying to remove missing
-  # previous avatar when saving a new one.
-  def remove_previously_stored_avatar
-    begin
-      super
-    rescue Fog::Storage::Rackspace::NotFound
-      @previous_model_for_avatar = nil
-    end
-  end
-
-  private
-
-  # Private: Encrypts the users password using a password salt & pepper
+  # Private: Validation for when password is changed while forced password
+  # equates to true.
   #
-  # Returns the password hash.
-  def encrypt_password
-    if password.present? == true
-      self.password_salt = BCrypt::Engine.generate_salt
-      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+  # Returns false if validation fails
+  def forced_password_change
+    if force_password_change_was == true
+      if password_hash_was == BCrypt::Engine.hash_secret(@password,password_salt)
+        errors.add(:password, "cannot be the same")
+        return false
+      end
     end
   end
 

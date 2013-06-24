@@ -29,33 +29,19 @@ if env == 'production'
 end
 
 before_fork do |server, worker|
-  # the following is highly recomended for Rails + "preload_app true"
-  # as there's no need for the master process to hold a connection
-  if defined?(ActiveRecord::Base)
-    ActiveRecord::Base.connection.disconnect!
-  end
-
-  # Before forking, kill the master process that belongs to the .oldbin PID.
-  # This enables 0 downtime deploys.
-  old_pid = "/var/run/unicorn/web.pid.old"
-  if File.exists?(old_pid) && server.pid != old_pid
+  ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
+  old_pid = "#{server.config[:pid]}.oldbin"
+  if old_pid != server.pid
     begin
-      Process.kill("QUIT", File.read(old_pid).to_i)
+      sig = (worker.nr + 1) >= server.worker_processes ? :QUIT : :TTOU
+      Process.kill(sig, File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH
-      # someone else did our job for us
+      `echo failed to kill unicorn on pid: #{old_pid}`
     end
   end
 end
 
 after_fork do |server, worker|
-  # the following is *required* for Rails + "preload_app true",
-  if defined?(ActiveRecord::Base)
-    ActiveRecord::Base.establish_connection
-  end
-
-  # if preload_app is true, then you may also want to check and
-  # restart any other shared sockets/descriptors such as Memcached,
-  # and Redis.  TokyoCabinet file handles are safe to reuse
-  # between any number of forked children (assuming your kernel
-  # correctly implements pread()/pwrite() system calls)
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
 end
+

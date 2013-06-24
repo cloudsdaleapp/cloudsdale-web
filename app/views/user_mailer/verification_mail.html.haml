@@ -1,0 +1,3 @@
+%h2= "Hello #{user.name}, we have noticed an email change."
+%p= "Please click the link below if you want to verify that the address \"#{user.email}\" is yours. Thank you!"
+%h6= link_to "Verify Email", url, style: 'word-wrap: break-words', class: 'button'

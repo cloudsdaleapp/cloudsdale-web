@@ -55,7 +55,7 @@ class Api::V1::SessionsController < Api::V1Controller
           type: "error",
           title: "Almost there!"
       )
-    elsif !@current_user.has_a_valid_authentication_method?
+    elsif !@current_user.has_a_valid_authentication_method? || !@current_user.name.present?
       set_flash_message(
           message: "Could not authenticate your account please look over your credentials. Maybe you don't have an account, why don't you create one?",
           type: "error",

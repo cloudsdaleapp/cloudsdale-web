@@ -1,5 +1,21 @@
 defaults: &defaults
 
+  url: http://www.cloudsdale.dev
+  asset_url: http://www.cloudsdale.dev
+  session_key: .cloudsdale.dev
+
+  avatar:
+    http:   http://avatar.cloudsdale.dev
+    https:  http://avatar.cloudsdale.dev
+
+  cdn:
+    alias: cloudsdale
+    secret: a2a1710c0803a98faacb370e297a5a7a
+    key: 34e6b64511c260329d44927bcd4a09b90519be1ff
+    avatar_zone:
+      id: 96822
+      type: pull
+
   uploader:
     storage: 'file'
 
@@ -7,11 +23,15 @@ defaults: &defaults
     host: localhost
     port: 1025
     url:
-      host: local.cloudsdale.org
-      port: 3000
+      host: www.cloudsdale.dev
+      port: 80
 
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
+
+  github:
+    client_id: b47fc28f752aaa49c583
+    client_secret: b31ba47d6d555cea720ce7493192879f61f6162a
 
   twitter:
     consumer_key: mHnUVYK5NUfk0IHbqruZcA
@@ -20,10 +40,6 @@ defaults: &defaults
   facebook:
     app_key: 213007855430354
     app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
-
-  soundcloud:
-    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
-    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
 
   redis:
     host: 127.0.0.1
@@ -38,17 +54,14 @@ defaults: &defaults
     path: push
     schema: http
     secure_schema: https
-    host: local.cloudsdale.org
+    host: push.cloudsdale.dev
     port: 8000
-    secure_port: 44300
+    secure_port: 443
     token: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
-    inhouse_host: 127.0.0.1
+    inhouse_host: push.cloudsdale.dev
 
 development:
   <<: *defaults
-
-  url: http://local.cloudsdale.org:3000
-  asset_url: http://local.cloudsdale.org:3000
 
   rackspace_cloudfiles:
     username: zeeraw
@@ -65,6 +78,11 @@ production:
 
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
+  session_key: .cloudsdale.org
+
+  avatar:
+    http:   http://avatar.cdn.cloudsdale.org
+    https:  https://avatar-cloudsdale.netdna-ssl.com
 
   email:
     user_name: cloudsdale
@@ -82,6 +100,10 @@ production:
   youtube:
     dev_key: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
 
+  github:
+    client_id: 631174526c743d4a9f51
+    client_secret: 0e3cae3a8b61f3c4536c33f6c3e38bb297e0712d
+
   twitter:
     consumer_key: nft8CQEyNxLpwOt37pKYA
     consumer_secret: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
@@ -89,10 +111,6 @@ production:
   facebook:
     app_key: 255258867845902
     app_secret: 4151911ea59e2aa64276089189157f00
-
-  soundcloud:
-    client_id: 3897d7c3ae5a3178c8626d7b51ce370a
-    client_secret: 1713ed1e39bb8fe4c06008f0cdfd764b
 
   rackspace_cloudfiles:
     username: zeeraw

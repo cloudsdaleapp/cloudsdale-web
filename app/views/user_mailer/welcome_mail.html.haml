@@ -1,0 +1,4 @@
+%h2= "Welcome to Cloudsdale, #{user.name}!"
+%p= "We are happy you registered for our service and hope you're getting setteled. But for you to access all our features, you need to verify your email address."
+%p= "Please click the link below if you want to verify that the address \"#{user.email}\" is yours. Thank you!"
+%h6= link_to "Verify Email", url, style: 'word-wrap: break-words', class: 'button'

@@ -1,0 +1,37 @@
+.row
+  .large-9.columns.push-3
+    %ul.breadcrumbs
+      %li= link_to "Applications", applications_path
+      %li= link_to @application.name, application_path(@application)
+      %li.current= "Settings"
+    = simple_form_for @application, url: edit_application_path(@application), multipart: true do |f|
+      .content-panel
+        .content-panel-inner
+          .row
+            .large-6.columns
+              = f.input :name,           label: 'App Name'
+              = f.input :redirect_uri,   label: 'Callback URL',     placeholder: "http://www.yourdomain.com/auth/callback"
+          %hr
+          .row
+            .large-6.columns
+              = f.input :website
+              = f.input :description, as: :text, input_html: { style: 'min-height: 140px;' }
+            .large-6.columns
+              %br
+              %p.subheader= "Please fill out this additional information to make it easier for users to learn more about your app."
+          %hr
+          .row
+            .large-6.columns
+              = f.input :avatar,  as: :file
+            .large-6.columns
+              %br
+              %p.subheader= "Uploading an avatar will make it easier for a lot of users recognize your app."
+
+      %br
+      .content-panel
+        .content-panel-inner.panel-expand
+          = f.submit 'Update Application', :class => "button expand", :style => 'margin: 0;'
+      %br
+
+  .large-3.columns.pull-9
+    = render 'application_sidebar'

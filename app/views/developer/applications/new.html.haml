@@ -1,0 +1,34 @@
+.row
+  .large-9.columns.push-3
+    %ul.breadcrumbs
+      %li= link_to "Applications", applications_path
+      %li.current= "New"
+    = simple_form_for @application, url: new_applications_path do |f|
+      .content-panel
+        .content-panel-inner
+          .row
+            .large-6.columns
+              = f.input :name,           label: 'App Name'
+              = f.input :redirect_uri,   label: 'Callback URL',     placeholder: "http://www.yourdomain.com/auth/callback"
+            .large-6.columns
+              %br
+              %p.subheader
+                = "Minimum requirements for your app is a name and a valid redirect URI."
+                = "Without these your App cannot function properly."
+          %hr
+          .row
+            .large-6.columns
+              = f.input :website
+              = f.input :description, as: :text, input_html: { style: 'min-height: 140px;' }
+            .large-6.columns
+              %br
+              %p.subheader= "Please fill out this additional information to make it easier for users to learn more about your app."
+
+      %br
+      .content-panel
+        .content-panel-inner.panel-expand
+          = f.submit 'Create Application', :class => "button expand", :style => 'margin: 0;'
+      %br
+
+  .large-3.columns.pull-9
+    = render 'application_sidebar'

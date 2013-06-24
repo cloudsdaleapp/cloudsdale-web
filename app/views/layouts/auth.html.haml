@@ -1,0 +1,50 @@
+!!! 5
+/[if lt IE 7 ] <html class=\"ie6\" lang=\"en\">
+/[if IE 7 ]    <html class=\"ie7\" lang=\"en\">
+/[if IE 8 ]    <html class=\"ie8\" lang=\"en\">
+/[if IE 9 ]    <html class=\"ie9\" lang=\"en\">
+/[if (gt IE 9)|!(IE)] <!--> <html lang=\"en\">
+
+%head
+  %meta{ :charset => "utf-8" }
+
+  -# Uncomment to make IE8 render like IE7
+  -# meta http-equiv="X-UA-Compatible" content="IE=7"
+
+  -# Set the viewport width to device width for mobile
+  %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+
+  %title= content_for?(:title) ? yield(:title) : "Cloudsdale Auth"
+
+  = stylesheet_link_tag "admin"
+  = javascript_include_tag "vendor/custom.modernizr"
+  = csrf_meta_tag
+
+%body
+  #body-wrap
+    .container#wrapper
+      .row
+        .large-6.large-centered.columns
+          %br
+          = render 'layouts/flash_error'
+          = render 'layouts/flash_notice'
+          = render 'layouts/flash_success'
+
+      = yield
+      %br
+      .row
+        .large-6.large-centered.columns
+          .row
+            .large-12.small-12.columns
+              %style
+                :sass
+                  #terms-and-conditions
+                    h1, h2, h3, h4, h5, h6, p
+                      color: #6f6f6f !important
+              #terms-and-conditions
+                = render partial: 'pages/terms_and_conditions'
+    = render 'layouts/page_footer'
+  = javascript_include_tag "auth"
+
+:plain
+  </html>

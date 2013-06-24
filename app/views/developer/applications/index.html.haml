@@ -1,0 +1,35 @@
+.row
+  .large-9.columns.push-3
+    - if @applications.empty?
+      %center
+        %br
+        %br
+        %h3.subheader= "You don't have any applications..."
+    - else
+      %ul.breadcrumbs
+        %li.current= "Applications"
+      %hr
+      - @applications.each do |application|
+        .row{ :id => "application_#{application.id}" }
+          .large-12.columns
+            .left{ style: 'margin-right: 20px;'}
+              = link_to application_path(application) do
+                .auth-icon= image_tag application.dynamic_avatar_url(128)
+            %br
+            %h5.compact
+              %div= link_to application.name, application_path(application)
+              - if application.website.present?
+                %small
+                  = "Website at"
+                  = link_to application.formatted_website, application.website
+            - if application.description.present?
+              %p.subheader= application.description
+            .right
+        %hr
+
+  .large-3.columns.pull-9
+    = render 'application_sidebar'
+    .content-panel
+      .content-panel-inner.panel-expand
+        = link_to 'New Application', new_application_path, class: 'button small primary expand', style: 'margin: 0;'
+

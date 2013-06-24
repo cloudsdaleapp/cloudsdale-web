@@ -1,26 +1,5 @@
 module ApplicationHelper
 
-  def current_tab(expected_tab=:default)
-    params[:tab] == expected_tab
-  end
-
-  # Takes the flash key value and uses it to
-  # determine which alert class to be used
-  def to_type(flash_key)
-    case flash_key.to_sym
-      when :alert
-        "alert-warning"
-      when :error
-        "alert-error"
-      when :notice
-        "alert-info"
-      when :success
-        "alert-success"
-      else
-        flash_key.to_s
-    end
-  end
-
   def with_format(format, &block)
     old_formats = formats
     self.formats = [format]
@@ -32,7 +11,7 @@ module ApplicationHelper
   def page_title; @page_title || "Cloudsdale"; end
 
   def page_image
-    @page_image || image_path('logo/main_logo.png')
+    @page_image || image_path('icon/icon_avatar_color.png')
   end
 
   def page_url
@@ -44,8 +23,7 @@ module ApplicationHelper
   end
 
   def page_description
-    @page_description || "Cloudsdale, the best place in the sky. A fast,
-    reliable and beautiful chat app exclusively for bronies."
+    @page_description || "Connect in Realtime. Meet new Friends."
   end
 
   def page_keywords
@@ -55,7 +33,36 @@ module ApplicationHelper
     HTML5, CSS3, Javascript, Equestria, Cloud, raindrop, drop, pony, brony,
     Twilight Sparkle, Pinkie Pie, Fluttershy, Rarity, Applejack, Rainbow Dash,
     Zeeraw, Lisinge, Berwyn, Zimber Fuzz, Manearion, Xtux, Shansai, Aethe,
-    Connorcpu, fansite, Nginx"
+    Connorcpu, fansite, Nginx, Hammock, Equestria Gaming, My Little Game Dev".strip.chomp
+  end
+
+  def user_avatar_url(avatar_id, size = 256, schema = :http)
+    url = case schema
+          when :https  then Cloudsdale.config['avatar']['https']
+          when :ssl    then Cloudsdale.config['avatar']['https']
+          else Cloudsdale.config['avatar']['http']
+          end
+
+    size = !size.nil? ? "?s=#{size}" : ""
+
+    "#{url}/user/#{avatar_id}.png#{size}"
+  end
+
+  def social_button_for(media_type,url,text=nil)
+    case media_type.to_sym
+    when :facebook
+      content_tag(:span, "", :class => 'fb-like', data: { font: 'arial', href: url, layout: :button_count, send: false, 'show-faces' => false, width: 'auto' }).html_safe
+    when :google
+      content_tag(:span, "", :class => 'g-plusone', data: { size: 'medium', href: url } ).html_safe
+    when :twitter
+      text      ||= "Check out @cloudsdaleapp it's a pretty cool place"
+      style     = 'line-height: 20px; height: 20px; font-size: 12px;'
+      css_class = 'twitter-share-button'
+      html_data = { text: text, url: url }
+      content_tag(:a, "Tweet",:class => css_class, style: style, data: html_data, href: "https://twitter.com/share" ).html_safe
+    when :flattr
+      content_tag(:a, "",:class => 'FlattrButton', href: url, style: "display:none;", rev: "flattr;button:compact;" ).html_safe
+    end
   end
 
 end

@@ -16,7 +16,7 @@ class Admin::DispatchesController < AdminController
     authorize @dispatch, :create?
 
     @dispatch.save
-    redirect_to admin_dispatch_path(@dispatch)
+    redirect_to dispatch_path(@dispatch)
   end
 
   def update
@@ -36,14 +36,14 @@ class Admin::DispatchesController < AdminController
         current_user.id.to_s,
         SecureRandom.hex(4)
       )
-      redirect_to admin_dispatch_path(@dispatch)
+      redirect_to dispatch_path(@dispatch)
     when "save-publish"
       @dispatch.published_at = Time.now
       @dispatch.save
       DispatchesWorker.perform_async(@dispatch.id.to_s)
-      redirect_to admin_dispatch_path(@dispatch)
+      redirect_to dispatch_path(@dispatch)
     else
-      redirect_to admin_dispatch_path(@dispatch)
+      redirect_to dispatch_path(@dispatch)
     end
   end
 

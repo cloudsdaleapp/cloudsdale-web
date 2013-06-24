@@ -5,37 +5,40 @@ class AvatarUploader < ApplicationUploader
   include CarrierWave::MiniMagick
 
   # Process files as they are uploaded:
-  process :resize_to_fill => [200, 200]
+  process :resize_to_fill => [512, 512]
   process :convert => 'png'
 
-  # Create different versions of your uploaded files:
+  storage :file
 
-  version :mini do
-    process :resize_to_fill => [24, 24]
-    process :convert => 'png'
-  end
-
-  version :thumb do
-    process :resize_to_fill => [50, 50]
-    process :convert => 'png'
-  end
-
-  version :chat do
-    process :resize_to_fill => [40, 40]
-    process :convert => 'png'
-  end
-
-  version :preview do
-    process :resize_to_fill => [70, 70]
-    process :convert => 'png'
+  def store_dir
+    if Rails.env.production?
+      "/store/uploads/#{mounted_as}/#{model.avatar_namespace}/#{model.id}/"
+    else
+      "#{Rails.root}/public/uploads/#{mounted_as}/#{model.avatar_namespace}/"
+    end
   end
 
   def filename
-     "#{secure_token(10)}_avatar.png" if original_filename.present?
+     "#{mounted_as}_#{model.id}.png" if original_filename.present?
   end
 
   def default_url
-    image_path("#{Cloudsdale.config['asset_url']}/assets/fallback/" + [mounted_as, version_name, "#{model.class.to_s.downcase}.png"].compact.join('_'))
+    image_path("#{Cloudsdale.config['asset_url']}/assets/fallback/#{mounted_as}/" + [version_name, "#{model.avatar_namespace}.png"].compact.join('_'))
+  end
+
+  after :store,  :purge_from_cdn
+  after :remove, :purge_from_cdn
+
+protected
+
+  # Internal: Clears the CDN of any records associated to previous
+  # uploaded avatar for the model.
+  #
+  # Returns nothing of interest.
+  def purge_from_cdn(file=nil)
+    if Rails.env.production?
+      AvatarPurgeWorker.perform_async(model.id.to_s, model.class.to_s)
+    end
   end
 
 end

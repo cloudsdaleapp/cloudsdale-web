@@ -10,7 +10,6 @@ class Api::V1::Clouds::BansController < Api::V1Controller
   #
   # Returns a Bans collection
   def index
-    authorize Ban, :index?
 
     @bans = @cloud.bans.where(
       params.select { |k,v| [:offender_id,:enforcer_id].include?(k.to_sym) }

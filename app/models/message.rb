@@ -34,6 +34,10 @@ class Message
     enqueue! "faye", { channel: "/#{self.topic_type}s/#{self.topic_id}/chat/messages", data: self.to_hash }
   end
 
+  after_initialize do
+    self[:_type] = "Message"
+  end
+
   # Public: Translates the Message object to a HASH string using RABL
   #
   # Examples

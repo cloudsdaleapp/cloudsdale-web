@@ -8,8 +8,11 @@ Cloudsdale::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  #
-  config.assets.precompile = %w(application.css application.js mobile.css mobile.js admin.css admin.js *.ttf *.svg *.woff *.eot *.jst *.png *.jpg .jpeg *.gif *.bmp *.ico)
+  # Which files are going to be precompiled
+  config.assets.precompile = %w(application.css application.js web.front.css web.session.css
+                                mobile.css mobile.js admin.css admin.js developer.js developer.css
+                                auth.js auth.css *.ttf *.svg *.woff *.eot *.jst *.png *.jpg
+                                *.jpeg *.gif *.bmp *.ico)
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = true
@@ -27,8 +30,8 @@ Cloudsdale::Application.configure do
   # config.assets.manifest = YOUR_PATH
 
   # Specifies the header that your server uses for sending files
-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile"     # apache
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -70,7 +73,7 @@ Cloudsdale::Application.configure do
 
   config.action_mailer.smtp_settings = {
     domain:  Cloudsdale.config['email']['domain'],
-    address: Cloudsdale.config['email']['host'],
+    address: Cloudsdale.config['email']['address'],
 
     port:    Cloudsdale.config['email']['port'].to_i,
 

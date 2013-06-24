@@ -1,0 +1,14 @@
+- unless @applications.empty?
+  .content-panel
+    .content-panel-inner.panel-expand
+      .panel-accordion.accordion{ 'data-section' => "accordion" }
+        - @applications.each_with_index do |application,i|
+          - is_active = @application.present? ? (@application == application) : i.zero?
+          %section{ :class => is_active ? 'active' : '' }
+            %p.title{ 'data-section-title' => true }= link_to application.name, '#'
+            .content{ 'data-section-content' => true, style: 'padding: 0;' }
+              %ul.panel-side-nav
+                %li= link_to 'Info', application_path(application)
+                %li= link_to 'Settings', edit_application_path(application)
+                %li= link_to 'Remove', application_path(application), :method => :delete, :data => { :confirm => "Are you sure?" }
+  %br

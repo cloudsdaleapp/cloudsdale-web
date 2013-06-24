@@ -1,5 +1,7 @@
 class ApplicationPolicy
 
+  include Pundit::Serializer
+
   attr_reader :user, :record
 
   def initialize(user, record)
