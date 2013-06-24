@@ -49,10 +49,13 @@ class Cloudsdale.Views.TopBar extends Backbone.View
       when 'info' then @goToInfoPage()
       when 'settings' then @openSettingsDialog()
       when 'clouds' then @toggleCloudExpand()
-      when 'login' then @openSessionDialog('login')
-      when 'register' then @openSessionDialog('register')
+      when 'login' then @redirectToLogin()
+      when 'register' then @redirectToRegister()
 
     false
+
+  redirectToLogin: -> document.location = "/login"
+  redirectToRegister: -> document.location = "/register"
 
   openSessionDialog: (state) ->
     view = new Cloudsdale.Views.SessionsDialog(state: state).el

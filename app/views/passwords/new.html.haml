@@ -1,0 +1,21 @@
+%br
+.row
+  .large-6.large-centered.columns
+    .content-panel
+      .content-panel-inner.panel-expand
+        .row
+          %br
+          %br
+          %center
+            %h3.subheader= "Reset Password"
+
+        %br
+        .row
+          .large-8.small-12.large-centered.columns
+            %div{ style: 'margin: 20px;' }
+              = simple_form_for @password_reset, url: password_reset_path, method: :post do |f|
+                = f.input :identifier, label: false, placeholder: "Username or Email"
+                %br
+                = f.submit "Send Reset Code", class: 'button notice expand'
+
+        = render 'layouts/auth_nav', show_login: true, show_register: true

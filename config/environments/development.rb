@@ -1,4 +1,4 @@
-require 'sidekiq/testing/inline'
+# require 'sidekiq/testing/inline'
 
 Cloudsdale::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
@@ -57,12 +57,4 @@ Cloudsdale::Application.configure do
     :port => Cloudsdale.config['email']['port'].to_i
   }
 
-end
-
-silence_warnings do
-  begin
-    require 'pry'
-    IRB = Pry
-  rescue LoadError
-  end
 end

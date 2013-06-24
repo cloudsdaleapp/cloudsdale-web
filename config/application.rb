@@ -27,10 +27,6 @@ module Cloudsdale
     @redisClient = Redis.new(:host => config['redis']['host'], :port => config['redis']['port'])
   end
 
-  def self.soundcloud
-    @soundcloud = Soundcloud.new(:client_id => config['soundcloud']['client_id'])
-  end
-
   def self.bunny
     unless @bunny
       @bunny ||= Bunny.new(
@@ -43,6 +39,14 @@ module Cloudsdale
       @bunny.start
     end
     @bunny
+  end
+
+  def self.cdn
+    @cdn ||= NetDNARWS::NetDNA.new(
+      Cloudsdale.config['cdn']['alias'],
+      Cloudsdale.config['cdn']['key'],
+      Cloudsdale.config['cdn']['secret']
+    )
   end
 
   def self.faye_path(type = nil, secure = false)
@@ -65,7 +69,16 @@ module Cloudsdale
     end
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
+    config.autoload_paths += %W(#{config.root}/app/concerns)
+    config.autoload_paths += %W(#{config.root}/app/serializers)
+    config.autoload_paths += %W(#{config.root}/lib/validators)
+    config.autoload_paths += %W(#{config.root}/lib/middleware)
+
+    # Middlewares
+    config.middleware.insert_before 0, "AvatarDispatch"
+
+    # Multiple Route Files
+    config.paths["config/routes"] += Dir[Rails.root.join('config', 'routes', '*.rb').to_s]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

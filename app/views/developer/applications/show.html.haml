@@ -1,0 +1,26 @@
+.row
+  .large-9.columns.push-3
+    %ul.breadcrumbs
+      %li= link_to "Applications", applications_path
+      %li.current= @application.name
+    .content-panel
+      .content-panel-inner
+        %h3= "Application: #{@application.name}"
+        %hr
+        %h4 Callback url:
+        %p
+          %code#callback_url= @application.redirect_uri
+        %h4 Application Id:
+        %p
+          %code#application_id= @application.uid
+        %h4 Secret:
+        %p
+          %code#secret= @application.secret
+    %br
+
+  .large-3.columns.pull-9
+    = render 'application_sidebar'
+    .content-panel
+      .content-panel-inner.panel-expand
+        = link_to 'Test Authorize', oauth_authorization_url(:subdomain => 'www', :client_id => @application.uid, :redirect_uri => @application.redirect_uri, :response_type => 'code'), class: 'button small success expand', style: 'margin: 0;'
+

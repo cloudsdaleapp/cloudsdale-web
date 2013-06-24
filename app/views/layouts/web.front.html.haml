@@ -1,0 +1,100 @@
+!!! 5
+/[if lt IE 7 ] <html class=\"ie6\" lang=\"en\">
+/[if IE 7 ]    <html class=\"ie7\" lang=\"en\">
+/[if IE 8 ]    <html class=\"ie8\" lang=\"en\">
+/[if IE 9 ]    <html class=\"ie9\" lang=\"en\">
+/[if (gt IE 9)|!(IE)] <!--> <html lang=\"en\">
+
+%head
+  %meta{ :charset => "utf-8" }
+  %meta{ name: "viewport", :content => "user-scalable=no, width=device-width, initial-scale=1.0", :id => "view" }
+
+  %title= page_title
+
+  %meta{ name: "description",         content: page_description }
+  %meta{ name: "keywords",            content: page_keywords }
+  %meta{ property: "og:title",        content: page_title }
+  %meta{ property: "og:description",  content: page_description }
+  %meta{ property: "og:type",         content: page_type }
+  %meta{ property: "og:url",          content: page_url }
+  %meta{ property: "og:image",        content: page_image }
+
+  %meta{ name: "google", content: "notranslate" }
+  %meta{ name: "google-site-verification", content: "nIOB-knlcXNH0BO6YGcfXouYY2aL8XxcdkEG-nYcpYQ" }
+  = analytics_init :local => Rails.env.development?
+
+  %meta{ property: 'fb:app_id', content: Cloudsdale.config['facebook']['app_key'] }
+
+  %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
+  %meta{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }
+  %meta{ name: "apple-itunes-app", content: "app-id=567369714" }
+  %meta{ name: "apple-touch-icon", content: image_path("icon/icon_black.png") }
+
+  = favicon_link_tag "favicons/48by48.ico"
+
+  = stylesheet_link_tag "web.front"
+  = javascript_include_tag "vendor/custom.modernizr"
+  = csrf_meta_tag
+
+%body
+  #head-wrap
+    .row.top-bar-wrapper
+      .large-12.columns
+        .contain-to-grid
+          %nav.top-bar
+            %ul.title-area
+              %li.name
+                %h1
+                  = link_to root_path, style: 'display: block;' do
+                    .logo{ style: 'display: inline; height: 32px; width: 32px; float: left; margin: 6px 0px 7px 8px;' }
+                    %span= "Cloudsdale"
+              %li.toggle-topbar.menu-icon
+                %a{:href => "#", style: 'min-width: 100px;' }
+                  %span= "Menu"
+            %section.top-bar-section
+              %ul.left
+                %li.divider
+                %li= link_to "Blog",  "http://blog.cloudsdale.org/", target: :_blank
+                %li.divider
+                %li{ style: 'padding: 12px 15px 0px 15px;' }
+                  = social_button_for :facebook, "http://www.cloudsdale.org"
+                %li.divider
+                %li{ style: 'padding: 12px 0px 0px 22px;' }
+                  = social_button_for :google, "http://www.cloudsdale.org"
+                %li.divider
+                %li{ style: 'padding: 12px 0px 0px 18px;' }
+                  = social_button_for :twitter, "http://www.cloudsdale.org"
+                %li.divider
+                %li{ style: 'padding: 12px 15px 0px 15px;' }
+                  = social_button_for :flattr, "http://www.cloudsdale.org"
+                %li.divider
+
+              %ul.right
+                %li.divider
+                %li= link_to "Login",  login_path
+                %li.divider
+                %li= link_to "Register",  register_path
+                %li.divider
+
+  #body-wrap
+    - if content_for?(:legend)
+      - flash_class = 'legend-notice'
+      - flash_class = 'legend-error' if flash[:error]
+      - flash_class = 'legend-success' if flash[:success]
+      .legend.color{ :class => flash_class }
+        = render 'layouts/flash_error'
+        = render 'layouts/flash_notice'
+        = render 'layouts/flash_success'
+        = yield(:legend)
+    - else
+      = render 'layouts/flash_error'
+      = render 'layouts/flash_notice'
+      = render 'layouts/flash_success'
+    = yield
+    / = AvatarDispatch::ALLOWED_SIZES.join(", ")
+  = render 'layouts/page_footer'
+  = render 'layouts/social_include'
+  = javascript_include_tag :admin
+
+:plain
+  </html>

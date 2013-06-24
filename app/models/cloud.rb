@@ -9,12 +9,17 @@ class Cloud
 
   include Droppable
 
-  embeds_one  :chat,  as: :topic
-  embeds_many :bans,  as: :jurisdiction
+  # Concerns
+  include ActiveModel::Avatars
+
+  embeds_one  :chat,  as: :topic,        :validate => false
+  embeds_many :bans,  as: :jurisdiction, :validate => false
 
   attr_accessor :user_invite_tokens
 
-  attr_accessible :name, :description, :short_name, :hidden, :locked, :remove_avatar, :avatar, :remote_avatar_url, :rules, :x_moderator_ids
+  attr_accessible :name, :description, :short_name, :hidden, :locked,
+                  :remove_avatar, :avatar, :remote_avatar_url, :rules,
+                  :x_moderator_ids
 
   field :name,          type: String
   field :description,   type: String
@@ -38,19 +43,17 @@ class Cloud
     end
   end
 
-  mount_uploader :avatar, AvatarUploader
-
   validates :name, presence: true, uniqueness: true, length: { within: 3..64 }
   validates :description, length: { maximum: 140 }
-  validates :short_name, length: { maximum: 16 }
+  validates :short_name, length: { maximum: 20 }
 
   validates_uniqueness_of :short_name, :case_sensitive => true, if: :short_name?, message: "used by another cloud"
   validates_format_of :short_name,  with: /^[a-z0-9\_\-]*$/i, message: "must be alphanumeric, underscore and dashes only", if: :name?
 
-  belongs_to :owner, polymorphic: true, index: true
+  belongs_to :owner, polymorphic: true, index: true, :validate => false
 
-  has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true
-  has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true
+  has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true,  :validate => false
+  has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true,  :validate => false
 
   default_scope -> { without("chat.messages") }
 
@@ -82,6 +85,10 @@ class Cloud
     :hidden => lambda { |cloud| cloud.hidden == true }
   }
 
+  after_initialize do
+    self[:_type] = "Cloud"
+  end
+
   before_validation do
 
     # Sets a new Owner from among the moderators if owner id is nil.
@@ -112,7 +119,6 @@ class Cloud
   before_save do
 
     self[:member_count] = self.user_ids.count
-    self[:_type] = "Cloud"
 
     build_chat unless chat.present?
 
@@ -141,7 +147,7 @@ class Cloud
     cloud = where(
       "$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]
     ).first
-    raise Mongoid::Errors::DocumentNotFound if cloud.nil?
+    raise Mongoid::Errors::DocumentNotFound.new( User, { identifier: id_or_short_name } ) if cloud.nil?
     return cloud
   end
 
@@ -199,69 +205,11 @@ class Cloud
     [name, description].join(' ')
   end
 
-  # Public: Fetches the URL's for the avatar versions
-  #
-  # args - A hash of arguments of what to do with the avatar versions.
-  #
-  #   :except - Array of the version keys to be omitted from the hash
-  #
-  #   :only   - An array of specific keys you want to include.
-  #             will be overridden by any values from except.
-  #
-  # Examples
-  #
-  # @user.avatar_versions([:normal,:mini,:thumb,:preview])
-  # # => { chat: "http://..." }
-  #
-  # Returns a hash of keys pointing at url values.
-  def avatar_versions(args={})
-
-    args = { except: [], only: nil }.merge(args)
-
-    allowed_keys = [:normal,:thumb,:mini,:preview,:chat]
-
-    allowed_keys.select! { |value| args[:only].include? value } if args[:only]
-    allowed_keys -= args[:except]
-
-    {
-      normal: avatar.url,
-      mini: avatar.mini.url,
-      thumb: avatar.thumb.url,
-      preview: avatar.preview.url,
-      chat: avatar.chat.url
-
-    }.delete_if do |key,value|
-
-      !allowed_keys.include? key
-
-    end
-
-  end
-
   # Public: Fetch the 2 most recent drops for a Cloud that includes a preview image
   #
   # Returns a collection of Drop
   def recent_drops_with_preview
     Drop.after_on_topic(Time.now,self).only_visable.order_by_topic(self).with_preview_image.limit(2)
-  end
-
-  # Override to silently ignore trying to remove missing
-  # previous avatar when destroying a User.
-  def remove_avatar!
-    begin
-      super
-    rescue Fog::Storage::Rackspace::NotFound
-    end
-  end
-
-  # Override to silently ignore trying to remove missing
-  # previous avatar when saving a new one.
-  def remove_previously_stored_avatar
-    begin
-      super
-    rescue Fog::Storage::Rackspace::NotFound
-      @previous_model_for_avatar = nil
-    end
   end
 
 private

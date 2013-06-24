@@ -27,6 +27,9 @@
           %label.control-label{ for: 'user_name' }= "Display name"
           .controls
             %input#user_name{ type: 'text', name: 'name', placeholder: "Display Name", value: @user.get('name') }
+        %label.control-label{ for: 'user_username' }= "Username"
+        .controls
+          %input#user_username{ type: 'text', name: 'username', placeholder: "Username", value: @user.get('username') }
         .control-group
           %label.control-label{ for: 'user_email' }= "Email"
           .controls

@@ -3,24 +3,76 @@
   %head
     %link{ rel: "stylesheet", type:"text/css", href: "/assets/email.css" }
   %body
-    %table#email-wrap
+    %table.email-wrap{ border: "0", cellpadding: "0", cellspacing: "0",  align: "right" }
       %tr
-        %td{ align: 'left' }
-        %td#email_container{ width: "602px" }
-          #header
-            #logo
-            #subject= subject
-          - if content_for? :banner
-            #banner
-              #banner-inner= yield :banner
-          #article
-            #article-inner= yield
-          #footer
-            %a{ href: "http://www.cloudsdale.org/privacy-policy" }= "Privacy Policy"
-            %span= "|"
-            %a{ href: "http://www.cloudsdale.org/meet-the-crew" }= "Staff"
-            %span= "|"
-            %a{ href: "http://www.cloudsdale.org/" }= "Website"
-            %span= "|"
-            = link_to "Unsubscribe from our newsletter", unsubscribe_email_url(user.email_token)
-        %td{ align: 'right' }
+        %td.email-wrap-left{ align: 'left' }
+          %span= ""
+        %td.email-wrap-center{ align: 'center' }
+          %table{ border: "0", cellpadding: "0", cellspacing: "0",  align: "right" }
+
+            %tr.separator
+              %td
+                %div
+
+            %tr
+              %td
+                %table.header-table{ border: "0", cellpadding: "0", cellspacing: "0",  align: "right" }
+                  %tr
+                    %td.header-logo= image_tag 'icon/icon_email_gray.png'
+                    %td.header-subject= subject
+
+            %tr.separator
+              %td
+                %div
+
+            - if content_for? :banner
+              %tr
+                %td
+                  %table.panel.banner{ border: "0", cellpadding: "4", cellspacing: "0",  align: "right" }
+                    %tr
+                      %td
+                        %table.panel-inner{ border: "0", cellpadding: "1", cellspacing: "0",  align: "right" }
+                          %tr
+                            %td
+                              %div= yield :banner
+
+              %tr.separator
+                %td
+                  %div
+
+            %tr
+              %td
+                %table.panel.banner{ border: "0", cellpadding: "4", cellspacing: "0",  align: "right" }
+                  %tr
+                    %td
+                      %table.panel-inner{ border: "0", cellpadding: "1", cellspacing: "0",  align: "right" }
+                        - if !user.email_verified_at.present? && (controller.instance_variable_get(:@_action_name).to_sym == :default_mail)
+                          %tr
+                            %td
+                              %table.notification{ border: "0", cellpadding: "10", cellspacing: "0",  align: "right" }
+                                %tr
+                                  %td
+                                    = link_to "Your email has not been verified, click here to verify your email.", verify_email_url(user.email_token)
+                        %tr
+                          %td
+                            %table.content{ border: "0", cellpadding: "20", cellspacing: "0",  align: "right" }
+                              %tr
+                                %td= yield
+
+            %tr.separator
+              %td
+                %div
+
+            %tr
+              %td.footer
+                %a{ href: "http://www.cloudsdale.org/privacy-policy" }= "Privacy Policy"
+                %span= "|"
+                %a{ href: "http://www.cloudsdale.org/meet-the-crew" }= "Staff"
+                %span= "|"
+                %a{ href: "http://www.cloudsdale.org/" }= "Website"
+                - if user.email_token.present?
+                  %span= "|"
+                  = link_to "Unsubscribe from our newsletter", unsubscribe_email_url(user.email_token)
+
+        %td.email-wrap-right{ align: 'right' }
+          %span= ""

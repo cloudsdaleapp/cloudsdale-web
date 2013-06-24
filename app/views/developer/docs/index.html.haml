@@ -1,0 +1,77 @@
+.row
+  .large-9.columns
+    %h4= "Cloudsdale Developer Documentation"
+    %ul.breadcrumbs
+      %li.current= "Documentation"
+    .content-panel
+      .content-panel-inner
+        :markdown
+          ### Introduction
+          Welcome to the Cloudsdale Developer Documentation guide.
+          here we will explain our API in further detail, and how
+          to use them. For any questions you might have, you can send an
+          email to [our developer address](mailto:dev@cloudsdale.org).
+
+          You can also visit us in the [Programmers Community Cloud](http://www.cloudsdale.org/clouds/programmers)
+          right here on Cloudsdale for live chat with other Cloudsdale
+          developers.
+
+
+
+    %br
+    %h3= "Core Concepts"
+
+    %h4.subheader= "API Responses"
+    :markdown
+      In terms of our API, most, if not all responses will look
+      a certain way. You will always be able to expect two items attached
+      to the root of the response hash, one is the **resource type** and the
+      other is **meta**.
+
+      The resource type vary depending on what resource you've requested.
+      eg. you request the `/v2/users/{id}.json` resource the resource type,
+      would be `user`.
+
+      The `meta` tag will contain a maximum of three items. `status`, `errors`
+      and `notice`. The `status` will reflect the intended HTTP status code.
+      `notice` if present, will be a message intended to be displayed to users.
+
+      `errors` is a little more complex. It is an array of error messages (if any),
+      referring to a resource. Because some of our endpoints are returning more
+      than one resource, we've decided to make the errors separate. An error can
+      have a `resource_id`, `resource_type`, `error_type`, `error_message` and
+      `error_code`.
+
+      Please take a look blow at an example API response.
+
+    %br
+    .content-panel
+      .content-panel-inner.panel-expand
+        .panel-header= "Example JSON response"
+        :markdown
+          ```json
+          {
+            "resource_type" : {
+              "id" : "abc123",
+              "type" : "resource_type",
+              "updated_at" : 123456789,
+              "created_at" : 123456789
+            },
+            "meta" : {
+              "status" : 200,
+              "errors" : [
+                {
+                  "resource_id" : "abcd123",
+                  "resource_type" : "resource_type",
+                  "error_type" : "error_type",
+                  "error_message" : "Human readable error message",
+                  "error_code" : "ERROR_CODE"
+                }
+              ],
+              "notice" : "Human Readable Notice"
+            }
+          }
+          ```
+
+  .large-3.columns
+    = render 'docs_sidebar'

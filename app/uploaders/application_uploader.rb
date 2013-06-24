@@ -5,6 +5,9 @@ class ApplicationUploader < CarrierWave::Uploader::Base
   include Sprockets::Helpers::RailsHelper
   include Sprockets::Helpers::IsolatedHelper
 
+  after :store, :cache_upload_metadata
+  after :cache, :cache_upload_metadata
+
   storage Cloudsdale.config['uploader']['storage'].to_sym
 
   # Public: Method to deal with Sprockets errors.
@@ -42,13 +45,45 @@ class ApplicationUploader < CarrierWave::Uploader::Base
     )
   end
 
+  # Public: The full fetch path for the file.
+  # Returns a string.
+  def full_file_path
+    Rails.env.production? ? self.url : self.path
+  end
+
 protected
 
-  # Public: Generates a secure token for the model
+  # Protected: Generates a secure token for the model
   # to use with the saved images.
   def secure_token(length=16)
-    var = :"@#{mounted_as}_secure_token"
-    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(length/2))
+
+    inst = :"@#{mounted_as}_secure_token"
+    var  = :"#{mounted_as}_secure_token"
+
+    if model[var].present?
+      model[var]
+    else
+      hex = SecureRandom.hex(length/2)
+      model.instance_variable_set(inst, hex)
+      model[var] = hex
+    end
+
+  end
+
+  # Protected: Saves upload Metadata in redis
+  #
+  # Returns true
+  def cache_upload_metadata(file=nil)
+    _namespace  = :"#{mounted_as}_namespace"
+    if model.respond_to?(_namespace)
+      path_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}"
+      time_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}:timestamp"
+
+      Cloudsdale.redisClient.del(time_query)
+      Cloudsdale.redisClient.del(path_query)
+    end
+
+    return true
   end
 
 end

@@ -79,12 +79,48 @@ class AuthenticationsController < ApplicationController
 
   end
 
+  # Public: GitHub omniauth callback controller method.
+  #
+  # Activates the user as a developer.
+  def github
+    omniauth = request.env["omniauth.auth"]
+
+    @provider = omniauth.provider
+    @uid      = omniauth.uid
+    @token    = omniauth.credentials.token
+    @secret   = omniauth.credentials.secret
+
+    @nick   = omniauth.info.nickname || omniauth.info.name
+
+    if current_user.new_record?
+      flash[:error] = "You need to be signed in to become a Cloudsdale developer."
+      redirect_to root_path
+    else
+      @authentication = current_user.authentications.find_or_initialize_by(
+        :provider => @provider,
+        :uid => @uid,
+      )
+      @authentication.token    = @token  if @token.present?
+      @authentication.secret   = @secret if @secret.present?
+      @authentication.nickname = @nick   if @nick.present?
+      if @authentication.save
+        current_user.developer = true
+        current_user.save
+        flash[:success] = "Congratulations, you are now a Cloudsdale developer!"
+        redirect_to root_path
+      else
+        flash[:error] = "Something went wrong while verifying your developer status."
+        redirect_to root_path
+      end
+    end
+  end
+
   # Public: An endpoint for omniauth to redirect faulty
   # authentication attempts by users.
   #
   # Retruns a redirect straight to hell.
   def failure
-    redirect_to server_error_path
+    render 'exceptions/auth_failure.html.haml', status: 404, layout: 'auth'
   end
 
 end

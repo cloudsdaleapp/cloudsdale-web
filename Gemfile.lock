@@ -19,15 +19,19 @@ GIT
       unicode_utils (~> 1.0.0)
 
 GIT
-  remote: git://github.com/capistrano/capistrano.git
-  revision: ef1c3a6fd8777ddf8a8372c45a506249a08a703e
+  remote: git://github.com/Zeeraw/pundit.git
+  revision: 97e5efd2ee6328bf7f6266a7e33df9b68e56e394
   specs:
-    capistrano (2.14.2)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
+    pundit (0.2.0)
+      rails (>= 3.0.0)
+
+GIT
+  remote: git://github.com/thetron/mongoid_token.git
+  revision: 70049745cc4baa4136601368033d06a955225dc3
+  branch: patch/collisions-define-method
+  specs:
+    mongoid_token (2.0.0)
+      mongoid (~> 3.0)
 
 GIT
   remote: git@github.com:Zeeraw/carrierwave-mongoid.git
@@ -57,6 +61,8 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_model_serializers (0.7.0)
+      activemodel (>= 3.0)
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -71,7 +77,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    addressable (2.3.2)
+    addressable (2.3.4)
     arel (3.0.2)
     backbone-on-rails (0.9.2.0)
       eco (~> 1.0.0)
@@ -85,6 +91,12 @@ GEM
       bson (~> 1.6.4)
     builder (3.0.4)
     bunny (0.8.0)
+    capistrano (2.15.3)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
     capistrano_colors (0.5.5)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -96,27 +108,30 @@ GEM
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    celluloid (0.12.4)
-      facter (>= 1.6.12)
+    celluloid (0.14.1)
       timers (>= 1.0.0)
     childprocess (0.2.3)
       ffi (~> 1.0.6)
-    client_side_validations (3.1.4)
     cloudfiles (1.4.18)
       mime-types (>= 1.16)
-    coderay (1.0.5)
+    coderay (1.0.9)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
     coffee-script-source (1.1.2)
-    connection_pool (1.0.0)
-    crack (0.1.8)
+    connection_pool (1.1.0)
     css_parser (1.3.4)
       addressable
+    curb (0.8.4)
+    curb-fu (0.6.2)
+      curb (>= 0.5.4.0)
+      rack-test (>= 0.2.0)
     daemons (1.1.8)
     dalli (2.6.2)
     database_cleaner (0.9.1)
     diff-lcs (1.2.4)
+    doorkeeper (0.6.7)
+      railties (~> 3.1)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -131,16 +146,13 @@ GEM
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    facter (1.7.0)
     factory_girl (2.3.2)
       activesupport
     factory_girl_rails (1.4.0)
       factory_girl (~> 2.3.0)
       railties (>= 3.0.0)
-    faraday (0.7.6)
-      addressable (~> 2.2)
+    faraday (0.8.7)
       multipart-post (~> 1.1)
-      rack (~> 1.1)
     ffi (1.0.11)
     fog (1.10.0)
       builder
@@ -169,26 +181,22 @@ GEM
     guard-spork (0.8.0)
       guard (>= 0.10.0)
       spork (>= 0.8.4)
-    haml (3.1.4)
-    haml-rails (0.3.4)
-      actionpack (~> 3.0)
-      activesupport (~> 3.0)
-      haml (~> 3.0)
-      railties (~> 3.0)
+    haml (4.0.2)
+      tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     haml_coffee_assets (1.6.0)
       coffee-script (>= 1.0.0)
       sprockets (>= 2.0.3)
       tilt (>= 1.3.3)
-    hashie (1.2.0)
+    hashie (2.0.4)
     hashr (0.0.19)
-    highline (1.6.15)
+    highline (1.6.18)
     hike (1.2.2)
     hiredis (0.4.5)
-    httmultiparty (0.3.6)
-      httparty (>= 0.7.3)
-      multipart-post
-    httparty (0.7.8)
-      crack (= 0.1.8)
     i18n (0.6.1)
     imagesize (0.1.1)
     journey (1.0.4)
@@ -196,6 +204,8 @@ GEM
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
     json (1.7.7)
+    jwt (0.1.6)
+      multi_json (>= 1.0)
     kaminari (0.13.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -211,13 +221,13 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    method_source (0.7.0)
+    method_source (0.8.1)
     mime-types (1.23)
     mini_magick (3.4)
       subexec (~> 0.2.1)
-    mongoid (3.1.2)
+    mongoid (3.1.4)
       activemodel (~> 3.2)
-      moped (~> 1.4.2)
+      moped (~> 1.4)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
     mongoid-grid_fs (1.3.2)
@@ -230,7 +240,7 @@ GEM
       railties (>= 3.2.0)
     moped (1.4.5)
     multi_json (1.0.4)
-    multipart-post (1.1.4)
+    multipart-post (1.2.0)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.1)
@@ -238,21 +248,27 @@ GEM
     net-ssh (2.6.6)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic-redis (1.4.0)
-      newrelic_rpm (~> 3.0)
-      redis (< 4.0)
-    newrelic_moped (0.0.3)
-    newrelic_rpm (3.4.1)
+    netdnarws (0.2.6)
+      addressable
+      curb-fu
+      signet
+    newrelic_moped (0.0.6)
+      moped
+      newrelic_rpm (~> 3.6.0)
+    newrelic_rpm (3.6.1.88)
     nokogiri (1.5.9)
-    oauth (0.4.5)
+    oauth (0.4.7)
     oauth2 (0.5.2)
       faraday (~> 0.7)
       multi_json (~> 1.0)
-    omniauth (1.1.0)
-      hashie (~> 1.2)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
       rack
     omniauth-facebook (1.2.0)
       omniauth-oauth2 (~> 1.0.0)
+    omniauth-github (1.0.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
     omniauth-oauth (1.0.0)
       oauth
       omniauth (~> 1.0)
@@ -261,17 +277,17 @@ GEM
       omniauth (~> 1.0)
     omniauth-twitter (0.0.7)
       omniauth-oauth (~> 1.0)
-    origin (1.0.11)
+    origin (1.1.0)
     pdf-reader (1.0.0)
       Ascii85 (~> 1.0.0)
       ruby-rc4
     polyglot (0.3.3)
-    pry (0.9.8.2)
+    pry (0.9.12.2)
       coderay (~> 1.0.5)
-      method_source (~> 0.7)
-      slop (>= 2.4.4, < 3)
-    pundit (0.2.0)
-      rails (~> 3.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-rails (0.3.1)
+      pry (>= 0.9.10)
     rabl (0.6.10)
       activesupport (>= 2.3.14)
       multi_json (~> 1.0)
@@ -305,7 +321,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redcarpet (2.2.2)
-    redis (3.0.3)
+    redis (3.0.4)
     redis-actionpack (3.2.3)
       actionpack (~> 3.2.3)
       redis-rack (~> 1.4.0)
@@ -313,7 +329,7 @@ GEM
     redis-activesupport (3.2.3)
       activesupport (~> 3.2.3)
       redis-store (~> 1.1.0)
-    redis-namespace (1.2.1)
+    redis-namespace (1.3.0)
       redis (~> 3.0.0)
     redis-rack (1.4.2)
       rack (~> 1.4.1)
@@ -325,7 +341,7 @@ GEM
     redis-store (1.1.3)
       redis (>= 2.2.0)
     ref (1.0.2)
-    rmagick (2.13.1)
+    rmagick (2.13.2)
     roadie (2.3.4)
       actionmailer (> 3.0.0, < 3.3.0)
       css_parser
@@ -335,7 +351,7 @@ GEM
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.1)
-    rspec-rails (2.13.0)
+    rspec-rails (2.13.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -346,8 +362,8 @@ GEM
     ruby-prof (0.13.0)
     ruby-rc4 (0.1.3)
     rubyzip (0.9.5)
-    sass (3.2.1)
-    sass-rails (3.2.5)
+    sass (3.2.8)
+    sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
@@ -359,13 +375,21 @@ GEM
     shoulda-context (1.1.1)
     shoulda-matchers (2.0.0)
       activesupport (>= 3.0.0)
-    sidekiq (2.10.1)
-      celluloid (~> 0.12.0)
-      connection_pool (~> 1.0)
-      multi_json (~> 1)
-      redis (~> 3)
+    sidekiq (2.12.4)
+      celluloid (>= 0.14.1)
+      connection_pool (>= 1.0.0)
+      json
+      redis (>= 3.0)
       redis-namespace
-    simple_oauth (0.1.5)
+    signet (0.4.5)
+      addressable (>= 2.2.3)
+      faraday (~> 0.8.1)
+      jwt (>= 0.1.5)
+      multi_json (>= 1.0.0)
+    simple_form (2.1.0)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+    simple_oauth (0.2.0)
     sinatra (1.3.6)
       rack (~> 1.4)
       rack-protection (~> 1.3)
@@ -373,11 +397,7 @@ GEM
     slim (1.3.8)
       temple (~> 0.6.3)
       tilt (~> 1.3.3)
-    slop (2.4.4)
-    soundcloud (0.2.9)
-      hashie
-      httmultiparty (~> 0.3.0)
-      httparty (~> 0.7.3)
+    slop (3.4.5)
     spork (1.0.0rc3)
     spork-rails (3.2.1)
       rails (>= 3.0.0, < 3.3.0)
@@ -387,6 +407,10 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    strong_parameters (0.2.1)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+      railties (~> 3.0)
     subexec (0.2.1)
     temple (0.6.4)
     term-ansicolor (1.0.7)
@@ -426,7 +450,7 @@ GEM
       oauth (>= 0.4.4)
       simple_oauth
       simple_oauth (>= 0.1.5)
-    zurb-foundation (4.0.9)
+    zurb-foundation (4.1.6)
       sass (>= 3.2.0)
 
 PLATFORMS
@@ -434,21 +458,23 @@ PLATFORMS
 
 DEPENDENCIES
   ace-rails-ap
-  backbone-on-rails
+  active_model_serializers (~> 0.7.0)
+  backbone-on-rails (~> 0.9.2.0)
   bcrypt-ruby
   bootstrap-sass (~> 2.1.0.0)
   bson_ext
   bunny
-  capistrano!
+  capistrano
   capistrano_colors
   capybara
   carrierwave
   carrierwave-mongoid!
-  client_side_validations
   cloudfiles (= 1.4.18)
+  coderay (~> 1.0.5)
   coffee-script
   dalli
   database_cleaner
+  doorkeeper (~> 0.6.7)
   email_spec
   execjs
   factory_girl_rails
@@ -460,49 +486,52 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-spork
-  haml
-  haml-rails
-  haml_coffee_assets
+  haml-rails (~> 0.4)
+  haml_coffee_assets (~> 1.6.0)
   hashr
   hiredis (~> 0.4.5)
   imagesize
-  jquery-rails
+  jquery-rails (~> 2.0.2)
   kaminari
   kiqstand (~> 1.1.0)
   mini_magick
   mongoid (~> 3.1.0)
   mongoid_fulltext!
   mongoid_rails_migrations (~> 1.0.0)
+  mongoid_token!
   moped (~> 1.4.0)
-  newrelic-redis
+  netdnarws (~> 0.2.6)
   newrelic_moped
   newrelic_rpm
   omniauth
   omniauth-facebook
+  omniauth-github
   omniauth-twitter
   pdf-reader
   pry
-  pundit
+  pry-rails
+  pundit!
   rabl (~> 0.6.10)
   rails (~> 3.2.13)
   rb-fsevent
-  redcarpet
+  redcarpet (~> 2.2.2)
   redis (~> 3.0.1)
   redis-rails (~> 3.2.3)
   rmagick
-  roadie
+  roadie (~> 2.3.4)
   rspec-rails
   ruby-prof
   sass (~> 3.2.1)
   sass-rails (~> 3.2.5)
   shoulda-context
   shoulda-matchers
-  sidekiq (~> 2.10.1)
+  sidekiq (~> 2.12.4)
+  simple_form (~> 2.1.0)
   sinatra
   slim
-  soundcloud
   spork-rails
   sprockets
+  strong_parameters (~> 0.2.1)
   therubyracer (~> 0.11.4)
   thin
   timecop
@@ -511,4 +540,4 @@ DEPENDENCIES
   urifetch!
   yajl-ruby
   youtube_it
-  zurb-foundation
+  zurb-foundation (~> 4.1.6)

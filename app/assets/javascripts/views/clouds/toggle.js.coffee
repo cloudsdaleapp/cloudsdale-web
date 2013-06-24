@@ -110,7 +110,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
 
   fetchNotifications: ->
     unless @notifications
-      n = $.cookie("cloud:#{@model.id}:notifications")
+      n = localStorage["cloud:#{@model.id}:notifications"]
       if typeof n is 'string'
         @notifications = parseInt(n)
       else
@@ -121,9 +121,7 @@ class Cloudsdale.Views.CloudsToggle extends Backbone.View
     @refreshGfx()
 
   setNotifications: ->
-    $.cookie "cloud:#{@model.id}:notifications", @notifications,
-      expires: 365
-      path: "/"
+    localStorage["cloud:#{@model.id}:notifications"] = @notifications
 
     @refreshGfx()
 

@@ -17,6 +17,7 @@ class Cloudsdale.Models.User extends Backbone.Model
     avatar_url: null
     status: "offline"
     also_known_as: []
+    username: ""
 
   initialize: (args,options) ->
 
@@ -78,6 +79,7 @@ class Cloudsdale.Models.User extends Backbone.Model
       invisible: @get('invisible')
       time_zone: @get('time_zone')
       preferred_status: @get('preferred_status')
+      username: @get('username')
 
     if @get('password')
       obj.password = @get('password')

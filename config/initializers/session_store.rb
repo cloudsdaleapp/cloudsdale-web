@@ -4,6 +4,7 @@
 
 Cloudsdale::Application.config.session_store :redis_store,
   expire_in: 259200,
+  :domain => Cloudsdale.config['session_key'],
   :servers => {
     :host => Cloudsdale.config['redis']['host'],
     :port => Cloudsdale.config['redis']['port'],

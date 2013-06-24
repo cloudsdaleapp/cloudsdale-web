@@ -43,6 +43,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
 
     @.$('.chat-message-avatar a img').attr('src',@model.user().get('avatar').thumb)
     @.$('.chat-message-head a').text(@model.user().get('name'))
+    @.$('.chat-message-head span').text("@" + @model.user().get('username'))
     if @.$('ul.chat-message-drops').children().length > 0
       $(@el).addClass('chat-message-with-drops')
 

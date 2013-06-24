@@ -2,9 +2,9 @@
 
 Cloudsdale is a realtime chat application for the Web, iOS, Android and Windows Phone, primarily designed for bronies.
 
-**********************************
+***********************************
 ![Cloudsdale Interface](http://puu.sh/2FGUm.png)
-**********************************
+***********************************
 
 ## Introduction
 Cloudsdale is built with *Ruby on Rails* backed by *Redis*, *MongoDB*, *MemCached*, *RabbitMQ* and *Sidekiq (Celluloid)*. Cloudsdale is developed and tested on ruby MRI version *1.9.3*.

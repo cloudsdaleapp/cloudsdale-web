@@ -6,4 +6,8 @@ class RootController < ApplicationController
     render 'pages/_root.html.haml'
   end
 
+  def not_found
+    render 'exceptions/not_found.html.haml', status: 404
+  end
+
 end

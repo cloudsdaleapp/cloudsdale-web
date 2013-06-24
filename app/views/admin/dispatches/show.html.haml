@@ -1,36 +1,59 @@
-= form_for @dispatch, url: admin_dispatch_path(@dispatch), multipart: true do |f|
+- if @dispatch.status == :sent
   .row
     .large-12.columns
       .content-panel
         .content-panel-inner
-          = f.label :subject
-          = f.text_field :subject
+          %h2= @dispatch.subject
           %br
           .row
-            .large-4.columns
-              = f.label :banner
-              = f.file_field :banner, style: 'button'
-              %br
-              %br
-            .large-8.columns
+            .large-3.columns
+              .panel.callout.radius
+                %h5{ style: 'color: white;' }= "Emails Sent"
+                %p{ style: 'color: white;' }= 0
+            .large-3.columns
+              .panel.callout.radius
+                %h5{ style: 'color: white;' }= "Emails Opened"
+                %p{ style: 'color: white;' }= 0
+            .large-6.columns
               .panel
                 - if @dispatch.banner.present?
-                  = image_tag @dispatch.banner.url
+                  = image_tag @dispatch.banner.url, title: @dispatch.subject
 
-  %br
-  .row
-    .large-12.columns
-      .content-panel
-        .content-panel-inner.panel-expand
-          = f.text_area :body
-          #editor
+    %br
+- elsif @dispatch.status == :draft
+  = form_for @dispatch, url: dispatch_path(@dispatch), multipart: true do |f|
+    .row
+      .large-12.columns
+        .content-panel
+          .content-panel-inner
+            = f.label :subject
+            = f.text_field :subject
+            %br
+            .row
+              .large-4.columns
+                = f.label :banner
+                = f.file_field :banner, style: 'button'
+                %br
+                %br
+              .large-8.columns
+                .panel
+                  - if @dispatch.banner.present?
+                    = image_tag @dispatch.banner.url, title: @dispatch.subject
 
-  %br
-  .row
-    .large-12.columns
-      .content-panel
-        .content-panel-inner
-          = f.submit "Save",class: 'button small', style: 'margin: 0;'
-          = f.submit "Save & Test", class: 'button small secondary', style: 'margin: 0;'
-          = f.submit "Save & Publish", class: 'button small success', style: 'margin: 0;'
+    %br
+    .row
+      .large-12.columns
+        .content-panel
+          .content-panel-inner.panel-expand
+            = f.text_area :body
+            #editor
+
+    %br
+    .row
+      .large-12.columns
+        .content-panel
+          .content-panel-inner
+            = f.submit "Save",class: 'button small', style: 'margin: 0;'
+            = f.submit "Save & Test", class: 'button small secondary', style: 'margin: 0;'
+            = f.submit "Save & Publish", class: 'button small success', style: 'margin: 0;'
 

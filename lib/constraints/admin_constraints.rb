@@ -6,9 +6,7 @@ class AdminConstraints
 
     @request = request
 
-    if user_id
-      user = User.find_or_initialize_by(_id: user_id)
-    elsif auth_token
+    if auth_token
       user = User.find_or_initialize_by(auth_token: auth_token)
     else
       user = User.new
@@ -22,12 +20,14 @@ class AdminConstraints
 
 private
 
-  def user_id
-    @user_id ||= request.session[:user_id]
+  def auth_token
+    @auth_token ||= verifier.verify(request.cookies["auth_token"]) || request.headers['X-Auth-Token']
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    return nil
   end
 
-  def auth_token
-    @auth_token ||= request.cookies[:auth_token] || request.headers['X-Auth-Token']
+  def verifier
+    @verifier ||= ActiveSupport::MessageVerifier.new(Cloudsdale::Application.config.secret_token)
   end
 
 end

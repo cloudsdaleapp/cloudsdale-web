@@ -14,15 +14,7 @@ class Cloudsdale.Views.Root extends Backbone.View
     @bindEvents()
     @refreshGfx()
 
-    if session.isLoggedIn()
-      @renderSidebar()
-
-      if session.get('user').get('needs_to_confirm_registration')
-        @openSessionDialog('complete')
-      else if session.get('user').get('needs_password_change')
-        @openSessionDialog('password_change')
-      else if session.get('user').get('needs_name_change')
-        @openSessionDialog('name_change')
+    @assertLogin()
 
 
   render: ->
@@ -35,7 +27,7 @@ class Cloudsdale.Views.Root extends Backbone.View
     $(@el).bind 'clouds:initialize', => @renderSidebar()
 
     $('a').live 'click', (e) ->
-      if @hostname.match(document.location.hostname) != null && @pathname.match(/\/auth\/.*/ig) == null && @pathname.match(/\/logout/ig) == null
+      if (@hostname.match(document.location.hostname) != null) && (@pathname.match(/^\/(auth|logout|login|register|password|oauth)(\/(.+)?)?$/ig) == null) && location.hostname.split('.').shift() == "www"
         Backbone.history.navigate(@pathname,true)
         e.preventDefault()
         false
@@ -63,7 +55,11 @@ class Cloudsdale.Views.Root extends Backbone.View
 
   openSessionDialog: (state) ->
     window.setTimeout =>
-      view = new Cloudsdale.Views.SessionsDialog(state: state).el
+      view = new Cloudsdale.Views.SessionsDialog(
+        state: state,
+        callback: =>
+          @assertLogin()
+      ).el
       if @.$('.modal-container').length > 0 then @.$('.modal-container').replaceWith(view) else $(@el).append(view)
     , 100
 
@@ -85,4 +81,16 @@ class Cloudsdale.Views.Root extends Backbone.View
 
   clearNotifications: (args) ->
     this
+
+  assertLogin: (args) ->
+    if session.isLoggedIn()
+      @renderSidebar()
+      if session.get('user').get('needs_to_confirm_registration')
+        @openSessionDialog('complete')
+      else if session.get('user').get('needs_password_change')
+        @openSessionDialog('password_change')
+      else if session.get('user').get('needs_name_change')
+        @openSessionDialog('name_change')
+      else if session.get('user').get('needs_email_change')
+        @openSessionDialog('email_change')
 

@@ -7,7 +7,7 @@ class AdminController < ApplicationController
   before_filter :assert_admin
 
   rescue_from Pundit::NotAuthorizedError do |message|
-    redirect_to root_path
+    redirect_to root_url(subdomain: 'www')
   end
 
 private
