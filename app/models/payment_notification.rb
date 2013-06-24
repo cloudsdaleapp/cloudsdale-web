@@ -23,7 +23,7 @@ class PaymentNotification
   validates_uniqueness_of :transaction_id
   validates_presence_of :amount, :currency, :item, :params, :transaction_id, :transaction_type
 
-  before_save do
+  after_save do
     if self.user
       if (user.symbolic_role == :normal) && (self.amount > 1.0)
         self.user.role = 1
