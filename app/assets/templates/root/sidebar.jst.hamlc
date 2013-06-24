@@ -57,7 +57,7 @@
         %strong= "Support Cloudsdale"
     .sidebar-dropdown
       .sidebar-input
-        %p= "To pay for Cloudsdale and everything it entails we need your help raising enough money each month."
+        %p= "To pay for Cloudsdale and everything it entails we need your help raising enough money each month. Donate more than $1 and you will be rewarded with swag lasting one month."
         %h4{ style: 'text-align: right;' }
           %span.donation-statistics-amount
           = "/"
