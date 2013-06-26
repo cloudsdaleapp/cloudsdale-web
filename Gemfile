@@ -3,9 +3,9 @@ source 'http://rubygems.org'
 gem 'rails', '~> 3.2.13'
 
 # Database NO-SQL
-gem 'bson_ext'
-gem 'mongoid', '~> 3.1.0'
-gem 'moped',   '~> 1.4.0'
+gem 'bson_ext', '~> 1.9.0'
+gem 'mongoid',  '~> 3.1.0'
+gem 'moped',    '~> 1.4.0'
 gem 'mongoid_token', :git => 'git://github.com/thetron/mongoid_token.git', :branch => 'patch/collisions-define-method'
 gem 'mongoid_rails_migrations', '~> 1.0.0'
 gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
