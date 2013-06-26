@@ -44,9 +44,9 @@ gem 'backbone-on-rails', '~> 0.9.2.0'
 # Authentication & Authorization
 gem 'redis-rails', '~> 3.2.3'
 gem 'omniauth'
-gem 'omniauth-facebook'
-gem 'omniauth-twitter'
-gem 'omniauth-github'
+gem 'omniauth-facebook', '~> 1.4.1'
+gem 'omniauth-twitter',  '~> 1.0.0'
+gem 'omniauth-github',   '~> 1.1.0'
 gem 'pundit', git: 'git://github.com/Zeeraw/pundit.git'
 gem 'doorkeeper', '~> 0.6.7'
 gem 'strong_parameters', '~> 0.2.1'
@@ -112,7 +112,7 @@ group :test do
   gem "timecop"
   gem 'shoulda-context'
   gem 'shoulda-matchers'
-  gem 'capybara'
+  gem 'capybara', '~> 2.1.0'
   gem 'email_spec'
 end
 
