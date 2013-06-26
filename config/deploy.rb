@@ -6,6 +6,8 @@ require 'capistrano_colors'
 set :application,   "cloudsdale-web"
 set :ruby_version,  "ruby-2.0.0-p195"
 
+set :keep_releases, 3
+
 set :rake, "#{rake} --trace"
 
 set :scm,             :git
