@@ -16,7 +16,7 @@ CarrierWave.configure do |config|
       :rackspace_region   => :ord
     }
     config.fog_directory = Cloudsdale.config['rackspace_cloudfiles']['fog_directory']
-    config.fog_host      = Cloudsdale.config['rackspace_cloudfiles']['fog_host']
+    config.asset_host    = Cloudsdale.config['rackspace_cloudfiles']['fog_host']
 
   end
 
