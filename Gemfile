@@ -110,8 +110,8 @@ end
 
 group :test do
   gem "timecop"
-  gem 'shoulda-context'
-  gem 'shoulda-matchers'
+  gem 'shoulda-context',  '~> 1.1.4'
+  gem 'shoulda-matchers', '~> 2.2.0'
   gem 'capybara', '~> 2.1.0'
   gem 'email_spec'
 end
