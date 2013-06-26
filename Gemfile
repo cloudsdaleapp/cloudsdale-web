@@ -82,8 +82,8 @@ gem 'kiqstand', '~> 1.1.0'
 gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
 
 group :development do
-  gem 'gist'
-  gem 'foreman'
+  gem 'gist',    '~> 4.0.3'
+  gem 'foreman', '~> 0.63'
   gem 'capistrano'
   gem 'capistrano_colors', :require => nil
 end
@@ -100,8 +100,8 @@ group :development, :test do
   gem 'guard-rspec',   '~> 3.0.2'
   gem 'guard-bundler', '~> 1.0.0'
 
-  gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'database_cleaner', '~> 1.0.1'
+  gem 'factory_girl_rails', '~> 4.2.1'
 end
 
 group :test, :darwin, :development do
