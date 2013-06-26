@@ -11,13 +11,13 @@ gem 'mongoid_rails_migrations', '~> 1.0.0'
 gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
 gem "active_model_serializers", '~> 0.7.0'
 gem 'kaminari'
-gem 'dalli'
+gem 'dalli',   '~> 2.6.4'
 
-gem "redis", "~> 3.0.1"
+gem "redis",   '~> 3.0.1'
 gem "hiredis", '~> 0.4.5'
 
 # CANT HAVE ASSETS GROUP!
-gem 'sass',           '~> 3.2.1'
+gem 'sass',           '~> 3.2.9'
 gem 'sass-rails',     '~> 3.2.5'
 gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'jquery-rails',   '~> 2.0.2'
@@ -60,7 +60,7 @@ gem 'netdnarws',  '~> 0.2.6'
 gem 'mini_magick'
 gem 'rmagick'
 gem 'carrierwave'
-gem "carrierwave-mongoid", :git => "git@github.com:Zeeraw/carrierwave-mongoid.git", :branch => "mongoid-3.0", :require => 'carrierwave/mongoid'
+gem "carrierwave-mongoid", :git => "git://github.com/Zeeraw/carrierwave-mongoid.git", :branch => "mongoid-3.0", :require => 'carrierwave/mongoid'
 gem 'imagesize'
 gem 'pdf-reader'
 
@@ -93,7 +93,7 @@ group :development, :test do
   gem 'pry-rails'
 
   gem 'spork-rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.13.2'
 
   gem 'guard'
   gem 'guard-spork'
