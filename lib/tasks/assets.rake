@@ -29,7 +29,7 @@ namespace :assets do
         mimetype  = `file -Ib #{file_path}`.gsub(/\n/,"").split(";")[0]
 
         object.load_from_filename(file_path)
-        object.content_type(mimetype)
+        object.content_type = mimetype
 
         puts "Uploaded #{file} as [#{mimetype}]"
       end
