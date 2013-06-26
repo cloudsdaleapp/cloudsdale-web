@@ -4,11 +4,11 @@ gem 'rails', '~> 3.2.13'
 
 # Database NO-SQL
 gem 'bson_ext', '~> 1.9.0'
-gem 'mongoid',  '~> 3.1.0'
-gem 'moped',    '~> 1.4.0'
+gem 'mongoid',  '~> 3.1.4'
+gem 'moped',    '~> 1.5.0'
 gem 'mongoid_token', :git => 'git://github.com/thetron/mongoid_token.git', :branch => 'patch/collisions-define-method'
 gem 'mongoid_rails_migrations', '~> 1.0.0'
-gem 'mongoid_fulltext', git: 'git://github.com/Zeeraw/mongoid_fulltext.git'
+gem 'mongoid_fulltext',         '~> 0.6.1'
 gem "active_model_serializers", '~> 0.8.1'
 gem 'kaminari'
 gem 'dalli',   '~> 2.6.4'
@@ -52,17 +52,17 @@ gem 'doorkeeper', '~> 0.6.7'
 gem 'strong_parameters', '~> 0.2.1'
 
 # Third-party
-gem 'fog'
+gem 'fog',        '~> 1.12.1'
 gem 'cloudfiles', '~> 1.4.18'
 gem 'netdnarws',  '~> 0.2.8'
 
 # Images
-gem 'mini_magick'
+gem 'mini_magick',         '~> 3.6.0'
 gem 'rmagick'
-gem 'carrierwave'
-gem "carrierwave-mongoid", :git => "git://github.com/Zeeraw/carrierwave-mongoid.git", :branch => "mongoid-3.0", :require => 'carrierwave/mongoid'
-gem 'imagesize'
-gem 'pdf-reader'
+gem 'carrierwave',         '~> 0.8.0'
+gem "carrierwave-mongoid", '~> 0.6.0'
+gem 'imagesize',           '~> 0.1.1'
+gem 'pdf-reader',          '~> 1.3.3'
 
 # Video
 gem 'youtube_it'
