@@ -68,10 +68,10 @@ gem 'pdf-reader'
 gem 'youtube_it'
 
 # Others
-gem 'bcrypt-ruby', :require => 'bcrypt'
-gem 'hashr', :require => 'hashr'
-gem 'yajl-ruby', :require => 'yajl'
-gem 'google-analytics-rails'
+gem 'bcrypt-ruby',            :require => 'bcrypt'
+gem 'hashr',                  :require => 'hashr'
+gem 'yajl-ruby',              :require => 'yajl'
+gem 'google-analytics-rails', '~> 0.0.4'
 
 # Queueing
 gem 'bunny'
@@ -95,10 +95,10 @@ group :development, :test do
   gem 'spork-rails'
   gem 'rspec-rails', '~> 2.13.2'
 
-  gem 'guard'
-  gem 'guard-spork'
-  gem 'guard-rspec'
-  gem 'guard-bundler'
+  gem 'guard',         '~> 1.8.1'
+  gem 'guard-spork',   '~> 1.5.1'
+  gem 'guard-rspec',   '~> 3.0.2'
+  gem 'guard-bundler', '~> 1.0.0'
 
   gem 'database_cleaner'
   gem 'factory_girl_rails'
