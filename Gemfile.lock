@@ -126,7 +126,7 @@ GEM
     curb-fu (0.6.2)
       curb (>= 0.5.4.0)
       rack-test (>= 0.2.0)
-    daemons (1.1.8)
+    daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (0.9.1)
     diff-lcs (1.2.4)
@@ -142,7 +142,7 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.2)
     erubis (2.7.0)
-    eventmachine (0.12.10)
+    eventmachine (1.0.3)
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -417,7 +417,7 @@ GEM
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
-    thin (1.3.1)
+    thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
@@ -433,7 +433,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     unicode_utils (1.0.0)
-    unicorn (4.6.2)
+    unicorn (4.6.3)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
@@ -522,7 +522,7 @@ DEPENDENCIES
   rspec-rails (~> 2.13.2)
   ruby-prof
   sass (~> 3.2.9)
-  sass-rails (~> 3.2.5)
+  sass-rails (~> 3.2.6)
   shoulda-context
   shoulda-matchers
   sidekiq (~> 2.12.4)
@@ -533,10 +533,10 @@ DEPENDENCIES
   sprockets
   strong_parameters (~> 0.2.1)
   therubyracer (~> 0.11.4)
-  thin
+  thin (~> 1.5.1)
   timecop
   uglifier
-  unicorn
+  unicorn (~> 4.6.3)
   urifetch!
   yajl-ruby
   youtube_it
