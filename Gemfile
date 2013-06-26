@@ -32,7 +32,7 @@ gem 'ace-rails-ap'
 # Markup
 gem 'slim'
 gem 'haml-rails',  '~> 0.4'
-gem 'redcarpet',   '~> 2.2.2'
+gem 'redcarpet',   '~> 2.3.0'
 gem 'rabl',        '~> 0.6.10'
 gem 'roadie',      '~> 2.3.4'
 gem 'simple_form', '~> 2.1.0'
