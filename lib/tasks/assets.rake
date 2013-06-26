@@ -23,9 +23,15 @@ namespace :assets do
       puts "Starting remote sync..."
       # See if there are files existing localy but not remotely
       (local_files - remote_files).each do |file|
-        object = container.create_object(file, false)
-        object.load_from_filename(shared_path.join(file))
-        puts "Uploaded #{file}"
+        object    = container.create_object(file, false)
+
+        file_path = shared_path.join(file)
+        mimetype  = `file -Ib #{file_path}`.gsub(/\n/,"").split(";")[0]
+
+        object.load_from_filename(file_path)
+        object.content_type(mimetype)
+
+        puts "Uploaded #{file} as [#{mimetype}]"
       end
 
       # See if there is any files that exists remotely but are removed localy
