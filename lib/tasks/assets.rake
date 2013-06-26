@@ -37,8 +37,12 @@ namespace :assets do
 
       # See if there is any files that exists remotely but are removed localy
       (remote_files - local_files).each do |file|
-        container.delete_object(file)
-        puts "Removed #{file}"
+        begin
+          container.delete_object(file)
+          puts "Removed #{file}"
+        rescue
+          puts "Failed to remove #{file}"
+        end
       end
     end
 
