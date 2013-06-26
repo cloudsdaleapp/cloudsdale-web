@@ -18,7 +18,7 @@ gem "hiredis", '~> 0.4.5'
 
 # CANT HAVE ASSETS GROUP!
 gem 'sass',           '~> 3.2.9'
-gem 'sass-rails',     '~> 3.2.5'
+gem 'sass-rails',     '~> 3.2.6'
 gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'jquery-rails',   '~> 2.0.2'
 gem 'coffee-script'
