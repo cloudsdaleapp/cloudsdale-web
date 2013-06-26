@@ -28,8 +28,9 @@ namespace :assets do
         file_path = shared_path.join(file)
         mimetype  = `file -Ib #{file_path}`.gsub(/\n/,"").split(";")[0]
 
-        object.load_from_filename(file_path)
-        object.content_type = mimetype
+        object.load_from_filename(file_path, {
+          'Content-Type' => mimetype
+        })
 
         puts "Uploaded #{file} as [#{mimetype}]"
       end
