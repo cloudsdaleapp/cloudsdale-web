@@ -10,6 +10,10 @@ class AvatarUploader < ApplicationUploader
 
   storage :file
 
+  def asset_host
+    nil
+  end
+
   def store_dir
     if Rails.env.production?
       "/store/uploads/#{mounted_as}/#{model.avatar_namespace}/#{model.id}/"
