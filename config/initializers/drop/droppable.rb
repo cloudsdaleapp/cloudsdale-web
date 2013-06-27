@@ -6,7 +6,7 @@ module Droppable
     t = self[:_type].classify
     if not d.nil? and d.save
       dp = d.deposits.find_or_initialize_by(depositable_id: i, depositable_type: t)
-      dp.depositers << user unless dp.depositer_ids.include?(user.id)
+      dp.depositer_ids << user.id unless dp.depositer_ids.include?(user.id)
       dp.save
     end
     d
