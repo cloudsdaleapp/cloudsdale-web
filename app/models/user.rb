@@ -43,8 +43,9 @@ class User
   field :reason_for_suspension,     type: String,     default: nil
   field :preferred_status,          type: Symbol,     default: :online
   field :developer,                 type: Boolean,    default: false
-  field :last_seen_at,              type: DateTime
   field :dates_seen,                type: Array,      default: []
+
+  index( { auth_token: 1 }, { unique: true, name: "auth_token_index" } )
 
   scope :developers, self.or(:developer => true).or(:role.gte => ROLES[:developer])
 
@@ -106,7 +107,6 @@ class User
   # Returns the timestamp
   def seen!
     timestamp = DateTime.now
-    self.set(:last_seen_at, timestamp)
 
     datestamp = timestamp.to_date.to_s
     unless self.dates_seen.include?(datestamp)
