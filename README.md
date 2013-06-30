@@ -26,3 +26,8 @@ bundle exec cap deploy
 ```bash
 bundle exec cap deploy restart
 ```
+
+**Create indexes**
+```bash
+bundle exec rake db:create_indexes
+```
