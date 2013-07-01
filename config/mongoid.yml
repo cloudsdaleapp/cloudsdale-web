@@ -50,7 +50,7 @@ production:
 
       options:
         safe: false
-        consistency: :strong
+        consistency: :eventual
 
   options:
     use_utc: true
