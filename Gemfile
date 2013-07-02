@@ -15,6 +15,9 @@ gem 'dalli',   '~> 2.6.4'
 gem "redis",   '~> 3.0.1'
 gem "hiredis", '~> 0.4.5'
 
+gem 'pry'
+gem 'pry-rails'
+
 # CANT HAVE ASSETS GROUP!
 gem 'sass',           '~> 3.2.9'
 gem 'sass-rails',     '~> 3.2.6'
@@ -90,8 +93,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'pry'
-  gem 'pry-rails'
 
   gem 'spork-rails'
   gem 'rspec-rails', '~> 2.13.2'
