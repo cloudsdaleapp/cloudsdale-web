@@ -3,7 +3,7 @@
 Cloudsdale is a realtime chat application for the Web, iOS, Android and Windows Phone, primarily designed for bronies.
 
 ***********************************
-![Cloudsdale Interface](http://puu.sh/2FGUm.png)
+![Cloudsdale Interface](http://puu.sh/3pPMn.png)
 ***********************************
 
 ## Introduction
@@ -25,4 +25,9 @@ bundle exec cap deploy
 
 ```bash
 bundle exec cap deploy restart
+```
+
+**Create indexes**
+```bash
+bundle exec rake db:create_indexes
 ```
