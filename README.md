@@ -31,3 +31,11 @@ bundle exec cap deploy restart
 ```bash
 bundle exec rake db:create_indexes
 ```
+
+**Start the production Console**
+To access the console you must first have a ssh enabled unix user on the server.
+Then you can write these commands to enter the ruby pry REPL in production mode.
+```bash
+ssh {username}@cloudsdale.org
+cd /opt/app/cloudsdale-web/current && bundle exec rails c production
+```
