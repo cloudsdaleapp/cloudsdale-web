@@ -7,13 +7,13 @@ Cloudsdale is a realtime chat application for the Web, iOS, Android and Windows 
 ***********************************
 
 ## Introduction
-Cloudsdale is built with *Ruby on Rails* backed by *Redis*, *MongoDB*, *MemCached*, *RabbitMQ* and *Sidekiq (Celluloid)*. Cloudsdale is developed and tested on ruby MRI version *1.9.3*.
+Cloudsdale is built with *Ruby on Rails* backed by *Redis*, *MongoDB*, *MemCached*, *RabbitMQ* and *Sidekiq (Celluloid)*. Cloudsdale is developed and tested on ruby MRI version *2.0.0*.
 
 ## Server Operations
 The examples below require:
 * You to have access to a Unix terminal with bash.
 * You also need to have your SSH keys deployed.
-* You have ruby 1.9.3 installed.
+* You have ruby 2.0.0 installed.
 
 **Deploy from `master` on GitHub:**
 
@@ -30,4 +30,13 @@ bundle exec cap deploy restart
 **Create indexes**
 ```bash
 bundle exec rake db:create_indexes
+```
+
+**Start the production Console**
+
+To access the console you must first have a ssh enabled unix user on the server.
+Then you can write these commands to enter the ruby pry REPL in production mode.
+```bash
+ssh {username}@cloudsdale.org
+cd /opt/app/cloudsdale-web/current && bundle exec rails c production
 ```
