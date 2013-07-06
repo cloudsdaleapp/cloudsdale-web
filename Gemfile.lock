@@ -67,7 +67,7 @@ GEM
       ejs (~> 1.0.0)
       jquery-rails
       railties (>= 3.1)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.0)
     bootstrap-sass (2.1.0.0)
     builder (3.0.4)
     bunny (0.8.0)
