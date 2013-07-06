@@ -1,6 +1,7 @@
 class Api::V1Controller < ActionController::Base
 
   include Pundit
+  include ActionController::FrontAuth
 
   layout :determine_layout
 
@@ -8,7 +9,7 @@ class Api::V1Controller < ActionController::Base
   before_filter :record_user_activity
   after_filter :build_response_headers
 
-  helper_method :current_user, :errors
+  helper_method :errors
 
   # Rescues the error yielded from not finding requested document
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
@@ -63,23 +64,6 @@ protected
     request.env['X_AUTH_INTERNAL_TOKEN'] == INTERNAL_TOKEN
   end
 
-  # Protected: Determines the current user by using
-  # sessions falling back on x-auth-token request header
-  # initializing a new user if none of these are present.
-  #
-  # Examples
-  #
-  # current_user
-  # #=> #<User ...>
-  #
-  # Returns an inatance of the User model.
-  def current_user
-    if auth_token
-      @current_user ||= User.find_or_initialize_by(auth_token: auth_token)
-    else
-      @current_user ||= User.new
-    end
-  end
 
   # Protected: Determines which layout to use based on the
   # requested content type.
@@ -245,13 +229,6 @@ protected
   # Returns the errors array.
   def errors
     @errors ||= []
-  end
-
-  # Protected: Sets the auth token of the current request
-  #
-  # Returns the auth token.
-  def auth_token
-    @auth_token ||= cookies.signed[:auth_token] || request.headers['X-Auth-Token']
   end
 
 
