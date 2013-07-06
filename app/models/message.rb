@@ -11,8 +11,8 @@ class Message
 
   attr_accessor :client_id
 
-  embedded_in :chat
-  belongs_to :author, class_name: "User"
+  embedded_in :chat,  :validate => false
+  belongs_to :author, class_name: "User", :validate => false
   has_and_belongs_to_many :drops, inverse_of: nil
 
   field :timestamp,   type: Time,    default: -> { Time.now }
@@ -24,7 +24,7 @@ class Message
 
   validates :timestamp,   :presence => true
   validates :content,     :presence => true
-  validates :author,      :presence => true
+  validates :author_id,   :presence => true
 
   default_scope -> { includes(:author,:drops) }
 

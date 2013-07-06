@@ -2,8 +2,8 @@ class Chat
 
   include Mongoid::Document
 
-  embedded_in :topic, polymorphic: true
-  embeds_many :messages
+  embedded_in :topic,     polymorphic: true,   :validate => false
+  embeds_many :messages,  :validate => false
 
   field :token,         type: String
 
