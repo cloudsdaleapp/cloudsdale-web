@@ -40,7 +40,7 @@ class Conversation
   }
 
   def self.sortie(by: nil, on: nil, as: :granted)
-    conversation = self.find_or_initialize_by(topic: on)
+    conversation = by.conversations.find_or_initialize_by(topic: on)
     conversation.access = as
 
     if not by.conversations.include?(conversation)
