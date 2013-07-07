@@ -12,7 +12,13 @@ class CloudsController < ApplicationController
     @page_type = "cloudsdale:cloud"
     @page_url = @cloud.short_name.present? ? cloud_url(@cloud.short_name) : cloud_url(@cloud.id)
 
-    render status: 200
+    if current_user.new_record?
+      session[:redirect_url] = @page_url
+      @session = Session.new
+      render 'sessions/new', layout: 'auth'
+    else
+      render status: 200
+    end
 
   end
 
