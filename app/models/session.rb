@@ -24,8 +24,8 @@ class Session
   def user
     if self.identifier.present?
       @user ||= User.or(username: /^#{self.identifier}$/i)
-                .or(email: /^#{self.identifier}$/i)
-                .first
+                    .or(email: self.identifier.downcase.strip)
+                    .first
     else
       @user ||= nil
     end
