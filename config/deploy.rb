@@ -47,6 +47,7 @@ role :web,  "www.cloudsdale.org"
 role :app,  "www.cloudsdale.org", :primary => true
 
 after 'deploy', 'deploy:permissions:correct'
+after 'deploy', 'deploy:db:create_indexes', 'deploy:db:migrate'
 after 'deploy:create_symlink', 'deploy:assets:upload'
 after 'deploy:create_symlink', 'sidekiq:link_assets'
 
@@ -86,6 +87,17 @@ namespace :deploy do
   desc "Stop unicorn"
   task :stop, :roles => unicorn_role, :except => { :no_release => true } do
     run "kill -s QUIT `cat #{unicorn_pid}`"
+  end
+
+  namespace :db do
+    desc "Migrating database"
+    task :migrate do
+      run "cd #{current_path} && rake db:migrate"
+    end
+
+    task :create_indexes do
+      run "cd #{current_path} && rake db:mongoid:create_indexes"
+    end
   end
 
 end
