@@ -8,6 +8,7 @@ class User
   # Mongoid
   include Mongoid::Document
   include Mongoid::Timestamps
+  # include Mongoid::Handle
 
   # Concerns
   include User::Emailable
@@ -20,8 +21,9 @@ class User
   attr_accessible :remote_avatar_url, :remove_avatar, :skype_name, :preferred_status
   attr_accessor :password, :confirm_registration, :status
 
-  embeds_one :restoration,      :validate => false
+  embeds_one  :restoration,     :validate => false
   embeds_many :authentications, :validate => false
+  embeds_many :conversations,   :validate => false
 
   has_many :owned_clouds, class_name: "Cloud", as: :owner, :validate => false
 

@@ -19,6 +19,10 @@ class User
 
       field :force_email_change,        type: Boolean,    default: false
 
+      index( { email: 1 },        { unique: true, name: "email_index",     background: true } )
+      index( { email_hash: 1 },   { unique: true, name: "auth_hash_index", background: true } )
+      index( { email_token: 1 },  { name: "email_token_index", background: true } )
+
       validates :email, :email => true, :if => :email?
 
       validates_presence_of   :email, :if => :confirm_registration

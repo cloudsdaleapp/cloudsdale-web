@@ -42,6 +42,7 @@ defaults: &defaults
     app_secret: 442e0c7b6e1c2c26c0ef04fa1feb173c
 
   redis:
+    ns: cloudsdale
     host: 127.0.0.1
     port: 6379
 

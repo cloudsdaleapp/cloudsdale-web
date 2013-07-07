@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
 
   include Pundit
-
-  helper_method :current_user
+  include ActionController::FrontAuth
 
   before_filter :auth_token
   before_filter :redirect_on_maintenance!, :set_time_zone_for_user!, :assert_user_ban!
@@ -29,16 +28,6 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::ParameterMissing do |message|
     flash[:error] = "Invalid parameters, please try again."
     render 'exceptions/unproccessable_entry', status: 422
-  end
-
-  def current_user
-
-    if auth_token
-      @current_user ||= User.find_or_initialize_by(auth_token: auth_token)
-    else
-      @current_user ||= User.new
-    end
-
   end
 
   # Public: Takes rails errors and ....
@@ -85,10 +74,6 @@ protected
     if current_user.banned?
       redirect_to logout_path
     end
-  end
-
-  def auth_token
-    @auth_token ||= cookies.signed[:auth_token] || request.headers['X-Auth-Token']
   end
 
   def permitted_params

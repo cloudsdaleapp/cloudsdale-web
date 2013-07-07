@@ -65,7 +65,9 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       @user.clouds.push(@cloud)
       @cloud.users.push(@user)
 
-      if @user.save && @cloud.save
+      @conversation = Conversation.sortie by: @user, on: @cloud, as: :granted
+
+      if @conversation.save && @user.save && @cloud.save
         render status: 200
       else
         set_flash_message message: "You could not join this cloud.", title: "Say what now!?"
@@ -93,7 +95,9 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       @cloud.moderators.delete(@user)
       @cloud.users.delete(@user)
 
-      if @user.save && @cloud.save
+      @conversation = Conversation.retreat by: @user, from: @cloud
+
+      if @conversation.destroy && @user.save && @cloud.save
         render status: 200
       else
         set_flash_message message: "You could not leave this cloud.", title: "Say what now!?"
