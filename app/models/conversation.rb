@@ -39,6 +39,27 @@ class Conversation
     :greater_than_or_equal_to => 0
   }
 
+  def self.sortie(by: nil, on: nil, as: :granted)
+    conversation = self.find_or_initialize_by(topic: on)
+    conversation.access = as
+
+    if not by.conversations.include?(conversation)
+      by.conversations << conversation
+    end
+
+    return conversation
+  end
+
+  def self.retreat(by: nil, from: nil)
+    conversation = by.conversations.where(topic: from).first
+
+    if by.conversations.include?(conversation)
+      by.conversations.delete(conversation)
+    end
+
+    return conversation
+  end
+
   # Public: Custom getter for the name preferring the
   # stored version to the name derrived from associated
   # topic.
