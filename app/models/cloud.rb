@@ -130,6 +130,8 @@ class Cloud
     enqueue! "faye", { channel: "/clouds/#{self._id.to_s}", data: self.to_hash(only: _attributes) }
   end
 
+  before_destroy :revoke_conversationists_access
+
   # Public: Find record matching either ID or short name.
   # renders a Mongoid::Errors::DocumentNotFound if no cloud
   # is present.
@@ -219,6 +221,19 @@ private
   # Returns an Array with those attribute names
   def essential_attributes
     ["is_transient","id"]
+  end
+
+  def revoke_conversationists_access
+    conversationists.each do |user|
+      Conversation.for(user, about: self).stop
+    end
+  end
+
+  def conversationists
+    User.where(
+      'conversations.topic_id'   => self[:_id],
+      'conversations.topic_type' => self[:_type]
+    )
   end
 
 end
