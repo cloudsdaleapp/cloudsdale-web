@@ -14,11 +14,20 @@
 %h3= "Getting Started"
 %hr
 %h4.subheader= "Registering a Client"
-:markdown
-  Once you're logged in to the Cloudsdale developer portal, you can visit
-  #{new_application_url}. Fill in the correct credentials to match your
-  application.
-
+- if current_user.new_record?
+  :markdown
+    To create an application you must first log in to the Cloudsdale
+    developer portal by using your regular Cloudsdale account. After
+    you're logged in you will be prompted to connect your GitHub account
+    to verify yourself as a developer.
+  = link_to "Login to Cloudsdale", login_path(redirect_url: '/auth/github')
+- else
+  :markdown
+    As you're logged in to the Cloudsdale developer portal, you can visit
+    #{new_application_url}. Fill in the correct credentials to match your
+    application.
+%br
+%br
 .content-panel
   .content-panel-inner.panel-expand
     = image_tag "tut/oauth_register.png"

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :auth_token
   before_filter :redirect_on_maintenance!, :set_time_zone_for_user!, :assert_user_ban!
+  before_filter :gather_redirect_url
 
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
     render 'exceptions/not_found', status: 404
@@ -103,6 +104,10 @@ private
     @auth_token   = user.auth_token
     @current_user = user
     user.save
+  end
+
+  def gather_redirect_url
+    session[:redirect_url] = params[:redirect_url] if params[:redirect_url].present?
   end
 
 end
