@@ -18,7 +18,7 @@ class Conversation
 
   field :name,          type: String
   field :position,      type: Integer,    default: 0
-  field :access,        type: Symbol,     default: :pending
+  field :access,        type: Symbol,     default: :granted
 
   validates :topic_id,   presence: true,  :exclusion => {
     :in => ->(conversation){ [conversation.user.id] },
@@ -39,25 +39,54 @@ class Conversation
     :greater_than_or_equal_to => 0
   }
 
-  def self.sortie(by: nil, on: nil, as: :granted)
-    conversation = by.conversations.find_or_initialize_by(topic: on)
-    conversation.access = as
+  def self.for(user, about: nil)
+    conversation = user.conversations.find_or_initialize_by(topic: about)
 
-    if not by.conversations.include?(conversation)
-      by.conversations << conversation
+    if not user.conversations.include?(conversation)
+      user.conversations << conversation
     end
 
     return conversation
   end
 
-  def self.retreat(by: nil, from: nil)
-    conversation = by.conversations.where(topic: from).first
+  def self.access_for(user, about: nil, is: :granted)
+    self.start_for(user, about: about, as: is)
+  end
 
-    if by.conversations.include?(conversation)
-      by.conversations.delete(conversation)
-    end
+  # Public: Method to set the access of the conversation
+  # to granted. Works for new and existing records.
+  #
+  # Returns true or false.
+  def grant
+    self.access = :granted
+    self.save
+  end
 
-    return conversation
+  # Public: Method to set the access of the conversation
+  # to revoked. Works for new and existing records.
+  #
+  # Returns true or false.
+  def revoke
+    self.access = :revoked
+    self.save
+  end
+
+  # Public: Method to set the access of the conversation
+  # to pending. Works for new and existing records.
+  #
+  # Returns true or false.
+  def wait
+    self.access = :pending
+    self.save
+  end
+
+  # Public: Method to destroy end the conversation for
+  # a user and remove it from his list. Works only for
+  # existing records.
+  #
+  # Returns true or false.
+  def stop
+    self.new_record? ? false : self.destroy
   end
 
   # Public: Custom getter for the name preferring the
