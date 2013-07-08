@@ -70,7 +70,8 @@
 
 %h6= "End Point:"
 .panel
-  %code= "http://api.cloudsdale.dev/oauth/token"
+  %code
+    = "POST #{oauth_token_url(subdomain: "api")}"
 
 %h6= "Accepted Parameters:"
 %ul.inline-list
@@ -117,7 +118,8 @@
 
 %h6= "End Point:"
 .panel
-  %code= "http://api.cloudsdale.dev/oauth/token"
+  %code
+    = "POST #{oauth_token_url(subdomain: "api")}"
 
 %h6= "Accepted Parameters:"
 %ul.inline-list
