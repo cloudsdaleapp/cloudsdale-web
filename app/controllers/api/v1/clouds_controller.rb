@@ -37,7 +37,7 @@ class Api::V1::CloudsController < Api::V1Controller
 
     @cloud.write_attributes(params[:cloud], as: @cloud.get_role_for(current_user))
 
-    Conversation.for(current_user, about: @cloud).grant
+    Conversation.about(@cloud, as: current_user).start
 
     if @cloud.save
       render status: 200
@@ -66,7 +66,7 @@ class Api::V1::CloudsController < Api::V1Controller
     @cloud.moderators << current_user
 
     if @cloud.save
-      Conversation.for(current_user, about: @cloud).grant
+      Conversation.about(@cloud, as: current_user).start
       render status: 200
     else
       set_flash_message message: "You could not create the Cloud. Please look over your input.", title: "What did you say?"
@@ -88,7 +88,7 @@ class Api::V1::CloudsController < Api::V1Controller
     authorize @cloud, :destroy?
 
     if @cloud.destroy
-      Conversation.for(current_user, about: @cloud).stop
+      Conversation.about(@cloud, as: current_user).stop
       render status: 200
     else
       set_flash_message message: "Could not delete this Cloud, please contact a system administrator.", title: "I will destroy you!"

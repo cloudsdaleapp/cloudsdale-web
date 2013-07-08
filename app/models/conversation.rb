@@ -39,7 +39,15 @@ class Conversation
     :greater_than_or_equal_to => 0
   }
 
-  def self.for(user, about: nil)
+  # Public: Builds a conversation for a user on
+  # a topic. If conversation on the same topic
+  # already exists, it will use that one.
+  #
+  #   user  - An existing user
+  #   about - The topic of conversation
+  #
+  # Returns a conversation instance.
+  def self.as(user, about: nil)
     conversation = user.conversations.find_or_initialize_by(topic: about)
 
     if not user.conversations.include?(conversation)
@@ -49,33 +57,39 @@ class Conversation
     return conversation
   end
 
-  def self.access_for(user, about: nil, is: :granted)
-    self.start_for(user, about: about, as: is)
+  # Public: Inverse of Conversation::for
+  #
+  #   topic - The topic of conversation
+  #   as    - An existing user
+  #
+  # Returns a conversation instance.
+  def self.about(topic, as: nil)
+    self.as(as, about: topic)
   end
 
-  # Public: Method to set the access of the conversation
+  # Public: Sets the access of the conversation access
   # to granted. Works for new and existing records.
   #
   # Returns true or false.
-  def grant
+  def start
     self.access = :granted
     self.save
   end
 
-  # Public: Method to set the access of the conversation
+  # Public: Sets the access of the conversation access
   # to revoked. Works for new and existing records.
   #
   # Returns true or false.
-  def revoke
+  def interrupt
     self.access = :revoked
     self.save
   end
 
-  # Public: Method to set the access of the conversation
+  # Public: Sets the access of the conversation access
   # to pending. Works for new and existing records.
   #
   # Returns true or false.
-  def wait
+  def await
     self.access = :pending
     self.save
   end

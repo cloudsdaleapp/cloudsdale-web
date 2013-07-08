@@ -225,7 +225,7 @@ private
 
   def revoke_conversationists_access
     conversationists.each do |user|
-      Conversation.for(user, about: self).stop
+      Conversation.about(self, as: user).stop
     end
   end
 

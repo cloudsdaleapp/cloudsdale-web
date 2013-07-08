@@ -65,7 +65,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       @user.clouds.push(@cloud)
       @cloud.users.push(@user)
 
-      Conversation.for(@user, about: @cloud).grant
+      Conversation.as(@user, about: @cloud).start
 
       if @user.save && @cloud.save
         render status: 200
@@ -95,7 +95,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       @cloud.moderators.delete(@user)
       @cloud.users.delete(@user)
 
-      Conversation.for(@user, about: @cloud).stop
+      Conversation.as(@user, about: @cloud).stop
 
       if @user.save && @cloud.save
         render status: 200
