@@ -92,15 +92,20 @@ protected
 
 private
 
-  # Private: Used to set a session for the user if the persist_session parameter is available.
-  # It will also save the user to the database to ensure any new SHIT added to the user model
-  # is persisted.
+  # Private: Used to set a session for the user if the
+  # persist_session parameter is available. It will also
+  # save the user to the database to ensure any new SHIT
+  # added to the user model is persisted.
+  #
+  # Returns true or false
   def authenticate!(user)
     cookies.signed[:auth_token] = {
       :domain =>  Cloudsdale.config['session_key'],
       :value =>   user.auth_token,
       :expires => 20.years.from_now
     }
+    @guest_user             = nil
+    session[:guest_user_id] = nil
     @auth_token   = user.auth_token
     @current_user = user
     user.save
