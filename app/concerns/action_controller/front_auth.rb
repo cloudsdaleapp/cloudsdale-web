@@ -21,7 +21,7 @@ module ActionController::FrontAuth
     if auth_token
       @current_user ||= User.find_or_initialize_by(auth_token: auth_token)
     else
-      @current_user ||= User.new
+      @current_user ||= guest_user
     end
   end
 
@@ -30,6 +30,20 @@ module ActionController::FrontAuth
   # Returns the auth token.
   def auth_token
     @auth_token ||= cookies.signed[:auth_token] || request.headers['X-Auth-Token']
+  end
+
+  # Public: The guest user is a user object generated from
+  # a pre-generated BSON::ObjectID, stored in the session hash.
+  # This is to reduce the amount of bandwidth that goes through
+  # the CDN because of dynamic avatar generation based on user id.
+  #
+  # Returns a user record.
+  def guest_user
+    @guest_user ||= User.new do |user|
+      user.id = session[:guest_user_id] if session[:guest_user_id].present?
+    end
+    session[:guest_user_id] = @guest_user.id
+    return @guest_user
   end
 
 end
