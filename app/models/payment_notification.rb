@@ -25,7 +25,7 @@ class PaymentNotification
 
   after_save do
     if self.user
-      if (user.symbolic_role == :normal) && (self.amount > 1.0)
+      if (user.symbolic_role == :normal) && (self.amount >= 1.0)
         self.user.role = 1
         self.user.save
       end
