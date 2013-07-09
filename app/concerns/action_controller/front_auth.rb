@@ -4,7 +4,7 @@ module ActionController::FrontAuth
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_user, :auth_token
+    helper_method :current_user, :auth_token, :current_resource_owner
   end
 
   # Public: Determines the current user by using
@@ -22,6 +22,19 @@ module ActionController::FrontAuth
       @current_user ||= User.find_or_initialize_by(auth_token: auth_token)
     else
       @current_user ||= guest_user
+    end
+  end
+
+  # Public: User helper for API using oAuth access tokens.
+  # Falls back on using session data if request is AJAX,
+  # or no access token exists.
+  #
+  # Returns a user object or nil.
+  def current_resource_owner
+    if doorkeeper_token
+      @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id)
+    elsif request.xhr?
+      @current_resource_owner ||= current_user
     end
   end
 
