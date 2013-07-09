@@ -111,8 +111,15 @@ private
     user.save
   end
 
+  # Private: Gathers the redirect url from the URL parameters
+  # and puts them in the session hash.
+  #
+  # Returns the current redirect URL from the session.
   def gather_redirect_url
-    session[:redirect_url] = params[:redirect_url] if params[:redirect_url].present?
+    if params[:redirect_url].present?
+      session[:redirect_url] = params[:redirect_url]
+    end
+    return session[:redirect_url]
   end
 
 end
