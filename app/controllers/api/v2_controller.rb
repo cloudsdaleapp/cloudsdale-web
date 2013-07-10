@@ -8,11 +8,11 @@ class Api::V2Controller < ActionController::Base
   respond_to :json
 
   rescue_from ResourceUnauthorizedError do
-    render_exception "You are not allowed to access this resource", 401
+    render_exception("You are not allowed to access this resource.", 401)
   end
 
   rescue_from Pundit::NotAuthorizedError do |message|
-    render_exception "You're not allowed to do this. #{message}", 401
+    render_exception("You're not allowed to do this. #{message}", 401)
   end
 
 private
@@ -22,13 +22,8 @@ private
   end
 
   def render_exception(message,status)
-    resp = {
-      :meta => {
-        :notice => message,
-        :status => status
-      }
-    }
-    respond_with resp, status: status
+    add_error(type: :generic, message: message)
+    respond_with_resource(nil, status: status)
   end
 
   def build_errors_from(model)

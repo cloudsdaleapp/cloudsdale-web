@@ -11,11 +11,6 @@ class Api::V2::RootController < Api::V2Controller
         website:        root_url(subdomain: "www"),
         terms_of_use:   page_url("terms-and-conditions",subdomain: "www"),
         privacy_policy: page_url("privacy-policy",subdomain: "www")
-      },
-      meta: {
-        status: 200,
-        errors: [],
-        notice: ""
       }
     }
 
@@ -23,11 +18,7 @@ class Api::V2::RootController < Api::V2Controller
   end
 
   def not_found
-    add_error(
-      type: :routing,
-      message: "Resource could not be found. Are you sure this is what you're looking for?"
-    )
-    respond_with_resource(nil, status: 404)
+    render_exception("Resource could not be found. Are you sure this is what you're looking for?", 404)
   end
 
 end
