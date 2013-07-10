@@ -8,7 +8,7 @@ class Api::V2::MeController < Api::V2Controller
 
     respond_with_resource(current_resource_owner,
       status:      200,
-      serializer:  UserSerializer,
+      serializer:  MeSerializer,
       root:        :user
     )
 
