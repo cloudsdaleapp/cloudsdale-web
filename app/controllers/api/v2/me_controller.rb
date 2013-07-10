@@ -2,31 +2,31 @@
 
 class Api::V2::MeController < Api::V2Controller
 
-  doorkeeper_for :show, :auth_token
+  doorkeeper_for :show, :get_auth_token, :if => ->{ current_user.new_record? }
 
   def show
-    respond_with current_resource_owner, status: 200, serializer: MeSerializer, root: 'user', meta: {
-      status: 200
-    }
+
+    respond_with_resource(current_resource_owner,
+      status:      200,
+      serializer:  UserSerializer,
+      root:        :user
+    )
+
   end
 
-  def auth_token
-    resp = {
-      user: {
-        auth_token: current_resource_owner.auth_token,
-      },
-      meta: {
-        status: 200,
-        errors: [
-          {
-            error_type: "warning",
-            error_message: "This resource is deprecated.",
-            error_code: "DEPRECATION_WARNING"
-          }
-        ]
-      }
-    }
-    respond_with resp, status: 200
+  def get_auth_token
+
+    add_error(
+      type:    :warning,
+      message: "This resource is deprecated."
+    )
+
+    respond_with_resource(current_resource_owner,
+      status: 200,
+      serializer: Me::AuthTokenSerializer,
+      root: :user
+    )
+
   end
 
 end

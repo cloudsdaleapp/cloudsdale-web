@@ -33,7 +33,7 @@ module ActionController::FrontAuth
   def current_resource_owner
     if doorkeeper_token
       @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id)
-    elsif request.xhr?
+    else
       @current_resource_owner ||= current_user
     end
   end
