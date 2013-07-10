@@ -23,13 +23,11 @@ class Api::V2::RootController < Api::V2Controller
   end
 
   def not_found
-    resp = {
-      meta: {
-        status: 404,
-        notice: "Resource does not exist."
-      }
-    }
-    respond_with resp, status: 200
+    add_error(
+      type: :routing,
+      message: "Resource could not be found. Are you sure this is what you're looking for?"
+    )
+    respond_with_resource(nil, status: 404)
   end
 
 end
