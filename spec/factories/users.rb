@@ -20,7 +20,6 @@ FactoryGirl.define do
     tnc_last_accepted         { 10.days.ago }
     confirmed_registration_at { 10.days.ago }
     preferred_status          :online
-    last_seen_at              { 2.hours.ago }
 
     factory :suspended_user do
       suspended_until         { 10.days.from_now }
