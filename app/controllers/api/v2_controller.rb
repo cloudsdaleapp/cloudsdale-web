@@ -4,6 +4,7 @@ class Api::V2Controller < ActionController::Base
 
   include ActionController::FrontAuth
   include Pundit
+  include Arcane
 
   respond_to :json
 
