@@ -30,7 +30,7 @@ class AvatarUploader < ApplicationUploader
     image_path("#{Cloudsdale.config['asset_url']}/assets/fallback/#{mounted_as}/" + [version_name, "#{model.avatar_namespace}.png"].compact.join('_'))
   end
 
-  after :store,  :purge_from_cdn
+  after :store,  :purge_from_cdn, :set_avatar_uploaded_at
   after :remove, :purge_from_cdn
 
 protected
@@ -43,6 +43,12 @@ protected
     if Rails.env.production?
       AvatarPurgeWorker.perform_async(model.id.to_s, model.class.to_s)
     end
+  end
+
+  # Private: Sets the avatar upload date on model.
+  # Returns the date the avatar was uploaded.
+  def set_avatar_uploaded_at
+    model.avatar_uploaded_at = DateTime.now if model.respond_to?(:avatar_uploaded_at)
   end
 
 end
