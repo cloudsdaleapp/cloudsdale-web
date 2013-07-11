@@ -14,8 +14,6 @@ module ActiveModel
 
       mount_uploader :avatar, AvatarUploader
 
-      before_save :set_avatar_uploaded_at!
-
       def avatar_uploaded
         self[:avatar_uploaded_at] || self.updated_at || self.created_at
       end
@@ -105,13 +103,6 @@ module ActiveModel
       else
         self.class.to_s.downcase
       end
-    end
-
-    # Private: Sets the avatar upload date.
-    #
-    # Returns the date the avatar was uploaded.
-    def set_avatar_uploaded_at!
-      self.avatar_uploaded_at = DateTime.now if avatar_changed?
     end
 
   protected
