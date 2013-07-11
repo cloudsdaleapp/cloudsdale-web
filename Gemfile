@@ -52,6 +52,7 @@ gem 'omniauth-github',   '~> 1.1.0'
 gem 'pundit', git: 'git://github.com/Zeeraw/pundit.git'
 gem 'doorkeeper', '~> 0.6.7'
 gem 'strong_parameters', '~> 0.2.1'
+gem 'arcane',            '~> 0.0.3'
 
 # Third-party
 gem 'fog',        '~> 1.12.1'
