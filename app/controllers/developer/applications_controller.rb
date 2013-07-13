@@ -21,7 +21,10 @@ class Developer::ApplicationsController < DeveloperController
 
   def new
     @application = Doorkeeper::Application.new
-    authorize @application, :new?, "You're not allowed to create a new application."
+    authorize @application, :new?
+  rescue Pundit::NotAuthorizedError
+    flash[:error] = "You're not allowed to create a new application."
+    redirect_to root_path
   end
 
   def create
@@ -29,7 +32,7 @@ class Developer::ApplicationsController < DeveloperController
     @application = Doorkeeper::Application.new(permitted_params.application.create)
     @application.owner = current_user
 
-    authorize @application, :create?, "You're not allowed to create a new application"
+    authorize @application, :create?
 
     if @application.save
       flash[:success] = "Application #{@application.name} created successfully."
@@ -37,22 +40,35 @@ class Developer::ApplicationsController < DeveloperController
     else
       render :new
     end
-
+  rescue Pundit::NotAuthorizedError
+    flash[:error] = "You're not allowed to create a new application"
+    redirect_to root_path
   end
 
   def show
     @application = Doorkeeper::Application.find(params[:id])
-    authorize @application, :show?, "You're not allowed to see this application."
+
+    authorize @application, :show?
+
+  rescue Pundit::NotAuthorizedError
+    flash[:error] = "You're not allowed to see this application."
+    redirect_to root_path
   end
 
   def edit
     @application = Doorkeeper::Application.find(params[:id])
-    authorize @application, :edit?, "You're not allowed to edit this application."
+
+    authorize @application, :edit?
+
+  rescue Pundit::NotAuthorizedError
+    flash[:error] = "You're not allowed to edit this application."
+    redirect_to root_path
   end
 
   def update
     @application = Doorkeeper::Application.find(params[:id])
-    authorize @application, :update?, "You're not allowed to edit this application."
+
+    authorize @application, :update?
 
     if @application.update_attributes(permitted_params.application.update)
       flash[:success] = "Application #{@application.name} updated successfully."
@@ -60,14 +76,21 @@ class Developer::ApplicationsController < DeveloperController
     else
       render :edit
     end
+  rescue Pundit::NotAuthorizedError
+    flash[:error] = "You're not allowed to edit this application."
+    redirect_to root_path
   end
 
   def destroy
     @application = Doorkeeper::Application.find(params[:id])
-    authorize @application, :destroy?, "You're not allowed to remove this application."
+
+    authorize @application, :destroy?
 
     flash[:notice] = "Application #{@application.name} was removed." if @application.destroy
     redirect_to applications_path
+  rescue Pundit::NotAuthorizedError
+    flash[:error] = "You're not allowed to remove this application."
+    redirect_to root_path
   end
 
 private
