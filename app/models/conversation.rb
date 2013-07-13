@@ -7,14 +7,13 @@
 class Conversation
 
   TOPIC_TYPES  = ["Cloud", "User"]
-  STATUS_TYPES = [:offline, :online, :away, :busy]
   ACCESS_TYPES = [:pending, :granted, :revoked]
 
   include Mongoid::Document
   include Mongoid::Timestamps
 
   belongs_to  :topic,   :polymorphic => true,   :validate => false
-  embedded_in :user,    :validate    => false
+  belongs_to  :user,    :validate    => false
 
   field :name,          type: String
   field :position,      type: Integer,    default: 0
@@ -48,13 +47,7 @@ class Conversation
   #
   # Returns a conversation instance.
   def self.as(user, about: nil)
-    conversation = user.conversations.find_or_initialize_by(topic: about)
-
-    if not user.conversations.include?(conversation)
-      user.conversations << conversation
-    end
-
-    return conversation
+    self.find_or_initialize_by(user: user, topic: about)
   end
 
   # Public: Inverse of Conversation::for
@@ -115,9 +108,26 @@ class Conversation
   # Public: Fetches the notification count for this
   # conversation from redis.
   #
-  # Returns an integer.
+  # Returns an integer with total notifications.
   def notifications
     @notifications ||= $redis.get("#{redis_key}:notifications").try(:to_i) || 0
+  end
+
+  # Public: Clears notifications for this conversation
+  #
+  # Returns 0, the number of notifications remaining.
+  def clear_notifications
+    $redis.set("#{redis_key}:notifications",0)
+    @notifications = 0
+  end
+
+  # Public: Increment notifications by n.
+  #
+  # n - How many notifications to add.
+  #
+  # Returns an integer with total notifications.
+  def add_notifications(n=0)
+    @notifications = $redis.incrby("#{redis_key}:notifications",n)
   end
 
   # Public: Determines the conversation status.
@@ -130,25 +140,10 @@ class Conversation
     end
   end
 
-  # Public: Determines the conversation status by proxy
-  # to the related topic, if the topic has a concept of
-  # status.
-  #
-  # Returns a Symbol, either :online, :offline, :away or :busy
-  def status
-    @status = topic.respond_to?(:status) ? topic.status : :online
-  end
-
   # Public: Generate the redis key for this instance.
   # Returns a string.
   def redis_key
-    "#{$redis_ns}:#{user.id}:conversations:#{topic_type.downcase}:#{topic_id}"
-  end
-
-  # TODO: Returns posts which belongs to the conversation
-  # after the conversation was activated and before it was
-  # frozen.
-  def posts
+    "#{$redis_ns}:conversations:#{id}"
   end
 
 end
