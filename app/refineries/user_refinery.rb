@@ -4,8 +4,4 @@ class UserRefinery < Arcane::Refinery
     [:name,:username,:avatar,:password,:remote_avatar_url,:preferred_status]
   end
 
-  def destroy
-    [:password]
-  end
-
 end
