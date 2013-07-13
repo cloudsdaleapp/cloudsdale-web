@@ -8,7 +8,6 @@ class User
   # Mongoid
   include Mongoid::Document
   include Mongoid::Timestamps
-  # include Mongoid::Handle
 
   # Concerns
   include User::Emailable
@@ -23,8 +22,8 @@ class User
 
   embeds_one  :restoration,     :validate => false
   embeds_many :authentications, :validate => false
-  embeds_many :conversations,   :validate => false
 
+  has_many :conversations,  :validate => false
   has_many :owned_clouds, class_name: "Cloud", as: :owner, :validate => false
 
   has_and_belongs_to_many :clouds,            :inverse_of => :users,      dependent: :nullify,  index: true, :validate => false
