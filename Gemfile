@@ -49,10 +49,10 @@ gem 'omniauth'
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-twitter',  '~> 1.0.0'
 gem 'omniauth-github',   '~> 1.1.0'
-gem 'pundit', git: 'git://github.com/Zeeraw/pundit.git'
-gem 'doorkeeper', '~> 0.6.7'
+gem 'pundit',            '~> 0.2.1'
+gem 'doorkeeper',        '~> 0.6.7'
 gem 'strong_parameters', '~> 0.2.1'
-gem 'arcane',            '~> 0.1.0'
+gem 'arcane',            '~> 1.0.0'
 
 # Third-party
 gem 'fog',        '~> 1.12.1'
