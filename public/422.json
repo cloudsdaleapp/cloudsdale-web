@@ -1,0 +1,8 @@
+{
+  "errors" : [
+    {
+      "type" : "generic",
+      "message" : "You tried to send us something we cannot proccess. We only put fillies and colts through the Rainbow Factory."
+    }
+  ]
+}
