@@ -41,6 +41,8 @@ class Conversation
     :greater_than_or_equal_to => 0
   }
 
+  after_initialize :set_record_type
+
   # Public: Builds a conversation for a user on
   # a topic. If conversation on the same topic
   # already exists, it will use that one.
@@ -147,6 +149,14 @@ class Conversation
   # Returns a string.
   def redis_key
     "#{$redis_ns}:conversations:#{id}"
+  end
+
+private
+
+  # Private: Sets the type of the object to Conversation
+  # Returns "Conversation"
+  def set_record_type
+    self[:_type] = "Conversation"
   end
 
 end
