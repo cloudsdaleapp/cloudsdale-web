@@ -61,6 +61,8 @@ class Drop
       end
     rescue OpenURI::HTTPError
       return nil
+    rescue ArgumentError
+      return nil
     end
 
     drop
