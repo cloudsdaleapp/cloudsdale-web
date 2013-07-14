@@ -14,7 +14,14 @@
   -# Set the viewport width to device width for mobile
   %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
 
-  %title= content_for?(:title) ? yield(:title) : "Cloudsdale Auth"
+  %title= page_title
+  %meta{ name: "description",         content: page_description }
+  %meta{ name: "keywords",            content: page_keywords }
+  %meta{ property: "og:title",        content: page_title }
+  %meta{ property: "og:description",  content: page_description }
+  %meta{ property: "og:type",         content: page_type }
+  %meta{ property: "og:url",          content: page_url }
+  %meta{ property: "og:image",        content: page_image }
 
   = stylesheet_link_tag "admin"
   = javascript_include_tag "vendor/custom.modernizr"
