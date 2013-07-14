@@ -19,6 +19,9 @@ class Conversation
   field :position,      type: Integer,    default: 0
   field :access,        type: Symbol,     default: :granted
 
+  index( { access: 1 },   { name: "access_index",   background: true } )
+  index( { position: 1 }, { name: "position_index", background: true } )
+
   validates :topic_id,   presence: true,  :exclusion => {
     :in => ->(conversation){ [conversation.user.id] },
     :message => "is the same as the conversation owner"
