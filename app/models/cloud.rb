@@ -12,7 +12,6 @@ class Cloud
   # Concerns
   include ActiveModel::Avatars
 
-  embeds_one  :chat,  as: :topic,        :validate => false
   embeds_many :bans,  as: :jurisdiction, :validate => false
 
   attr_accessor :user_invite_tokens
@@ -54,8 +53,6 @@ class Cloud
 
   has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true,  :validate => false
   has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true,  :validate => false
-
-  default_scope -> { without("chat.messages") }
 
   scope :popular, order_by(:member_count => :desc, :updated_at => :desc)
   scope :recent, order_by([:created_at, :desc])
@@ -119,8 +116,6 @@ class Cloud
   before_save do
 
     self[:member_count] = self.user_ids.count
-
-    build_chat unless chat.present?
 
   end
 

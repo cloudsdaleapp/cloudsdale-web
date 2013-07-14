@@ -20,15 +20,15 @@ class MessagePolicy < ApplicationPolicy
 private
 
   def user_is_member_of_topic?
-    record.chat.topic.user_ids.include? user.id
+    record.topic.user_ids.include? user.id
   end
 
   def topic_is_unlocked?
-    not record.chat.topic.locked?
+    not record.topic.locked?
   end
 
   def user_is_not_banned_from_topic?
-    not record.chat.topic.has_banned? user
+    not record.topic.has_banned? user
   end
 
 end

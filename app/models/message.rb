@@ -7,65 +7,18 @@ class Message
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessible :client_id, :content, :device
-
   attr_accessor :client_id
 
-  embedded_in :chat,  :validate => false
   belongs_to :author, class_name: "User", :validate => false
-  has_and_belongs_to_many :drops, inverse_of: nil
+  belongs_to :topic,  polymorphic: true,  :validate => false
 
-  field :timestamp,   type: Time,    default: -> { Time.now }
   field :content,     type: String
   field :device,      type: String,   default: 'desktop'
 
-  # Meta attributes
-  field :urls,        type: Array,    default: []
-
-  validates :timestamp,   :presence => true
   validates :content,     :presence => true
   validates :author_id,   :presence => true
 
-  default_scope -> { includes(:author,:drops) }
-
-  scope :old, -> { order_by([:timestamp,:desc]).skip(50) }
-
-  after_save do
-    enqueue! "faye", { channel: "/#{self.topic_type}s/#{self.topic_id}/chat/messages", data: self.to_hash }
-  end
-
-  after_initialize do
-    self[:_type] = "Message"
-  end
-
-  # Public: Translates the Message object to a HASH string using RABL
-  #
-  # Examples
-  #
-  # @message.to_hash
-  # # => { content: "..." }
-  #
-  # Returns a Hash string.
-  def to_hash
-    Rabl.render(self, 'api/v1/messages/base', :view_path => 'app/views', :format => 'hash')
-  end
-
-  def topic_type
-    chat.topic._type.downcase
-  end
-
-  def topic_id
-    chat.topic._id.to_s
-  end
-
-  def utc_timestamp
-    self[:timestamp].utc
-  end
-
   def content=(msg)
-
-    # CAPSLOCK DAY
-    # msg.upcase! if (Date.today.day == 28 && Date.today.month == 6) || (Date.today.day == 22 && Date.today.month == 10)
 
     msg.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n"
     msg.gsub! /<br\/><br\/>/,"\\n"
@@ -94,6 +47,26 @@ class Message
       self[:content] = msg
     end
 
+  end
+
+  # Deprecated Attributes
+  field :urls, type: Array, default: []
+  field :timestamp,   type: Time,     default: -> { Time.now }
+  has_and_belongs_to_many :drops, inverse_of: nil
+  default_scope -> { includes(:author,:drops) }
+  scope :old, -> { order_by([:timestamp,:desc]).skip(50) }
+  after_save :v1_publish
+
+  # Deprecated Methods
+  def utc_timestamp
+    self[:timestamp].utc
+  end
+
+private
+
+  def v1_publish
+    rendered_content = Rabl.render(self, 'api/v1/messages/base', :view_path => 'app/views', :format => 'hash')
+    enqueue! "faye", { channel: "/#{self.topic_type}s/#{self.topic_id}/chat/messages", data: rendered_content }
   end
 
 end

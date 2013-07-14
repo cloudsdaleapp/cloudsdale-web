@@ -11,7 +11,8 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
   # Returns a collection of messages
   def index
 
-    @messages = Cloud.unscoped.find(params[:cloud_id]).chat.messages
+    @cloud = Cloud.find(params[:cloud_id])
+    @messages = policy_scope(Message.where(topic: @cloud)).order_by(created_at: :asc).limit(50)
     @messages.reverse
 
     render status: 200
@@ -30,16 +31,18 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
   # Returns the message that was sent.
   def create
 
-    @cloud = Cloud.unscoped.without("chat.messages.author_id","chat.messages.drops").find(params[:cloud_id])
-    @cloud.chat.messages.old.destroy
+    @cloud = Cloud.find(params[:cloud_id])
 
-    @message = @cloud.chat.messages.build(params[:message])
+    @message = Message.new(params.for(Message).as(current_user).on(:create))
     @message.author = current_user
+    @message.topic  = @cloud
 
     authorize @message, :create?
 
     @message.urls.each do |url|
-      @message.drops << @cloud.create_drop_deposit_from_url_by_user(url,current_user)
+      begin
+        @message.drops << @cloud.create_drop_deposit_from_url_by_user(url,current_user)
+      end
     end
 
     if @message.save
