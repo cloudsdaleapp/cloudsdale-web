@@ -49,7 +49,7 @@ protected
 
   # Private: Sets the avatar upload date on model.
   # Returns the date the avatar was uploaded.
-  def set_avatar_uploaded_at
+  def set_avatar_uploaded_at(file=nil)
     model.avatar_uploaded_at = DateTime.now if model.respond_to?(:avatar_uploaded_at)
   end
 
