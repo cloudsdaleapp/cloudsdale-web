@@ -38,8 +38,7 @@ class User
         too_short: "must contain characters."
       }, remote_uniqueness: {
         with: {
-          "username"   => User,
-          "short_name" => Cloud
+          "username"   => User
         },
       }, :change => {
         :allow => -> { self.username_changes_allowed >= 1 },
