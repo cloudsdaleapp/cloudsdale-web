@@ -9,6 +9,8 @@ class AvatarUploader < ApplicationUploader
   process :convert => 'png'
 
   storage :file
+  permissions 0666
+  directory_permissions 0777
 
   def asset_host
     nil
