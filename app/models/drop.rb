@@ -63,6 +63,8 @@ class Drop
       return nil
     rescue ArgumentError
       return nil
+    rescue IOError
+      return nil
     end
 
     drop
