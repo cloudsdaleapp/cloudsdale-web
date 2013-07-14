@@ -12,7 +12,7 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
   def index
 
     @cloud = Cloud.find(params[:cloud_id])
-    @messages = Message.where(topic: @cloud).order_by(created_at: :desc).limit(50)
+    @messages = Message.where(topic: @cloud).order_by(created_at: :desc).limit(50).reverse
 
     render status: 200
 
