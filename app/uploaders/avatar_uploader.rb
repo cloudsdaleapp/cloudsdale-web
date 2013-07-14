@@ -51,7 +51,9 @@ protected
   # Returns the date the avatar was uploaded.
   def set_avatar_uploaded_at(file=nil)
     if model.respond_to?(:avatar_uploaded_at)
-      model.set(:avatar_uploaded_at,DateTime.now)
+      t = DateTime.now
+      model.set(:avatar_uploaded_at,t)
+      model.set(:updated_at,t)
     end
   end
 
