@@ -66,7 +66,7 @@ private
 
   def v1_publish
     rendered_content = Rabl.render(self, 'api/v1/messages/base', :view_path => 'app/views', :format => 'hash')
-    enqueue! "faye", { channel: "/#{self.topic_type}s/#{self.topic_id}/chat/messages", data: rendered_content }
+    enqueue! "faye", { channel: "/#{self.topic_type.downcase}s/#{self.topic_id.to_s}/chat/messages", data: rendered_content }
   end
 
 end
