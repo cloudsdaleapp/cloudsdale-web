@@ -40,6 +40,9 @@ Cloudsdale::Application.configure do
   config.assets.debug = false
   config.assets.logger = false
 
+  # EmberJS
+  config.ember.variant = :development
+
   config.log_level = :debug
 
   # Use a different cache store in production

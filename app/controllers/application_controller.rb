@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_on_maintenance!, :set_time_zone_for_user!, :assert_user_ban!
   before_filter :gather_redirect_url
 
+  helper_method :current_session
+  hide_action   :current_session
+
   rescue_from Mongoid::Errors::DocumentNotFound do |message|
     render 'exceptions/not_found', status: 404
   end
@@ -88,6 +91,10 @@ protected
     params[:redirect_url]  = nil
 
     redirect_to (redirect_uri) and return if redirect_uri.present?
+  end
+
+  def current_session
+    @current_session = Session.new(user: current_user)
   end
 
 private

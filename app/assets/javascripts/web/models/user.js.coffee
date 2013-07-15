@@ -1,0 +1,10 @@
+Cloudsdale.User = DS.Model.extend
+  displayName:   DS.attr 'string'
+  roleName:      DS.attr 'string'
+  username:      DS.attr 'string'
+  role:          DS.attr 'number'
+  avatar:        DS.attr 'string'
+  suspended:     DS.attr 'boolean'
+  readTerms:     DS.attr 'boolean'
+  defaultAvatar: DS.attr 'boolean'
+  email:         DS.attr 'string'

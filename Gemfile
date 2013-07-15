@@ -30,6 +30,11 @@ gem 'haml_coffee_assets', '~> 1.6.0'
 gem 'zurb-foundation',    '~> 4.2.3'
 gem 'ace-rails-ap'
 
+gem 'ember-rails'
+gem 'ember-source', '~> 1.0.0.rc6.2'
+gem 'coffee-rails'
+gem 'handlebars-source', '~> 1.0.12'
+
 
 # Markup
 gem 'slim'

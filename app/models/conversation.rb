@@ -15,7 +15,6 @@ class Conversation
   belongs_to  :topic,   :polymorphic => true,   :validate => false
   belongs_to  :user,    :validate    => false
 
-  field :name,          type: String
   field :position,      type: Integer,    default: 0
   field :access,        type: Symbol,     default: :granted
 
@@ -99,15 +98,6 @@ class Conversation
   # Returns true or false.
   def stop
     self.new_record? ? false : self.destroy
-  end
-
-  # Public: Custom getter for the name preferring the
-  # stored version to the name derrived from associated
-  # topic.
-  #
-  # Returns a string, always.
-  def name
-    self[:name] || self.topic.name
   end
 
   # Public: Fetches the notification count for this
