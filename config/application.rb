@@ -115,6 +115,7 @@ module Cloudsdale
 
     # Configure HamlCoffee to so it does not escape HTML
     config.hamlcoffee.escapeHtml = false
+    config.handlebars.templates_root = 'web/templates'
 
     # Enable the asset pipeline
     config.assets.enabled = true
