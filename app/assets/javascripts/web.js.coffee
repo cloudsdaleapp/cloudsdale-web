@@ -1,4 +1,4 @@
-#= require jquery-2.0.3.js
+#= require jquery-2.0.3.min.js
 #= require foundation
 #= require handlebars
 #= require ember

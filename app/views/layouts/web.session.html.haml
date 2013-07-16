@@ -6,24 +6,16 @@
 /[if (gt IE 9)|!(IE)] <!--> <html lang=\"en\">
 
 %head
-  %meta{ :charset => "utf-8" }
-
-  -# Uncomment to make IE8 render like IE7
-  -# meta http-equiv="X-UA-Compatible" content="IE=7"
-
-  -# Set the viewport width to device width for mobile
-  %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+  %meta{ charset: "utf-8" }
+  %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
 
   %title= page_title
 
-  = stylesheet_link_tag "admin"
+  = stylesheet_link_tag "web.session"
   = javascript_include_tag "vendor/custom.modernizr"
   = csrf_meta_tag
 
 %body{ session: SessionSerializer.new(current_session).to_json }
-  #sidebar-wrap
-  #body-wrap
-    = yield
   = javascript_include_tag "web"
 
 :plain

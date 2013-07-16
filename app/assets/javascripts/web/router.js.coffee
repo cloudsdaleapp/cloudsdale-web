@@ -1,4 +1,2 @@
-# For more information see: http://emberjs.com/guides/routing/
-Cloudsdale.Router.map ()->
-  @resource('me')
-  @resource('conversations')
+Cloudsdale.Router.map () ->
+  @route 'root', path: "/"

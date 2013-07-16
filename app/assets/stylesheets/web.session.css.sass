@@ -1,0 +1,69 @@
+// @import url("https://fonts.googleapis.com/css?family=Londrina+Solid")
+
+@import "mixins"
+@import "cloudsdale_foundation"
+
+$bg-color: #37464F
+body
+  background: $bg-color
+
+$avatar-border-color: rgba(255,255,255,.5)
+.avatar
+  background: $bg-color
+  border-color: $avatar-border-color
+  border-style: solid
+  border-width: 0
+  display: block
+  @include border-radius(50%)
+  overflow: hidden
+  padding: 0
+  margin: 0
+
+$avatar-sizes: ()
+$avatar-sizes: append( $avatar-sizes, ("micro",    8px, 1px)    )
+$avatar-sizes: append( $avatar-sizes, ("mini",     16px, 2px)   )
+$avatar-sizes: append( $avatar-sizes, ("small",    64px, 3px)   )
+$avatar-sizes: append( $avatar-sizes, ("medium",   128px, 5px)  )
+$avatar-sizes: append( $avatar-sizes, ("large",    256px, 8px)  )
+$avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 12px) )
+
+@each $avatar-size in $avatar-sizes
+  .avatar.#{nth($avatar-size,1)}
+    $_size: nth($avatar-size,2)
+    $_border-size: nth($avatar-size,3)
+    border-width: $_border-size
+    width: $_border-size + $_size
+    height: $_border-size + $_size
+
+$avatar-statuses: ()
+$avatar-statuses: append( $avatar-statuses, ( "offline", rgba(255,255,255,.5)  ))
+$avatar-statuses: append( $avatar-statuses, ( "online",  rgba(0,255,0,.5)      ))
+$avatar-statuses: append( $avatar-statuses, ( "busy",    rgba(255,0,0,.5)      ))
+$avatar-statuses: append( $avatar-statuses, ( "away",    rgba(255,0,255,.5)    ))
+
+@each $avatar-status in $avatar-statuses
+  .avatar.#{nth($avatar-status,1)}
+    border-color: nth($avatar-status,2)
+
+$background-colors: ()
+$background-colors: append( $background-colors, ("main", #fafafa) )
+
+@each $background-color in $background-colors
+  .bg-#{nth($background-color,1)}
+    background-color: nth($background-color,2)
+
+
+.sidebar, .main
+  position: fixed
+  top: 0
+  bottom: 0
+.sidebar
+  width: 300px
+  left: 0
+.main
+  left: 300px
+  right: 0
+
+.sidebar-user
+  padding: 15px
+
