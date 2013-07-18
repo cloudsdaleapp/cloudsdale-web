@@ -8,12 +8,13 @@ class Sample
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :date,              type: String
-  field :start_time,        type: DateTime
-  field :stop_time,         type: DateTime
-  field :user_statistics,   type: Hash,       default: {}
-  field :cloud_statistics,  type: Hash,       default: {}
-  field :drop_statistics,   type: Hash,       default: {}
+  field :date,                type: String
+  field :start_time,          type: DateTime
+  field :stop_time,           type: DateTime
+  field :user_statistics,     type: Hash,       default: {}
+  field :cloud_statistics,    type: Hash,       default: {}
+  field :drop_statistics,     type: Hash,       default: {}
+  field :message_statistics,  type: Hash,       default: {}
 
   before_save :generate_statistics
 
@@ -51,6 +52,7 @@ class Sample
     generate_cloud_statistics
     generate_user_statistics
     generate_drop_statistics
+    generate_message_statistics
     true
   end
 
@@ -70,6 +72,11 @@ private
   def generate_drop_statistics
     self.drop_statistics[:new]   = Drop.where(:created_at.gt => self.start_time, :created_at.lt => self.stop_time).count
     self.drop_statistics[:total] = Drop.where(:created_at.lt => self.stop_time).count
+  end
+
+  def generate_message_statistics
+    self.message_statistics[:new]   = Message.where(:created_at.gt => self.start_time, :created_at.lt => self.stop_time).count
+    self.message_statistics[:total] = Message.where(:created_at.lt => self.stop_time).count
   end
 
 end

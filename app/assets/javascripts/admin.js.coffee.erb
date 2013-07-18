@@ -22,6 +22,16 @@ $ ->
     editor.getSession().on 'change', ->
       textarea.val(editor.getSession().getValue())
 
+  if $('#chart-messages').length >= 1
+    firstDate = jQuery.parseJSON($('#chart-messages').attr('data-first'))
+    userData = jQuery.parseJSON($('#chart-messages').attr('data-values'))
+    usersChart = generateChartIn('chart-messages',firstDate)
+
+    usersChart.addSeries {
+      name: "New"
+      data: _.map userData, (value) -> value.new
+    }
+
   if $('#chart-users').length >= 1
     firstDate = jQuery.parseJSON($('#chart-users').attr('data-first'))
     userData = jQuery.parseJSON($('#chart-users').attr('data-values'))

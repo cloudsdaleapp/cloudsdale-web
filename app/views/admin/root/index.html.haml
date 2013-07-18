@@ -8,6 +8,17 @@
 %br
 .row
   .large-12.columns
+    %h6= "Messages"
+    .content-panel
+      .content-panel-inner.panel-thin
+        %h4.panel{ style: 'margin: 0 0 10px 0;'}
+          = Message.count
+          = "sent messages"
+        #chart-messages.chart-dashboard{ data: { values: @samples.map(&:message_statistics).to_json, first: @first_date } }
+
+%br
+.row
+  .large-12.columns
     %h6= "Users"
     .content-panel
       .content-panel-inner.panel-thin
