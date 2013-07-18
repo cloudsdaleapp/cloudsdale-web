@@ -11,10 +11,10 @@ class Sample
   field :date,                type: String
   field :start_time,          type: DateTime
   field :stop_time,           type: DateTime
-  field :user_statistics,     type: Hash,       default: {}
-  field :cloud_statistics,    type: Hash,       default: {}
-  field :drop_statistics,     type: Hash,       default: {}
-  field :message_statistics,  type: Hash,       default: {}
+  field :user_statistics,     type: Hash,       default: { :new => 0 , :total => 0, :active => 0 }
+  field :cloud_statistics,    type: Hash,       default: { :new => 0 , :total => 0 }
+  field :drop_statistics,     type: Hash,       default: { :new => 0 , :total => 0 }
+  field :message_statistics,  type: Hash,       default: { :new => 0 , :total => 0 }
 
   before_save :generate_statistics
 
