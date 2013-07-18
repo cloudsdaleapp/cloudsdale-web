@@ -31,6 +31,7 @@ module ActionController::FrontAuth
   #
   # Returns a user object or nil.
   def current_resource_owner
+    super if defined? super
     if doorkeeper_token
       @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id)
     else
