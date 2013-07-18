@@ -15,6 +15,8 @@ Cloudsdale.ApplicationRoute = Ember.Route.extend
     store   = DS.get('defaultStore')
     adapter = store.adapterForType(Cloudsdale.Session)
 
+    console.log payload
+
     adapter.didFindRecord(store,Cloudsdale.Session,payload,id)
 
     $('body').attr('session',null)

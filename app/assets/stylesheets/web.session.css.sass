@@ -67,3 +67,16 @@ $background-colors: append( $background-colors, ("main", #fafafa) )
 .sidebar-user
   padding: 15px
 
+.sidebar-conversation
+  display: block
+.sidebar-conversation > a
+  display: block
+  padding: 20px 14px
+  font-size: 14px
+  line-height: 14px
+  color: #fafafa
+  //&:not(:last-child)
+  border-bottom: #fafafa 1px solid
+  &:first-child
+    border-top: #fafafa 1px solid
+

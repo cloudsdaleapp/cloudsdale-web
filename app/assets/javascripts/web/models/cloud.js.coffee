@@ -1,2 +1,4 @@
 Cloudsdale.Cloud = DS.Model.extend
-  avatar:        DS.attr 'string'
+  type:        DS.attr 'string'
+  displayName: DS.attr 'string'
+  avatar:      DS.attr 'string'

@@ -1,4 +1,5 @@
 Cloudsdale.Conversation = DS.Model.extend
-  user:          DS.belongsTo 'Cloudsdale.User'
-  access:        DS.attr 'string'
-  topic:         DS.belongsTo 'Cloudsdale.Cloud'
+  type:         DS.attr 'string'
+  access:       DS.attr('string')
+  user:         DS.belongsTo('Cloudsdale.User')
+  topic:        DS.belongsTo('Cloudsdale.Topic', { polymorphic: true })
