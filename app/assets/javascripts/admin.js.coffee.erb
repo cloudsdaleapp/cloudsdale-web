@@ -24,12 +24,12 @@ $ ->
 
   if $('#chart-messages').length >= 1
     firstDate = jQuery.parseJSON($('#chart-messages').attr('data-first'))
-    userData = jQuery.parseJSON($('#chart-messages').attr('data-values'))
-    usersChart = generateChartIn('chart-messages',firstDate)
+    messageData = jQuery.parseJSON($('#chart-messages').attr('data-values'))
+    messagesChart = generateChartIn('chart-messages',firstDate)
 
-    usersChart.addSeries {
+    messagesChart.addSeries {
       name: "New"
-      data: _.map userData, (value) -> value.new
+      data: _.map messageData, (value) -> value.new
     }
 
   if $('#chart-users').length >= 1
