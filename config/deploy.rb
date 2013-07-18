@@ -64,6 +64,7 @@ namespace :deploy do
   namespace :permissions do
     task :correct, :roles => :app, :except => { :no_release => true } do
       run "sudo chown -R #{user}:#{group} /opt/app/#{application}"
+      run "sudo chmod -R go+rw #{deploy_to}/current/tmp/ember-rails"
     end
   end
 
