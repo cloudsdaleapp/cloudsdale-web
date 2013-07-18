@@ -1,8 +1,8 @@
 class ConversationSerializer < ApplicationSerializer
-  embed :ids,   include: true
+  embed :ids, include: true
 
   attributes :position, :access
 
-  has_one :topic, polymorphic: true
+  has_one :topic, polymorphic: true, flatten: true
 
 end
