@@ -15,7 +15,6 @@ class Message
   field :content,     type: String
   field :device,      type: String,   default: 'desktop'
 
-  index({ _id:  1 }, { unique: true })
   index({ topic_id:    1 })
   index({ topic_type:  1 })
   index({ author_id:   1 })
