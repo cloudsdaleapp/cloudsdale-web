@@ -30,6 +30,10 @@ class Cloud
   field :member_count,  type: Integer,        default: 0
   field :drop_count,    type: Integer,        default: 0
 
+  index({ member_count: 1 }, { name: 'member_count_index' })
+  index({ created_at:   1 }, { name: 'created_at_index' })
+  index({ updated_at:   1 }, { name: 'updated_at_index' })
+
   def x_moderator_ids=(mod_ids)
     mod_ids = mod_ids.map { |mod_id| mod_id.is_a?(Moped::BSON::ObjectId) ? mod_id : Moped::BSON::ObjectId(mod_id) }
     mod_ids = mod_ids.reject { |mod_id| !self[:user_ids].include?(mod_id) }
