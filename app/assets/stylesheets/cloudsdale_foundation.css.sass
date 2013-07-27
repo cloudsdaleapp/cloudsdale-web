@@ -1310,6 +1310,12 @@ nav.top-bar
   @include clearfix
 .content-panel
   background: #efefef
+  &.panel-spread, .content-panel-inner
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
 
 .content-panel-inner
   background: #fff

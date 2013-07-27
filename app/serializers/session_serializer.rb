@@ -6,7 +6,7 @@ class SessionSerializer < ActiveModel::Serializer
 
   delegate :conversations, to: :user
 
-  has_one  :user
+  has_one  :user, serializer: MeSerializer
   has_many :conversations
 
 

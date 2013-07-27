@@ -6,5 +6,12 @@
 #= require_self
 #
 #= require ./web/cloudsdale
-window.Cloudsdale = Ember.Application.create()
-$(document).foundation()
+window.Cloudsdale = Ember.Application.create
+
+  rootElement: 'body'
+
+  LOG_TRANSITIONS: true
+  LOG_TRANSITIONS_INTERNAL: true
+
+  ready: -> $(document).foundation()
+

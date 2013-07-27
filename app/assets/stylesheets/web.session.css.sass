@@ -3,13 +3,12 @@
 @import "mixins"
 @import "cloudsdale_foundation"
 
-$bg-color: #37464F
+$bg-color: #404B52
 body
   background: $bg-color
 
-$avatar-border-color: rgba(255,255,255,.5)
+$avatar-border-color: rgba(150,150,150,.4)
 .avatar
-  background: $bg-color
   border-color: $avatar-border-color
   border-style: solid
   border-width: 0
@@ -18,11 +17,13 @@ $avatar-border-color: rgba(255,255,255,.5)
   overflow: hidden
   padding: 0
   margin: 0
+  &:img
+    background: $bg-color
 
 $avatar-sizes: ()
-$avatar-sizes: append( $avatar-sizes, ("micro",    8px, 1px)    )
-$avatar-sizes: append( $avatar-sizes, ("mini",     16px, 2px)   )
-$avatar-sizes: append( $avatar-sizes, ("small",    64px, 3px)   )
+$avatar-sizes: append( $avatar-sizes, ("micro",    8px,   1px)  )
+$avatar-sizes: append( $avatar-sizes, ("mini",     16px,  2px)  )
+$avatar-sizes: append( $avatar-sizes, ("small",    64px,  4px)  )
 $avatar-sizes: append( $avatar-sizes, ("medium",   128px, 5px)  )
 $avatar-sizes: append( $avatar-sizes, ("large",    256px, 8px)  )
 $avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 12px) )
@@ -32,11 +33,11 @@ $avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 12px) )
     $_size: nth($avatar-size,2)
     $_border-size: nth($avatar-size,3)
     border-width: $_border-size
-    width: $_border-size + $_size
-    height: $_border-size + $_size
+    max-width: $_border-size + $_size
+    max-height: $_border-size + $_size
 
 $avatar-statuses: ()
-$avatar-statuses: append( $avatar-statuses, ( "offline", rgba(255,255,255,.5)  ))
+$avatar-statuses: append( $avatar-statuses, ( "offline", $avatar-border-color  ))
 $avatar-statuses: append( $avatar-statuses, ( "online",  rgba(0,255,0,.5)      ))
 $avatar-statuses: append( $avatar-statuses, ( "busy",    rgba(255,0,0,.5)      ))
 $avatar-statuses: append( $avatar-statuses, ( "away",    rgba(255,0,255,.5)    ))
@@ -52,31 +53,70 @@ $background-colors: append( $background-colors, ("main", #fafafa) )
   .bg-#{nth($background-color,1)}
     background-color: nth($background-color,2)
 
+$content-spacing: emCalc(10px)
+.content
+  @include clearfix()
+  &.push-left
+    margin-left: $content-spacing
+  &.push-right
+    margin-right: $content-spacing
+  &.pad
+    padding: $content-spacing
+
+$sidebar-border-color: rgba(255,255,255,.25)
+$sidebar-text-color: #dadada
+$sidebar-spacing-x: emCalc(10px)
+$sidebar-spacing-y: emCalc(15px)
 
 .sidebar, .main
   position: fixed
   top: 0
   bottom: 0
 .sidebar
-  width: 300px
+  width: 230px
   left: 0
 .main
-  left: 300px
+  left: 230px
   right: 0
+  .main-inner
+    position: absolute
+    top: 4px
+    bottom: 4px
+    right: 4px
+    left: 4px
 
 .sidebar-user
-  padding: 15px
+  @include clearfix()
+  padding: $sidebar-spacing-y $sidebar-spacing-x
+  hgroup
+    padding: $sidebar-spacing-y 0
+  h4, h5
+    color: $sidebar-text-color
+    font-weight: normal
+  h4
+    font-size: emCalc(15px)
+    line-height: emCalc(16px)
+  h5
+    font-size: emCalc(13px)
+    line-height: emCalc(14px)
+    letter-spacing: ($sidebar-spacing-x / 5)
+  img
+    float: none
+    margin-right: $sidebar-spacing-x
+
+.sidebar-conversations
+  margin: 0 ($sidebar-spacing-x / 3.5)
 
 .sidebar-conversation
   display: block
+  border-bottom: $sidebar-border-color 1px solid
+  &:first-of-type
+    border-top: $sidebar-border-color 1px solid
+
 .sidebar-conversation > a
   display: block
-  padding: 20px 14px
-  font-size: 14px
-  line-height: 14px
-  color: #fafafa
-  //&:not(:last-child)
-  border-bottom: #fafafa 1px solid
-  &:first-child
-    border-top: #fafafa 1px solid
+  padding: 0 $sidebar-spacing-x
+  font-size: emCalc(12px)
+  line-height: ($sidebar-spacing-y * 3.5)
+  color: $sidebar-text-color
 
