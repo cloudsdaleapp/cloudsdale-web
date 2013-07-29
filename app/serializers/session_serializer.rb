@@ -1,6 +1,6 @@
 class SessionSerializer < ActiveModel::Serializer
 
-  attributes :id
+  attributes :id, :socket
 
   embed :ids,   include: true
 
@@ -12,6 +12,15 @@ class SessionSerializer < ActiveModel::Serializer
 
   def id
     SecureRandom.hex()
+  end
+
+  def socket
+    Hash.new({
+      id: SecureRandom.hex(8),
+      secure_server: Cloudsdale.faye_path(:client,true),
+      normal_server: Cloudsdale.faye_path(:client),
+      timeout: 120
+    })
   end
 
 end
