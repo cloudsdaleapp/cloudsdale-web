@@ -13,7 +13,7 @@ Cloudsdale is built with *Ruby on Rails* backed by *Redis*, *MongoDB*, *MemCache
 The examples below require:
 * You to have access to a Unix terminal with bash.
 * You also need to have your SSH keys deployed.
-* You have ruby 2.0.0 installed.
+* You have ruby 2.0.0 installed. Preferrably through RVM.
 
 **Deploy from `master` on GitHub:**
 
