@@ -40,3 +40,7 @@ Then you can write these commands to enter the ruby pry REPL in production mode.
 ssh {username}@cloudsdale.org
 cd /opt/app/cloudsdale-web/current && bundle exec rails c production
 ```
+
+```ruby
+# Something something, jedi. Something something, dark side.
+```
