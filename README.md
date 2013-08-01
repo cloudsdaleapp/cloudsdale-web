@@ -42,5 +42,5 @@ cd /opt/app/cloudsdale-web/current && bundle exec rails c production
 ```
 
 ```ruby
-# Something something, dark side. Something something, complete.
+# Something something something, dark side. Something something, complete.
 ```
