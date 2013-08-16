@@ -60,4 +60,13 @@ module ActionController::FrontAuth
     return @guest_user
   end
 
+private
+
+  # Private: Determines if the requesting user is a guest or not.
+  #
+  # Returns true or false.
+  def is_guest_user?
+    current_user.new_record?
+  end
+
 end
