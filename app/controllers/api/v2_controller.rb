@@ -19,6 +19,10 @@ class Api::V2Controller < ActionController::Base
     render_exception("You're not allowed to do this. #{message}", 401)
   end
 
+  rescue_from ActionController::ParameterMissing do |message|
+    render_exception("#{message}", 400)
+  end
+
 private
 
   def doorkeeper_unauthorized_render_options
