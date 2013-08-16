@@ -7,7 +7,7 @@ module ActiveSupport
     end
 
     def to_ms
-      (self.to_f * 1000.0).to_i
+      self.to_datetime.to_ms
     end
 
   end
@@ -17,7 +17,7 @@ end
 class Time
 
   def to_ms
-    (self.to_f * 1000.0).to_i
+    self.to_datetime.to_ms
   end
 
   end
@@ -25,7 +25,7 @@ class Time
 class Date
 
   def to_ms
-    (self.to_f * 1000.0).to_i
+    self.to_datetime.to_ms
   end
 
 end
