@@ -175,7 +175,7 @@ class Cloud
   #
   # Returns a Hash.
   def to_hash(args={})
-    defaults = { template: "api/v1/clouds/base", view_path: 'app/views', only: [] }
+    defaults = { template: "api/v1/clouds/base", view_path: "#{Rails.root}/app/views", only: [] }
     options = defaults.merge(args)
 
     _hash = Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
