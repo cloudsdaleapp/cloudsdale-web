@@ -39,15 +39,14 @@ class User
       # attributes.
       #
       # Returns the email.
-      def email=(val=nil)
-        if val.present?
+      def email=(val="")
+
+        val ||= ""
+        val.downcase!
+        val.strip!
+
+        if val.present? and val != self[:email]
           self.force_email_change = false if self.force_email_change
-
-          val.downcase!
-          val.strip!
-
-          generate_email_hash
-          generate_email_token
 
           self.email_verified_at = nil
           self.email_bounces     = 0
@@ -55,7 +54,12 @@ class User
           self[:email] = val
           @email       = val
           super(val)
+
+          generate_email_hash
+          generate_email_token
         end
+
+        return val
       end
 
     end
