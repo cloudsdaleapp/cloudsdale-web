@@ -8,6 +8,7 @@ class User
   # Mongoid
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::FullTextSearch
 
   # Concerns
   include User::Emailable
@@ -60,6 +61,11 @@ class User
   end
 
   scope :available_for_mass_email, where(:email.ne => nil).only(:id)
+
+  fulltext_search_in :search_string, :filters => {
+    invisible: lambda { |user| user.invisible? },
+    visible:   lambda { |user| not user.invisible? }
+  }
 
   accepts_nested_attributes_for :authentications, :allow_destroy => true
 
@@ -449,6 +455,15 @@ class User
         return false
       end
     end
+  end
+
+private
+
+  # Private: The string which will be used to index a user.
+  #
+  # Returns the display name and the username of a user.
+  def search_string
+    [name, username].join(' ')
   end
 
 end
