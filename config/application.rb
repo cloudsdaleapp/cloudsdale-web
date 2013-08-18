@@ -25,6 +25,11 @@ $redis    ||= Redis.new(
 
 $redis_ns = $settings[:redis][:ns] || "cloudsdale"
 
+$api_host   = "api.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
+$dev_host   = "dev.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
+$www_host   = "www.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
+$admin_host = "admin.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
+
 module Cloudsdale
 
   def self.config
