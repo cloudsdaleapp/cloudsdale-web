@@ -114,7 +114,7 @@ private
   # Private: Clears the record from the memory cache.
   # Returns true.
   def clear_memory_cache
-    $redis.uset(memory_cache_key) && true
+    $redis.del(memory_cache_key) && true
   end
 
   # Private: Dumps record as a marshal string.
