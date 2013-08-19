@@ -4,7 +4,7 @@ require 'sidekiq/capistrano'
 require 'capistrano_colors'
 
 set :application,   "cloudsdale-web"
-set :ruby_version,  "ruby-2.0.0-p195"
+set :ruby_version,  "ruby-2.0.0-p247"
 
 set :keep_releases, 3
 
