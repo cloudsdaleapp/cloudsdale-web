@@ -65,10 +65,10 @@ class Handle
   # Returns an arbitrary record or raise an error if no record is found.
   def self.lookup(value)
     handle = find_in_cache(value.upcase) || self.where(_id: value.upcase).or(identifiable_id: value).first
-    if not handle.identifiable
-      raise Mongoid::Errors::DocumentNotFound.new(Handle::IdentifiableRecord, handle._id, handle.name)
-    else
+    if handle && handle.identifiable
       return handle.identifiable
+    else
+      raise Mongoid::Errors::DocumentNotFound.new(Handle::IdentifiableRecord, handle._id, handle.name)
     end
   end
 
