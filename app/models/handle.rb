@@ -1,5 +1,7 @@
 class Handle
 
+  MAX_LENGTH = 20
+
   class IdentifiableRecord
     extend ActiveModel::Naming
   end
@@ -7,7 +9,7 @@ class Handle
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  belongs_to :identifiable,   polymorphic: true
+  belongs_to :identifiable,   polymorphic: true,   touch: true
 
   field :_id,     type: String,   default: -> { name? ? name : Moped::BSON::ObjectId.new }
   field :name,    type: String
@@ -22,7 +24,7 @@ class Handle
   validates :name,  presence: true,  uniqueness: true,  username: true
   validates :_id,   presence: true,  uniqueness: true,  username: true
 
-  after_save :write_memory_cache
+  after_save    :write_memory_cache
   after_destroy :clear_memory_cache
 
   # Public: Setter for the name attribute. Will also set the attribute _id.
@@ -31,6 +33,7 @@ class Handle
   #
   # Returns the set value as a string.
   def name=(value)
+    value      = value.strip.gsub(' ','').first(MAX_LENGTH)
     self[:_id] = value.upcase
     super(value)
   end
@@ -46,6 +49,15 @@ class Handle
     find_in_cache(value.upcase) || super(value.upcase)
   end
 
+  # Public: Checks if record exists with a handle with a specific name exists.
+  #
+  # value - The handle name
+  #
+  # Returns true or false.
+  def self.find?(value)
+    find_in_cache?(value) || where(_id: value.upcase).exists?
+  end
+
   # Public: Tries to find the record in the memory cache.
   #
   # value - The handle name
@@ -57,6 +69,15 @@ class Handle
   end
   rescue
     return nil
+  end
+
+  # Public: Checks if record exists in cache
+  #
+  # value - The handle name
+  #
+  # Returns true or false.
+  def self.find_in_cache?(value)
+    $redis.exists(memory_cache_key + ":#{value.upcase}")
   end
 
   # Public: Tries to look up a record based upon an existing handle through it's
@@ -76,12 +97,45 @@ class Handle
   # on model to determine the handle ID and name values. Will try and find a pre-existing
   # handle before creating a new one.
   #
+  # record - Any existing database record.
+  #
   # Returns a handle. Always.
   def self.derive_from(record)
-    name ||= record.handle if record.respond_to?(:handle)
-    name ||= record.username if record.respond_to?(:username)
-    name ||= record.short_name if record.respond_to?(:short_name)
+    name ||= record.handle      if record.respond_to?(:handle)
+    name ||= record.username    if record.respond_to?(:username)
+    name ||= record.short_name  if record.respond_to?(:short_name)
+    name ||= record.name        if record.respond_to?(:name)
+    name ||= record.id
+
     self.find_or_initialize_by(identifiable: record, name: name)
+  end
+
+  # Public: Derive a unique handle based on identifiable records.
+  #
+  # record - Any existing database record.
+  #
+  # Returns a Handle. Always.
+  def self.derive_unique_from(record)
+    handle = derive_from(record)
+    found  = 0
+
+    begin
+      new_name  = nil
+      iteration = found.to_s
+
+      new_name  ||= handle.name if found.zero?
+      new_name  ||= (handle.name + " ").truncate(MAX_LENGTH,
+        omission: iteration,
+        separator: ""
+      ) if (handle.name + iteration).length >= MAX_LENGTH
+      new_name  ||= (handle.name + iteration)
+
+      found    += 1
+    end while find?(new_name)
+
+    handle.name = new_name
+
+    return handle
   end
 
 private
