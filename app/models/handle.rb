@@ -89,7 +89,11 @@ class Handle
     if handle && handle.identifiable
       return handle.identifiable
     else
-      raise Mongoid::Errors::DocumentNotFound.new(Handle::IdentifiableRecord, handle._id, handle.name)
+      raise Mongoid::Errors::DocumentNotFound.new(
+        Handle::IdentifiableRecord,
+        value.upcase,
+        value.strip.gsub(' ','').first(MAX_LENGTH)
+      )
     end
   end
 
