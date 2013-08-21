@@ -22,7 +22,7 @@ class Message
   index({ created_at:  1 })
   index({ updated_at:  1 })
 
-  index({ created_at:  1, topic_id: 1 })
+  index( { topic_id: 1, created_at: 1 } )
 
   validates :content,     :presence => true
   validates :author_id,   :presence => true
