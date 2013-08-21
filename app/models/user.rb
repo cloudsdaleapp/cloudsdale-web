@@ -162,7 +162,7 @@ class User
   #
   # Returns a Hash.
   def to_hash(args={})
-    defaults = { template: "#{Rails.root}/app/views/api/v1/users/base", view_path: "#{Rails.root}/app/views" }
+    defaults = { template: "api/v1/users/base", view_path: "#{Rails.root}/app/views" }
     options = defaults.merge(args)
 
     Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
