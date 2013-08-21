@@ -2,20 +2,15 @@ class UserSerializer < ApplicationSerializer
 
   cached true
 
-  attribute :name,          key: :display_name
-  attribute :symbolic_role, key: :role_name
+  attribute :name, key: :display_name
 
-  attributes :username, :role, :avatar, :suspended
+  attributes :username, :avatar
 
   attribute :refs
 
   def avatar
     avatar_id_type = object.email_hash.present? ? :email_hash : :id
     return object.dynamic_avatar_url(nil, avatar_id_type, :https)
-  end
-
-  def suspended
-    object.banned?
   end
 
   def cache_key
