@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Handle
 
   MAX_LENGTH = 20
@@ -21,7 +23,6 @@ class Handle
   index({ created_at: 1 })
   index({ updated_at: 1 })
 
-  validates :name,  presence: true,  uniqueness: true,  username: true
   validates :_id,   presence: true,  uniqueness: true,  username: true
 
   after_save    :write_memory_cache
@@ -33,9 +34,13 @@ class Handle
   #
   # Returns the set value as a string.
   def name=(value)
-    value      = value.strip.gsub(' ','').first(MAX_LENGTH)
+    value      = self.class.sanitize_name(value)
     self[:_id] = value.upcase
     super(value)
+  end
+
+  def self.sanitize_name(value)
+    value.strip.gsub(' ','').first(MAX_LENGTH)
   end
 
   # Public: Custom finder that upcase the value to adhere to database convention
@@ -104,14 +109,16 @@ class Handle
   # record - Any existing database record.
   #
   # Returns a handle. Always.
-  def self.derive_from(record)
-    name ||= record.handle      if record.respond_to?(:handle)
-    name ||= record.username    if record.respond_to?(:username)
-    name ||= record.short_name  if record.respond_to?(:short_name)
-    name ||= record.name        if record.respond_to?(:name)
-    name ||= record.id
+  def self.build(record, name)
+    name = sanitize_name(name)
 
-    self.find_or_initialize_by(identifiable: record, name: name)
+    handle ||= where(_id: name.upcase, :identifiable_id.in => [record.id, nil]).first
+    handle ||= new(_id: name.upcase, name: name, identifiable: record)
+
+    handle.identifiable ||= record
+    handle.name         = name
+
+    return handle
   end
 
   # Public: Derive a unique handle based on identifiable records.
@@ -119,27 +126,32 @@ class Handle
   # record - Any existing database record.
   #
   # Returns a Handle. Always.
-  def self.derive_unique_from(record)
-    handle = derive_from(record)
-    found  = 0
+  def self.build_unique(record, name)
+    build(record, name).generate_unique_name
+  end
 
+  # Public: Generates a unique name on your handle automatically.
+  #
+  # Returns the handle.
+  def generate_unique_name
+    n = 0
     begin
       new_name  = nil
-      iteration = found.to_s
+      iteration = n.to_s
 
-      new_name  ||= handle.name if found.zero?
-      new_name  ||= (handle.name + " ").truncate(MAX_LENGTH,
+      new_name  ||= name if n.zero?
+      new_name  ||= (name + " ").truncate(MAX_LENGTH,
         omission: iteration,
         separator: ""
-      ) if (handle.name + iteration).length >= MAX_LENGTH
-      new_name  ||= (handle.name + iteration)
+      ) if (name + iteration).length >= MAX_LENGTH
+      new_name  ||= (name + iteration)
 
-      found    += 1
-    end while find?(new_name)
+      n += 1
+    end while self.class.where(_id: new_name.upcase, :identifiable_id.ne => identifiable.id.to_s).exists?
 
-    handle.name = new_name
+    self.name = new_name
 
-    return handle
+    return self
   end
 
 private

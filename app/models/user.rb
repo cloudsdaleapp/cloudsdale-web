@@ -5,12 +5,10 @@ class User
 
   include AMQPConnector
 
-  # Mongoid
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::FullTextSearch
-
-  # Concerns
+  include Mongoid::Identifiable
   include User::Emailable
   include User::Named
   include ActiveModel::Avatars
@@ -29,6 +27,8 @@ class User
 
   has_and_belongs_to_many :clouds,            :inverse_of => :users,      dependent: :nullify,  index: true, :validate => false
   has_and_belongs_to_many :clouds_moderated,  :inverse_of => :moderators, dependent: :nullify,  class_name: "Cloud",  index: true, :validate => false
+
+  identity :username
 
   field :skype_name,                type: String
   field :auth_token,                type: String
