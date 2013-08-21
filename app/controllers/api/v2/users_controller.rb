@@ -5,7 +5,7 @@ class Api::V2::UsersController < Api::V2Controller
   include ActionController::Collection
 
   def show
-    @user = User.find(params[:id])
+    @user = User.lookup(params[:id])
     respond_with_resource(@user, serializer: UserSerializer)
   end
 

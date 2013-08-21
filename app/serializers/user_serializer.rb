@@ -18,7 +18,7 @@ class UserSerializer < ApplicationSerializer
   end
 
   def refs
-    [{ rel: 'self', href: v2_user_url(object.id, format: :json, host: $api_host) }]
+    [{ rel: 'self', href: v2_user_url(object.username.downcase, format: :json, host: $api_host) }]
   end
 
 end

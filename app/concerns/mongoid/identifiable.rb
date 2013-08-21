@@ -13,6 +13,11 @@ module Mongoid
       has_many :handles, as: :identifiable
 
       class << self
+
+        def lookup(id)
+          Handle.lookup(id, kind: self)
+        end
+
         def identity(value, allowed_changes: 1)
 
           self.identity_field = value

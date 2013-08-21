@@ -23,6 +23,8 @@ class Handle
   index({ created_at: 1 })
   index({ updated_at: 1 })
 
+  index( { _id: 1, identifiable_id: 1, identifiable_type: 1 } )
+
   validates :_id,   presence: true,  uniqueness: true,  username: true
 
   after_save    :write_memory_cache
@@ -89,13 +91,20 @@ class Handle
   # name or identifiable id.
   #
   # Returns an arbitrary record or raise an error if no record is found.
-  def self.lookup(value)
-    handle = find_in_cache(value.upcase) || self.where(_id: value.upcase).or(identifiable_id: value).first
-    if handle && handle.identifiable
+  def self.lookup(value, kind: nil)
+
+    handle ||=  find_in_cache(value.upcase)
+    handle ||=  self.or(_id: value.upcase).or(identifiable_id: value).limit(1).first if kind.nil?
+
+    handle ||=  self.or(_id: value.upcase, identifiable_type: kind.to_s)
+                    .or(identifiable_id: value, identifiable_type: kind.to_s)
+                    .limit(1).first if kind.present?
+
+    if handle && handle.identifiable && (kind.nil? || handle.identifiable.class.to_s == kind.to_s)
       return handle.identifiable
     else
       raise Mongoid::Errors::DocumentNotFound.new(
-        Handle::IdentifiableRecord,
+        (kind || Handle::IdentifiableRecord),
         value.upcase,
         value.strip.gsub(' ','').first(MAX_LENGTH)
       )

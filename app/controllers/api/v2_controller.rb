@@ -23,6 +23,11 @@ class Api::V2Controller < ActionController::Base
     render_exception("#{message}", 400)
   end
 
+  rescue_from Mongoid::Errors::DocumentNotFound do |exception|
+    render_exception("Sorry, could not find a #{exception.klass} with id #{exception.params}", 404)
+  end
+
+
 private
 
   def doorkeeper_unauthorized_render_options
