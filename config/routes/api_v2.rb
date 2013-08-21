@@ -42,11 +42,11 @@ Cloudsdale::Application.routes.draw do
     #   end
     # end
 
-    # resources :users,  only: [:show] do
-    #   collection do
-    #     get :search
-    #   end
-    # end
+    resources :users,  only: [:show,:index] do
+      collection do
+        get :search
+      end
+    end
 
     # resources :registrations, only: [:create,:update]
 
