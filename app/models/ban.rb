@@ -1,12 +1,14 @@
 class Ban
 
+  DEFAULT_REASON = "No reason."
+
   include AMQPConnector
 
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :reason,  type: String
-  field :due,     type: DateTime,   default: -> { 2.days.from_now }
+  field :reason,  type: String,     default: DEFAULT_REASON
+  field :due,     type: DateTime,   default: -> { 1.day.from_now }
   field :revoke,  type: Boolean,    default: false
 
   embedded_in :jurisdiction
@@ -47,6 +49,19 @@ class Ban
     options = defaults.merge(args)
 
     Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
+  end
+
+  def due=(time)
+    time =|| 1.day.from_now
+    super(time)
+  end
+
+  def reason=(text)
+    text =|| DEFAULT_REASON
+    super(text.strip)
+  end
+
+  def revoke=(value=false)
   end
 
 private
