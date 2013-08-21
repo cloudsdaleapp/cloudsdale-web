@@ -4,6 +4,8 @@ class Api::V2::UsersController < Api::V2Controller
 
   include ActionController::Collection
 
+  collections :index, :search
+
   def show
     @user = User.lookup(params[:id])
     respond_with_resource(@user, serializer: UserSerializer)

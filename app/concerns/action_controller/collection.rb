@@ -4,13 +4,24 @@ module ActionController::Collection
   extend ActiveSupport::Concern
 
   included do
+
+    class_attribute :collection_actions
+
     hide_action :offset
     hide_action :time
     hide_action :limit
     hide_action :total
 
-    before_filter :extract_collection_parameters,      only: [:search,:index]
-    after_filter  :build_collection_response_headers,  only: [:search,:index]
+    class << self
+
+      def collections(*args)
+        self.collection_actions = args
+        before_filter :extract_collection_parameters,      only: collection_actions
+        after_filter  :build_collection_response_headers,  only: collection_actions
+      end
+
+    end
+
   end
 
 private
