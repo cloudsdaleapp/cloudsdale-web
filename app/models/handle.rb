@@ -115,7 +115,7 @@ class Handle
     handle ||= where(_id: name.upcase, :identifiable_id.in => [record.id, nil]).first
     handle ||= new(_id: name.upcase, name: name, identifiable: record)
 
-    handle.identifiable ||= record
+    handle.identifiable = record
     handle.name         = name
 
     return handle

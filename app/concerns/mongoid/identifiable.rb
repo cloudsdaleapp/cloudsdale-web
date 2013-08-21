@@ -10,6 +10,8 @@ module Mongoid
 
       class_attribute :identity_field
 
+      has_many :handles, as: :identifiable
+
       class << self
         def identity(value, allowed_changes: 1)
 
@@ -39,6 +41,7 @@ module Mongoid
           define_method "#{identity_field}=" do |value|
             if value.present?
               self.handle = Handle.build(self, value)
+              self.handle.identifiable = self
 
               self.send("force_#{identity_field}_change=", false) if self.send("force_#{identity_field}_change")
               self.send("#{identity_field}_changed_at=", DateTime.now)
@@ -75,6 +78,8 @@ module Mongoid
       handle_name ||= name        if respond_to?(:name)
 
       self.handle = Handle.build_unique(self, handle_name)
+      self.handle.identifiable = self
+
       self[identity_field] = handle.name
       instance_variable_set(:"@#{identity_field}", handle.name)
     end
