@@ -6,11 +6,10 @@ class Cloud
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::FullTextSearch
+  include Mongoid::Identifiable
+  include ActiveModel::Avatars
 
   include Droppable
-
-  # Concerns
-  include ActiveModel::Avatars
 
   embeds_many :bans,  as: :jurisdiction, :validate => false
 
@@ -20,9 +19,10 @@ class Cloud
                   :remove_avatar, :avatar, :remote_avatar_url, :rules,
                   :x_moderator_ids
 
+  identity :short_name, allowed_changes: 3
+
   field :name,          type: String
   field :description,   type: String
-  field :short_name,    type: String
   field :rules,         type: String
   field :hidden,        type: Boolean,        default: true
   field :locked,        type: Boolean,        default: false
@@ -41,18 +41,8 @@ class Cloud
     self.moderators = User.where(:_id.in => mod_ids.uniq )
   end
 
-  def short_name=(_short_name)
-    if _short_name.present? && !self.short_name.present?
-      self[:short_name] = _short_name.to_s.parameterize
-    end
-  end
-
   validates :name, presence: true, uniqueness: true, length: { within: 3..64 }
   validates :description, length: { maximum: 140 }
-  validates :short_name, length: { maximum: 20 }
-
-  validates_uniqueness_of :short_name, :case_sensitive => true, if: :short_name?, message: "used by another cloud"
-  validates_format_of :short_name,  with: /^[a-z0-9\_\-]*$/i, message: "must be alphanumeric, underscore and dashes only", if: :name?
 
   belongs_to :owner, polymorphic: true, index: true, :validate => false
 
@@ -132,25 +122,12 @@ class Cloud
 
   before_destroy :revoke_conversationists_access
 
-  # Public: Find record matching either ID or short name.
-  # renders a Mongoid::Errors::DocumentNotFound if no cloud
-  # is present.
+  # Public: Overrides to_param so we can just pass clouds to link
+  # constructors and make use of the short_name if at all, present.
   #
-  # Examples
-  #
-  # Cloud.agnostic_fetch("short-name")
-  # => <Cloud ...>
-  #
-  # Cloud.agnostic_fetch(BSON::ObjectId.new)
-  # => <Cloud ...>
-  #
-  # Returns a Cloud record.
-  def self.agnostic_fetch(id_or_short_name)
-    cloud = where(
-      "$or" => [{id: id_or_short_name}, {short_name: id_or_short_name}]
-    ).first
-    raise Mongoid::Errors::DocumentNotFound.new( User, { identifier: id_or_short_name } ) if cloud.nil?
-    return cloud
+  # Returns a String.
+  def to_param
+    short_name.present? ? short_name : super
   end
 
   # Public: List all online users for this Cloud.

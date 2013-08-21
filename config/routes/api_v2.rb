@@ -35,12 +35,11 @@ Cloudsdale::Application.routes.draw do
     #   end
     # end
 
-    # resources :clouds, only: [:show] do
-    #   collection do
-    #     get :search
-    #     get :active
-    #   end
-    # end
+    resources :clouds, only: [:show,:index] do
+      collection do
+        get :search
+      end
+    end
 
     resources :users,  only: [:show,:index] do
       collection do

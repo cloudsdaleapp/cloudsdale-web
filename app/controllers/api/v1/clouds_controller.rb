@@ -17,7 +17,7 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns the cloud.
   def show
 
-    @cloud = Cloud.agnostic_fetch(params[:id])
+    @cloud = Cloud.lookup(params[:id])
     authorize @cloud, :show?
     render status: 200
 

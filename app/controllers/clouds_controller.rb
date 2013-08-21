@@ -2,7 +2,7 @@ class CloudsController < ApplicationController
 
   def show
 
-    @cloud = Cloud.agnostic_fetch(params[:id_or_short_name])
+    @cloud = Cloud.lookup(params[:id])
 
     authorize @cloud, :show?
 
@@ -10,7 +10,7 @@ class CloudsController < ApplicationController
     @page_image = @cloud.dynamic_avatar_url
     @page_description = @cloud.description
     @page_type = "cloudsdale:cloud"
-    @page_url = @cloud.short_name.present? ? cloud_url(@cloud.short_name) : cloud_url(@cloud.id)
+    @page_url  = cloud_url(@cloud)
 
     if current_user.new_record?
       session[:redirect_url] = @page_url

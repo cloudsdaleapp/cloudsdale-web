@@ -51,7 +51,7 @@ Cloudsdale::Application.routes.draw do
     match '/mobile/tncs' => 'mobile#tncs', as: :mobile_tncs
 
     # Path straight to a Cloud, you can supply either the clouds ID or it's shorthand.
-    match '/clouds/:id_or_short_name' => "clouds#show", as: :cloud
+    resources :clouds, only: [:show]
 
     resources :users, :only => [] do
       match "/restore/:token" => "users#restore", as: :restore, on: :collection
