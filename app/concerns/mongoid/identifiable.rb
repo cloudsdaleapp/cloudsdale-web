@@ -35,7 +35,7 @@ module Mongoid
 
           validate :identity_validity
 
-          before_validation :generate_identity,         :unless => "#{identity_field}? and handle?"
+          before_validation :generate_identity,         :unless => "#{identity_field}? && handle?"
           after_validation  :decrease_identity_changes, :if => "#{identity_field}_changed?"
 
           define_method "#{identity_field}=" do |value|
