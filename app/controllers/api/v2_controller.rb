@@ -27,6 +27,10 @@ class Api::V2Controller < ActionController::Base
     render_exception("Sorry, could not find a #{exception.klass} with id #{exception.params}", 404)
   end
 
+  rescue_from AbstractController::ActionNotFound do |exception|
+    render_exception("Route unknown, please contact Cloudsdale staff for support.", 404)
+  end
+
 
 private
 
