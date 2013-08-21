@@ -21,6 +21,8 @@ class Conversation
   index( { access: 1 },   { name: "access_index",   background: true } )
   index( { position: 1 }, { name: "position_index", background: true } )
 
+  index( { user_id: 1, topic_id: 1 } )
+
   validates :topic_id,   presence: true,  :exclusion => {
     :in => ->(conversation){ [conversation.user.id] },
     :message => "is the same as the conversation owner"
