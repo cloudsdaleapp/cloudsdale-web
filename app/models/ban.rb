@@ -52,13 +52,13 @@ class Ban
   end
 
   def due=(time)
-    time =|| 1.day.from_now
+    time ||= 1.day.from_now
     time = 1.years.from_now if time > 1.year.from_now
     super(time)
   end
 
   def reason=(text)
-    text =|| DEFAULT_REASON
+    text ||= DEFAULT_REASON
     super(text.strip)
   end
 
