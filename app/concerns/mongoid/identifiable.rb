@@ -17,7 +17,7 @@ module Mongoid
 
           self.identity_field = value
 
-          belongs_to :handle,  foreign_key: identity_field,  primary_key: :name,  :validate => false
+          belongs_to :handle,  foreign_key: identity_field,  primary_key: :name,  :validate => false,   autosave: true
 
           attr_accessible identity_field
 
