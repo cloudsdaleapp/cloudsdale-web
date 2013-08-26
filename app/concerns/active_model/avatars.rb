@@ -86,7 +86,7 @@ module ActiveModel
 
       params = []
       params << "s=#{size}" if size
-      params << "mtime=#{self.avatar_uploaded_at.to_i}" if avatar_uploaded_at
+      params << "mtime=#{self.avatar_uploaded.to_i}" if avatar_uploaded
       params = !params.empty? ? "?" + params.join("&") : ""
 
       "/#{avatar_namespace}/#{avatar_id}.png#{params}"
