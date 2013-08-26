@@ -16,7 +16,7 @@ class Api::V2::CloudsController < Api::V2Controller
     if ids = params[:ids]
       parameters = [:ids]
       @clouds = User.find(ids)
-      @total = @clouds.count
+      @total  = @clouds.count
       @clouds = Kaminari.paginate_array(@clouds).page(offset).per(limit)
     else
       parameters = []
@@ -45,7 +45,7 @@ class Api::V2::CloudsController < Api::V2Controller
   def search
 
     @query   = params.require(:query) || ""
-    @clouds  = Cloud.where(:created_at.lt => time).fulltext_search(@query)
+    @clouds  = Cloud.visible.where(:created_at.lt => time).fulltext_search(@query)
     @total   = @clouds.count
     @clouds  = Kaminari.paginate_array(@clouds).page(offset).per(limit)
 

@@ -32,7 +32,7 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns the cloud object with a status of 200 if successful & 422 if unsuccessful.
   def update
 
-    @cloud = Cloud.find(params[:id])
+    @cloud = Cloud.lookup(params[:id])
     authorize @cloud, :update?
 
     @cloud.write_attributes(params[:cloud], as: @cloud.get_role_for(current_user))
@@ -83,7 +83,7 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns the cloud object with a status of 200 if successful & 422 if unsuccessful.
   def destroy
 
-    @cloud = Cloud.find(params[:id])
+    @cloud = Cloud.lookup(params[:id])
 
     authorize @cloud, :destroy?
 

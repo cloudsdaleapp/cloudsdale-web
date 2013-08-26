@@ -30,10 +30,8 @@ class Cloud
   field :member_count,  type: Integer,        default: 0
   field :drop_count,    type: Integer,        default: 0
 
-  index( { _id:          1 } )
-  index( { member_count: 1 }, { name: 'member_count_index' } )
-  index( { created_at:   1 }, { name: 'created_at_index' } )
-  index( { updated_at:   1 }, { name: 'updated_at_index' } )
+  index( { _id: 1 }, { name: 'id_index'} )
+  index( { created_at: 1, hidden: 1 }, { name: 'search_index' } )
 
   def x_moderator_ids=(mod_ids)
     mod_ids = mod_ids.map { |mod_id| mod_id.is_a?(Moped::BSON::ObjectId) ? mod_id : Moped::BSON::ObjectId(mod_id) }
@@ -49,10 +47,10 @@ class Cloud
   has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true,  :validate => false
   has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true,  :validate => false
 
-  scope :popular, order_by(:member_count => :desc, :updated_at => :desc)
-  scope :recent, order_by([:created_at, :desc])
+  scope :popular, order_by(member_count: :desc)
+  scope :recent,  order_by(created_at: :desc)
   scope :visible, where(hidden: false)
-  scope :hidden, where(hidden: true)
+  scope :hidden,  where(hidden: true)
   scope :available_to, -> user {
     queryable.or(
       :"bans.offender_id".ne => user.id,
