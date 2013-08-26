@@ -47,8 +47,8 @@ class User
   field :developer,                 type: Boolean,    default: false
   field :dates_seen,                type: Array,      default: []
 
-  index( { _id:        1 })
-  index( { auth_token: 1 }, { unique: true, name: "auth_token_index" } )
+  index( { _id: 1 }, { unique: true, name: 'id_index'} )
+  index( { auth_token: 1 }, { unique: true, name: 'auth_token_index' } )
 
   scope :developers, self.or(:developer => true).or(:role.gte => ROLES[:developer])
 
