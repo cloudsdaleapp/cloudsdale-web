@@ -16,14 +16,10 @@ class Handle
   field :_id,     type: String,   default: -> { name? ? name : Moped::BSON::ObjectId.new }
   field :name,    type: String
 
-  index({ name: 1 }, { unique: true })
-  index({ _id:  1 }, { unique: true })
-  index({ identifiable_id:   1 })
-  index({ identifiable_type: 1 })
-  index({ created_at: 1 })
-  index({ updated_at: 1 })
-
-  index( { _id: 1, identifiable_id: 1, identifiable_type: 1 } )
+  index( { name: 1 }, { unique: true } )
+  index( { _id:  1 }, { unique: true } )
+  index( { _id:  1, identifiable_id: 1 } )
+  index( { _id:  1, identifiable_id: 1, identifiable_type: 1 } )
 
   validates :_id,   presence: true,  uniqueness: true,  username: true
 
