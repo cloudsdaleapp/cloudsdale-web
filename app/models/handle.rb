@@ -18,8 +18,7 @@ class Handle
 
   index( { name: 1 }, { unique: true, name: 'name_index' } )
   index( { _id:  1 }, { unique: true, name: 'id_index' } )
-  index( { _id:  1, identifiable_id: 1 }, name: 'lookup_index' )
-  index( { _id:  1, identifiable_id: 1, identifiable_type: 1 }, { name: 'type_lookup_index' } )
+  index( { _id:  1, identifiable_id: 1, identifiable_type: 1 }, { name: 'lookup_index' } )
 
   validates :_id,   presence: true,  uniqueness: true,  username: true
 

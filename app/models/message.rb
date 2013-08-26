@@ -9,23 +9,19 @@ class Message
 
   attr_accessor :client_id
 
-  belongs_to :author, class_name: "User", :validate => false
-  belongs_to :topic,  polymorphic: true,  :validate => false
+  belongs_to :author, class_name: "User", :validate => false,   autosave: false
+  belongs_to :topic,  polymorphic: true,  :validate => false,   autosave: false
 
   field :content,     type: String
   field :device,      type: String,   default: 'desktop'
 
-  index({ _id:         1 })
-  index({ topic_id:    1 })
-  index({ topic_type:  1 })
-  index({ author_id:   1 })
-  index({ created_at:  1 })
-  index({ updated_at:  1 })
+  index( { _id: 1 }, { name: 'id_index' } )
+  index( { author_id: 1, topic_id: 1, created_at: 1 },  { name: 'conversation_asc_index' } )
+  index( { author_id: 1, topic_id: 1, created_at: -1 }, { name: 'conversation_desc_index' } )
 
-  index( { topic_id: 1, created_at: 1 } )
-
-  validates :content,     :presence => true
-  validates :author_id,   :presence => true
+  validates :content,  presence: true
+  validates :author,   presence: true
+  validates :topic,    presence: true
 
   def content=(msg)
 
