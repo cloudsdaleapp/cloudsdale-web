@@ -87,7 +87,7 @@ class Handle
   #
   # Returns an arbitrary record or raise an error if no record is found.
   def self.lookup(value, kind: nil)
-    id_value = value.upcase.gsub("-","_")
+    id_value = value.to_s.upcase.gsub("-","_")
 
     handle ||=  find_in_cache(id_value)
     handle ||=  self.or(_id: id_value).or(identifiable_id: value).limit(1).first if kind.nil?
