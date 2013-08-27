@@ -16,8 +16,7 @@ class Message
   field :device,      type: String,   default: 'desktop'
 
   index( { _id: 1 }, { name: 'id_index' } )
-  index( { author_id: 1, topic_id: 1, created_at: 1 },  { name: 'conversation_asc_index' } )
-  index( { author_id: 1, topic_id: 1, created_at: -1 }, { name: 'conversation_desc_index' } )
+  index( { created_at: -1, topic_id: 1, author_id: 1 }, { name: 'conversation_index' } )
 
   validates :content,  presence: true
   validates :author,   presence: true
