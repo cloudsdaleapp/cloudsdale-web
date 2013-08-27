@@ -18,7 +18,9 @@ class Handle
 
   index( { name: 1 }, { unique: true, name: 'name_index' } )
   index( { _id:  1 }, { unique: true, name: 'id_index' } )
-  index( { _id:  1, identifiable_id: 1, identifiable_type: 1 }, { name: 'lookup_index' } )
+  index( { _id:  1, identifiable_id: 1 }, { name: 'lookup_index' } )
+  index( { _id:  1, identifiable_type: 1 }, { name: 'lookup_type_index' } )
+  index( { identifiable_id:  1 }, { name: 'lookup_foreign_index' } )
 
   validates :_id,   presence: true,  uniqueness: true,  username: true
 
@@ -90,11 +92,10 @@ class Handle
     id_value = value.to_s.upcase.gsub("-","_")
 
     handle ||=  find_in_cache(id_value)
-    handle ||=  self.or(_id: id_value).or(identifiable_id: value).limit(1).first if kind.nil?
 
-    handle ||=  self.or(_id: id_value, identifiable_type: kind.to_s)
-                    .or(identifiable_id: value, identifiable_type: kind.to_s)
-                    .limit(1).first if kind.present?
+    handle ||=  self.where(identifiable_id: value).limit(1).first if value.match(/^[0-9a-fA-F]{24}$/)
+    handle ||=  self.where(_id: id_value).limit(1).first if kind.nil?
+    handle ||=  self.where(_id: id_value, identifiable_type: kind.to_s).limit(1) if kind.present?
 
     if handle && handle.identifiable && (kind.nil? || handle.identifiable.class.to_s == kind.to_s)
       return handle.identifiable
