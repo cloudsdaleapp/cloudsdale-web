@@ -78,9 +78,9 @@ module Mongoid
     #
     # Returns the new identity value.
     def generate_identity
-      handle_name ||= username               if respond_to?(:username)
-      handle_name ||= short_name             if respond_to?(:short_name)
-      handle_name ||= name.parameterize("_") if respond_to?(:name)
+      handle_name ||= username   if respond_to?(:username)
+      handle_name ||= short_name if respond_to?(:short_name)
+      handle_name ||= name.parameterize("_").gsub("-","_") if respond_to?(:name)
 
       self.handle = Handle.build_unique(self, handle_name)
       self.handle.identifiable = self
