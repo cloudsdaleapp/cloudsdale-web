@@ -96,6 +96,10 @@ namespace :deploy do
       run "cd #{current_path} && rake db:migrate"
     end
 
+    task :remove_indexes do
+      run "cd #{current_path} && rake db:mongoid:remove_indexes"
+    end
+
     task :create_indexes do
       run "cd #{current_path} && rake db:mongoid:create_indexes"
     end
