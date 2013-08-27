@@ -87,11 +87,12 @@ class Handle
   #
   # Returns an arbitrary record or raise an error if no record is found.
   def self.lookup(value, kind: nil)
+    id_value = value.upcase.gsub("-","_")
 
-    handle ||=  find_in_cache(value.upcase)
-    handle ||=  self.or(_id: value.upcase).or(identifiable_id: value).limit(1).first if kind.nil?
+    handle ||=  find_in_cache(id_value)
+    handle ||=  self.or(_id: id_value).or(identifiable_id: value).limit(1).first if kind.nil?
 
-    handle ||=  self.or(_id: value.upcase, identifiable_type: kind.to_s)
+    handle ||=  self.or(_id: id_value, identifiable_type: kind.to_s)
                     .or(identifiable_id: value, identifiable_type: kind.to_s)
                     .limit(1).first if kind.present?
 
@@ -100,7 +101,7 @@ class Handle
     else
       raise Mongoid::Errors::DocumentNotFound.new(
         (kind || Handle::IdentifiableRecord),
-        value.upcase,
+        id_value,
         value.strip.gsub(' ','').first(MAX_LENGTH)
       )
     end
