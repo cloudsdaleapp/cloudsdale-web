@@ -296,13 +296,8 @@ class User
 
     if email && password && user.nil?
 
-      user = where(
-        :email => /^#{email}$/i,
-        :password_hash.exists => true,
-        :password_salt.exists => true
-      ).first
-
-      user = nil unless user && user.can_authenticate_with(password: password)
+      session = Session.new(identifier: email, password: password)
+      user    = session.user if session.valid?
 
     end
 
