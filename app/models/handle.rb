@@ -108,6 +108,16 @@ class Handle
     end
   end
 
+  # Public: Tries to look up a record based upon an existing handle through it's
+  # name or identifiable id.
+  #
+  # Returns an arbitrary record or nil if no record is found.
+  def lookup!(value, kind: nil)
+    return lookup(value, kind: kind)
+  rescue Mongoid::Errors::DocumentNotFound
+    return nil
+  end
+
   # Public: Custom builder for handles based on identifiable records, uses attributes
   # on model to determine the handle ID and name values. Will try and find a pre-existing
   # handle before creating a new one.
