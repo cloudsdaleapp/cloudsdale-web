@@ -112,7 +112,7 @@ class Handle
   # name or identifiable id.
   #
   # Returns an arbitrary record or nil if no record is found.
-  def lookup!(value, kind: nil)
+  def self.lookup!(value, kind: nil)
     return lookup(value, kind: kind)
   rescue Mongoid::Errors::DocumentNotFound
     return nil
