@@ -95,7 +95,7 @@ class Handle
 
     handle ||=  self.where(identifiable_id: value).limit(1).first if value.match(/^[0-9a-fA-F]{24}$/)
     handle ||=  self.where(_id: id_value).limit(1).first if kind.nil?
-    handle ||=  self.where(_id: id_value, identifiable_type: kind.to_s).limit(1) if kind.present?
+    handle ||=  self.where(_id: id_value, identifiable_type: kind.to_s).limit(1).first if kind.present?
 
     if handle && handle.identifiable && (kind.nil? || handle.identifiable.class.to_s == kind.to_s)
       return handle.identifiable
