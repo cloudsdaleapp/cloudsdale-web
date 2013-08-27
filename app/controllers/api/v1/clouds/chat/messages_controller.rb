@@ -11,7 +11,7 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
   # Returns a collection of messages
   def index
 
-    @cloud = Cloud.find(params[:cloud_id])
+    @cloud = Cloud.lookup(params[:cloud_id])
     @messages = Message.where(topic: @cloud).order_by(created_at: :desc).limit(50).reverse
 
     render status: 200
@@ -30,7 +30,7 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
   # Returns the message that was sent.
   def create
 
-    @cloud = Cloud.find(params[:cloud_id])
+    @cloud = Cloud.lookup(params[:cloud_id])
 
     @message = Message.new(params.for(Message).as(current_user).on(:create))
     @message.author = current_user
