@@ -120,6 +120,13 @@ class Cloud
 
   before_destroy :revoke_conversationists_access
 
+  # Public: Customer setter for the name attribute.
+  #
+  # Returns the name String.
+  def name=(val)
+    super(val.try(:strip))
+  end
+
   # Public: Overrides to_param so we can just pass clouds to link
   # constructors and make use of the short_name if at all, present.
   #
