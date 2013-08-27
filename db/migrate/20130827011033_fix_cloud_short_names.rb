@@ -2,7 +2,7 @@ class FixCloudShortNames < Mongoid::Migration
 
   def self.up
 
-    Cloud.nor(short_name: nil).nor(short_name: "").and(short_name: /\-/i).each do |cloud|
+    Cloud.nor(short_name: nil).nor(short_name: "").each do |cloud|
       cloud.short_name = cloud.short_name.gsub("-","_")
       cloud.save
     end
