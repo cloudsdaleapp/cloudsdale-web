@@ -23,7 +23,7 @@ class Session
 
   def user
     if self.identifier.present?
-      @user ||= Handle.lookup!(identifier.strip)
+      @user ||= Handle.lookup!(identifier.strip, kind: User)
       @user ||= User.where(email: identifier.downcase.strip).limit(1).first
     else
       @user ||= nil
