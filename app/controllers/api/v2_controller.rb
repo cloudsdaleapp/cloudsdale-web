@@ -8,15 +8,15 @@ class Api::V2Controller < ActionController::Base
 
   respond_to :json
 
-  before_filter :cors_preflight_check
-  after_filter  :cors_set_access_control_headers
+  before_filter :allow_cors
+  after_filter  :set_cors
 
   rescue_from ResourceUnauthorizedError do
     render_exception("You are not allowed to access this resource.", 401)
   end
 
-  rescue_from Pundit::NotAuthorizedError do |message|
-    render_exception("You're not allowed to do this. #{message}", 401)
+  rescue_from Pundit::NotAuthorizedError do |exception|
+    render_exception("You're #{exception.message}.", 401)
   end
 
   rescue_from ActionController::ParameterMissing do |message|
@@ -93,20 +93,19 @@ private
     @errors ||= []
   end
 
-  def cors_set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-    headers['Access-Control-Max-Age'] = "1728000"
+  def set_cors
+    headers["Access-Control-Allow-Origin"] = "http://beta.cloudsdale.dev"
+    headers["Access-Control-Allow-Credentials"] = "true"
+    headers["Access-Control-Allow-Headers"] = "*"
+    headers["Access-Control-Allow-Methods"] = ""
+      ["GET", "POST", "PUT", "DELETE"].join(",")
+
+    headers['Access-Control-Request-Method'] = '*'
   end
 
-  def cors_preflight_check
-    if request.method == :options
-      headers['Access-Control-Allow-Origin'] = '*'
-      headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-      headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
-      headers['Access-Control-Max-Age'] = '1728000'
-      render :text => '', :content_type => 'text/plain'
-    end
+  def allow_cors
+    set_cors
+    head(:ok) if request.request_method == "OPTIONS"
   end
 
 end
