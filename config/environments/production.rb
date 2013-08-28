@@ -27,7 +27,7 @@ Cloudsdale::Application.configure do
   config.assets.digest = true
 
   # EmberJS
-  config.ember.variant = :development
+  config.ember.variant = :production
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
