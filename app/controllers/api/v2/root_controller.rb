@@ -17,6 +17,13 @@ class Api::V2::RootController < Api::V2Controller
     respond_with resp, status: 200
   end
 
+  def lookup
+    @record = Handle.lookup(params[:handle])
+    @serializer = "#{@record.class.name}Serializer".constantize
+    @root = @record.class.name.underscore
+    respond_with_resource(@record, root: @root, serializer: @serializer)
+  end
+
   def not_found
     render_exception("Resource could not be found. Are you sure this is what you're looking for?", 404)
   end

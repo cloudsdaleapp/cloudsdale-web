@@ -49,6 +49,8 @@ Cloudsdale::Application.routes.draw do
 
     # resources :registrations, only: [:create,:update]
 
+    match 'lookup/:handle', to: 'root#lookup', via: [:get]
+
     match '*path', to: 'root#not_found', via: [:post,:get,:put,:patch,:delete]
 
   end
