@@ -1,4 +1,4 @@
-<a class="left"><img class="avatar small" {{bindAttr src="model.user.avatar" }}/></a>
+{{#linkTo 'root' class=left}}<img class="avatar small" {{bindAttr src="model.user.avatar" }}/>{{/linkTo}}
 <hgroup>
   <h4>{{model.user.displayName}}</h4>
   <h5>@{{model.user.username}}</h5>

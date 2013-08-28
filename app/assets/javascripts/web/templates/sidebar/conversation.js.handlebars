@@ -1,3 +1,3 @@
 <a {{bindAttr class="topic.type + '-conversation'"}}>
-  {{topic.displayName}}
+  {{#linkTo 'conversation' topic.handle}}{{topic.displayName}}{{/linkTo}}
 </a>
