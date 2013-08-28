@@ -15,11 +15,11 @@ Cloudsdale::Application.routes.draw do
       #   post '/:provider/:uid/share', only: [:create], on: :collection
       # end
       # resources :devices,         only: [:index,:show,:create,:destroy,:update]
-      # resources :conversations,   only: [:index,:show,:create,:destroy,:update] do
+      resources :conversations, only: [:show], path: 'convos' do
         # collection do
         #   match :order, via: [:put,:patch]
         # end
-      # end
+      end
     end
 
     # resources :spotlights, only: [:index] do

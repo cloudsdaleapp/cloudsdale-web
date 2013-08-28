@@ -143,6 +143,12 @@ class Conversation
     "#{$redis_ns}:conversations:#{id}"
   end
 
+  # Public: Conversts conversation to a human readable
+  # string.
+  def to_s
+    "conversation"
+  end
+
 private
 
   # Private: Sets the type of the object to Conversation
