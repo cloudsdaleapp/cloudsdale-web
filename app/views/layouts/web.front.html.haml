@@ -71,7 +71,12 @@
 
               %ul.right
                 %li.divider
-                %li= link_to "Login",  login_path
+                %li
+                  - if current_user.new_record?
+                    = link_to "Login", login_path
+                  - else
+                    = link_to "Logout", logout_path
+
                 %li.divider
                 %li= link_to "Register",  register_path
                 %li.divider
