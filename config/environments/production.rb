@@ -9,7 +9,7 @@ Cloudsdale::Application.configure do
   config.action_controller.perform_caching = true
 
   # Which files are going to be precompiled
-  config.assets.precompile = %w(application.css application.js web.front.css web.session.css
+  config.assets.precompile = %w(application.css application.js web.front.css web.session.css web.js
                                 mobile.css mobile.js admin.css admin.js developer.js developer.css
                                 auth.js auth.css *.ttf *.svg *.woff *.eot *.jst *.png *.jpg
                                 *.jpeg *.gif *.bmp *.ico)
