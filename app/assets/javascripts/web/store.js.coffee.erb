@@ -1,7 +1,7 @@
 # http://emberjs.com/guides/models/defining-a-store/
 
 DS.CloudsdaleAdapter = DS.RESTAdapter.extend
-  url: 'http://api.cloudsdale.dev/v2'
+  url: "<%= $settings[:api][:v2][:url] %>"
   buildURL: (record, suffix) ->
     recordNs = switch record
       when 'conversation' then 'me/convo'

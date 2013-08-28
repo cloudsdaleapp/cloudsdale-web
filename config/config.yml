@@ -1,5 +1,9 @@
 defaults: &defaults
 
+  api:
+    v2:
+      url: 'http://api.cloudsdale.dev/v2'
+
   url: http://www.cloudsdale.dev
   asset_url: http://www.cloudsdale.dev
   session_key: .cloudsdale.dev
@@ -76,6 +80,10 @@ test:
 
 production:
   <<: *defaults
+
+  api:
+    v2:
+      url: 'http://api.cloudsdale.org/v2'
 
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
