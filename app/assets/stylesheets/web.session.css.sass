@@ -5,7 +5,21 @@
 
 $bg-color: #404B52
 body
-  background: $bg-color
+  position: relative
+  background-color: #63a0d0
+  &:before
+    content: "."
+    position: fixed
+    width: 256px
+    height: 256px
+    left: 50%
+    top: 50%
+    margin-left: -128px
+    margin-top: -128px
+    background-image: image-url("icon/icon_animation_bg.gif")
+    background-position: center center
+    background-repeat: no-repeat
+
 
 $avatar-border-color: rgba(150,150,150,.4)
 .avatar
