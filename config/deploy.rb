@@ -72,12 +72,12 @@ namespace :deploy do
 
     desc "Deploy assets to Rackspace CloudFiles."
     task :upload, roles: [:app], except: { no_release: true }, only: { primary: true } do
-      run_rake_task "rake assets:upload"
+      run_rake_task "assets:upload"
     end
 
     desc "Sync assets with Fog Bucket"
     task :sync, roles: [:app], except: { no_release: true }, only: { primary: true } do
-      run_rake_task "rake assets:sync"
+      run_rake_task "assets:sync"
     end
 
   end
@@ -128,5 +128,5 @@ namespace :sidekiq do
 end
 
 def run_rake_task(rake_task)
-  run "cd #{deploy_to}/current && /usr/bin/env RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} #{rake_task}"
+  run "cd #{deploy_to}/current && /usr/bin/env RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} rake #{rake_task}"
 end
