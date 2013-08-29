@@ -1,7 +1,7 @@
 class ConversationSerializer < ApplicationSerializer
   embed :ids, include: true
 
-  attributes :position, :access, :handle
+  attributes :position, :access, :handle, :refs
 
   has_one :topic, polymorphic: true, flatten: true
 
@@ -10,6 +10,10 @@ class ConversationSerializer < ApplicationSerializer
     when User then object.topic.username.downcase
     when Cloud then object.topic.short_name.downcase
     end
+  end
+
+  def refs
+    [{ rel: 'self', href: v2_me_conversation_url(handle, format: :json, host: $api_host) }]
   end
 
 end
