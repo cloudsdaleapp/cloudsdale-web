@@ -2,7 +2,7 @@
 
 class Api::V2::MeController < Api::V2Controller
 
-  doorkeeper_for :show, :update, :get_auth_token, :if => ->{ current_user.new_record? }
+  doorkeeper_for :show, :update, :get_auth_token, :get_session, :if => ->{ current_user.new_record? }
 
   def show
     respond_with_resource(current_resource_owner, serializer: MeSerializer, root: :user)
@@ -29,7 +29,7 @@ class Api::V2::MeController < Api::V2Controller
   end
 
   def get_session
-    respond_with_resource(Session.new(user: current_user), serializer: SessionSerializer)
+    respond_with_resource(Session.new(user: current_resource_owner), serializer: SessionSerializer)
   end
 
 end
