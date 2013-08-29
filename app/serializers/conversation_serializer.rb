@@ -1,7 +1,7 @@
 class ConversationSerializer < ApplicationSerializer
   embed :ids, include: true
 
-  attributes :position, :access, :handle, :refs
+  attributes :position, :access, :handle, :refs, :socket
 
   has_one :topic, polymorphic: true, flatten: true
 
@@ -15,6 +15,13 @@ class ConversationSerializer < ApplicationSerializer
   def refs
     refs ||= []
     refs << { rel: 'self', href: v2_me_conversation_url(handle, format: :json, host: $api_host) } if handle.present?
+  end
+
+  def socket
+    {
+      channel: object.channel_name,
+      events: ['add-message','del-message','participation']
+    }
   end
 
 end

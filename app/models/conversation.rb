@@ -149,6 +149,14 @@ class Conversation
     "conversation"
   end
 
+  # Public: Generates the channel name to which users
+  # should subscribe for updates.
+  #
+  # Returns a string.
+  def channel_name
+    @channel_name ||= "/v2/#{user_id}/#{topic_id}"
+  end
+
 private
 
   # Private: Sets the type of the object to Conversation
