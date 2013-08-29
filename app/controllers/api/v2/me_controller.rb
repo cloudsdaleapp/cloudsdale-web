@@ -29,7 +29,7 @@ class Api::V2::MeController < Api::V2Controller
   end
 
   def get_session
-    respond_with_resource(Session.new(user: current_resource_owner), serializer: SessionSerializer)
+    respond_with_resource(Session.new(user: current_resource_owner), status: 200, serializer: SessionSerializer)
   end
 
 end

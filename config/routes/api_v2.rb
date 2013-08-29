@@ -10,8 +10,8 @@ Cloudsdale::Application.routes.draw do
     resource :me, only: [:show,:update], controller: :me do
 
       member do
-        get :session,    to: 'me#get_session'
-        get :auth_token, to: 'me#get_auth_token'
+        get :session,    to: 'me#get_session',    as: :session
+        get :auth_token, to: 'me#get_auth_token', as: :auth_token
       end
       # resources :networks, only: [:index,:destroy] do
       #   post '/:provider/:uid/share', only: [:create], on: :collection
