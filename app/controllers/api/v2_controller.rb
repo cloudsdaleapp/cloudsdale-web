@@ -94,7 +94,7 @@ private
   end
 
   def set_cors
-    headers["Access-Control-Allow-Origin"] = "http://beta.cloudsdale.dev"
+    headers["Access-Control-Allow-Origin"] = $settings[:api][:v2][:cors].join(", ")
     headers["Access-Control-Allow-Credentials"] = "true"
     headers["Access-Control-Allow-Headers"] = "*"
     headers["Access-Control-Allow-Methods"] = ""

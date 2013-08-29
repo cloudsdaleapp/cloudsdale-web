@@ -3,6 +3,11 @@ defaults: &defaults
   api:
     v2:
       url: 'http://api.cloudsdale.dev/v2'
+      cors:
+        - 'http://beta.cloudsdale.dev'
+        - 'https://beta.cloudsdale.dev'
+        - 'http://www.cloudsdale.dev'
+        - 'https://www.cloudsdale.dev'
 
   url: http://www.cloudsdale.dev
   asset_url: http://www.cloudsdale.dev
@@ -84,6 +89,11 @@ production:
   api:
     v2:
       url: 'http://api.cloudsdale.org/v2'
+      cors:
+        - 'http://beta.cloudsdale.org'
+        - 'https://beta.cloudsdale.org'
+        - 'http://www.cloudsdale.org'
+        - 'https://www.cloudsdale.org'
 
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
