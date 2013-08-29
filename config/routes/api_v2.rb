@@ -8,7 +8,9 @@ Cloudsdale::Application.routes.draw do
     root to: 'root#index'
 
     resource :me, only: [:show,:update], controller: :me do
+
       member do
+        get :session,    to: 'me#get_session'
         get :auth_token, to: 'me#get_auth_token'
       end
       # resources :networks, only: [:index,:destroy] do

@@ -28,4 +28,8 @@ class Api::V2::MeController < Api::V2Controller
     respond_with_resource(current_resource_owner, serializer: Me::AuthTokenSerializer, root: :user)
   end
 
+  def get_session
+    respond_with_resource(Session.new(user: current_user), serializer: SessionSerializer)
+  end
+
 end
