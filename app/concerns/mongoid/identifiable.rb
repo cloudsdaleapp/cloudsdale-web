@@ -10,7 +10,7 @@ module Mongoid
 
       class_attribute :identity_field
 
-      has_many :handles, as: :identifiable
+      has_many :handles,  as: :identifiable,   dependent: :destroy,   inverse_of: :identifiable
 
       class << self
 
