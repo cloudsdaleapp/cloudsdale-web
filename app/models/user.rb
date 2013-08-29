@@ -23,7 +23,7 @@ class User
   embeds_many :authentications, :validate => false
 
   has_many :conversations, :validate => false
-  has_many :references,    :validate => false, as: :topic, class_name: "Conversation", dependent: :destroy
+  has_many :references,    :validate => false, inverse_of: :topic, class_name: "Conversation", dependent: :destroy
 
   has_many :owned_clouds, class_name: "Cloud", as: :owner, :validate => false
 
