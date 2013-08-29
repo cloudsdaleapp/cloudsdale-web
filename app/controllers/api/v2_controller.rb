@@ -94,13 +94,15 @@ private
   end
 
   def set_cors
-    headers["Access-Control-Allow-Origin"] = $settings[:api][:v2][:cors].join(", ")
-    headers["Access-Control-Allow-Credentials"] = "true"
-    headers["Access-Control-Allow-Headers"] = "*"
-    headers["Access-Control-Allow-Methods"] = ""
-      ["GET", "POST", "PUT", "DELETE"].join(",")
+    if $settings[:api][:v2][:cors].include?(request.env['HTTP_ORIGIN'])
+      headers["Access-Control-Allow-Origin"] = request.env['HTTP_ORIGIN']
+      headers["Access-Control-Allow-Credentials"] = "true"
+      headers["Access-Control-Allow-Headers"] = "*"
+      headers["Access-Control-Allow-Methods"] = ""
+        ["GET", "POST", "PUT", "DELETE"].join(",")
 
-    headers['Access-Control-Request-Method'] = '*'
+      headers['Access-Control-Request-Method'] = '*'
+    end
   end
 
   def allow_cors
