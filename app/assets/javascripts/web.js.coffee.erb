@@ -10,8 +10,8 @@ window.Cloudsdale = Ember.Application.create
 
   rootElement: 'body'
 
-  LOG_TRANSITIONS: <%= !Rails.env.production? %>
-  LOG_TRANSITIONS_INTERNAL: <%= !Rails.env.production? %>
+  LOG_TRANSITIONS: <%= true || !Rails.env.production? %>
+  LOG_TRANSITIONS_INTERNAL: <%= true || !Rails.env.production? %>
 
   ready: -> $(document).foundation()
 
