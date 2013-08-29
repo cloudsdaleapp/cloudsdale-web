@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.13'
+gem 'rails', '~> 3.2.14'
 
 # Database NO-SQL
 gem 'mongoid',  '~> 3.1.4'
@@ -25,7 +25,7 @@ gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'jquery-rails',   '~> 2.0.2'
 gem 'coffee-script'
 gem 'uglifier'
-gem 'sprockets'
+gem 'sprockets',          '~> 2.2.1'
 gem 'haml_coffee_assets', '~> 1.6.0'
 gem 'zurb-foundation',    '~> 4.3.1'
 gem 'ace-rails-ap'
