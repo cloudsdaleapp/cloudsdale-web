@@ -13,7 +13,8 @@ class ConversationSerializer < ApplicationSerializer
   end
 
   def refs
-    [{ rel: 'self', href: v2_me_conversation_url(handle, format: :json, host: $api_host) }]
+    refs ||= []
+    refs << { rel: 'self', href: v2_me_conversation_url(handle, format: :json, host: $api_host) } if handle.present?
   end
 
 end
