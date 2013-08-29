@@ -29,7 +29,7 @@ class Registration
     with: {
       "username"   => User,
       "short_name" => Cloud
-    },
+    }
   }
 
   validates :display_name,  presence: true
