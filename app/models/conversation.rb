@@ -12,8 +12,8 @@ class Conversation
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  belongs_to  :topic,   :polymorphic => true,   :validate => false
-  belongs_to  :user,    :validate    => false
+  belongs_to  :topic,   :validate => false,   inverse_of: :references,    polymorphic: true
+  belongs_to  :user,    :validate => false,   inverse_of: :conversations
 
   field :position,      type: Integer,    default: 0
   field :access,        type: Symbol,     default: :granted
