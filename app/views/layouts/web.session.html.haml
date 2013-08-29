@@ -16,7 +16,8 @@
   = csrf_meta_tag
 
 %body{ session: SessionSerializer.new(current_session).to_json }
-  = javascript_include_tag "web"
+  // = javascript_include_tag "web"
+  %script{ src: '/assets/web.js', type: 'text/javascript' }
 
 :plain
   </html>
