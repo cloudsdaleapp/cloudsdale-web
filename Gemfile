@@ -14,6 +14,8 @@ gem 'dalli',   '~> 2.6.4'
 
 gem "redis",   '~> 3.0.1'
 gem "hiredis", '~> 0.4.5'
+gem 'redis-rails', '~> 3.2.3'
+gem 'redis-store', '1.1.3' # Upgrading this breaks everything
 
 gem 'pry'
 gem 'pry-rails'
@@ -24,7 +26,7 @@ gem 'sass-rails',     '~> 3.2.6'
 gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'jquery-rails',   '~> 2.0.2'
 gem 'coffee-script'
-gem 'uglifier'
+gem 'uglifier',           '~> 2.2.1'
 gem 'sprockets',          '~> 2.2.1'
 gem 'haml_coffee_assets', '~> 1.6.0'
 gem 'zurb-foundation',    '~> 4.3.1'
@@ -40,7 +42,7 @@ gem 'handlebars-source', '~> 1.0.12'
 # Markup
 gem 'slim'
 gem 'haml-rails',  '~> 0.4'
-gem 'redcarpet',   '~> 2.3.0'
+gem 'redcarpet',   '~> 3.0.0'
 gem 'rabl',        '~> 0.6.10'
 gem 'roadie',      '~> 2.4.1'
 gem 'simple_form', '~> 2.1.0'
@@ -50,7 +52,6 @@ gem 'coderay',     '~> 1.0.5'
 gem 'backbone-on-rails', '~> 0.9.2.0'
 
 # Authentication & Authorization
-gem 'redis-rails', '~> 3.2.3'
 gem 'omniauth'
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-twitter',  '~> 1.0.0'
@@ -58,7 +59,7 @@ gem 'omniauth-github',   '~> 1.1.0'
 gem 'pundit',            '~> 0.2.1'
 gem 'doorkeeper',        '~> 0.6.7'
 gem 'strong_parameters', '~> 0.2.1'
-gem 'arcane',            '~> 1.0.0'
+gem 'arcane',            '~> 1.1.1'
 
 # Third-party
 gem 'fog',        '~> 1.12.1'
@@ -86,7 +87,7 @@ gem 'google-analytics-rails', '~> 0.0.4'
 
 # Queueing
 gem 'bunny'
-gem 'sidekiq', '~> 2.12.4'
+gem 'sidekiq',  '~> 2.14.0'
 gem 'kiqstand', '~> 1.1.0'
 
 # Cloudsdale Specific
@@ -102,7 +103,7 @@ end
 group :development, :test do
 
   gem 'spork-rails'
-  gem 'rspec-rails', '~> 2.13.2'
+  gem 'rspec-rails',   '~> 2.14.0'
 
   gem 'guard',         '~> 1.8.1'
   gem 'guard-spork',   '~> 1.5.1'
@@ -120,13 +121,13 @@ end
 group :test do
   gem "timecop"
   gem 'shoulda-context',  '~> 1.1.4'
-  gem 'shoulda-matchers', '~> 2.2.0'
+  gem 'shoulda-matchers', '~> 2.3.0'
   gem 'capybara', '~> 2.1.0'
   gem 'email_spec'
 end
 
 group :production, :assets do
-  gem 'therubyracer', '~> 0.11.4'
+  gem 'therubyracer', '~> 0.12.0'
   gem 'execjs'
 end
 
