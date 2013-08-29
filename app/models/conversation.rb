@@ -154,7 +154,7 @@ class Conversation
   #
   # Returns a string.
   def channel_name
-    @channel_name ||= "/v2/#{user_id}/#{topic_id}"
+    @channel_name ||= "/v2/#{user_id}/convo/#{topic_id}"
   end
 
 private

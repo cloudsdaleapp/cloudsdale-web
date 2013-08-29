@@ -1,6 +1,6 @@
 class SessionSerializer < ActiveModel::Serializer
 
-  attributes :id, :socket
+  attributes :id, :socket, :faye
 
   embed :ids,   include: true
 
@@ -14,13 +14,20 @@ class SessionSerializer < ActiveModel::Serializer
     SecureRandom.hex()
   end
 
-  def socket
-    Hash.new({
+  def faye
+    {
       id: SecureRandom.hex(8),
-      secure_server: Cloudsdale.faye_path(:client,true),
-      normal_server: Cloudsdale.faye_path(:client),
+      http: Cloudsdale.faye_path(:client),
+      https: Cloudsdale.faye_path(:client,true),
       timeout: 120
-    })
+    }
+  end
+
+  def socket
+    {
+      channel: "/v2/#{object.user.id}/session",
+      events: ['edit-convo-badge','show-banner']
+    }
   end
 
 private
