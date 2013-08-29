@@ -1,5 +1,8 @@
 class ApplicationSerializer < ActiveModel::Serializer
 
+  include Sprockets::Helpers::RailsHelper
+  include Sprockets::Helpers::IsolatedHelper
+
   attributes :id, :type, :created_at, :updated_at, :deleted, :transient
 
   def id
@@ -43,5 +46,13 @@ protected
   def include_updated_at?
     object.respond_to?(:updated_at) and not object.new_record?
   end
+
+private
+
+  # Public: Method to deal with Sprockets errors.
+  def config; Rails.application.config.action_controller; end
+
+  # Public: Method to deal with Sprockets errors.
+  def controller; nil; end
 
 end

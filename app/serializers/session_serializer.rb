@@ -23,4 +23,12 @@ class SessionSerializer < ActiveModel::Serializer
     })
   end
 
+private
+
+  # Public: Method to deal with Sprockets errors.
+  def config; Rails.application.config.action_controller; end
+
+  # Public: Method to deal with Sprockets errors.
+  def controller; nil; end
+
 end
