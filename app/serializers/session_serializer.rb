@@ -25,8 +25,7 @@ class SessionSerializer < ActiveModel::Serializer
 
   def socket
     {
-      channel: "/v2/#{object.user.id}/session",
-      events: ['edit-convo-badge','show-banner']
+      channel: "/v2/#{object.user.id}/session"
     }
   end
 

@@ -19,8 +19,7 @@ class ConversationSerializer < ApplicationSerializer
 
   def socket
     {
-      channel: object.channel_name,
-      events: ['add-message','del-message','participation']
+      channel: object.channel_name
     }
   end
 
