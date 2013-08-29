@@ -22,8 +22,8 @@ class User
   embeds_one  :restoration,     :validate => false
   embeds_many :authentications, :validate => false
 
-  has_many :conversations, :validate => false, as: :user,  class_name: "Conversation", dependent: :destroy
-  has_many :references,    :validate => false, as: :topic, class_name: "Conversation", dependent: :destroy
+  has_many :conversations, :validate => false,  class_name: "Conversation", dependent: :destroy
+  has_many :references,    :validate => false,  class_name: "Conversation", dependent: :destroy
 
   has_many :owned_clouds, class_name: "Cloud", as: :owner, :validate => false
 
