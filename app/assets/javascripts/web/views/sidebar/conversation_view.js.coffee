@@ -4,14 +4,10 @@ Cloudsdale.Sidebar.ConversationView = Ember.View.extend(
   classNames: ['sidebar-conversation']
   tagName: 'li'
 
-  didInsertElement: (topic) ->
-    console.log "foo"
-
   classNameBindings: ['conversationTypeClass']
 
   conversationTypeClass: (->
-    console.log this
-    "conversation-topic-#{@model.get('topic').get('type')}" if @model
+    "conversation-topic-#{@model.get('topic').get('type')}"
   ).property("conversationTypeClass")
 
 )
