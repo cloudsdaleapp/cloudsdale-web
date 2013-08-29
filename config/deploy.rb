@@ -48,7 +48,7 @@ role :app,  "www.cloudsdale.org", :primary => true
 
 after 'deploy', 'deploy:permissions:correct'
 after 'deploy', 'deploy:db:create_indexes', 'deploy:db:migrate'
-after 'deploy:create_symlink', 'deploy:assets:upload'
+after 'deploy:create_symlink', 'deploy:assets:sync'
 after 'deploy:create_symlink', 'sidekiq:link_assets'
 
 # Default Environment
@@ -69,10 +69,17 @@ namespace :deploy do
   end
 
   namespace :assets do
+
     desc "Deploy assets to Rackspace CloudFiles."
-    task :upload, :roles => :app, :except => { :no_release => true }, :only => { :primary => true } do
-      run "cd #{deploy_to}/current && /usr/bin/env rake assets:upload RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path}"
+    task :upload, roles: [:app], except: { no_release: true }, only: { primary: true } do
+      run_rake_task "rake assets:upload"
     end
+
+    desc "Sync assets with Fog Bucket"
+    task :sync, roles: [:app], except: { no_release: true }, only: { primary: true } do
+      run_rake_task "rake assets:sync"
+    end
+
   end
 
   desc "Zero-downtime restart of Unicorn"
@@ -118,4 +125,8 @@ namespace :sidekiq do
     run "mv #{current_path}/public/admin/assets #{current_path}/public/admin/workers"
   end
 
+end
+
+def run_rake_task(rake_task)
+  run "cd #{deploy_to}/current && /usr/bin/env RAILS_ENV=#{rails_env} SHARED_PATH=#{shared_path} #{rake_task}"
 end

@@ -9,6 +9,10 @@ defaults: &defaults
         - 'http://www.cloudsdale.dev'
         - 'https://www.cloudsdale.dev'
 
+  assets:
+    fog:
+      bucket: cloudsdale_development_assets
+
   url: http://www.cloudsdale.dev
   asset_url: http://www.cloudsdale.dev
   session_key: .cloudsdale.dev
@@ -94,6 +98,10 @@ production:
         - 'https://beta.cloudsdale.org'
         - 'http://www.cloudsdale.org'
         - 'https://www.cloudsdale.org'
+
+  assets:
+    fog:
+      bucket: cloudsdale_production_assets
 
   url: http://www.cloudsdale.org
   asset_url: https://c776950.ssl.cf2.rackcdn.com
