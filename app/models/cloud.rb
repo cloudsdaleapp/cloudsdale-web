@@ -47,7 +47,7 @@ class Cloud
   has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true,  :validate => false
   has_and_belongs_to_many :moderators,  :inverse_of => :clouds_moderated,   dependent: :nullify,  class_name: "User",   index: true,  :validate => false
 
-  has_many :references,   :validate => false, inverse_of: :topic, class_name: "Conversation", dependent: :destroy
+  has_many :references,   :validate => false, as: :topic, class_name: "Conversation", dependent: :destroy, inverse_of: :topic
 
   scope :popular, order_by(member_count: :desc)
   scope :recent,  order_by(created_at: :desc)
