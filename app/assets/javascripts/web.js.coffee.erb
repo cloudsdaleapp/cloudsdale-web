@@ -6,13 +6,11 @@
 #= require_self
 #
 #= require ./web/cloudsdale
-<% if !Rails.env.production? %>
-  window.Cloudsdale = Ember.Application.create
+window.Cloudsdale = Ember.Application.create
 
-    rootElement: 'body'
+  rootElement: 'body'
 
-    LOG_TRANSITIONS: <%= true || !Rails.env.production? %>
-    LOG_TRANSITIONS_INTERNAL: <%= true || !Rails.env.production? %>
+  LOG_TRANSITIONS: <%= true || !Rails.env.production? %>
+  LOG_TRANSITIONS_INTERNAL: <%= true || !Rails.env.production? %>
 
-    ready: -> $(document).foundation()
-<% end %>
+  ready: -> $(document).foundation()
