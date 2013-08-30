@@ -42,7 +42,7 @@ namespace :assets do
 
         begin
           object.load_from_filename(file_path, options)
-          puts "[^] Uploaded #{file}"
+          puts "[^] Uploaded #{file} as #{options['Content-Type']}"
         rescue
           puts "[-] Failed to upload #{file}"
         end
