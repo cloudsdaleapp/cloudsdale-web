@@ -58,10 +58,6 @@ class Registration
   def to_user
     @user               = User.new
     @user[:username]    = self.username
-
-    self.handle.identifiable = @user
-    self.handle.save
-
     @user.email         = self.email
     @user.name          = self.display_name
     @user.password_salt = self.password_salt

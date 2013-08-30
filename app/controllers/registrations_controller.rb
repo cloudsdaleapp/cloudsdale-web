@@ -60,6 +60,9 @@ class RegistrationsController < ApplicationController
 
           @user = @registration.user
 
+          @registration.handle.identifiable = @user
+          @registration.handle.save
+
           timestamp = DateTime.current
 
           @user.email_verified_at         = timestamp
