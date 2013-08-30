@@ -65,6 +65,7 @@ gem 'arcane',            '~> 1.1.1'
 gem 'fog',        '~> 1.12.1'
 gem 'asset_sync', '~> 1.0.0'
 gem 'netdnarws',  '~> 0.2.8'
+gem 'cloudfiles', '~> 1.4.18'
 
 # Images
 gem 'mini_magick',         '~> 3.6.0'

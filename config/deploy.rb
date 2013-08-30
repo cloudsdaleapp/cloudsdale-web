@@ -48,7 +48,7 @@ role :app,  "www.cloudsdale.org", :primary => true
 
 after 'deploy', 'deploy:permissions:correct'
 after 'deploy', 'deploy:db:create_indexes', 'deploy:db:migrate'
-after 'deploy:create_symlink', 'deploy:assets:sync'
+after 'deploy:create_symlink', 'deploy:assets:upload'
 after 'deploy:create_symlink', 'sidekiq:link_assets'
 
 # Default Environment
