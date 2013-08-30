@@ -7,18 +7,32 @@ $bg-color: #404B52
 body
   position: relative
   background-color: #63a0d0
+  &:before, &:after
+    position: fixed
   &:before
     content: " "
-    position: fixed
     width: 256px
     height: 256px
     left: 50%
     top: 50%
+    margin-top: -148px
     margin-left: -128px
-    margin-top: -128px
     background-image: image-url("icon/icon_animation_bg.gif")
     background-position: center center
     background-repeat: no-repeat
+  &:after
+    content: "soon™"
+    width: 256px
+    height: 256px
+    left: 50%
+    top: 50%
+    margin-top: 118px
+    margin-left: -128px
+    text-align: center
+    font-size: 32px
+    font-weight: bold
+    color: #FFF
+
 
 
 $avatar-border-color: rgba(150,150,150,.4)
