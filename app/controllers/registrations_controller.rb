@@ -57,9 +57,11 @@ class RegistrationsController < ApplicationController
         @registration.verify_token = params[:token] || params[:registration][:verify_token]
 
         if @registration.valid?
+
           @user = @registration.user
 
           timestamp = DateTime.current
+
           @user.email_verified_at         = timestamp
           @user.confirmed_registration_at = timestamp
 

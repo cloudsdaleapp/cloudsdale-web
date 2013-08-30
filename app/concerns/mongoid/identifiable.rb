@@ -10,49 +10,75 @@ module Mongoid
 
       class_attribute :identity_field
 
-      has_many :handles,  as: :identifiable,   dependent: :destroy,   inverse_of: :identifiable
-
       class << self
 
         def lookup(id)
           Handle.lookup(id, kind: self)
         end
 
-        def identity(value, allowed_changes: 1)
+        def identity(value, allowed_changes: 1, diversity: true, dependent: :destroy)
 
+          # Set identity field on a class level.
           self.identity_field = value
 
-          belongs_to :handle,  foreign_key: identity_field,  primary_key: :name,  :validate => false,   autosave: true
+          # Create an association for the model
+          # and handles based on the identity field.
+          self.belongs_to(:handle, foreign_key: identity_field, primary_key: :name, :validate => false, autosave: true, dependent: dependent)
 
-          attr_accessible identity_field
+          if diversity
+            self.has_many(:handles, as: :identifiable, dependent: dependent, inverse_of: :identifiable)
+          end
 
-          field "#{identity_field}",                 type: String
-          field "force_#{identity_field}_change",    type: Boolean,  default: false
-          field "#{identity_field}_changed_at",      type: DateTime
-          field "#{identity_field}_changes_allowed", type: Integer,  default: allowed_changes
+          # Make the identity field accessible for
+          # old API endpoints not using strong
+          # parameters.
+          self.attr_accessible(identity_field)
 
-          index({ identity_field => 1 }, { unique: 1 })
+          # Index the identity field.
+          self.index({ identity_field => 1 }, { unique: 1 })
 
-          validates identity_field, presence: true, variety: true, :change => {
-            :allow => -> { self.send("#{identity_field}_changes_allowed") >= 1 },
-            :message => "has been changed too many times"
-          }
+          # Create the identity field.
+          self.field("#{identity_field}", type: String)
 
-          validate :identity_validity
+          # Add validation for the identity field.
+          self.validates(identity_field, presence: true)
+          self.validate(:identity_validity)
 
-          before_validation :generate_identity,         :unless => "#{identity_field}? && handle?"
-          after_validation  :decrease_identity_changes, :if => "#{identity_field}_changed?"
+          # Set a before filter to generate an
+          # identity handle before validation
+          # if it's missing.
+          before_validation(:generate_identity, :unless => "#{identity_field}? && handle?")
 
+          # Only add identity field meta-data
+          # if allowed changes is a number.
+          if not allowed_changes.nil?
+            self.field("force_#{identity_field}_change",    type: Boolean,  default: false)
+            self.field("#{identity_field}_changed_at",      type: DateTime)
+            self.field("#{identity_field}_changes_allowed", type: Integer,  default: allowed_changes)
+
+            self.validates(identity_field, variety: true, change: {
+              :allow => -> { self.send("#{identity_field}_changes_allowed") >= 1 },
+              :message => "has been changed too many times"
+            })
+
+            self.after_validation(:decrease_identity_changes, :if => "#{identity_field}_changed?")
+          end
+
+          # Create a custom setter for the identity
+          # field that will manage the changes meta
+          # as well as constructing handles.
           define_method "#{identity_field}=" do |value|
             if value.present?
               self.handle = Handle.build(self, value)
               self.handle.identifiable = self
 
-              self.send("force_#{identity_field}_change=", false) if self.send("force_#{identity_field}_change")
-              self.send("#{identity_field}_changed_at=", DateTime.now)
+              if not allowed_changes.nil?
+                self.send("force_#{identity_field}_change=", false) if self.send("force_#{identity_field}_change")
+                self.send("#{identity_field}_changed_at=", DateTime.now)
+              end
 
               self[identity_field] = handle.name
-              instance_variable_set(:"@#{identity_field}", handle.name)
+              self.instance_variable_set(:"@#{identity_field}", handle.name)
               super(handle.name)
             end
           end
@@ -95,7 +121,7 @@ module Mongoid
     #
     # Returns the remaining changes.
     def decrease_identity_changes
-      unless self.new_record?
+      if not new_record? and respond_to?("#{identity_field}_changes_allowed")
         current_value = self.send("#{identity_field}_changes_allowed") || 1
         new_value     = current_value >= 1 ? current_value - 1 : 0
         self.send("#{identity_field}_changes_allowed=",new_value)
