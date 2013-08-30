@@ -2,7 +2,7 @@ namespace :assets do
 
   task "Sync assets with Rackpsace"
   task :sync => :environment do
-    AssetSync.sync
+    # AssetSync.sync
   end
 
   desc "Upload assets to rackspace"
