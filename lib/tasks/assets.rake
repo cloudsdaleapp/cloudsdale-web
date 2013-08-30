@@ -35,7 +35,7 @@ namespace :assets do
 
         options ||= {}
         begin
-          options['Content-Type'] = `file -Ib #{file_path}`.gsub(/\n/,"").split(";")[0]
+          options['Content-Type'] = `file -ib #{file_path}`.gsub(/\n/,"").split(";")[0]
         end
 
         begin
