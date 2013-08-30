@@ -35,7 +35,9 @@ namespace :assets do
 
         options ||= {}
         begin
-          options['Content-Type'] = `file -ib #{file_path}`.gsub(/\n/,"").split(";")[0]
+          options['Content-Type'] = "text/css"        if file_path.match(/.*(\.css(\.gz)?)$/)
+          options['Content-Type'] = "text/javascript" if file_path.match(/.*(\.js(\.gz)?)$/)
+          options['Content-Type'] ||= `file -ib #{file_path}`.gsub(/\n/,"").split(";")[0]
         end
 
         begin
