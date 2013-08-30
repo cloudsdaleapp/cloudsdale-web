@@ -1,7 +1,7 @@
 Cloudsdale.Sidebar ||= Ember.Namespace.create()
 Cloudsdale.Sidebar.ConversationView = Ember.View.extend(
   templateName: 'sidebar/conversation'
-  classNames: ['sidebar-conversation']
+  classNames: ['sidebar-item']
   tagName: 'li'
 
   classNameBindings: ['conversationTypeClass']
@@ -9,5 +9,9 @@ Cloudsdale.Sidebar.ConversationView = Ember.View.extend(
   conversationTypeClass: (->
     "conversation-topic-#{@model.get('topic').get('type')}"
   ).property("conversationTypeClass")
+
+  image: ( ()->
+    @get('model').get('topic').get('avatar') + "&s=32"
+  ).property("topic.avatar")
 
 )

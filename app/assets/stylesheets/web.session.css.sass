@@ -3,10 +3,12 @@
 @import "mixins"
 @import "cloudsdale_foundation"
 
-$bg-color: #404B52
+$bg-color: #63a0d0
+$bg-content-color: #fafafa
+$bg-aside-color: #404B52
 body
   position: relative
-  background-color: #63a0d0
+  background-color: $bg-color
   &:before, &:after
     position: fixed
   &:before
@@ -32,8 +34,6 @@ body
     font-size: 32px
     font-weight: bold
     color: #FFF
-
-
 
 $avatar-border-color: rgba(150,150,150,.4)
 .avatar
@@ -63,19 +63,25 @@ $avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 12px) )
     border-width: $_border-size
     max-width: $_border-size + $_size
     max-height: $_border-size + $_size
+    min-width: $_border-size + $_size
+    min-height: $_border-size + $_size
 
 $avatar-statuses: ()
 $avatar-statuses: append( $avatar-statuses, ( "offline", $avatar-border-color  ))
 $avatar-statuses: append( $avatar-statuses, ( "online",  rgba(0,255,0,.5)      ))
 $avatar-statuses: append( $avatar-statuses, ( "busy",    rgba(255,0,0,.5)      ))
 $avatar-statuses: append( $avatar-statuses, ( "away",    rgba(255,0,255,.5)    ))
+$avatar-statuses: append( $avatar-statuses, ( "meld-main",    $bg-color))
+$avatar-statuses: append( $avatar-statuses, ( "meld-content", $bg-content-color))
+$avatar-statuses: append( $avatar-statuses, ( "meld-aside",   $bg-aside-color  ))
 
 @each $avatar-status in $avatar-statuses
   .avatar.#{nth($avatar-status,1)}
     border-color: nth($avatar-status,2)
+    background-color: nth($avatar-status,2)
 
 $background-colors: ()
-$background-colors: append( $background-colors, ("main", #fafafa) )
+$background-colors: append( $background-colors, ("main", $bg-content-color) )
 
 @each $background-color in $background-colors
   .bg-#{nth($background-color,1)}
@@ -91,20 +97,21 @@ $content-spacing: emCalc(10px)
   &.pad
     padding: $content-spacing
 
-$sidebar-border-color: rgba(255,255,255,.25)
-$sidebar-text-color: #dadada
-$sidebar-spacing-x: emCalc(10px)
-$sidebar-spacing-y: emCalc(15px)
+$sidebar-border-color: rgba(255,255,255,.5)
+$sidebar-text-color: #fafafa
+$sidebar-spacing-x: emCalc(8px)
+$sidebar-spacing-y: emCalc(10px)
 
 .sidebar, .main
   position: fixed
   top: 0
   bottom: 0
 .sidebar
-  width: 230px
+  background: $bg-aside-color
+  width: 300px
   left: 0
 .main
-  left: 230px
+  left: 300px
   right: 0
   .main-inner
     position: absolute
@@ -114,37 +121,64 @@ $sidebar-spacing-y: emCalc(15px)
     left: 4px
 
 .sidebar-user
+  position: relative
   @include clearfix()
-  padding: $sidebar-spacing-y $sidebar-spacing-x
+  padding: ($sidebar-spacing-y/2) $sidebar-spacing-x
   hgroup
     padding: $sidebar-spacing-y 0
   h4, h5
     color: $sidebar-text-color
     font-weight: normal
   h4
-    font-size: emCalc(15px)
-    line-height: emCalc(16px)
-  h5
-    font-size: emCalc(13px)
+    font-size: emCalc(14px)
     line-height: emCalc(14px)
+  h5
+    font-size: emCalc(12px)
+    line-height: emCalc(12px)
     letter-spacing: ($sidebar-spacing-x / 5)
-  img
+  span
     float: none
     margin-right: $sidebar-spacing-x
 
-.sidebar-conversations
-  margin: 0 ($sidebar-spacing-x / 3.5)
+  &:before
+    content: " "
+    position: absolute
+    display: block
+    left: 0
+    right: 0
+    top: 0
+    bottom: 25%
+    background: $bg-color
+    z-index: -1
 
-.sidebar-conversation
-  display: block
-  border-bottom: $sidebar-border-color 1px solid
-  &:first-of-type
-    border-top: $sidebar-border-color 1px solid
+.sidebar-divider
+  border-bottom: 1px solid $sidebar-border-color
+  margin: 0 ($sidebar-spacing-x * 2) $sidebar-spacing-y ($sidebar-spacing-x * 2)
 
-.sidebar-conversation > a
+.sidebar-items
+  margin: 0 0 $sidebar-spacing-y 0
+
+.sidebar-item
   display: block
-  padding: 0 $sidebar-spacing-x
+  cursor: pointer
+  &:hover
+    background-color: rgba(0,0,0,.1)
+
+.sidebar-item > span
+  @include clearfix()
+  display: block
+  padding: $sidebar-spacing-y ($sidebar-spacing-x * 2)
+
+.sidebar-item > span > img
+  display: inline-block
+  width: 24px
+  height: 24px
+  margin-right: emCalc(7px)
+
+.sidebar-item > span > a
+  display: block
+  height: 24px
+  line-height: 24px
   font-size: emCalc(12px)
-  line-height: ($sidebar-spacing-y * 3.5)
   color: $sidebar-text-color
 

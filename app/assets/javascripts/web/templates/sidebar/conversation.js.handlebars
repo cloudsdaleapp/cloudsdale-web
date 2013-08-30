@@ -1,3 +1,4 @@
-<a {{bindAttr class="topic.type + '-conversation'"}}>
+<span {{bindAttr class="topic.type + '-conversation'"}}>
+  <img class="avatar left" {{bindAttr src="view.image"}}</img>
   {{#linkTo 'conversation' topic.handle}}{{topic.displayName}}{{/linkTo}}
-</a>
+</span>

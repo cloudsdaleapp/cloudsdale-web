@@ -1,0 +1,22 @@
+{{view Cloudsdale.Sidebar.UserView}}
+
+<ul class="sidebar-items">
+  <li class="sidebar-item">
+    <span>
+      <img class="left" {{bindAttr src="view.images.cloudGaze"}}/>
+      <a>Cloud Gaze</a>
+    <span>
+  </li>
+  <li class="sidebar-item">
+    <span>
+      <img class="left" {{bindAttr src="view.images.settings"}}/>
+      <a>Settings</a>
+    <span>
+  </li>
+</ul>
+
+<div class="sidebar-divider"></div>
+
+{{view "cloudsdale/Sidebar/Conversations"}}
+
+<div class="sidebar-divider"></div>
