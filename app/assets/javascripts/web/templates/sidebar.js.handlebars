@@ -3,14 +3,20 @@
 <ul class="sidebar-items">
   <li class="sidebar-item">
     <span>
+      <img class="left" {{bindAttr src="view.images.dashboard"}}/>
+      {{#linkTo 'root'}}Cloudsdale Dashboard{{/linkTo}}
+    <span>
+  </li>
+  <li class="sidebar-item">
+    <span>
       <img class="left" {{bindAttr src="view.images.cloudGaze"}}/>
-      <a>Cloud Gaze</a>
+      <a>Cloud Gazing™</a>
     <span>
   </li>
   <li class="sidebar-item">
     <span>
       <img class="left" {{bindAttr src="view.images.settings"}}/>
-      <a>Settings</a>
+      <a>Account Settings</a>
     <span>
   </li>
 </ul>
