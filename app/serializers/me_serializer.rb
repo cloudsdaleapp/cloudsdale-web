@@ -28,4 +28,8 @@ class MeSerializer < UserSerializer
     "me/#{object.id}-#{object.updated_at.utc.to_s(:number)}"
   end
 
+  def refs
+    [{ rel: 'self', href: v2_me_url(format: :json, host: $api_host) }]
+  end
+
 end
