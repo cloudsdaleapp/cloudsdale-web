@@ -1,7 +1,16 @@
 # http://emberjs.com/guides/models/defining-a-store/
 
+Cloudsdale.serializer = DS.RESTSerializer.create()
+
+Cloudsdale.serializer.configure {
+  collection: 'collection'
+}
+
 DS.CloudsdaleAdapter = DS.RESTAdapter.extend
+
   url: "<%= $settings[:api][:v2][:url] %>"
+  serializer: Cloudsdale.serializer
+
   buildURL: (record, suffix) ->
     recordNs = switch record
       when 'conversation' then 'me/convo'
@@ -16,8 +25,23 @@ DS.CloudsdaleAdapter = DS.RESTAdapter.extend
 
     this._super(url, type, hash)
 
+  extractMeta: (loader, type, json) ->
+    meta = json[@configOption(type, 'collection')]
+    return if not meta
+    Ember.set('App.metaDataForLastRequest', meta)
+    this._super(loader, type, json)
+
 DS.CloudsdaleAdapter.configure 'Cloudsdale.Cloud', {
   alias: 'cloud'
+}
+
+DS.CloudsdaleAdapter.configure 'Cloudsdale.User', {
+  alias: 'user'
+}
+
+DS.CloudsdaleAdapter.configure "plurals", {
+  user: "users",
+  cloud: "clouds"
 }
 
 Cloudsdale.Store = DS.Store.extend

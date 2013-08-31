@@ -1,7 +1,7 @@
 <div class="row">
   <div class="small-12 large-12 columns">
     <div class="row">
-      <div class="small-12 large-3 push-9 columns">
+      <div class="small-12 large-5 push-7 columns">
         <h6>Categories</h6>
         <div class="content-panel">
           <div class="content-panel-inner panel-expand">
@@ -15,9 +15,25 @@
           </div>
         </div>
       </div>
-      <div class="small-12 large-9 pull-3 columns">
-        <h1>foo</h1>
-        <hr/>
+      <div class="small-12 large-7 pull-5 columns">
+        <h6>Today's Spotlights:</h6>
+
+        <div class="row">
+          {{#each model}}
+            <div class="small-12 large-12 columns">
+              <div class="panel spotlight">
+                <h6>{{target.displayName}}</h6>
+                <div class="spotlight-image-wrap loading">
+                  <img class="spotlight-image" {{bindAttr src="target.avatar"}}>
+                </div>
+                <br/>
+                <br/>
+                <p>{{adjustedIndex}}</p>
+                {{#linkTo 'root' class="button expand secondary small"}}Join Conversation{{/linkTo}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
       </div>
     </div>
   </div>

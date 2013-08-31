@@ -119,6 +119,7 @@ $sidebar-spacing-y: emCalc(10px)
 .main
   left: 280px
   right: 0
+  overflow: auto
   .main-inner
     position: absolute
     top: 4px
@@ -219,3 +220,23 @@ $sidebar-spacing-y: emCalc(10px)
   font-size: emCalc(12px)
   color: $sidebar-text-color
 
+.loading
+  background-repeat: no-repeat
+  background-position: center
+
+.spotlight
+
+.spotlight-image-wrap
+  position: relative
+  width: 100%
+  height: 0
+  padding-top: 100%
+  &.loading
+    background-image: asset-data-url("details/gaze-image-loader@x2.gif")
+    background-size: 48px 48px
+
+.spotlight-image
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
