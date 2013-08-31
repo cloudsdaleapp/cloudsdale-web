@@ -107,7 +107,7 @@ private
   # Returns true or false
   def authenticate!(user)
     cookies.signed[:auth_token] = {
-      :domain =>  Cloudsdale.config['session_key'],
+      :domain =>  $settings[:session_key],
       :value =>   user.auth_token,
       :expires => 20.years.from_now
     }
