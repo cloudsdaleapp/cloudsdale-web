@@ -112,6 +112,7 @@ $sidebar-spacing-y: emCalc(10px)
   background: $bg-aside-color
   width: 280px
   left: 0
+  padding-top: 64px
   overflow: auto
 
 .main
@@ -125,7 +126,13 @@ $sidebar-spacing-y: emCalc(10px)
     left: 4px
 
 .sidebar-user
-  position: relative
+  position: fixed
+  width: 280px
+  left: 0
+  top: 0
+  height: 78px
+  pointer-events: none
+
   @include clearfix()
   padding: ($sidebar-spacing-y/2) $sidebar-spacing-x
   hgroup
@@ -143,8 +150,14 @@ $sidebar-spacing-y: emCalc(10px)
   span
     float: none
     margin-right: $sidebar-spacing-x
+  a
+    pointer-events: auto
 
-  &:before
+  & > div
+    position: relative
+    z-index: 1
+
+  &:after
     content: " "
     position: absolute
     display: block
@@ -153,7 +166,6 @@ $sidebar-spacing-y: emCalc(10px)
     top: 0
     bottom: 25%
     background: $bg-color
-    z-index: -1
 
 .sidebar-divider
   border-bottom: 1px solid $sidebar-border-color
@@ -182,7 +194,7 @@ $sidebar-spacing-y: emCalc(10px)
 .sidebar-item > span > a
   display: block
   height: 24px
-  line-height: 24px
+  line-height: 26px
   font-size: emCalc(12px)
   color: $sidebar-text-color
 
