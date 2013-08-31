@@ -5,10 +5,8 @@ Cloudsdale.GazeView = Ember.View.extend
 
   didInsertElement: ->
     view = this
-    setTimeout =>
-      $(@scrollParent).on("scroll", (e) -> view.didScroll(view,e))
-      $(@scrollParent).trigger("scroll")
-    , 3000
+    $(@scrollParent).on("scroll", (e) -> view.didScroll(view,e))
+    setTimeout(=> $(@scrollParent).trigger("scroll"), 5000)
 
   didScroll: (view,e) ->
     @get('controller').send('more') if @isScrolledToBottom()
