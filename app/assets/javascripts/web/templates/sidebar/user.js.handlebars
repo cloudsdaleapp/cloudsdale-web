@@ -5,7 +5,6 @@
     </span>
   {{/linkTo}}
   <hgroup>
-    <h4>{{model.user.displayName}}</h4>
-    <h5>@{{model.user.username}}</h5>
+    <h4>{{#linkTo 'root' class=left}}{{model.user.displayName}}{{/linkTo}}</h4>
   </hgroup>
 </div>

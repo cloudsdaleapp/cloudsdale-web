@@ -135,34 +135,60 @@ $sidebar-spacing-y: emCalc(10px)
   hgroup
     padding: $sidebar-spacing-y 0
   h4, h5
-    color: $sidebar-text-color
     font-weight: normal
+    a
+      color: $sidebar-text-color
+      &:hover
+        text-decoration: underline
+
   h4
-    font-size: emCalc(14px)
-    line-height: emCalc(14px)
+    font-size: emCalc(13px)
+    line-height: emCalc(16px)
+    height: emCalc((16px * 2))
+    vertical-align: middle
   h5
     font-size: emCalc(12px)
     line-height: emCalc(12px)
     letter-spacing: ($sidebar-spacing-x / 5)
-  span
-    float: none
+  span.avatar
+    position: relative
     margin-right: $sidebar-spacing-x
+    &:hover
+      &:before
+        content: " "
+        position: absolute
+        top: 0
+        bottom: 0
+        right: 0
+        left: 0
+        background-color: rgba(0,0,0,.5)
+        background-image: asset-data-url("icons/sidebar/upload.png")
+        background-position: center center
+        background-repeat: no-repeat
+        z-index: 4
   a
     pointer-events: auto
 
   & > div
+    @include clearfix()
     position: relative
-    z-index: 1
+    z-index: 3
 
-  &:after
+  &:after, &:before
     content: " "
     position: absolute
     display: block
     left: 0
     right: 0
     top: 0
-    bottom: 15%
+  &:after
+    z-index: 1
+    bottom: 24px
     background: $bg-color
+  &:before
+    z-index: 2
+    bottom: 28px
+    background: $bg-aside-color
 
 .sidebar-divider
   border-bottom: 1px solid $sidebar-border-color
