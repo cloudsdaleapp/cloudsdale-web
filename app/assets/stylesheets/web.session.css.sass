@@ -19,6 +19,7 @@ body
     height: 256px
     left: 50%
     top: 50%
+    z-index: -1
     margin-top: -148px
     margin-left: -128px
     background-image: image-url("icon/icon_animation_bg.gif")
@@ -26,6 +27,7 @@ body
     background-repeat: no-repeat
   &:after
     content: "soon™"
+    z-index: -1
     width: 256px
     height: 256px
     left: 50%
@@ -112,7 +114,6 @@ $sidebar-spacing-y: emCalc(10px)
   background: $bg-aside-color
   width: 280px
   left: 0
-  padding-top: 78px
   overflow: auto
 
 .main
@@ -126,12 +127,8 @@ $sidebar-spacing-y: emCalc(10px)
     left: 4px
 
 .sidebar-user
-  position: fixed
+  position: relative
   width: 280px
-  left: 0
-  top: 0
-  height: 78px
-  pointer-events: none
 
   @include clearfix()
   padding: ($sidebar-spacing-y/2) $sidebar-spacing-x
@@ -164,7 +161,7 @@ $sidebar-spacing-y: emCalc(10px)
     left: 0
     right: 0
     top: 0
-    bottom: 25%
+    bottom: 15%
     background: $bg-color
 
 .sidebar-divider
