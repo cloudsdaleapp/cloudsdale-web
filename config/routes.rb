@@ -110,6 +110,8 @@ Cloudsdale::Application.routes.draw do
     root to: 'root#index'
 
     resources :dispatches, only: [:index,:show,:create,:update]
+    resources :spotlights, only: [:index,:create,:destroy]
+
     mount Sidekiq::Web,   at: '/workers',   constraints: AdminConstraints.new
 
     match '*path', to: 'root#not_found'

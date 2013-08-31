@@ -24,12 +24,11 @@ Cloudsdale::Application.routes.draw do
       end
     end
 
-    # resources :spotlights, only: [:index] do
-    #   collection do
-    #     get :clouds,  to: :index
-    #     get :apps,    to: :index
-    #   end
-    # end
+    resources :spotlights, only: [:index, :show] do
+      collection do
+        get '/:category', to: 'spotlights#index'
+      end
+    end
 
     # resources :apps,   only: [:show] do
     #   collection do

@@ -37,6 +37,8 @@
                   %li.divider
                   %li= link_to "Dashboard", root_path
                   %li.divider
+                  %li= link_to "Spotlights", spotlights_path
+                  %li.divider
                   %li= link_to "Dispatches", dispatches_path
                   %li.divider
                   %li= link_to "Workers", "/workers"
@@ -56,10 +58,10 @@
           = render 'layouts/flash_success'
           = yield(:legend)
       - else
+        %br
         = render 'layouts/flash_error'
         = render 'layouts/flash_notice'
         = render 'layouts/flash_success'
-        %br
       = yield
       %br
       %br

@@ -1,0 +1,46 @@
+.row
+  .large-12.columns
+    .content-panel
+      .content-panel-inner
+        %h3= "Cloudsdale Spotlights"
+        %h5.subheader= "Here is a comprehensible list of all spotlights where you can make additions and deletions."
+        %hr
+        = simple_form_for @spotlight, url: spotlights_path do |f|
+          .row
+            .large-8.columns
+              = f.input :text, as: :text, label: false, placeholder: "Promotional Text", input_html: { style: 'height: 78px;' }
+            .large-4.columns
+              = f.input :category, as: :select, collection: Spotlight::CATEGORIES, input_html: { :class => 'custom' }
+              = f.input :handle, placeholder: 'Cloud or User handle', label: false
+            .large-12.columns
+              %hr
+              = f.submit "Shine on thee!", :class => ['button','expand','success'], style: "margin-bottom: 0;"
+
+    %hr
+    - if @spotlights.empty?
+      %center
+        %br
+        %br
+        %h3.subheader= "Where's the love?"
+        %h4.subheader= "You should really add some spotlights."
+        %br
+        %br
+    - else
+      .row
+        - @spotlights.each_with_index do |spotlight,i|
+          .large-4.columns
+            .panel{ :id => "spotlight_#{spotlight.id}" }
+              %center
+                .auth-icon= image_tag spotlight.target.dynamic_avatar_url(128)
+              %hr
+              %h5.compact
+                %div= spotlight.target.name
+                - if spotlight.category.present?
+                  %small= "Added to #{spotlight.category} #{distance_of_time_in_words(Time.now,spotlight.created_at)} ago"
+              - if spotlight.text.present?
+                %p.subheader{ style: 'height: 50px' }= spotlight.text
+              %hr
+              = link_to "Remove", spotlight_path(spotlight), method: :delete, :class => ['button','alert','expand','small']
+
+          - if (i % 3) == 2
+            %hr
