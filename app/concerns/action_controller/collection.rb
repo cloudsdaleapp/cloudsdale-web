@@ -90,7 +90,7 @@ private
 
     meta[:refs] << {
       href: url_for(parameters.merge({ offset: (offset - 1) })),
-      rel: 'previous'
+      rel: 'prev'
     } unless collection.first_page?
 
     meta[:refs] << {
@@ -102,6 +102,9 @@ private
       href: url_for(parameters.merge({ offset: (offset + 1) })),
       rel: 'next'
     } unless collection.last_page?
+
+    meta[:prev] = parameters.merge({ offset: (offset - 1) }).reject{|k,_|[:format].include? k} unless collection.first_page?
+    meta[:next] = parameters.merge({ offset: (offset + 1) }).reject{|k,_|[:format].include? k} unless collection.last_page?
 
     return meta
   end
