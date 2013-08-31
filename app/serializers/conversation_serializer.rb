@@ -1,4 +1,5 @@
 class ConversationSerializer < ApplicationSerializer
+
   embed :ids, include: true
 
   attributes :position, :access, :handle, :refs, :socket

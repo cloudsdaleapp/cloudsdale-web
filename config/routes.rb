@@ -87,6 +87,7 @@ Cloudsdale::Application.routes.draw do
 
   site :web, subdomain: 'beta' do
     root to: 'root#index'
+    get '/gaze' => 'root#gaze', as: :gaze
 
     resources :conversations, path: 'convos', only: [:show]
 
