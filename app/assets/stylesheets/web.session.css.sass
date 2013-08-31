@@ -133,23 +133,21 @@ $sidebar-spacing-y: emCalc(10px)
   @include clearfix()
   padding: ($sidebar-spacing-y/2) $sidebar-spacing-x
   hgroup
-    padding: $sidebar-spacing-y 0
-  h4, h5
+    padding: $sidebar-spacing-y 0 0 0
+  h4
+    @include clearfix()
     font-weight: normal
+    margin: 0 0 0 76px
+    font-size: emCalc(14px)
     a
+      line-height: emCalc(17px)
+      height: emCalc((17px * 2))
+      display: inline-block
+      vertical-align: bottom
       color: $sidebar-text-color
       &:hover
         text-decoration: underline
 
-  h4
-    font-size: emCalc(13px)
-    line-height: emCalc(16px)
-    height: emCalc((16px * 2))
-    vertical-align: middle
-  h5
-    font-size: emCalc(12px)
-    line-height: emCalc(12px)
-    letter-spacing: ($sidebar-spacing-x / 5)
   span.avatar
     position: relative
     margin-right: $sidebar-spacing-x
