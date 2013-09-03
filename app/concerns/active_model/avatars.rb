@@ -64,9 +64,9 @@ module ActiveModel
     # Returns the full image path.
     def dynamic_avatar_url(size = 256, url_type = :id, schema = :https)
       url =   case schema
-              when :https  then Cloudsdale.config['avatar']['https']
-              when :ssl    then Cloudsdale.config['avatar']['https']
-              else Cloudsdale.config['avatar']['http']
+              when :https  then $settings[:avatar][:https]
+              when :ssl    then $settings[:avatar][:https]
+              else $settings[:avatar][:http]
               end
 
       "#{url}#{dynamic_avatar_path(size,url_type)}"
@@ -89,7 +89,7 @@ module ActiveModel
       params << "mtime=#{self.avatar_uploaded.to_i}" if avatar_uploaded
       params = !params.empty? ? "?" + params.join("&") : ""
 
-      "/#{avatar_namespace}/#{avatar_id}.png#{params}"
+      "/#{avatar_namespace}/#{self.id}.png#{params}"
 
     end
 
