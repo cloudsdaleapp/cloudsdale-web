@@ -33,9 +33,7 @@ gem 'zurb-foundation',    '~> 4.3.1'
 gem 'ace-rails-ap'
 
 gem 'ember-rails'
-gem 'ember-source', '~> 1.0.0.rc6.2'
 gem 'coffee-rails'
-gem 'coffee-rails-source-maps'
 gem 'handlebars-source', '~> 1.0.12'
 
 
