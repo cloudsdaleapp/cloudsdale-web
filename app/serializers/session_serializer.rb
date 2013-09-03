@@ -6,8 +6,8 @@ class SessionSerializer < ActiveModel::Serializer
 
   delegate :conversations, to: :user
 
-  has_one  :user, serializer: MeSerializer
-  has_many :conversations
+  has_one  :user, polymorphic: true, serializer: MeSerializer
+  has_many :conversations, key: :conversations
 
 
   def id

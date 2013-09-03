@@ -4,7 +4,8 @@ class ConversationSerializer < ApplicationSerializer
 
   attributes :position, :access, :handle, :refs, :socket
 
-  has_one :topic, polymorphic: true, flatten: true
+  has_one :user,  polymorphic: true
+  has_one :topic, polymorphic: true
 
   def handle
     case object.topic.class

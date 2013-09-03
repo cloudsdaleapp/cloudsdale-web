@@ -4,7 +4,7 @@ class SpotlightSerializer < ApplicationSerializer
 
   attributes :text, :category
 
-  has_one :target, polymorphic: true, flatten: true
+  has_one :target, polymorphic: true
 
   attribute :refs
 
