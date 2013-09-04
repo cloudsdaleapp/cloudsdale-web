@@ -2,7 +2,7 @@ Cloudsdale.GazeRoute = Ember.Route.extend
 
   templateName: 'gaze'
 
-  filter: { limit: 10 }
+  defaultQuery: { limit: 10 }
 
   reloadUrl:  null
   prevUrl:    null
@@ -14,13 +14,11 @@ Cloudsdale.GazeRoute = Ember.Route.extend
 
   actions:
     more: ->
-      console.log @nextParams
-      if @nextParams == null
-        @handleMeta(@get('controller').get('store').typeMapFor(Cloudsdale.Spotlight).metadata)
+      @handleMeta(@get('controller').get('store').typeMapFor(Cloudsdale.Spotlight).metadata) unless @nextParams == null
       @loadRecords(@nextParams) if @nextParams
 
   model: (params) ->
-    @loadRecords(@filter)
+    @loadRecords(@defaultQuery)
     return @store.filter('spotlight')
 
   loadRecords: (collectionFilter) ->
@@ -60,3 +58,16 @@ Cloudsdale.GazeRoute = Ember.Route.extend
           @nextParams = val
         when 'prev'
           @prevParams = val
+
+Cloudsdale.GazeCategoryRoute = Cloudsdale.GazeRoute.extend
+
+  model: (params) ->
+    query = @defaultQuery
+    query.category ||= params.category
+
+    @loadRecords(query)
+
+    filter = (spotlight) =>
+      spotlight.get('category') == params.category
+
+    return @store.filter('spotlight', filter)
