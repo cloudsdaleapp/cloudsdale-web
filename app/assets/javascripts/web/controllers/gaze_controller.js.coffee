@@ -1,7 +1,11 @@
-Cloudsdale.GazeController = Ember.Controller.extend
+Cloudsdale.GazeController = Ember.ArrayController.extend
 
   title: 'Gaze'
+  category: null
+  spotlights: []
 
-  spotlights: ( () ->
-    return @get('model')
-  ).property('model')
+  categoriesDropdownText: ( ()->
+    text = "category"
+    text += if @get('category') then ": #{@get('category')}" else ": all"
+    return text
+  ).property('category')

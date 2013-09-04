@@ -4,8 +4,9 @@
       <br/>
       <div class="small-12 large-12 pull-0 columns">
         <div class="right">
-          <a href="#" data-dropdown="categories-dropdown" class="button dropdown secondary small">Category</a>
+          <a href="#" data-dropdown="categories-dropdown" class="button dropdown secondary small">{{categoriesDropdownText}}</a>
           <ul id="categories-dropdown" class="f-dropdown">
+            <li>{{#linkTo "gaze" }}All{{/linkTo}}</li>
             <li>{{#linkTo "gaze.category" "casual"}}Casual{{/linkTo}}</li>
             <li>{{#linkTo "gaze.category" "roleplay"}}Role Play{{/linkTo}}</li>
           </ul>
