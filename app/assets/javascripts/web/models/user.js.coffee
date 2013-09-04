@@ -1,4 +1,5 @@
 Cloudsdale.User = DS.Model.extend
+  type:          DS.attr('string')
   email:         DS.attr('string')
   displayName:   DS.attr('string')
   username:      DS.attr('string')
