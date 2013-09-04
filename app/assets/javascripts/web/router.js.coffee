@@ -3,6 +3,9 @@ Cloudsdale.Router.reopen
 
 Cloudsdale.Router.map () ->
   @route 'root',             { path: '/' }
+
+  @resource 'profile',       { path: '/:handle' }
+
   @route 'settings',         { path: '/settings' }
 
   @resource 'gaze',          { path: '/gaze' }, ->

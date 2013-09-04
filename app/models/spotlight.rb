@@ -4,10 +4,10 @@ class Spotlight
 
   CATEGORIES = [
     :roleplay,
-    :podcast,
     :casual,
-    :livestream,
-    :education
+    :education,
+    :gaming,
+    :music
   ]
 
   include Mongoid::Document

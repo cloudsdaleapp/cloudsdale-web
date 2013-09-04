@@ -1,17 +1,25 @@
 <div class="spotlight">
   <div class="spotlight-inner">
     <div class="row">
-      <div class="large-6 medium-4 small-12 columns">
+      {{#view Cloudsdale.Gaze.Spotlight.ColumnView columnType="avatar"}}
         <div class="spotlight-padding">
           <span class="spotlight-avatar avatar loading"><img {{bindAttr src="target.avatar"}}></span>
         </div>
-      </div>
-      <div class="large-6 medium-8 small-12 columns">
-        <div class="spotlight-padding">
+      {{/view}}
+      {{#view Cloudsdale.Gaze.Spotlight.ColumnView columnType="info"}}
+        <div class="spotlight-padding" style="margin-top:15px;margin-bottom:15px;">
+          <h6>
+            {{#linkTo 'profile' target.handle}}
+              {{target.displayName}}
+              <small> @{{target.handle}}</small>
+            {{/linkTo}}
+            <span class="right spotlight-category">
+              {{category}}
+            </small>
+          </h6>
           <p>{{text}}</p>
-          {{#linkTo 'root' class="button expand secondary small"}}Join Conversation{{/linkTo}}
         </div>
-      </div>
+      {{/view}}
     </div>
   </div>
 </div>
