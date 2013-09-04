@@ -1,4 +1,2 @@
 Cloudsdale.Gaze ||= Ember.Namespace.create()
-Cloudsdale.Gaze.SpotlightController = Ember.Controller.extend({
-
-})
+Cloudsdale.Gaze.SpotlightController = Ember.Controller.extend()

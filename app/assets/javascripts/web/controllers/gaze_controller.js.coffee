@@ -5,7 +5,5 @@ Cloudsdale.GazeController = Ember.ArrayController.extend
   spotlights: []
 
   categoriesDropdownText: ( ()->
-    text = "category"
-    text += if @get('category') then ": #{@get('category')}" else ": all"
-    return text
+    if @get('category') then "category: #{@get('category')}" else "categories"
   ).property('category')
