@@ -1,4 +1,17 @@
 Cloudsdale.Session = DS.Model.extend
-  conversations: DS.hasMany   'Cloudsdale.Conversation'
-  user:          DS.belongsTo 'Cloudsdale.User'
-  socket:        DS.belongsTo 'Cloudsdale.Socket'
+
+  user:          DS.belongsTo('user')
+  conversations: DS.hasMany('conversation')
+
+Cloudsdale.SessionAdapter = DS.CloudsdaleAdapter.extend(
+
+  namespace: 'v2/me'
+
+  buildURL: (type, id) ->
+    url = []
+    url.push @get('host')
+    url.push @get('namespace')
+    url.push type.typeKey
+    return url.join("/") + ".json"
+
+)

@@ -2,7 +2,7 @@ defaults: &defaults
 
   api:
     v2:
-      url: 'http://api.cloudsdale.dev/v2'
+      host: 'http://api.cloudsdale.dev'
       cors:
         - 'http://beta.cloudsdale.dev'
         - 'https://beta.cloudsdale.dev'
@@ -92,7 +92,7 @@ production:
 
   api:
     v2:
-      url: 'http://api.cloudsdale.org/v2'
+      host: 'http://api.cloudsdale.org'
       cors:
         - 'http://beta.cloudsdale.org'
         - 'https://beta.cloudsdale.org'

@@ -2,7 +2,7 @@ Cloudsdale.GazeRoute = Ember.Route.extend
 
   templateName: 'gaze'
 
-  filter: { limit: 1 }
+  filter: { limit: 10 }
 
   reloadUrl:  null
   prevUrl:    null
@@ -12,21 +12,19 @@ Cloudsdale.GazeRoute = Ember.Route.extend
 
   isLoading:  false
 
-  events:
+  actions:
     more: ->
+      console.log @nextParams
       if @nextParams == null
         @handleMeta(@get('controller').get('store').typeMapFor(Cloudsdale.Spotlight).metadata)
-      @loadMore()
+      @loadRecords(@nextParams) if @nextParams
 
   model: (params) ->
     @loadRecords(@filter)
-    return Cloudsdale.Spotlight.filter()
-
-  loadMore: ->
-    @loadRecords(@nextParams) if @nextParams
+    return @store.filter('spotlight')
 
   loadRecords: (collectionFilter) ->
-    promise = Cloudsdale.Spotlight.find(collectionFilter)
+    promise = @store.find('spotlight', collectionFilter)
     @clearMeta()
 
   setupController: (controller,model) ->
@@ -41,12 +39,12 @@ Cloudsdale.GazeRoute = Ember.Route.extend
     @prevParams = null
 
   handleMeta: (meta) ->
-    if meta.collection
-      @handleMetaCollection(meta.collection)
-      @handleMetaRefs(meta.collection.refs) if meta.collection.refs
+    if meta
+      @handleMetaCollection(meta)
+      @handleMetaRefs(meta.refs) if meta.refs
 
   handleMetaRefs: (refs) ->
-    refs.forEach (ref) =>
+    for ref in refs
       switch ref.rel
         when 'self'
           @reloadUrl = ref.href

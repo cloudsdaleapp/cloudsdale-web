@@ -4,4 +4,6 @@ Cloudsdale.Cloud = DS.Model.extend
   avatar:      DS.attr 'string'
   shortName:   DS.attr 'string'
 
-  handle: (-> @get('shortName').toLowerCase() ).property('handle')
+  handle: (-> @get('shortName').toLowerCase() ).property('shortName')
+
+Cloudsdale.CloudAdapter = DS.CloudsdaleAdapter.extend({})

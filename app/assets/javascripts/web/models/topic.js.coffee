@@ -1,3 +1,2 @@
-Cloudsdale.Topic = DS.Model.extend
-  name:          DS.attr 'string'
-  avatar:        DS.attr 'string'
+Cloudsdale.Topic = DS.Model.extend({})
+Cloudsdale.TopicAdapter = DS.CloudsdaleAdapter.extend({})

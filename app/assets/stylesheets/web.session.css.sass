@@ -8,6 +8,7 @@
 $bg-color: #63a0d0
 $bg-content-color: #fafafa
 $bg-aside-color: #404B52
+
 body
   position: relative
   background-color: $bg-color
@@ -56,9 +57,9 @@ $avatar-sizes: ()
 $avatar-sizes: append( $avatar-sizes, ("micro",    8px,   1px)  )
 $avatar-sizes: append( $avatar-sizes, ("mini",     16px,  2px)  )
 $avatar-sizes: append( $avatar-sizes, ("small",    64px,  4px)  )
-$avatar-sizes: append( $avatar-sizes, ("medium",   128px, 5px)  )
-$avatar-sizes: append( $avatar-sizes, ("large",    256px, 8px)  )
-$avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 12px) )
+$avatar-sizes: append( $avatar-sizes, ("medium",   128px, 4px)  )
+$avatar-sizes: append( $avatar-sizes, ("large",    256px, 4px)  )
+$avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 4px) )
 
 @each $avatar-size in $avatar-sizes
   .avatar.#{nth($avatar-size,1)}
@@ -75,9 +76,9 @@ $avatar-statuses: append( $avatar-statuses, ( "offline", $avatar-border-color  )
 $avatar-statuses: append( $avatar-statuses, ( "online",  rgba(0,255,0,.5)      ))
 $avatar-statuses: append( $avatar-statuses, ( "busy",    rgba(255,0,0,.5)      ))
 $avatar-statuses: append( $avatar-statuses, ( "away",    rgba(255,0,255,.5)    ))
-$avatar-statuses: append( $avatar-statuses, ( "meld-main",    $bg-color))
-$avatar-statuses: append( $avatar-statuses, ( "meld-content", $bg-content-color))
-$avatar-statuses: append( $avatar-statuses, ( "meld-aside",   $bg-aside-color  ))
+$avatar-statuses: append( $avatar-statuses, ( "primary",        $primary-color))
+$avatar-statuses: append( $avatar-statuses, ( "primary-dark",   $primary-dark-color))
+$avatar-statuses: append( $avatar-statuses, ( "aside",          $bg-aside-color  ))
 
 @each $avatar-status in $avatar-statuses
   .avatar.#{nth($avatar-status,1)}
@@ -101,7 +102,7 @@ $content-spacing: emCalc(10px)
   &.pad
     padding: $content-spacing
 
-$sidebar-border-color: rgba(255,255,255,.4)
+$sidebar-border-color: $border-secondary-color
 $sidebar-text-color: #fafafa
 $sidebar-spacing-x: emCalc(8px)
 $sidebar-spacing-y: emCalc(10px)
@@ -120,6 +121,7 @@ $sidebar-spacing-y: emCalc(10px)
   left: 280px
   right: 0
   overflow: auto
+  border-left: 4px solid $border-bright-color
   .main-inner
     position: absolute
     top: 4px
@@ -183,15 +185,15 @@ $sidebar-spacing-y: emCalc(10px)
   &:after
     z-index: 1
     bottom: 24px
-    background: $bg-color
+    background: $primary-dark-color
   &:before
     z-index: 2
     bottom: 28px
-    background: $bg-aside-color
+    background: $primary-color
 
 .sidebar-divider
-  border-bottom: 1px solid $sidebar-border-color
-  margin: 0 ($sidebar-spacing-x * 2) ($sidebar-spacing-y / 2) ($sidebar-spacing-x * 2)
+  border-bottom: 1px solid $aside-bright-color
+  margin: 0 ($sidebar-spacing-x) ($sidebar-spacing-y / 2) ($sidebar-spacing-x)
 
 .sidebar-items
   margin: 0 0 ($sidebar-spacing-y / 2) 0
@@ -225,18 +227,43 @@ $sidebar-spacing-y: emCalc(10px)
   background-position: center
 
 .spotlight
+  @include clearfix()
+  @include border-radius(4px)
+  margin-bottom: emCalc(20px)
+  border-style: solid
+  border-width: 1px 4px 6px 2px
+  border-color: $border-bright-color
+  background-color: #F2F2F2
 
-.spotlight-image-wrap
+.spotlight-inner
+
+.spotlight-inner > a
+  margin: 0
+
+.spotlight-inner > p
+  padding: 5px 0 5px 0
+  font-size: emCalc(15px)
+  line-height: emCalc(25px)
+  height: emCalc(25px) * 2
+
+.spotlight-padding
+  margin: emCalc(30px)
+
+.spotlight-avatar
   position: relative
   width: 100%
   height: 0
   padding-top: 100%
+  background-repeat: no-repeat
+  background-position: center center
   &.loading
     background-image: asset-data-url("details/gaze-image-loader@x2.gif")
     background-size: 48px 48px
 
-.spotlight-image
+.spotlight-avatar > img
   position: absolute
+  display: block
   top: 0
   left: 0
   width: 100%
+

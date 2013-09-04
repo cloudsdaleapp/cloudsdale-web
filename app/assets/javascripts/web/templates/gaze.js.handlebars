@@ -1,37 +1,11 @@
 <div class="row">
   <div class="small-12 large-12 columns">
     <div class="row">
-      <div class="small-12 large-5 push-7 columns">
-        <h6>Categories</h6>
-        <div class="content-panel">
-          <div class="content-panel-inner panel-expand">
-            <ul class="panel-side-nav" style="padding: 0;">
-              <li>{{#linkTo 'gaze.category' "casual"}}Casual{{/linkTo}}</li>
-              <li>{{#linkTo 'gaze.category' "podcast"}}Podcast{{/linkTo}}</li>
-              <li>{{#linkTo 'gaze.category' "roleplay"}}Roleplay{{/linkTo}}</li>
-              <li>{{#linkTo 'gaze.category' "livestream"}}Livestream{{/linkTo}}</li>
-              <li>{{#linkTo 'gaze.category' "education"}}Education{{/linkTo}}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="small-12 large-7 pull-5 columns">
+      <div class="small-12 large-12 pull-0 columns">
         <h6>Today's Spotlights:</h6>
-
         <div class="row">
-          {{#each model}}
-            <div class="small-12 large-12 columns">
-              <div class="panel spotlight">
-                <h6>{{target.displayName}}</h6>
-                <div class="spotlight-image-wrap loading">
-                  <img class="spotlight-image" {{bindAttr src="target.avatar"}}>
-                </div>
-                <br/>
-                <br/>
-                <p>{{adjustedIndex}}</p>
-                {{#linkTo 'root' class="button expand secondary small"}}Join Conversation{{/linkTo}}
-              </div>
-            </div>
+          {{#each spotlights}}
+            {{view Cloudsdale.Gaze.SpotlightView contentBinding=this}}
           {{/each}}
         </div>
       </div>

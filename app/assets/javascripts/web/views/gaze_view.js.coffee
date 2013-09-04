@@ -1,7 +1,7 @@
 Cloudsdale.GazeView = Ember.View.extend
   templateName: 'gaze'
   scrollParent: '.main'
-  scrollOffset: 50
+  scrollOffset: 200
 
   didInsertElement: ->
     view = this
@@ -11,10 +11,8 @@ Cloudsdale.GazeView = Ember.View.extend
   didScroll: (view,e) ->
     @get('controller').send('more') if @isScrolledToBottom()
 
-
   willDestroyElement: () ->
     $(@scrollParent).off("scroll")
-
 
   isScrolledToBottom: () ->
     distanceToBottom = $(@scrollParent)[0].scrollHeight - $(document).height()

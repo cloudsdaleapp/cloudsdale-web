@@ -16,13 +16,13 @@
   <li class="sidebar-item">
     <span>
       <img class="left" {{bindAttr src="view.images.settings"}}/>
-      <a>Account Settings</a>
+      {{#linkTo 'settings'}}Account Settings{{/linkTo}}
     <span>
   </li>
 </ul>
 
 <div class="sidebar-divider"></div>
 
-{{view "cloudsdale/Sidebar/Conversations"}}
+{{view Cloudsdale.Sidebar.ConversationsView}}
 
 <div class="sidebar-divider"></div>

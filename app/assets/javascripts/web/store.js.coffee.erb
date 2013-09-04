@@ -1,22 +1,36 @@
 # http://emberjs.com/guides/models/defining-a-store/
 
-Cloudsdale.serializer = DS.RESTSerializer.create()
+DS.CloudsdaleSerializer = DS.RESTSerializer.extend
+  normalize: (type, prop, hash) ->
+    normalized = {}
+    for key of hash
+      normalized[Ember.String.camelize(key)] = hash[key] if key
 
-Cloudsdale.serializer.configure {
-  collection: 'collection'
-}
+    return @_super(type, prop, normalized)
+
+  serialize: (record, options) ->
+    json = @_super(record, options)
+    for key of json
+      if decamelized = name.decamelize() isnt key
+          json[decamelized] = json[name]
+          delete json[name]
+    return json
+
+  extractMeta: (store, type, payload) ->
+    if (payload && payload.collection)
+      store.metaForType(type, payload.collection)
+      delete payload.collection
+
+    @_super(store, type, payload)
 
 DS.CloudsdaleAdapter = DS.RESTAdapter.extend
 
-  url: "<%= $settings[:api][:v2][:url] %>"
-  serializer: Cloudsdale.serializer
+  namespace: "v2"
+  host: "<%= $settings[:api][:v2][:host] %>"
+  serializer: DS.CloudsdaleSerializer.create()
 
-  buildURL: (record, suffix) ->
-    recordNs = switch record
-      when 'conversation' then 'me/convo'
-      else record
-
-    return this._super(recordNs, suffix) + ".json"
+  buildURL: (type, id) ->
+    return this._super(type, id) + ".json"
 
   ajax: (url, type, hash) ->
     hash ||= {}
@@ -31,19 +45,7 @@ DS.CloudsdaleAdapter = DS.RESTAdapter.extend
     Ember.set('App.metaDataForLastRequest', meta)
     this._super(loader, type, json)
 
-DS.CloudsdaleAdapter.configure 'Cloudsdale.Cloud', {
-  alias: 'cloud'
-}
-
-DS.CloudsdaleAdapter.configure 'Cloudsdale.User', {
-  alias: 'user'
-}
-
-DS.CloudsdaleAdapter.configure "plurals", {
-  user: "users",
-  cloud: "clouds"
-}
-
 Cloudsdale.Store = DS.Store.extend
-  adapter: DS.CloudsdaleAdapter.create()
+  adapter: DS.CloudsdaleAdapter
+
 

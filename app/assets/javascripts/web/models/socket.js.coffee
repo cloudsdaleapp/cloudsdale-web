@@ -34,3 +34,5 @@ Cloudsdale.Socket = DS.Model.extend
     window.socket = this
 
     return true
+
+Cloudsdale.SocketAdapter = DS.CloudsdaleAdapter.extend({})

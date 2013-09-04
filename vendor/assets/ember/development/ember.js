@@ -1,5 +1,5 @@
-// Version: v1.0.0-19-g609889d
-// Last commit: 609889d (2013-09-02 18:11:25 -0700)
+// Version: v1.0.0-31-g772de45
+// Last commit: 772de45 (2013-09-03 16:55:08 -0700)
 
 
 (function() {
@@ -170,8 +170,8 @@ if (!Ember.testing) {
 
 })();
 
-// Version: v1.0.0-19-g609889d
-// Last commit: 609889d (2013-09-02 18:11:25 -0700)
+// Version: v1.0.0-31-g772de45
+// Last commit: 772de45 (2013-09-03 16:55:08 -0700)
 
 
 (function() {
@@ -4704,9 +4704,9 @@ registerComputed('none', function(dependentKey) {
     isAnonymous: Ember.computed.not('loggedIn')
   });
   var user = User.create({loggedIn: false});
-  user.get('isAnonymous'); // false
-  user.set('loggedIn', true);
   user.get('isAnonymous'); // true
+  user.set('loggedIn', true);
+  user.get('isAnonymous'); // false
   ```
 
   @method computed.not
@@ -8267,7 +8267,10 @@ define("rsvp",
 
 (function() {
 /**
-@module container
+@private
+Public api for the container is still in flux.
+The public api, specified on the application namespace should be considered the stable api.
+// @module container
 */
 
 /*
@@ -8284,7 +8287,7 @@ define("container",
    /**
      A safe and simple inheriting object.
 
-     @class InheritingDict
+     // @class InheritingDict
    */
     function InheritingDict(parent) {
       this.parent = parent;
@@ -8395,7 +8398,10 @@ define("container",
    /**
      A lightweight container that helps to assemble and decouple components.
 
-     @class Container
+     @private
+     Public api for the container is still in flux.
+     The public api, specified on the application namespace should be considered the stable api.
+     // @class Container
    */
     function Container(parent) {
       this.parent = parent;
@@ -30480,8 +30486,10 @@ Ember.Router = Ember.Object.extend({
 
     transitionPromise.then(function(route) {
       self._transitionCompleted(route);
-    }, function(error){
-      Ember.assert("The URL '" + error.message + "' did match any routes in your application", error.name !== "UnrecognizedURLError");
+    }, function(error) {
+      if (error.name === "UnrecognizedURLError") {
+        Ember.assert("The URL '" + error.message + "' did not match any routes in your application");
+      }
     });
 
     // We want to return the configurable promise object
@@ -31133,7 +31141,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     resolved.
 
     ```js
-    App.PostRoute = Ember.Route.extend({
+    App.PostsRoute = Ember.Route.extend({
       afterModel: function(posts, transition) {
         if (posts.length === 1) {
           this.transitionTo('post.show', posts[0]);
@@ -36492,7 +36500,23 @@ function generateRemovedClass(className) {
 }
 
 Ember.StateManager = generateRemovedClass("Ember.StateManager");
+
+/**
+  This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
+  
+  @class StateManager
+  @namespace Ember
+*/
+
 Ember.State = generateRemovedClass("Ember.State");
+
+/**
+  This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
+  
+  @class State
+  @namespace Ember
+*/
+
 })();
 
 

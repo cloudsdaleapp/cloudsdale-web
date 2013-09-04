@@ -1,10 +1,10 @@
  <div>
   {{#linkTo 'root' class=left}}
-    <span class="avatar small meld-main" />
-      <img {{bindAttr src="model.user.avatar" }}/>
+    <span class="avatar small primary" />
+      <img {{bindAttr src="currentUser.avatar" }}/>
     </span>
   {{/linkTo}}
   <hgroup>
-    <h4>{{#linkTo 'root' class=left}}{{model.user.displayName}}{{/linkTo}}</h4>
+    <h4>{{#linkTo 'root' class=left}}{{currentUser.displayName}}{{/linkTo}}</h4>
   </hgroup>
 </div>

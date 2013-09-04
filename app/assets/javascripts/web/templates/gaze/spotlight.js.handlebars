@@ -1,0 +1,18 @@
+<div class="spotlight">
+  <div class="spotlight-inner">
+    <div class="row">
+      <div class="large-6 medium-4 small-12 columns">
+        <div class="spotlight-padding">
+          <span class="spotlight-avatar avatar loading"><img {{bindAttr src="target.avatar"}}></span>
+        </div>
+      </div>
+      <div class="large-6 medium-8 small-12 columns">
+        <div class="spotlight-padding">
+          <span class="spotlight-header">{{targetType}}</span>
+          <p>{{text}}</p>
+          {{#linkTo 'root' class="button expand secondary small"}}Join Conversation{{/linkTo}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
