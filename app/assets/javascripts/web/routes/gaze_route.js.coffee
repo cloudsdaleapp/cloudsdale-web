@@ -21,11 +21,6 @@ Cloudsdale.GazeRoute = Ember.Route.extend
         @store.find('spotlight', collectionFilter)
         @clearMeta()
 
-  model: (params) ->
-    @clearMeta()
-    @set('category', params.category)
-    return @store.filter('spotlight', @defaultQuery, @defaultFilter)
-
   setupController: (controller,spotlights) ->
     controller = @controllerFor('gaze')
     controller.set('category', @get('category'))
@@ -75,4 +70,11 @@ Cloudsdale.GazeCategoryRoute = Cloudsdale.GazeRoute.extend
       spotlight.get('category') == params.category
 
     return @store.filter('spotlight', query, filter)
+
+Cloudsdale.GazeIndexRoute = Cloudsdale.GazeRoute.extend
+
+  model: (params) ->
+    @clearMeta()
+    @set('category', params.category)
+    return @store.filter('spotlight', @defaultQuery, @defaultFilter)
 
