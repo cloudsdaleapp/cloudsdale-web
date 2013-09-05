@@ -32,21 +32,30 @@ class User
 
   identity :username
 
+  # User Input Data
+  field :preferred_status,          type: Symbol,     default: :online
   field :skype_name,                type: String
+  field :time_zone,                 type: String
+
+  # Authentication Data
   field :auth_token,                type: String
   field :password_hash,             type: String
   field :password_salt,             type: String
-  field :time_zone,                 type: String
-  field :role,                      type: Integer,    default: 0
-  field :invisible,                 type: Boolean,    default: false
   field :force_password_change,     type: Boolean,    default: false
+
+  # Statistics
+  field :dates_seen,                type: Array,      default: []
+
+  # Events
   field :tnc_last_accepted,         type: Date,       default: nil
   field :confirmed_registration_at, type: DateTime,   default: nil
   field :suspended_until,           type: DateTime,   default: nil
   field :reason_for_suspension,     type: String,     default: nil
-  field :preferred_status,          type: Symbol,     default: :online
+
+  # Flags
+  field :role,                      type: Integer,    default: 0
   field :developer,                 type: Boolean,    default: false
-  field :dates_seen,                type: Array,      default: []
+  field :invisible,                 type: Boolean,    default: false
 
   index( { _id: 1 }, { unique: true, name: 'id_index'} )
   index( { auth_token: 1 }, { unique: true, name: 'auth_token_index' } )
