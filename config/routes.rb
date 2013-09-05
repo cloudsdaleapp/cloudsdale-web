@@ -87,9 +87,11 @@ Cloudsdale::Application.routes.draw do
 
   site :web, subdomain: 'beta' do
     root to: 'root#index'
-    get '/gaze' => 'root#gaze', as: :gaze
 
-    resources :conversations, path: 'convos', only: [:show]
+    get '/gaze' => 'root#gaze', as: :gaze
+    get '/gaze/:category' => 'root#gaze_category', as: :gaze_category
+
+    resources :conversations, path: '/', only: [:show]
 
     match '*path', to: 'root#not_found'
   end

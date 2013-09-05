@@ -12,6 +12,10 @@ class Web::RootController < WebController
     render "gaze.#{determine_template}"
   end
 
+  def gaze_category
+    render "gaze.#{determine_template}"
+  end
+
   def not_found
     render layout: 'web.front', status: 404, template: 'exceptions/not_found.html.haml'
   end
