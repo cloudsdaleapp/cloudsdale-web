@@ -4,11 +4,9 @@ Cloudsdale.Router.reopen
 Cloudsdale.Router.map () ->
   @route 'root',             { path: '/' }
 
-  @resource 'profile',       { path: '/:handle' }
-
   @route 'settings',         { path: '/settings' }
 
   @resource 'gaze',          { path: '/gaze' }, ->
     @route 'category',       { path: '/:category' }
 
-  @resource 'conversation',  { path: '/convos/:topic' }
+  @resource 'conversation',  { path: '/:topic' }
