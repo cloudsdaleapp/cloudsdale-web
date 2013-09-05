@@ -8,7 +8,7 @@ Cloudsdale.Gaze.SpotlightView = Ember.View.extend(
   classNameBindings: ['spotlightSizeClass']
 
   spotlightSizeClass: ( ()->
-    if (@get('_parentView.contentIndex') % 3) == 2 then 'large-12' else 'large-6'
+    if (@get('_parentView.contentIndex') % 3) == 7 then 'large-12' else 'large-6'
   ).property("_parentView.contentIndex")
 
 )

@@ -1,13 +1,13 @@
 <div class="spotlight">
   <div class="spotlight-inner">
     <div class="row">
-      {{#view Cloudsdale.Gaze.Spotlight.ColumnView columnType="avatar"}}
-        <div class="spotlight-padding">
-          <span class="spotlight-avatar avatar loading"><img {{bindAttr src="target.avatar"}}></span>
-        </div>
-      {{/view}}
-      {{#view Cloudsdale.Gaze.Spotlight.ColumnView columnType="info"}}
-        <div class="spotlight-padding" style="margin-top:15px;margin-bottom:15px;">
+      {{#view Cloudsdale.Gaze.Spotlight.ColumnView columnType="card"}}
+        <div class="spotlight-card" style="margin-top:15px;margin-bottom:15px;">
+          <div class="spotlight-avatar">
+            <span class="avatar loading">
+              <img {{bindAttr src="target.avatar"}} />
+            </span>
+          </div>
           <h6>
             {{#linkTo 'profile' target.handle}}
               {{target.displayName}}
