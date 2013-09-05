@@ -38,7 +38,6 @@ class User
   field :password_salt,             type: String
   field :time_zone,                 type: String
   field :role,                      type: Integer,    default: 0
-  field :member_since,              type: Time
   field :invisible,                 type: Boolean,    default: false
   field :force_password_change,     type: Boolean,    default: false
   field :tnc_last_accepted,         type: Date,       default: nil
@@ -94,7 +93,6 @@ class User
     generate_auth_token  unless auth_token.present?
 
     set_confirmed_registration_date
-    set_creation_date
   end
 
   after_save do
@@ -359,14 +357,6 @@ class User
   # this might have some reprocussions if you're not careful.
   def generate_auth_token
     self[:auth_token] = SecureRandom.hex(16)
-  end
-
-  # Internal: Sets the creation date of the User unless
-  # a creation date is already set.
-  def set_creation_date
-    unless member_since.present?
-      self[:member_since] = -> { Time.now }.call
-    end
   end
 
   # Internal: Sets the :confirmed_registration_date if
