@@ -67,7 +67,7 @@ $action-icons: append( $action-icons, ("share", "icons/actions/share" ) )
 $action-icons: append( $action-icons, ("chat", "icons/actions/chat" ) )
 @each $action-icon in $action-icons
   .action-icon-#{nth($action-icon,1)}
-    background-size: 32px
+    background-size: 50%
     background-repeat: no-repeat
     background-position: center center
     background-image: asset-data-url("#{nth($action-icon,2)}@x2.png")
@@ -295,7 +295,9 @@ $sidebar-spacing-y: emCalc(10px)
 
 .spotlight-title, .spotlight-category
   margin: 0
+  margin-left: 120px
   font-weight: normal
+  word-wrap: break-word
 
 .spotlight-title
   padding-top: 10px
