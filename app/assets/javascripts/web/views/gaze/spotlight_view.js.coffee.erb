@@ -2,13 +2,13 @@ Cloudsdale.Gaze ||= Ember.Namespace.create()
 Cloudsdale.Gaze.SpotlightView = Ember.View.extend(
 
   templateName: 'gaze/spotlight'
-  classNames: ['small-12','columns']
+  classNames: ['small-12', 'medium-6', 'large-4', 'columns']
   tagName: 'div'
 
-  classNameBindings: ['spotlightSizeClass']
+  # classNameBindings: ['spotlightSizeClass']
 
-  spotlightSizeClass: ( ()->
-    if (@get('_parentView.contentIndex') % 3) == 7 then 'large-12' else 'large-6'
-  ).property("_parentView.contentIndex")
+  # spotlightSizeClass: ( ()->
+  #   if (@get('_parentView.contentIndex') % 3) == 3 then 'large-12' else 'large-6'
+  # ).property("_parentView.contentIndex")
 
 )

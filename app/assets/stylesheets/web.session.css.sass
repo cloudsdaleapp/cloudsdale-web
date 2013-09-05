@@ -3,8 +3,6 @@
 @import "mixins"
 @import "cloudsdale_foundation"
 
-@import "antiscroll"
-
 $bg-color: #63a0d0
 $bg-content-color: #f9f9ff
 
@@ -59,6 +57,9 @@ $avatar-border-color: rgba(150,150,150,.4)
   margin: 0
   &:img
     background: $bg-color
+
+.clearfix
+  @include clearfix
 
 $avatar-sizes: ()
 $avatar-sizes: append( $avatar-sizes, ("micro",    8px,   1px)  )
@@ -263,32 +264,83 @@ $sidebar-spacing-y: emCalc(10px)
 
 .spotlight
   @include clearfix()
-  @include border-radius(4px)
 
 .spotlight-card
   @include clearfix()
+  @include border-radius(1px 1px 3px 3px)
+  @include transition(border-color ease .3s)
+
   border-style: solid
   border-width: 1px 1px 2px 1px
-  border-color: $primary-color
+  border-color: $border-bright-color
   background-color: #FFF
-  padding: emCalc(7px)
+  padding: emCalc(12px)
+  &:hover
+    border-color: $primary-color
+    & .spotlight-avatar
+      border-color: $primary-color
 
-.spotlight-inner p
+.spotlight-inner h6
+  margin: 0
+
+.spotlight p
   padding: 5px 0 5px 0
-  font-size: emCalc(15px)
+  font-size: emCalc(17px)
   line-height: emCalc(25px)
   height: emCalc(25px) * 3
+  color: $body-font-bright-color
+
+.spotlight-action
+  @include clearfix
+  text-align: center
+
+.spotlight-action > a
+  display: block
+  margin: 5px
+  &:hover
+    & > div
+      border-color: $primary-color
+    & > span
+      color: $body-font-color
+
+.spotlight-action > a > span
+  @include transition(color ease .2s)
+
+  font-size: emCalc(13px)
+  color: $body-font-color-light
+
+.spotlight-action > a > div
+  @include border-radius(50%)
+  @include transition(border-color ease .2s)
+
+  display: block
+  position: relative
+  width: 100%
+  height: 0
+  padding-top: 100%
+  border: 1px solid $border-bright-color
+  margin-bottom: 5px
+
+.spotlight-action > a > div > img
+  position: absolute
+  display: block
+  top: 0
+  left: 0
+  width: 100%
 
 .spotlight-avatar
   @include border-radius(50%)
+  @include transition(border-color ease .3s)
+
   background-color: $bg-content-color
-  border-color: $primary-color
-  border-width: 2px
+  border-color: $border-bright-color//$primary-color
+  border-width: 2px 2px 1px 2px
   border-style: solid
-  padding: 5px
+  padding: 4px
   width: 110px
   float: left
-  margin: 10px 15px 10px 10px
+  margin-right: 10px
+  margin-bottom: 10px
 
 .spotlight-avatar > span
   position: relative
@@ -307,4 +359,3 @@ $sidebar-spacing-y: emCalc(10px)
   top: 0
   left: 0
   width: 100%
-

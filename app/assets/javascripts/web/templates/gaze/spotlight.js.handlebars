@@ -1,25 +1,54 @@
 <div class="spotlight">
   <div class="spotlight-inner">
-    <div class="row">
-      {{#view Cloudsdale.Gaze.Spotlight.ColumnView columnType="card"}}
-        <div class="spotlight-card" style="margin-top:15px;margin-bottom:15px;">
-          <div class="spotlight-avatar">
-            <span class="avatar loading">
-              <img {{bindAttr src="target.avatar"}} />
-            </span>
-          </div>
-          <h6>
-            {{#linkTo 'profile' target.handle}}
-              {{target.displayName}}
-              <small> @{{target.handle}}</small>
-            {{/linkTo}}
-            <span class="right spotlight-category">
-              {{#linkTo "gaze.category" category}}{{category}}{{/linkTo}}
-            </small>
-          </h6>
-          <p>{{text}}</p>
+
+    <div class="spotlight-card" style="margin-top:15px;margin-bottom:15px;">
+
+      <div class="clearfix">
+        <div class="spotlight-avatar">
+          <span class="avatar loading">
+            <img {{bindAttr src="target.avatar"}} />
+          </span>
         </div>
-      {{/view}}
+
+        <h6>
+          <span class="right spotlight-category">
+            {{#linkTo "gaze.category" category}}{{category}}{{/linkTo}}
+          </span>
+          {{#linkTo 'profile' target.handle}}
+            {{target.displayName}}
+          {{/linkTo}}
+        </h6>
+      </div>
+
+      <p>{{text}}</p>
+
+      <hr />
+
+      <div class="row">
+        <div class="small-12 medium-10 large-12 large-centered columns">
+          <div class="row">
+            <div class="small-4 large-4 columns clearfix spotlight-action">
+              {{#linkTo 'profile' target.handle}}
+                <div><img scr=""/></div>
+                <span>View</span>
+              {{/linkTo}}
+            </div>
+            <div class="small-4 large-4 columns clearfix spotlight-action">
+              {{#linkTo 'root'}}
+                <div><img scr=""/></div>
+                <span>Join</span>
+              {{/linkTo}}
+            </div>
+            <div class="small-4 large-4 columns clearfix spotlight-action">
+              {{#linkTo 'root'}}
+                <div><img scr=""/></div>
+                <span>Share</span>
+              {{/linkTo}}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>

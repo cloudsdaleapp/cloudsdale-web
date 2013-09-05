@@ -30,6 +30,7 @@ $body-bg: #FAFAFA
 $body-bg-head: #FCFCFC
 
 $body-font-color: #222
+$body-font-bright-color: lighten(#222,25%)
 $body-font-color-light: #999999
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
 // $body-font-weight: normal
@@ -1267,7 +1268,46 @@ $topbar-menu-icon-color-toggled: #888
 // $topbar-breakpoint: emCalc(940px) // Change to 9999px for always mobile layout
 // $topbar-media-query: "only screen and (min-width "#{$topbar-breakpoint}")"
 
-@import "foundation"
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+@import "foundation/variables"
+
+// Foundation Components
+@import "foundation/components/global"
+@import "foundation/components/grid"
+@import "foundation/components/grid-5"
+@import "foundation/components/visibility"
+@import "foundation/components/block-grid"
+@import "foundation/components/type"
+@import "foundation/components/buttons"
+@import "foundation/components/forms"
+@import "foundation/components/button-groups"
+@import "foundation/components/dropdown-buttons"
+@import "foundation/components/split-buttons"
+@import "foundation/components/flex-video"
+@import "foundation/components/section"
+@import "foundation/components/top-bar"
+@import "foundation/components/orbit"
+@import "foundation/components/reveal"
+@import "foundation/components/joyride"
+@import "foundation/components/clearing"
+@import "foundation/components/alert-boxes"
+@import "foundation/components/breadcrumbs"
+@import "foundation/components/custom-forms"
+@import "foundation/components/keystrokes"
+@import "foundation/components/labels"
+@import "foundation/components/inline-lists"
+@import "foundation/components/pagination"
+@import "foundation/components/panels"
+@import "foundation/components/pricing-tables"
+@import "foundation/components/progress-bars"
+@import "foundation/components/side-nav"
+@import "foundation/components/sub-nav"
+@import "foundation/components/switch"
+@import "foundation/components/magellan"
+@import "foundation/components/tables"
+@import "foundation/components/thumbs"
+@import "foundation/components/tooltips"
+@import "foundation/components/dropdown"
 
 .centered
   text-align: center
