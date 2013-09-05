@@ -61,6 +61,19 @@ $avatar-border-color: rgba(150,150,150,.4)
 .clearfix
   @include clearfix
 
+$action-icons: ()
+$action-icons: append( $action-icons, ("cloud", "icons/actions/cloud" ) )
+$action-icons: append( $action-icons, ("share", "icons/actions/share" ) )
+$action-icons: append( $action-icons, ("chat", "icons/actions/chat" ) )
+@each $action-icon in $action-icons
+  .action-icon-#{nth($action-icon,1)}
+    background-size: 32px
+    background-repeat: no-repeat
+    background-position: center center
+    background-image: asset-data-url("#{nth($action-icon,2)}@x2.png")
+    &.action-icon-hover:hover
+      background-image: asset-data-url("#{nth($action-icon,2)}-active@x2.png")
+
 $avatar-sizes: ()
 $avatar-sizes: append( $avatar-sizes, ("micro",    8px,   1px)  )
 $avatar-sizes: append( $avatar-sizes, ("mini",     16px,  2px)  )
