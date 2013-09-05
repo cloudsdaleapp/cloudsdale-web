@@ -19,16 +19,21 @@ class Cloud
                   :remove_avatar, :avatar, :remote_avatar_url, :rules,
                   :x_moderator_ids
 
-  identity :short_name, allowed_changes: 3
+  identity :short_name,   allowed_changes: 3
 
-  field :name,          type: String
-  field :description,   type: String
-  field :rules,         type: String
-  field :hidden,        type: Boolean,        default: true
-  field :locked,        type: Boolean,        default: false
-  field :featured,      type: Boolean,        default: false
-  field :member_count,  type: Integer,        default: 0
-  field :drop_count,    type: Integer,        default: 0
+  # User Input Data
+  field :name,                type: String
+  field :description,         type: String
+  field :rules,               type: String
+
+  # Statistics
+  field :member_count,        type: Integer,        default: 0
+  field :drop_count,          type: Integer,        default: 0
+
+  # Flags
+  field :hidden,              type: Boolean,        default: true
+  field :locked,              type: Boolean,        default: false
+  field :featured,            type: Boolean,        default: false
 
   index( { _id: 1 }, { name: 'id_index'} )
   index( { created_at: 1, hidden: 1 }, { name: 'search_index' } )
