@@ -3,7 +3,7 @@ Cloudsdale.GazeRoute = Ember.Route.extend
   templateName: 'gaze'
   controllerName: 'gaze'
 
-  defaultQuery:  { limit: 4 }
+  defaultQuery:  { limit: 10 }
   defaultFilter: => true
 
   category:   null

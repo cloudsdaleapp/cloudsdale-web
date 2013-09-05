@@ -293,14 +293,22 @@ $sidebar-spacing-y: emCalc(10px)
     & .spotlight-avatar
       border-color: $primary-color
 
-.spotlight-inner h6
+.spotlight-title, .spotlight-category
   margin: 0
+  font-weight: normal
+
+.spotlight-title
+  padding-top: 10px
+  color: $primary-color
+
+.spotlight-category
+  color: $body-font-color-light
 
 .spotlight p
   padding: 5px 0 5px 0
   font-size: emCalc(17px)
   line-height: emCalc(25px)
-  height: emCalc(25px) * 3
+  height: emCalc(25px) * 4
   color: $body-font-bright-color
 
 .spotlight-action

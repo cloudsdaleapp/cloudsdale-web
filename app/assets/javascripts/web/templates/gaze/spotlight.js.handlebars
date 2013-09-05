@@ -1,6 +1,6 @@
 <div class="spotlight">
   <div class="spotlight-inner">
-
+    {{#linkTo "gaze.category" category}}{{/linkTo}}
     <div class="spotlight-card" style="margin-top:15px;margin-bottom:15px;">
 
       <div class="clearfix">
@@ -9,15 +9,10 @@
             <img {{bindAttr src="target.avatar"}} />
           </span>
         </div>
-
-        <h6>
-          <span class="right spotlight-category">
-            {{#linkTo "gaze.category" category}}{{category}}{{/linkTo}}
-          </span>
-          {{#linkTo 'profile' target.handle}}
-            {{target.displayName}}
-          {{/linkTo}}
-        </h6>
+        {{#linkTo 'profile' target.handle}}
+          <h5 class="spotlight-title">{{target.displayName}}</h5>
+          <h6 class="spotlight-category">@{{target.handle}}</h6>
+        {{/linkTo}}
       </div>
 
       <p>{{text}}</p>
