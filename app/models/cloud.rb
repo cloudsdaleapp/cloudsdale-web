@@ -27,6 +27,7 @@ class Cloud
   field :rules,               type: String
 
   # Statistics
+  field :participant_count,   type: Integer,        default: 0
   field :member_count,        type: Integer,        default: 0
   field :drop_count,          type: Integer,        default: 0
 

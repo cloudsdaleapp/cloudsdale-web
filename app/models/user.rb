@@ -44,6 +44,7 @@ class User
   field :force_password_change,     type: Boolean,    default: false
 
   # Statistics
+  field :conversation_count,        type: Integer,    default: 0
   field :dates_seen,                type: Array,      default: []
 
   # Events

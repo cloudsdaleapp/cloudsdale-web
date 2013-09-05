@@ -12,8 +12,13 @@ class Conversation
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  belongs_to  :topic,   :validate => false,   inverse_of: :references,    polymorphic: true
-  belongs_to  :user,    :validate => false,   inverse_of: :conversations
+  belongs_to  :topic,   :validate => false,   inverse_of: :references,    dependent: :nullify, polymorphic: true
+  belongs_to  :user,    :validate => false,   inverse_of: :conversations, dependent: :nullify
+
+  after_create  :topic_participants_increment!, :if => -> (convo) { [Cloud].include? convo.topic.class }
+  after_destroy :topic_participants_decrement!, :if => -> (convo) { [Cloud].include? convo.topic.class }
+  after_create  :user_conversations_increment!
+  after_destroy :user_conversations_decrement!
 
   field :position,      type: Integer,    default: 0
   field :access,        type: Symbol,     default: :granted
@@ -164,5 +169,14 @@ private
   def set_record_type
     self[:_type] = "Conversation"
   end
+
+  # Private: Increase topic participant count by one
+  def topic_participants_increment!; topic.inc(:participant_count, 1)   if topic.present?; end
+  # Private: Decrease topic participant count by one
+  def topic_participants_decrement!; topic.inc(:participant_count, -1)  if topic.present?; end
+  # Private: Increase user conversation count by one
+  def user_conversations_increment!; user.inc(:conversation_count, 1)   if user.present?; end
+  # Private: Decrease user conversation count by one
+  def user_conversations_decrement!; user.inc(:conversation_count, -1)  if user.present?; end
 
 end
