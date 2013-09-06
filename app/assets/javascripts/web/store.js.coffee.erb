@@ -1,12 +1,12 @@
 # http://emberjs.com/guides/models/defining-a-store/
 
 DS.CloudsdaleSerializer = DS.RESTSerializer.extend
-  normalize: (type, prop, hash) ->
+  normalize: (type, hash, prop) ->
     normalized = {}
     for key of hash
-      normalized[Ember.String.camelize(key)] = hash[key] if key
+      normalized[Ember.String.camelize(key)] = hash[key]
 
-    return @_super(type, prop, normalized)
+    return @_super(type, normalized, prop)
 
   serialize: (record, options) ->
     json = @_super(record, options)
@@ -23,11 +23,12 @@ DS.CloudsdaleSerializer = DS.RESTSerializer.extend
 
     @_super(store, type, payload)
 
+
 DS.CloudsdaleAdapter = DS.RESTAdapter.extend
 
   namespace: "v2"
   host: "<%= $settings[:api][:v2][:host] %>"
-  serializer: DS.CloudsdaleSerializer.create()
+  defaultSerializer: "DS/cloudsdale"
 
   buildURL: (type, id) ->
     return this._super(type, id) + ".json"
