@@ -22,10 +22,11 @@ Ember.Application.initializer
 
     record_id = payload[sessionKey].id
 
-    store   = container.lookup('store:main')
-    factory = store.modelFor(sessionKey)
-    adapter = store.adapterForType(sessionKey)
-    store.push(sessionKey,adapter.get('serializer').extractSingle(store, factory, payload))
+    store      = container.lookup('store:main')
+    factory    = store.modelFor(sessionKey)
+    serializer = store.serializerFor(sessionKey)
+
+    store.push(factory,serializer.extractSingle(store, factory, payload))
 
     session = store.find(sessionKey, payload[sessionKey].id)
     user    = store.find(userKey,    payload[sessionKey][userKey].id)

@@ -11,7 +11,7 @@ Cloudsdale.SessionAdapter = DS.CloudsdaleAdapter.extend(
     url = []
     url.push @get('host')
     url.push @get('namespace')
-    url.push type.typeKey
+    url.push type
     return url.join("/") + ".json"
 
 )

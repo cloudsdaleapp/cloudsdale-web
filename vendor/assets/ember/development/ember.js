@@ -1,5 +1,5 @@
-// Version: v1.0.0-31-g772de45
-// Last commit: 772de45 (2013-09-03 16:55:08 -0700)
+// Version: v1.0.0-49-gd65d9e2
+// Last commit: d65d9e2 (2013-09-05 21:54:58 -0700)
 
 
 (function() {
@@ -170,8 +170,8 @@ if (!Ember.testing) {
 
 })();
 
-// Version: v1.0.0-31-g772de45
-// Last commit: 772de45 (2013-09-03 16:55:08 -0700)
+// Version: v1.0.0-49-gd65d9e2
+// Last commit: d65d9e2 (2013-09-05 21:54:58 -0700)
 
 
 (function() {
@@ -291,6 +291,27 @@ if ('undefined' === typeof ENV.DISABLE_RANGE_API) {
 Ember.ENV = Ember.ENV || ENV;
 
 Ember.config = Ember.config || {};
+
+/**
+  Hash of enabled Canary features. Add to before creating your application.
+
+  @property FEATURES
+  @type Hash
+*/
+
+Ember.FEATURES = {};
+
+/**
+  Test that a feature is enabled. Parsed by Ember's build tools to leave
+  experimental features out of beta/stable builds.
+
+  @method isEnabled
+  @param {string} feature
+*/
+
+Ember.FEATURES.isEnabled = function(feature) {
+  return Ember.FEATURES[feature];
+};
 
 // ..........................................................
 // BOOTSTRAP
@@ -4609,7 +4630,7 @@ function registerComputedWithProperties(name, macro) {
 }
 
 /**
-  A computed property that returns true of the value of the dependent
+  A computed property that returns true if the value of the dependent
   property is null, an empty string, empty array, or empty function.
 
   Note: When using `Ember.computed.empty` to watch an array make sure to
@@ -4639,7 +4660,7 @@ registerComputed('empty', function(dependentKey) {
 });
 
 /**
-  A computed property that returns true of the value of the dependent
+  A computed property that returns true if the value of the dependent
   property is NOT null, an empty string, empty array, or empty function.
 
   Example
@@ -4665,7 +4686,7 @@ registerComputed('notEmpty', function(dependentKey) {
 });
 
 /**
-  A computed property that returns true of the value of the dependent
+  A computed property that returns true if the value of the dependent
   property is null or undefined. This avoids errors from JSLint complaining
   about use of ==, which can be technically confusing.
 
@@ -7019,15 +7040,14 @@ function addNormalizedProperty(base, key, value, meta, descs, values, concats, m
     descs[key]  = value;
     values[key] = undefined;
   } else {
-    // impl super if needed...
-    if (isMethod(value)) {
-      value = giveMethodSuper(base, key, value, values, descs);
-    } else if ((concats && a_indexOf.call(concats, key) >= 0) ||
+    if ((concats && a_indexOf.call(concats, key) >= 0) ||
                 key === 'concatenatedProperties' ||
                 key === 'mergedProperties') {
       value = applyConcatenatedProperties(base, key, value, values);
     } else if ((mergings && a_indexOf.call(mergings, key) >= 0)) {
       value = applyMergedProperties(base, key, value, values);
+    } else if (isMethod(value)) {
+      value = giveMethodSuper(base, key, value, values, descs);
     }
 
     descs[key] = undefined;
@@ -7604,6 +7624,52 @@ Ember.beforeObserver = function(func) {
   func.__ember_observesBefore__ = paths;
   return func;
 };
+
+})();
+
+
+
+(function() {
+// Provides a way to register library versions with ember.
+
+Ember.libraries = function() {
+  var libraries    = [];
+  var coreLibIndex = 0;
+
+  var getLibrary = function(name) {
+    for (var i = 0; i < libraries.length; i++) {
+      if (libraries[i].name === name) {
+        return libraries[i];
+      }
+    }
+  };
+
+  libraries.register = function(name, version) {
+    if (!getLibrary(name)) {
+      libraries.push({name: name, version: version});
+    }
+  };
+
+  libraries.registerCoreLibrary = function(name, version) {
+    if (!getLibrary(name)) {
+      libraries.splice(coreLibIndex++, 0, {name: name, version: version});
+    }
+  };
+
+  libraries.deRegister = function(name) {
+    var lib = getLibrary(name);
+    if (lib) libraries.splice(libraries.indexOf(lib), 1);
+  };
+
+  libraries.each = function (callback) {
+    libraries.forEach(function(lib) {
+      callback(lib.name, lib.version);
+    });
+  };
+  return libraries;
+}();
+
+Ember.libraries.registerCoreLibrary('Ember', Ember.VERSION);
 
 })();
 
@@ -11542,7 +11608,7 @@ Ember.reduceComputed = function (options) {
     throw new Error("Reduce Computed Property declared without an options hash");
   }
 
-  if (!options.initialValue) {
+  if (Ember.isNone(options.initialValue)) {
     throw new Error("Reduce Computed Property declared without an initial value");
   }
 
@@ -15470,7 +15536,10 @@ CoreObject.PrototypeMixin = Mixin.create({
     are also concatenated, in addition to `classNames`.
 
     This feature is available for you to use throughout the Ember object model,
-    although typical app developers are likely to use it infrequently.
+    although typical app developers are likely to use it infrequently. Since
+    it changes expectations about behavior of properties, you should properly
+    document its usage in each individual concatenated property (to not 
+    mislead your users to think they can override the property in a subclass).
 
     @property concatenatedProperties
     @type Array
@@ -22908,8 +22977,10 @@ var get = Ember.get, set = Ember.set, isNone = Ember.isNone;
 
   ```javascript
   App.AppProfileComponent = Ember.Component.extend({
-    hello: function(name) {
-      console.log("Hello", name);
+    actions: {
+      hello: function(name) {
+        console.log("Hello", name);
+      }
     }
   });
   ```
@@ -23022,8 +23093,10 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, {
     });
 
     App.CategoriesController = Ember.Controller.extend({
-      didClickCategory: function(category) {
-        //Do something with the node/category that was clicked
+      actions: {
+        didClickCategory: function(category) {
+          //Do something with the node/category that was clicked
+        }
       }
     });
     ```
@@ -32755,6 +32828,10 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
       return isSimpleClick(event);
     }
 
+    if (allowedKeys.indexOf("any") >= 0) {
+      return true;
+    }
+
     var allowed = true;
 
     forEach.call(keys, function(key) {
@@ -32915,6 +32992,16 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     ```
 
     This way the `{{action}}` will fire when clicking with the alt key pressed down.
+
+    Alternatively, supply "any" to the `allowedKeys` option to accept any combination of modifier keys.
+
+    ```handlebars
+    <script type="text/x-handlebars" data-template-name='a-template'>
+      <div {{action 'anActionName' allowedKeys="any"}}>
+        click me with any key pressed
+      </div>
+    </script>
+    ```
 
     ### Specifying a Target
 
@@ -34610,12 +34697,18 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
 
     this.scheduleInitialize();
 
-    if (Ember.LOG_VERSION) {
+    Ember.libraries.registerCoreLibrary('Handlebars', Ember.Handlebars.VERSION);
+    Ember.libraries.registerCoreLibrary('jQuery', Ember.$().jquery);
+
+    if ( Ember.LOG_VERSION ) {
       Ember.LOG_VERSION = false; // we only need to see this once per Application#init
+      var maxNameLength = Math.max.apply(this, Ember.A(Ember.libraries).mapBy("name.length"));
+
       Ember.debug('-------------------------------');
-      Ember.debug('Ember.VERSION : ' + Ember.VERSION);
-      Ember.debug('Handlebars.VERSION : ' + Ember.Handlebars.VERSION);
-      Ember.debug('jQuery.VERSION : ' + Ember.$().jquery);
+      Ember.libraries.each(function(name, version) {
+        var spaces = new Array(maxNameLength - name.length + 1).join(" ");
+        Ember.debug([name, '.VERSION', spaces, ' : ', version].join(""));
+      });
       Ember.debug('-------------------------------');
     }
   },
