@@ -1,5 +1,5 @@
-// Version: v1.0.0-beta.1-124-g55eefca
-// Last commit: 55eefca (2013-09-06 00:01:33 -0700)
+// Version: v1.0.0-beta.1-125-g63795a4
+// Last commit: 63795a4 (2013-09-06 11:09:34 -0700)
 
 
 (function() {
@@ -2505,6 +2505,10 @@ function _find(adapter, store, type, id, resolver) {
     payload = serializer.extract(store, type, payload, id, 'find');
 
     return store.push(type, payload);
+  }, function(error) {
+    var record = store.getById(type, id);
+    record.notFound();
+    throw error;
   }).then(resolver.resolve, resolver.reject);
 }
 
@@ -3052,6 +3056,10 @@ var RootState = {
 
     becameError: function(record) {
       record.triggerLater('becameError', record);
+    },
+
+    notFound: function(record) {
+      record.transitionTo('empty');
     }
   },
 
@@ -3471,6 +3479,10 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
 
   loadedData: function() {
     this.send('loadedData');
+  },
+
+  notFound: function() {
+    this.send('notFound');
   },
 
   pushedData: function() {
