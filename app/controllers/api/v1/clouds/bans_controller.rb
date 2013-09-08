@@ -66,7 +66,7 @@ class Api::V1::Clouds::BansController < Api::V1Controller
   def update
 
     @ban = @cloud.bans.find(params[:id])
-    @ban.assign_attributes params[:ban], as: :editor
+    @ban.assign_attributes(params[:ban])
 
     if authorize_update(current_user,@ban)
       if @ban.save
