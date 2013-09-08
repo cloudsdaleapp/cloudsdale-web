@@ -32,9 +32,9 @@ class Api::V1::Clouds::BansController < Api::V1Controller
     @offender = User.find(params[:offender_id])
     @enforcer = current_user
 
-    @ban = @cloud.bans.build params[:ban], as: :enforcer
-    @ban.enforcer = @enforcer
-    @ban.offender = @offender
+    @ban = @cloud.bans.find_or_initialize_by offender: @offender
+    @ban.write_attributes params[:ban]
+    @ban.enforcer ||= @enforcer
 
     if authorize_create(current_user,@ban)
       if @ban.save

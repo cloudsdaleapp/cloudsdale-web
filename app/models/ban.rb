@@ -16,9 +16,7 @@ class Ban
   belongs_to :offender, :class_name => "User", inverse_of: nil
   belongs_to :enforcer, :class_name => "User", inverse_of: nil
 
-  attr_accessible :due,     as: [:editor,:enforcer]
-  attr_accessible :revoke,  as: [:editor]
-  attr_accessible :reason,  as: [:enforcer]
+  attr_accessible :due, :revoke, :reason, :offender
 
   validates :due,    presence: true
   validates :reason, length: { within: 1..140 }, presence: true
