@@ -1,5 +1,7 @@
 Cloudsdale.GazeController = Ember.ArrayController.extend
 
+  itemController: 'spotlight'
+
   title: 'Gaze'
   category: null
   spotlights: []

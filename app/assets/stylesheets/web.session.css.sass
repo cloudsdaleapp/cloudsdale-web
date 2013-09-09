@@ -61,18 +61,23 @@ $avatar-border-color: rgba(150,150,150,.4)
 .clearfix
   @include clearfix
 
-$action-icons: ()
-$action-icons: append( $action-icons, ("cloud", "icons/actions/cloud" ) )
-$action-icons: append( $action-icons, ("share", "icons/actions/share" ) )
-$action-icons: append( $action-icons, ("chat", "icons/actions/chat" ) )
-@each $action-icon in $action-icons
-  .action-icon-#{nth($action-icon,1)}
+$act-icons: ()
+$act-icons: append( $act-icons, ("cloud", "icons/actions/cloud" ) )
+$act-icons: append( $act-icons, ("share", "icons/actions/share" ) )
+$act-icons: append( $act-icons, ("chat",  "icons/actions/chat" ) )
+$act-icon-type:   "png"
+$act-icon-hover:  "active"
+$act-icon-suffix: "@x2"
+@each $act-icon in $act-icons
+  .action-icon-#{nth($act-icon,1)}
+    $img-path: "#{nth($act-icon,2)}#{$act-icon-suffix}.#{$act-icon-type}"
     background-size: 50%
     background-repeat: no-repeat
     background-position: center center
-    background-image: asset-data-url("#{nth($action-icon,2)}@x2.png")
+    background-image: asset-data-url($img-path)
     &.action-icon-hover:hover
-      background-image: asset-data-url("#{nth($action-icon,2)}-active@x2.png")
+      $img-path: "#{nth($act-icon,2)}-#{$act-icon-hover}#{$act-icon-suffix}.#{$act-icon-type}"
+      background-image: asset-data-url($img-path)
 
 $avatar-sizes: ()
 $avatar-sizes: append( $avatar-sizes, ("micro",    8px,   1px)  )
@@ -293,9 +298,10 @@ $sidebar-spacing-y: emCalc(10px)
     & .spotlight-avatar
       border-color: $primary-color
 
-.spotlight-title, .spotlight-category
+.spotlight-title, .spotlight-subtitle
   margin: 0
-  margin-left: 120px
+  margin-right: 120px
+  text-align: left
   font-weight: normal
   word-wrap: break-word
 
@@ -303,7 +309,7 @@ $sidebar-spacing-y: emCalc(10px)
   padding-top: 10px
   color: $primary-color
 
-.spotlight-category
+.spotlight-subtitle
   color: $body-font-color-light
 
 .spotlight p
@@ -361,8 +367,8 @@ $sidebar-spacing-y: emCalc(10px)
   border-style: solid
   padding: 4px
   width: 110px
-  float: left
-  margin-right: 10px
+  float: right
+  margin-left: 10px
   margin-bottom: 10px
 
 .spotlight-avatar > span

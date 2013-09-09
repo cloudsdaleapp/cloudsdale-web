@@ -4,6 +4,8 @@ class CloudSerializer < ApplicationSerializer
 
   attributes :short_name, :avatar
 
+  attributes :participant_count
+
   attributes :hidden, :locked
 
   attribute :refs
