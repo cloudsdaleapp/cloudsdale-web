@@ -57,24 +57,37 @@ Cloudsdale.GazeRoute = Ember.Route.extend
         when 'prev'
           @set('prevParams', val)
 
+  getPromiseFor: (category) ->
+    key =  "gaze:filter"
+    key += ":#{category}" if category
+
+    if promise = @get(key)
+      Ember.Logger.debug("Fetching #{key} from cache")
+    else
+      Ember.Logger.debug("Building new #{key}")
+      if category
+        query = @defaultQuery
+        query.category = category
+        filter = (spotlight) => (spotlight.get('category') == category)
+        promise = @store.filter('spotlight', query, filter)
+      else
+        promise = @store.filter('spotlight', @defaultQuery, @defaultFilter)
+
+      @set(key,promise)
+
+    return promise
+
 Cloudsdale.GazeCategoryRoute = Cloudsdale.GazeRoute.extend
 
   model: (params) ->
     @clearMeta()
     @set('category', params.category)
-
-    query = @defaultQuery
-    query.category = params.category
-
-    filter = (spotlight) =>
-      spotlight.get('category') == params.category
-
-    return @store.filter('spotlight', query, filter)
+    return @getPromiseFor(params.category)
 
 Cloudsdale.GazeIndexRoute = Cloudsdale.GazeRoute.extend
 
   model: (params) ->
     @clearMeta()
     @set('category', params.category)
-    return @store.filter('spotlight', @defaultQuery, @defaultFilter)
+    return @getPromiseFor(params.category)
 
