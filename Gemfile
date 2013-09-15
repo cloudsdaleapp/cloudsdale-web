@@ -138,4 +138,5 @@ gem 'ruby-prof'
 
 gem 'unicorn', '~> 4.6.3'
 gem 'thin',    '~> 1.5.1'
+gem 'puma'
 gem 'sinatra', require: false
