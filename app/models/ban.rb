@@ -32,6 +32,20 @@ class Ban
     enqueue! "faye", { channel: "/users/#{self.offender_id}/bans", data: self.to_hash }
   end
 
+  # Public: Record factory to build find an existing ban for an offender or
+  # build a new ban, filtering the parameters through the ban refinery.
+  #
+  # Returns a ban record.
+  def self.refined_build(params, enforcer: nil, offender: nil)
+    params = ActionController::Parameters.new(params)
+    ban = self.find_or_initialize_by(offender: offender).tap do |record|
+      record.offender = offender
+      record.enforcer = enforcer
+      record.assign_attributes(params.for(record).as(enforcer).on(:create).refine)
+    end
+    return ban
+  end
+
   # Public: Translates the Ban object to a HASH string using RABL
   #
   #   args - A Hash of arguments to be sent to the rabl, renderer.
