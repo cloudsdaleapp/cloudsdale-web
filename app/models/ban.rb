@@ -42,7 +42,7 @@ class Ban
     ban ||= jurisdiction.bans.build
     ban.offender = offender
     ban.enforcer = enforcer
-    ban.assign_attributes(params.for(record).as(enforcer).on(:create).refine)
+    ban.assign_attributes(params.for(ban).as(enforcer).on(:create).refine)
 
     jurisdiction.bans.push(ban) unless jurisdiction.bans.map(&:_id).include?(ban.id)
 
