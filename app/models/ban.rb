@@ -36,13 +36,14 @@ class Ban
   # build a new ban, filtering the parameters through the ban refinery.
   #
   # Returns a ban record.
-  def self.refined_build(params, enforcer: nil, offender: nil)
+  def self.refined_build(params, enforcer: nil, offender: nil, jurisdiction: nil)
     params = ActionController::Parameters.new(params)
     ban = self.find_or_initialize_by(offender: offender).tap do |record|
       record.offender = offender
       record.enforcer = enforcer
       record.assign_attributes(params.for(record).as(enforcer).on(:create).refine)
     end
+    jurisdiction.bans.push(ban) unless jurisdiction.bans.map(&:_id).include?(ban.id)
     return ban
   end
 
