@@ -40,7 +40,7 @@ private
   end
 
   def offender_is_present?
-    jurisdiction.user_ids.include? ban.offender.id
+    jurisdiction.user_ids.include? offender.id
   end
 
   def user_outranks_offender?
