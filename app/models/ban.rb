@@ -22,9 +22,9 @@ class Ban
   validates :reason, length: { within: 1..140 }, presence: true
   validate :validate_due, if: :due_changed?
 
-  scope :active, where(:due.gt => DateTime.current, :revoke => false)
   scope :revoked, where(revoke: true)
-  scope :expired, where(:due.lt => DateTime.current)
+  scope :expired, -> { where(:due.lt => DateTime.current) }
+  scope :active,  -> { where(:due.gt => DateTime.current, :revoke => false) }
   scope :on_user, -> user { where(:offender_id => user.id) }
   scope :by_user, -> user { where(:enforcer_id => user.id) }
 
