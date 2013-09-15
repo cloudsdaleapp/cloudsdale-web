@@ -39,7 +39,7 @@ class Ban
   def self.refined_build(params, enforcer: nil, offender: nil, jurisdiction: nil)
     params = ActionController::Parameters.new(params)
     ban = jurisdiction.bans.active.where(offender_id: offender.id).first
-    ban = jurisdiction.bans.build
+    ban ||= jurisdiction.bans.build
     ban.offender = offender
     ban.enforcer = enforcer
     ban.assign_attributes(params.for(record).as(enforcer).on(:create).refine)
