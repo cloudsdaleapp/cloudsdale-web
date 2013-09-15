@@ -38,7 +38,7 @@ class Ban
   # Returns a ban record.
   def self.refined_build(params, enforcer: nil, offender: nil, jurisdiction: nil)
     params = ActionController::Parameters.new(params)
-    ban = self.find_or_initialize_by(offender: offender).tap do |record|
+    ban = jurisdiction.bans.find_or_initialize_by(offender: offender).tap do |record|
       record.offender = offender
       record.enforcer = enforcer
       record.assign_attributes(params.for(record).as(enforcer).on(:create).refine)
