@@ -49,18 +49,33 @@ class Ban
     Rabl.render(self, options[:template], :view_path => options[:view_path], :format => 'hash')
   end
 
-  def due=(time)
-    time ||= 1.day.from_now
-    time = 1.years.from_now if time > 1.year.from_now
+  # Public: Custom setter for due which limits the the due for a
+  # ban to a maximum of one year.
+  #
+  # Returns the final set value for the ban.
+  def due=(time = 1.day.from_now)
+    time = time.to_time.utc if time.kind_of?(String)
+  rescue ArgumentError
+    time = 1.day.from_now.utc
+  ensure
+    time = 1.year.from_now.utc if time > 1.year.from_now.utc
     super(time)
   end
 
-  def reason=(text)
-    text ||= DEFAULT_REASON
-    super(text.strip)
+  # Public: Custom setter for revoke that will transform nil to
+  # a default value and sanitize any other parameters.
+  #
+  # Returns the set value.
+  def reason=(text = DEFAULT_REASON)
+    super(text.strip) if text.kind_of?(String)
   end
 
+  # Public: Custom setter for revoke that will transform nil to
+  # a default value.
+  #
+  # Returns the set value.
   def revoke=(value=false)
+    super(value)
   end
 
 private
