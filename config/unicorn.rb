@@ -7,7 +7,7 @@ worker_processes 8
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/tmp/cloudsdale-web.socket", :backlog => 1024
+listen "/tmp/cloudsdale-puma.sock", :backlog => 1024
 
 # Preload our app for more speed
 preload_app true

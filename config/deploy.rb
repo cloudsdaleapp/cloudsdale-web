@@ -94,25 +94,25 @@ namespace :deploy do
   desc "Restart the application"
   task :restart, :roles => unicorn_role, :except => { :no_release => true } do
     # PUMA
-    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} restart"
+    # run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} restart"
     # UNICORN
-    # run "kill -s USR2 `cat #{unicorn_pid}`"
+    run "kill -s USR2 `cat #{unicorn_pid}`"
   end
 
   desc "Start the application"
   task :start, :roles => unicorn_role, :except => { :no_release => true } do
     # PUMA
-    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec puma -b '#{puma_sock}' -e #{stage} -t8:8 --control '#{puma_control}' -S #{puma_state} >> #{puma_log} 2>&1 &", :pty => false
+    # run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec puma -b '#{puma_sock}' -e #{stage} -t16:16 --control '#{puma_control}' -S #{puma_state} >> #{puma_log} 2>&1 &", :pty => false
     # UNICORN
-    # run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E #{rails_env} -D"
+    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E #{rails_env} -D"
   end
 
   desc "Stop the application"
   task :stop, :roles => unicorn_role, :except => { :no_release => true } do
     # PUMA
-    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} stop"
+    # run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} stop"
     # UNICORN
-    # run "kill -s QUIT `cat #{unicorn_pid}`"
+    run "kill -s QUIT `cat #{unicorn_pid}`"
   end
 
   desc "Status of the application"
