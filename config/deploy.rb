@@ -41,6 +41,12 @@ set :sidekiq_pid,       "/var/run/sidekiq.pid"
 set :sidekiq_processes, 2
 set :sidekiq_concurrency, 25
 
+# Puma
+set :puma_sock,     "unix://#{socket_path}/cloudsdale-puma.sock"
+set :puma_control,  "unix://#{socket_path}/cloudsdale-puma-ctl.sock"
+set :puma_state,    "#{socket_path}/cloudsdale-puma.state"
+set :puma_log,      "#{shared_path}/log/puma-#{stage}.log"
+
 # Unicorn
 set :unicorn_pid ,      "/var/run/unicorn/web.pid"
 set :unicorn_role,      :web
@@ -85,19 +91,33 @@ namespace :deploy do
 
   end
 
-  desc "Zero-downtime restart of Unicorn"
+  desc "Restart the application"
   task :restart, :roles => unicorn_role, :except => { :no_release => true } do
-    run "kill -s USR2 `cat #{unicorn_pid}`"
+    # PUMA
+    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} restart"
+    # UNICORN
+    # run "kill -s USR2 `cat #{unicorn_pid}`"
   end
 
-  desc "Start unicorn"
+  desc "Start the application"
   task :start, :roles => unicorn_role, :except => { :no_release => true } do
-    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E #{rails_env} -D"
+    # PUMA
+    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec puma -b '#{puma_sock}' -e #{stage} -t8:8 --control '#{puma_control}' -S #{puma_state} >> #{puma_log} 2>&1 &", :pty => false
+    # UNICORN
+    # run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E #{rails_env} -D"
   end
 
-  desc "Stop unicorn"
+  desc "Stop the application"
   task :stop, :roles => unicorn_role, :except => { :no_release => true } do
-    run "kill -s QUIT `cat #{unicorn_pid}`"
+    # PUMA
+    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} stop"
+    # UNICORN
+    # run "kill -s QUIT `cat #{unicorn_pid}`"
+  end
+
+  desc "Status of the application"
+  task :status, :roles => :app, :except => { :no_release => true } do
+    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} stats"
   end
 
   namespace :db do
@@ -113,36 +133,6 @@ namespace :deploy do
     task :create_indexes do
       run "cd #{current_path} && rake db:mongoid:create_indexes"
     end
-  end
-
-end
-
-
-set :puma_sock,     "unix://#{socket_path}/cloudsdale-puma.sock"
-set :puma_control,  "unix://#{socket_path}/cloudsdale-puma-ctl.sock"
-set :puma_state,    "#{socket_path}/cloudsdale-puma.state"
-set :puma_log,      "#{shared_path}/log/puma-#{stage}.log"
-
-namespace :puma do
-
-  desc "Start the application"
-  task :start do
-    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec puma -b '#{puma_sock}' -e #{stage} -t2:4 --control '#{puma_control}' -S #{puma_state} >> #{puma_log} 2>&1 &", :pty => false
-  end
-
-  desc "Stop the application"
-  task :stop do
-    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} stop"
-  end
-
-  desc "Restart the application"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} restart"
-  end
-
-  desc "Status of the application"
-  task :status, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec pumactl -S #{puma_state} stats"
   end
 
 end
