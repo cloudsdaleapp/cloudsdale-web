@@ -92,8 +92,8 @@ module Cloudsdale
     config.autoload_paths += %W(#{config.root}/lib/middleware)
 
     # Middlewares
-    # config.middleware.insert_after("Rack::Lock", "AvatarDispatch")
-    config.middleware.insert_before(0, "AvatarDispatch")
+    config.middleware.insert_after("Rack::Lock", "AvatarDispatch")
+    # config.middleware.insert_before(0, "AvatarDispatch")
 
     # Multiple Route Files
     config.paths["config/routes"] += Dir[Rails.root.join('config', 'routes', '*.rb').to_s]
