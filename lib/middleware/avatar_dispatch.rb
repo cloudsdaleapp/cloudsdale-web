@@ -2,17 +2,6 @@ require 'new_relic/agent/method_tracer'
 
 class AvatarDispatch
 
-  if defined?(NewRelic::Agent::Instrumentation::ControllerInstrumentation)
-    include NewRelic::Agent::Instrumentation::ControllerInstrumentation
-    add_transaction_tracer(:transaction)
-  end
-
-  if defined?(NewRelic::Agent::MethodTracer)
-    include NewRelic::Agent::MethodTracer
-    add_method_tracer(:proccess, 'Custom/AvatarDispatch/process')
-    add_method_tracer(:resolve_file, 'Custom/AvatarDispatch/resolve_file')
-  end
-
   BASE_SIZES    = Array.new(9){ |n| 2 ** (n + 1) }.last(7)
   SPECIAL_SIZES = [24,40,50,70,200]
   ALLOWED_SIZES = (BASE_SIZES + SPECIAL_SIZES).uniq.sort
@@ -28,7 +17,7 @@ class AvatarDispatch
     request = Rack::Request.new(env.deep_dup)
     if DOMAIN_MATCH.match(request.host)
       if path_match = PATH_MATCH.match(request.path)
-        transaction(env, request)
+        transaction(env, request, path_match)
       else
         [ 204,
           {
@@ -44,7 +33,7 @@ class AvatarDispatch
 
   end
 
-  def transaction(env, request)
+  def transaction(env, request, path_match)
     options = Hash.new
 
     if path_match[:md5]
@@ -189,6 +178,18 @@ private
 
   rescue MiniMagick::Error, MiniMagick::Invalid => e
     nil
+  end
+
+  # NewRelic Metric collection
+  if defined?(NewRelic::Agent::Instrumentation::ControllerInstrumentation)
+    include NewRelic::Agent::Instrumentation::ControllerInstrumentation
+    add_transaction_tracer(:transaction)
+  end
+
+  if defined?(NewRelic::Agent::MethodTracer)
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer(:proccess, 'Custom/AvatarDispatch/process')
+    add_method_tracer(:resolve_file, 'Custom/AvatarDispatch/resolve_file')
   end
 
 end
