@@ -40,6 +40,8 @@ class AvatarDispatch
           file = File.read(image.path)
           [ 200,
             {
+              "ETag"           => ['avatar', options[:model], options[:id], options[:size], timestamp].join("-"),
+              "Cache-Control"  => "public, max-age=31536000",
               "Last-Modified"  => timestamp.httpdate,
               "MIME-Version"   => "1.0",
               "Content-Type"   => "image/png",
