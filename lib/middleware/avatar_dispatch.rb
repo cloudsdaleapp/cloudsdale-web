@@ -32,7 +32,7 @@ class AvatarDispatch
         file_path, timestamp = ALLOWED_SIZES.include?(options[:size]) ? resolve_file(options) : nil
 
         remote_ip = env["REMOTE_ADDR"] || env["HTTP_X_REAL_IP"] || env["HTTP_X_FORWARDED_FOR"]
-        Rails.logger.debug("Started GET #{env['REQUEST_URI']} for #{remote_ip} at #{Time.now}")
+        Rails.logger.debug("Started GET \"#{env['REQUEST_URI']}\" for #{remote_ip} at #{Time.now}")
 
         image = file_path.present? ? proccess(file_path, options[:size]) : nil
 
