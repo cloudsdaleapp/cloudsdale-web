@@ -1,4 +1,17 @@
+require 'new_relic/agent/method_tracer'
+
 class AvatarDispatch
+
+  if defined?(NewRelic::Agent::Instrumentation::ControllerInstrumentation)
+    include NewRelic::Agent::Instrumentation::ControllerInstrumentation
+    add_transaction_tracer(:transaction)
+  end
+
+  if defined?(NewRelic::Agent::MethodTracer)
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer(:proccess, 'Custom/AvatarDispatch/process')
+    add_method_tracer(:resolve_file, 'Custom/AvatarDispatch/resolve_file')
+  end
 
   BASE_SIZES    = Array.new(9){ |n| 2 ** (n + 1) }.last(7)
   SPECIAL_SIZES = [24,40,50,70,200]
@@ -15,63 +28,7 @@ class AvatarDispatch
     request = Rack::Request.new(env.deep_dup)
     if DOMAIN_MATCH.match(request.host)
       if path_match = PATH_MATCH.match(request.path)
-
-        options = Hash.new
-
-        if path_match[:md5]
-          options[:type]  = :email_hash
-          options[:id]    = path_match[:md5]
-        elsif path_match[:bson]
-          options[:type]  = :id
-          options[:id]    = path_match[:bson]
-        end
-
-        options[:model] = path_match[:model].to_sym
-        options[:size]  = request.params["s"].try(:to_i) || 256
-
-        file_path, timestamp = ALLOWED_SIZES.include?(options[:size]) ? resolve_file(options) : nil
-
-        remote_ip = env["REMOTE_ADDR"] || env["HTTP_X_REAL_IP"] || env["HTTP_X_FORWARDED_FOR"]
-        Rails.logger.debug("Started GET \"#{env['REQUEST_URI']}\" for #{remote_ip} at #{Time.now}")
-
-        etag = ['avatar', options[:model], options[:id], options[:size], timestamp.utc.to_s(:number)].join("-")
-
-        if etag == env['ETAG']
-          [ 304,
-            {
-              "ETag"           => etag,
-              "Cache-Control"  => "public, max-age=31536000",
-              "MIME-Version"   => "1.0",
-              "Content-Type"   => "image/png",
-              "Content-Length" => "0"
-            }, [""]
-          ]
-        else
-          image = file_path.present? ? proccess(file_path, options[:size]) : nil
-
-          if image
-            file = File.read(image.path)
-            [ 200,
-              {
-                "ETag"           => etag,
-                "Cache-Control"  => "public, max-age=31536000",
-                "Last-Modified"  => timestamp.httpdate,
-                "MIME-Version"   => "1.0",
-                "Content-Type"   => "image/png",
-                "Content-Length" => StringIO.new(file).size.to_s
-              }, [file]
-            ]
-          else
-            [ 404,
-              {
-                "MIME-Version"   => "1.0",
-                "Content-Type"   => "text/plain",
-                "Content-Length" => "0"
-              }, [""]
-            ]
-          end
-        end
-
+        transaction(env, request)
       else
         [ 204,
           {
@@ -81,9 +38,67 @@ class AvatarDispatch
           }, [""]
         ]
       end
-
     else
       @app.call(env)
+    end
+
+  end
+
+  def transaction(env, request)
+    options = Hash.new
+
+    if path_match[:md5]
+      options[:type]  = :email_hash
+      options[:id]    = path_match[:md5]
+    elsif path_match[:bson]
+      options[:type]  = :id
+      options[:id]    = path_match[:bson]
+    end
+
+    options[:model] = path_match[:model].to_sym
+    options[:size]  = request.params["s"].try(:to_i) || 256
+
+    file_path, timestamp = ALLOWED_SIZES.include?(options[:size]) ? resolve_file(options) : nil
+
+    remote_ip = env["REMOTE_ADDR"] || env["HTTP_X_REAL_IP"] || env["HTTP_X_FORWARDED_FOR"]
+    Rails.logger.debug("Started GET \"#{env['REQUEST_URI']}\" for #{remote_ip} at #{Time.now}")
+
+    etag = ['avatar', options[:model], options[:id], options[:size], timestamp.utc.to_s(:number)].join("-")
+
+    if etag == env['ETAG']
+      [ 304,
+        {
+          "ETag"           => etag,
+          "Cache-Control"  => "public, max-age=31536000",
+          "MIME-Version"   => "1.0",
+          "Content-Type"   => "image/png",
+          "Content-Length" => "0"
+        }, [""]
+      ]
+    else
+      image = file_path.present? ? proccess(file_path, options[:size]) : nil
+
+      if image
+        file = File.read(image.path)
+        [ 200,
+          {
+            "ETag"           => etag,
+            "Cache-Control"  => "public, max-age=31536000",
+            "Last-Modified"  => timestamp.httpdate,
+            "MIME-Version"   => "1.0",
+            "Content-Type"   => "image/png",
+            "Content-Length" => StringIO.new(file).size.to_s
+          }, [file]
+        ]
+      else
+        [ 404,
+          {
+            "MIME-Version"   => "1.0",
+            "Content-Type"   => "text/plain",
+            "Content-Length" => "0"
+          }, [""]
+        ]
+      end
     end
 
   end
@@ -175,8 +190,5 @@ private
   rescue MiniMagick::Error, MiniMagick::Invalid => e
     nil
   end
-
-  # This has to be included last.
-  include NewRelic::Agent::Instrumentation::Rack if defined?(NewRelic::Agent::Instrumentation::Rack)
 
 end
