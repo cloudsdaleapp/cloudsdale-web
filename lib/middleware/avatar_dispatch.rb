@@ -34,28 +34,42 @@ class AvatarDispatch
         remote_ip = env["REMOTE_ADDR"] || env["HTTP_X_REAL_IP"] || env["HTTP_X_FORWARDED_FOR"]
         Rails.logger.debug("Started GET \"#{env['REQUEST_URI']}\" for #{remote_ip} at #{Time.now}")
 
-        image = file_path.present? ? proccess(file_path, options[:size]) : nil
+        etag = ['avatar', options[:model], options[:id], options[:size], timestamp.utc.to_s(:number)].join("-")
 
-        if image
-          file = File.read(image.path)
-          [ 200,
+        if etag == env['ETAG']
+          [ 304,
             {
-              "ETag"           => ['avatar', options[:model], options[:id], options[:size], timestamp].join("-"),
+              "ETag"           => etag,
               "Cache-Control"  => "public, max-age=31536000",
-              "Last-Modified"  => timestamp.httpdate,
               "MIME-Version"   => "1.0",
               "Content-Type"   => "image/png",
-              "Content-Length" => StringIO.new(file).size.to_s
-            }, [file]
-          ]
-        else
-          [ 404,
-            {
-              "MIME-Version"   => "1.0",
-              "Content-Type"   => "text/plain",
               "Content-Length" => "0"
             }, [""]
           ]
+        else
+          image = file_path.present? ? proccess(file_path, options[:size]) : nil
+
+          if image
+            file = File.read(image.path)
+            [ 200,
+              {
+                "ETag"           => etag,
+                "Cache-Control"  => "public, max-age=31536000",
+                "Last-Modified"  => timestamp.httpdate,
+                "MIME-Version"   => "1.0",
+                "Content-Type"   => "image/png",
+                "Content-Length" => StringIO.new(file).size.to_s
+              }, [file]
+            ]
+          else
+            [ 404,
+              {
+                "MIME-Version"   => "1.0",
+                "Content-Type"   => "text/plain",
+                "Content-Length" => "0"
+              }, [""]
+            ]
+          end
         end
 
       else
