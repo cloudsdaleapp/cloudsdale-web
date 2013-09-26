@@ -188,8 +188,8 @@ private
 
   if defined?(NewRelic::Agent::MethodTracer)
     include NewRelic::Agent::MethodTracer
-    add_method_tracer(:proccess, 'Custom/AvatarDispatch/process')
-    add_method_tracer(:resolve_file, 'Custom/AvatarDispatch/resolve_file')
+    add_method_tracer(:proccess, 'Custom/Image/process')
+    add_method_tracer(:resolve_file, 'Custom/Image/resolve')
   end
 
 end
