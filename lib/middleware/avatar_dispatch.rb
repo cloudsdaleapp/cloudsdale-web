@@ -161,6 +161,6 @@ private
   end
 
   # This has to be included last.
-  include NewRelic::Agent::Instrumentation::Rack
+  include NewRelic::Agent::Instrumentation::Rack if defined?(NewRelic::Agent::Instrumentation::Rack)
 
 end
