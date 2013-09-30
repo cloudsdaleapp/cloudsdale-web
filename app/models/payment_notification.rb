@@ -5,6 +5,8 @@ class PaymentNotification
 
   ITEMS = ["donation"]
 
+  DONATION_THRESHOLD = 5.0
+
   attr_accessible :transaction_id, :transaction_type
   attr_accessible :amount, :currency, :item
   attr_accessible :user_id, :params
@@ -25,7 +27,7 @@ class PaymentNotification
 
   after_save do
     if self.user
-      if (user.symbolic_role == :normal) && (self.amount >= 1.0)
+      if (user.symbolic_role == :normal) && (self.amount >= DONATION_THRESHOLD)
         self.user.role = 1
         self.user.save
       end
