@@ -25,6 +25,7 @@ class Api::V1::Clouds::DropsController < Api::V1Controller
     authorize @cloud, :show?
 
     @drops = [] # Drop.only_visable.after_on_topic(@time,@cloud).order_by_topic(@cloud).page(@page).per(10)
+    @drops = Kaminari.paginate_array(@drops).page(@page).per(10)
 
     render status: 200
 
