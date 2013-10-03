@@ -4,7 +4,7 @@ node(:id) { |user| user._id.to_s }
 
 attributes :name, :time_zone, :suspended_until, :reason_for_suspension, :skype_name, :also_known_as, :status, :username
 
-node(:member_since) { |user| user.created_at.to_time }
+node(:member_since) { |user| user.created_at.try(:to_time) }
 
 node(:avatar) { |user| user.avatar_versions }
 
