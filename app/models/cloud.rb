@@ -37,7 +37,8 @@ class Cloud
   field :featured,            type: Boolean,        default: false
 
   index( { _id: 1 }, { name: 'id_index'} )
-  index( { created_at: 1, hidden: 1 }, { name: 'search_index' } )
+  index( { hidden: 1, participant_count: -1 }, { name: 'popular_index' } )
+  index( { hidden: 1, created_at: -1 },        { name: 'recent_index' } )
 
   def x_moderator_ids=(mod_ids)
     mod_ids = mod_ids.map { |mod_id| mod_id.is_a?(Moped::BSON::ObjectId) ? mod_id : Moped::BSON::ObjectId(mod_id) }
@@ -55,8 +56,8 @@ class Cloud
 
   has_many :references,   :validate => false, as: :topic, class_name: "Conversation", dependent: :destroy, inverse_of: :topic
 
-  scope :popular, order_by(participant_count: :desc)
-  scope :recent,  order_by(created_at: :desc)
+  scope :popular, where(hidden: false).order_by(participant_count: :desc)
+  scope :recent,  where(hidden: false).order_by(created_at: :desc)
   scope :visible, where(hidden: false)
   scope :hidden,  where(hidden: true)
   scope :available_to, -> user {
