@@ -38,11 +38,11 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
 
     authorize @message, :create?
 
-    @message.urls.each do |url|
-      begin
-        @message.drops << @cloud.create_drop_deposit_from_url_by_user(url,current_user)
-      end
-    end
+    # @message.urls.each do |url|
+    #   begin
+    #     @message.drops << @cloud.create_drop_deposit_from_url_by_user(url,current_user)
+    #   end
+    # end
 
     if @message.save
       render status: 200
