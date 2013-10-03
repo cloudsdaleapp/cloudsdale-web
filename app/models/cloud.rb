@@ -55,7 +55,7 @@ class Cloud
 
   has_many :references,   :validate => false, as: :topic, class_name: "Conversation", dependent: :destroy, inverse_of: :topic
 
-  scope :popular, order_by(member_count: :desc)
+  scope :popular, order_by(participant_count: :desc)
   scope :recent,  order_by(created_at: :desc)
   scope :visible, where(hidden: false)
   scope :hidden,  where(hidden: true)
