@@ -53,9 +53,8 @@ class PasswordReset
   # user if present.
   def user
     if self.identifier.present?
-      @user ||= User.or(username: /^#{self.identifier}$/i)
-                    .or(email: self.identifier.downcase.strip)
-                    .first
+      @user ||= Handle.lookup!(identifier.strip, kind: User)
+      @user ||= User.where(email: identifier.downcase.strip).limit(1).first
     else
       @user ||= nil
     end
