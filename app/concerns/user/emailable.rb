@@ -19,9 +19,9 @@ class User
 
       field :force_email_change,        type: Boolean,    default: false
 
-      index( { email: 1 },        { unique: true, name: "email_index" } )
-      index( { email_hash: 1 },   { unique: true, name: "email_hash_index" } )
-      index( { email_token: 1 },  { unique: true, name: "email_token_index" } )
+      index( { email: 1 },        { unique: 1, name: "email_index" } )
+      index( { email_hash: 1 },   { unique: 1, name: "email_hash_index" } )
+      index( { email_token: 1 },  { unique: 1, name: "email_token_index" } )
 
       validates :email, :email => true, :if => :email?
 

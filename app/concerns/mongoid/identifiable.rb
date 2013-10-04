@@ -35,7 +35,7 @@ module Mongoid
           self.attr_accessible(identity_field)
 
           # Index the identity field.
-          self.index({ identity_field => 1 }, { unique: 1 })
+          self.index({ identity_field => 1 }, { unique: 1, name: 'identifiable_index' })
 
           # Create the identity field.
           self.field("#{identity_field}", type: String)
