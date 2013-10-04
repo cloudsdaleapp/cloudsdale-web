@@ -32,6 +32,11 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
 
     @cloud = Cloud.lookup(params[:cloud_id])
 
+    params[:message] ||= {}
+    params[:message][:client_id] ||= params[:client_id]
+    params[:message][:content]   ||= params[:content]
+    params[:message][:device]    ||= params[:device]
+
     @message = Message.refined_build(params, author: current_user, topic: @cloud)
 
     authorize(@message, :create?)
