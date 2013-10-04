@@ -48,7 +48,7 @@ class AuthenticationsController < ApplicationController
 
     else
       if current_user.new_record?
-        @user = User.where(email: /^#{@email}$/i).first if @email
+        @user = User.where(email: @email.downcase).first if @email
         @user = User.new if @user.nil?
       else
         @user = current_user
@@ -57,7 +57,7 @@ class AuthenticationsController < ApplicationController
       @user.authentications.find_or_initialize_by(provider: @provider, uid: @uid)
     end
 
-    @user.name      = @name       unless @user.name.present? or (User.where(name: /^#{@name}$/).count >= 1)
+    @user.name      = @name       unless @user.name.present?
     @user.email     = @email      unless @user.email.present?
 
     @user.remote_avatar_url   = @image if (!@user.avatar? && @image.present?)
