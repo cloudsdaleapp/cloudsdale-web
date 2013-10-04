@@ -20,9 +20,9 @@ class Registration
 
   token length: 5,  contains: :fixed_numeric
 
-  validates :email, presence: true, email: true, remote_uniqueness: {
-    with: { "email" => User },
-  }
+  validate :email_uniqueness
+
+  validates :email, presence: true, email: true
 
   validates :display_name, presence: true
 
@@ -76,6 +76,10 @@ private
 
   def schedule_for_expiration
     RecordExpirationWorker.perform_in(48.hours, *[self.class.to_s, self.id.to_s])
+  end
+
+  def email_uniqueness
+    errors.add(:email, "is already used by someone else") if User.where(email: self.email.downcase).exists?
   end
 
 end
