@@ -32,11 +32,9 @@ class Api::V1::Clouds::Chat::MessagesController < Api::V1Controller
 
     @cloud = Cloud.lookup(params[:cloud_id])
 
-    @message = Message.new(params.for(Message).as(current_user).on(:create))
-    @message.author = current_user
-    @message.topic  = @cloud
+    @message = Message.refined_build(params, author: current_user, topic: @cloud)
 
-    authorize @message, :create?
+    authorize(@message, :create?)
 
     # @message.urls.each do |url|
     #   begin

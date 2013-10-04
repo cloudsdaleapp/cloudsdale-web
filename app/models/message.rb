@@ -23,6 +23,14 @@ class Message
   validates :author,   presence: true
   validates :topic,    presence: true
 
+  def self.refined_build(params, author: nil, topic: nil)
+    return self.new do |message|
+      message.write_attributes(params.for(self).as(author).on(:create).refine)
+      message.author = author
+      message.topic  = topic
+    end
+  end
+
   def content=(msg)
 
     msg.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n"

@@ -9,7 +9,10 @@ class Cloudsdale.Models.Message extends Backbone.Model
 
   timestamp: -> new Date(@get('timestamp'))
 
-  toJSON: -> { content: @get("content"), client_id: session.get('client_id'), device: @get('device') }
+  toJSON: ->
+    {
+      message: { content: @get("content"), client_id: session.get('client_id'), device: @get('device') }
+    }
 
   selfReference: -> if @get('content').match(/^\/me/i) then true else false
 
