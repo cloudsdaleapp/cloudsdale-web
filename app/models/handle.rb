@@ -39,7 +39,7 @@ class Handle
   end
 
   def self.sanitize_name(value)
-    value.strip.gsub(' ','').first(MAX_LENGTH)
+    value.strip.gsub(' ','').first(MAX_LENGTH) if value
   end
 
   # Public: Custom finder that upcase the value to adhere to database convention
