@@ -272,6 +272,9 @@ GEM
       addressable
       curb-fu
       signet
+    newrelic-redis (1.4.0)
+      newrelic_rpm (~> 3.0)
+      redis (< 4.0)
     newrelic_moped (0.0.6)
       moped
       newrelic_rpm (~> 3.6.0)
@@ -541,6 +544,7 @@ DEPENDENCIES
   mongoid_token!
   moped (~> 1.5.0)
   netdnarws (~> 0.2.8)
+  newrelic-redis
   newrelic_moped
   newrelic_rpm
   omniauth
