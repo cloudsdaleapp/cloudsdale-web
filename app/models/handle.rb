@@ -126,6 +126,7 @@ class Handle
   #
   # Returns a handle. Always.
   def self.build(record, name)
+    name ||= ""
     name = sanitize_name(name)
 
     handle ||= where(_id: name.upcase, :identifiable_id.in => [record.id, nil]).first
