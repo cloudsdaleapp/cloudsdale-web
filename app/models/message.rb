@@ -15,9 +15,8 @@ class Message
   field :content,     type: String
   field :device,      type: String,   default: 'desktop'
 
-  index( { _id: 1 }, { name: 'id_index' } )
-  index( { created_at: -1 }, { name: 'created_at_index' } )
-  index( { topic_id:   1, created_at: -1 }, { name: 'conversation_index' } )
+  index( { created_at: -1 }, { name: 'created_at_index', background: true } )
+  index( { topic_id:   1, created_at: -1 }, { name: 'conversation_index', background: true } )
 
   validates :content,  presence: true
   validates :author,   presence: true
@@ -31,48 +30,26 @@ class Message
     end
   end
 
-  def content=(msg)
+  def content=(value)
+    value.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n"
+    value.gsub! /<br\/><br\/>/,"\\n"
+    value.gsub! /^\s*$/, ""
 
-    msg.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n"
-    msg.gsub! /<br\/><br\/>/,"\\n"
-    msg.gsub! /^\s*$/, ""
-
-    msg.gsub! /(https\:\/\/www.cloudsdale.org)/i, "http://www.cloudsdale.org"
-
-    if (m = msg.match(/^(.*)/i))
-      msg = m[0].gsub /([a-z]{1,6}\:\/\/)([a-z0-9\.\,\-\_\:]*)(\/?[a-z0-9\!\'\"\.\,\-\_\/\?\:\&\=\#\%\+\(\)]*)/i do
-
-        protocol = $1
-        top_dom = $2
-        path = $3
-        url = protocol + top_dom + path
-
-        self[:urls] ||= []
-        self[:urls] << url
-
-        url
-      end
-    end
-
-    if msg.present? && msg.length > 1000
-      self[:content] = msg[0..999] + "\\n\\n\\nMessage exceeded the 1000 character limit and has been trimmed..."
-    else
-      self[:content] = msg
-    end
-
+    super(value[0..1000])
   end
 
   # Deprecated Attributes
-  field :urls, type: Array, default: []
-  field :timestamp,   type: Time,     default: -> { Time.now }
   has_and_belongs_to_many :drops, inverse_of: nil
   default_scope -> { includes(:author,:drops) }
-  scope :old, -> { order_by([:timestamp,:desc]).skip(50) }
   after_save :v1_publish
 
   # Deprecated Methods
   def utc_timestamp
-    self[:timestamp].utc
+    timestamp.utc
+  end
+
+  def timestamp
+    self.created_at.to_time
   end
 
 private
