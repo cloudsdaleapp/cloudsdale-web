@@ -49,7 +49,7 @@ class Message
   end
 
   def timestamp
-    self.created_at.to_time
+    (self.created_at || DateTime.current).to_time
   end
 
 private
