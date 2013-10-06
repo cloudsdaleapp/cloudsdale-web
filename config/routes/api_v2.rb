@@ -36,7 +36,13 @@ Cloudsdale::Application.routes.draw do
     #   end
     # end
 
-    resources :clouds, only: [:show,:index] do
+    resources :messages, only: [:index] do
+      # collection do
+      #   get :search
+      # end
+    end
+
+    resources :clouds,   only: [:show,:index] do
       collection do
         get :search
       end

@@ -17,6 +17,7 @@ class Message
 
   index( { created_at: -1 }, { name: 'created_at_index' } )
   index( { topic_id:   1, created_at: -1 }, { name: 'conversation_index' } )
+  index( { topic_id:   1, author_id: 1, created_at: -1 }, { name: 'private_conversation_index' } )
 
   validates :content,  presence: true
   validates :author,   presence: true

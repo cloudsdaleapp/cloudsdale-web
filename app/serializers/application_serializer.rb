@@ -32,11 +32,11 @@ class ApplicationSerializer < ActiveModel::Serializer
 protected
 
   def include_transient?
-    object.respond_to?(:new_record?)
+    false #object.respond_to?(:new_record?)
   end
 
   def include_deleted?
-    object.respond_to?(:deleted?)
+    false #object.respond_to?(:deleted?)
   end
 
   def include_created_at?

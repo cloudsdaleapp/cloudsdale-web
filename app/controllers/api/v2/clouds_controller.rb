@@ -15,7 +15,7 @@ class Api::V2::CloudsController < Api::V2Controller
 
     if ids = params[:ids]
       parameters = [:ids]
-      @clouds = User.find(ids)
+      @clouds = Cloud.find(ids)
       @total  = @clouds.count
       @clouds = Kaminari.paginate_array(@clouds).page(offset).per(limit)
     else

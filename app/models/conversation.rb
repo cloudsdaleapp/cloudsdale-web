@@ -107,6 +107,22 @@ class Conversation
     self.new_record? ? false : self.destroy
   end
 
+  def messages(before: nil, since: nil, limit: nil)
+    criteria = case topic_type
+    when "User"
+      Message.and(:topic_id.in => [topic_id, user_id], :author_id.in => [user_id, topic_id])
+    when "Cloud"
+      Message.where(topic: topic)
+    end
+
+    criteria = criteria.includes(:author)
+    criteria = criteria.order_by(created_at: :desc)
+    criteria = criteria.where(:created_at.lt => before) if before
+    criteria = criteria.where(:created_at.gt => since)  if since
+    criteria = criteria.limit(limit) if limit
+    return criteria
+  end
+
   # Public: Fetches the notification count for this
   # conversation from redis.
   #
