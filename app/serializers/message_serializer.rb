@@ -1,5 +1,7 @@
 class MessageSerializer < ApplicationSerializer
 
+  cached true
+
   embed :ids, include: true
 
   has_one :author, polymorphic: true
@@ -9,6 +11,10 @@ class MessageSerializer < ApplicationSerializer
 
   def type
     super.present? ? super : "message"
+  end
+
+  def cache_key
+    [object.id, object.updated_at.utc.to_s(:number)].join("-")
   end
 
 private
