@@ -109,13 +109,13 @@ private
 
     unless file_path.present? && timestamp.present?
 
-      record ||= scope(options).where(options[:type] => options[:id]).first
+      record ||= scope(options).where(options[:type] => options[:id]).first unless record
 
       fallback_path = file_path = Rails.root.join(
         'app', 'assets', 'images', 'fallback', 'avatar', "#{options[:model]}.png"
       ).to_s
 
-      if record.present?
+      if record
         file_path = record.avatar.present? ? record.avatar.full_file_path : fallback_path
         timestamp = record.avatar_uploaded.to_i
       else
