@@ -33,7 +33,7 @@ class AvatarDispatch
 
   end
 
-  def transaction(env, request, path_match)
+  def transaction(env, request, path_match, record: nil)
     options = Hash.new
 
     if path_match[:handle]
@@ -52,7 +52,7 @@ class AvatarDispatch
     options[:model] ||= path_match[:model].to_sym
     options[:size]  = request.params["s"].try(:to_i) || 256
 
-    file_path, timestamp = ALLOWED_SIZES.include?(options[:size]) ? resolve_file(options) : nil
+    file_path, timestamp = ALLOWED_SIZES.include?(options[:size]) ? resolve_file(options, record: record) : nil
 
     remote_ip = env["REMOTE_ADDR"] || env["HTTP_X_REAL_IP"] || env["HTTP_X_FORWARDED_FOR"]
     Rails.logger.debug("Started GET \"#{env['REQUEST_URI']}\" for #{remote_ip} at #{Time.now}")
