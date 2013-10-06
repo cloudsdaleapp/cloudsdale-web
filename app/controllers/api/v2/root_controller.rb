@@ -31,51 +31,51 @@ class Api::V2::RootController < Api::V2Controller
         refs: [
           {
             rel: 'me',
-            href: v2_me_url(format: :json, host: $api_host)
+            href: v2_me_url(format: :json, host: $api_host, protocol: "https:")
           },
           {
             rel: 'me_auth_token',
-            href: v2_auth_token_url(format: :json, host: $api_host)
+            href: v2_auth_token_url(format: :json, host: $api_host, protocol: "https:")
           },
           {
             rel: 'me_session',
-            href: v2_session_url(format: :json, host: $api_host)
+            href: v2_session_url(format: :json, host: $api_host, protocol: "https:")
           },
           {
             rel: 'convo',
-            href: URI.unescape(v2_convo_url("{topic}",format: :json, host: $api_host))
+            href: URI.unescape(v2_convo_url("{topic}",format: :json, host: $api_host, protocol: "https:"))
           },
           {
             rel: 'convo_messages',
-            href: URI.unescape(v2_convo_messages_url("{topic}",format: :json, host: $api_host))
+            href: URI.unescape(v2_convo_messages_url("{topic}",format: :json, host: $api_host, protocol: "https:"))
           },
           {
             rel: 'cloud',
-            href: URI.unescape(v2_cloud_url("{handle}", format: :json, host: $api_host))
+            href: URI.unescape(v2_cloud_url("{handle}", format: :json, host: $api_host, protocol: "https:"))
           },
           {
             rel: 'clouds',
-            href: URI.unescape(v2_clouds_url(format: :json, host: $api_host)) + "{?ids,id}"
+            href: URI.unescape(v2_clouds_url(format: :json, host: $api_host, protocol: "https:")) + "{?ids,id}"
           },
           {
             rel: 'search_clouds',
-            href: URI.unescape(search_v2_clouds_url(format: :json, host: $api_host)) + "?query={keywords}"
+            href: URI.unescape(search_v2_clouds_url(format: :json, host: $api_host, protocol: "https:")) + "?query={keywords}"
           },
           {
             rel: 'user',
-            href: URI.unescape(v2_user_url("{handle}", format: :json, host: $api_host))
+            href: URI.unescape(v2_user_url("{handle}", format: :json, host: $api_host, protocol: "https:"))
           },
           {
             rel: 'users',
-            href: URI.unescape(v2_users_url(format: :json, host: $api_host)) + "{?ids,id}"
+            href: URI.unescape(v2_users_url(format: :json, host: $api_host, protocol: "https:")) + "{?ids,id}"
           },
           {
             rel: 'search_users',
-            href: URI.unescape(search_v2_users_url(format: :json, host: $api_host)) + "?query={keywords}"
+            href: URI.unescape(search_v2_users_url(format: :json, host: $api_host, protocol: "https:")) + "?query={keywords}"
           },
           {
             rel: 'spotlights',
-            href: URI.unescape(v2_spotlights_url(format: :json, host: $api_host)) + "{?category}"
+            href: URI.unescape(v2_spotlights_url(format: :json, host: $api_host, protocol: "https:")) + "{?category}"
           },
           {
             rel: 'avatar',
