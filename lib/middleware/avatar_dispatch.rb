@@ -38,9 +38,9 @@ class AvatarDispatch
 
     if path_match[:handle]
       record          = Handle.lookup!(path_match[:handle])
-      options[:model] = record.class.to_s.downcase.to_sym
+      options[:model] = record ? record.class.to_s.downcase.to_sym : nil
       options[:type]  = :id
-      options[:id]    = record.id
+      options[:id]    = record.try(:id)
     elsif path_match[:md5]
       options[:type]  = :email_hash
       options[:id]    = path_match[:md5]
@@ -101,33 +101,38 @@ private
 
   def resolve_file(options, record: nil)
 
-    path_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:path"
-    time_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:timestamp"
+    if options[:model] && options[:id]
+      path_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:path"
+      time_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:timestamp"
 
-    file_path   = $redis.get(path_query).try(:to_s) || ""
-    timestamp   = $redis.get(time_query).try(:to_i) || 0
+      file_path   = $redis.get(path_query).try(:to_s) || ""
+      timestamp   = $redis.get(time_query).try(:to_i) || 0
 
-    if file_path.empty? or timestamp.zero?
+      if file_path.empty? or timestamp.zero?
 
-      record ||= scope(options).where(options[:type] => options[:id]).first unless record
+        record ||= scope(options).where(options[:type] => options[:id]).first unless record
 
-      fallback_path = file_path = Rails.root.join(
-        'app', 'assets', 'images', 'fallback', 'avatar', "#{options[:model]}.png"
-      ).to_s
+        fallback_path = file_path = Rails.root.join(
+          'app', 'assets', 'images', 'fallback', 'avatar', "#{options[:model]}.png"
+        ).to_s
 
-      if record
-        file_path = record[:avatar].present? ? record.avatar.full_file_path : fallback_path
-        timestamp = record.avatar_uploaded.to_i
-      else
-        file_path = fallback_path
-        timestamp = File.mtime(file_path).to_i
+        if record
+          file_path = record[:avatar].present? ? record.avatar.full_file_path : fallback_path
+          timestamp = record.avatar_uploaded.to_i
+        else
+          file_path = fallback_path
+          timestamp = File.mtime(file_path).to_i
+        end
+
+        $redis.set(time_query, timestamp)
+        $redis.set(path_query, file_path)
+        $redis.expire(time_query,REDIS_EXPIRE)
+        $redis.expire(path_query,REDIS_EXPIRE)
+
       end
-
-      $redis.set(time_query, timestamp)
-      $redis.set(path_query, file_path)
-      $redis.expire(time_query,REDIS_EXPIRE)
-      $redis.expire(path_query,REDIS_EXPIRE)
-
+    else
+      file_path = nil
+      timestamp = 0
     end
 
     return file_path, Time.at(timestamp).to_datetime
