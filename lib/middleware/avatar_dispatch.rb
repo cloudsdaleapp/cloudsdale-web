@@ -107,7 +107,7 @@ private
     file_path   = $redis.get(path_query).try(:to_s) || nil
     timestamp   = $redis.get(time_query).try(:to_i) || nil
 
-    unless file_path.present? && timestamp.present?
+    if file_path.empty? or timestamp.zero?
 
       record ||= scope(options).where(options[:type] => options[:id]).first unless record
 
