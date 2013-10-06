@@ -116,7 +116,7 @@ private
       ).to_s
 
       if record
-        file_path = record.avatar.present? ? record.avatar.full_file_path : fallback_path
+        file_path = record[:avatar].present? ? record.avatar.full_file_path : fallback_path
         timestamp = record.avatar_uploaded.to_i
       else
         file_path = fallback_path
