@@ -205,13 +205,13 @@ class Cloud
     Drop.after_on_topic(Time.now,self).only_visable.order_by_topic(self).with_preview_image.limit(2)
   end
 
-  # def avatar_param
-  #   short_name || id
-  # end
+  def avatar_param
+    short_name || id
+  end
 
-  # def avatar_namespace
-  #   short_name.present? ? nil : super
-  # end
+  def avatar_namespace
+    short_name.present? ? nil : super
+  end
 
 private
 
