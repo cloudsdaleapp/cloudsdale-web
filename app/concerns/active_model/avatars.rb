@@ -89,8 +89,7 @@ module ActiveModel
       params << "mtime=#{self.avatar_uploaded.to_i}" if avatar_uploaded
       params = !params.empty? ? "?" + params.join("&") : ""
 
-      "/#{avatar_namespace}/#{self.id}.png#{params}"
-
+      "/" + [avatar_namespace, avatar_param].reject{|o|o.nil?}.join('/') + ".png#{params}"
     end
 
     # Public: Determines which namespace the avatar
@@ -103,6 +102,14 @@ module ActiveModel
       else
         self.class.to_s.downcase
       end
+    end
+
+    # Public: Determines what parameter to use for the
+    # avatar url. Defaults to the record id.
+    #
+    # Returns a string.
+    def avatar_param
+      self.id
     end
 
   protected

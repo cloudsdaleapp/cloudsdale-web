@@ -454,6 +454,14 @@ class User
     end
   end
 
+  def avatar_param
+    username || id
+  end
+
+  def avatar_namespace
+    username.present? ? nil : super
+  end
+
 private
 
   # Private: The string which will be used to index a user.

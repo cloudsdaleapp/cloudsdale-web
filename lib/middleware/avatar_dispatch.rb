@@ -5,7 +5,7 @@ class AvatarDispatch
   BASE_SIZES    = Array.new(9){ |n| 2 ** (n + 1) }.last(7)
   SPECIAL_SIZES = [24,40,50,70,200]
   ALLOWED_SIZES = (BASE_SIZES + SPECIAL_SIZES).uniq.sort
-  PATH_MATCH    = /\/(?<model>user|app|cloud)\/((?<md5>[0-9a-f]{32})|(?<bson>[0-9a-fA-F]{24}))\.(?<format>png)/
+  PATH_MATCH    = /\/((?<model>user|app|cloud)\/((?<md5>[0-9a-f]{32})|(?<bson>[0-9a-fA-F]{24}))|(?<handle>[a-z0-9\_\-]{1,20}))\.(?<format>png)/
   DOMAIN_MATCH  = /^(avatar)\..*$/
   REDIS_EXPIRE   = 12.hours
 
@@ -36,7 +36,12 @@ class AvatarDispatch
   def transaction(env, request, path_match)
     options = Hash.new
 
-    if path_match[:md5]
+    if path_match[:handle]
+      record          = Handle.lookup!(path_match[:handle])
+      options[:model] = record.class.to_s.downcase.to_sym
+      options[:type]  = :bson
+      options[:id]    = record.id
+    elsif path_match[:md5]
       options[:type]  = :email_hash
       options[:id]    = path_match[:md5]
     elsif path_match[:bson]
@@ -44,7 +49,7 @@ class AvatarDispatch
       options[:id]    = path_match[:bson]
     end
 
-    options[:model] = path_match[:model].to_sym
+    options[:model] ||= path_match[:model].to_sym
     options[:size]  = request.params["s"].try(:to_i) || 256
 
     file_path, timestamp = ALLOWED_SIZES.include?(options[:size]) ? resolve_file(options) : nil
