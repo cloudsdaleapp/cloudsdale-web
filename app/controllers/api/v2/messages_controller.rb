@@ -40,4 +40,46 @@ class Api::V2::MessagesController < Api::V2Controller
     render_exception("Sorry, could not find messages for that #{Conversation}.", 404)
   end
 
+  def create
+    @topic    = Handle.lookup(params.require(:topic))
+    @convo    = Conversation.find_by(user: current_user, topic: @topic)
+
+    @message = Message.refined_build(params, convo: @convo)
+
+    authorize(@message, :create?)
+
+    if @message.save
+      respond_with_resource(@message, serializer: MessageSerializer)
+    else
+      build_errors_from(@message)
+      respond_with_resource(@message, serializer: MessageSerializer)
+    end
+  end
+
+  def destroy
+    @message = Message.find(params[:id])
+
+    authorize(@message, :destroy?)
+
+    if @message.destroy
+      respond_with_resource(@message, serializer: MessageSerializer)
+    else
+      build_errors_from(@message)
+      respond_with_resource(@message, serializer: MessageSerializer)
+    end
+  end
+
+  def update
+    @message = Message.find(params[:id])
+
+    authorize(@message, :update?)
+
+    if @message.refined_update(params, editor: current_user)
+      respond_with_resource(@message, serializer: MessageSerializer)
+    else
+      build_errors_from(@message)
+      respond_with_resource(@message, serializer: MessageSerializer)
+    end
+  end
+
 end

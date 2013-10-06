@@ -23,12 +23,22 @@ class Message
   validates :author,   presence: true
   validates :topic,    presence: true
 
-  def self.refined_build(params, author: nil, topic: nil)
+  def self.refined_build(params, author: nil, topic: nil, convo: nil)
+    topic  ||= convo.topic
+    author ||= convo.user
+
     return self.new do |message|
       message.write_attributes(params.for(self).as(author).on(:create).refine)
       message.author = author
       message.topic  = topic
     end
+  end
+
+  def refined_update(params, editor: nil)
+    params = params.for(self)
+    params = params.as(editor) unless editor.nil?
+    params = params.on(:update)
+    update_attributes(params.refine)
   end
 
   def content=(value)

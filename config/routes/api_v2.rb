@@ -7,10 +7,14 @@ Cloudsdale::Application.routes.draw do
 
     root to: 'root#index'
 
-    match '/me/convos/:topic/messages', to: 'messages#index',     via: :get, as: :convo_messages
-    match '/me/convos/:topic',          to: 'conversations#show', via: :get, as: :convo
-    match '/me/session',                to: 'me#get_session',     via: :get, as: :session
-    match '/me/auth_token',             to: 'me#get_auth_token',  via: :get, as: :auth_token
+    match '/me/convos/:topic/messages',     to: 'messages#index',     via: :get,           as: :convo_messages
+    match '/me/convos/:topic/messages',     to: 'messages#create',    via: [:post],        as: :convo_messages
+    match '/me/convos/:topic/messages/:id', to: 'messages#destroy',   via: [:delete],      as: :convo_message
+    match '/me/convos/:topic/messages/:id', to: 'messages#update',    via: [:patch, :put], as: :convo_message
+    match '/me/convos/:topic',              to: 'conversations#show', via: :get,           as: :convo
+    match '/me/session',                    to: 'me#get_session',     via: :get,           as: :session
+    match '/me/auth_token',                 to: 'me#get_auth_token',  via: :get,           as: :auth_token
+
     resource :me, only: [:show,:update], controller: :me do
       # resources :networks, only: [:index,:destroy] do
       #   post '/:provider/:uid/share', only: [:create], on: :collection
@@ -35,7 +39,7 @@ Cloudsdale::Application.routes.draw do
     #   end
     # end
 
-    resources :messages, only: [:index] do
+    resources :messages, only: [:index, :create, :update, :destroy] do
       # collection do
       #   get :search
       # end
