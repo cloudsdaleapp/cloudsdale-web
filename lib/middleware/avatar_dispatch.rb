@@ -39,7 +39,7 @@ class AvatarDispatch
     if path_match[:handle]
       record          = Handle.lookup!(path_match[:handle])
       options[:model] = record.class.to_s.downcase.to_sym
-      options[:type]  = :bson
+      options[:type]  = :id
       options[:id]    = record.id
     elsif path_match[:md5]
       options[:type]  = :email_hash
@@ -99,19 +99,17 @@ class AvatarDispatch
 
 private
 
-  def resolve_file(options)
+  def resolve_file(options, record: nil)
 
-    path_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}"
+    path_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}.path"
     time_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:timestamp"
 
-    file_path   = Cloudsdale.redisClient.get(path_query).try(:to_s) || nil
-    timestamp   = Cloudsdale.redisClient.get(time_query).try(:to_i) || nil
+    file_path   = $redis.get(path_query).try(:to_s) || nil
+    timestamp   = $redis.get(time_query).try(:to_i) || nil
 
     unless file_path.present? && timestamp.present?
 
-      record    = scope(options).where(
-                    options[:type] => options[:id]
-                  ).first
+      record ||= scope(options).where(options[:type] => options[:id]).first
 
       fallback_path = file_path = Rails.root.join(
         'app', 'assets', 'images', 'fallback', 'avatar', "#{options[:model]}.png"
@@ -125,10 +123,10 @@ private
         timestamp = File.mtime(file_path).to_i
       end
 
-      Cloudsdale.redisClient.set(time_query, timestamp)
-      Cloudsdale.redisClient.set(path_query, file_path)
-      Cloudsdale.redisClient.expire(time_query,REDIS_EXPIRE)
-      Cloudsdale.redisClient.expire(path_query,REDIS_EXPIRE)
+      $redis.set(time_query, timestamp)
+      $redis.set(path_query, file_path)
+      $redis.expire(time_query,REDIS_EXPIRE)
+      $redis.expire(path_query,REDIS_EXPIRE)
 
     end
 
@@ -136,7 +134,7 @@ private
   end
 
   def scope(options)
-    @scope = case options[:model]
+    @scope = case options[:model].to_sym
       when :user  then User
       when :cloud then Cloud
       when :app   then Doorkeeper::Application
