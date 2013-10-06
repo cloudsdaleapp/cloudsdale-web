@@ -57,7 +57,7 @@ class AvatarDispatch
     remote_ip = env["REMOTE_ADDR"] || env["HTTP_X_REAL_IP"] || env["HTTP_X_FORWARDED_FOR"]
     Rails.logger.debug("Started GET \"#{env['REQUEST_URI']}\" for #{remote_ip} at #{Time.now}")
 
-    etag = ['avatar', options[:model], options[:id], options[:size], timestamp.utc.to_s(:number)].join("-")
+    etag = ['avatar', options[:model], options[:id], options[:size], timestamp.try(:utc).try(:to_s,:number)].join("-")
 
     if etag == env['ETAG']
       [ 304,
