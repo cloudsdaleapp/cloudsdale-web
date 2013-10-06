@@ -6,11 +6,78 @@ class Api::V2::RootController < Api::V2Controller
     resp = {
       api: {
         version: 2,
-        description:    "Welcome to the pony.io API version 2.0",
+        description:    "Cloudsdale Chat API",
         copyright:      "© IOMUSE 2012 – 2013",
-        website:        root_url(subdomain: "www"),
-        terms_of_use:   page_url("terms-and-conditions",subdomain: "www"),
-        privacy_policy: page_url("privacy-policy",subdomain: "www")
+        links: [
+          {
+            title: 'Cloudsdale',
+            rel: 'website',
+            href: root_url(subdomain: "www")
+          },
+          {
+            title: 'Cloudsdale Terms of Service',
+            rel: 'terms_of_use',
+            href: page_url("terms-and-conditions", subdomain: "www")
+          },
+          {
+            title: 'Cloudsdale Privacy Policy',
+            rel: 'privacy_policy',
+            href: page_url("privacy-policy",subdomain: "www")
+          },
+            title: 'Cloudsdale Developer Portal',
+            rel: 'developers',
+            href: root_url(subdomain: 'dev')
+        ],
+        refs: [
+          {
+            rel: 'me',
+            href: v2_me_url(format: :json, host: $api_host)
+          },
+          {
+            rel: 'me_auth_toekn',
+            href: v2_auth_token_url(format: :json, host: $api_host)
+          },
+          {
+            rel: 'me_session',
+            href: v2_session_url(format: :json, host: $api_host)
+          },
+          {
+            rel: 'convo',
+            href: URI.unescape(v2_convo_url("{topic}",format: :json, host: $api_host))
+          },
+          {
+            rel: 'convo_messages',
+            href: URI.unescape(v2_convo_messages_url("{topic}",format: :json, host: $api_host))
+          },
+          {
+            rel: 'cloud',
+            href: URI.unescape(v2_cloud_url("{handle}", format: :json, host: $api_host))
+          },
+          {
+            rel: 'clouds',
+            href: URI.unescape(v2_clouds_url(format: :json, host: $api_host)) + "{?ids,id}"
+          },
+          {
+            rel: 'search_clouds',
+            href: URI.unescape(search_v2_clouds_url(format: :json, host: $api_host)) + "?query={keywords}"
+          },
+          {
+            rel: 'user',
+            href: URI.unescape(v2_user_url("{handle}", format: :json, host: $api_host))
+          },
+          {
+            rel: 'users',
+            href: URI.unescape(v2_users_url(format: :json, host: $api_host)) + "{?ids,id}"
+          },
+          {
+            rel: 'search_users',
+            href: URI.unescape(search_v2_users_url(format: :json, host: $api_host)) + "?query={keywords}"
+          },
+          {
+            rel: 'spotlights',
+            href: URI.unescape(v2_spotlights_url(format: :json, host: $api_host)) + "{?category}"
+          }
+        ]
       }
     }
 
