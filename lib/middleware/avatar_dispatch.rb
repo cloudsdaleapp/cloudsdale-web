@@ -101,7 +101,7 @@ private
 
   def resolve_file(options, record: nil)
 
-    path_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}.path"
+    path_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:path"
     time_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:timestamp"
 
     file_path   = $redis.get(path_query).try(:to_s) || nil
