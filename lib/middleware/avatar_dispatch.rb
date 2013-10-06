@@ -104,8 +104,8 @@ private
     path_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:path"
     time_query  = "cloudsdale:avatar:#{options[:model]}:#{options[:id]}:timestamp"
 
-    file_path   = $redis.get(path_query).try(:to_s) || nil
-    timestamp   = $redis.get(time_query).try(:to_i) || nil
+    file_path   = $redis.get(path_query).try(:to_s) || ""
+    timestamp   = $redis.get(time_query).try(:to_i) || 0
 
     if file_path.empty? or timestamp.zero?
 
