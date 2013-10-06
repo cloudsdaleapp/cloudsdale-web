@@ -49,7 +49,7 @@ class AvatarDispatch
       options[:id]    = path_match[:bson]
     end
 
-    options[:model] ||= path_match[:model].to_sym
+    options[:model] ||= path_match[:model].try(:to_sym)
     options[:size]  = request.params["s"].try(:to_i) || 256
 
     file_path, timestamp = ALLOWED_SIZES.include?(options[:size]) ? resolve_file(options, record: record) : nil
