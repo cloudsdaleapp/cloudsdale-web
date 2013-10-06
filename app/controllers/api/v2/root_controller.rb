@@ -34,7 +34,7 @@ class Api::V2::RootController < Api::V2Controller
             href: v2_me_url(format: :json, host: $api_host)
           },
           {
-            rel: 'me_auth_toekn',
+            rel: 'me_auth_token',
             href: v2_auth_token_url(format: :json, host: $api_host)
           },
           {
