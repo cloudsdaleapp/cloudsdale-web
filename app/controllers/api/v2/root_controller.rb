@@ -76,6 +76,10 @@ class Api::V2::RootController < Api::V2Controller
           {
             rel: 'spotlights',
             href: URI.unescape(v2_spotlights_url(format: :json, host: $api_host)) + "{?category}"
+          },
+          {
+            rel: 'avatar',
+            href: URI.unescape(avatar_url("{handle}", format: :png, host: $settings[:avatar][:https].gsub(/^(https?\:\/\/)/i,''), protocol: "https:"))
           }
         ]
       }
