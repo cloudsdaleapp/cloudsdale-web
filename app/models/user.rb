@@ -455,11 +455,7 @@ class User
   end
 
   def avatar_param
-    username || id
-  end
-
-  def avatar_namespace
-    username.present? ? nil : super
+    username
   end
 
 private

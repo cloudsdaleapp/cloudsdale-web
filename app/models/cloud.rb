@@ -206,11 +206,7 @@ class Cloud
   end
 
   def avatar_param
-    short_name || id
-  end
-
-  def avatar_namespace
-    short_name.present? ? nil : super
+    short_name
   end
 
 private

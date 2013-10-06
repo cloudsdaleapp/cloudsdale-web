@@ -88,8 +88,8 @@ module ActiveModel
       params << "s=#{size}" if size
       params << "mtime=#{self.avatar_uploaded.to_i}" if avatar_uploaded
       params = !params.empty? ? "?" + params.join("&") : ""
-
-      "/" + [avatar_namespace, avatar_param].reject{|o|o.nil?}.join('/') + ".png#{params}"
+      path = avatar_param.nil? ? [avatar_namespace, id].join("/") : avatar_param
+      "/" + path + ".png#{params}"
     end
 
     # Public: Determines which namespace the avatar
@@ -109,7 +109,7 @@ module ActiveModel
     #
     # Returns a string.
     def avatar_param
-      self.id
+      nil
     end
 
   protected
