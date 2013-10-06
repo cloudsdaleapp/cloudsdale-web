@@ -2,13 +2,14 @@
 
 class Spotlight
 
-  CATEGORIES = [
-    :roleplay,
-    :casual,
-    :education,
-    :gaming,
-    :music
-  ]
+  CATEGORIES = {
+    roleplay:     "Role Play",
+    hangout:      "Hangout",
+    discussion:   "Discussion",
+    support:      "Support",
+    event:        "Event",
+    organization: "Organization"
+  }
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -28,7 +29,7 @@ class Spotlight
     within: 1..108
   }
   validates :category, presence: true, inclusion: {
-    :in => CATEGORIES.map(&:to_s)
+    :in => CATEGORIES.keys.map(&:to_s)
   }
 
   after_initialize do

@@ -8,6 +8,7 @@ class Api::V2::RootController < Api::V2Controller
         version: 2,
         description:    "Cloudsdale Chat API",
         copyright:      "© IOMUSE 2012 – 2013",
+        categories:     Spotlight::CATEGORIES,
         links: [
           {
             title: 'Cloudsdale',

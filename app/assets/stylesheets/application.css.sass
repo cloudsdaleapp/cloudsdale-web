@@ -6,6 +6,33 @@
 @-ms-viewport
   width: device-width
 
+$media-sizes: ()
+$media-sizes: append( $media-sizes, ( "phone",    520px ) )
+$media-sizes: append( $media-sizes, ( "tablet",   960px ) )
+$media-sizes: append( $media-sizes, ( "laptop",   1230px ) )
+$media-sizes: append( $media-sizes, ( "desktop",  1420px ) )
+$media-sizes: append( $media-sizes, ( "cinema",   1730px ) )
+
+$prev: -1px
+@each $n in $media-sizes
+  $name: nth($n, 1)
+  $max:  nth($n, 2)
+  $min:  $prev + 1px
+
+  .only-for-#{$name}
+    @media (max-width: $prev)
+      display: none
+    @media (min-width: $max + 1px)
+      display: none
+    @media (min-width: $min) and (max-width: $max)
+      display: inherit
+
+  @media (min-width: $min) and (max-width: $max)
+    .hide-for-#{$name}
+      display: none
+
+  $prev: $max
+
 $phone: 520px
 $ipad-min: $phone + 1px
 $ipad-max: 960px
