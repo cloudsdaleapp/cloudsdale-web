@@ -3,7 +3,7 @@ class Api::V2::MessagesController < Api::V2Controller
   def index
 
     @before   = params[:before].present? ? Time.at(params[:before].to_i) : Time.now
-    @limit    = params[:limit] || 50
+    @limit    = params[:limit].try(:to_i) || 50
 
     @topic    = Handle.lookup(params.require(:topic))
     @convo    = Conversation.find_by(user: current_user, topic: @topic)
@@ -12,7 +12,8 @@ class Api::V2::MessagesController < Api::V2Controller
 
     meta = {}
     if not @messages.empty?
-      meta[:refs] = {
+      meta[:refs] = []
+      meta[:refs] << {
         rel: 'more',
         href: v2_messages_url(
           format: :json,
@@ -21,7 +22,7 @@ class Api::V2::MessagesController < Api::V2Controller
           before: @messages.to_a.last.created_at.utc.to_i,
           limit:  @limit
         )
-      }
+      } unless @messages.to_a.count < @limit
     end
 
     respond_with(@messages, serializer: MessagesSerializer, meta: meta, meta_key: :collection)

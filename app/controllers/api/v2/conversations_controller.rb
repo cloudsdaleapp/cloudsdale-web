@@ -5,7 +5,7 @@ class Api::V2::ConversationsController < Api::V2Controller
   doorkeeper_for :show, :if => ->{ current_user.new_record? }
 
   def show
-    @topic = Handle.lookup(params[:id])
+    @topic = Handle.lookup(params.require(:topic))
     @convo = Conversation.find_by(user_id: current_resource_owner.id, topic_id: @topic.id)
 
     authorize(@convo,:show?)

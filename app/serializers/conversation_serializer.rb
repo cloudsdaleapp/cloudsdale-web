@@ -17,8 +17,8 @@ class ConversationSerializer < ApplicationSerializer
   def refs
     refs ||= []
     if handle.present?
-      refs << { rel: 'self',     href: v2_me_conversation_url(handle, format: :json, host: $api_host) }
-      refs << { rel: 'messages', href: v2_messages_url(topic: handle, format: :json, host: $api_host) }
+      refs << { rel: 'self',     href: v2_convo_url(handle, format: :json, host: $api_host) }
+      refs << { rel: 'messages', href: v2_convo_messages_url(handle, format: :json, host: $api_host) }
     end
   end
 

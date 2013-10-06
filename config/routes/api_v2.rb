@@ -7,21 +7,20 @@ Cloudsdale::Application.routes.draw do
 
     root to: 'root#index'
 
+    match '/me/convos/:topic/messages', to: 'messages#index',     via: :get, as: :convo_messages
+    match '/me/convos/:topic',          to: 'conversations#show', via: :get, as: :convo
+    match '/me/session',                to: 'me#get_session',     via: :get, as: :session
+    match '/me/auth_token',             to: 'me#get_auth_token',  via: :get, as: :auth_token
     resource :me, only: [:show,:update], controller: :me do
-
-      member do
-        get :session,    to: 'me#get_session',    as: :session
-        get :auth_token, to: 'me#get_auth_token', as: :auth_token
-      end
       # resources :networks, only: [:index,:destroy] do
       #   post '/:provider/:uid/share', only: [:create], on: :collection
       # end
       # resources :devices,         only: [:index,:show,:create,:destroy,:update]
-      resources :conversations, only: [:show], path: 'convos' do
-        # collection do
-        #   match :order, via: [:put,:patch]
-        # end
-      end
+      # resources :conversations, only: [:show], path: 'convos' do
+      #   # collection do
+      #   #   match :order, via: [:put,:patch]
+      #   # end
+      # end
     end
 
     resources :spotlights, only: [:index, :show] do
