@@ -12,17 +12,27 @@ class Api::V2::MessagesController < Api::V2Controller
 
     meta = {}
     if not @messages.empty?
-      meta[:refs] = []
-      meta[:refs] << {
-        rel: 'more',
-        href: v2_messages_url(
-          format: :json,
-          host:   $api_host,
-          topic:  @topic,
-          before: @messages.to_a.last.created_at.utc.to_i,
+
+      @before = @messages.to_a.last.created_at.utc.to_i
+
+      unless @messages.to_a.count < @limit
+        meta[:refs] = []
+        meta[:refs] << {
+          rel: 'more',
+          href: v2_convo_messages_url(
+            format: :json,
+            host:   $api_host,
+            topic:  @topic,
+            before: @before,
+            limit:  @limit
+          )
+        }
+        meta[:more] = {
+          topic:  @topic.to_param,
+          before: @before,
           limit:  @limit
-        )
-      } unless @messages.to_a.count < @limit
+        }
+      end
     end
 
     respond_with(@messages, serializer: MessagesSerializer, meta: meta, meta_key: :collection)
