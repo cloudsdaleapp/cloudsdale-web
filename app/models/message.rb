@@ -31,10 +31,16 @@ class Message
   end
 
   def content=(value)
-    value.gsub! /[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n"
-    value.gsub! /<br\/><br\/>/,"\\n"
-    value.gsub! /^\s*$/, ""
+    # Normalize Unicode Linebreaks
+    value.gsub!(/[\u000d\u0009\u000c\u0085\u2028\u2029\n]/, "\\n")
 
+    # Normalize HTML Linebreaks
+    value.gsub!(/<br\/><br\/>/,"\\n")
+
+    # Remove Value with only spaces
+    value.gsub!(/^\s+$/, "")
+
+    # Limit Value to 1k characters
     super(value[0..1000])
   end
 
