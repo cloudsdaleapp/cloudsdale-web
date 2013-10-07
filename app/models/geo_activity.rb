@@ -20,10 +20,10 @@ class GeoActivity
     geo      = $geoip.look_up(ip)
 
     if activity && geo
-      activity.id           ||= ip
-      activity.city         ||= geo[:city]
-      activity.country_code ||= geo[:country_code3]
-      activity.loc          ||= [ geo[:longitude], geo[:latitude] ]
+      activity.id           = ip
+      activity.city         = geo[:city]
+      activity.country_code = geo[:country_code3]
+      activity.loc          = [ geo[:longitude], geo[:latitude] ]
       activity.dates        << date unless activity.dates.include?(date)
     end
 
