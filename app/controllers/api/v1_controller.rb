@@ -238,7 +238,7 @@ private
   #
   # Returns nothing of interest.
   def record_user_activity
-    current_user.seen! unless current_user.new_record?
+    current_user.seen! ip: request.remote_ip unless current_user.new_record?
   end
 
 end

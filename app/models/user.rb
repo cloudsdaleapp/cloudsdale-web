@@ -129,7 +129,7 @@ class User
 
     self.push(:dates_seen, date) unless dates_seen.include?(date)
 
-    GeoActivity.record!(ip: ip, user: self)
+    GeoActivity.record!(ip: ip, user: self) if ip
 
     return time
   end
