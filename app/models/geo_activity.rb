@@ -10,6 +10,8 @@ class GeoActivity
   field :country_code, type: String
   field :city,         type: String
 
+  validates_presence_of :_id, :dates, :loc, :country_code, :city
+
   def self.record(ip: nil, user: nil)
     date     = DateTime.current.utc.to_date.to_s
 
