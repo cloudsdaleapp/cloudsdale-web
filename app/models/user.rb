@@ -496,7 +496,7 @@ class User
   # Public: Calculates the user's last know location
   # Return an array of coordinates.
   def last_known_location
-    geo_activities.with_location.last.loc
+    geo_activities.with_location.last.try(:loc)
   end
 
   # Public: Checks if the value of last_known_location exists.
