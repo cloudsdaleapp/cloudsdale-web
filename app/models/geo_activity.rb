@@ -6,7 +6,7 @@ class GeoActivity
 
   field :_id,          type: String
   field :dates,        type: Array,    default: -> { [DateTime.current.utc.to_date.to_s] }
-  field :loc,          type: Array,    default: [ 0.0, 0.0 ]
+  field :loc,          type: Array
   field :country_code, type: String
   field :city,         type: String
 
