@@ -455,6 +455,8 @@ class User
     end
   end
 
+  # Public: Determines a specific parameter to use for avatar links.
+  # Returns a string.
   def avatar_param
     username
   end
