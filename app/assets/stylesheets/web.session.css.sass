@@ -62,21 +62,20 @@ $avatar-border-color: rgba(150,150,150,.4)
   @include clearfix
 
 $act-icons: ()
-$act-icons: append( $act-icons, ("cloud", "icons/actions/cloud" ) )
+$act-icons: append( $act-icons, ("link",  "icons/actions/link" ) )
 $act-icons: append( $act-icons, ("share", "icons/actions/share" ) )
 $act-icons: append( $act-icons, ("chat",  "icons/actions/chat" ) )
 $act-icon-type:   "png"
 $act-icon-hover:  "active"
-$act-icon-suffix: "@x2"
 @each $act-icon in $act-icons
   .action-icon-#{nth($act-icon,1)}
-    $img-path: "#{nth($act-icon,2)}#{$act-icon-suffix}.#{$act-icon-type}"
-    background-size: 50%
+    $img-path: "#{nth($act-icon,2)}.#{$act-icon-type}"
+    background-size: 24px 24px
     background-repeat: no-repeat
     background-position: center center
     background-image: asset-data-url($img-path)
     &.action-icon-hover:hover
-      $img-path: "#{nth($act-icon,2)}-#{$act-icon-hover}#{$act-icon-suffix}.#{$act-icon-type}"
+      $img-path: "#{nth($act-icon,2)}-#{$act-icon-hover}.#{$act-icon-type}"
       background-image: asset-data-url($img-path)
 
 $avatar-sizes: ()
@@ -290,7 +289,7 @@ $sidebar-spacing-y: emCalc(10px)
 
   border-style: solid
   border-width: 1px 1px 2px 1px
-  border-color: $border-bright-color
+  border-color: $border-dark-color
   background-color: #FFF
   padding: emCalc(12px)
   &:hover
@@ -347,8 +346,11 @@ $sidebar-spacing-y: emCalc(10px)
   width: 100%
   height: 0
   padding-top: 100%
-  border: 1px solid $border-bright-color
-  margin-bottom: 5px
+  border-width: 2px 1px 1px 1px
+  border-style: solid
+  border-color: $border-dark-color
+  margin-bottom: 3px
+  background-color: $bg-content-color
 
 .spotlight-action > a > div > img
   position: absolute
@@ -362,7 +364,7 @@ $sidebar-spacing-y: emCalc(10px)
   @include transition(border-color ease .3s)
 
   background-color: $bg-content-color
-  border-color: $border-bright-color//$primary-color
+  border-color: $border-dark-color//$primary-color
   border-width: 2px 2px 1px 2px
   border-style: solid
   padding: 4px
@@ -370,6 +372,8 @@ $sidebar-spacing-y: emCalc(10px)
   float: right
   margin-left: 10px
   margin-bottom: 10px
+  img
+    @include border-radius(50%)
 
 .spotlight-avatar > span
   position: relative

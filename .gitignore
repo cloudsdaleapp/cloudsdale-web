@@ -34,3 +34,4 @@ doc/*
 *.sublime-project
 
 /.rspec
+/app/assets/images/icons/mud/
