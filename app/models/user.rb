@@ -21,7 +21,7 @@ class User
 
   embeds_one  :restoration,     :validate => false
   embeds_many :authentications, :validate => false
-  embeds_many :geo_activities,  :validate => false
+  embeds_many :geo_activities,  :validate => true
 
   has_many :conversations, :validate => false,  class_name: "Conversation", dependent: :destroy, inverse_of: :user
   has_many :references,    :validate => false,  class_name: "Conversation", dependent: :destroy, inverse_of: :topic
