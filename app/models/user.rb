@@ -76,7 +76,7 @@ class User
   def self.nearby(user, distance: 1.0)
     criteria = where(:_id.ne => user.id).visable
     if user.last_known_location?
-      criteria = criteria.near('geo_activities.loc' => user.last_known_location)
+      criteria = criteria.near_sphere('geo_activities.loc' => user.last_known_location)
       criteria = criteria.max_distance('geo_activities.loc' => distance)
     else
       criteria = criteria.where(void: true)
