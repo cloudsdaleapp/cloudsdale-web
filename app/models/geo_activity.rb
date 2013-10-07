@@ -23,7 +23,7 @@ class GeoActivity
   end
 
   def self.record!(ip: nil, user: nil)
-    activity = self.record(ip: nil, user: nil)
+    activity = self.record(ip: ip, user: user)
     activity.save if activity.new_record?
     return activity
   end
