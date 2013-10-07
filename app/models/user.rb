@@ -21,7 +21,21 @@ class User
 
   embeds_one  :restoration,     :validate => false
   embeds_many :authentications, :validate => false
-  embeds_many :geo_activities,  :validate => true
+  embeds_many :geo_activities,  :validate => true do |criteria|
+
+    # Public: Fetches the latest geo activity for user.
+    # Returns nil if there are no current geo activities.
+    def last
+      criteria.to_a.sort { |a,b| b.last_date <=> a.last_date }.first
+    end
+
+    # Public: Fetches the first geo activity for user.
+    # Returns nil if there are no current geo activities.
+    def first
+      criteria.to_a.sort { |a,b| a.last_date <=> b.last_date }.first
+    end
+
+  end
 
   has_many :conversations, :validate => false,  class_name: "Conversation", dependent: :destroy, inverse_of: :user
   has_many :references,    :validate => false,  class_name: "Conversation", dependent: :destroy, inverse_of: :topic
@@ -59,7 +73,19 @@ class User
   field :developer,                 type: Boolean,    default: false
   field :invisible,                 type: Boolean,    default: false
 
+  def self.nearby(user, distance: 1.0)
+    criteria = where(:_id.ne => user.id).visable
+    if user.last_known_location?
+      criteria = criteria.near('geo_activities.loc' => user.last_known_location)
+      criteria = criteria.max_distance('geo_activities.loc' => distance)
+    else
+      criteria = criteria.where(void: true)
+    end
+    return criteria
+  end
+
   index( { auth_token: 1 }, { unique: true, name: 'auth_token_index' } )
+  index( { 'geo_activities.loc' => '2d' }, { min: -200, max: 200, name: 'geo_activity_index', background: true } )
 
   scope :developers, self.or(:developer => true).or(:role.gte => ROLES[:developer])
 
@@ -118,6 +144,12 @@ class User
       UserMailer.delay(:queue => :high, :retry => false).verification_mail(self.id.to_s)
     end
 
+  end
+
+  # Public: Finds all nearby users based on geo-activity.
+  # Returns a mongo criteria.
+  def nearby_users(distance: 1.0)
+    self.class.nearby(self, distance: distance)
   end
 
   # Public: Atomic setter for when the user was last seen in action
@@ -459,6 +491,18 @@ class User
   # Returns a string.
   def avatar_param
     username
+  end
+
+  # Public: Calculates the user's last know location
+  # Return an array of coordinates.
+  def last_known_location
+    geo_activities.with_location.last.loc
+  end
+
+  # Public: Checks if the value of last_known_location exists.
+  # Returns true or false.
+  def last_known_location?
+    last_known_location.present?
   end
 
 private

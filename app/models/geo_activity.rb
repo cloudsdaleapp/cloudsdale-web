@@ -12,6 +12,8 @@ class GeoActivity
   field :country_code, type: String
   field :city,         type: String
 
+  scope :with_location, where(:loc.ne => nil)
+
   validates :_id,   presence: true,  uniqueness: true
   validates :dates, presence: true
 
@@ -52,5 +54,12 @@ class GeoActivity
   def latitude; loc[1]; end
   alias :lat :latitude
 
+  def last_date
+    dates.sort.reverse.first
+  end
+
+  def first_date
+    dates.sort.first
+  end
 
 end
