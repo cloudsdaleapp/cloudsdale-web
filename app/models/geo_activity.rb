@@ -15,9 +15,9 @@ class GeoActivity
 
     activity = user.geo_activities.where(_id: ip).first
     activity ||= user.geo_activities.new
+    geo      = $geoip.look_up(ip)
 
-    if activity
-      geo                   = $geoip.look_up(ip)
+    if activity && geo
       activity.id           ||= ip
       activity.city         ||= geo[:city]
       activity.country_code ||= geo[:country_code3]
