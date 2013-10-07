@@ -10,7 +10,8 @@ class GeoActivity
   field :country_code, type: String
   field :city,         type: String
 
-  validates_presence_of :id, :dates, :loc, :country_code
+  validates :_id,   presence: true
+  validates :dates, presence: true
 
   def self.record(ip: nil, user: nil)
     date     = DateTime.current.utc.to_date.to_s
@@ -38,6 +39,10 @@ class GeoActivity
 
   def date=(value)
     super(value.to_date.to_s)
+  end
+
+  def loc=(point)
+    super(point.map(&:to_f)) if point[0].present? and point[1].present?
   end
 
   def longitude; loc[0]; end
