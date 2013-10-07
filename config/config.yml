@@ -1,5 +1,8 @@
 defaults: &defaults
 
+  geoip:
+    city: '/usr/local/share/GeoIP/GeoIPCity.dat'
+
   api:
     v2:
       host: 'http://api.cloudsdale.dev'
@@ -89,6 +92,9 @@ test:
 
 production:
   <<: *defaults
+
+  geoip:
+    city: '/opt/geoip/geo_ip_city.dat'
 
   api:
     v2:

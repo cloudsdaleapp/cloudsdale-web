@@ -80,6 +80,7 @@ gem 'youtube_it'
 gem 'bcrypt-ruby',              :require => 'bcrypt'
 gem 'hashr',       '~> 0.0.22', :require => 'hashr'
 gem 'yajl-ruby',                :require => 'yajl'
+gem 'geoip-c',     '~> 0.9.0',  :require => 'geoip'
 
 # Analytics
 gem 'google-analytics-rails', '~> 0.0.4'

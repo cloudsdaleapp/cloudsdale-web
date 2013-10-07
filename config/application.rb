@@ -23,6 +23,8 @@ $redis    ||= Redis.new(
                 port: $settings['redis']['port']
               )
 
+$geoip = GeoIP::City.new(File.expand_path($settings[:geoip][:city], __FILE__))
+
 $redis_ns = $settings[:redis][:ns] || "cloudsdale"
 
 $api_host   = "api.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"

@@ -21,6 +21,7 @@ class User
 
   embeds_one  :restoration,     :validate => false
   embeds_many :authentications, :validate => false
+  embeds_many :geo_activities,  :validate => false
 
   has_many :conversations, :validate => false,  class_name: "Conversation", dependent: :destroy, inverse_of: :user
   has_many :references,    :validate => false,  class_name: "Conversation", dependent: :destroy, inverse_of: :topic
@@ -122,15 +123,15 @@ class User
   # Public: Atomic setter for when the user was last seen in action
   #
   # Returns the timestamp
-  def seen!
-    timestamp = DateTime.now
+  def seen!(ip: nil, time: nil)
+    time ||= DateTime.now
+    date = time.to_date.to_s
 
-    datestamp = timestamp.to_date.to_s
-    unless self.dates_seen.include?(datestamp)
-      self.push(:dates_seen, datestamp)
-    end
+    self.push(:dates_seen, date) unless dates_seen.include?(date)
 
-    return timestamp
+    GeoActivity.record!(ip: ip, user: self)
+
+    return time
   end
 
   def password=(val=nil)
