@@ -442,7 +442,7 @@ class User
     email.present? && has_a_valid_authentication_method?
   end
 
-  # Private: Validation for when password is changed while forced password
+  # Public: Validation for when password is changed while forced password
   # equates to true.
   #
   # Returns false if validation fails
