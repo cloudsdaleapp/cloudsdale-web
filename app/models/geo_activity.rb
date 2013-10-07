@@ -4,20 +4,21 @@ class GeoActivity
 
   embedded_in :user
 
-  field :_id,          type: String
+  attr_accessible :_id, :dates, :city, :loc, :country_code, :city
+
+  field :_id,          type: String,   default: nil
   field :dates,        type: Array,    default: -> { [DateTime.current.utc.to_date.to_s] }
   field :loc,          type: Array
   field :country_code, type: String
   field :city,         type: String
 
-  validates :_id,   presence: true
+  validates :_id,   presence: true,  uniqueness: true
   validates :dates, presence: true
 
   def self.record(ip: nil, user: nil)
     date     = DateTime.current.utc.to_date.to_s
 
-    activity = user.geo_activities.where(_id: ip).first
-    activity ||= user.geo_activities.new
+    activity = user.geo_activities.find_or_initialize_by(_id: ip.to_s)
     geo      = $geoip.look_up(ip)
 
     if activity && geo
