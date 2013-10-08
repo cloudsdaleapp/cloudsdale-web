@@ -49,6 +49,15 @@ class Cloud
   validates :name, presence: true, uniqueness: true, length: { within: 3..64 }
   validates :description, length: { maximum: 140 }
 
+  def self.refined_build(params, owner: nil)
+    return self.new do |cloud|
+      cloud.write_attributes(params.for(cloud).as(owner).on(:create).refine)
+      cloud.owner = owner
+      cloud.users.push(owner)
+      cloud.moderators.push(owner)
+    end
+  end
+
   belongs_to :owner, polymorphic: true, index: true, :validate => false
 
   has_and_belongs_to_many :users,       :inverse_of => :clouds,             dependent: :nullify,  index: true,  :validate => false

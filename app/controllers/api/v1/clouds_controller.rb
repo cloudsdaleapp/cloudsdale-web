@@ -57,13 +57,9 @@ class Api::V1::CloudsController < Api::V1Controller
   # Returns the cloud object with a status of 200 if successful & 422 if unsuccessful.
   def create
 
-    @cloud = Cloud.new(params[:cloud])
+    @cloud = Cloud.refined_build(params, owner: current_user)
 
-    authorize @cloud, :create?
-
-    @cloud.owner = current_user
-    @cloud.users << current_user
-    @cloud.moderators << current_user
+    authorize(@cloud, :create?)
 
     if @cloud.save
       Conversation.about(@cloud, as: current_user).start
@@ -85,7 +81,7 @@ class Api::V1::CloudsController < Api::V1Controller
 
     @cloud = Cloud.lookup(params[:id])
 
-    authorize @cloud, :destroy?
+    authorize(@cloud, :destroy?)
 
     if @cloud.destroy
       Conversation.about(@cloud, as: current_user).stop
