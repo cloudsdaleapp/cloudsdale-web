@@ -28,7 +28,7 @@ class Message
     author ||= convo.user
 
     return self.new do |message|
-      message.write_attributes(params.for(self).as(author).on(:create).refine)
+      message.write_attributes(params.for(message).as(author).on(:create).refine)
       message.author = author
       message.topic  = topic
     end
