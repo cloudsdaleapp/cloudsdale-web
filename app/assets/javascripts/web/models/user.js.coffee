@@ -8,6 +8,8 @@ Cloudsdale.User = DS.Model.extend
   readTerms:     DS.attr('boolean')
   defaultAvatar: DS.attr('boolean')
 
-  handle: (-> @get('username').toLowerCase() ).property('username')
+  handle: (->
+    @get('username').toLowerCase() if @get('username')
+  ).property('username')
 
 Cloudsdale.UserAdapter = DS.CloudsdaleAdapter.extend({})
