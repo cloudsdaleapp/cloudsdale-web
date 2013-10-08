@@ -101,14 +101,15 @@ $avatar-statuses: append( $avatar-statuses, ( "offline", $avatar-border-color  )
 $avatar-statuses: append( $avatar-statuses, ( "online",  rgba(0,255,0,.5)      ))
 $avatar-statuses: append( $avatar-statuses, ( "busy",    rgba(255,0,0,.5)      ))
 $avatar-statuses: append( $avatar-statuses, ( "away",    rgba(255,0,255,.5)    ))
-$avatar-statuses: append( $avatar-statuses, ( "primary",        $primary-color))
-$avatar-statuses: append( $avatar-statuses, ( "primary-dark",   $primary-dark-color))
-$avatar-statuses: append( $avatar-statuses, ( "aside",          $bg-aside-color  ))
+$avatar-statuses: append( $avatar-statuses, ( "primary",        $primary-color      ))
+$avatar-statuses: append( $avatar-statuses, ( "primary-dark",   $primary-dark-color ))
+$avatar-statuses: append( $avatar-statuses, ( "aside",          $bg-aside-color     ))
+$avatar-statuses: append( $avatar-statuses, ( "content",        $bg-content-color   ))
 
 @each $avatar-status in $avatar-statuses
   .avatar.#{nth($avatar-status,1)}
-    border-color: nth($avatar-status,2)
-    background-color: nth($avatar-status,2)
+    border-color: nth($avatar-status,2) !important
+    background-color: nth($avatar-status,2) !important
 
 $background-colors: ()
 $background-colors: append( $background-colors, ("main", $bg-content-color) )
@@ -167,16 +168,43 @@ $sidebar-spacing-y: emCalc(10px)
   display: inline-block
   padding: emCalc(6px) emCalc(12px)
 
+  height: 24px
+  line-height: 24px
+
   border-width: 1px
   border-style: solid
   border-color: rgba(255,255,255,.3)
 
+  @include box-sizing(content-box)
+
   font-size: emCalc(13px)
-  color: #fff
+  color: rgba(255,255,255,.85)
 
   &:hover
     background-color: rgba(0,0,0,.03)
     border-color: rgba(255,255,255,.4)
+    color: rgba(255,255,255,.95)
+    i
+      @include opacity(.95)
+
+$header-act-icons: ()
+$header-act-icons: append( $header-act-icons, ("add",    "icons/header/add" ) )
+$header-act-icons: append( $header-act-icons, ("remove", "icons/header/remove" ) )
+$header-act-icon-type:   "png"
+@each $header-act-icon in $header-act-icons
+  .main-header a i.action-icon-#{nth($header-act-icon,1)}
+    $img-path: "#{nth($header-act-icon,2)}.#{$header-act-icon-type}"
+    float: right
+    display: inline-block
+    width: 24px
+    height: 24px
+    background-size: 24px 24px
+    background-repeat: no-repeat
+    background-position: left center
+    background-image: asset-data-url($img-path)
+    @include opacity(.85)
+
+
 
 .main-header .f-dropdown:not(.open)
   display: none

@@ -1,4 +1,9 @@
 Cloudsdale.ConversationController = Ember.Controller.extend
-  title: ->
-    alert "foo"
+  actions:
+    add: ->
+      console.log "ADDED!"
+      @transitionToRoute('root')
+    remove: ->
+      console.log "REMOVED!"
+      @transitionToRoute('root')
 

@@ -17,9 +17,11 @@ class Api::V2::ConversationsController < Api::V2Controller
   def update
     @topic = Handle.lookup(params.require(:topic))
     @convo = Conversation.where(user_id: current_resource_owner.id, topic_id: @topic.id).first
-    # @convo ||= Conversation.request(user: current_resource_owner, topic: @topic)
+    @convo ||= Conversation.new(params[:conversation])
 
     authorize(@convo, :update?)
+
+    @convo.start if @convo.new_record?
 
     respond_with_resource(@convo, serializer: ConversationSerializer, root: :conversation)
   end

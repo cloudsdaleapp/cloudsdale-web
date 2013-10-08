@@ -1,1 +1,16 @@
-<h3>Welcome to {{model.topic.displayName}}</h3>
+<div class="main-header">
+  <div class="row">
+    <div class="small-12 large-12 columns">
+
+      <div class="right">
+        <a {{action 'remove'}} ><i class="action-icon-remove"></i></a>
+      </div>
+
+      {{!--
+      <div class="left avatar small content-color pad-right">
+        <img {{bindAttr src="model.topic.avatar"}} />
+      </div> --}}
+      <h1>{{model.topic.displayName}}</h1>
+    </div>
+  </div>
+</div>

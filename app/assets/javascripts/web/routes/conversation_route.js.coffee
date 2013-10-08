@@ -17,6 +17,8 @@ Cloudsdale.ConversationRoute = Ember.Route.extend
 
 Cloudsdale.ConversationAddRoute = Ember.Route.extend
 
+  controllerName: 'conversation'
+
   model: (params) ->
     @store.find('conversation', params.handle).then (convo) =>
       switch convo.get('access')
