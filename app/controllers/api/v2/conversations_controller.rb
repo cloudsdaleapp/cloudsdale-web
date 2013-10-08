@@ -6,14 +6,22 @@ class Api::V2::ConversationsController < Api::V2Controller
 
   def show
     @topic = Handle.lookup(params.require(:topic))
-    @convo = Conversation.find_by(user_id: current_resource_owner.id, topic_id: @topic.id)
+    @convo = Conversation.where(user_id: current_resource_owner.id, topic_id: @topic.id).first
+    @convo ||= Conversation.request(user: current_resource_owner, topic: @topic)
 
-    authorize(@convo,:show?)
+    authorize(@convo, :show?)
 
     respond_with_resource(@convo, serializer: ConversationSerializer, root: :conversation)
+  end
 
-  rescue Mongoid::Errors::DocumentNotFound
-    raise Mongoid::Errors::DocumentNotFound.new(Conversation,params[:id],params[:id])
+  def update
+    @topic = Handle.lookup(params.require(:topic))
+    @convo = Conversation.where(user_id: current_resource_owner.id, topic_id: @topic.id).first
+    # @convo ||= Conversation.request(user: current_resource_owner, topic: @topic)
+
+    authorize(@convo, :update?)
+
+    respond_with_resource(@convo, serializer: ConversationSerializer, root: :conversation)
   end
 
 end

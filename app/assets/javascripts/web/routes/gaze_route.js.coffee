@@ -21,7 +21,7 @@ Cloudsdale.GazeRoute = Ember.Route.extend
         @store.find('spotlight', collectionFilter)
         @clearMeta()
 
-  setupController: (controller,spotlights) ->
+  setupController: (controller, spotlights) ->
     controller = @controllerFor('gaze')
     controller.set('category', @get('category'))
     controller.set('spotlights', spotlights)

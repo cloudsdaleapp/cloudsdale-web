@@ -7,5 +7,6 @@ Cloudsdale.Cloud = DS.Model.extend
   participantCount: DS.attr('number')
 
   handle: (-> @get('shortName').toLowerCase() ).property('shortName')
+  toParam: (-> @get('shortName').toLowerCase() ).property('shortName')
 
 Cloudsdale.CloudAdapter = DS.CloudsdaleAdapter.extend({})

@@ -93,7 +93,11 @@ Cloudsdale::Application.routes.draw do
     get '/gaze' => 'root#gaze', as: :gaze
     get '/gaze/:category' => 'root#gaze_category', as: :gaze_category
 
-    resources :conversations, path: '/', only: [:show]
+    resources :conversations, path: '/', only: [:show] do
+      member do
+        get :add, as: :add
+      end
+    end
 
     match '*path', to: 'root#not_found'
   end

@@ -1,10 +1,10 @@
  <div>
-  {{#linkTo 'root' class=left}}
+  {{#link-to 'root' class="left"}}
     <span class="avatar small primary" />
       <img {{bindAttr src="currentUser.avatar" }}/>
     </span>
-  {{/linkTo}}
+  {{/link-to}}
   <hgroup>
-    <h4>{{#linkTo 'root' class=left}}{{currentUser.displayName}}{{/linkTo}}</h4>
+    <h4>{{#link-to 'root' class=left}}{{currentUser.displayName}}{{/link-to}}</h4>
   </hgroup>
 </div>

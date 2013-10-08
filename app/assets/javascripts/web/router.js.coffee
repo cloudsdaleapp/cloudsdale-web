@@ -2,11 +2,12 @@ Cloudsdale.Router.reopen
   location: 'history'
 
 Cloudsdale.Router.map () ->
-  @route 'root',             { path: '/' }
+  @route 'root',                 { path: '/' }
 
-  @route 'settings',         { path: '/settings' }
+  @route 'settings',             { path: '/settings' }
 
-  @resource 'gaze',          { path: '/gaze' }, ->
-    @route 'category',       { path: '/:category' }
+  @resource 'gaze',              { path: '/gaze' }, ->
+    @route 'category',           { path: '/:category' }
 
-  @resource 'conversation',  { path: '/:topic' }
+  @resource 'conversation',      { path: '/:handle' }
+  @resource 'conversation.add',  { path: '/:handle/add' }

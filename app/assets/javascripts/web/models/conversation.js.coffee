@@ -8,8 +8,15 @@ Cloudsdale.Conversation = DS.Model.extend
 Cloudsdale.Conversation.reopenClass
   lookup: (store, id, record) ->
     store.all('conversation').some (convo) =>
-      record ||= convo if convo.get('handle') == id
-    record ||= this.find(params.topic)
+      record ||= store.fetch('conversation', convo) if convo.get('handle') == id
+    record ||= store.find('conversation', id)
     return record
 
-Cloudsdale.ConversationAdapter = DS.CloudsdaleAdapter.extend({})
+Cloudsdale.ConversationAdapter = DS.CloudsdaleAdapter.extend
+  buildURL: (type, id) ->
+    url = []
+    url.push @get('host')
+    url.push @get('namespace')
+    url.push 'me/convos'
+    url.push id if id
+    return url.join("/") + ".json"

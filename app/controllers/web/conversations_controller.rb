@@ -12,6 +12,19 @@ class Web::ConversationsController < WebController
     end
   end
 
+  def add
+    @topic = Handle.lookup(params[:id])
+
+    if current_user.new_record?
+      force_user_login!
+    else
+      @convo = Conversation.where(user_id: current_user.id, topic_id: @topic.id).first
+      @convo ||= Conversation.request(user: current_user, topic: @topic)
+      authorize(@convo, :show?)
+      @payload = ConversationSerializer.new(@convo)
+    end
+  end
+
 private
 
   def force_user_login!

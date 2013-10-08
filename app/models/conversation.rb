@@ -7,7 +7,7 @@
 class Conversation
 
   TOPIC_TYPES  = ["Cloud", "User"]
-  ACCESS_TYPES = [:pending, :granted, :revoked]
+  ACCESS_TYPES = [:requesting, :pending, :granted, :revoked]
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -69,6 +69,11 @@ class Conversation
   # Returns a conversation instance.
   def self.about(topic, as: nil)
     self.as(as, about: topic)
+  end
+
+  # Public: Request mock conversation for user
+  def self.request(user: nil, topic: nil)
+    self.new(user: user, topic: topic, access: :requesting)
   end
 
   # Public: Sets the access of the conversation access
