@@ -27,6 +27,7 @@ Cloudsdale::Application.routes.draw do
       # end
     end
 
+    resources :handles, only: [:show], path: 'handle'
     resources :spotlights, only: [:index, :show] do
       collection do
         get '/:category', to: 'spotlights#index'
