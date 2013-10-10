@@ -43,7 +43,7 @@ Cloudsdale.ConversationShowRoute = Cloudsdale.ConversationRoute.extend
       @currentModel.save().then (record) =>
         @store.set("convo:#{record.get('handle').toLowerCase()}", undefined)
         @get('session').get('conversations').removeObject(record)
-        @transitionTo('root')
+        @replaceWith('root')
 
   model: (params) ->
     return @getConvoPromise(params.handle).then(
@@ -51,8 +51,8 @@ Cloudsdale.ConversationShowRoute = Cloudsdale.ConversationRoute.extend
         (r) =>
           setTimeout =>
             switch r.get('access')
-              when 'requesting' then @transitionTo('conversation.add', r)
-              else @transitionTo('conversation.show', r)
+              when 'requesting' then @replaceWith('conversation.add', r)
+              else @replaceWith('conversation.show', r)
           , 0
       )
     )
@@ -74,8 +74,8 @@ Cloudsdale.ConversationAddRoute = Cloudsdale.ConversationRoute.extend
         (r) =>
           setTimeout =>
             switch r.get('access')
-              when 'requesting' then @transitionTo('conversation.add', r)
-              else @transitionTo('conversation.show', r)
+              when 'requesting' then @replaceWith('conversation.add', r)
+              else @replaceWith('conversation.show', r)
           , 0
       )
     )
