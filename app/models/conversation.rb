@@ -7,7 +7,7 @@
 class Conversation
 
   TOPIC_TYPES  = ["Cloud", "User"]
-  ACCESS_TYPES = [:requesting, :pending, :granted, :revoked]
+  ACCESS_TYPES = [:requesting, :locked, :pending, :granted, :revoked]
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -49,6 +49,24 @@ class Conversation
 
   after_initialize :set_record_type
 
+  def self.refined_build(params, user: nil)
+    hash  = params.require(:conversation)
+    topic = { topic_id: nil, topic_type: nil, user: user }
+
+    if _topic = hash.permit(topic: [:id, :type])[:topic]
+      topic[:topic_id]   = _topic[:id]
+      topic[:topic_type] = _topic[:type]
+    else
+      topic[:topic_id]   = hash[:topic_id]
+      topic[:topic_type] = hash[:topic_type]
+    end
+
+    return self.find_or_initialize_by(topic) do |convo|
+      convo.write_attributes(params.for(convo).as(user).on(:create).refine)
+    end
+
+  end
+
   # Public: Builds a conversation for a user on
   # a topic. If conversation on the same topic
   # already exists, it will use that one.
@@ -76,12 +94,26 @@ class Conversation
     self.new(user: user, topic: topic, access: :requesting)
   end
 
+  def topic_type=(value)
+    super(value.strip.classify) if value
+  end
+
   # Public: Sets the access of the conversation access
   # to granted. Works for new and existing records.
   #
   # Returns true or false.
   def start
     self.access = :granted
+
+    # Legacy transaction
+    if topic.kind_of?(Cloud)
+      user.clouds.push(topic)
+      topic.users.push(user)
+
+      topic.save
+      user.save
+    end
+
     self.save
   end
 
@@ -109,6 +141,19 @@ class Conversation
   #
   # Returns true or false.
   def stop
+
+    # Legacy transaction
+    if topic.kind_of?(Cloud)
+      user.clouds_moderated.delete(topic)
+      user.clouds.delete(topic)
+
+      topic.moderators.delete(user)
+      topic.users.delete(user)
+
+      topic.save
+      user.save
+    end
+
     self.new_record? ? false : self.destroy
   end
 

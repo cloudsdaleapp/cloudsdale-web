@@ -6,9 +6,11 @@ class Web::ConversationsController < WebController
     if current_user.new_record?
       force_user_login!
     else
-      @convo = Conversation.find_by(user_id: current_user.id, topic_id: @topic.id)
-      authorize(@convo,:show?)
-      @payload = ConversationSerializer.new(@convo)
+      @convo = Conversation.where(user_id: current_user.id, topic_id: @topic.id).first
+      if @convo
+        authorize(@convo,:show?)
+        @payload = ConversationSerializer.new(@convo)
+      end
     end
   end
 

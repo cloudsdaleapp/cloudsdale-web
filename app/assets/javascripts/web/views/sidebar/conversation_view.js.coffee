@@ -7,11 +7,11 @@ Cloudsdale.Sidebar.ConversationView = Ember.View.extend(
   classNameBindings: ['conversationTypeClass']
 
   conversationTypeClass: (()->
-    "conversation-topic-#{@modelBinding.get('topic').get('type')}"
+    "conversation-topic-#{@model.get('topic').get('type')}"
   ).property("conversationTypeClass")
 
-  image: ( ()->
-    @modelBinding.get('topic').get('avatar') + "&s=32"
+  image: ( () ->
+    @model.get('topic').get('avatar') + "&s=32"
   ).property("topic.avatar")
 
 )

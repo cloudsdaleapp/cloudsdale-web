@@ -43,12 +43,12 @@ class Api::V2::RootController < Api::V2Controller
             href: v2_session_url(format: :json, host: $api_host, protocol: "https:")
           },
           {
-            rel: 'convo',
-            href: URI.unescape(v2_convo_url("{topic}",format: :json, host: $api_host, protocol: "https:"))
+            rel: 'convo_lookup',
+            href: URI.unescape(lookup_v2_convos_url("{topic}", format: :json, host: $api_host, protocol: "https:"))
           },
           {
             rel: 'convo_messages',
-            href: URI.unescape(v2_convo_messages_url("{topic}",format: :json, host: $api_host, protocol: "https:"))
+            href: URI.unescape(v2_convo_messages_url("{id}",format: :json, host: $api_host, protocol: "https:"))
           },
           {
             rel: 'cloud',

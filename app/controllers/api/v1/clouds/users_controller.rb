@@ -62,12 +62,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       render status: 401
     else
 
-      @user.clouds.push(@cloud)
-      @cloud.users.push(@user)
-
-      Conversation.as(@user, about: @cloud).start
-
-      if @user.save && @cloud.save
+      if Conversation.as(@user, about: @cloud).start
         render status: 200
       else
         set_flash_message message: "You could not join this cloud.", title: "Say what now!?"
@@ -89,15 +84,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
       render status: 401
     else
 
-      @user.clouds_moderated.delete(@cloud)
-      @user.clouds.delete(@cloud)
-
-      @cloud.moderators.delete(@user)
-      @cloud.users.delete(@user)
-
-      Conversation.as(@user, about: @cloud).stop
-
-      if @user.save && @cloud.save
+      if Conversation.as(@user, about: @cloud).stop
         render status: 200
       else
         set_flash_message message: "You could not leave this cloud.", title: "Say what now!?"

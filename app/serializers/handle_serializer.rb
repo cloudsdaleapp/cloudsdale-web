@@ -6,9 +6,13 @@ class HandleSerializer < ActiveModel::Serializer
 
   has_one :identifiable, embed: :ids, polymorphic: true
 
+  def id
+    object.id.downcase
+  end
+
   # Public: The cache key for the HandleSerializer
   def cache_key
-    "handle/#{object.id}"
+    "handles/#{object.id}-#{object.updated_at.utc.to_s(:number)}"
   end
 
 end

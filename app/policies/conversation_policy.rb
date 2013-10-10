@@ -15,7 +15,7 @@ class ConversationPolicy < ApplicationPolicy
   end
 
   def create?
-    show?
+    show? and record.new_record?
   end
 
   def destroy?

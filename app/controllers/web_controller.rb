@@ -1,5 +1,6 @@
 class WebController < ApplicationController
 
+  include ActionController::CORSProtection
   include Pundit
 
   layout :determine_layout

@@ -2,14 +2,16 @@ class Api::V2Controller < ActionController::Base
 
   class ResourceUnauthorizedError < StandardError; end
 
+  include ActionController::CORSProtection
   include ActionController::FrontAuth
   include Pundit
   include Arcane
 
   respond_to :json
 
-  before_filter :allow_cors
-  after_filter  :set_cors
+  rescue_from ActionController::ParameterMissing do |exception|
+    render_exception("#{exception.message}", 422)
+  end
 
   rescue_from ResourceUnauthorizedError do
     render_exception("You are not allowed to access this resource.", 401)
@@ -17,10 +19,6 @@ class Api::V2Controller < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError do |exception|
     render_exception("You're #{exception.message}.", 401)
-  end
-
-  rescue_from ActionController::ParameterMissing do |message|
-    render_exception("#{message}", 400)
   end
 
   rescue_from Mongoid::Errors::DocumentNotFound do |exception|
@@ -38,9 +36,16 @@ private
     raise ResourceUnauthorizedError
   end
 
-  def render_exception(message,status)
+  def render_exception(message, status)
     add_error(type: :generic, message: message)
-    respond_with_resource(nil, status: status)
+    respond_with_errors(status: status)
+  end
+
+  def respond_with_errors(opts={})
+    set_cors
+    json = ActiveModel::ArraySerializer.new(errors, each_serializer: ErrorSerializer, root: :errors).to_json
+    opts = { json: json, status: 422 }.merge(opts)
+    render opts
   end
 
   def build_errors_from(model)
@@ -55,7 +60,7 @@ private
         type:          :field,
         resource_type: type.downcase,
         resource_id:   model.id,
-        resource_node: field.to_s,
+        resource_attr: field.to_s,
         message:       messages.to_sentence
       )
 
@@ -64,50 +69,33 @@ private
     return @errors
   end
 
-  def add_error(type: :generic, resource_id: nil, resource_type: nil, resource_node: nil, message: "")
-    error = HashWithIndifferentAccess.new
-    error[:type]          = type
-    error[:resource_id]   = resource_id   if resource_id
-    error[:resource_type] = resource_type if resource_type
-    error[:resource_node] = resource_node if resource_node
-    error[:message]       = message
-
+  def add_error(type: :generic, resource_id: nil, resource_type: nil, resource_attr: nil, message: "")
+    error = Error.new
+    error.type          = type
+    error.resource_id   = resource_id
+    error.resource_type = resource_type
+    error.resource_attr = resource_attr
+    error.message       = message
     errors.push(error)
+    return error
   end
 
-  def respond_with_resource(resource,opts)
+  def respond_with_resource(resource, opts)
 
-    if resource.present?
+    unless opts[:root] == :errors
       opts[:meta]     = errors if errors.any?
       opts[:meta_key] = :errors
-    else
-      resource    = errors
-      opts[:root] = :errors
-      opts[:serializer] = nil
     end
+    opts[:location] = nil
 
-    respond_with(resource,opts)
+    respond_with(resource, opts)
   end
 
   def errors
     @errors ||= []
   end
 
-  def set_cors
-    if $settings[:api][:v2][:cors].include?(request.env['HTTP_ORIGIN'])
-      headers["Access-Control-Allow-Origin"] = request.env['HTTP_ORIGIN']
-      headers["Access-Control-Allow-Credentials"] = "true"
-      headers["Access-Control-Allow-Headers"] = "*"
-      headers["Access-Control-Allow-Methods"] = ""
-        ["GET", "POST", "PUT", "DELETE"].join(",")
-
-      headers['Access-Control-Request-Method'] = '*'
-    end
-  end
-
-  def allow_cors
-    set_cors
-    head(:ok) if request.request_method == "OPTIONS"
+  def error_url(url)
   end
 
 end

@@ -23,6 +23,8 @@
 
 <div class="sidebar-divider"></div>
 
-{{view Cloudsdale.Sidebar.ConversationsView}}
+{{#if 'hasConversations'}}
+  {{view Cloudsdale.Sidebar.ConversationsView}}
 
-<div class="sidebar-divider"></div>
+  <div class="sidebar-divider"></div>
+{{/if}}

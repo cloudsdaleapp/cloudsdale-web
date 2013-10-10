@@ -9,5 +9,5 @@ Cloudsdale.Router.map () ->
   @resource 'gaze',              { path: '/gaze' }, ->
     @route 'category',           { path: '/:category' }
 
-  @resource 'conversation',      { path: '/:handle' }
+  @resource 'conversation.show', { path: '/:handle' }
   @resource 'conversation.add',  { path: '/:handle/add' }

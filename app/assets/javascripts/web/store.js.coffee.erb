@@ -9,20 +9,85 @@ DS.CloudsdaleSerializer = DS.RESTSerializer.extend
     return @_super(type, normalized, prop)
 
   serialize: (record, options) ->
-    json = @_super(record, options)
-    for key of json
-      if decamelized = name.decamelize() isnt key
-          json[decamelized] = json[name]
-          delete json[name]
+    json = {}
+
+    if options and options.includeId
+      id = record.get('id')
+      json[@get('primaryKey')] = record.get('id') if id
+
+    record.eachAttribute( (key, attribute) =>
+      @serializeAttribute(record, json, key, attribute, options)
+    , this)
+
+    record.eachRelationship( (key, relationship) ->
+      if relationship.kind is "belongsTo"
+        @serializeBelongsTo(record, json, relationship, options)
+      else
+        @serializeHasMany(record, json, relationship) if relationship.kind is "hasMany"
+    , this)
+
     return json
 
+  serializeAttribute: (record, json, key, attribute, options) ->
+
+    unless @keyIsFiltered(options.filter, key)
+      attrs = @get('attrs')
+      value = record.get(key)
+      type  = attribute.type
+
+      if type
+        transform = @transformFor(type)
+        value     = transform.serialize(value)
+
+      key = attrs and attrs[key] or ((if @keyForAttribute then @keyForAttribute(key) else key))
+      json[key.decamelize()] = value
+
+
+  serializePolymorphicType: (record, json, relationship, options) ->
+    console.log options
+    key = if @keyForRelationship then @keyForRelationship(key, "belongsTo") else relationship.key
+    unless @keyIsFiltered(options.filter, key)
+      belongsTo = record.get(key)
+      json[key] = {}
+      json[key]['id']   = belongsTo.get('id')
+      json[key]['type'] = belongsTo.get('type')
+      json
+
+  serializeBelongsTo: (record, json, relationship, options) ->
+    if relationship.options.polymorphic
+      @serializePolymorphicType(record, json, relationship, options)
+    else
+      # @_super(record, json, relationship, options)
+      key       = relationship.key
+      belongsTo = record.get(key)
+      key       = if @keyForRelationship then @keyForRelationship(key, "belongsTo") else key
+      unless @keyIsFiltered(options.filter, key)
+        if Ember.isNone(belongsTo)
+          json[key.decamelize()] = belongsTo
+        else
+          json[key.decamelize()] = belongsTo.get('id')
+
+  filterFor: (method) -> @["#{method}Attributes"]
+
+  keyIsFiltered: (method, key) ->
+    filter = @filterFor(method)
+    if filter then ($.inArray(key, filter) == -1) else false
+
   extractMeta: (store, type, payload) ->
-    if (payload && payload.collection)
-      store.metaForType(type, payload.collection)
-      delete payload.collection
+    if payload
+      if payload.collection
+        store.metaForType(type, payload.collection)
+        delete payload.collection
+      if payload.meta
+        store.metaForType(type, payload.meta)
+        delete payload.collection
+      if payload.errors
+        delete payload.errors
 
     @_super(store, type, payload)
 
+Cloudsdale.Error = Ember.Object.extend({})
+Cloudsdale.ObjectError = Ember.Object.extend({})
 
 DS.CloudsdaleAdapter = DS.RESTAdapter.extend
 
@@ -40,13 +105,48 @@ DS.CloudsdaleAdapter = DS.RESTAdapter.extend
 
     this._super(url, type, hash)
 
-  extractMeta: (loader, type, json) ->
-    meta = json[@configOption(type, 'collection')]
-    return if not meta
-    Ember.set('App.metaDataForLastRequest', meta)
-    this._super(loader, type, json)
+  ajaxError: (jqXHR) ->
+    resp = jqXHR.responseJSON
+    errors = Ember.A()
+    if resp.errors
+      resp.errors.forEach (error_hash) =>
+        if error_hash.resource_id && error_hash.resource_type && error_hash.resource_attr
+          error = Cloudsdale.ObjectError.create(error_hash)
+          Ember.Logger.error(
+            "Error on #{error.get('resource_type')} [#{error.get('resource_attr')}]: #{error.get('message')}"
+          )
+          # record = @store.find(error.get('resource_type'), error.get('resource_id'))
+        else
+          error = Cloudsdale.Error.create(error_hash)
+          Ember.Logger.error("Error: #{error.get('message')}")
+          errors.push(error)
+
+    return errors
+
+  createRecord: (store, type, record) ->
+    data = {}
+    serializer = store.serializerFor(type.typeKey)
+
+    serializer.serializeIntoHash(data, type, record,
+      includeId: true
+      filter: 'create'
+    )
+
+    @ajax(@buildURL(type.typeKey), "POST", { data: data })
+
+  updateRecord: (store, type, record) ->
+    data = {}
+    serializer = store.serializerFor(type.typeKey)
+
+    serializer.serializeIntoHash(data, type, record,
+      filter: 'update'
+    )
+
+    @ajax(@buildURL(type.typeKey, record.get('id')), "PUT", { data: data })
 
 Cloudsdale.Store = DS.Store.extend
   adapter: DS.CloudsdaleAdapter
+
+
 
 

@@ -31,6 +31,8 @@ Ember.Application.initializer
     session = store.find(sessionKey, payload[sessionKey].id)
     user    = store.find(userKey,    payload[sessionKey][userKey].id)
 
+    container.typeInjection('adapter', 'store', 'store:main')
+
     container.register("#{sessionKey}:main", session, { instantiate: false, singleton: true })
     container.typeInjection('controller',  sessionKey, "#{sessionKey}:main")
     container.typeInjection('route',       sessionKey, "#{sessionKey}:main")
