@@ -22,15 +22,16 @@ class Api::V2::MessagesController < Api::V2Controller
           href: v2_convo_messages_url(
             format: :json,
             host:   $api_host,
-            topic:  @topic,
+            convo_id:  @topic,
             before: @before,
             limit:  @limit
           )
         }
         meta[:more] = {
-          topic:  @topic.to_param,
-          before: @before,
-          limit:  @limit
+          topic_id:    @topic.id,
+          topic_type:  @topic.class.name.downcase,
+          before:      @before,
+          limit:       @limit
         }
       end
     end
