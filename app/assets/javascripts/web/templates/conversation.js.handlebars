@@ -6,11 +6,15 @@
         <a {{action 'remove'}} ><i class="action-icon-remove"></i></a>
       </div>
 
-      {{!--
-      <div class="left avatar small content-color pad-right">
-        <img {{bindAttr src="model.topic.avatar"}} />
-      </div> --}}
       <h1>{{model.topic.displayName}}</h1>
     </div>
   </div>
 </div>
+
+{{#each messages}}
+  <div class="left avatar small content">
+    <img {{bindAttr src="this.author.avatar"}} />
+  </div>
+  <h6>{{this.author.displayName}} <small>@{{this.author.username}}</small></h6>
+  <p>{{this.content}}</p>
+{{/each}}

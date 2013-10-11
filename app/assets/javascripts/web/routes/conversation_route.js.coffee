@@ -12,7 +12,7 @@ Cloudsdale.ConversationRoute = Ember.Route.extend
     key = "convo:#{id.toLowerCase()}" if id
 
     if promise = @store.get(key)
-      Ember.Logger.debug("Fetching #{key} from cache")
+      Ember.Logger.debug("Using #{key} from cache")
     else
       Ember.Logger.debug("Building new #{key}")
       promise = @getTopicPromise(id).then (topic) =>
@@ -46,16 +46,34 @@ Cloudsdale.ConversationShowRoute = Cloudsdale.ConversationRoute.extend
         @replaceWith('root')
 
   model: (params) ->
-    return @getConvoPromise(params.handle).then(
-      (
-        (r) =>
-          setTimeout =>
-            switch r.get('access')
-              when 'requesting' then @replaceWith('conversation.add', r)
-              else @replaceWith('conversation.show', r)
-          , 0
-      )
-    )
+    return @getConvoPromise(params.handle).then (r) =>
+      switch r.get('access')
+        when 'requesting' then @replaceWith('conversation.add', r)
+        else @replaceWith('conversation.show', r)
+
+  setupController: (controller, model) ->
+    topic = model.get('topic')
+
+    controller.set('model',    model)
+    controller.set('topic',    topic)
+    controller.set('messages', @messages(topic))
+
+    @_super(controller, model)
+
+  messages: (topic) ->
+    obj =
+      topic_id:   topic.id
+      topic_type: topic.get('type')
+
+    key = "convo:#{obj.topic_type}:#{obj.topic_id}:messages:filter"
+
+    if filter = @store.get(key)
+      Ember.Logger.debug("Using #{key} from cache")
+    else
+      Ember.Logger.debug("Fetching #{key} from server")
+      filter = @store.find('message', obj )
+      @store.set(key, filter)
+    return filter
 
 Cloudsdale.ConversationAddRoute = Cloudsdale.ConversationRoute.extend
 
@@ -69,16 +87,10 @@ Cloudsdale.ConversationAddRoute = Cloudsdale.ConversationRoute.extend
       )
 
   model: (params) ->
-    return @getConvoPromise(params.handle).then(
-      (
-        (r) =>
-          setTimeout =>
-            switch r.get('access')
-              when 'requesting' then @replaceWith('conversation.add', r)
-              else @replaceWith('conversation.show', r)
-          , 0
-      )
-    )
+    return @getConvoPromise(params.handle).then (r) =>
+      switch r.get('access')
+        when 'requesting' then @replaceWith('conversation.add', r)
+        else @replaceWith('conversation.show', r)
 
   handleAddSuccess: (record) ->
     @get('session').get('conversations').pushObject(record)
@@ -86,3 +98,4 @@ Cloudsdale.ConversationAddRoute = Cloudsdale.ConversationRoute.extend
 
   handleAddError: (errors) ->
     console.log errors
+

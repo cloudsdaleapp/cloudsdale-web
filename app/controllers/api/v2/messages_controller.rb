@@ -5,7 +5,7 @@ class Api::V2::MessagesController < Api::V2Controller
     @before   = params[:before].present? ? Time.at(params[:before].to_i) : Time.now
     @limit    = params[:limit].try(:to_i) || 50
 
-    @topic    = Handle.lookup(params.require(:topic))
+    @topic    = get_topic
     @convo    = Conversation.find_by(user: current_user, topic: @topic)
 
     @messages = @convo.messages(before: @before, limit: @limit)
@@ -41,7 +41,7 @@ class Api::V2::MessagesController < Api::V2Controller
   end
 
   def create
-    @topic    = Handle.lookup(params.require(:topic))
+    @topic    = get_topic
     @convo    = Conversation.find_by(user: current_user, topic: @topic)
 
     @message = Message.refined_build(params, convo: @convo)
@@ -79,6 +79,20 @@ class Api::V2::MessagesController < Api::V2Controller
     else
       build_errors_from(@message)
       respond_with_resource(@message, serializer: MessageSerializer)
+    end
+  end
+
+private
+
+  def get_topic
+    if params[:topic_id] && params[:topic_type]
+      case params[:topic_type]
+        when 'cloud' then Handle.lookup(params[:topic_id], kind: Cloud)
+        when 'user'  then Handle.lookup(params[:topic_id], kind: User)
+        else Handle.lookup(params[:topic_id])
+      end
+    else
+      Handle.lookup(params.require(:convo_id))
     end
   end
 
