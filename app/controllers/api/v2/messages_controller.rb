@@ -31,8 +31,8 @@ class Api::V2::MessagesController < Api::V2Controller
           )
         }
         meta[:more] = {
-          topic_id:    @topic.id,
-          topic_type:  @topic.class.name.downcase,
+          topic_id:    @convo.topic.id,
+          topic_type:  @convo.topic.class.name.downcase,
           before:      @before,
           limit:       @limit
         }
