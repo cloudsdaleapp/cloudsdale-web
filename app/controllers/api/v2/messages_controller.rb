@@ -25,7 +25,7 @@ class Api::V2::MessagesController < Api::V2Controller
           href: v2_convo_messages_url(
             format: :json,
             host:   $api_host,
-            convo_id:  @topic,
+            convo_id:  @convo.topic,
             before: @before,
             limit:  @limit
           )
