@@ -7,7 +7,7 @@
             <img {{bindAttr src="target.avatar"}} />
           </span>
         </div>
-        {{#linkTo 'conversation.index' target.handle}}
+        {{#linkTo 'messages' target.handle}}
           <h5 class="spotlight-title">{{target.displayName}}</h5>
           <h6 class="spotlight-subtitle"></h6>
         {{/linkTo}}
@@ -19,7 +19,7 @@
         <div class="small-12 medium-10 large-12 large-centered columns">
           <div class="row">
             <div class="small-4 large-4 columns clearfix spotlight-action">
-              {{#linkTo 'conversation.index' target.handle}}
+              {{#linkTo 'messages' target.handle}}
                 <div class="action-cloud action-icon-chat action-icon-hover"></div>
               {{/linkTo}}
             </div>

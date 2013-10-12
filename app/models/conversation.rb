@@ -67,6 +67,21 @@ class Conversation
 
   end
 
+  def self.resolve(user: nil, topic_params: nil, convo_id: nil)
+    if topic_params
+      convo_params = topic_params.permit(:id,:type).inject({}) do |hash,(key,value)|
+        hash["topic_#{key}".to_sym] = value if [:id, :type].include?(key.to_sym)
+        hash
+      end
+      convo_params[:topic_type] = convo_params[:topic_type].classify
+      convo_params[:user_id] = user.id
+    elsif convo_id
+      convo_params = { _id: convo_id }
+    end
+
+    Conversation.find_by(convo_params)
+  end
+
   # Public: Builds a conversation for a user on
   # a topic. If conversation on the same topic
   # already exists, it will use that one.

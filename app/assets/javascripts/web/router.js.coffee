@@ -5,7 +5,10 @@ Cloudsdale.Router.map () ->
   @route 'root',                 { path: '/' }
   @route 'settings',             { path: '/settings' }
 
-  @route 'conversation.index',   { path: '/:handle' }
+  @resource 'conversation',      { path: '/:handle' }, ->
+    @route 'index',              { path: '/' }
+    @resource 'messages',        { path: '/' }
+
   @route 'conversation.info',    { path: '/:handle/info' }
   @route 'conversation.share',   { path: '/:handle/share' }
 

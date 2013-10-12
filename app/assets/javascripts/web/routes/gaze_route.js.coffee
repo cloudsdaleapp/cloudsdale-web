@@ -1,6 +1,5 @@
 Cloudsdale.GazeRoute = Ember.Route.extend
 
-  templateName: 'gaze'
   controllerName: 'gaze'
 
   defaultQuery:  { limit: 10 }
@@ -28,7 +27,7 @@ Cloudsdale.GazeRoute = Ember.Route.extend
     @_super(controller, spotlights)
 
   renderTemplate: () ->
-    @render(view: 'cloudsdale/Gaze/header', outlet: 'header')
+    @render('header.gaze', outlet: 'header')
     @_super()
 
   clearMeta: ->

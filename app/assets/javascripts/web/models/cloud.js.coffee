@@ -1,5 +1,6 @@
 Cloudsdale.Cloud = DS.Model.extend
-  type:        DS.attr('string')
+
+  type:        DS.attr('string', defaultValue: 'cloud')
   displayName: DS.attr('string')
   avatar:      DS.attr('string')
   shortName:   DS.attr('string')

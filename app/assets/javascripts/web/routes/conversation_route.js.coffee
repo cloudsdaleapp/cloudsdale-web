@@ -1,14 +1,12 @@
 Cloudsdale.ConversationRoute = Ember.Route.extend
 
   controllerName: 'conversation'
-  templateName:   'conversation'
-  viewName:       'conversation'
 
   actions:
     add: ->
       @currentModel.save().then (record) =>
         @get('session').get('conversations').pushObject(record)
-        @replaceWith('conversation.index', record)
+        @replaceWith('messages', record)
 
     remove: ->
       @replaceWith('root')
@@ -22,7 +20,7 @@ Cloudsdale.ConversationRoute = Ember.Route.extend
     @getConvoPromise(params.handle)
 
   renderTemplate: () ->
-    @render(view: 'cloudsdale/Conversations/header', outlet: 'header')
+    @render('header.conversation', outlet: 'header')
     @_super()
 
   getHandlePromise: (id) -> @store.find('handle', id)
@@ -36,7 +34,7 @@ Cloudsdale.ConversationRoute = Ember.Route.extend
     if promise = @store.get(key)
       Ember.Logger.debug("Using #{key} from cache")
     else
-      Ember.Logger.debug("Building new #{key}")
+      Ember.Logger.debug("Fetching #{key} from server")
       promise = @getTopicPromise(id).then (topic) =>
         convo = null
         @store.all('conversation').some (record) =>
@@ -57,33 +55,21 @@ Cloudsdale.ConversationRoute = Ember.Route.extend
 
 Cloudsdale.ConversationIndexRoute = Cloudsdale.ConversationRoute.extend
 
-  afterModel: (model) ->
-    switch model.get('access')
-      when undefined then @transitionTo('conversation.info', model)
-
   setupController: (controller, model) ->
     topic = model.get('topic')
+    user  = model.get('user')
 
-    controller.set('model',    model)
-    controller.set('topic',    topic)
-    controller.set('messages', @messages(topic))
+    messages = @controllerFor('messages')
+    messages.set('model', @messages(topic))
+
+    controller.set('model', model)
+    controller.set('topic', topic)
+    controller.set('user',  user)
+
+    controller.set('messages', messages)
 
     @_super(controller, model)
 
-  messages: (topic) ->
-    obj =
-      topic_id:   topic.id
-      topic_type: topic.get('type')
-
-    key = "convo:#{obj.topic_type}:#{obj.topic_id}:messages:filter"
-
-    if filter = @store.get(key)
-      Ember.Logger.debug("Using #{key} from cache")
-    else
-      Ember.Logger.debug("Fetching #{key} from server")
-      filter = @store.find('message', obj )
-      @store.set(key, filter)
-    return filter
-
-Cloudsdale.ConversationInfoRoute = Cloudsdale.ConversationRoute.extend()
+Cloudsdale.ConversationInfoRoute  = Cloudsdale.ConversationRoute.extend()
+Cloudsdale.ConversationShareRoute = Cloudsdale.ConversationRoute.extend()
 

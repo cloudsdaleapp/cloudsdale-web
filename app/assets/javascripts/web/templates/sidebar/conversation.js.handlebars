@@ -1,4 +1,4 @@
 <span {{bindAttr class="topic.type + '-conversation'"}}>
   <img class="avatar left" {{bindAttr src="view.image"}}</img>
-  {{#linkTo 'conversation.index' topic.handle}}{{topic.displayName}}{{/linkTo}}
+  {{#linkTo 'messages' topic.handle}}{{topic.displayName}}{{/linkTo}}
 </span>

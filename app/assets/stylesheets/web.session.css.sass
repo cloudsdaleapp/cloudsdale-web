@@ -129,6 +129,9 @@ $content-spacing: emCalc(10px)
   &.pad
     padding: $content-spacing
 
+$header-height: 38px
+$header-padding: 6px
+
 $sidebar-border-color: $border-secondary-color
 $sidebar-text-color: #fafafa
 $sidebar-spacing-x: emCalc(8px)
@@ -151,15 +154,28 @@ $sidebar-spacing-y: emCalc(10px)
   // border-left: 4px solid $border-bright-color
   background-color: $bg-content-color//$bg-aside-bright-color
 
+.main-inner
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
 .main-header
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
   background-color: $bg-head-color
-  padding: 10px 0
+  padding: $header-padding 0
+  height: $header-height
+  box-sizing: content-box
 
 .main-header h1, .main-header a
-  line-height: emCalc(35px)
+  line-height: $header-height
 
 .main-header h1
-  font-size: emCalc(18px)
+  font-size: emCalc(16px)
   font-weight: lighter
   margin: 0
   color: #fff
@@ -167,7 +183,7 @@ $sidebar-spacing-y: emCalc(10px)
 .main-header a
   @include border-radius(2px)
   display: inline-block
-  padding: emCalc(6px) emCalc(12px)
+  padding: 5px 10px
 
   height: 24px
   line-height: 24px
@@ -179,7 +195,10 @@ $sidebar-spacing-y: emCalc(10px)
   @include box-sizing(content-box)
 
   font-size: emCalc(13px)
-  color: rgba(255,255,255,.85)
+  color: rgba(255,255,255,.8)
+
+  i
+    @include opacity(.8)
 
   &:hover
     background-color: rgba(0,0,0,.03)
@@ -207,7 +226,6 @@ $header-act-icon-type:   "png"
     background-repeat: no-repeat
     background-position: left center
     background-image: asset-data-url($img-path)
-    @include opacity(.85)
 
 
 
@@ -307,6 +325,15 @@ $header-act-icon-type:   "png"
   line-height: 26px
   font-size: emCalc(12px)
   color: $sidebar-text-color
+
+
+.main-content
+  position: absolute
+  top: $header-height + ($header-padding * 2)
+  bottom: 0
+  left: 0
+  right: 0
+
 
 .loading
   background-repeat: no-repeat
@@ -425,3 +452,28 @@ $header-act-icon-type:   "png"
   top: 0
   left: 0
   width: 100%
+
+$messages-input-height: 32px
+$messages-input-padding: 10px
+
+.messages, .new-message
+  position: absolute
+  right: 0
+  left: 0
+
+.messages
+  overflow: auto
+  top: 0
+  bottom: $messages-input-height + $messages-input-padding
+  .row
+    position: relative
+
+.message
+  @include clearfix
+
+form.new-message
+  bottom: 0
+  height: $messages-input-height
+  margin: 0 0 $messages-input-padding 0
+  input[type=text]
+    margin: 0
