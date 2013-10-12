@@ -65,6 +65,7 @@ $act-icons: ()
 $act-icons: append( $act-icons, ("link",  "icons/actions/link" ) )
 $act-icons: append( $act-icons, ("share", "icons/actions/share" ) )
 $act-icons: append( $act-icons, ("chat",  "icons/actions/chat" ) )
+$act-icons: append( $act-icons, ("info",  "icons/actions/info" ) )
 $act-icon-type:   "png"
 $act-icon-hover:  "active"
 @each $act-icon in $act-icons
@@ -135,7 +136,7 @@ $sidebar-spacing-y: emCalc(10px)
 
 .sidebar, .main
   position: fixed
-  top: 0
+  top: -0
   bottom: 0
 .sidebar
   background: $bg-aside-color
@@ -190,6 +191,9 @@ $sidebar-spacing-y: emCalc(10px)
 $header-act-icons: ()
 $header-act-icons: append( $header-act-icons, ("off",    "icons/header/off" ) )
 $header-act-icons: append( $header-act-icons, ("add",    "icons/header/add" ) )
+$header-act-icons: append( $header-act-icons, ("info",   "icons/header/info" ) )
+$header-act-icons: append( $header-act-icons, ("chat",   "icons/header/chat" ) )
+$header-act-icons: append( $header-act-icons, ("share",  "icons/header/share" ) )
 $header-act-icons: append( $header-act-icons, ("remove", "icons/header/remove" ) )
 $header-act-icon-type:   "png"
 @each $header-act-icon in $header-act-icons

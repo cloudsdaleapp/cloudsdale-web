@@ -7,7 +7,7 @@ Cloudsdale.ConversationController = Ember.Controller.extend(
   access: ( () -> @content.get('access') ).property('content.access')
 
   needsAccess: ( () ->
-    ['requesting'].contains(@get('access'))
+    [undefined].contains(@get('access'))
   ).property('access')
 
   hasAccess: ( () ->
