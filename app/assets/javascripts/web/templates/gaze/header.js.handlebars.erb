@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="small-12 large-12 columns">
+
+    <div class="right">
+      <a href="#" data-dropdown="categories-dropdown" class="dropdown">{{categoriesDropdownText}}</a>
+      <ul id="categories-dropdown" class="f-dropdown">
+        <li>{{#linkTo "gaze" }}All{{/linkTo}}</li>
+        <% Spotlight::CATEGORIES.each do |k, v| %>
+        <li>{{#linkTo "gaze.category" "<%= k %>"}}<%= v %>{{/linkTo}}</li>
+        <% end %>
+      </ul>
+    </div>
+
+    <h1>Currently in the Spotlight</h1>
+
+  </div>
+</div>

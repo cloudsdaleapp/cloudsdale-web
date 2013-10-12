@@ -1,7 +1,7 @@
 Cloudsdale.Conversation = DS.Model.extend
   type:         DS.attr('string', { defaultValue: 'conversation' })
   handle:       DS.attr('string')
-  access:       DS.attr('string', { defaultValue: 'requesting' })
+  access:       DS.attr('string')
   user:         DS.belongsTo('user')
   topic:        DS.belongsTo('topic', { polymorphic: true })
 

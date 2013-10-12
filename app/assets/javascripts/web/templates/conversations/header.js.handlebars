@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="small-12 large-12 columns">
+
+    <div class="right">
+      {{#if 'hasAccess' }}
+        <a {{action 'remove'}} ><i class="action-icon-remove"></i></a>
+      {{/if}}
+
+      {{#if 'needsAccess' }}
+        <a {{action 'add'}} ><i class="action-icon-add"></i></a>
+      {{/if}}
+    </div>
+
+    <h1>{{title}}</h1>
+  </div>
+</div>

@@ -3,11 +3,11 @@ Cloudsdale.Router.reopen
 
 Cloudsdale.Router.map () ->
   @route 'root',                 { path: '/' }
-
   @route 'settings',             { path: '/settings' }
+
+  @route 'conversation.index',   { path: '/:handle' }
+  @route 'conversation.info',    { path: '/:handle/info' }
+  @route 'conversation.share',   { path: '/:handle/share' }
 
   @resource 'gaze',              { path: '/gaze' }, ->
     @route 'category',           { path: '/:category' }
-
-  @resource 'conversation.show', { path: '/:handle' }
-  @resource 'conversation.add',  { path: '/:handle/add' }

@@ -1,7 +1,9 @@
 <div id="container">
   {{view Cloudsdale.SidebarView}}
-<div class="main bg-main">
-  <div class="main-inner">
-    {{outlet}}
+  <div class="main bg-main">
+    <div class="main-inner">
+      {{outlet header}}
+      <div class="main-content">{{outlet main}}</div>
+    </div>
   </div>
 </div>

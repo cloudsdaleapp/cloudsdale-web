@@ -1,6 +1,29 @@
 Cloudsdale.ConversationRoute = Ember.Route.extend
 
   controllerName: 'conversation'
+  templateName:   'conversation'
+  viewName:       'conversation'
+
+  actions:
+    add: ->
+      @currentModel.save().then (record) =>
+        @get('session').get('conversations').pushObject(record)
+        @replaceWith('conversation.index', record)
+
+    remove: ->
+      @replaceWith('root')
+      @store.deleteRecord(@currentModel)
+      @get('session').get('conversations').removeObject(@currentModel)
+      @currentModel.save().then (record) =>
+        @store.set("convo:#{record.get('handle').toLowerCase()}", undefined)
+
+
+  model: (params) ->
+    @getConvoPromise(params.handle)
+
+  renderTemplate: () ->
+    @render(view: 'cloudsdale/Conversations/header', outlet: 'header')
+    @_super()
 
   getHandlePromise: (id) -> @store.find('handle', id)
   getTopicPromise:  (id) ->
@@ -10,7 +33,6 @@ Cloudsdale.ConversationRoute = Ember.Route.extend
 
   getConvoPromise: (id) ->
     key = "convo:#{id.toLowerCase()}" if id
-
     if promise = @store.get(key)
       Ember.Logger.debug("Using #{key} from cache")
     else
@@ -33,23 +55,11 @@ Cloudsdale.ConversationRoute = Ember.Route.extend
 
     return promise
 
-Cloudsdale.ConversationShowRoute = Cloudsdale.ConversationRoute.extend
+Cloudsdale.ConversationIndexRoute = Cloudsdale.ConversationRoute.extend
 
-  templateName:   'conversation'
-
-  actions:
-    remove: ->
-      @store.deleteRecord(@currentModel)
-      @currentModel.save().then (record) =>
-        @store.set("convo:#{record.get('handle').toLowerCase()}", undefined)
-        @get('session').get('conversations').removeObject(record)
-        @replaceWith('root')
-
-  model: (params) ->
-    return @getConvoPromise(params.handle).then (r) =>
-      switch r.get('access')
-        when 'requesting' then @replaceWith('conversation.add', r)
-        else @replaceWith('conversation.show', r)
+  afterModel: (model) ->
+    switch model.get('access')
+      when undefined then @transitionTo('conversation.info', model)
 
   setupController: (controller, model) ->
     topic = model.get('topic')
@@ -75,27 +85,5 @@ Cloudsdale.ConversationShowRoute = Cloudsdale.ConversationRoute.extend
       @store.set(key, filter)
     return filter
 
-Cloudsdale.ConversationAddRoute = Cloudsdale.ConversationRoute.extend
-
-  templateName:   'conversation/add'
-
-  actions:
-    add: ->
-      @currentModel.save().then(
-        ( (r) => @handleAddSuccess(r) )
-        ( (e) => @handleAddError(e)   )
-      )
-
-  model: (params) ->
-    return @getConvoPromise(params.handle).then (r) =>
-      switch r.get('access')
-        when 'requesting' then @replaceWith('conversation.add', r)
-        else @replaceWith('conversation.show', r)
-
-  handleAddSuccess: (record) ->
-    @get('session').get('conversations').pushObject(record)
-    @transitionTo('conversation.show', record)
-
-  handleAddError: (errors) ->
-    console.log errors
+Cloudsdale.ConversationInfoRoute = Cloudsdale.ConversationRoute.extend()
 

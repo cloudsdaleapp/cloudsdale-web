@@ -14,7 +14,7 @@ class Web::ConversationsController < WebController
     end
   end
 
-  def add
+  def info
     @topic = Handle.lookup(params[:id])
 
     if current_user.new_record?

@@ -44,7 +44,6 @@ DS.CloudsdaleSerializer = DS.RESTSerializer.extend
 
 
   serializePolymorphicType: (record, json, relationship, options) ->
-    console.log options
     key = if @keyForRelationship then @keyForRelationship(key, "belongsTo") else relationship.key
     unless @keyIsFiltered(options.filter, key)
       belongsTo = record.get(key)

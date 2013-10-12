@@ -1,6 +1,6 @@
 Cloudsdale.GazeView = Ember.View.extend
   templateName: 'gaze'
-  scrollParent: '.main'
+  scrollParent: '.main-content'
   scrollOffset: 200
 
   didInsertElement: ->

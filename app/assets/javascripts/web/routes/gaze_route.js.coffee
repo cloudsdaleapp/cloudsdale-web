@@ -27,6 +27,10 @@ Cloudsdale.GazeRoute = Ember.Route.extend
     controller.set('spotlights', spotlights)
     @_super(controller, spotlights)
 
+  renderTemplate: () ->
+    @render(view: 'cloudsdale/Gaze/header', outlet: 'header')
+    @_super()
+
   clearMeta: ->
     @set('reloadUrl', null)
     @set('prevUrl', null)

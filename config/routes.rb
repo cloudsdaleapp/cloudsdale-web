@@ -95,7 +95,7 @@ Cloudsdale::Application.routes.draw do
 
     resources :conversations, path: '/', only: [:show] do
       member do
-        get :add, as: :add
+        get :info, as: :info
       end
     end
 

@@ -1,23 +1,17 @@
 <div class="spotlight">
   <div class="spotlight-inner">
-    {{#linkTo "gaze.category" category}}{{/linkTo}}
     <div class="spotlight-card" style="margin-top:15px;margin-bottom:15px;">
-
       <div class="clearfix">
         <div class="spotlight-avatar">
           <span class="avatar loading">
             <img {{bindAttr src="target.avatar"}} />
           </span>
         </div>
-        {{#linkTo 'conversation.show' target.handle}}
+        {{#linkTo 'conversation.index' target.handle}}
           <h5 class="spotlight-title">{{target.displayName}}</h5>
-          <h6 class="spotlight-subtitle">
-            {{foo}}
-          </h6>
+          <h6 class="spotlight-subtitle"></h6>
         {{/linkTo}}
       </div>
-
-      {{foo}}
 
       <p>{{text}}</p>
 
@@ -25,17 +19,17 @@
         <div class="small-12 medium-10 large-12 large-centered columns">
           <div class="row">
             <div class="small-4 large-4 columns clearfix spotlight-action">
-              {{#linkTo 'conversation.show' target.handle}}
+              {{#linkTo 'conversation.index' target.handle}}
                 <div class="action-cloud action-icon-chat action-icon-hover"></div>
               {{/linkTo}}
             </div>
             <div class="small-4 large-4 columns clearfix spotlight-action">
-              {{#linkTo 'root'}}
+              {{#linkTo 'conversation.info' target.handle}}
                 <div class="action-cloud action-icon-link action-icon-hover"></div>
               {{/linkTo}}
             </div>
             <div class="small-4 large-4 columns clearfix spotlight-action">
-              {{#linkTo 'root'}}
+              {{#linkTo 'conversation.share' target.handle}}
                 <div class="action-cloud action-icon-share action-icon-hover"></div>
               {{/linkTo}}
             </div>
