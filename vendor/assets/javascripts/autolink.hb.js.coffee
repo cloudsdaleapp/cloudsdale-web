@@ -29,9 +29,9 @@
 
           linkName = url
 
-          if path.length == 2
+          if path.length == 2 and not ["gaze","settings"].contains(path[1])
             linkName = "@#{path[1]}"
-          else if path.length == 3 && ["clouds","users"].contains(path[1])
+          else if path.length == 3 and ["clouds","users"].contains(path[1])
             linkName = "@#{path[2]}"
             href = "/#{path[2]}"
 
