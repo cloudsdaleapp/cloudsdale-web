@@ -26,6 +26,18 @@ Cloudsdale.MessagesView = Ember.View.extend
           @textArea().trigger('autosize.resize')
         return false
 
+      else if (event.which == 9)
+        event.preventDefault()
+
+        loc  = event.target.selectionStart
+        val  = event.target.value
+        before = val.substring(0, loc)
+        after  = val.substring(loc, val.length)
+        newVal = before + "  " + after
+
+        @textArea().val(newVal)
+        return false
+
   willDestroyElement: ->
     @.$('form.new-message textarea').trigger('autosize.destroy')
     @textArea().unbind('keydown')
