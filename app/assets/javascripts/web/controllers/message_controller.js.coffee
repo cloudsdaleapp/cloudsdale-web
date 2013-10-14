@@ -64,4 +64,8 @@ Cloudsdale.MessageController = Ember.Controller.extend
 
   messageStatus: ( () ->
     return if @get('model').get('isNew') then 'Sending' else @get('updatedAt').toString('hh:mm:ss')
-  ).property('model.isNew', 'model.updatedAt')
+  ).property('content.isNew', 'content.updatedAt')
+
+  isEdited: ( () ->
+    @get('content.createdAt').getTime() != @get('content.updatedAt').getTime()
+  ).property('content.createdAt', 'content.updatedAt')

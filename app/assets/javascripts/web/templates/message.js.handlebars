@@ -12,6 +12,7 @@
     {{/unless}}
     <p>
       <span class="message-status">
+        {{#if isEdited}}edited at{{/if}}
         {{messageStatus}}
       </span>
       {{{text}}}
