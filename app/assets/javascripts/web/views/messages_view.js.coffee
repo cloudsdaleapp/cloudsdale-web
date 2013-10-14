@@ -1,13 +1,11 @@
 Cloudsdale.MessagesView = Ember.View.extend
   templateName: 'messages'
 
-  isReadingHistory: ( () ->
+  isReadingHistory: () ->
     canvas   = @collection().outerHeight()
     scroll   = @collection()[0].scrollHeight
     location = @collection()[0].scrollTop
-
     return (scroll - location != canvas)
-  ).property()
 
   didInsertElement: ->
 
@@ -61,7 +59,7 @@ Cloudsdale.MessagesView = Ember.View.extend
   scrollToBottom: (opts) ->
     opts ||= {}
     opts.force ||= false
-    if opts.force or not @get('isReadingHistory')
+    if opts.force or not @isReadingHistory()
       @collection().scrollTop(@collection()[0].scrollHeight)
 
   collection: () -> @.$('div.messages')

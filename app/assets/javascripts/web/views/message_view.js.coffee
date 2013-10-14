@@ -6,7 +6,7 @@ Cloudsdale.MessageView = Ember.View.extend
 
   willInsertElement: () ->
     if @get('parentView').state == "inDOM"
-      @set('shouldScrollToMessage', !@get('parentView').get('isReadingHistory'))
+      @set('shouldScrollToMessage', !@get('parentView').isReadingHistory())
 
     @_super()
 
