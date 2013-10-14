@@ -4,8 +4,20 @@ Cloudsdale.MessageController = Ember.Controller.extend
 
   text: ( () ->
     text = @content.get('content') || ""
-    text = text.replace(/\s(?=\s)/g, '&nbsp;')
-    text = text.replace(/(\\r\\n|\\n|\\r)/g, '<br/>')
+
+    strategies = [
+      [ /&/g, "&amp;" ],
+      [ /</g, "&lt;" ],
+      [ />/g, "&gt;" ],
+      [ /"/g, "&quot;" ],
+      [ /\\\\/g, "&#92;" ],
+      [ /\s(?=\s)/g, '&nbsp;'],
+      [ /(\\r\\n|\\n|\\r)/g, '<br/>']
+    ]
+
+    for strategy in strategies
+      text = text.replace(strategy[0], strategy[1])
+
     text = text.autoLink({ target: "_blank" })
 
     return text
