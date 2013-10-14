@@ -470,11 +470,13 @@ $messages-input-padding: 10px
 
 .message
   h6, p
-    padding-left: 78px
+    margin-left: emCalc(10px)
+    margin-right: emCalc(10px)
   h6
     font-weight: normal
     font-size: emCalc(14px)
-    margin: emCalc(7px) 0 emCalc(3px) 0
+    margin-top: emCalc(10px)
+    margin-bottom: emCalc(3px)
     a
       color: $body-font-color
     small
@@ -483,11 +485,17 @@ $messages-input-padding: 10px
 
   p
     font-size: .875em
-    margin: 0
+    margin-bottom: 0
+    margin-top: 0
     word-break: break-word
     color: rgba(0, 0, 0, .75)
   .last-message
     // @include clearfix
+
+.message-box
+  @include clearfix
+  margin-left: 78px
+  background-color: #FFF
 
 form.new-message
   @include clearfix

@@ -27,3 +27,7 @@ Cloudsdale.MessageView = Ember.View.extend
   willDestroyElement: ->
     @.$('a[internal]').off('click')
     @_super()
+
+  nextObject: (index, previousObject, context) ->
+    console.log index, previousObject
+    @_super(index, previousObject, context)
