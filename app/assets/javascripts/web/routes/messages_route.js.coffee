@@ -14,6 +14,9 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
         controller: @get('controller')
         override: true
 
+      time = new Date()
+      message.set('createdAt', time)
+      message.set('updatedAt', time)
       message.save()
 
   beforeModel: () ->
