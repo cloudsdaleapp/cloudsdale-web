@@ -4,7 +4,7 @@ Cloudsdale.MessageController = Ember.Controller.extend
 
   text: ( () ->
     text = @content.get('content') || ""
-    text = text.replace(/\s/g, '&nbsp;')
+    text = text.replace(/\s(?=\s)/g, '&nbsp;')
     text = text.replace(/(\\r\\n|\\n|\\r)/g, '<br/>')
     return text
   ).property('content.content')
