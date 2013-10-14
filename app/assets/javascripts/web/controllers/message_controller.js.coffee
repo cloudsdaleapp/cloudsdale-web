@@ -61,3 +61,7 @@ Cloudsdale.MessageController = Ember.Controller.extend
       return cur.id == prev.id
     return false
   ).property('previousModel')
+
+  messageStatus: ( () ->
+    return if @get('model').get('isNew') then 'Sending' else @get('updatedAt').toString('hh:mm:ss')
+  ).property('model.isNew', 'model.updatedAt')

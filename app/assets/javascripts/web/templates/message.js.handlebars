@@ -10,6 +10,11 @@
     {{#unless hasSameAuthorAsPrevious}}
       <h6>{{#link-to 'messages' handle}}{{name}} <small>@{{handle}}</small>{{/link-to}}</h6>
     {{/unless}}
-    <p>{{{text}}}</p>
+    <p>
+      <span class="message-status">
+        {{messageStatus}}
+      </span>
+      {{{text}}}
+    </p>
   </div>
 </div>
