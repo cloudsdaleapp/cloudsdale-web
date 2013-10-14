@@ -6,6 +6,8 @@ Cloudsdale.MessageController = Ember.Controller.extend
     text = @content.get('content') || ""
     text = text.replace(/\s(?=\s)/g, '&nbsp;')
     text = text.replace(/(\\r\\n|\\n|\\r)/g, '<br/>')
+    text = text.autoLink({ target: "_blank" })
+
     return text
   ).property('content.content')
 
