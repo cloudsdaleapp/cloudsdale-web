@@ -13,4 +13,17 @@ Cloudsdale.MessageView = Ember.View.extend
   didInsertElement: ->
     @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') )
     @set('shouldScrollToMessage', false)
+
+    @.$('a[internal]').on('click', (e) =>
+      event.preventDefault()
+      @get('container')
+      .lookup('router:main')
+      .transitionTo(event.target.pathname)
+      return false
+    )
+
+    @_super()
+
+  willDestroyElement: ->
+    @.$('a[internal]').off('click')
     @_super()
