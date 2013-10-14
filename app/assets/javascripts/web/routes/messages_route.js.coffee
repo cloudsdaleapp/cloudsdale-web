@@ -43,7 +43,7 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
 
     @store.set(key, undefined) if opts.override
 
-    if @store.get(key)
+    if message = @store.get(key)
       Ember.Logger.debug("Using #{key} from cache")
     else
       Ember.Logger.debug("Building #{key}")
