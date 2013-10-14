@@ -21,13 +21,21 @@
         value = _ref[key]
         lnkAttr += " " + key + "='" + value + "'"
       template = @replace(pattern, (string, full, schema, url, index) ->
-        match = /(\b(beta)\.(cloudsdale)\.(dev|org)(\/.*)?)/ig.exec(url)
+        match = /(^(beta|www)\.(cloudsdale)\.(org|dev)(\/.*)?)/ig.exec(url)
 
         if match
           path = match[5].split('/')
+          href = match[5]
+
           linkName = url
-          linkName = "@#{path[1]}" if path.length == 2
-          return "<a href='#{match[5]}' #{lnkAttr.trim()} internal>#{linkName}</a>"
+
+          if path.length == 2
+            linkName = "@#{path[1]}"
+          else if path.length == 3 && ["clouds","users"].contains(path[1])
+            linkName = "@#{path[2]}"
+            href = "/#{path[2]}"
+
+          return "<a href='#{href}' #{lnkAttr.trim()} internal>#{linkName}</a>"
         else
           return "<a href='#{full}' #{lnkAttr.trim()}>#{url}</a>"
       )
