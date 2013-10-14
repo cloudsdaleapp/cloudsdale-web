@@ -6,8 +6,14 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
 
   actions:
     saveMessage: (params) ->
-      message = @get('currentMessage')
-      @get('controller').set('currentMessage', @buildNewMessage())
+      convo   = @modelFor('conversation')
+      key     = "convo:#{convo.get('handle').toLowerCase()}:messages:new"
+      message = @store.get(key)
+
+      @buildNewMessage
+        controller: @get('controller')
+        override: true
+
       message.save()
 
   beforeModel: () ->
@@ -23,17 +29,33 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
   setupController: (controller, model) ->
     controller.set('content', model)
     controller.set('model',   model)
-    unless @get('currentMessage')
-      controller.set('currentMessage', @buildNewMessage())
+    @buildNewMessage
+      controller: controller
+      override: false
 
-  buildNewMessage: ->
-    message = @store.createRecord(Cloudsdale.Message)
+  buildNewMessage: (opts) ->
+    opts ||= {}
+    opts.override ||= false
 
-    @get('currentUser').then (user) =>
-      message.set('topic',  @modelFor('conversation').get('topic'))
-      message.set('author', user)
+    convo =  @modelFor('conversation')
+    topic = convo.get('topic')
+    key   = "convo:#{convo.get('handle').toLowerCase()}:messages:new"
 
-    @set('currentMessage', message)
+    @store.set(key, undefined) if opts.override
+
+    if @store.get(key)
+      Ember.Logger.debug("Using #{key} from cache")
+    else
+      Ember.Logger.debug("Building #{key}")
+
+      message = @store.createRecord(Cloudsdale.Message)
+
+      @get('currentUser').then (user) =>
+        message.set('topic',  @modelFor('conversation').get('topic'))
+        message.set('author', user)
+
+      @store.set(key, message)
+      opts.controller.set('currentMessage', message)
 
     return message
 

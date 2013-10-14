@@ -472,8 +472,16 @@ $messages-input-padding: 10px
   @include clearfix
 
 form.new-message
+  @include clearfix
   bottom: 0
-  height: $messages-input-height
-  margin: 0 0 $messages-input-padding 0
-  input[type=text]
+  margin: 0
+  background-color: #F4F4F4
+  textarea
     margin: 0
+    max-width: 100%
+    min-height: emCalc($messages-input-height)
+    max-height: emCalc(($messages-input-height * 6)) - (0.5em * 2)
+    overflow: auto
+    resize: none
+  .row
+    margin: $messages-input-padding auto

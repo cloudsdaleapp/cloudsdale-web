@@ -5,12 +5,10 @@
   {{/each}}
 </div>
 
-{{#with currentMessage}}
-  <form class="new-message" {{action 'saveMessage' on='submit'}}>
-    <div class="row">
-      <div class="12-large 12-small columns">
-        {{input value=content type='text'}}
-      </div>
+<form class="new-message" {{action 'saveMessage' on='submit'}}>
+  <div class="row">
+    <div class="12-large 12-small columns">
+      {{textarea value=currentMessage.content}}
     </div>
-  </form>
-{{/with}}
+  </div>
+</form>
