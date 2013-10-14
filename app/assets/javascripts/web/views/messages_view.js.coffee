@@ -17,7 +17,13 @@ Cloudsdale.MessagesView = Ember.View.extend
     @textArea().bind 'keydown', (event) =>
       if (event.which == 13) and (event.shiftKey == false)
         event.preventDefault()
-        @form().trigger('submit')
+
+        if @textArea().val().replace(/^[(\r\n|\n|\r)\s]+/ig,"") == ""
+          @textArea().val("")
+          @textArea().trigger('autosize.resize')
+        else
+          @form().trigger('submit') unless @textArea().val() == ""
+          @textArea().trigger('autosize.resize')
         return false
 
   willDestroyElement: ->
