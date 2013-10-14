@@ -33,9 +33,19 @@ Cloudsdale.MessagesView = Ember.View.extend
         val  = event.target.value
         before = val.substring(0, loc)
         after  = val.substring(loc, val.length)
+
+        newLoc = loc + 2
         newVal = before + "  " + after
 
-        @textArea().val(newVal)
+        event.target.value = newVal
+        if event.target.createTextRange
+          range = event.target.createTextRange()
+          range.move('character', newLoc)
+          range.select()
+        else
+          event.target.focus()
+          event.target.setSelectionRange(newLoc, newLoc) if event.target.selectionStart
+
         return false
 
   willDestroyElement: ->
