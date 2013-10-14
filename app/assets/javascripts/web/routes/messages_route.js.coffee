@@ -74,7 +74,7 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
 
       filter = @store.filter 'message', (record) =>
         topic = record.get('topic')
-        return false if record.get('isNew')
+        return false if record.get('isNew') and not record.get('isSaving')
         switch topic.get('type')
           when 'user' then return null
           else return (topic.id == params.topic.id)
