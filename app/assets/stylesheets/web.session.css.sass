@@ -469,15 +469,31 @@ $messages-input-padding: 10px
     position: relative
 
 .message
-  @include clearfix
+  h6, p
+    padding-left: 78px
+  h6
+    font-weight: normal
+    font-size: emCalc(14px)
+    margin: emCalc(7px) 0 emCalc(3px) 0
+    a
+      color: $body-font-color
+    small
+      font-size: emCalc(13px)
+    span
+
   p
+    font-size: .875em
+    margin: 0
     word-break: break-word
+    color: rgba(0, 0, 0, .75)
+  .last-message
+    // @include clearfix
 
 form.new-message
   @include clearfix
   bottom: 0
   margin: 0
-  background-color: #F4F4F4
+  background-color: #EFEFF8
   textarea
     margin: 0
     max-width: 100%
@@ -485,5 +501,10 @@ form.new-message
     max-height: emCalc(($messages-input-height * 6)) - (0.5em * 2)
     overflow: auto
     resize: none
+    // border: 0
+    @include box-shadow(0, 0, 0, transparent)
+    &:focus, &:active
+      border-color: #cccccc
+      @include box-shadow(0, 0, 0, transparent)
   .row
     margin: $messages-input-padding auto
