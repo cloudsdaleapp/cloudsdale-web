@@ -1,6 +1,7 @@
 Cloudsdale.MessagesView = Ember.View.extend
   templateName: 'messages'
   scrollOffset: 200
+  desiredScroll: undefined
 
   isReadingHistory: () ->
     canvas   = @collection().outerHeight()
@@ -14,6 +15,10 @@ Cloudsdale.MessagesView = Ember.View.extend
   didResize: (textarea) -> @organizeLayers()
 
   didScroll: (view,e) ->
+    distance = @scrollBody()[0].scrollHeight - @scrollBody().outerHeight()
+    top      = @scrollBody().scrollTop()
+
+    @set('desiredScroll', (distance - top)) unless @isScrolledToTop()
     @get('controller').send('loadMore') if @isScrolledToTop()
 
   didInsertElement: ->
@@ -72,6 +77,11 @@ Cloudsdale.MessagesView = Ember.View.extend
     opts.force ||= false
     if opts.force or not @isReadingHistory()
       @collection().scrollTop(@collection()[0].scrollHeight)
+
+  scrollToFromBottom: (distance, opts) ->
+    opts ||= {}
+    top = (@scrollBody()[0].scrollHeight - distance)
+    @scrollBody().scrollTop(top)
 
   scrollBody: () -> @collection()
   collection: () -> @.$('div.messages')
