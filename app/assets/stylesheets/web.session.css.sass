@@ -497,17 +497,14 @@ $messages-input-padding: 10px
     margin-bottom: emCalc(4px)
 
 .message-last
-  // background: red
   content: " "
   display: table
   clear: right
   margin-bottom: emCalc(7px)
   .message-box
     border-bottom: 1px solid #DDD
-  &:not(.message-first)
-  // @include clearfix
+
 .message-first
-  //background: blue
   .message-box
     border-top: 1px solid #EFEFEF
     position: relative
@@ -538,6 +535,13 @@ $messages-input-padding: 10px
     &:hover
       &:after
         border-right-color: #FAFAFA
+
+.message-first:not(.message-last)
+  .columns
+    margin-bottom: -3px
+  .message-box
+    display: block
+    @include box-sizing(border-box)
 
 .message-first.message-last
   .message-box
