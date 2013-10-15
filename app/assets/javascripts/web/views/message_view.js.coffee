@@ -21,6 +21,9 @@ Cloudsdale.MessageView = Ember.View.extend
       @set('shouldScrollToMessage', false)
     , 100
 
+    if @get('context').get('hasSameAuthorAsPrevious')
+      @.$().prevAll('.message').first().removeClass('message-last')
+
     @.$('a[internal]').on('click', (e) =>
       event.preventDefault()
       @get('container')
