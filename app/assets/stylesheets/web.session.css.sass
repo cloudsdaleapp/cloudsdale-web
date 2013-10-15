@@ -494,7 +494,7 @@ $messages-input-padding: 10px
     word-break: break-word
     line-height: 1.6em
     color: rgba(0, 0, 0, .75)
-    margin-bottom: emCalc(4px)
+    padding-bottom: emCalc(4px)
 
 .message-last
   content: " "
@@ -507,7 +507,6 @@ $messages-input-padding: 10px
 .message-first
   .message-box
     border-top: 1px solid #EFEFEF
-    position: relative
 
     &:after, &:before
       right: 100%
@@ -537,11 +536,7 @@ $messages-input-padding: 10px
         border-right-color: #FAFAFA
 
 .message-first:not(.message-last)
-  .columns
-    margin-bottom: -4px
   .message-box
-    display: block
-    @include box-sizing(border-box)
 
 .message-first.message-last
   .message-box
@@ -552,7 +547,8 @@ $messages-input-padding: 10px
   width: 68px
 
 .message-box
-  @include clearfix
+  position: relative
+  @include clearfix()
   margin-left: 78px
   background-color: #FFF
   border-left: 1px solid #EFEFEF
