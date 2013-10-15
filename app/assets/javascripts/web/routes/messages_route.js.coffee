@@ -96,7 +96,6 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
       if params = @store.typeMapFor(Cloudsdale.Message).metadata.more
         @store.typeMapFor(Cloudsdale.Message).metadata.more = undefined
         Ember.Logger.debug("Fetching more #{key} from server")
-        Ember.Logger.debug(params)
 
       else if @store.get(key + ':initial') == undefined
         @store.set(key + ':initial', true)
@@ -104,8 +103,6 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
 
         topic  = convo.get('topic')
         params = { topic: { id: topic.id, type: topic.get('type') } }
-
-        Ember.Logger.debug(params)
 
       if params
         @store.find('message', params).then(
