@@ -16,8 +16,19 @@ Cloudsdale.MessageController = Ember.Controller.extend
       [ /\s(?=\s)/g, '&nbsp;'],
       [ /(\\r\\n|\\n|\\r)/g, '<br>'],
       [
+        # Green Text
         /((^&gt;|<br>&gt;)(.(?!(<br>|$)))+.)/ig,
         "<span style='color: green;'>$1</span>"
+      ],
+      [
+        # Redacted
+        /(\[redacted\])/ig,
+        "<span style='color: red;'>[REDACTED]</span>"
+      ],
+      [
+        # Italics
+        /\*(?!(<br>))(([^\*](?!(<br>|$)))+[^\*])\*/ig,
+        "<span style='font-style: italic;'>$1</span>"
       ]
     ]
 
