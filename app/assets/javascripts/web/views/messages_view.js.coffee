@@ -1,5 +1,6 @@
 Cloudsdale.MessagesView = Ember.View.extend
   templateName: 'messages'
+  scrollOffset: 200
 
   isReadingHistory: () ->
     canvas   = @collection().outerHeight()
@@ -7,8 +8,15 @@ Cloudsdale.MessagesView = Ember.View.extend
     location = @collection()[0].scrollTop
     return (scroll - location != canvas)
 
-  didInsertElement: ->
+  isScrolledToTop: () ->
+    return (0 + @scrollOffset) >= @scrollBody().scrollTop()
 
+  didResize: (textarea) -> @organizeLayers()
+
+  didScroll: (view,e) ->
+    @get('controller').send('loadMore') if @isScrolledToTop()
+
+  didInsertElement: ->
     @textArea().autosize
       callback: (el) => @didResize(el)
 
@@ -46,11 +54,14 @@ Cloudsdale.MessagesView = Ember.View.extend
 
         return false
 
+    @scrollBody().bind("scroll", (event) => @didScroll(this, event))
+
+    # setTimeout((=> $(@scrollParent).trigger("scroll")), 200)
+
   willDestroyElement: ->
     @.$('form.new-message textarea').trigger('autosize.destroy')
     @textArea().unbind('keydown')
-
-  didResize: (textarea) -> @organizeLayers()
+    @scrollBody().unbind("scroll")
 
   organizeLayers: ->
     @collection().css('bottom', @form().height())
@@ -62,6 +73,7 @@ Cloudsdale.MessagesView = Ember.View.extend
     if opts.force or not @isReadingHistory()
       @collection().scrollTop(@collection()[0].scrollHeight)
 
+  scrollBody: () -> @collection()
   collection: () -> @.$('div.messages')
-  form: () -> @.$('form.new-message')
-  textArea: () -> @.$('form.new-message textarea')
+  form:       () -> @.$('form.new-message')
+  textArea:   () -> @.$('form.new-message textarea')

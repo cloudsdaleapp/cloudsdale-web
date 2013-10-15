@@ -19,6 +19,9 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
       message.set('updatedAt', time)
       message.save()
 
+    loadMore: (params) ->
+      @loadRecordsFor(@modelFor('conversation'))
+
   beforeModel: () ->
     switch @modelFor('conversation').get('access')
       when undefined then @transitionTo('conversation.info', @modelFor('conversation'))
@@ -71,17 +74,41 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
     else
       Ember.Logger.debug("Fetching #{key} from server")
 
-      params = { topic: { id: topic.id, type: topic.get('type') } }
-
-      @store.find('message', params)
+      @loadRecordsFor(convo)
 
       filter = @store.filter 'message', (record) =>
-        topic = record.get('topic')
+        _topic = record.get('topic')
         return false if record.get('isNew') and not record.get('isSaving')
-        switch topic.get('type')
+        switch _topic.get('type')
           when 'user' then return null
-          else return (topic.id == params.topic.id)
+          else return (_topic.id == topic.id)
 
       @store.set(key, filter)
 
     return filter
+
+  loadRecordsFor: (convo, params) ->
+    key    = "convo:#{convo.get('handle').toLowerCase()}:messages"
+
+    unless @store.get(key + ':loading') == true
+      @store.set(key + ':loading', true)
+
+      if params = @store.typeMapFor(Cloudsdale.Message).metadata.more
+        @store.typeMapFor(Cloudsdale.Message).metadata.more = undefined
+        Ember.Logger.debug("Fetching more #{key} from server")
+        Ember.Logger.debug(params)
+
+      else if @store.get(key + ':initial') == undefined
+        @store.set(key + ':initial', true)
+        Ember.Logger.debug("Fetching initial #{key} from server")
+
+        topic  = convo.get('topic')
+        params = { topic: { id: topic.id, type: topic.get('type') } }
+
+        Ember.Logger.debug(params)
+
+      if params
+        @store.find('message', params).then(
+          ( (record) => @store.set(key + ':loading', false) ),
+          ( (record) => @store.set(key + ':loading', false) )
+        )
