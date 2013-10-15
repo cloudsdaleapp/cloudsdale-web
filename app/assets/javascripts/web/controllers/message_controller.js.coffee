@@ -14,7 +14,11 @@ Cloudsdale.MessageController = Ember.Controller.extend
       [ /"/g, "&quot;" ],
       [ /\\\\/g, "&#92;" ],
       [ /\s(?=\s)/g, '&nbsp;'],
-      [ /(\\r\\n|\\n|\\r)/g, '<br/>']
+      [ /(\\r\\n|\\n|\\r)/g, '<br>'],
+      [
+        /((^&gt;|<br>&gt;)(.(?!(<br>|$)))+.)/ig,
+        "<span style='color: green;'>$1</span>"
+      ]
     ]
 
     for strategy in strategies
