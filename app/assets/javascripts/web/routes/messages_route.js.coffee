@@ -93,8 +93,8 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
     unless @store.get(key + ':loading') == true
       @store.set(key + ':loading', true)
 
-      if params = @store.typeMapFor(Cloudsdale.Message).metadata.more
-        @store.typeMapFor(Cloudsdale.Message).metadata.more = undefined
+      if params = @store.get(key + ':more')
+        @store.set(key + ':more', undefined)
         Ember.Logger.debug("Fetching more #{key} from server")
 
       else if @store.get(key + ':initial') == undefined
@@ -106,6 +106,14 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
 
       if params
         @store.find('message', params).then(
-          ( (record) => @store.set(key + ':loading', false) ),
-          ( (record) => @store.set(key + ':loading', false) )
+          ( (record) =>
+            @store.set(key + ':loading', false)
+            more = @store.typeMapFor(Cloudsdale.Message).metadata.more
+            @store.typeMapFor(Cloudsdale.Message).metadata.more = undefined
+            @store.set(key + ':more', more)
+          ),
+          ( (record) =>
+            @store.set(key + ':loading', false)
+            @store.set(key + ':more', undefined)
+          )
         )
