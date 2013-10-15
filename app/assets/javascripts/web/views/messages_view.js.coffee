@@ -15,10 +15,11 @@ Cloudsdale.MessagesView = Ember.View.extend
   didResize: (textarea) -> @organizeLayers()
 
   didScroll: (view,e) ->
-    distance = @scrollBody()[0].scrollHeight - @scrollBody().outerHeight()
-    top      = @scrollBody().scrollTop()
+    distance = (
+      @scrollBody()[0].scrollHeight - (@scrollBody().outerHeight() + @scrollOffset)
+    ) - @scrollBody().scrollTop()
 
-    @set('desiredScroll', (distance - top)) unless @isScrolledToTop()
+    @set('desiredScroll', distance) unless @isScrolledToTop()
     @get('controller').send('loadMore') if @isScrolledToTop()
 
   didInsertElement: ->
