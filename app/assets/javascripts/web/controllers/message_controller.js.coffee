@@ -54,6 +54,10 @@ Cloudsdale.MessageController = Ember.Controller.extend
     @get('controllers.messages').before(@get('model'))
   ).property('controllers.messages.arrangedContent.@each')
 
+  nextModel: ( () ->
+    @get('controllers.messages').after(@get('model'))
+  ).property('controllers.messages.arrangedContent.@each')
+
   hasSameAuthorAsPrevious: ( () ->
     if @get('previousModel') &&  @get('model')
       cur  = @get('model').get('author')
@@ -61,6 +65,14 @@ Cloudsdale.MessageController = Ember.Controller.extend
       return cur.id == prev.id
     return false
   ).property('previousModel')
+
+  hasSameAuthorAsNext: ( () ->
+    if @get('nextModel') &&  @get('model')
+      cur  = @get('model').get('author')
+      prev = @get('nextModel').get('author')
+      return cur.id == prev.id
+    return false
+  ).property('nextModel')
 
   messageStatus: ( () ->
     return if @get('model').get('isNew') then 'Sending' else @get('updatedAt').toString('hh:mm:ss')

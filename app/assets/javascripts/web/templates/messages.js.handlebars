@@ -1,9 +1,8 @@
 <div class="messages">
-  <br />
+  <br/>
   {{#each this}}
     {{render 'message' this.content}}
   {{/each}}
-  <br />
 </div>
 
 <form class="new-message" {{action 'saveMessage' on='submit'}}>

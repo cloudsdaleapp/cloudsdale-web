@@ -23,3 +23,9 @@ Cloudsdale.MessagesController = Ember.ArrayController.extend
     obj = @objectAt(idx - 1)
     if obj then obj.get('model') else undefined
   )
+
+  after: ( (object) ->
+    idx = @indexOf(object)
+    obj = @objectAt(idx + 1)
+    if obj then obj.get('model') else undefined
+  )

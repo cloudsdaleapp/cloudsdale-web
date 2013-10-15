@@ -1,5 +1,7 @@
 Cloudsdale.MessageView = Ember.View.extend
-  classNames:    ['message row']
+  classNames:    ['message']
+  classNameBindings: ['isLastMessage', 'isFirstMessage']
+
   templateName:  'message'
 
   shouldScrollToMessage: false
@@ -12,7 +14,10 @@ Cloudsdale.MessageView = Ember.View.extend
 
   didInsertElement: ->
     @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') )
-    @set('shouldScrollToMessage', false)
+    setTimeout =>
+      @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') )
+      @set('shouldScrollToMessage', false)
+    , 100
 
     @.$('a[internal]').on('click', (e) =>
       event.preventDefault()
@@ -27,3 +32,11 @@ Cloudsdale.MessageView = Ember.View.extend
   willDestroyElement: ->
     @.$('a[internal]').off('click')
     @_super()
+
+  isLastMessage: ( () ->
+    if not @get('context').get('hasSameAuthorAsNext') then "message-last" else ""
+  ).property('messagePositions')
+
+  isFirstMessage: ( () ->
+    if not @get('context').get('hasSameAuthorAsPrevious') then "message-first" else ""
+  ).property('messagePositions')

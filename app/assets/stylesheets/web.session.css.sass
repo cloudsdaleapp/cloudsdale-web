@@ -45,7 +45,7 @@ body
     font-weight: bold
     color: #FFF
 
-$avatar-border-color: rgba(150,150,150,.4)
+$avatar-border-color: #EFEFEF
 .avatar
   border-color: $avatar-border-color
   border-style: solid
@@ -82,10 +82,10 @@ $act-icon-hover:  "active"
 $avatar-sizes: ()
 $avatar-sizes: append( $avatar-sizes, ("micro",    8px,   1px)  )
 $avatar-sizes: append( $avatar-sizes, ("mini",     16px,  2px)  )
-$avatar-sizes: append( $avatar-sizes, ("small",    64px,  4px)  )
-$avatar-sizes: append( $avatar-sizes, ("medium",   128px, 4px)  )
-$avatar-sizes: append( $avatar-sizes, ("large",    256px, 4px)  )
-$avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 4px) )
+$avatar-sizes: append( $avatar-sizes, ("small",    64px,  2px)  )
+$avatar-sizes: append( $avatar-sizes, ("medium",   128px, 2px)  )
+$avatar-sizes: append( $avatar-sizes, ("large",    256px, 2px)  )
+$avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 2px) )
 
 @each $avatar-size in $avatar-sizes
   .avatar.#{nth($avatar-size,1)}
@@ -98,14 +98,10 @@ $avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 4px) )
     min-height: $_border-size + $_size
 
 $avatar-statuses: ()
-$avatar-statuses: append( $avatar-statuses, ( "offline", $avatar-border-color  ))
-$avatar-statuses: append( $avatar-statuses, ( "online",  rgba(0,255,0,.5)      ))
-$avatar-statuses: append( $avatar-statuses, ( "busy",    rgba(255,0,0,.5)      ))
-$avatar-statuses: append( $avatar-statuses, ( "away",    rgba(255,0,255,.5)    ))
-$avatar-statuses: append( $avatar-statuses, ( "primary",        $primary-color      ))
-$avatar-statuses: append( $avatar-statuses, ( "primary-dark",   $primary-dark-color ))
-$avatar-statuses: append( $avatar-statuses, ( "aside",          $bg-aside-color     ))
-$avatar-statuses: append( $avatar-statuses, ( "content",        $bg-content-color   ))
+$avatar-statuses: append( $avatar-statuses, ( "normal",  $avatar-border-color  ))
+$avatar-statuses: append( $avatar-statuses, ( "primary", $primary-color        ))
+$avatar-statuses: append( $avatar-statuses, ( "aside",   $bg-aside-color       ))
+$avatar-statuses: append( $avatar-statuses, ( "content", $bg-content-color     ))
 
 @each $avatar-status in $avatar-statuses
   .avatar.#{nth($avatar-status,1)}
@@ -469,9 +465,17 @@ $messages-input-padding: 10px
     position: relative
 
 .message
+  display: block
+  margin-left: auto
+  margin-right: auto
+  margin-top: 0
+  margin-bottom: 0
+  max-width: 62.5em
+  width: 100%
+
   h6, p
-    margin-left: emCalc(10px)
-    margin-right: emCalc(10px)
+    margin-left: emCalc(12px)
+    margin-right: emCalc(12px)
   h6
     font-weight: normal
     font-size: emCalc(14px)
@@ -488,19 +492,76 @@ $messages-input-padding: 10px
     margin-bottom: 0
     margin-top: 0
     word-break: break-word
+    line-height: 1.6em
     color: rgba(0, 0, 0, .75)
-  .last-message
-    // @include clearfix
+    margin-bottom: emCalc(4px)
+
+.message-last
+  // background: red
+  content: " "
+  display: table
+  clear: right
+  margin-bottom: emCalc(7px)
+  .message-box
+    border-bottom: 1px solid #DDD
+  &:not(.message-first)
+  // @include clearfix
+.message-first
+  //background: blue
+  .message-box
+    border-top: 1px solid #EFEFEF
+    position: relative
+    margin-bottom: emCalc(-3px)
+
+    &:after, &:before
+      right: 100%
+      border: solid transparent
+      content: " "
+      height: 0
+      width: 0
+      position: absolute
+      pointer-events: none
+
+    &:after
+      border-color: rgba(255, 255, 255, 0)
+      border-right-color: #FFFFFF
+      border-width: 8px
+      top: 50%
+      margin-top: -8px
+
+    &:before
+      border-color: rgba(239, 239, 239, 0)
+      border-right-color: #EFEFEF
+      border-width: 9px
+      top: 50%
+      margin-top: -9px
+
+    &:hover
+      &:after
+        border-right-color: #FAFAFA
+
+.message-first.message-last
+  // background: purple
+
+.message-side
+  position: absolute
+  width: 68px
 
 .message-box
   @include clearfix
   margin-left: 78px
   background-color: #FFF
+  border-left: 1px solid #EFEFEF
+  border-right: 1px solid #EFEFEF
+  &:hover
+    background-color: #FAFAFA
 
 .message-status
   float: right
   font-size: emCalc(11px)
   color: #AAA
+  padding-top: emCalc(8px)
+  line-height: 1.6em
 
 form.new-message
   @include clearfix

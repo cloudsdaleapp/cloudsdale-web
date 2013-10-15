@@ -1,9 +1,10 @@
 <div class="small-12 large-12 columns">
   {{#unless hasSameAuthorAsPrevious}}
-    <div class="left avatar small content">
-      {{#link-to 'messages' handle}}<img {{bindAttr src="avatar"}} />{{/link-to}}
+    <div class="message-side">
+      <div class="left avatar small">
+        {{#link-to 'messages' handle}}<img {{bindAttr src="avatar"}} />{{/link-to}}
+      </div>
     </div>
-    <br />
   {{/unless}}
 
   <div class="message-box">
