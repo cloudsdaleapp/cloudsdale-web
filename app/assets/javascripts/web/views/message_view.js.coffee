@@ -24,6 +24,9 @@ Cloudsdale.MessageView = Ember.View.extend
     if @get('context').get('hasSameAuthorAsPrevious')
       @.$().prevAll('.message').first().removeClass('message-last')
 
+    if @get('context').get('hasSameAuthorAsNext')
+      @.$().nextAll('.message').first().removeClass('message-first')
+
     @.$('a[internal]').on('click', (e) =>
       event.preventDefault()
       @get('container')
