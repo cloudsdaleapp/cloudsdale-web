@@ -15,9 +15,9 @@ Cloudsdale.MessageView = Ember.View.extend
     @_super()
 
   didInsertElement: ->
-    @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') )
+    @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView')
     setTimeout =>
-      @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') )
+      @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView')
       @set('shouldScrollToMessage', false)
     , 100
 
