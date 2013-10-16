@@ -496,6 +496,12 @@ $messages-input-padding: 10px
     color: rgba(0, 0, 0, .75)
     padding-bottom: emCalc(4px)
 
+.message:hover
+  .message-status
+    display: none
+  .message-actions
+    display: inline-block
+
 .message-last
   content: " "
   display: table
@@ -556,12 +562,15 @@ $messages-input-padding: 10px
   &:hover
     background-color: #FAFAFA
 
-.message-status
+.message-meta
   float: right
   font-size: emCalc(11px)
   color: #AAA
   padding-top: emCalc(8px)
   line-height: 1.6em
+
+.message-actions
+  display: none
 
 form.new-message
   @include clearfix

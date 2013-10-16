@@ -12,9 +12,11 @@
       <h6>{{#link-to 'messages' handle}}{{name}} <small>@{{handle}}</small>{{/link-to}}</h6>
     {{/unless}}
     <p>
-      <span class="message-status">
-        {{#if isEdited}}edited at{{/if}}
-        {{messageStatus}}
+      <span class="message-meta message-actions">
+        {{#link-to 'root'}}Edit{{/link-to}} or {{#link-to 'root'}}Remove{{/link-to}}
+      </span>
+      <span class="message-meta message-status">
+        {{#if isEdited}}edited at{{/if}} {{messageStatus}}
       </span>
       {{{text}}}
     </p>
