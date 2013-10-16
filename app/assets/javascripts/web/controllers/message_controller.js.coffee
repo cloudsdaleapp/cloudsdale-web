@@ -29,6 +29,11 @@ Cloudsdale.MessageController = Ember.Controller.extend
         # Italics
         /\*(?!(<br>))(([^\*](?!(<br>|$)))+[^\*])\*/ig,
         "<span style='font-style: italic;'>$2</span>"
+      ],
+      [
+        # Code Blocks
+        /\`(?!(<br>))(([^\`](?!(<br>|$)))+[^\`])\`/ig,
+        "<code>$2</code>"
       ]
     ]
 
