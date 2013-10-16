@@ -23,7 +23,7 @@
       template = @replace(pattern, (string, full, schema, url, index) ->
         match = /(^(beta|www)\.(cloudsdale)\.(org|dev)(\/.*)?)/ig.exec(url)
 
-        if match
+        if match[5]
           path = match[5].split('/')
           href = match[5]
 
