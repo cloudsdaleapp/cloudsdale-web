@@ -172,7 +172,7 @@ class Conversation
     self.new_record? ? false : self.destroy
   end
 
-  def messages(before: nil, since: nil, limit: nil)
+  def messages(before: nil, since: nil, limit: 50)
     criteria = case topic_type
     when "User"
       Message.and(:topic_id.in => [topic_id, user_id], :author_id.in => [user_id, topic_id])
@@ -185,6 +185,7 @@ class Conversation
     criteria = criteria.where(:created_at.lt => before) if before
     criteria = criteria.where(:created_at.gt => since)  if since
     criteria = criteria.limit(limit) if limit
+
     return criteria
   end
 
