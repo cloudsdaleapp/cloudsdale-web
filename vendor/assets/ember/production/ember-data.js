@@ -7,8 +7,8 @@
 
 
 
-// Version: v1.0.0-beta.3-51-g236a675
-// Last commit: 236a675 (2013-10-09 15:03:18 -0700)
+// Version: v1.0.0-beta.3-60-geac9a74
+// Last commit: eac9a74 (2013-10-15 14:18:44 -0700)
 
 
 // Copyright: Copyright 2011-2013 Tilde Inc. and contributors.
