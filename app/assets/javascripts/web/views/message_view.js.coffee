@@ -7,25 +7,25 @@ Cloudsdale.MessageView = Ember.View.extend
   shouldScrollToMessage: false
 
   willInsertElement: () ->
-    if @get('parentView').state == "inDOM"
-      distance = @get('parentView.desiredScroll')
-      @get('parentView').scrollToFromBottom(distance) if distance
-      @set('shouldScrollToMessage', !@get('parentView').isReadingHistory())
+    # if @get('parentView').state == "inDOM"
+    #   distance = @get('parentView.desiredScroll')
+    #   @get('parentView').scrollToFromBottom(distance) if distance
+    #   @set('shouldScrollToMessage', !@get('parentView').isReadingHistory())
 
     @_super()
 
   didInsertElement: ->
-    @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView')
-    setTimeout =>
-      @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView')
-      @set('shouldScrollToMessage', false)
-    , 100
+    # @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView')
+    # setTimeout =>
+    #   @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView')
+    #   @set('shouldScrollToMessage', false)
+    # , 100
 
-    if @get('context').get('hasSameAuthorAsPrevious')
-      @.$().prevAll('.message').first().removeClass('message-last')
+    # if @get('context').get('hasSameAuthorAsPrevious')
+    #   @.$().prevAll('.message').first().removeClass('message-last')
 
-    if @get('context').get('hasSameAuthorAsNext')
-      @.$().nextAll('.message').first().removeClass('message-first')
+    # if @get('context').get('hasSameAuthorAsNext')
+    #   @.$().nextAll('.message').first().removeClass('message-first')
 
     @.$('a[internal]').on('click', (e) =>
       event.preventDefault()
