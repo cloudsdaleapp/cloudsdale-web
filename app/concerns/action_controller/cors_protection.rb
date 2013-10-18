@@ -21,7 +21,9 @@ module ActionController::CORSProtection
         "accept", "content-type", "referer",
         "origin", "connection", "host",
         "user-agent"
-      ].join(",") if request.env['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == "POST"
+      ].join(",") if ["POST", "PUT", "PATCH"].include?(
+        request.env['HTTP_ACCESS_CONTROL_REQUEST_METHOD']
+      )
     end
   end
 
