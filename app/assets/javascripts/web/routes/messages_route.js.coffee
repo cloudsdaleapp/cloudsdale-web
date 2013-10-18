@@ -5,9 +5,9 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
   templateName: 'messages'
 
   actions:
-    saveMessage: (params) ->
+    saveMessage: () ->
       convo   = @modelFor('conversation')
-      key     = "convo:#{convo.get('handle').toLowerCase()}:messages:new"
+      key     = @keyForCurrentMessage(convo)
       message = @store.get(key)
 
       @buildNewMessage
@@ -15,11 +15,22 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
         override: true
 
       time = new Date()
-      message.set('createdAt', time)
+      message.set('createdAt', time) unless message.get('createdAt')
       message.set('updatedAt', time)
       message.save()
 
-    loadMore: (params) ->
+    editMessage: (id) ->
+      message = @store.find('message', id)
+      convo   = @modelFor('conversation')
+      key     = @keyForCurrentMessage(convo)
+
+      controller = @get('controller')
+
+      message.then (record) =>
+        @store.set(key, record)
+        controller.set('currentMessage', record)
+
+    loadMore: () ->
       @loadRecordsFor(@modelFor('conversation'))
 
   beforeModel: () ->
@@ -39,13 +50,16 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
       controller: controller
       override: false
 
+  keyForCurrentMessage: (convo) ->
+    return "convo:#{convo.get('handle').toLowerCase()}:messages:current"
+
   buildNewMessage: (opts) ->
     opts ||= {}
     opts.override ||= false
 
-    convo =  @modelFor('conversation')
+    convo = @modelFor('conversation')
     topic = convo.get('topic')
-    key   = "convo:#{convo.get('handle').toLowerCase()}:messages:new"
+    key   = @keyForCurrentMessage(convo)
 
     @store.set(key, undefined) if opts.override
 

@@ -13,7 +13,8 @@
     {{/unless}}
     <p>
       <span class="message-meta message-actions">
-        {{#link-to 'root'}}Edit{{/link-to}} or {{#link-to 'root'}}Remove{{/link-to}}
+        {{#if canEdit}}<a {{action 'editMessage' id}}>Edit</a> or{{/if}}
+        {{#if canRemove}}<a {{action 'removeMessage'}}>Remove</a>{{/if}}
       </span>
       <span class="message-meta message-status">
         {{#if isEdited}}edited at{{/if}} {{messageStatus}}

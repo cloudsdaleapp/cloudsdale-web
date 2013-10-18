@@ -4,6 +4,8 @@ Cloudsdale.MessageController = Ember.Controller.extend
 
   content: null
 
+  id: ( () -> @get('content.id') ).property('content.id')
+
   text: ( () ->
     text = @content.get('content') || ""
 
@@ -101,3 +103,11 @@ Cloudsdale.MessageController = Ember.Controller.extend
   isEdited: ( () ->
     @get('content.createdAt').getTime() != @get('content.updatedAt').getTime()
   ).property('content.createdAt', 'content.updatedAt')
+
+  canRemove: ( () ->
+    @get('currentUser.id') == @get('content.author.id')
+  ).property('currentUser.id')
+
+  canEdit: ( () ->
+    @get('currentUser.id') == @get('content.author.id')
+  ).property('currentUser.id')
