@@ -18,6 +18,11 @@ class MessagePolicy < ApplicationPolicy
     create?
   end
 
+  def destroy?
+    user_is_author? or
+    user.is_of_role? :admin
+  end
+
 private
 
   def user_is_author?
