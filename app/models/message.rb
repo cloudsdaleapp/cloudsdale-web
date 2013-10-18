@@ -60,7 +60,7 @@ class Message
   # Deprecated Attributes
   has_and_belongs_to_many :drops, inverse_of: nil
   default_scope -> { includes(:author,:drops) }
-  after_save :v1_publish
+  after_create :v1_publish
 
   # Deprecated Methods
   def utc_timestamp
