@@ -12,6 +12,10 @@ Cloudsdale.MessagesView = Ember.View.extend
   isScrolledToTop: () ->
     return (0 + @scrollOffset) >= @scrollBody().scrollTop()
 
+  didChangeCurrentMessage: ( () ->
+    @focusTextArea()
+  ).observes('controller.currentMessage')
+
   didResize: (textarea) -> @organizeLayers()
 
   didScroll: (view,e) ->
@@ -60,6 +64,8 @@ Cloudsdale.MessagesView = Ember.View.extend
 
         return false
 
+    @focusTextArea()
+
     @scrollBody().bind("scroll", (event) => @didScroll(this, event))
 
     # setTimeout((=> $(@scrollParent).trigger("scroll")), 200)
@@ -83,6 +89,10 @@ Cloudsdale.MessagesView = Ember.View.extend
     opts ||= {}
     top = (@scrollBody()[0].scrollHeight - distance)
     @scrollBody().scrollTop(top)
+
+  focusTextArea: ->
+    if @state == "inDOM"
+      @textArea().focus().select()
 
   scrollBody: () -> @collection()
   collection: () -> @.$('div.messages')
