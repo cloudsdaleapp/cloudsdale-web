@@ -104,10 +104,7 @@ Cloudsdale.MessageController = Ember.Controller.extend
     @get('content.createdAt').getTime() != @get('content.updatedAt').getTime()
   ).property('content.createdAt', 'content.updatedAt')
 
-  canRemove: ( () ->
+  canManipulate: ( () ->
     @get('currentUser.id') == @get('content.author.id')
   ).property('currentUser.id')
 
-  canEdit: ( () ->
-    @get('currentUser.id') == @get('content.author.id')
-  ).property('currentUser.id')

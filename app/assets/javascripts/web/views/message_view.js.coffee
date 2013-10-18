@@ -1,6 +1,6 @@
 Cloudsdale.MessageView = Ember.View.extend
   classNames:    ['message']
-  classNameBindings: ['isLastMessage', 'isFirstMessage']
+  classNameBindings: ['isLastMessage', 'isFirstMessage', 'hasActions']
 
   templateName:  'message'
 
@@ -55,3 +55,7 @@ Cloudsdale.MessageView = Ember.View.extend
   isFirstMessage: ( () ->
     if not @get('context').get('hasSameAuthorAsPrevious') then "message-first" else ""
   ).property('messagePositions')
+
+  hasActions: ( () ->
+    if @get('context.canManipulate') then 'message-with-actions' else ''
+  ).property('context.canManipulate')
