@@ -39,6 +39,13 @@ Cloudsdale.MessageView = Ember.View.extend
 
   willDestroyElement: ->
     @.$('a[internal]').off('click')
+
+    unless @get('context').get('hasSameAuthorAsPrevious')
+      @.$().nextAll('.message').first().addClass('message-first')
+
+    unless @get('context').get('hasSameAuthorAsNext')
+      @.$().prevAll('.message').first().addClass('message-last')
+
     @_super()
 
   isLastMessage: ( () ->

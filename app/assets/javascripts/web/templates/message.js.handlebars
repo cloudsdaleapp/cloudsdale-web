@@ -14,7 +14,7 @@
     <p>
       <span class="message-meta message-actions">
         {{#if canEdit}}<a {{action 'editMessage' id}}>Edit</a> or{{/if}}
-        {{#if canRemove}}<a {{action 'removeMessage'}}>Remove</a>{{/if}}
+        {{#if canRemove}}<a {{action 'removeMessage' id}}>Remove</a>{{/if}}
       </span>
       <span class="message-meta message-status">
         {{#if isEdited}}edited at{{/if}} {{messageStatus}}

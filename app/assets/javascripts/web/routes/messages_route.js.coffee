@@ -20,15 +20,22 @@ Cloudsdale.MessagesRoute = Ember.Route.extend
       message.save()
 
     editMessage: (id) ->
-      message = @store.find('message', id)
+      promise = @store.find('message', id)
       convo   = @modelFor('conversation')
       key     = @keyForCurrentMessage(convo)
 
       controller = @get('controller')
 
-      message.then (record) =>
+      promise.then (record) =>
         @store.set(key, record)
         controller.set('currentMessage', record)
+
+    removeMessage: (id) ->
+      promise = @store.find('message', id)
+      convo   = @modelFor('conversation')
+      promise.then (record) =>
+        record.deleteRecord()
+        record.save()
 
     loadMore: () ->
       @loadRecordsFor(@modelFor('conversation'))
