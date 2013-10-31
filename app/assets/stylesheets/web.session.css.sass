@@ -172,14 +172,14 @@ $sidebar-spacing-y: emCalc(10px)
   background-color: $bg-head-color
   padding: $header-padding 0
   height: $header-height
-  box-sizing: content-box
+  @include box-sizing(content-box)
 
 .main-header h1, .main-header a
   line-height: $header-height
 
 .main-header h1
   font-size: emCalc(16px)
-  font-weight: lighter
+  font-weight: normal
   margin: 0
   color: #fff
 
