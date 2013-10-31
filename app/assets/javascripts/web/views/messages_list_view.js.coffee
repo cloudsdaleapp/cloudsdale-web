@@ -71,13 +71,6 @@ Cloudsdale.MessagesListView = Ember.CollectionView.extend
 
   didScroll: (el, e) ->
     @set('scrollTop', @get('element.scrollTop'))
-    # console.log @set('scrollHeight', el.out)
-    # distance = (
-    #   @scrollBody()[0].scrollHeight - (@scrollBody().outerHeight() + @scrollOffset)
-    # ) - @scrollBody().scrollTop()
-
-    # @set('desiredScroll', distance) unless @isScrolledToTop()
-    # @get('controller').send('loadMore') if @isScrolledToTop()
 
   willDestroyElement: ->
     el = @get('element')

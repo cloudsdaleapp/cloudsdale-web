@@ -1,6 +1,5 @@
 Cloudsdale.MessagesView = Ember.ContainerView.extend
 
-  templateName: 'messages'
   scrollOffset: 200
   desiredScroll: undefined
 
