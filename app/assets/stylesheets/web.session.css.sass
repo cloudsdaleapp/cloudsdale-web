@@ -14,9 +14,16 @@ $bg-aside-bright-color: lighten($bg-aside-color,10%)
 
 $bg-label-color: #aeacc6
 
-body
+body, .loading-content
   position: relative
   background-color: $bg-color
+  &.loading-content > div
+    display: none
+  &.loading-content
+    &:before, &:after
+      z-index: 10
+      position: absolute
+
   &:before, &:after
     position: fixed
   &:before
@@ -460,7 +467,7 @@ $messages-input-padding: 10px
 .messages
   overflow: auto
   top: 0
-  bottom: $messages-input-height + $messages-input-padding
+  bottom: $messages-input-height + ($messages-input-padding * 2)
   .row
     position: relative
 
@@ -472,6 +479,8 @@ $messages-input-padding: 10px
   margin-bottom: 0
   max-width: 62.5em
   width: 100%
+
+  @include clearfix()
 
   &:first-child
     padding-top: emCalc(6px)
@@ -595,3 +604,23 @@ form.new-message
       @include box-shadow(0, 0, 0, transparent)
   .row
     margin: $messages-input-padding auto
+
+a.scroll-to-bottom
+  display: block
+  position: relative
+  float: right
+  z-index: 2
+  width: 32px
+  height: 32px
+  background: rgba(0,0,0,.1)
+  border: 1px solid #cccccc
+  &:before
+    position: absolute
+    height: 31px
+    width: 31px
+    content: "v"
+    color: rgba(0,0,0,.3)
+    line-height: 30px
+    text-align: center
+    font-size: emCalc(18px)
+

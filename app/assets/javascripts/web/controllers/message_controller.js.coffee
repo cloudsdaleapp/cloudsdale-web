@@ -73,7 +73,7 @@ Cloudsdale.MessageController = Ember.Controller.extend
     @content.get('timestamp')
   ).property('content.timestamp')
 
-  previousModel: ( () ->
+  prevModel: ( () ->
     @get('controllers.messages').before(@get('model'))
   ).property('controllers.messages.arrangedContent.@each')
 
@@ -81,15 +81,15 @@ Cloudsdale.MessageController = Ember.Controller.extend
     @get('controllers.messages').after(@get('model'))
   ).property('controllers.messages.arrangedContent.@each')
 
-  hasSameAuthorAsPrevious: ( () ->
-    if @get('previousModel') &&  @get('model')
+  isSameAsPrev: ( () ->
+    if @get('prevModel') && @get('model')
       cur  = @get('model').get('author')
-      prev = @get('previousModel').get('author')
+      prev = @get('prevModel').get('author')
       return cur.id == prev.id
     return false
-  ).property('previousModel')
+  ).property('prevModel')
 
-  hasSameAuthorAsNext: ( () ->
+  isSameAsNext: ( () ->
     if @get('nextModel') &&  @get('model')
       cur  = @get('model').get('author')
       prev = @get('nextModel').get('author')

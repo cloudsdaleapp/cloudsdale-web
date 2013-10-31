@@ -1,3 +1,13 @@
+Ember.Route.reopen
+  beforeModel: ->
+    $('.main-content').addClass('loading-content')
+  afterModel: (model) ->
+    if model && !model.constructor.toString() == 'Cloudsdale.Session'
+      model.then () ->
+        $('.main-content').removeClass('loading-content')
+    else
+      $('.main-content').removeClass('loading-content')
+
 Cloudsdale.ApplicationRoute = Ember.Route.extend
 
   templateName: 'application'

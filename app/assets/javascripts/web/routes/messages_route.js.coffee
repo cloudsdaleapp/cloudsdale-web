@@ -1,6 +1,6 @@
 Cloudsdale.MessagesRoute = Ember.Route.extend
 
-  viewName: null
+  viewName: 'messages'
   controllerName: 'messages'
   templateName: 'messages'
 

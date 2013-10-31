@@ -1,5 +1,5 @@
 <div class="small-12 large-12 columns">
-  {{#unless hasSameAuthorAsPrevious}}
+  {{#unless isSameAsPrev}}
     <div class="message-side">
       <div class="left avatar small">
         {{#link-to 'messages' handle}}<img {{bindAttr src="avatar"}} />{{/link-to}}
@@ -8,7 +8,7 @@
   {{/unless}}
 
   <div class="message-box">
-    {{#unless hasSameAuthorAsPrevious}}
+    {{#unless isSameAsPrev}}
       <h6>{{#link-to 'messages' handle}}{{name}} <small>@{{handle}}</small>{{/link-to}}</h6>
     {{/unless}}
     <p>

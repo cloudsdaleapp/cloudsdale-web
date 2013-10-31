@@ -1,101 +1,44 @@
-Cloudsdale.MessagesView = Ember.View.extend
+Cloudsdale.MessagesView = Ember.ContainerView.extend
 
   templateName: 'messages'
   scrollOffset: 200
   desiredScroll: undefined
 
-  isReadingHistory: () ->
-    canvas   = @collection().outerHeight()
-    scroll   = @collection()[0].scrollHeight
-    location = @collection()[0].scrollTop
-    return (scroll - location != canvas)
+  childViews: ['messagesListView', 'messagesFormView']
 
-  isScrolledToTop: () ->
-    return (0 + @scrollOffset) >= @scrollBody().scrollTop()
-
-  didChangeCurrentMessage: ( () ->
-    @focusTextArea()
-  ).observes('controller.currentMessage')
-
-  didResize: (textarea) -> @organizeLayers()
-
-  didScroll: (view,e) ->
-    distance = (
-      @scrollBody()[0].scrollHeight - (@scrollBody().outerHeight() + @scrollOffset)
-    ) - @scrollBody().scrollTop()
-
-    @set('desiredScroll', distance) unless @isScrolledToTop()
-    @get('controller').send('loadMore') if @isScrolledToTop()
+  messagesListView: Cloudsdale.MessagesListView
+  messagesFormView: Cloudsdale.MessagesFormView
 
   didInsertElement: ->
-    @textArea().autosize
-      callback: (el) => @didResize(el)
+    @get('messagesListView').set('controller', @controller)
+    @get('messagesListView').set('content', @controller)
 
-    @textArea().bind 'keydown', (event) =>
-      if (event.which == 13) and (event.shiftKey == false)
-        event.preventDefault()
+    @get('messagesFormView').set('controller', @controller)
+    @get('messagesFormView').set('content', @controller)
 
-        if @textArea().val().replace(/^[(\r\n|\n|\r)\s]+/ig,"") == ""
-          @textArea().val("")
-          @textArea().trigger('autosize.resize')
-        else
-          @form().trigger('submit') unless @textArea().val() == ""
-          @textArea().trigger('autosize.resize')
-        return false
+  # didChangeCurrentMessage: ( () ->
+  #   @focusTextArea()
+  # ).observes('controller.currentMessage')
 
-      else if (event.which == 9)
-        event.preventDefault()
+  adjustChildren: ->
+    return unless @childrenAreinDOM()
 
-        loc  = event.target.selectionStart
-        val  = event.target.value
-        before = val.substring(0, loc)
-        after  = val.substring(loc, val.length)
+    list = Ember.$(@get('messagesListView.element'))
+    form = Ember.$(@get('messagesFormView.element'))
 
-        newLoc = loc + 2
-        newVal = before + "  " + after
+    willScrollList = @get('messagesListView.isReadingHistory')
 
-        event.target.value = newVal
-        if event.target.createTextRange
-          range = event.target.createTextRange()
-          range.move('character', newLoc)
-          range.select()
-        else
-          event.target.focus()
-          event.target.setSelectionRange(newLoc, newLoc) if event.target.selectionStart
+    @set('messagesListView.height', form.outerHeight())
+    @get('messagesListView').scrollToBottom() unless willScrollList
 
-        return false
+  childrenAreinDOM: ->
+    @get('messagesListView').state == 'inDOM' && @get('messagesFormView').state == 'inDOM'
 
-    @focusTextArea()
+  # focusTextArea: ->
+  #   if @state == "inDOM"
+  #     @textArea().focus().select()
 
-    @scrollBody().bind("scroll", (event) => @didScroll(this, event))
-
-    setTimeout((=> $(@scrollParent).trigger("scroll")), 50)
-
-  willDestroyElement: ->
-    @.$('form.new-message textarea').trigger('autosize.destroy')
-    @textArea().unbind('keydown')
-    @scrollBody().unbind("scroll")
-
-  organizeLayers: ->
-    @collection().css('bottom', @form().height())
-    @scrollToBottom( force: true )
-
-  scrollToBottom: (opts) ->
-    opts ||= {}
-    opts.force ||= false
-    if opts.force or not @isReadingHistory()
-      @collection().scrollTop(@collection()[0].scrollHeight)
-
-  scrollToFromBottom: (distance, opts) ->
-    opts ||= {}
-    top = (@scrollBody()[0].scrollHeight - distance)
-    @scrollBody().scrollTop(top)
-
-  focusTextArea: ->
-    if @state == "inDOM"
-      @textArea().focus().select()
-
-  scrollBody: () -> @collection()
-  collection: () -> @.$('div.messages')
-  form:       () -> @.$('form.new-message')
-  textArea:   () -> @.$('form.new-message textarea')
+  # scrollBody: () -> @collection()
+  # collection: () -> @.$('div.messages')
+  # form:       () -> @.$('form.new-message')
+  # textArea:   () -> @.$('form.new-message textarea')

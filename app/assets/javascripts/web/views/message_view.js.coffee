@@ -1,32 +1,49 @@
 Cloudsdale.MessageView = Ember.View.extend
 
   classNames:    ['message']
-  classNameBindings: ['isLastMessage', 'isFirstMessage', 'hasActions']
+  classNameBindings: ['lastMessageClass', 'firstMessageClass', 'hasActions']
 
   templateName:  'message'
 
-  shouldScrollToMessage: false
+  shouldScrollToBottom: false
 
   willInsertElement: () ->
-    if @get('parentView.parentView').state == "inDOM"
-      distance = @get('parentView.parentView.desiredScroll')
-      @get('parentView.parentView').scrollToFromBottom(distance) if distance
-      @set('shouldScrollToMessage', !@get('parentView.parentView').isReadingHistory())
-
+    parent = @get('parentView')
+    @set('shouldScrollToBottom', !parent.get('isReadingHistory')) if parent.state == 'inDOM'
     @_super()
 
   didInsertElement: ->
+    return @_super() unless @state == 'inDOM'
 
-    @get('parentView.parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView.parentView')
-    setTimeout =>
-      @get('parentView.parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView.parentView')
-      @set('shouldScrollToMessage', false)
-    , 100
+    el = @get('element')
+    view = this
+    parent = view.get('parentView')
 
-    if @get('context').get('hasSameAuthorAsPrevious')
+    if callback = @get('parentView').didInsertChild
+      callback(this)
+
+    if @get('shouldScrollToBottom') && Ember.$(el).is(':last-child')
+      Ember.run.scheduleOnce('afterRender', parent, () ->
+        parent.scrollToBottom() if parent.state == 'inDOM'
+      )
+
+    element = Ember.$(el)
+    if element.is(':first-child')
+      previousMark = element.nextAll('.message-mark')
+
+      previousMark.find('.message-box').stop().css(
+        'background-color' : '#63a0d0'
+      ).animate({
+        backgroundColor: '#FFFFFF'
+      }, 1500)
+
+      previousMark.removeClass('message-mark')
+      element.addClass('message-mark')
+
+    if @get('controller.isSameAsPrev')
       @.$().prevAll('.message').first().removeClass('message-last')
 
-    if @get('context').get('hasSameAuthorAsNext')
+    if @get('controller.isSameAsNext')
       @.$().nextAll('.message').first().removeClass('message-first')
 
     @.$('a[internal]').on('click', (e) =>
@@ -40,23 +57,25 @@ Cloudsdale.MessageView = Ember.View.extend
     @_super()
 
   willDestroyElement: ->
+    return @_super() unless @state == 'inDOM'
+
     @.$('a[internal]').off('click')
 
-    unless @get('context.hasSameAuthorAsPrevious')
+    unless @get('controller.isSameAsPrev')
       @.$().nextAll('.message').first().addClass('message-first')
 
-    unless @get('context.hasSameAuthorAsNext')
+    unless @get('controller.isSameAsNext')
       @.$().prevAll('.message').first().addClass('message-last')
 
     @_super()
 
-  isLastMessage: ( () ->
-    if not @get('context.hasSameAuthorAsNext') then "message-last" else ""
-  ).property('messagePositions')
+  lastMessageClass: ( () ->
+    if not @get('controller.isSameAsNext') then "message-last" else ""
+  ).property()
 
-  isFirstMessage: ( () ->
-    if not @get('context.hasSameAuthorAsPrevious') then "message-first" else ""
-  ).property('messagePositions')
+  firstMessageClass: ( () ->
+    if not @get('controller.isSameAsPrev') then "message-first" else ""
+  ).property()
 
   hasActions: ( () ->
     if @get('context.canManipulate') then 'message-with-actions' else ''
