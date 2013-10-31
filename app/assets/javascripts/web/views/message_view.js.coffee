@@ -1,4 +1,5 @@
 Cloudsdale.MessageView = Ember.View.extend
+
   classNames:    ['message']
   classNameBindings: ['isLastMessage', 'isFirstMessage', 'hasActions']
 
@@ -7,17 +8,18 @@ Cloudsdale.MessageView = Ember.View.extend
   shouldScrollToMessage: false
 
   willInsertElement: () ->
-    if @get('parentView').state == "inDOM"
-      distance = @get('parentView.desiredScroll')
-      @get('parentView').scrollToFromBottom(distance) if distance
-      @set('shouldScrollToMessage', !@get('parentView').isReadingHistory())
+    if @get('parentView.parentView').state == "inDOM"
+      distance = @get('parentView.parentView.desiredScroll')
+      @get('parentView.parentView').scrollToFromBottom(distance) if distance
+      @set('shouldScrollToMessage', !@get('parentView.parentView').isReadingHistory())
 
     @_super()
 
   didInsertElement: ->
-    @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView')
+
+    @get('parentView.parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView.parentView')
     setTimeout =>
-      @get('parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView')
+      @get('parentView.parentView').scrollToBottom( force: @get('shouldScrollToMessage') ) if @get('parentView.parentView')
       @set('shouldScrollToMessage', false)
     , 100
 
@@ -40,20 +42,20 @@ Cloudsdale.MessageView = Ember.View.extend
   willDestroyElement: ->
     @.$('a[internal]').off('click')
 
-    unless @get('context').get('hasSameAuthorAsPrevious')
+    unless @get('context.hasSameAuthorAsPrevious')
       @.$().nextAll('.message').first().addClass('message-first')
 
-    unless @get('context').get('hasSameAuthorAsNext')
+    unless @get('context.hasSameAuthorAsNext')
       @.$().prevAll('.message').first().addClass('message-last')
 
     @_super()
 
   isLastMessage: ( () ->
-    if not @get('context').get('hasSameAuthorAsNext') then "message-last" else ""
+    if not @get('context.hasSameAuthorAsNext') then "message-last" else ""
   ).property('messagePositions')
 
   isFirstMessage: ( () ->
-    if not @get('context').get('hasSameAuthorAsPrevious') then "message-first" else ""
+    if not @get('context.hasSameAuthorAsPrevious') then "message-first" else ""
   ).property('messagePositions')
 
   hasActions: ( () ->

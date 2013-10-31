@@ -1,4 +1,5 @@
 Cloudsdale.MessagesView = Ember.View.extend
+
   templateName: 'messages'
   scrollOffset: 200
   desiredScroll: undefined
@@ -68,7 +69,7 @@ Cloudsdale.MessagesView = Ember.View.extend
 
     @scrollBody().bind("scroll", (event) => @didScroll(this, event))
 
-    # setTimeout((=> $(@scrollParent).trigger("scroll")), 200)
+    setTimeout((=> $(@scrollParent).trigger("scroll")), 50)
 
   willDestroyElement: ->
     @.$('form.new-message textarea').trigger('autosize.destroy')

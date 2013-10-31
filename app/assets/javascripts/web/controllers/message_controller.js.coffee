@@ -7,6 +7,7 @@ Cloudsdale.MessageController = Ember.Controller.extend
   id: ( () -> @get('content.id') ).property('content.id')
 
   text: ( () ->
+
     text = @content.get('content') || ""
 
     strategies = [

@@ -1,9 +1,11 @@
-<div class="messages">
+{{!-- <div class="messages">
   <br/>
   {{#each this}}
     {{render 'message' this.content}}
   {{/each}}
-</div>
+</div> --}}
+
+{{view Cloudsdale.MessagesListView contentBinding="controller"}}
 
 <form class="new-message" {{action 'saveMessage' on='submit'}}>
   <div class="row">
