@@ -16,6 +16,7 @@ Cloudsdale.MessagesFormView = Ember.View.extend
     textArea = @get('textArea')
 
     form.on 'submit', (e) ->
+      view.get('parentView.messagesListView').scrollToBottom()
       view.get('controller').send('saveMessage')
       e.preventDefault()
       return false
