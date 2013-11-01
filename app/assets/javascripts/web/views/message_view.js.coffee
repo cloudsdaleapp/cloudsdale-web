@@ -40,10 +40,10 @@ Cloudsdale.MessageView = Ember.View.extend
       previousMark.removeClass('message-mark')
       element.addClass('message-mark')
 
-    if @get('controller.isSameAsPrev')
+    unless @get('controller.isFirst')
       @.$().prevAll('.message').first().removeClass('message-last')
 
-    if @get('controller.isSameAsNext')
+    unless @get('controller.isLast')
       @.$().nextAll('.message').first().removeClass('message-first')
 
     @.$('a[internal]').on('click', (e) =>
@@ -61,21 +61,21 @@ Cloudsdale.MessageView = Ember.View.extend
 
     @.$('a[internal]').off('click')
 
-    unless @get('controller.isSameAsPrev')
+    if @get('controller.isFirst')
       @.$().nextAll('.message').first().addClass('message-first')
 
-    unless @get('controller.isSameAsNext')
+    if @get('controller.isLast')
       @.$().prevAll('.message').first().addClass('message-last')
 
     @_super()
 
   lastMessageClass: ( () ->
-    if not @get('controller.isSameAsNext') then "message-last" else ""
-  ).property()
+    if @get('controller.isLast') then "message-last" else ""
+  ).property('controller.isLast')
 
   firstMessageClass: ( () ->
-    if not @get('controller.isSameAsPrev') then "message-first" else ""
-  ).property()
+    if @get('controller.isFirst') then "message-first" else ""
+  ).property('controller.isFirst')
 
   hasActions: ( () ->
     if @get('context.canManipulate') then 'message-with-actions' else ''

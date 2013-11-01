@@ -4,6 +4,9 @@ Cloudsdale.MessageController = Ember.Controller.extend
 
   content: null
 
+  isFirst: ( () -> @get('content.isFirst') ).property('content.isFirst')
+  isLast: ( () -> @get('content.isLast') ).property('content.isLast')
+
   id: ( () -> @get('content.id') ).property('content.id')
 
   text: ( () ->
@@ -73,30 +76,6 @@ Cloudsdale.MessageController = Ember.Controller.extend
     @content.get('timestamp')
   ).property('content.timestamp')
 
-  prevModel: ( () ->
-    @get('controllers.messages').before(@get('model'))
-  ).property('controllers.messages.arrangedContent.@each')
-
-  nextModel: ( () ->
-    @get('controllers.messages').after(@get('model'))
-  ).property('controllers.messages.arrangedContent.@each')
-
-  isSameAsPrev: ( () ->
-    if @get('prevModel') && @get('model')
-      cur  = @get('model').get('author')
-      prev = @get('prevModel').get('author')
-      return cur.id == prev.id
-    return false
-  ).property('prevModel')
-
-  isSameAsNext: ( () ->
-    if @get('nextModel') &&  @get('model')
-      cur  = @get('model').get('author')
-      prev = @get('nextModel').get('author')
-      return cur.id == prev.id
-    return false
-  ).property('nextModel')
-
   messageStatus: ( () ->
     return if @get('model').get('isNew') then 'Sending' else @get('updatedAt').toString('hh:mm:ss')
   ).property('content.isNew', 'content.updatedAt')
@@ -108,4 +87,3 @@ Cloudsdale.MessageController = Ember.Controller.extend
   canManipulate: ( () ->
     @get('currentUser.id') == @get('content.author.id')
   ).property('currentUser.id')
-

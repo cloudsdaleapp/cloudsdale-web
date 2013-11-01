@@ -1,16 +1,16 @@
 <div class="small-12 large-12 columns">
-  {{#unless isSameAsPrev}}
+  {{#if isFirst}}
     <div class="message-side">
       <div class="left avatar small">
         {{#link-to 'messages' handle}}<img {{bindAttr src="avatar"}} />{{/link-to}}
       </div>
     </div>
-  {{/unless}}
+  {{/if}}
 
   <div class="message-box">
-    {{#unless isSameAsPrev}}
+    {{#if isFirst}}
       <h6>{{#link-to 'messages' handle}}{{name}} <small>@{{handle}}</small>{{/link-to}}</h6>
-    {{/unless}}
+    {{/if}}
     <p>
       {{#if canManipulate}}
         <span class="message-meta message-actions">
@@ -22,6 +22,7 @@
         {{#if isEdited}}edited at{{/if}} {{messageStatus}}
       </span>
       {{{text}}}
+      {{this}}
     </p>
   </div>
 </div>
