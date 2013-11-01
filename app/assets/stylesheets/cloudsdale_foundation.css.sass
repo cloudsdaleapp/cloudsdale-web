@@ -125,12 +125,26 @@ $success-color: #5a961b
 // $include-html-progress-classes: $include-html-classes
 // $include-html-magellan-classes: $include-html-classes
 
-//// Media Queries
+//// Headers
+$header-height: 38px
+$header-padding: 6px
 
+//// Sidebar
+$sidebar-width-mobile: emCalc(0px)
+$sidebar-width-small: emCalc(240px)
+$sidebar-width-medium: emCalc(260px)
+$sidebar-width-large: emCalc(300px)
+
+$sidebar-border-color: $border-secondary-color
+$sidebar-text-color: #fafafa
+$sidebar-spacing-x: emCalc(8px)
+$sidebar-spacing-y: emCalc(10px)
+
+//// Media Queries
 $small-screen: emCalc(768px)
 $tablet-screen: emCalc(939px)
-$medium-screen: emCalc(1280px)
-$large-screen: emCalc(1440px)
+$medium-screen: emCalc(1024px)
+$large-screen: emCalc(1280px)
 
 $screen: "only screen"
 
@@ -1309,6 +1323,22 @@ $topbar-menu-icon-color-toggled: #888
 @import "foundation/components/thumbs"
 @import "foundation/components/tooltips"
 @import "foundation/components/dropdown"
+
+.small-text-center
+  @media #{$only-small}
+    text-align: center
+
+.tablet-text-center
+  @media #{$only-tablet}
+    text-align: center
+
+.medium-text-center
+  @media #{$only-medium}
+    text-align: center
+
+.large-text-center
+  @media #{$only-large}
+    text-align: center
 
 .centered
   text-align: center

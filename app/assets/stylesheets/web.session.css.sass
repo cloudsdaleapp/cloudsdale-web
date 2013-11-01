@@ -90,19 +90,20 @@ $avatar-sizes: ()
 $avatar-sizes: append( $avatar-sizes, ("micro",    8px,   1px)  )
 $avatar-sizes: append( $avatar-sizes, ("mini",     16px,  1px)  )
 $avatar-sizes: append( $avatar-sizes, ("small",    54px,  1px)  )
-$avatar-sizes: append( $avatar-sizes, ("medium",   128px, 2px)  )
-$avatar-sizes: append( $avatar-sizes, ("large",    256px, 2px)  )
-$avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 2px) )
+$avatar-sizes: append( $avatar-sizes, ("medium",   128px, 4px)  )
+$avatar-sizes: append( $avatar-sizes, ("large",    256px, 6px)  )
+$avatar-sizes: append( $avatar-sizes, ("enormous", 512px, 10px) )
 
 @each $avatar-size in $avatar-sizes
   .avatar.#{nth($avatar-size,1)}
     $_size: nth($avatar-size,2)
     $_border-size: nth($avatar-size,3)
     border-width: $_border-size
+    width: 100%
     max-width: $_border-size + $_size
     max-height: $_border-size + $_size
-    min-width: $_border-size + $_size
-    min-height: $_border-size + $_size
+    // min-width: $_border-size + $_size
+    // min-height: $_border-size + $_size
 
 $avatar-statuses: ()
 $avatar-statuses: append( $avatar-statuses, ( "normal",  $avatar-border-color  ))
@@ -132,30 +133,44 @@ $content-spacing: emCalc(10px)
   &.pad
     padding: $content-spacing
 
-$header-height: 38px
-$header-padding: 6px
-
-$sidebar-border-color: $border-secondary-color
-$sidebar-text-color: #fafafa
-$sidebar-spacing-x: emCalc(8px)
-$sidebar-spacing-y: emCalc(10px)
+div.primary-bg
+  background-color: $primary-color
+div.aside-bg
+  background-color: $bg-aside-color
+div.normal-bg
+  background-color: $avatar-border-color
 
 .sidebar, .main
   position: fixed
   top: -0
   bottom: 0
+
 .sidebar
   background: $bg-aside-color
-  width: 280px
   left: 0
   overflow: auto
+  @media #{$until-small}
+    width: $sidebar-width-mobile
+  @media #{$small}
+    width: $sidebar-width-small
+  @media #{$medium}
+    width: $sidebar-width-medium
+  @media #{$large}
+    width: $sidebar-width-large
 
 .main
-  left: 280px
   right: 0
   overflow: auto
-  // border-left: 4px solid $border-bright-color
-  background-color: $bg-content-color//$bg-aside-bright-color
+  background-color: $bg-content-color
+
+  @media #{$until-small}
+    left: $sidebar-width-mobile
+  @media #{$small}
+    left: $sidebar-width-small
+  @media #{$medium}
+    left: $sidebar-width-medium
+  @media #{$large}
+    left: $sidebar-width-large
 
 .main-inner
   position: absolute
@@ -237,7 +252,7 @@ $header-act-icon-type:   "png"
 
 .sidebar-user
   position: relative
-  width: 280px
+  width: 100%
 
   @include clearfix()
   padding: ($sidebar-spacing-y/2) $sidebar-spacing-x
@@ -601,6 +616,15 @@ form.new-message
       @include box-shadow(0, 0, 0, transparent)
   .row
     margin: $messages-input-padding auto
+
+.profile-image
+  @media #{$until-medium}
+    margin-left: auto
+    margin-right: auto
+  @media #{$medium}
+    margin-bottom: -70%
+  @media #{$large}
+    margin-bottom: -70%
 
 a.scroll-to-bottom
   display: block

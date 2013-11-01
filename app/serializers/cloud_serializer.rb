@@ -2,7 +2,7 @@ class CloudSerializer < ApplicationSerializer
 
   attribute :name, key: :display_name
 
-  attributes :short_name, :avatar
+  attributes :short_name, :avatar, :description
 
   attributes :participant_count
 

@@ -1,6 +1,6 @@
 = content_for(:legend) do
   .row
-    .large-6.columns
+    .large-6.medium-6.columns
       .row
         %br
         %br
@@ -15,7 +15,7 @@
           = link_to "Sign up", register_path, :class => ['button','expand']
           %br
 
-    .large-6.columns.centered.hide-for-small
+    .large-6.medium-6.columns.centered.hide-for-small
       = image_tag "ponies/#{rand(1..5)}.png"
 
 .legend.color.deep{ style: 'background-color: #295673;' }
@@ -23,7 +23,7 @@
     .large-12.columns.centered
       %h1.subheader= "Cloudsdale is..."
   .row
-    .large-4.columns.centered
+    .large-4.medium-4.columns.centered
       %h3.subheader= "Accessible"
       .row
         .large-6.small-6.columns.large-centered.small-centered
@@ -40,7 +40,7 @@
           %br
           %br
 
-    .large-4.columns.centered
+    .large-4.medium-4.columns.centered
       %h3.subheader= "Diverse"
       .row
         .large-6.small-6.columns.large-centered.small-centered
@@ -57,7 +57,7 @@
           %br
           %br
 
-    .large-4.columns.centered
+    .large-4.medium-4.columns.centered
       %h3.subheader= "Fun"
       .row
         .large-6.small-6.columns.large-centered.small-centered
@@ -74,23 +74,24 @@
             the platform of your choice.
           %br
           %br
+
 .legend.color{ style: 'background-color: #3f85b3;' }
   .row
     .large-12.columns.centered
       %h1.subheader= "Always with you."
   .row
-    .large-5.columns
+    .large-6.medium-8.medium-centered.columns
       %h3.subheader.centered= "In your home"
       %br
       .row
-        .large-5.small-6.columns
+        .large-4.medium-4.small-5.columns
           = image_tag "icons/front/desktop.png"
-        .large-5.small-6.columns
+        .large-4.medium-4.small-5.columns
           = image_tag "icons/front/laptop.png"
       %p.subtext.centered
         %br= "Web Browser and Desktop clients."
 
-    .large-5.columns
+    .large-8.medium-10.medium-centered.columns
       %h3.subheader.centered= "On the go"
       %br
       %br
@@ -118,19 +119,19 @@
 .legend.color{ style: 'background-color: #aeacc6;' }
   %br
   .row
-    .large-3.small-6.columns.centered
+    .large-3.small-6.columns.text-center
       = link_to "https://www.twitter.com/cloudsdaleapp", target: :_blank do
         .icon-backdrop= image_tag "icons/social/twitter.png"
         %p.label-icon= "Follow us on Twitter"
-    .large-3.small-6.columns.centered
+    .large-3.small-6.columns.text-center
       = link_to "https://www.facebook.com/cloudsdaleapp", target: :_blank do
         .icon-backdrop= image_tag "icons/social/facebook.png"
         %p.label-icon= "Like us on Facebook"
-    .large-3.small-6.columns.centered
+    .large-3.small-6.columns.text-center
       = link_to "http://cloudsdaleapp.tumblr.com/", target: :_blank do
         .icon-backdrop= image_tag "icons/social/tumblr.png"
         %p.label-icon= "Ask us on Tumblr"
-    .large-3.small-6.columns.centered
+    .large-3.small-6.columns.text-center
       = link_to "https://www.github.com/cloudsdaleapp", target: :_blank do
         .icon-backdrop= image_tag "icons/social/github.png"
         %p.label-icon= "Fork us on Github"
