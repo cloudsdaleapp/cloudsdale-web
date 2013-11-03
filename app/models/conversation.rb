@@ -15,10 +15,10 @@ class Conversation
   belongs_to  :topic,   :validate => false,   inverse_of: :references,    dependent: :nullify, polymorphic: true
   belongs_to  :user,    :validate => false,   inverse_of: :conversations, dependent: :nullify
 
-  after_create  :topic_participants_increment!, :if => -> (convo) { [Cloud].include? convo.topic.class }
-  after_destroy :topic_participants_decrement!, :if => -> (convo) { [Cloud].include? convo.topic.class }
-  after_create  :user_conversations_increment!
-  after_destroy :user_conversations_decrement!
+  after_create :topic_participants_increment!, :if => -> (convo) { [Cloud].include? convo.topic.class }
+  before_destroy :topic_participants_decrement!, :if => -> (convo) { [Cloud].include? convo.topic.class }
+  after_create :user_conversations_increment!
+  before_destroy :user_conversations_decrement!
 
   field :position,      type: Integer,    default: 0
   field :access,        type: Symbol,     default: :granted
