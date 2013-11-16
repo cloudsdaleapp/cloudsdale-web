@@ -55,26 +55,30 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
 
     content = content + "\\n"
 
+    # Use actual newlines
+    content = content.replace(/\\n/ig, "\n");
+
     # Tab fix
     content = content.replace(/\\t/ig,"&nbsp;&nbsp;&nbsp;&nbsp;")
 
     # Greentext
-    content = content.replace(/((^&gt;|\\n&gt;)[\w\d\s\!\'\"\'\.\,\-\_\/\?\:\&\^\<\>\=\#\%\+\*\~\\√\◊\(\)\[\]\{\}]*\\n)/ig,"<span style='color: green;'>$1</span>")
+    content = content.replace(/((^&gt;|\n&gt;)[\w\d\s\!\'\"\'\.\,\-\_\/\?\:\&\^\<\>\=\#\%\+\*\~\\√\◊\(\)\[\]\{\}]*\n)/ig," <span style='color: green;'>$1</span> ")
 
     # Redacted
-    content = content.replace(/(\[REDACTED\])/ig,"<span style='color: red; font-weight: bold;'>[REDACTED]</span>")
+    content = content.replace(/(\[REDACTED\])/ig," <span style='color: red; font-weight: bold;'>[REDACTED]</span> ")
 
     # Italic
-    content = content.replace(/((^)|(\s))[\/]{1}([^\/\\n]+)[\/]{1}(($)|(\s))/ig,"<span style='font-style: italic;'> $4 </span>")
+    content = content.replace(/\B\/\b([^\/\n]+)\b\/\B/ig, (orig, text) -> " <span style='font-style: italic;'> #{text} </span> ")
+    #content = content.replace(/((^)|(\s))[\/]{1}([^\/\n]+)[\/]{1}(($)|(\s))/ig," <span style='font-style: italic;'> $4 </span> ")
 
     elem = $("<p></p>")
 
     if message.selfReference()
-      content = content.replace(/\\n$/ig,"").replace(/\\n/ig," ")
+      content = content.replace(/\n$/ig,"").replace(/\n/ig," ")
       content = content.replace(/^\/me/i,message.user().get('name'))
       elem.html(content)
     else
-      content = content.replace(/\\n$/ig,"").replace(/\\n/ig,"<br/>")
+      content = content.replace(/\n$/ig,"").replace(/\n/ig,"<br/>")
       elem.html(content)
 
     @.$('.chat-message-content').append(elem)
