@@ -62,7 +62,7 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     content = content.replace(/\\t/ig,"&nbsp;&nbsp;&nbsp;&nbsp;")
 
     # Greentext
-    content = content.replace(/(^&gt;|\n&gt;)([^\n]*)(?=\n)/ig, (orig, p1, text) -> "\n <span style='color: green;'> &gt;#{text} </span> ")
+    content = content.replace(/(^|\n)&gt;([^\n]*)(?=\n)/ig, (orig, beginning, text) -> "#{beginning} <span style='color: green;'> &gt;#{text} </span> ")
 
     # Redacted
     content = content.replace(/(\[REDACTED\])/ig," <span style='color: red; font-weight: bold;'>[REDACTED]</span> ")
