@@ -71,6 +71,8 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     content = content.replace(/\s\/\b([^\/\n]+)\b\/\s/ig, (orig, text) -> " <span style='font-style: italic;'> #{text} </span> ")
     #content = content.replace(/((^)|(\s))[\/]{1}([^\/\n]+)[\/]{1}(($)|(\s))/ig," <span style='font-style: italic;'> $4 </span> ")
 
+    content = content.substr(1)
+
     elem = $("<p></p>")
 
     if message.selfReference()
