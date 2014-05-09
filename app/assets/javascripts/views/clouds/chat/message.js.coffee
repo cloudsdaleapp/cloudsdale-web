@@ -51,12 +51,15 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   appendContent: (message) ->
 
     content = message.get('content')
-    content = escapeHTML(content).autoLink({ target: "_blank", rel: 'safe' })
+    content = escapeHTML(content)
 
     content = content + "\\n"
 
     # Use actual newlines
-    content = content.replace(/\\n/ig, "\n");
+    content = content.replace(/\\n/ig, "\n")
+
+    # Hyperlinks
+    content = content.autoLink({ target: "_blank", rel: 'safe' })
 
     # Tab fix
     content = content.replace(/\\t/ig,"&nbsp;&nbsp;&nbsp;&nbsp;")
