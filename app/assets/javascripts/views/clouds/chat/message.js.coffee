@@ -73,19 +73,23 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     # Italic
     content = content.replace(/(?!^\/me)(^|\s)\/\b([^\/\n]+)\b\/\s/ig, (orig, beg, text) -> " <span style='font-style: italic;'> #{text} </span> ")
 
-    # Connor is Comic Sans
-    if message.get('author_id') is "4f4db65448f155761c001d9d"
-      content = " <span style='font-family: Comic Sans MS, Comic Sans, Verdana !important; font-size: 1.5em'> #{content} </span> "
-
-    elem = $("<p></p>")
-
+    # Actions (/me)
     if message.selfReference()
       content = content.replace(/\n$/ig,"").replace(/\n/ig," ")
       content = content.replace(/^\/me/i,message.user().get('name'))
-      elem.html(content)
     else
       content = content.replace(/\n$/ig,"").replace(/\n/ig,"<br/>")
-      elem.html(content)
+    
+    # Connor is Comic Sans
+    if @model.user().get('username') is 'Connorcpu'
+      content = "<span style='font-family: Comic Sans MS, Comic Sans, Verdana !important; font-size: 1.5em'> #{content} </span>"
+
+    # Chapien is papyrus
+    if @model.user().get('username') is 'chapien'
+      content = "<span style='font-family: papyrus !important; font-size: 1.5em'> #{content} </span>"
+
+    elem = $("<p></p>")
+    elem.html(content)
 
     @.$('.chat-message-content').append(elem)
     @.$('.chat-message-meta').text(message.timestamp().toString('HH:mm:ss'))
