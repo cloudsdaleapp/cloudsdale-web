@@ -84,9 +84,13 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     if @model.user().get('username') is 'Connorcpu'
       content = "<span style='font-family: Comic Sans MS, Comic Sans, Verdana !important; font-size: 1.5em'> #{content} </span>"
 
-    # Chapien is papyrus
+    # Chapien is Papyrus
     if @model.user().get('username') is 'chapien'
       content = "<span style='font-family: papyrus !important; font-size: 1.5em'> #{content} </span>"
+
+    # Smoozie is Verdana
+    if @model.user().get('username') is 'LordSmooze'
+      content = "<span style='font-family: Verdana !important; font-size: 1.3em'> #{content} </span>"
 
     elem = $("<p></p>")
     elem.html(content)
