@@ -73,6 +73,10 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     # Italic
     content = content.replace(/(?!^\/me)(^|\s)\/\b([^\/\n]+)\b\/\s/ig, (orig, beg, text) -> " <span style='font-style: italic;'> #{text} </span> ")
 
+    # Connor is Comic Sans
+    if message.get('author_id') is 4f4db65448f155761c001d9d
+      content = " <span style='font-family: Comic Sans MS, Comic Sans, Verdana !important; font-size: 1.5em'> #{content} </span> "
+
     elem = $("<p></p>")
 
     if message.selfReference()
