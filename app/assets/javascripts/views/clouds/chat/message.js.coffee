@@ -80,10 +80,6 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     else
       content = content.replace(/\n$/ig,"").replace(/\n/ig,"<br/>")
 
-    # Why not a comic sans message? :3c
-    if /\#ComicSansDale$/.test(content)
-      content = "<span style='font-family: Comic Sans MS, Comic Sans, Verdana !important; font-size: 1.5em'> #{content} </span>"
-
     elem = $("<p></p>")
     elem.html(content)
 
