@@ -51,12 +51,15 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
   appendContent: (message) ->
 
     content = message.get('content')
-    content = escapeHTML(content).autoLink({ target: "_blank", rel: 'safe' })
+    content = escapeHTML(content)
 
     content = content + "\\n"
 
     # Use actual newlines
-    content = content.replace(/\\n/ig, "\n");
+    content = content.replace(/\\n/ig, "\n")
+
+    # Hyperlinks
+    content = content.autoLink({ target: "_blank", rel: 'safe' })
 
     # Tab fix
     content = content.replace(/\\t/ig,"&nbsp;&nbsp;&nbsp;&nbsp;")
@@ -70,15 +73,15 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
     # Italic
     content = content.replace(/(?!^\/me)(^|\s)\/\b([^\/\n]+)\b\/\s/ig, (orig, beg, text) -> " <span style='font-style: italic;'> #{text} </span> ")
 
-    elem = $("<p></p>")
-
+    # Actions (/me)
     if message.selfReference()
       content = content.replace(/\n$/ig,"").replace(/\n/ig," ")
       content = content.replace(/^\/me/i,message.user().get('name'))
-      elem.html(content)
     else
       content = content.replace(/\n$/ig,"").replace(/\n/ig,"<br/>")
-      elem.html(content)
+
+    elem = $("<p></p>")
+    elem.html(content)
 
     @.$('.chat-message-content').append(elem)
     @.$('.chat-message-meta').text(message.timestamp().toString('HH:mm:ss'))
