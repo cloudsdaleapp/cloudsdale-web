@@ -55,6 +55,12 @@ class Cloudsdale.Views.CloudsChatMessage extends Backbone.View
 
     content = content + "\\n"
 
+    # Translation according to act 1:1 of Cloudsdale law
+    content = content.replace(/Banned/g, "Bent" )
+    content = content.replace(/banned/g, "bent")
+    content = content.replace(/BANNED/g, "BENT" )
+    content = content.replace(/banned/ig, "bent" )
+
     # Use actual newlines
     content = content.replace(/\\n/ig, "\n")
 

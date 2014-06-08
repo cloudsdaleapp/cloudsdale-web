@@ -52,7 +52,7 @@ class Message
       # Remove Value with only spaces
       value.gsub!(/^\s+$/, "")
 
-      # according to act 1:1 of Cloudsdale law
+      # Translation according to act 1:1 of Cloudsdale law
       value.gsub!(/Banned/, "Bent" )
       value.gsub!(/banned/, "bent")
       value.gsub!(/BANNED/, "BENT" )
