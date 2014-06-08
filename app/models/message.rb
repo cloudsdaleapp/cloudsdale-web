@@ -52,6 +52,12 @@ class Message
       # Remove Value with only spaces
       value.gsub!(/^\s+$/, "")
 
+      # according to act 1:1 of Cloudsdale law
+      value.gsub!(/Banned/, "Bent" )
+      value.gsub!(/banned/, "bent")
+      value.gsub!(/BANNED/, "BENT" )
+      value.gsub!(/banned/i, "bent" )
+
       # Limit Value to 1k characters
       super(value[0..1000])
     end
