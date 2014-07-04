@@ -20,7 +20,7 @@ Cloudsdale.MessageController = Ember.Controller.extend
       [ /"/g, "&quot;" ],
       [ /\\\\/g, "&#92;" ],
       [ /\s(?=\s)/g, '&nbsp;'],
-      [ /(\\r\\n|\\n|\\r)/g, '<br/>'],
+      [ /(\\r\\n|\\n|\\r)/g, '<br>'],
       [
         # Green Text
         /((^&gt;|<br>&gt;)(.(?!(<br>|$)))+.)/ig,
