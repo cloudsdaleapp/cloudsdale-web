@@ -14,7 +14,6 @@ preload_app true
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
-pid "pids/unicorn.pid"
 
 if env == 'production'
   # Help ensure your application will always spawn in the symlinked
@@ -27,6 +26,8 @@ if env == 'production'
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
   stdout_path "#{shared_path}/log/unicorn.stdout.log"
 end
+
+pid "#{shared_path}/pids/unicorn.pid"
 
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
