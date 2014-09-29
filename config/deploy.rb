@@ -48,8 +48,8 @@ set :puma_state,    "#{socket_path}/cloudsdale-puma.state"
 set :puma_log,      "#{shared_path}/log/puma-#{stage}.log"
 
 # Unicorn
-set :unicorn_pid ,      "/var/run/unicorn/web.pid"
-set :unicorn_role,      :web
+set :unicorn_pid , "#{shared_path}/pids/unicorn.pid"
+set :unicorn_role, :web
 
 role :db,   "www.cloudsdale.org"
 role :web,  "www.cloudsdale.org"
@@ -104,7 +104,7 @@ namespace :deploy do
     # PUMA
     # run "cd #{current_path} && RAILS_ENV=#{stage} && bundle exec puma -b '#{puma_sock}' -e #{stage} -t16:16 --control '#{puma_control}' -S #{puma_state} >> #{puma_log} 2>&1 &", :pty => false
     # UNICORN
-    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -E #{rails_env} -D"
+    run "cd #{current_path} ; bundle exec unicorn_rails -c #{current_path}/config/unicorn.rb -E #{rails_env} -D"
   end
 
   desc "Stop the application"

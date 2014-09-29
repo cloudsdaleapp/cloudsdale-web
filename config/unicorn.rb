@@ -14,7 +14,7 @@ preload_app true
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
-pid "/var/run/unicorn/web.pid"
+pid "pids/unicorn.pid"
 
 if env == 'production'
   # Help ensure your application will always spawn in the symlinked
