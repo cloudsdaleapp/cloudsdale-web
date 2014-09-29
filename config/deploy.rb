@@ -33,13 +33,13 @@ set :use_sudo,        false
 set :bundle_without, [:darwin, :development, :test]
 
 # Sidekiq
-set :sidekiq_cmd,       "bundle exec sidekiq"
-set :sidekiqctl_cmd,    "bundle exec sidekiqctl"
-set :sidekiq_timeout,   100
-set :sidekiq_role,      :app
-set :sidekiq_pid,       "/var/run/sidekiq.pid"
-set :sidekiq_processes, 2
-set :sidekiq_concurrency, 25
+set :sidekiq_cmd, "bundle exec sidekiq"
+set :sidekiqctl_cmd, "bundle exec sidekiqctl"
+set :sidekiq_timeout, 100
+set :sidekiq_role, :app
+set :sidekiq_pid, "#{shared_path}/pids/sidekiq.pid"
+set :sidekiq_processes, 1
+set :sidekiq_concurrency, 8
 
 # Puma
 set :puma_sock,     "unix://#{socket_path}/cloudsdale-puma.sock"
