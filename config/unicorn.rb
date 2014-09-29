@@ -19,15 +19,14 @@ if env == 'production'
   # Help ensure your application will always spawn in the symlinked
   # "current" directory that Capistrano sets up.
   working_directory "/opt/app/cloudsdale-web/current" # available in 0.94.0+
-  #user 'deploy', 'web'
-
   shared_path = "/opt/app/cloudsdale-web/shared"
+
+  pid "#{shared_path}/pids/unicorn.pid"
 
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
   stdout_path "#{shared_path}/log/unicorn.stdout.log"
-end
 
-pid "#{shared_path}/pids/unicorn.pid"
+end
 
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
