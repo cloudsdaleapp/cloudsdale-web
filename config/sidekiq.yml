@@ -1,12 +1,8 @@
-# Sample configuration file for Sidekiq.
-# Options here can still be overridden by cmd line args.
-#   sidekiq -C config.yml
 ---
 :verbose: true
-:concurrency: 25
-:pidfile: /var/run/sidekiq.pid
+:concurrency: 8
 :queues:
-  - [high, 10]
-  - [medium, 5]
-  - [default, 5]
+  - [high, 4]
+  - [medium, 2]
   - [low, 1]
+  - [default, 1]
