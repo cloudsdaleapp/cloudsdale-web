@@ -100,6 +100,10 @@ group :development do
   gem 'capistrano_colors', :require => nil
 end
 
+group :production do
+  gem 'lograge', '~> 0.3.0'
+end
+
 group :development, :test do
 
   gem 'spork-rails'

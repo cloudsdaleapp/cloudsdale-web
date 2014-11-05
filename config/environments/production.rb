@@ -39,11 +39,11 @@ Cloudsdale::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # See everything in the log (default is :info)
-  # config.log_level = :debug
-
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
+
+  config.log_level = :warn
+  config.lograge.enabled = true
 
   # Use a different cache store in production
   config.cache_store = :dalli_store

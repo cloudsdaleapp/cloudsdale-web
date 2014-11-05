@@ -234,6 +234,10 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
+    lograge (0.3.0)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     lumberjack (1.0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -539,6 +543,7 @@ DEPENDENCIES
   jquery-rails (~> 2.0.2)
   kaminari
   kiqstand (~> 1.1.0)
+  lograge (~> 0.3.0)
   mini_magick (~> 3.6.0)
   mongoid (~> 3.1.4)
   mongoid_fulltext (~> 0.6.1)
