@@ -45,7 +45,8 @@ production:
       password: 62148f9b9158ead23c8ace8c1b081055d068a216d3096b95f6399508f6674d6e3bf6ebbfcdbe85b126b431a8674a1d59370918683781976be5cfeba2c89f94b4
 
       hosts:
-        - 127.0.0.1:27017
+        - 198.27.74.148:27017
+        - 167.114.0.157:27017
 
       options:
         safe: false
@@ -58,7 +59,8 @@ production:
       password: 62148f9b9158ead23c8ace8c1b081055d068a216d3096b95f6399508f6674d6e3bf6ebbfcdbe85b126b431a8674a1d59370918683781976be5cfeba2c89f94b4
 
       hosts:
-        - 127.0.0.1:27017
+        - 198.27.74.148:27017
+        - 167.114.0.157:27017
 
   options:
     use_utc: true
