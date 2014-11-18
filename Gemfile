@@ -141,6 +141,7 @@ gem 'newrelic_rpm'
 gem 'newrelic_moped'
 gem 'newrelic-redis'
 gem 'ruby-prof'
+gem 'skylight'
 
 gem 'unicorn', '~> 4.6.3'
 gem 'thin',    '~> 1.5.1'
