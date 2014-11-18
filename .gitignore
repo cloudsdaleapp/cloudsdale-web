@@ -36,3 +36,5 @@ doc/*
 /.rspec
 /app/assets/images/icons/mud/
 Thumbs.db
+
+config/skylight.yml
