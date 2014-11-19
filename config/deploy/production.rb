@@ -1,0 +1,1 @@
+server "core.cloudsdale.org", user: "core", roles: %w(web app db)
