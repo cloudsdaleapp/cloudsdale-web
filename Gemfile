@@ -103,29 +103,8 @@ group :production do
   gem 'lograge', '~> 0.3.0'
 end
 
-group :development, :test do
-  gem 'spork-rails'
-  gem 'rspec-rails', '~> 2.14.0'
-
-  gem 'guard', '~> 1.8.1'
-  gem 'guard-spork', '~> 1.5.1'
-  gem 'guard-rspec', '~> 3.0.2'
-  gem 'guard-bundler', '~> 1.0.0'
-
-  gem 'database_cleaner', '~> 1.0.1'
-  gem 'factory_girl_rails', '~> 4.2.1'
-end
-
-group :test, :darwin, :development do
+group :darwin, :development do
   gem 'rb-fsevent', :require => false
-end
-
-group :test do
-  gem "timecop"
-  gem 'shoulda-context', '~> 1.1.4'
-  gem 'shoulda-matchers', '~> 2.3.0'
-  gem 'capybara', '~> 2.1.0'
-  gem 'email_spec'
 end
 
 group :production, :assets do
@@ -141,7 +120,9 @@ gem 'newrelic-redis'
 gem 'ruby-prof'
 gem 'skylight'
 
+gem "figaro", "~> 1.0.0"
+
 gem "unicorn"
 gem "unicorn-rails"
 
-gem 'sinatra', require: false
+gem 'sinatra', :require => false
