@@ -1,7 +1,7 @@
 defaults: &defaults
 
   geoip:
-    city: '/usr/local/share/GeoIP/GeoIPCity.dat'
+    city: '/usr/local/share/GeoIP/GeoLiteCity.dat'
 
   api:
     v2:
@@ -94,7 +94,7 @@ production:
   <<: *defaults
 
   geoip:
-    city: '/opt/geoip/geo_ip_city.dat'
+    city: '/usr/local/share/GeoIP/GeoLiteCity.dat'
 
   api:
     v2:
