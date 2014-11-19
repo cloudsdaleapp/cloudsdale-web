@@ -65,12 +65,12 @@ gem 'netdnarws',  '~> 0.2.8'
 gem 'cloudfiles', '~> 1.4.18'
 
 # Images
-gem 'mini_magick',         '~> 3.6.0'
-gem 'rmagick'
-gem 'carrierwave',         '~> 0.8.0'
+gem 'mini_magick', '~> 3.6.0'
+gem 'rmagick', '~> 2.13.3'
+gem 'carrierwave', '~> 0.8.0'
 gem "carrierwave-mongoid", '~> 0.6.0'
-gem 'imagesize',           '~> 0.1.1'
-gem 'pdf-reader',          '~> 1.3.3'
+gem 'imagesize', '~> 0.1.1'
+gem 'pdf-reader', '~> 1.3.3'
 
 # Video
 gem 'youtube_it'
