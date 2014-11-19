@@ -1,47 +1,32 @@
-# Set environment to development unless something else is specified
-env = ENV["RAILS_ENV"] || "production"
+ENV["RAILS_ENV"] ||= "production"
 
-# See http://unicorn.bogomips.org/Unicorn/Configurator.html for complete
-# documentation.
-worker_processes 8
+cores = if RUBY_PLATFORM.match(/darwin/i)
+  `sysctl hw.ncpu | awk '{print $2}'`.chomp
+elsif RUBY_PLATFORM.match(/linux/i)
+  `nproc`.chomp
+else
+  (ENV["RAILS_ENV"] == "development") ? 1 : 3
+end
 
-# listen on both a Unix domain socket and a TCP port,
-# we use a shorter backlog for quicker failover when busy
-listen "/tmp/cloudsdale-puma.sock", :backlog => 1024
+listen (ENV["PORT"] || 8080), backlog: 1024
 
-# Preload our app for more speed
-preload_app true
+worker_processes Integer(ENV["WEB_CONCURRENCY"] || cores)
 
-# nuke workers after 30 seconds instead of 60 seconds (the default)
-timeout 30
-
-if env == 'production'
-  # Help ensure your application will always spawn in the symlinked
-  # "current" directory that Capistrano sets up.
-  working_directory "/opt/app/cloudsdale-web/current" # available in 0.94.0+
-  shared_path = "/opt/app/cloudsdale-web/shared"
-
-  pid "#{shared_path}/pids/unicorn.pid"
-
-  stderr_path "#{shared_path}/log/unicorn.stderr.log"
-  stdout_path "#{shared_path}/log/unicorn.stdout.log"
-
+if ENV["RAILS_ENV"] == "development"
+  timeout 10000
+  preload_app false
+else
+  timeout 15
+  preload_app true
+  stderr_path "log/unicorn.error.log"
+  stdout_path "log/unicorn.access.log"
 end
 
 before_fork do |server, worker|
-  ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
-  old_pid = "#{server.config[:pid]}.oldbin"
-  if old_pid != server.pid
-    begin
-      sig = (worker.nr + 1) >= server.worker_processes ? :QUIT : :TTOU
-      Process.kill(sig, File.read(old_pid).to_i)
-    rescue Errno::ENOENT, Errno::ESRCH
-      `echo failed to kill unicorn on pid: #{old_pid}`
-    end
-  end
+  Signal.trap("TERM") { Process.kill("QUIT", Process.pid) }
 end
 
 after_fork do |server, worker|
-  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
+  Signal.trap("TERM") { Process.kill("QUIT", Process.pid) }
 end
 

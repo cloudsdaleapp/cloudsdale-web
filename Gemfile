@@ -144,7 +144,7 @@ gem 'newrelic-redis'
 gem 'ruby-prof'
 gem 'skylight'
 
-gem 'unicorn', '~> 4.6.3'
-gem 'thin',    '~> 1.5.1'
-gem 'puma'
+gem "unicorn"
+gem "unicorn-rails"
+
 gem 'sinatra', require: false
