@@ -42,4 +42,5 @@
   .row
     .large-12.small-12.columns
       %center
-        = "© 2011 – #{DateTime.now.year} IOMUSE | Built with Ruby on Rails using #{ENV['RUBY_VERSION'].split('-').first(2).join(" ").capitalize}"
+        - ruby_version = ENV["RUBY_VERSION"] || ENV["RBENV_VERSION"] || "2.0.0"
+        = "© 2011 – #{DateTime.now.year} IOMUSE | Built with Ruby on Rails using #{ ruby_version.split('-').first(2).join(" ").capitalize }"
