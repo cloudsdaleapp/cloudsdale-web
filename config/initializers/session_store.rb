@@ -4,12 +4,11 @@
 
 Cloudsdale::Application.config.session_store :redis_store,
   expire_in: 259200,
-  :domain => Cloudsdale.config['session_key'],
+  :domain => Figaro.env.session_key!,
   :servers => {
-    :host => Cloudsdale.config['redis']['host'],
-    :port => Cloudsdale.config['redis']['port'],
+    :url => Figaro.env.redis_url!,
     :db => 0,
-    :namespace => 'cloudsdale:sessions'
+    :namespace => "cloudsdale:sessions"
   }
 
 

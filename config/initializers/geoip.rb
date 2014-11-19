@@ -1,0 +1,1 @@
+$geoip = GeoIP::City.new(File.expand_path(Figaro.env.geoip_city!, __FILE__))

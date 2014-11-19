@@ -1,0 +1,101 @@
+defaults: &defaults
+
+  GEOIP_CITY: /usr/local/share/GeoIP/GeoLiteCity.dat
+
+  API_V2_HOST: http://api.cloudsdale.dev
+  API_V2_CORS: http://beta.cloudsdale.dev https://beta.cloudsdale.dev http://www.cloudsdale.dev https://www.cloudsdale.dev
+
+  ASSETS_FOG_BUCKET: cloudsdale_development_assets
+
+  SESSION_KEY: .cloudsdale.dev
+
+  CDN_ALIAS: cloudsdale
+  CDN_SECRET: a2a1710c0803a98faacb370e297a5a7a
+  CDN_KEY: 34e6b64511c260329d44927bcd4a09b90519be1ff
+  CDN_AVATAR_ZONE_ID: "96822"
+  CDN_AVATAR_ZONE_TYPE: pull
+
+  EMAIL_HOST: localhost
+  EMAIL_PORT: "1025"
+  EMAIL_URL_HOST: www.cloudsdale.dev
+  EMAIL_URL_PORT: "80"
+
+  YOUTUBE_DEV_KEY: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
+
+  GITHUB_CLIENT_ID: b47fc28f752aaa49c583
+  GITHUB_CLIENT_SECRET: b31ba47d6d555cea720ce7493192879f61f6162a
+
+  TWITTER_CONSUMER_KEY: mHnUVYK5NUfk0IHbqruZcA
+  TWITTER_CONSUMER_SECRET: Jlz13rBFDrPMKvr5EcWmNHaB6YwYHH1FCCASGFdOSkY
+
+  FACEBOOK_APP_KEY: "213007855430354"
+  FACEBOOK_APP_SECRET: 442e0c7b6e1c2c26c0ef04fa1feb173c
+
+  UPLOADER_STORAGE: file
+
+  URL: http://www.cloudsdale.dev
+  ASSET_URL: http://www.cloudsdale.dev
+
+  AVATAR_HTTP: http://avatar.cloudsdale.dev
+  AVATAR_HTTPS: http://avatar.cloudsdale.dev
+
+  REDIS_URL: redis://localhost:6379/0
+  AMQP_URL: amqp://localhost
+
+  FAYE_HTTP_URL: http://stream.cloudsdale.dev:8000/push
+  FAYE_HTTPS_URL: https://stream.cloudsdale.dev:443/push
+  FAYE_TOKEN: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
+
+development:
+  <<: *defaults
+
+  RACKSPACE_CLOUDFILES_USERNAME: zeeraw
+  RACKSPACE_CLOUDFILES_API_KEY: fb02d3d2336d887b81c7401d522ea393
+  RACKSPACE_CLOUDFILES_FOG_DIRECTORY: cloudsdale_development_uploads
+  RACKSPACE_CLOUDFILES_FOG_HOST: https://c775851.ssl.cf2.rackcdn.com
+
+production:
+  <<: *defaults
+
+  GEOIP_CITY: /usr/local/share/GeoIP/GeoLiteCity.dat
+
+  API_V2_HOST: http://api.cloudsdale.org
+  API_V2_CORS: http://beta.cloudsdale.org https://beta.cloudsdale.org http://www.cloudsdale.org https://www.cloudsdale.org
+
+  ASSETS_FOG_BUCKET: cloudsdale_production_assets
+  SESSION_KEY: .cloudsdale.org
+
+  EMAIL_USER_NAME: cloudsdale
+  EMAIL_PASSWORD: secret1234
+  EMAIL_ADDRESS: smtp.sendgrid.net
+  EMAIL_DOMAIN: cloudsdale.org
+  EMAIL_PORT: "587"
+  EMAIL_URL_HOST: www.cloudsdale.org
+  EMAIL_URL_PORT: "80"
+
+  YOUTUBE_DEV_KEY: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
+
+  GITHUB_CLIENT_ID: 631174526c743d4a9f51
+  GITHUB_CLIENT_SECRET: 0e3cae3a8b61f3c4536c33f6c3e38bb297e0712d
+
+  TWITTER_CONSUMER_KEY: nft8CQEyNxLpwOt37pKYA
+  TWITTER_CONSUMER_SECRET: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
+
+  FACEBOOK_APP_KEY: "255258867845902"
+  FACEBOOK_APP_SECRET: 4151911ea59e2aa64276089189157f00
+
+  UPLOADER_STORAGE: fog
+  RACKSPACE_CLOUDFILES_USERNAME: zeeraw
+  RACKSPACE_CLOUDFILES_API_KEY: fb02d3d2336d887b81c7401d522ea393
+  RACKSPACE_CLOUDFILES_FOG_DIRECTORY: cloudsdale_production_uploads
+  RACKSPACE_CLOUDFILES_FOG_HOST: https://c775850.ssl.cf2.rackcdn.com
+
+  URL: http://www.cloudsdale.org
+  ASSET_URL: https://c776950.ssl.cf2.rackcdn.com
+
+  AVATAR_HTTP:   http://avatar.cdn.cloudsdale.org
+  AVATAR_HTTPS:  https://avatar-cloudsdale.netdna-ssl.com
+
+  FAYE_HTTP_URL: http://stream.cloudsdale.org:80/push
+  FAYE_HTTPS_URL: https://stream.cloudsdale.org:443/push
+  FAYE_TOKEN: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713

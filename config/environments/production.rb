@@ -69,22 +69,22 @@ Cloudsdale::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options   = {
-    host: Cloudsdale.config['email']['url']['host'],
-    port: Cloudsdale.config['email']['url']['port'].to_i
+  config.action_mailer.default_url_options = {
+    host: Figaro.env.email_url_host!,
+    port: Figaro.env.email_url_port!.to_i
   }
 
   config.action_mailer.smtp_settings = {
-    domain:  Cloudsdale.config['email']['domain'],
-    address: Cloudsdale.config['email']['address'],
+    domain: Figaro.env.email_domain!,
+    address: Figaro.env.email_address!,
 
-    port:    Cloudsdale.config['email']['port'].to_i,
+    port: Figaro.env.email_port!.to_i,
 
     authentication: :plain,
     enable_starttls_auto: true,
 
-    user_name: Cloudsdale.config['email']['user_name'],
-    password:  Cloudsdale.config['email']['password']
+    user_name: Figaro.env.email_user_name!,
+    password: Figaro.env.email_password!
   }
 
 end

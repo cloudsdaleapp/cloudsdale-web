@@ -1,1 +1,1 @@
-FAYE_TOKEN = Cloudsdale.config['faye']['token']
+FAYE_TOKEN = Figaro.env.faye_token!

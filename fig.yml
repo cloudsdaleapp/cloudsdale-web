@@ -1,0 +1,38 @@
+app:
+  build: .
+  command: "bundle exec unicorn_rails -c /var/www/www.cloudsdale.org/config/unicorn.rb"
+  ports:
+   - "8080:8080"
+  links:
+    - mongodb
+    - redis
+    - rabbit
+  volumes_from:
+    - gems-2.0
+  environment:
+    RAILS_ENV: development
+    REDIS_URL: redis://redis:6379/0
+    AMQP_URL: amqp://admin:pass@rabbit
+
+mongodb:
+  image: mongo:2.4.10
+  volumes:
+    - /data/db
+  ports:
+    - "27017:27017"
+
+redis:
+  image: redis
+  command: redis-server
+  ports:
+    - "6379:6379"
+
+rabbit:
+  image: tutum/rabbitmq
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+  volumes:
+    - /var/log/rabbitmq
+  environment:
+    - RABBITMQ_PASS=pass

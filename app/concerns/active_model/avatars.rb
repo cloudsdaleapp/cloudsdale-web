@@ -64,9 +64,9 @@ module ActiveModel
     # Returns the full image path.
     def dynamic_avatar_url(size = 256, url_type = :id, schema = :https)
       url =   case schema
-              when :https  then $settings[:avatar][:https]
-              when :ssl    then $settings[:avatar][:https]
-              else $settings[:avatar][:http]
+              when :https then Figaro.env.avatar_https!
+              when :ssl then Figaro.env.avatar_https!
+              else Figaro.env.avatar_http!
               end
 
       "#{url}#{dynamic_avatar_path(size,url_type)}"

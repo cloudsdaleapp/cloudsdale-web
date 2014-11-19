@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
     flash[:notice]    = "You have successfully logged out."
 
     session[:user_id] = nil
-    cookies.delete(:auth_token, domain: Cloudsdale.config['session_key'])
+    cookies.delete(:auth_token, domain: Figaro.env.session_key!)
 
     redirect_to root_path
   end

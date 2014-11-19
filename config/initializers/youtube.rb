@@ -1,0 +1,1 @@
+$youtube ||= YouTubeIt::Client.new(:dev_key => Figaro.env.youtube_dev_key!)

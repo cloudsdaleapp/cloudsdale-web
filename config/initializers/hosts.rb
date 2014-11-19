@@ -1,0 +1,5 @@
+$api_host = "api.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
+$dev_host = "dev.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
+$www_host = "www.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
+$admin_host = "admin.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
+$avatar_host = "avatar.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"

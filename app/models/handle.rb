@@ -176,7 +176,7 @@ private
   # Private: Constructs a cache key for the record type.
   # Returns a String.
   def self.memory_cache_key
-    "#{$redis_ns}:handles"
+    "cloudsdale:handles"
   end
 
   # Private: Loads a marshal string and instantiates and recrod from it.

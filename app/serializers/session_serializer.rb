@@ -17,8 +17,8 @@ class SessionSerializer < ActiveModel::Serializer
   def faye
     {
       id: SecureRandom.hex(8),
-      http: Cloudsdale.faye_path(:client),
-      https: Cloudsdale.faye_path(:client,true),
+      http: Figaro.env.faye_http_url!,
+      https: Figaro.env.faye_https_url!,
       timeout: 120
     }
   end

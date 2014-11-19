@@ -11,7 +11,7 @@ class Api::V1::Clouds::UsersController < Api::V1Controller
     @users = @cloud.users
 
     threshold = 35.seconds.ago.to_ms
-    statuses  = Cloudsdale.redisClient.hgetall("cloudsdale/clouds/#{@cloud.id.to_s}/users")
+    statuses  = $redis.hgetall("cloudsdale/clouds/#{@cloud.id.to_s}/users")
 
     @users.each do |user|
       last_seen = statuses[user.id.to_s].try(:to_i) || 0

@@ -227,7 +227,7 @@ class Conversation
   # Public: Generate the redis key for this instance.
   # Returns a string.
   def redis_key
-    "#{$redis_ns}:conversations:#{id}"
+    "cloudsdale:conversations:#{id}"
   end
 
   # Public: Conversts conversation to a human readable

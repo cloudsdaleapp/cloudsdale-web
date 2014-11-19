@@ -38,9 +38,9 @@ module ApplicationHelper
 
   def user_avatar_url(avatar_id, size = 256, schema = :http)
     url = case schema
-          when :https  then Cloudsdale.config['avatar']['https']
-          when :ssl    then Cloudsdale.config['avatar']['https']
-          else Cloudsdale.config['avatar']['http']
+          when :https then Figaro.env.avatar_https!
+          when :ssl then Figaro.env.avatar_https!
+          else Figaro.env.avatar_http!
           end
 
     size = !size.nil? ? "?s=#{size}" : ""

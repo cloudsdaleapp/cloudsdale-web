@@ -23,7 +23,7 @@
   %meta{ name: "google-site-verification", content: "nIOB-knlcXNH0BO6YGcfXouYY2aL8XxcdkEG-nYcpYQ" }
   = analytics_init :local => Rails.env.development?
 
-  %meta{ property: 'fb:app_id', content: Cloudsdale.config['facebook']['app_key'] }
+  %meta{ property: 'fb:app_id', content: Figaro.env.facebook_app_key! }
 
   %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
   %meta{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }

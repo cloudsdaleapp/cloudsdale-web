@@ -91,7 +91,7 @@ Cloudsdale.ObjectError = Ember.Object.extend({})
 DS.CloudsdaleAdapter = DS.RESTAdapter.extend
 
   namespace: "v2"
-  host: "<%= $settings[:api][:v2][:host] %>"
+  host: "<%= Figaro.env.api_v2_host! %>"
   defaultSerializer: "DS/cloudsdale"
 
   buildURL: (type, id) ->

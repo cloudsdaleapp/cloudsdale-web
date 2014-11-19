@@ -1,23 +1,18 @@
 namespace :assets do
 
-  task "Sync assets with Rackpsace"
-  task :sync => :environment do
-    # AssetSync.sync
-  end
-
   desc "Upload assets to rackspace"
   task :upload do
 
-    require 'cloudfiles'
+    require "cloudfiles"
 
     cf = CloudFiles::Connection.new(
-      :username => $settings[:rackspace_cloudfiles][:username],
-      :api_key => $settings[:rackspace_cloudfiles][:api_key],
+      :username => Figaro.env.rackspace_cloudfiles_username!,
+      :api_key => Figaro.env.rackspace_cloudfiles_api_key!,
       :snet => false
     )
 
     # Set up CloudFiles and paths
-    container = cf.container($settings[:assets][:fog][:bucket])
+    container = cf.container(Figaro.env.assets_fog_bucket!)
     shared_path = Pathname.new(ENV["SHARED_PATH"])
     assets_path = shared_path.join("assets")
     remote_files = container.objects

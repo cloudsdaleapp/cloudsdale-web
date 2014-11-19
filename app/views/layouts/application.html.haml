@@ -23,7 +23,7 @@
     %meta{ name: "viewport", :content => "user-scalable=no, width=device-width", :id => "view" }
 
     // FACEBOOK META
-    %meta{ property: 'fb:app_id', content: Cloudsdale.config['facebook']['app_key'] }
+    %meta{ property: 'fb:app_id', content: Figaro.env.facebook_app_key! }
 
     // APPLE META
     %meta{ name: "apple-mobile-web-app-capable", content: "yes" }

@@ -93,7 +93,7 @@ class User
 
   scope :online_on, -> _cloud do
     ids = []
-    user_statuses = Cloudsdale.redisClient.hgetall("cloudsdale/clouds/#{_cloud.id.to_s}/users")
+    user_statuses = $redis.hgetall("cloudsdale/clouds/#{_cloud.id.to_s}/users")
     user_statuses.each { |uid,t| t = t.try(:to_i) || 0; min = 35.seconds.ago.to_ms; ids << uid if t > min }
     where(:_id.in => ids, :preferred_status.ne => :offline)
   end
@@ -185,7 +185,7 @@ class User
   # :online, :offline, :away or :busy
   def status
     return @status if @status.present?
-    status_timestamp = Cloudsdale.redisClient.get("cloudsdale/users/#{self.id.to_s}").try(:to_i) || 0
+    status_timestamp = $redis.get("cloudsdale/users/#{self.id.to_s}").try(:to_i) || 0
     minimum_time_threshold = 35.seconds.ago.to_ms
     if status_timestamp > minimum_time_threshold
       return @status = self.preferred_status || :online

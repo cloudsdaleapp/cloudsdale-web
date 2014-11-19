@@ -60,9 +60,8 @@ do ($ = jQuery) ->
           callback(message)
       }
 
-      secure_server = "<%=Cloudsdale.faye_path(:client,true)%>"
-      normal_server = "<%=Cloudsdale.faye_path(:client)%>"
-
+      secure_server = "<%= Figaro.env.faye_https_url! %>"
+      normal_server = "<%= Figaro.env.faye_http_url! %>"
       server_path = if isSecure() then secure_server else normal_server
 
       @cli = new Faye.Client(server_path, {

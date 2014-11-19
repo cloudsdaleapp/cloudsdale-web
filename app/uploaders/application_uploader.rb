@@ -8,7 +8,7 @@ class ApplicationUploader < CarrierWave::Uploader::Base
   after :store, :cache_upload_metadata
   after :cache, :cache_upload_metadata
 
-  storage Cloudsdale.config['uploader']['storage'].to_sym
+  storage Figaro.env.uploader_storage!.to_sym
 
   # Public: Method to deal with Sprockets errors.
   def config; Rails.application.config.action_controller; end
@@ -40,9 +40,7 @@ class ApplicationUploader < CarrierWave::Uploader::Base
   # Public: Fallback image path, served through
   # the assets pipeline.
   def default_url
-    image_path(
-      "#{Cloudsdale.config['asset_url']}/assets/fallback/" + [mounted_as, version_name, "#{model.class.to_s.downcase}.png"].compact.join('_')
-    )
+    image_path( Pathname.new(Figaro.env.asset_url!).join( "assets", "fallback", [mounted_as, version_name, "#{model.class.to_s.downcase}.png"].compact.join('_') ) )
   end
 
   # Public: The full fetch path for the file.
@@ -79,8 +77,8 @@ protected
       path_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}"
       time_query  = "cloudsdale:#{mounted_as.downcase}:#{model.send(_namespace)}:#{model.id}:timestamp"
 
-      Cloudsdale.redisClient.del(time_query)
-      Cloudsdale.redisClient.del(path_query)
+      $redis.del(time_query)
+      $redis.del(path_query)
     end
 
     return true

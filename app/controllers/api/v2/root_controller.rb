@@ -80,7 +80,7 @@ class Api::V2::RootController < Api::V2Controller
           },
           {
             rel: 'avatar',
-            href: URI.unescape(avatar_url("{handle}", format: :png, host: $settings[:avatar][:https].gsub(/^(https?\:\/\/)/i,''), protocol: "https:"))
+            href: URI.unescape(avatar_url("{handle}", format: :png, host: Figaro.env.avatar_https!.gsub(/^(https?\:\/\/)/i,''), protocol: "https:"))
           }
         ]
       }

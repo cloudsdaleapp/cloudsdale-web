@@ -29,7 +29,7 @@ class AvatarUploader < ApplicationUploader
   end
 
   def default_url
-    image_path("#{Cloudsdale.config['asset_url']}/assets/fallback/#{mounted_as}/" + [version_name, "#{model.avatar_namespace}.png"].compact.join('_'))
+    image_path( Pathname.new(Figaro.env.asset_url!).join("assets", "fallback", mounted_as, [ version_name, "#{model.avatar_namespace}.png" ].compact.join('_') ) )
   end
 
   after  :store,  :purge_from_cdn

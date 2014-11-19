@@ -9,7 +9,7 @@ module ActionController::CORSProtection
   end
 
   def set_cors
-    if $settings[:api][:v2][:cors].include?(request.env['HTTP_ORIGIN'])
+    if Figaro.env.api_v2_cors!.split(" ").include?(request.env['HTTP_ORIGIN'])
       headers["Access-Control-Allow-Origin"] = request.env['HTTP_ORIGIN']
       headers["Access-Control-Allow-Credentials"] = "true"
       headers["Access-Control-Allow-Headers"] = "*"

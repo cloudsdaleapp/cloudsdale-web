@@ -8,72 +8,23 @@ require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
   Bundler.require *Rails.groups(:assets => %w(development test))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
 end
-
-$settings ||= YAML.load_file(
-                File.expand_path('../config.yml', __FILE__)
-              )[Rails.env].with_indifferent_access
-
-$redis    ||= Redis.new(
-                host: $settings['redis']['host'],
-                port: $settings['redis']['port']
-              )
-
-$geoip = GeoIP::City.new(File.expand_path($settings[:geoip][:city], __FILE__))
-
-$redis_ns = $settings[:redis][:ns] || "cloudsdale"
-
-$api_host   = "api.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
-$dev_host   = "dev.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
-$www_host   = "www.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
-$admin_host = "admin.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
-$avatar_host = "avatar.cloudsdale.#{Rails.env.production? ? 'org' : 'dev'}"
 
 module Cloudsdale
 
-  def self.config
-    @rails_config ||= YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
-  end
-
-  def self.ytClient
-    @ytClient = YouTubeIt::Client.new(:dev_key => config['youtube']['dev_key'])
-  end
-
-  def self.redisClient
-    @redisClient = Redis.new(:host => config['redis']['host'], :port => config['redis']['port'])
-  end
-
   def self.bunny
-    unless @bunny
-      @bunny ||= Bunny.new(
-        :host => Cloudsdale.config['rabbit']['host'],
-        :pass => Cloudsdale.config['rabbit']['pass'],
-        :user => Cloudsdale.config['rabbit']['user'])
-    end
-    unless @bunny.status == :connected
-      @bunny.stop
-      @bunny.start
-    end
-    @bunny
+    @bunny ||= Bunny.new(Figaro.env.amqp_url!)
+    @bunny.start unless @bunny.connected?
+    return @bunny
   end
 
   def self.cdn
     @cdn ||= NetDNARWS::NetDNA.new(
-      Cloudsdale.config['cdn']['alias'],
-      Cloudsdale.config['cdn']['key'],
-      Cloudsdale.config['cdn']['secret']
+      Figaro.env.cdn_alias!,
+      Figaro.env.cdn_key!,
+      Figaro.env.cdn_secret!
     )
-  end
-
-  def self.faye_path(type = nil, secure = false)
-    host    = (type == :inhouse) ? config['faye']['inhouse_host']  : config['faye']['host']
-    port    = (secure == true)   ? config['faye']['secure_port']   : config['faye']['port']
-    schema  = (secure == true)   ? config['faye']['secure_schema'] : config['faye']['schema']
-    @faye_path = "#{schema}://#{host}:#{port}/#{config['faye']['path']}"
   end
 
   class Application < Rails::Application
@@ -81,6 +32,11 @@ module Cloudsdale
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    config.after_initialize do
+      Cloudsdale.bunny.queue "faye"
+      Cloudsdale.bunny.queue "drops"
+    end
 
     config.generators do |g|
       config.sass.preferred_syntax = :sass

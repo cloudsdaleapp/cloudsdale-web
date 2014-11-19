@@ -4,7 +4,7 @@ class Urifetch::Strategy::YoutubeVideo < Urifetch::Strategy::Base
 
   def perform_request
     begin
-      timeout(30) { @video  = Cloudsdale.ytClient.video_by(match_data["youtube_id"]) }
+      timeout(30) { @video  = $youtube.video_by(match_data["youtube_id"]) }
       set_status ["200","OK"]
     rescue OpenURI::HTTPError
       set_status ["400","Not Found"]

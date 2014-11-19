@@ -19,12 +19,12 @@ class AvatarPurgeWorker
     end
 
     cdn = NetDNARWS::NetDNA.new(
-      Cloudsdale.config['cdn']['alias'],
-      Cloudsdale.config['cdn']['key'],
-      Cloudsdale.config['cdn']['secret']
+      Figaro.env.cdn_alias!,
+      Figaro.env.cdn_key!,
+      Figaro.env.cdn_secret!
     )
 
-    cdn.purge(Cloudsdale.config['cdn']['avatar_zone']['id'],versions)
+    cdn.purge(Figaro.env.cdn_avatar_zone_id!, versions)
 
     record.avatar_purged = true
     record.save

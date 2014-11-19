@@ -34,7 +34,7 @@ protected
   def authenticate!(user)
     if params[:persist_session] == "true"
       cookies.signed[:auth_token] = {
-        :domain =>  Cloudsdale.config['session_key'],
+        :domain =>  Figaro.env.session_key!,
         :value =>   user.auth_token,
         :expires => 20.years.from_now
       }
