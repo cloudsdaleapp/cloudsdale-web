@@ -19,7 +19,7 @@ GIT
       mongoid (~> 3.0)
 
 GIT
-  remote: git@github.com:Zeeraw/active_model_serializers.git
+  remote: git@github.com:zeeraw/active_model_serializers.git
   revision: 67f13dc049ae2453cec19d53e320adabe57f4835
   branch: flatten-polymorphic-id
   specs:

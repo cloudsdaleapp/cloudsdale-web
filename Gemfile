@@ -9,7 +9,7 @@ gem 'moped',    '~> 1.5.0'
 gem 'mongoid_token', :git => 'git://github.com/thetron/mongoid_token.git', :branch => 'patch/collisions-define-method'
 gem 'mongoid_rails_migrations', '~> 1.0.0'
 gem 'mongoid_fulltext',         '~> 0.6.1'
-gem "active_model_serializers", git: 'git@github.com:Zeeraw/active_model_serializers.git', branch: 'flatten-polymorphic-id'
+gem "active_model_serializers", git: 'git@github.com:zeeraw/active_model_serializers.git', branch: 'flatten-polymorphic-id'
 gem 'kaminari'
 gem 'dalli',   '~> 2.6.4'
 
