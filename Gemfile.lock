@@ -1,5 +1,21 @@
 GIT
-  remote: git://github.com/Zeeraw/Urifetch.git
+  remote: git://github.com/thetron/mongoid_token.git
+  revision: 70049745cc4baa4136601368033d06a955225dc3
+  branch: patch/collisions-define-method
+  specs:
+    mongoid_token (2.0.0)
+      mongoid (~> 3.0)
+
+GIT
+  remote: git://github.com/zeeraw/active_model_serializers.git
+  revision: 67f13dc049ae2453cec19d53e320adabe57f4835
+  branch: flatten-polymorphic-id
+  specs:
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.2)
+
+GIT
+  remote: git://github.com/zeeraw/urifetch.git
   revision: 995b2843e21841c4758dcb0286b8c82c3b8953b0
   specs:
     urifetch (0.1.1.rc6)
@@ -9,22 +25,6 @@ GIT
       hashie
       imagesize
       nokogiri
-
-GIT
-  remote: git://github.com/thetron/mongoid_token.git
-  revision: 70049745cc4baa4136601368033d06a955225dc3
-  branch: patch/collisions-define-method
-  specs:
-    mongoid_token (2.0.0)
-      mongoid (~> 3.0)
-
-GIT
-  remote: git@github.com:zeeraw/active_model_serializers.git
-  revision: 67f13dc049ae2453cec19d53e320adabe57f4835
-  branch: flatten-polymorphic-id
-  specs:
-    active_model_serializers (0.8.1)
-      activemodel (>= 3.2)
 
 GEM
   remote: http://rubygems.org/
@@ -554,7 +554,6 @@ DEPENDENCIES
   omniauth-github (~> 1.1.0)
   omniauth-twitter (~> 1.0.0)
   pdf-reader (~> 1.3.3)
-  pry
   pry-rails
   pundit (~> 0.2.1)
   rabl (~> 0.6.10)

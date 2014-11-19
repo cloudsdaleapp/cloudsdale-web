@@ -4,33 +4,31 @@ ruby "2.0.0"
 gem 'rails', '~> 3.2.14'
 
 # Database NO-SQL
-gem 'mongoid',  '~> 3.1.4'
-gem 'moped',    '~> 1.5.0'
-gem 'mongoid_token', :git => 'git://github.com/thetron/mongoid_token.git', :branch => 'patch/collisions-define-method'
+gem 'mongoid', '~> 3.1.4'
+gem 'moped', '~> 1.5.0'
+gem 'mongoid_token', :git => 'git://github.com/thetron/mongoid_token.git', branch: 'patch/collisions-define-method'
 gem 'mongoid_rails_migrations', '~> 1.0.0'
-gem 'mongoid_fulltext',         '~> 0.6.1'
-gem "active_model_serializers", git: 'git@github.com:zeeraw/active_model_serializers.git', branch: 'flatten-polymorphic-id'
+gem 'mongoid_fulltext', '~> 0.6.1'
+gem "active_model_serializers", git: 'git://github.com/zeeraw/active_model_serializers.git', branch: 'flatten-polymorphic-id'
 gem 'kaminari'
-gem 'dalli',   '~> 2.6.4'
+gem 'dalli', '~> 2.6.4'
 
-gem "redis",   '~> 3.0.1'
+gem "redis", '~> 3.0.1'
 gem "hiredis", '~> 0.4.5'
 gem 'redis-rails', '~> 3.2.3'
 gem 'redis-store', '1.1.3' # Upgrading this breaks everything
 
-gem 'pry'
 gem 'pry-rails'
 
-# CANT HAVE ASSETS GROUP!
-gem 'sass',           '~> 3.2.9'
-gem 'sass-rails',     '~> 3.2.6'
+gem 'sass', '~> 3.2.9'
+gem 'sass-rails', '~> 3.2.6'
 gem 'bootstrap-sass', '~> 2.1.0.0'
-gem 'jquery-rails',   '~> 2.0.2'
+gem 'jquery-rails', '~> 2.0.2'
 gem 'coffee-script'
-gem 'uglifier',           '~> 2.2.1'
-gem 'sprockets',          '~> 2.2.1'
+gem 'uglifier', '~> 2.2.1'
+gem 'sprockets', '~> 2.2.1'
 gem 'haml_coffee_assets', '~> 1.6.0'
-gem 'zurb-foundation',    '~> 4.3.1'
+gem 'zurb-foundation', '~> 4.3.1'
 gem 'ace-rails-ap'
 
 gem 'ember-rails'
@@ -92,7 +90,7 @@ gem 'sidekiq',  '~> 2.14.0'
 gem 'kiqstand', '~> 1.1.0'
 
 # Cloudsdale Specific
-gem 'urifetch', git: 'git://github.com/Zeeraw/Urifetch.git'
+gem 'urifetch', git: 'git://github.com/zeeraw/urifetch.git'
 
 group :development do
   gem 'gist',    '~> 4.0.3'
@@ -106,13 +104,12 @@ group :production do
 end
 
 group :development, :test do
-
   gem 'spork-rails'
-  gem 'rspec-rails',   '~> 2.14.0'
+  gem 'rspec-rails', '~> 2.14.0'
 
-  gem 'guard',         '~> 1.8.1'
-  gem 'guard-spork',   '~> 1.5.1'
-  gem 'guard-rspec',   '~> 3.0.2'
+  gem 'guard', '~> 1.8.1'
+  gem 'guard-spork', '~> 1.5.1'
+  gem 'guard-rspec', '~> 3.0.2'
   gem 'guard-bundler', '~> 1.0.0'
 
   gem 'database_cleaner', '~> 1.0.1'
@@ -125,7 +122,7 @@ end
 
 group :test do
   gem "timecop"
-  gem 'shoulda-context',  '~> 1.1.4'
+  gem 'shoulda-context', '~> 1.1.4'
   gem 'shoulda-matchers', '~> 2.3.0'
   gem 'capybara', '~> 2.1.0'
   gem 'email_spec'
