@@ -112,14 +112,15 @@ private
 
         record ||= scope(options).where(options[:type] => options[:id]).first unless record
 
-        fallback_path = file_path = Rails.root.join(
-          'app', 'assets', 'images', 'fallback', 'avatar', "#{options[:model]}.png"
+        fallback_path = Rails.root.join(
+          "app", "assets", "images", "fallback", "avatar", "#{ options[:model] }.png"
         ).to_s
 
         if record
           file_path = record[:avatar].present? ? record.avatar.full_file_path : fallback_path
           timestamp = record.avatar_uploaded.to_i
         else
+          Rails.logger.debug("Falling back on #{ fallback_path }")
           file_path = fallback_path
           timestamp = File.mtime(file_path).to_i
         end
