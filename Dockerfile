@@ -21,6 +21,11 @@ RUN curl -L http://www.imagemagick.org/download/ImageMagick.tar.gz > ImageMagick
 RUN tar -xvzf ImageMagick.tar.gz
 RUN cd ImageMagick-* && ./configure && make && make install
 
+# Install GraphicsMagick dependencies
+RUN curl -L http://ftp.icm.edu.pl/pub/unix/graphics/GraphicsMagick/GraphicsMagick-LATEST.tar.gz > GraphicsMagick.tar.gz
+RUN tar -xvzf GraphicsMagick.tar.gz
+RUN cd GraphicsMagick-* && ./configure && make && make install
+
 ADD . /var/www/www.cloudsdale.org/
 WORKDIR /var/www/www.cloudsdale.org/
 
