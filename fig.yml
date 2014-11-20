@@ -38,13 +38,13 @@ mongodb:
     - "27017:27017"
 
 redis:
-  image: redis
+  image: redis:latest
   command: redis-server
   ports:
     - "6379:6379"
 
 rabbit:
-  image: tutum/rabbitmq
+  image: tutum/rabbitmq:latest
   ports:
     - "5672:5672"
     - "15672:15672"
