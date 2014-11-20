@@ -1,21 +1,37 @@
 app:
   build: .
-  command: "bundle exec unicorn_rails -c /var/www/www.cloudsdale.org/config/unicorn.rb"
+  working_dir: /var/www/www.cloudsdale.org/
+  command: "bundle exec rails s -p 8080"
   ports:
-   - "8080:8080"
+   - "0.0.0.0:8080:8080"
   links:
     - mongodb
     - redis
     - rabbit
+    - mail
   volumes_from:
     - gems-2.0
   environment:
     RAILS_ENV: development
+
+    URL: http://www.cloudsdale.dev:8080
+    ASSET_URL: http://www.cloudsdale.dev:8080
+
+    AVATAR_HTTP: http://avatar.cloudsdale.dev:8080
+    AVATAR_HTTPS: http://avatar.cloudsdale.dev:8080
+
     REDIS_URL: redis://redis:6379/0
     AMQP_URL: amqp://admin:pass@rabbit
 
+    EMAIL_HOST: mail
+    EMAIL_PORT: "1025"
+    EMAIL_URL_HOST: www.cloudsdale.dev
+    EMAIL_URL_PORT: "8080"
+
+
 mongodb:
   image: mongo:2.4.10
+  command: mongod --smallfiles
   volumes:
     - /data/db
   ports:
@@ -36,3 +52,9 @@ rabbit:
     - /var/log/rabbitmq
   environment:
     - RABBITMQ_PASS=pass
+
+mail:
+  image: simpledrupalcloud/mailcatcher:latest
+  ports:
+    - "1025:1025"
+    - "1080:1080"
