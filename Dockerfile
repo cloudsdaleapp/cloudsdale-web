@@ -1,11 +1,8 @@
 FROM ruby:2.0.0-p598
 MAINTAINER Philip Vieira <zeeraw@cloudsdale.org>
 
-ENV GEM_HOME /gems/2.0
-ENV BUNDLE_PATH $GEM_HOME
-ENV BUNDLE_APP_CONFIG $GEM_HOME
-
-RUN gem install bundle
+ENV APP_HOME /usr/src/www.cloudsdale.org
+ENV DEBIAN_FRONTEND noninteractive
 
 # Install GeoIP City
 RUN \
@@ -26,8 +23,15 @@ RUN curl -L http://ftp.icm.edu.pl/pub/unix/graphics/GraphicsMagick/GraphicsMagic
 RUN tar -xvzf GraphicsMagick.tar.gz
 RUN cd GraphicsMagick-* && ./configure && make && make install
 
-ADD . /var/www/www.cloudsdale.org/
-WORKDIR /var/www/www.cloudsdale.org/
+# Create application home and make sure the current repository is added
+RUN mkdir -p $APP_HOME
+ADD . $APP_HOME
+WORKDIR $APP_HOME
 
-EXPOSE 8080
-CMD ["./bin/unicorn_rails", "-c", "/var/www/www.cloudsdale.org/config/unicorn.rb"]
+# Create an entrypoint for docker
+COPY ./entrypoint.sh /
+RUN chmod 0755 /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Run unicorn server using the configuration file inside the project
+CMD ["bundle", "exec", "unicorn_rails", "-c", "$APP_HOME/config/unicorn.rb"]

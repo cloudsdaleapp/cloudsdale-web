@@ -39,8 +39,8 @@ defaults: &defaults
   AVATAR_HTTP: http://avatar.cloudsdale.dev:8080
   AVATAR_HTTPS: http://avatar.cloudsdale.dev:8080
 
-  REDIS_URL: redis://localhost:6379/0
-  AMQP_URL: amqp://localhost
+  REDIS_URL: redis://redis:6379/0
+  AMQP_URL: amqp://admin:pass@rabbit
   MONGO_URL: mongo:27017
 
   FAYE_HTTP_URL: http://stream.cloudsdale.dev:8000/push

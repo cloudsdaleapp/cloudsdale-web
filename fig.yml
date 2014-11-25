@@ -1,6 +1,5 @@
 app:
   build: .
-  working_dir: /var/www/www.cloudsdale.org/
   command: "bundle exec rails s -p 8080"
   ports:
    - "0.0.0.0:8080:8080"
@@ -9,25 +8,18 @@ app:
     - redis
     - rabbit
     - mail
+  volumes:
+    - .:/usr/src/www.cloudsdale.org
   volumes_from:
-    - gems-2.0
+    - gems
   environment:
     RAILS_ENV: development
 
-    URL: http://www.cloudsdale.dev:8080
-    ASSET_URL: http://www.cloudsdale.dev:8080
-
-    AVATAR_HTTP: http://avatar.cloudsdale.dev:8080
-    AVATAR_HTTPS: http://avatar.cloudsdale.dev:8080
-
-    REDIS_URL: redis://redis:6379/0
-    AMQP_URL: amqp://admin:pass@rabbit
-
-    EMAIL_HOST: mail
-    EMAIL_PORT: "1025"
-    EMAIL_URL_HOST: www.cloudsdale.dev
-    EMAIL_URL_PORT: "8080"
-
+gems:
+  image: busybox:latest
+  command: "tail -f /dev/null"
+  volumes:
+    - /usr/local/bundle
 
 mongo:
   image: mongo:2.4.10
