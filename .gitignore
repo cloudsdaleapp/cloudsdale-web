@@ -6,7 +6,9 @@ log/worker/*.log
 tmp/
 .sass-cache/
 .DS_Store*
-db/data/mongodb/*
+.DS_Store
+
+db/data
 /dump.rdb
 secret.txt
 public/assets
@@ -15,10 +17,6 @@ tmp/pids
 tmp/sessions
 tmp/sockets
 public/uploads
-.DS_Store
-
-db/data/mongodb/mongod.lock
-app/.DS_Store
 
 doc/*
 .yardoc
