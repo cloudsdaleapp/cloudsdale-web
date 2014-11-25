@@ -50,13 +50,14 @@ Cloudsdale::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
+
   config.action_mailer.default_url_options = {
     host: Figaro.env.email_url_host!,
     port: Figaro.env.email_url_port!.to_i
   }
 
   config.action_mailer.smtp_settings = {
-    :host => Figaro.env.email_host!,
+    :address => Figaro.env.email_host!,
     :port => Figaro.env.email_port!.to_i
   }
 
