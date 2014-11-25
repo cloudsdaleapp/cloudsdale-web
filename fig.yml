@@ -54,7 +54,7 @@ rabbit:
     - RABBITMQ_PASS=pass
 
 mail:
-  image: simpledrupalcloud/mailcatcher:latest
+  image: schickling/mailcatcher:latest
   ports:
     - "1025:1025"
     - "1080:1080"
