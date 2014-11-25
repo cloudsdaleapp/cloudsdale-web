@@ -40,7 +40,7 @@ Cloudsdale::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure'            => 'authentications#failure'
 
-  scope :web, constraints: { subdomain: /www/ } do
+  scope :web, constraints: { subdomain: /www|core/ } do
 
     # The explore page is devided up in to three tiers where the front-end will
     # automatically take you up to the default tier if you're requesting it at
