@@ -34,8 +34,13 @@ module Cloudsdale
     # -- all .rb files in that directory are automatically loaded.
 
     config.after_initialize do
-      Cloudsdale.bunny.queue "faye"
-      Cloudsdale.bunny.queue "drops"
+      Cloudsdale.bunny.queue "faye",
+        auto_delete: false,
+        durable: true
+
+      Cloudsdale.bunny.queue "drops",
+        auto_delete: false,
+        durable: true
     end
 
     config.generators do |g|
