@@ -45,6 +45,11 @@ rabbit:
   environment:
     - RABBITMQ_PASS=pass
 
+memcached:
+  image: tutum/memcached:latest
+  ports:
+    - "11211:11211"
+
 mail:
   image: schickling/mailcatcher:latest
   ports:
