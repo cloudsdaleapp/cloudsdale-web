@@ -8,7 +8,7 @@ tmp/
 .DS_Store*
 .DS_Store
 
-db/data
+db/data/db
 /dump.rdb
 secret.txt
 public/assets
