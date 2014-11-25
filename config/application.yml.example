@@ -15,10 +15,10 @@ defaults: &defaults
   CDN_AVATAR_ZONE_ID: "96822"
   CDN_AVATAR_ZONE_TYPE: pull
 
-  EMAIL_HOST: localhost
+  EMAIL_HOST: mail
   EMAIL_PORT: "1025"
   EMAIL_URL_HOST: www.cloudsdale.dev
-  EMAIL_URL_PORT: "80"
+  EMAIL_URL_PORT: "8080"
 
   YOUTUBE_DEV_KEY: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
 
@@ -33,17 +33,18 @@ defaults: &defaults
 
   UPLOADER_STORAGE: file
 
-  URL: http://www.cloudsdale.dev
-  ASSET_URL: http://www.cloudsdale.dev
+  URL: http://www.cloudsdale.dev:8080
+  ASSET_URL: http://www.cloudsdale.dev:8080
 
-  AVATAR_HTTP: http://avatar.cloudsdale.dev
-  AVATAR_HTTPS: http://avatar.cloudsdale.dev
+  AVATAR_HTTP: http://avatar.cloudsdale.dev:8080
+  AVATAR_HTTPS: http://avatar.cloudsdale.dev:8080
 
-  REDIS_URL: redis://localhost:6379/0
-  AMQP_URL: amqp://localhost
+  REDIS_URL: redis://redis:6379/0
+  AMQP_URL: amqp://admin:pass@rabbit
+  MONGO_URL: mongo:27017
 
-  FAYE_HTTP_URL: http://stream.cloudsdale.dev:8000/push
-  FAYE_HTTPS_URL: https://stream.cloudsdale.dev:443/push
+  FAYE_HTTP_URL: http://stream.cloudsdale.dev/push
+  FAYE_HTTPS_URL: http://stream.cloudsdale.dev/push
   FAYE_TOKEN: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
 
 development:
