@@ -5,7 +5,7 @@ app:
   ports:
    - "0.0.0.0:8080:8080"
   links:
-    - mongodb
+    - mongo
     - redis
     - rabbit
     - mail
@@ -29,11 +29,11 @@ app:
     EMAIL_URL_PORT: "8080"
 
 
-mongodb:
+mongo:
   image: mongo:2.4.10
-  command: mongod --smallfiles
+  command: mongod --smallfiles --verbose
   volumes:
-    - /data/db
+    - ./db/data:/data
   ports:
     - "27017:27017"
 

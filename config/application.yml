@@ -41,6 +41,7 @@ defaults: &defaults
 
   REDIS_URL: redis://localhost:6379/0
   AMQP_URL: amqp://localhost
+  MONGO_URL: mongo:27017
 
   FAYE_HTTP_URL: http://stream.cloudsdale.dev:8000/push
   FAYE_HTTPS_URL: https://stream.cloudsdale.dev:443/push

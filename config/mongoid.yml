@@ -11,7 +11,7 @@ development:
     default:
       database: cloudsdale
       hosts:
-        - <%= ENV['MONGOID_URL'] || "www.cloudsdale.dev:27017" %>
+        - <%= ENV['MONGO_URL'] || "localhost:27017" %>
 
       options:
         safe: false
