@@ -16,6 +16,7 @@ class RegistrationMailer < ActionMailer::Base
       format.text { render 'verification_mail.text.erb',   locals: { user: user, url: url, code: token }, layout: false }
       format.html { render 'verification_mail.html.haml',  locals: { user: user, url: url, code: token, subject: subject } }
     end
+  rescue Mongoid::Errors::DocumentNotFound
   end
 
 end
