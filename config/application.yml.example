@@ -5,8 +5,6 @@ development: &defaults
   API_V2_HOST: http://api.cloudsdale.dev
   API_V2_CORS: http://beta.cloudsdale.dev https://beta.cloudsdale.dev http://www.cloudsdale.dev https://www.cloudsdale.dev
 
-  ASSETS_FOG_BUCKET: cloudsdale_development_assets
-
   SESSION_KEY: .cloudsdale.dev
 
   CDN_ALIAS: cloudsdale
@@ -33,8 +31,15 @@ development: &defaults
 
   UPLOADER_STORAGE: file
 
-  URL: http://www.cloudsdale.dev:8080
+  RACKSPACE_CLOUDFILES_USERNAME: zeeraw
+  RACKSPACE_CLOUDFILES_API_KEY: fb02d3d2336d887b81c7401d522ea393
+  RACKSPACE_CLOUDFILES_FOG_DIRECTORY: cloudsdale_development_uploads
+  RACKSPACE_CLOUDFILES_FOG_HOST: https://c775851.ssl.cf2.rackcdn.com
+
   ASSET_URL: http://www.cloudsdale.dev:8080
+  ASSET_FOG_BUCKET: cloudsdale_development_assets
+
+  URL: http://www.cloudsdale.dev:8080
 
   AVATAR_HTTP: http://avatar.cloudsdale.dev:8080
   AVATAR_HTTPS: http://avatar.cloudsdale.dev:8080
@@ -47,8 +52,3 @@ development: &defaults
   FAYE_HTTP_URL: http://stream.cloudsdale.dev:8282/push
   FAYE_HTTPS_URL: http://stream.cloudsdale.dev:8282/push
   FAYE_TOKEN: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
-
-  RACKSPACE_CLOUDFILES_USERNAME: zeeraw
-  RACKSPACE_CLOUDFILES_API_KEY: fb02d3d2336d887b81c7401d522ea393
-  RACKSPACE_CLOUDFILES_FOG_DIRECTORY: cloudsdale_development_uploads
-  RACKSPACE_CLOUDFILES_FOG_HOST: https://c775851.ssl.cf2.rackcdn.com

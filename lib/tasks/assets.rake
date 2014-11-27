@@ -4,7 +4,7 @@ namespace :assets do
   task :upload do
 
     # Set up CloudFiles and paths
-    container = cloudfiles.container(Figaro.env.assets_fog_bucket!)
+    container = cloudfiles.container(Figaro.env.asset_fog_bucket!)
     public_path = Rails.root.join("public")
     assets_path = Rails.root.join("public", "assets")
 
