@@ -1,4 +1,4 @@
-defaults: &defaults
+development: &defaults
 
   GEOIP_CITY: /usr/local/share/GeoIP/GeoLiteCity.dat
 
@@ -47,56 +47,7 @@ defaults: &defaults
   FAYE_HTTPS_URL: http://stream.cloudsdale.dev:8282/push
   FAYE_TOKEN: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
 
-development:
-  <<: *defaults
-
   RACKSPACE_CLOUDFILES_USERNAME: zeeraw
   RACKSPACE_CLOUDFILES_API_KEY: fb02d3d2336d887b81c7401d522ea393
   RACKSPACE_CLOUDFILES_FOG_DIRECTORY: cloudsdale_development_uploads
   RACKSPACE_CLOUDFILES_FOG_HOST: https://c775851.ssl.cf2.rackcdn.com
-
-production:
-  <<: *defaults
-
-  GEOIP_CITY: /usr/local/share/GeoIP/GeoLiteCity.dat
-
-  API_V2_HOST: http://api.cloudsdale.org
-  API_V2_CORS: http://beta.cloudsdale.org https://beta.cloudsdale.org http://www.cloudsdale.org https://www.cloudsdale.org
-
-  ASSETS_FOG_BUCKET: cloudsdale_production_assets
-  SESSION_KEY: .cloudsdale.org
-
-  EMAIL_USER_NAME: cloudsdale
-  EMAIL_PASSWORD: secret1234
-  EMAIL_ADDRESS: smtp.sendgrid.net
-  EMAIL_DOMAIN: cloudsdale.org
-  EMAIL_PORT: "587"
-  EMAIL_URL_HOST: www.cloudsdale.org
-  EMAIL_URL_PORT: "80"
-
-  YOUTUBE_DEV_KEY: AI39si4HazJyHrwMi9zVHSTJRgMMnndNL5gfZz9nVAuNIoFndhb5J5rdO97FKrnJox_V0bVTcs3bOfes7yyW_Rylkvhtly2y_g
-
-  GITHUB_CLIENT_ID: 631174526c743d4a9f51
-  GITHUB_CLIENT_SECRET: 0e3cae3a8b61f3c4536c33f6c3e38bb297e0712d
-
-  TWITTER_CONSUMER_KEY: nft8CQEyNxLpwOt37pKYA
-  TWITTER_CONSUMER_SECRET: XHw0N6ZylF6EHoxZay4jKA8DNdKSi6M5w659hbmpzw8
-
-  FACEBOOK_APP_KEY: "255258867845902"
-  FACEBOOK_APP_SECRET: 4151911ea59e2aa64276089189157f00
-
-  UPLOADER_STORAGE: fog
-  RACKSPACE_CLOUDFILES_USERNAME: zeeraw
-  RACKSPACE_CLOUDFILES_API_KEY: fb02d3d2336d887b81c7401d522ea393
-  RACKSPACE_CLOUDFILES_FOG_DIRECTORY: cloudsdale_production_uploads
-  RACKSPACE_CLOUDFILES_FOG_HOST: https://c775850.ssl.cf2.rackcdn.com
-
-  URL: http://www.cloudsdale.org
-  ASSET_URL: https://c776950.ssl.cf2.rackcdn.com
-
-  AVATAR_HTTP:   http://avatar.cdn.cloudsdale.org
-  AVATAR_HTTPS:  https://avatar-cloudsdale.netdna-ssl.com
-
-  FAYE_HTTP_URL: http://stream.cloudsdale.org:80/push
-  FAYE_HTTPS_URL: https://stream.cloudsdale.org:443/push
-  FAYE_TOKEN: e854ebd38d63042f210214f95b5281b8934b359821cade18e52549e3788ef713
