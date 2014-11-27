@@ -42,7 +42,7 @@ Cloudsdale::Application.configure do
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
 
-  config.log_level = :warn
+  config.log_level = :debug
   config.lograge.enabled = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
