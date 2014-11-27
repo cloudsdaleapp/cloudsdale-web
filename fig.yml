@@ -8,12 +8,33 @@ app:
     - redis
     - rabbit
     - mail
+    - push
+
   volumes:
     - .:/usr/src/cloudsdale-web
   volumes_from:
     - gems
   environment:
     RAILS_ENV: development
+
+push:
+  image: zeeraw/cloudsdale-push:latest
+  ports:
+    - "8282:8282"
+  volumes:
+    - ./node_modules:/usr/src/cloudsdale-push/node_modules
+  links:
+    - mongo
+    - redis
+    - rabbit
+  environment:
+    AMQP_URL: amqp://admin:pass@rabbit:5672
+    MONGO_URL: mongo://mongo:27017/cloudsdale
+    REDIS_URL: redis://redis:6379/0
+
+    FAYE_ENV: development
+    FAYE_URL: ws://0.0.0.0:8282/push
+    FAYE_TOKEN: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2
 
 gems:
   image: busybox:latest
