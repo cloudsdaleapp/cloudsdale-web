@@ -3,20 +3,13 @@ namespace :assets do
   desc "Upload assets to rackspace"
   task :upload do
 
-    require "cloudfiles"
-
-    cf = CloudFiles::Connection.new(
-      :username => Figaro.env.rackspace_cloudfiles_username!,
-      :api_key => Figaro.env.rackspace_cloudfiles_api_key!,
-      :snet => false
-    )
-
     # Set up CloudFiles and paths
-    container = cf.container(Figaro.env.assets_fog_bucket!)
-    shared_path = Pathname.new(ENV["SHARED_PATH"])
-    assets_path = shared_path.join("assets")
+    container = cloudfiles.container(Figaro.env.assets_fog_bucket!)
+    public_path = Rails.root.join("public")
+    assets_path = Rails.root.join("public", "assets")
+
     remote_files = container.objects
-    local_files = Dir.glob(assets_path.join('**', '*.*')).collect{ |file| file.slice!(shared_path.to_s + '/'); file }
+    local_files = Dir.glob( assets_path.join("**", "*.*") ).collect{ |file| file.slice!(public_path.to_s + '/'); file }
 
     if remote_files.sort == local_files.sort
       puts "Remote and local the same. Skipping..."
@@ -25,8 +18,7 @@ namespace :assets do
       # See if there are files existing localy but not remotely
       (local_files - remote_files).each do |file|
         object = container.create_object(file, false)
-
-        file_path = shared_path.join(file)
+        file_path = public_path.join(file)
 
         options ||= {}
         begin
@@ -56,4 +48,14 @@ namespace :assets do
 
   end
 
+end
+
+def cloudfiles
+  return @cloudfiles if @cloudfiles
+  require "cloudfiles"
+  @cloudfiles ||= CloudFiles::Connection.new(
+    username: Figaro.env.rackspace_cloudfiles_username!,
+    api_key: Figaro.env.rackspace_cloudfiles_api_key!,
+    snet: false
+  )
 end
