@@ -90,6 +90,13 @@ module Cloudsdale
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.logger = false
+    config.assets.version = "1.0"
+    config.assets.precompile = %w(
+      application.css application.js web.front.css web.session.css web.js
+      mobile.css mobile.js admin.css admin.js developer.js developer.css
+      auth.js auth.css *.ttf *.svg *.woff *.eot *.jst *.png *.jpg
+      *.jpeg *.gif *.bmp *.ico
+    )
 
     uri = URI.parse(Figaro.env.memcached_url!)
     opts = { compress: true }
@@ -98,10 +105,6 @@ module Cloudsdale
     opts[:password] = uri.password if uri.password
 
     config.cache_store = :dalli_store, "#{ uri.host }:#{ uri.port || 11211 }", opts
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
-
-    # :neckbeard: SOME SERVER STUFF
 
   end
 end
