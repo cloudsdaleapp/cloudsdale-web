@@ -28,6 +28,9 @@ RUN mkdir -p $APP_HOME
 ADD . $APP_HOME
 WORKDIR $APP_HOME
 
+VOLUME $APP_HOME/public/assets
+VOLUME $APP_HOME/public/uploads
+
 # Create an entrypoint for docker
 COPY ./entrypoint.sh /
 RUN chmod 0755 /entrypoint.sh
