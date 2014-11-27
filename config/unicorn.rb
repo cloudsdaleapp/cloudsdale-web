@@ -15,7 +15,7 @@ if ENV["RAILS_ENV"] == "development"
   timeout 10000
   preload_app false
 else
-  timeout 15
+  timeout 30
   preload_app true
   pid "/tmp/unicorn.pid"
 end
