@@ -44,7 +44,7 @@ Cloudsdale::Application.configure do
   config.logger = Logger.new(STDOUT)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "https://c776950.ssl.cf2.rackcdn.com"
+  config.action_controller.asset_host = Figaro.env.asset_url!
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
