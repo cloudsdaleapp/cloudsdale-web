@@ -8,6 +8,7 @@ app:
     - redis
     - rabbit
     - mail
+    - memcached
     - push
 
   volumes:
@@ -70,6 +71,8 @@ memcached:
   image: tutum/memcached:latest
   ports:
     - "11211:11211"
+  environment:
+    - MEMCACHED_PASS=pass
 
 mail:
   image: schickling/mailcatcher:latest

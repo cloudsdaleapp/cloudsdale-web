@@ -91,6 +91,13 @@ module Cloudsdale
     config.assets.enabled = true
     config.assets.logger = false
 
+    uri = URI.parse(Figaro.env.memcached_url!)
+    opts = { compress: true }
+    opts[:namespace] = uri.path[1..-1] if uri.path
+    opts[:username] = uri.user if uri.user
+    opts[:password] = uri.password if uri.password
+
+    config.cache_store = :dalli_store, "#{ uri.host }:#{ uri.port || 11211 }", opts
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 

@@ -45,9 +45,6 @@ Cloudsdale::Application.configure do
 
   config.log_level = :debug
 
-  # Use a different cache store in production
-  config.cache_store = :dalli_store
-
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
 
