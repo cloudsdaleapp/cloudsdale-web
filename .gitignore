@@ -36,3 +36,4 @@ doc/*
 Thumbs.db
 
 config/skylight.yml
+node_modules
