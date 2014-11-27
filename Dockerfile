@@ -1,7 +1,7 @@
 FROM ruby:2.0.0-p598
 MAINTAINER Philip Vieira <zeeraw@cloudsdale.org>
 
-ENV APP_HOME /usr/src/www.cloudsdale.org
+ENV APP_HOME /usr/src/cloudsdale-web
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install GeoIP City

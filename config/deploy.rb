@@ -2,7 +2,7 @@ require "pry"
 
 lock "3.2.1"
 
-set :application, "www.cloudsdale.org"
+set :application, "cloudsdale-web"
 
 set :keep_releases, 5
 

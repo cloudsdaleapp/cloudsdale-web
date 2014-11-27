@@ -9,7 +9,7 @@ app:
     - rabbit
     - mail
   volumes:
-    - .:/usr/src/www.cloudsdale.org
+    - .:/usr/src/cloudsdale-web
   volumes_from:
     - gems
   environment:
