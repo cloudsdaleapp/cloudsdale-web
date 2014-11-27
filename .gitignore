@@ -17,6 +17,7 @@ tmp/pids
 tmp/sessions
 tmp/sockets
 public/uploads
+config/application.yml
 
 doc/*
 .yardoc
