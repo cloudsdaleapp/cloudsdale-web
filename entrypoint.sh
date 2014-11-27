@@ -31,11 +31,10 @@ else
     echo " ---> preparing database"
     bundle exec rake db:create db:migrate db:create_indexes
   fi
-  echo " ---> copying $APP_HOME/public to /var/www/cloudsdale-web"
-  mkdir -p /var/www/$APP_NAME
-  cp -rf $APP_HOME/public/ /var/www/$APP_NAME/
+  echo " ---> linking $APP_HOME/public to /var/www/$APP_NAME"
+  mkdir -p /var/www
+  ln -fs $APP_HOME/public /var/www/$APP_NAME
   echo " ---> running application"
 fi
 
-cd $APP_HOME
 exec "$@"
