@@ -1,7 +1,8 @@
 FROM ruby:2.0.0-p598
 MAINTAINER Philip Vieira <zeeraw@cloudsdale.org>
 
-ENV APP_HOME /usr/src/cloudsdale-web
+ENV APPNAME cloudsdale-web
+ENV APPHOME /usr/src/$APPNAME
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install GeoIP City
@@ -24,12 +25,12 @@ RUN tar -xvzf GraphicsMagick.tar.gz
 RUN cd GraphicsMagick-* && ./configure && make && make install
 
 # Create application home and make sure the current repository is added
-RUN mkdir -p $APP_HOME
-ADD . $APP_HOME
-WORKDIR $APP_HOME
+RUN mkdir -p $APPHOME
+ADD . $APPHOME
+WORKDIR $APPHOME
 
-VOLUME $APP_HOME/public/assets
-VOLUME $APP_HOME/public/uploads
+VOLUME $APPHOME/public/assets
+VOLUME $APPHOME/public/uploads
 
 # Create an entrypoint for docker
 COPY ./entrypoint.sh /
@@ -37,4 +38,4 @@ RUN chmod 0755 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Run unicorn server using the configuration file inside the project
-CMD ["bundle", "exec", "unicorn_rails", "-c", "$APP_HOME/config/unicorn.rb"]
+CMD ["bundle", "exec", "unicorn_rails", "-c", "$APPHOME/config/unicorn.rb"]

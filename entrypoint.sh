@@ -2,9 +2,10 @@
 
 set -e
 
-APP_NAME=${APP_NAME:-cloudsdale-web}
-APP_HOME=${APP_HOME:-.}
-CONFIG_FILE=$APP_HOME/config/application.yml
+APPNAME=${APPNAME:-cloudsdale-web}
+APPHOME=${APPHOME:-.}
+
+CONFIG_FILE=$APPHOME/config/application.yml
 
 echo " ---> setting up configuration"
 if [ -f $CONFIG_FILE ]; then
@@ -31,9 +32,9 @@ else
     echo " ---> preparing database"
     bundle exec rake db:create db:migrate db:create_indexes
   fi
-  echo " ---> linking $APP_HOME/public to /var/www/$APP_NAME"
+  echo " ---> linking $APPHOME/public to /var/www/$APPNAME"
   mkdir -p /var/www
-  ln -fs $APP_HOME/public /var/www/$APP_NAME
+  ln -fs $APPHOME/public /var/www/$APPNAME
   echo " ---> running application"
 fi
 
