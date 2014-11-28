@@ -19,11 +19,7 @@ class ApplicationUploader < CarrierWave::Uploader::Base
   # Public: Storage end-point path, it differs
   # between production and development environments.
   def store_dir
-    if Rails.env.production?
-      "#{mounted_as}s/#{model.id}/"
-    else
-      "uploads/#{mounted_as}s/#{model.id}/"
-    end
+    "#{Rails.root}/public/uploads/#{mounted_as}/#{model.id}/"
   end
 
   # Public: Add a white list of extensions which

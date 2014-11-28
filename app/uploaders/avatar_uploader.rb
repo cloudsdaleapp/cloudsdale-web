@@ -17,11 +17,7 @@ class AvatarUploader < ApplicationUploader
   end
 
   def store_dir
-    if Rails.env.production?
-      "/store/uploads/#{mounted_as}/#{model.avatar_namespace}/#{model.id}/"
-    else
-      "#{Rails.root}/public/uploads/#{mounted_as}/#{model.avatar_namespace}/"
-    end
+    "#{Rails.root}/public/uploads/#{mounted_as}/#{model.avatar_namespace}/#{model.id}/"
   end
 
   def filename
