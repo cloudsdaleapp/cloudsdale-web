@@ -185,7 +185,7 @@ private
 
     return image
 
-  rescue MiniMagick::Error, MiniMagick::Invalid => e
+  rescue MiniMagick::Error, MiniMagick::Invalid, Errno::ENOENT => e
     nil
   end
 
