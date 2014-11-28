@@ -47,7 +47,7 @@ data:
   image: busybox:latest
   command: "tail -f /dev/null"
   volumes:
-    - ./db/data/:/data/
+    - ./db/data/:/data
 
 mongo:
   image: mongo:2.4.10
