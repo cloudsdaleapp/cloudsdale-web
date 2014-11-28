@@ -43,11 +43,17 @@ gems:
   volumes:
     - /usr/local/bundle
 
+data:
+  image: busybox:latest
+  command: "tail -f /dev/null"
+  volumes:
+    - ./db/data/:/data/
+
 mongo:
   image: mongo:2.4.10
-  command: mongod --smallfiles --verbose
-  volumes:
-    - ./db/data:/data
+  command: mongod --smallfiles --verbose --dbpath /data
+  volumes_from:
+    - data
   ports:
     - "27017:27017"
 

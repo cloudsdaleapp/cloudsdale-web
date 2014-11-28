@@ -46,9 +46,9 @@ development: &defaults
 
   REDIS_URL: redis://redis:6379/0
   AMQP_URL: amqp://admin:pass@rabbit
-  MONGO_URL: mongo:27017
+  MONGO_URL: mongodb://mongo:27017/cloudsdale
   MEMCACHED_URL: memcached://admin:pass@memcached:11211/cloudsdale
 
-  FAYE_HTTP_URL: http://stream.cloudsdale.dev:8282/push
-  FAYE_HTTPS_URL: http://stream.cloudsdale.dev:8282/push
+  FAYE_HTTP_URL: http://push.cloudsdale.dev:8282/push
+  FAYE_HTTPS_URL: http://push.cloudsdale.dev:8282/push
   FAYE_TOKEN: 650659cd4801877e56a176d70dcd4851fa4c86327b3b9439fef2fbf77543b8e2

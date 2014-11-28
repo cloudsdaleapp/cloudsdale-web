@@ -9,7 +9,7 @@ development:
 
   sessions:
     default:
-      uri: <%= ENV['MONGO_URL'] || "mongodb://localhost:27017/cloudsdale" %>
+      uri: <%= ENV["MONGO_URL"] || "mongodb://localhost:27017/cloudsdale" %>
       options:
         safe: false
         consistency: :strong
@@ -19,7 +19,7 @@ production:
 
   sessions:
     default:
-      uri: <%= ENV['MONGO_URL'] || "mongodb://mongo:27017/cloudsdale" %>
+      uri: <%= ENV["MONGO_URL"] || "mongodb://mongo:27017/cloudsdale" %>
       options:
         safe: false
         consistency: :strong
