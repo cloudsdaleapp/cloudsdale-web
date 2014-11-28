@@ -32,7 +32,3 @@ production:
       options:
         safe: false
         consistency: :strong
-        options:
-          read: :secondary
-          write:
-            w: :majority
