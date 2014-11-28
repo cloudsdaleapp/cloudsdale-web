@@ -114,7 +114,7 @@ group :production, :assets do
 end
 
 # Profiling
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', "~> 3.6.9"
 gem 'newrelic_moped'
 gem 'newrelic-redis'
 gem 'ruby-prof'
