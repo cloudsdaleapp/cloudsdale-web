@@ -51,7 +51,7 @@ data:
 
 mongo:
   image: mongo:2.4.10
-  command: mongod --smallfiles --verbose --dbpath /data
+  command: mongod --smallfiles --verbose
   volumes_from:
     - data
   ports:
