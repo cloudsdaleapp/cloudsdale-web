@@ -32,9 +32,6 @@ else
     echo " ---> preparing database"
     bundle exec rake db:create db:migrate db:create_indexes
   fi
-  echo " ---> linking $APPHOME/public to /var/www/$APPNAME"
-  mkdir -p /var/www
-  ln -fs $APPHOME/public /var/www/$APPNAME
   echo " ---> running application"
 fi
 
