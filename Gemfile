@@ -85,7 +85,7 @@ gem 'geoip-c',     '~> 0.9.0',  :require => 'geoip'
 gem 'google-analytics-rails', '~> 0.0.4'
 
 # Queueing
-gem 'bunny'
+gem "bunny", "~> 1.6.3"
 gem 'sidekiq',  '~> 2.14.0'
 gem 'kiqstand', '~> 1.1.0'
 
