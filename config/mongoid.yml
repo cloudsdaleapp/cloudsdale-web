@@ -9,10 +9,7 @@ development:
 
   sessions:
     default:
-      database: cloudsdale
-      hosts:
-        - <%= ENV['MONGO_URL'] || "localhost:27017" %>
-
+      uri: <%= ENV['MONGO_URL'] || "mongodb://localhost:27017/cloudsdale" %>
       options:
         safe: false
         consistency: :strong
@@ -22,13 +19,7 @@ production:
 
   sessions:
     default:
-      database: cloudsdale
-      username: cloudsdale
-      password: 62148f9b9158ead23c8ace8c1b081055d068a216d3096b95f6399508f6674d6e3bf6ebbfcdbe85b126b431a8674a1d59370918683781976be5cfeba2c89f94b4
-
-      hosts:
-        - <%= ENV['MONGO_URL'] || "mongo:27017" %>
-
+      uri: <%= ENV['MONGO_URL'] || "mongodb://mongo:27017/cloudsdale" %>
       options:
         safe: false
         consistency: :strong
