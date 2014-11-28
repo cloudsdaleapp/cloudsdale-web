@@ -33,16 +33,6 @@ module Cloudsdale
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.after_initialize do
-      Cloudsdale.bunny.queue "faye",
-        auto_delete: false,
-        durable: true
-
-      Cloudsdale.bunny.queue "drops",
-        auto_delete: false,
-        durable: true
-    end
-
     config.generators do |g|
       config.sass.preferred_syntax = :sass
       g.test_framework = :rspec
