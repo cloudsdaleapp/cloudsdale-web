@@ -1,6 +1,6 @@
 class Donation
 
-  MONTHLY_GOAL = 400.0
+  MONTHLY_GOAL = 250.0
 
   def self.monthly_statistics
 
