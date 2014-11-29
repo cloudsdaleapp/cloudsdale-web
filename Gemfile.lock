@@ -481,7 +481,7 @@ DEPENDENCIES
   pry-rails
   pundit (~> 0.2.1)
   rabl (~> 0.6.10)
-  rails (~> 3.2.14)
+  rails (~> 3.2.21)
   rb-fsevent
   redcarpet (~> 3.0.0)
   redis (~> 3.0.1)
