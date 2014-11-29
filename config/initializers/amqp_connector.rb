@@ -12,6 +12,7 @@ module AMQPConnector
   rescue Bunny::ServerDownError, Bunny::ConnectionClosedError
     bunny.start unless bunny.connected?
     enqueue! queue, data, (tries - 1) if tries >= 1
+  rescue Bunny::UnexpectedFrame
   end
 
   def bunny
