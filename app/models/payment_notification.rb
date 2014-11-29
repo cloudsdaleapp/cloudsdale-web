@@ -5,7 +5,7 @@ class PaymentNotification
 
   ITEMS = ["donation"]
 
-  DONATION_THRESHOLD = 5.0
+  DONATION_THRESHOLD = 10.0
 
   attr_accessible :transaction_id, :transaction_type
   attr_accessible :amount, :currency, :item
