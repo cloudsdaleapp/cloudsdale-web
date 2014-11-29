@@ -21,6 +21,7 @@ else
 end
 
 before_fork do |server, worker|
+
   old_pid = "#{ server.config[:pid] }.old"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
@@ -28,11 +29,22 @@ before_fork do |server, worker|
     rescue Errno::ENOENT, Errno::ESRCH
     end
   end
+
   Signal.trap("TERM") { Process.kill("QUIT", Process.pid) }
+
 end
 
 after_fork do |server, worker|
+
   Signal.trap("TERM") { Process.kill("QUIT", Process.pid) }
   ::NewRelic::Agent.after_fork(force_reconnect: true) if defined?(Unicorn) && ENV["RAILS_ENV"] == "production"
+
+  require "bunny"
+
+  $bunny = Bunny.new(Figaro.env.amqp_url!, logger: Rails.logger)
+  $bunny.start unless $bunny.connected?
+
+  $bunny_channel = $bunny.create_channel
+
 end
 

@@ -13,16 +13,6 @@ end
 
 module Cloudsdale
 
-  def self.bunny
-    @bunny ||= Bunny.new(Figaro.env.amqp_url!, logger: Rails.logger)
-    @bunny.start unless @bunny.connected?
-    return @bunny
-  end
-
-  def self.bunny_channel
-    @bunny_channel ||= self.bunny.create_channel
-  end
-
   def self.cdn
     @cdn ||= NetDNARWS::NetDNA.new(
       Figaro.env.cdn_alias!,
