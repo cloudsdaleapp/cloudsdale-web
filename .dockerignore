@@ -1,3 +1,11 @@
 .git
-.log
-.doc
+.gitignore
+.gitmodules
+.gitattributes
+
+.yardoc
+log
+doc
+
+README.md
+fig.yml
