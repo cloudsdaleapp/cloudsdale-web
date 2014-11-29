@@ -4,7 +4,7 @@
      <tile>
         <square70x70logo src="ms-70x70.png"/>
         <square150x150logo src="ms-150x150.png"/>
-        <square310x310logo src="ms-310-310.png"/>
+        <square310x310logo src="ms-310x310.png"/>
         <TileColor>#63A0D0</TileColor>
      </tile>
    </msapplication>
