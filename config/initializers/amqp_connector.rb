@@ -10,9 +10,8 @@ module AMQPConnector
     exchange.publish(encoded_data, key: "#", content_type: "application/json")
 
   rescue Bunny::ServerDownError, Bunny::ConnectionClosedError
-    bunny.start unless bunny.connected?
     enqueue! queue, data, (tries - 1) if tries >= 1
-  rescue Bunny::UnexpectedFrame
+  rescue Bunny::UnexpectedFrame, Bunny::ChannelError, Bunny::TCPConnectionFailedForAllHosts
   end
 
   def bunny
